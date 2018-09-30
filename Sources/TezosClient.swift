@@ -40,7 +40,6 @@ public struct TezosAccountBalance {
 // Inheritance tree on adapters
 // Class funcs on adapters
 // Response adapters bound to request objects, A la GTM
-// Plumb errors back to client
 
 public class TezosClient {
 
@@ -52,42 +51,39 @@ public class TezosClient {
     self.urlSession = URLSession.shared
   }
 
-  public func getHead(completion: @escaping ([String: Any]?) -> Void) {
+  public func getHead(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head"
     self.sendRequest(endpoint: endpoint, responseAdapter: JSONResponseAdapter(), completion: completion)
   }
 
-  public func getBalance(address: String, completion:  @escaping (String?) -> Void) {
+  public func getBalance(address: String, completion:  @escaping (String?, Error?) -> Void) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/balance"
     self.sendRequest(endpoint: endpoint, responseAdapter: StringResponseAdapter(), completion: completion)
   }
 
-  private func handleResponse<T>(data: Data?, error: Error?, responseAdapter: ResponseAdapter<T>, completion: (T?) -> Void) {
+  private func handleResponse<T>(data: Data?, error: Error?, responseAdapter: ResponseAdapter<T>, completion: (T?, Error?) -> Void) {
     if let error = error {
-      print("Error: " + String(describing: error))
-      completion(nil)
+      let tezosClientError = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.rpcError.rawValue, userInfo: [tezosClientUnderlyingErrorKey: error])
+      completion(nil, tezosClientError)
       return
     }
 
     guard let data = data else {
-      print("Unknown error result.")
-      completion(nil)
+      let tezosClientError = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unexpectedResponse.rawValue, userInfo:nil)
+      completion(nil, tezosClientError)
       return
     }
 
     let result = responseAdapter.parse(input: data)
-    completion(result)
+    completion(result, nil)
   }
 
-  private func sendRequest<T>(endpoint: String, responseAdapter: ResponseAdapter<T>, completion: @escaping (T?) -> Void) {
+  private func sendRequest<T>(endpoint: String, responseAdapter: ResponseAdapter<T>, completion: @escaping (T?, Error?) -> Void) {
     guard let remoteNodeEndpoint = URL(string: endpoint, relativeTo: self.remoteNodeURL) else {
-      print("Error constructing URL :(")
       let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
       self.handleResponse(data: nil, error: error, responseAdapter: responseAdapter, completion: completion)
       return;
     }
-
-    print("Sending request to URL: " + remoteNodeEndpoint.absoluteString)
 
     let request = self.urlSession.dataTask(with: remoteNodeEndpoint) { (data: Data?, response: URLResponse?, error: Error?) in
       self.handleResponse(data:data, error: error, responseAdapter: responseAdapter, completion: completion)
