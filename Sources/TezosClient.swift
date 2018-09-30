@@ -14,7 +14,7 @@ public class TezosClient {
     self.sendRequest(rpc: rpc);
   }
 
-  public func getBalance(address: String, completion:  @escaping (String?, Error?) -> Void) {
+  public func getBalance(address: String, completion:  @escaping (TezosBalance?, Error?) -> Void) {
     let rpc = GetAccountBalanceRPC(address: address, completion: completion)
     self.sendRequest(rpc: rpc);
   }

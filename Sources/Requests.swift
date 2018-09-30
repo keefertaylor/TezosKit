@@ -36,9 +36,9 @@ public class GetChainHeadRPC : TezosRPC<[String: Any]> {
   }
 }
 
-public class GetAccountBalanceRPC : TezosRPC<String> {
-  public init(address: String, completion: @escaping (String?, Error?) -> Void) {
+public class GetAccountBalanceRPC : TezosRPC<TezosBalance> {
+  public init(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/balance"
-    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: TezosBalanceAdapter.self, completion: completion)
   }
 }
