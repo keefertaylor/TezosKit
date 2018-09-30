@@ -23,7 +23,20 @@ public class TezosClient {
     self.sendRequest(endpoint: endpoint, responseAdapter: StringResponseAdapter(), completion: completion)
   }
 
-  private func handleResponse<T>(data: Data?, error: Error?, responseAdapter: ResponseAdapter<T>, completion: (T?, Error?) -> Void) {
+  private func sendRequest<T: ResponseAdapter>(endpoint: String, responseAdapter: T, completion: @escaping (T.ParsedType?, Error?) -> Void) {
+    guard let remoteNodeEndpoint = URL(string: endpoint, relativeTo: self.remoteNodeURL) else {
+      let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
+      self.handleResponse(data: nil, error: error, responseAdapter: responseAdapter, completion: completion)
+      return;
+    }
+
+    let request = self.urlSession.dataTask(with: remoteNodeEndpoint) { (data: Data?, response: URLResponse?, error: Error?) in
+      self.handleResponse(data:data, error: error, responseAdapter: responseAdapter, completion: completion)
+    }
+    request.resume()
+  }
+
+  private func handleResponse<T: ResponseAdapter>(data: Data?, error: Error?, responseAdapter: T, completion: (T.ParsedType?, Error? ) -> Void) {
     if let error = error {
       let tezosClientError = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.rpcError.rawValue, userInfo: [tezosClientUnderlyingErrorKey: error])
       completion(nil, tezosClientError)
@@ -38,18 +51,5 @@ public class TezosClient {
 
     let result = responseAdapter.parse(input: data)
     completion(result, nil)
-  }
-
-  private func sendRequest<T>(endpoint: String, responseAdapter: ResponseAdapter<T>, completion: @escaping (T?, Error?) -> Void) {
-    guard let remoteNodeEndpoint = URL(string: endpoint, relativeTo: self.remoteNodeURL) else {
-      let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
-      self.handleResponse(data: nil, error: error, responseAdapter: responseAdapter, completion: completion)
-      return;
-    }
-
-    let request = self.urlSession.dataTask(with: remoteNodeEndpoint) { (data: Data?, response: URLResponse?, error: Error?) in
-      self.handleResponse(data:data, error: error, responseAdapter: responseAdapter, completion: completion)
-    }
-    request.resume()
   }
 }
