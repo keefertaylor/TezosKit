@@ -16,9 +16,9 @@ I am happy to accept pull requests.
 
 Greatly appreciated.
 
-Bitcoin: 1CdPoF9cvw3YEiuRCHxdsGpvb5tSUYBBo 
-BitcoinCash: qqpr9are9gzs5r0q7hy3gdehj3w074pyqsrhpdmxg6 
-Tezos: tz1SNXT8yZCwTss2YcoFi3qbXvTZiCojx833
+* Bitcoin: 1CdPoF9cvw3YEiuRCHxdsGpvb5tSUYBBo 
+* Bitcoin Cash: qqpr9are9gzs5r0q7hy3gdehj3w074pyqsrhpdmxg6 
+* Tezos: tz1SNXT8yZCwTss2YcoFi3qbXvTZiCojx833
 
 ## License
 
