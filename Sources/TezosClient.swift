@@ -1,45 +1,7 @@
 import Foundation
 
-public class ResponseAdapter<ParsedType> {
-  public func parse(input: Data) -> ParsedType? {
-    return nil;
-  }
-}
-
-public class StringResponseAdapter : ResponseAdapter<String> {
-  public override func parse(input: Data) -> String? {
-    return String(data: input, encoding: .ascii)
-  }
-}
-
-public class JSONResponseAdapter : ResponseAdapter<Dictionary<String, Any>> {
-  public override func parse(input: Data) -> Dictionary<String, Any>? {
-    do {
-      let json = try JSONSerialization.jsonObject(with: input)
-      guard let typedJSON = json as? Dictionary<String, Any> else {
-        return nil
-      }
-      return typedJSON
-    } catch {
-      print("Can't deserialize JSON :(")
-      return nil
-    }
-  }
-}
-
-public class TezosAccountBalanceResponseAdapter : StringResponseAdapter {
-  public override func parse(input: Data) -> String? {
-    return super.parse(input: input)
-  }
-}
-
-public struct TezosAccountBalance {
-  public let balance: String
-}
-
-// Inheritance tree on adapters
 // Class funcs on adapters
-// Response adapters bound to request objects, A la GTM
+// Response adapters bound to request objects
 
 public class TezosClient {
 
