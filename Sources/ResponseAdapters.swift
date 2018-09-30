@@ -9,6 +9,7 @@ protocol ResponseAdapter {
 /** Abstract class allows generics and associated types to play nicely together. */
 public class AbstractResponseAdapter<T>: ResponseAdapter {
   public class func parse(input: Data) -> T? {
+    fatalError("Use a concrete implementation of the response adapter class")
     return nil
   }
 }
