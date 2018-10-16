@@ -1,5 +1,6 @@
 import Foundation
 import CommonCrypto
+import Sodium
 
 /**
  * A static helper class that provides utility functions for cyptography.
@@ -7,6 +8,7 @@ import CommonCrypto
 public class Crypto {
   private static let publicKeyPrefix: [UInt8] = [13, 15, 37, 217] // edpk
   private static let privateKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
+  private static let publicKeyHashPrefix: [UInt8] = [6, 161, 159] // tz1
 
   /**
    * Generates a Tezos public key from the given input public key.
@@ -20,6 +22,17 @@ public class Crypto {
    */
   public static func tezosPrivateKey(from key: [UInt8]) -> String {
     return encode(key: key, prefix: privateKeyPrefix)
+  }
+
+  /**
+   * Generates a Tezos public key hash (An address) from the given input public key.
+   */
+  public static func tezosPublicKeyHash(from key: [UInt8]) -> String {
+    let sodium = Sodium()
+    guard let hash = sodium.genericHash.hash(message: key, key: [], outputLength: 20) else {
+      return ""
+    }
+    return encode(key: hash, prefix: publicKeyHashPrefix)
   }
 
   /**
