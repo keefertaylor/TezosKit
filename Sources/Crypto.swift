@@ -8,9 +8,6 @@ public class Crypto {
   private static let publicKeyPrefix: [UInt8] = [13, 15, 37, 217] // edpk
   private static let privateKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
 
-  /** Please do not instantiate this static helper class. */
-  private init() {}
-
   /**
    * Encode a Base58 address from the given key and prefix.
    *
