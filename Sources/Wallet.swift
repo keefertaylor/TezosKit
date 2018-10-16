@@ -7,9 +7,15 @@ public struct Wallet {
   public let mnemonic: String
 
   /** Create a new wallet by generating a mnemonic. */
+  public init?() {
+    guard let mnemonic = MnemonicUtil.generateMnemonic() else {
+      return nil
+    }
+    self.init(mnemonic: mnemonic)
+  }
+
+  /** Create a new wallet with the given mnemonic. */
   public init?(mnemonic: String) {
-    // TODO: Generate bip39 mnemonic.
-    let mnemonic =  "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
     guard let seedString =  MnemonicUtil.seedString(from: mnemonic),
           let keyPair = Crypto.keyPair(from: seedString) else {
         return nil
