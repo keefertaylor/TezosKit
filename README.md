@@ -5,6 +5,7 @@ TezosKit is a Swift library that is compatible with the [Tezos Blockchain](tezos
 Currently, TezosKit supports:
 * Getting account balances
 * Getting data about the chain head
+* Generating wallet addresses without passphrases (passphrase support coming soon)
 
 TezosKit aims to support a greater array of RPCs in the future, similar to [eztz](https://github.com/TezTech/eztz) or [TezosJ](https://github.com/LMilfont/TezosJ-plainjava).
 
