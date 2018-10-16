@@ -1,4 +1,5 @@
 import Foundation
+import CKMnemonic
 
 public struct Wallet {
   public let publicKey: String
@@ -7,12 +8,23 @@ public struct Wallet {
 
   /** Create a new wallet. */
   public init?() {
-    // TODO: Generate seed string from mnenomomonic.
-    let seedString = "cce78b57ed8f4ec6767ed35f3aa41df525a03455e24bcc45a8518f63fbeda772"
-    guard let keyPair = Crypto.keyPair(from: seedString) else {
+    // TODO: Generate bip39 mnemonic.
+    let mnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
+    do {
+      // Generate a 64 character seed string from the mnemonic.
+      let rawSeedString = try CKMnemonic.deterministicSeedString(from: mnemonic, passphrase: "", language: .english)
+      let seedString = String(rawSeedString[..<rawSeedString.index(rawSeedString.startIndex, offsetBy: 64)])
+
+      // Use the seedString to generate a keypair.
+      guard let keyPair = Crypto.keyPair(from: seedString) else {
+        return nil
+      }
+
+      // Create a new wallet with the given keypair.
+      self = Wallet(keyPair: keyPair)
+    } catch {
       return nil
     }
-    self = Wallet(keyPair: keyPair)
   }
 
   /** Create a new wallet with the given keypair. */
