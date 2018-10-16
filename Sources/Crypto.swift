@@ -9,6 +9,18 @@ public class Crypto {
   private static let publicKeyPrefix: [UInt8] = [13, 15, 37, 217] // edpk
   private static let secretKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
   private static let publicKeyHashPrefix: [UInt8] = [6, 161, 159] // tz1
+  private static let sodium: Sodium = Sodium()
+
+  /**
+   * Generates a KeyPair given a hex-encoded seed string.
+   */
+  public static func keyPair(from seedString: String) -> KeyPair? {
+    guard let seed = sodium.utils.hex2bin(seedString),
+          let keyPair = sodium.sign.keyPair(seed: seed) else {
+      return nil
+    }
+    return keyPair
+  }
 
   /**
    * Generates a Tezos public key from the given input public key.
@@ -28,7 +40,6 @@ public class Crypto {
    * Generates a Tezos public key hash (An address) from the given input public key.
    */
   public static func tezosPublicKeyHash(from key: [UInt8]) -> String {
-    let sodium = Sodium()
     guard let hash = sodium.genericHash.hash(message: key, key: [], outputLength: 20) else {
       return ""
     }

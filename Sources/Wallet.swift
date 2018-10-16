@@ -1,5 +1,4 @@
 import Foundation
-import Sodium
 
 public struct Wallet {
   public let publicKey: String
@@ -10,13 +9,9 @@ public struct Wallet {
   public init?() {
     // TODO: Generate seed string from mnenomomonic.
     let seedString = "cce78b57ed8f4ec6767ed35f3aa41df525a03455e24bcc45a8518f63fbeda772"
-
-    let sodium = Sodium()
-    guard let seed = sodium.utils.hex2bin(seedString),
-          let keyPair = sodium.sign.keyPair(seed: seed) else {
-          return nil
+    guard let keyPair = Crypto.keyPair(from: seedString) else {
+      return nil
     }
-
     self = Wallet(keyPair: keyPair)
   }
 
