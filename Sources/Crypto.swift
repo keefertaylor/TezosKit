@@ -12,7 +12,14 @@ public class Crypto {
    * Generates a Tezos public key from the given input public key.
    */
   public static func tezosPublicKey(from key: [UInt8]) -> String {
-    return encode(key: key, prefix: publicKeyPrefix);
+    return encode(key: key, prefix: publicKeyPrefix)
+  }
+
+  /**
+   * Generates a Tezos private key from the given input private key.
+   */
+  public static func tezosPrivateKey(from key: [UInt8]) -> String {
+    return encode(key: key, prefix: privateKeyPrefix)
   }
 
   /**
