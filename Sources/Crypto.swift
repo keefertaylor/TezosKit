@@ -7,7 +7,7 @@ import Sodium
  */
 public class Crypto {
   private static let publicKeyPrefix: [UInt8] = [13, 15, 37, 217] // edpk
-  private static let privateKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
+  private static let secretKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
   private static let publicKeyHashPrefix: [UInt8] = [6, 161, 159] // tz1
 
   /**
@@ -20,8 +20,8 @@ public class Crypto {
   /**
    * Generates a Tezos private key from the given input private key.
    */
-  public static func tezosPrivateKey(from key: [UInt8]) -> String {
-    return encode(key: key, prefix: privateKeyPrefix)
+  public static func tezosSecretKey(from key: [UInt8]) -> String {
+    return encode(key: key, prefix: secretKeyPrefix)
   }
 
   /**

@@ -3,7 +3,7 @@ import Sodium
 
 public struct Wallet {
   public let publicKey: String
-  public let privateKey: String
+  public let secretKey: String
   public let address: String
 
   /** Create a new wallet. */
@@ -23,7 +23,7 @@ public struct Wallet {
   /** Create a new wallet with the given keypair. */
   private init(keyPair: KeyPair) {
     self.publicKey = Crypto.tezosPublicKey(from: keyPair.publicKey)
-    self.privateKey = Crypto.tezosPrivateKey(from: keyPair.privateKey);
+    self.secretKey = Crypto.tezosSecretKey(from: keyPair.secretKey);
     self.address = Crypto.tezosPublicKeyHash(from: keyPair.publicKey);
   }
 
