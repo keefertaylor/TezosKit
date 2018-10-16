@@ -9,6 +9,13 @@ public class Crypto {
   private static let privateKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
 
   /**
+   * Generates a Tezos public key from the given input public key.
+   */
+  public static func tezosPublicKey(from key: [UInt8]) -> String {
+    return encode(key: key, prefix: publicKeyPrefix);
+  }
+
+  /**
    * Encode a Base58 address from the given key and prefix.
    *
    * The returned address is a Base58 encoded String with the following format:
