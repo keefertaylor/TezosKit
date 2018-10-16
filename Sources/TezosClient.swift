@@ -11,16 +11,25 @@ public class TezosClient {
 
   public func getHead(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let rpc = GetChainHeadRPC(completion: completion)
-    self.sendRequest(rpc: rpc);
+    self.sendRequest(rpc: rpc)
   }
 
-  public func getBalance(wallet: Wallet, completion:  @escaping (TezosBalance?, Error?) -> Void) {
+  public func getBalance(wallet: Wallet, completion: @escaping (TezosBalance?, Error?) -> Void) {
     self.getBalance(address: wallet.address, completion: completion)
   }
 
-  public func getBalance(address: String, completion:  @escaping (TezosBalance?, Error?) -> Void) {
+  public func getBalance(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
     let rpc = GetAccountBalanceRPC(address: address, completion: completion)
-    self.sendRequest(rpc: rpc);
+    self.sendRequest(rpc: rpc)
+  }
+
+  public func getDelegate(wallet: Wallet, completion: @escaping (String?, Error?) -> Void) {
+    self.getDelegate(address: wallet.address, completion: completion)
+  }
+
+  public func getDelegate(address: String, completion: @escaping (String?, Error?) -> Void) {
+    let rpc = GetDelegateRPC(address: address, completion: completion)
+    self.sendRequest(rpc: rpc)
   }
 
   public func sendRequest<T>(rpc: TezosRPC<T>) {
