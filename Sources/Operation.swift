@@ -5,6 +5,9 @@ import Foundation
  */
 public enum OperationKind: String {
   case delegation = "delegation"
+  case transaction = "transaction"
+  case origination = "origination"
+  case activateAccount = "activate_account"
 }
 
 /**
@@ -16,6 +19,14 @@ public class Operation {
   public let fee: String
   public let gasLimit: String
   public let storageLimit: String
+  public var requiresReveal: Bool {
+    switch self.kind {
+      case .delegation, .transaction, .origination:
+        return true
+      case .activateAccount:
+        return false
+    }
+  }
 
   fileprivate init(from: String, kind: OperationKind, fee: String, gasLimit: String, storageLimit: String) {
     self.from = from
