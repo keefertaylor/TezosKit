@@ -1,0 +1,21 @@
+{
+  "name": "Base58String",
+  "version": "0.1.0",
+  "homepage": "https://github.com/cloutiertyler/Base58String",
+  "authors": "cloutiertyler",
+  "source": {
+    "git": "https://github.com/cloutiertyler/Base58String.git",
+    "tag": "v0.1.0"
+  },
+  "source_files": "Sources/Base58String/Base58String.swift",
+  "license": "MIT",
+  "summary": "Base58String provides an idiomatic Swift version of go-base58 string",
+  "dependencies": {
+    "BigInt": [
+      "~> 3.1"
+    ]
+  },
+  "platforms": {
+    "ios": "8.0"
+  }
+}
