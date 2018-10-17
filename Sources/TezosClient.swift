@@ -32,6 +32,11 @@ public class TezosClient {
     self.sendRequest(rpc: rpc)
   }
 
+  public func getHeadHash(completion: @escaping (String?, Error?) -> Void) {
+    let rpc = GetChainHeadHashRPC(completion: completion)
+    self.sendRequest(rpc: rpc)
+  }
+
   public func sendRequest<T>(rpc: TezosRPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
       let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
