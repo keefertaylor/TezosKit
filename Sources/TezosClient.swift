@@ -42,6 +42,11 @@ public class TezosClient {
     self.sendRequest(rpc: rpc)
   }
 
+  public func getAddressManagerKey(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
+    let rpc = GetAddressManagerKeyRPC(address: address, completion: completion)
+    self.sendRequest(rpc: rpc)
+  }
+
   public func sendRequest<T>(rpc: TezosRPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
       let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)

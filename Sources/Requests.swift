@@ -69,3 +69,12 @@ public class GetAddressCounterRPC: TezosRPC<String> {
                completion: completion)
   }
 }
+
+public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
+  public init(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
+    let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/manager_key"
+    super.init(endpoint: endpoint,
+               responseAdapterClass: JSONResponseAdapter.self,
+               completion: completion)
+  }
+}
