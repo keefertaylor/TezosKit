@@ -1,13 +1,39 @@
 import Foundation
 
+/**
+ * An abstract RPC class that defines a request and response handler.
+ */
 public class TezosRPC<T> {
   public let endpoint: String
+  public let payload: String?
   private let responseAdapterClass: AbstractResponseAdapter<T>.Type
   private let completion: (T?, Error?) -> Void
+  public var shouldPOSTWithPayload: Bool {
+    if let _ = payload {
+      return true
+    }
+    return false
+  }
 
-  public init(endpoint: String, responseAdapterClass: AbstractResponseAdapter<T>.Type, completion: @escaping (T?, Error?) -> Void) {
+  /**
+   * Initialize a new request.
+   *
+   * By default, requests are considered to be GET requests with an empty body. If payload is set
+   * the request should be interpreted as a POST request with the given payload.
+   *
+   * @param endpoint The endpoint to which the request is being made.
+   * @param responseAdapterClass The class of the response adapter which will take bytes received
+   *        from the request and transform them into a specific type.
+   * @param payload A payload that should be sent with a POST request.
+   * @param completion A completion block which will be called at the end of the request.
+   */
+  public init(endpoint: String,
+              responseAdapterClass: AbstractResponseAdapter<T>.Type,
+              payload: String? = nil,
+              completion: @escaping (T?, Error?) -> Void) {
     self.endpoint = endpoint
     self.responseAdapterClass = responseAdapterClass
+    self.payload = payload
     self.completion = completion
   }
 
