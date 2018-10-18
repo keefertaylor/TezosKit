@@ -58,6 +58,9 @@ public class TezosClient {
     completion(nil)
   }
 
+  /**
+   * Send an RPC as a GET or POST request.
+   */
   public func sendRequest<T>(rpc: TezosRPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
       let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
@@ -65,7 +68,18 @@ public class TezosClient {
       return;
     }
 
-    let request = self.urlSession.dataTask(with: remoteNodeEndpoint) { (data: Data?, response: URLResponse?, error: Error?) in
+    var urlRequest = URLRequest(url: remoteNodeEndpoint)
+
+    if rpc.shouldPOSTWithPayload,
+       let payload = rpc.payload,
+       let payloadData = payload.data(using: .utf8) {
+      urlRequest.httpMethod = "POST"
+      urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+      urlRequest.cachePolicy = .reloadIgnoringCacheData
+      urlRequest.httpBody = payloadData
+    }
+
+    let request = self.urlSession.dataTask(with: urlRequest as URLRequest) { (data, response, error) in
       rpc.handleResponse(data: data, error: error)
     }
     request.resume()
