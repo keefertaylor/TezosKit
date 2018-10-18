@@ -58,7 +58,9 @@ public class TezosRPC<T> {
 public class GetChainHeadRPC : TezosRPC<[String: Any]> {
   public init(completion: @escaping ([String : Any]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head"
-    super.init(endpoint: endpoint, responseAdapterClass: JSONResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint,
+               responseAdapterClass: JSONResponseAdapter.self,
+               completion: completion)
   }
 }
 
@@ -74,7 +76,9 @@ public class GetChainHeadHashRPC : TezosRPC<String> {
 public class GetAccountBalanceRPC : TezosRPC<TezosBalance> {
   public init(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/balance"
-    super.init(endpoint: endpoint, responseAdapterClass: TezosBalanceAdapter.self, completion: completion)
+    super.init(endpoint: endpoint,
+               responseAdapterClass: TezosBalanceAdapter.self,
+               completion: completion)
   }
 }
 
@@ -101,6 +105,56 @@ public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/manager_key"
     super.init(endpoint: endpoint,
                responseAdapterClass: JSONResponseAdapter.self,
+               completion: completion)
+  }
+}
+
+/**
+ * An RPC which will forge an operation.
+ *
+ * TODO: Payload should be generated internally.
+ */
+ public class ForgeOperationRPC: TezosRPC<String> {
+  public init(headChainID: String,
+              headHash: String,
+              counter: Int,
+              payload: String,
+              completion: @escaping (String?, Error?) -> Void) {
+    let endpoint = "/chains/" + headChainID + "/blocks/" + headHash + "/helpers/forge/operations"
+    super.init(endpoint: endpoint,
+               responseAdapterClass: StringResponseAdapter.self,
+               payload: payload,
+               completion: completion)
+  }
+}
+
+/**
+ * An RPC which will pre-apply an operation.
+ *
+ * TODO: Payload should be generated internally.
+ */
+public class PreapplyOperationRPC: TezosRPC<[String: Any]> {
+  public init(payload: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
+    let endpoint = "chains/main/blocks/head/helpers/preapply/operation"
+    super.init(endpoint: endpoint,
+               responseAdapterClass: JSONResponseAdapter.self,
+               payload: payload,
+               completion: completion)
+  }
+}
+
+/**
+ * An RPC which will inject an operation.
+ *
+ * TODO: Payload should be generated internally.
+ */
+ public class InjectionRPC: TezosRPC<String> {
+  public init(payload: String,
+              completion: @escaping (String?, Error?) -> Void) {
+    let endpoint = "/injection/operation"
+    super.init(endpoint: endpoint,
+               responseAdapterClass: StringResponseAdapter.self,
+               payload: payload,
                completion: completion)
   }
 }
