@@ -7,7 +7,7 @@ Currently, TezosKit supports:
 * Getting data about the chain head
 * Getting account delegates 
 * Generating wallet addresses without passphrases (passphrase support coming soon)
-
+* Sending transactions between accounts
 
 TezosKit aims to support a greater array of RPCs in the future, similar to [eztz](https://github.com/TezTech/eztz) or [TezosJ](https://github.com/LMilfont/TezosJ-plainjava).
 
