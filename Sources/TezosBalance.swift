@@ -10,10 +10,19 @@ public class TezosBalance {
   private let integerAmount: String
   private let decimalAmount: String
 
+  /**
+   * A human readable representation of the given balance.
+   */
   public var humanReadableRepresentation: String {
     return integerAmount + "." + decimalAmount + " ꜩ"
   }
 
+  /**
+   * Initialize a new balance from a given decimal number.
+   *
+   * @warning Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
+   * is dropped.
+   */
   public init(balance: Double) {
     let integerValue = Int(balance)
 
@@ -28,6 +37,13 @@ public class TezosBalance {
     self.decimalAmount = String(decimalValue)
   }
 
+  /**
+   * Initialize a new balance from an RPC representation of a balance.
+   *
+   * @warning The only allowed characters in the input string are digits. This method will crash if
+   *          given an unexpected input.
+   * TODO: Make this initializer nicely tell clients they've messed up rather than crashing.
+   */
   public init(balance: String) {
     // Pad small numbers with up to six zeros so that the below slicing works correctly
     var paddedBalance = balance
