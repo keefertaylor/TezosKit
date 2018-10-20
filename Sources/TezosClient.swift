@@ -95,7 +95,7 @@ public class TezosClient {
     operationPayload["contents"] = [ mutableOperation ]
     operationPayload["branch"] = operationData.headHash
 
-    guard let jsonPayload = TezosClient.jsonString(for: operationPayload) else {
+    guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
       let error = NSError(domain: tezosClientErrorDomain,
                           code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
                           userInfo: nil)
@@ -141,7 +141,7 @@ public class TezosClient {
                                               completion: @escaping (String?, Error?) -> Void) {
     guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
                                                         secretKey: secretKey),
-          let jsonSignedBytes = TezosClient.jsonString(for: signedResult.signedOperation) else {
+          let jsonSignedBytes = JSONUtils.jsonString(for: signedResult.signedOperation) else {
       let error = NSError(domain: tezosClientErrorDomain,
                           code:TezosClientErrorCode.unknown.rawValue,
                           userInfo: nil)
@@ -154,7 +154,7 @@ public class TezosClient {
     mutableOperationPayload ["protocol"] = protocolHash
 
     let operationPayloadArray = [ mutableOperationPayload ]
-    guard let signedJsonPayload = TezosClient.jsonString(for: operationPayloadArray) else {
+    guard let signedJsonPayload = JSONUtils.jsonString(for: operationPayloadArray) else {
       let error = NSError(domain: tezosClientErrorDomain,
                           code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
                           userInfo: nil)
@@ -237,43 +237,6 @@ public class TezosClient {
       rpc.handleResponse(data: data, error: error)
     }
     request.resume()
-  }
-
-  /**
-   * Returns a JSON string representation of a string.
-   */
-  private static func jsonString(for string: String) -> String? {
-    return "\"" + string + "\""
-  }
-
-  /**
-   * Returns a JSON string representation of a given array.
-   */
-  private static func jsonString(for array: [[String: Any]]) -> String? {
-    do {
-      let jsonData = try JSONSerialization.data(withJSONObject: array, options: [])
-      guard let jsonPayload = String(data: jsonData, encoding: .utf8) else {
-        return nil
-      }
-      return jsonPayload
-    } catch {
-      return nil
-    }
-  }
-
-  /**
-   * Returns a JSON string representation of a given dictionary.
-   */
-  private static func jsonString(for dictionary: [String: Any]) -> String? {
-    do {
-      let jsonData = try JSONSerialization.data(withJSONObject: dictionary, options: [])
-      guard let jsonPayload = String(data: jsonData, encoding: .utf8) else {
-        return nil
-      }
-      return jsonPayload
-    } catch {
-      return nil
-    }
   }
 
   /**
