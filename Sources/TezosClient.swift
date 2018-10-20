@@ -75,11 +75,15 @@ public class TezosClient {
     payload["contents"] = [ operation ]
     payload["branch"] = operationData.headHash
 
-    // TODO: Play nicely with optionals and stop force unwrapping.
-    let jsonPayload = TezosClient.jsonString(for: payload)!
+    guard let jsonPayload = TezosClient.jsonString(for: payload) else {
+      let error = NSError(domain: tezosClientErrorDomain,
+                          code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
+                          userInfo: nil)
+      completion(nil, error)
+      return
+    }
     print("FYI, JSON encoded payload was: " + jsonPayload)
 
-    // TODO: Write using promises. I am so sorry.
     let forgeRPC = ForgeOperationRPC(headChainID: operationData.chainID,
                                 headHash: operationData.headHash,
                                 counter: operationData.operationCounter,
@@ -91,14 +95,24 @@ public class TezosClient {
 
       print("FYI, Result of forge was: " + result)
 
-      // TODO: Play nicely with optionals and stop force unwrapping.
-      let signedResult = Crypto.signForgedOperation(operation: result,
-                                                    secretKey: secretKey)!
+      guard let signedResult = Crypto.signForgedOperation(operation: result,
+                                                          secretKey: secretKey) else {
+        let error = NSError(domain: tezosClientErrorDomain,
+                            code:TezosClientErrorCode.unknown.rawValue,
+                            userInfo: nil)
+        completion(nil, error)
+        return
+      }
       payload["signature"] = signedResult.edsig
       payload["protocol"] = operationData.protocolHash
 
-      // TODO: Play nicely with optionals and stop force unwrapping.
-      let signedJsonPayload = TezosClient.jsonString(for: payload)!
+      guard let signedJsonPayload = TezosClient.jsonString(for: payload) else {
+        let error = NSError(domain: tezosClientErrorDomain,
+                            code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
+                            userInfo: nil)
+        completion(nil, error)
+        return
+      }
       print("FYI, signed JSON is: " + signedJsonPayload)
 
       let preApplyRPC = PreapplyOperationRPC(headChainID: operationData.chainID,
@@ -110,8 +124,6 @@ public class TezosClient {
 
           let jsonPayload = "\"" + signedResult.signedOperation  + "\""
           let injectRPC = InjectionRPC(payload: jsonPayload, completion: { (txHash, txError) in
-
-            print("FYI, final TX hash was: " + txHash!)
             completion(txHash, txError)
           })
 
