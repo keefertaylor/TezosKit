@@ -18,6 +18,13 @@ public class TezosBalance {
   }
 
   /**
+   * A representation of the given balance for use in RPC requests.
+   */
+  public var rpcRepresentation: String {
+    return integerAmount + decimalAmount
+  }
+
+  /**
    * Initialize a new balance from a given decimal number.
    *
    * @warning Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
