@@ -47,15 +47,85 @@ public class TezosClient {
     self.sendRequest(rpc: rpc)
   }
 
-  public func setDelegate(for address: String, to delegateAddress: String, completion: @escaping (Error?) -> Void) {
-    guard let forgeData = getDataForSignedOperation(address: address) else {
+  public func send(amount: Double,
+                   to recipientAddress: String,
+                   from address: String,
+                   secretKey: String,
+                   completion: @escaping (String?, Error?) -> Void) {
+    guard let operationData = getDataForSignedOperation(address: address) else {
       let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
-      completion(error)
+      completion(nil, error)
       return
     }
 
-    // TODO: Implement forge operation.
-    completion(nil)
+    let newCounter = String(operationData.operationCounter + 1)
+
+    // TODO: Use Operation model objects here.
+    var operation: [String: Any] = [:];
+    operation["kind"] = "transaction"
+    operation["amount"] = "100000"
+    operation["source"] = address
+    operation["destination"] = recipientAddress
+    operation["storage_limit"] = "0"
+    operation["gas_limit"] = "0"
+    operation["fee"] = "0"
+    operation["counter"] = newCounter
+
+    var payload: [String: Any] = [:]
+    payload["contents"] = [ operation ]
+    payload["branch"] = operationData.headHash
+
+    // TODO: Refactor to a helper.
+    // TODO: Play nicely with optionals and stop force unwrapping.
+    let jsonData = try! JSONSerialization.data(withJSONObject: payload, options: [])
+    let jsonPayload = String(data: jsonData, encoding: .utf8)!
+    print("FYI, JSON encoded payload was: " + jsonPayload)
+
+    // TODO: Write using promises. I am so sorry.
+    let forgeRPC = ForgeOperationRPC(headChainID: operationData.chainID,
+                                headHash: operationData.headHash,
+                                counter: operationData.operationCounter,
+                                payload: jsonPayload) { (result, error) in
+      guard let result = result else {
+        completion(nil, error)
+        return
+      }
+
+      // TODO: StringResponseAdapter should perform this stripping.
+      let strippedResult =
+          result.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "\""))
+      print("FYI, Result of forge was: " + strippedResult)
+
+      // TODO: Play nicely with optionals and stop force unwrapping.
+      let signedResult = Crypto.signForgedOperation(operation: strippedResult,
+                                                    secretKey: secretKey)!
+      payload["signature"] = signedResult.edsig
+      payload["protocol"] = operationData.protocolHash
+
+      let signedJsonData = try! JSONSerialization.data(withJSONObject: payload, options: [])
+      let signedKsonPayload = String(data: signedJsonData, encoding: .utf8)!
+
+      print("FYI, signed JSON is: " + signedKsonPayload)
+
+      let preApplyRPC = PreapplyOperationRPC(headChainID: operationData.chainID,
+                                             headHash: operationData.headHash,
+                                             payload: signedKsonPayload,
+                                             completion: { (preapplyJSON, error) in
+          print("FYI, edsig was " + signedResult.edsig)
+          print("FYI, signed bytes was: " + signedResult.signedOperation);
+
+          let jsonPayload = "\"" + signedResult.signedOperation  + "\""
+          let injectRPC = InjectionRPC(payload: jsonPayload, completion: { (txHash, txError) in
+
+            print("FYI, final TX hash was: " + txHash!)
+            completion(txHash, txError)
+          })
+
+          self.sendRequest(rpc: injectRPC)
+      })
+      self.sendRequest(rpc: preApplyRPC)
+    }
+    self.sendRequest(rpc: forgeRPC)
   }
 
   /**
@@ -85,26 +155,30 @@ public class TezosClient {
     request.resume()
   }
 
-  private func getDataForSignedOperation(address: String) -> (chainID: String, headHash: String, operationCounter: String)? {
+  private func getDataForSignedOperation(address: String) -> (chainID: String, headHash: String, protocolHash: String, operationCounter: Int)? {
     let fetchersGroup = DispatchGroup()
 
     var chainID: String? = nil
     var headHash: String? = nil
+    var protocolHash: String? = nil
     let chainHeadRequestRPC = GetChainHeadRPC() { (json: [String : Any]?, error: Error?) in
       if let json = json,
          let returnedChainID = json["chain_id"] as? String,
-         let returnedHeadHash = json["hash"] as? String  {
+         let returnedHeadHash = json["hash"] as? String,
+         let returnedProtocolHash = json["protocol"] as? String  {
          chainID = returnedChainID
          headHash = returnedHeadHash
+         protocolHash = returnedProtocolHash
       }
       fetchersGroup.leave()
     }
 
-    var operationCounter: String? = nil
+    var operationCounter: Int? = nil
     let getAddressCounterRPC =
         GetAddressCounterRPC(address: address) { (returnedOperationCounter: String?, error: Error?) in
-      if let returnedOperationCounter = returnedOperationCounter {
-        operationCounter = returnedOperationCounter
+      if let returnedOperationCounter = returnedOperationCounter,
+         let returnedOperationCounterIntValue = Int(returnedOperationCounter.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "\""))) {
+        operationCounter = returnedOperationCounterIntValue
       }
       fetchersGroup.leave()
     }
@@ -120,8 +194,9 @@ public class TezosClient {
     // If all data was retrived successfully return them in a tuple. Otherwise, return nil.
     if let operationCounter = operationCounter,
        let headHash = headHash,
-       let chainID = chainID {
-       return (chainID: chainID, headHash: headHash, operationCounter: operationCounter)
+       let chainID = chainID,
+       let protocolHash = protocolHash {
+       return (chainID: chainID, headHash: headHash, protocolHash: protocolHash, operationCounter: operationCounter)
     }
     return nil;
   }
