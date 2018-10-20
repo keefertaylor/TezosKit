@@ -75,10 +75,8 @@ public class TezosClient {
     payload["contents"] = [ operation ]
     payload["branch"] = operationData.headHash
 
-    // TODO: Refactor to a helper.
     // TODO: Play nicely with optionals and stop force unwrapping.
-    let jsonData = try! JSONSerialization.data(withJSONObject: payload, options: [])
-    let jsonPayload = String(data: jsonData, encoding: .utf8)!
+    let jsonPayload = TezosClient.jsonString(for: payload)!
     print("FYI, JSON encoded payload was: " + jsonPayload)
 
     // TODO: Write using promises. I am so sorry.
@@ -99,14 +97,13 @@ public class TezosClient {
       payload["signature"] = signedResult.edsig
       payload["protocol"] = operationData.protocolHash
 
-      let signedJsonData = try! JSONSerialization.data(withJSONObject: payload, options: [])
-      let signedKsonPayload = String(data: signedJsonData, encoding: .utf8)!
-
-      print("FYI, signed JSON is: " + signedKsonPayload)
+      // TODO: Play nicely with optionals and stop force unwrapping.
+      let signedJsonPayload = TezosClient.jsonString(for: payload)!
+      print("FYI, signed JSON is: " + signedJsonPayload)
 
       let preApplyRPC = PreapplyOperationRPC(headChainID: operationData.chainID,
                                              headHash: operationData.headHash,
-                                             payload: signedKsonPayload,
+                                             payload: signedJsonPayload,
                                              completion: { (preapplyJSON, error) in
           print("FYI, edsig was " + signedResult.edsig)
           print("FYI, signed bytes was: " + signedResult.signedOperation);
@@ -152,7 +149,28 @@ public class TezosClient {
     request.resume()
   }
 
-  private func getDataForSignedOperation(address: String) -> (chainID: String, headHash: String, protocolHash: String, operationCounter: Int)? {
+  /**
+   * Returns a JSON string representation of a given dictionary.
+   */
+  private static func jsonString(for dictionary: [String: Any]) -> String? {
+    do {
+      let jsonData = try JSONSerialization.data(withJSONObject: dictionary, options: [])
+      guard let jsonPayload = String(data: jsonData, encoding: .utf8) else {
+        return nil
+      }
+      return jsonPayload
+    } catch {
+      return nil
+    }
+  }
+
+  /**
+   * Retrieve data needed to forge / pre-apply / sign / inject an operation.
+   */
+  private func getDataForSignedOperation(address: String) -> (chainID: String,
+                                                              headHash: String,
+                                                              protocolHash: String,
+                                                              operationCounter: Int)? {
     let fetchersGroup = DispatchGroup()
 
     var chainID: String? = nil
