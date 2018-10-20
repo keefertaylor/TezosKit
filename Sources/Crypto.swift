@@ -9,6 +9,11 @@ public class Crypto {
   private static let publicKeyPrefix: [UInt8] = [13, 15, 37, 217] // edpk
   private static let secretKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
   private static let publicKeyHashPrefix: [UInt8] = [6, 161, 159] // tz1
+
+  private static let signedOperationPrefix: [UInt8] = [9, 245, 205, 134, 18] // edsig
+
+  private static let operationWaterMark = "03"
+
   private static let sodium: Sodium = Sodium()
 
   /**
@@ -18,20 +23,15 @@ public class Crypto {
    *       passed the secret key.
    */
   public static func signForgedOperation(operation: String, secretKey: [UInt8]) -> String? {
-    // 03 is a watermark for signing operations.
-    // TODO: Refactor to a named constant.
-    let watermarkedBinaryOperation = sodium.utils.hex2bin("03" + operation)!
+    let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation)!
 
-    // TODO: Play nicely with optionals and stop force unwrapping here.
-    let hashedWatermarkedBinaryOperation =
-        sodium.genericHash.hash(message: watermarkedBinaryOperation, outputLength: 32)!
-    let signedHashedWatermarkedBinaryOperation =
-        sodium.sign.signature(message: hashedWatermarkedBinaryOperation, secretKey: secretKey)!
+    guard let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation, outputLength: 32),
+          let signedOperation = sodium.sign.signature(message: hashedOperation, secretKey: secretKey) else {
+      return nil
+    }
 
-    let edsig: [UInt8] = [9, 245, 205, 134, 18] // edsig
-    let encoded = encode(message: signedHashedWatermarkedBinaryOperation, prefix: edsig)
-
-    return encoded
+    let encodedOperation = encode(message: signedOperation, prefix: signedOperationPrefix)
+    return encodedOperation
   }
 
   /**
