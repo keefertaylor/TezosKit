@@ -58,8 +58,8 @@ public class TezosClient {
     operation["amount"] = "100000"
     operation["source"] = address
     operation["destination"] = recipientAddress
-    operation["storage_limit"] = "0"
-    operation["gas_limit"] = "0"
+    operation["storage_limit"] = "10000"
+    operation["gas_limit"] = "10000"
     operation["fee"] = "0"
 
     self.forgeSignPreapplyAndInjectOperation(operation: operation,
@@ -103,7 +103,6 @@ public class TezosClient {
       return
     }
 
-    print("FYI, JSON encoded payload was: " + jsonPayload)
     let forgeRPC = ForgeOperationRPC(headChainID: operationData.chainID,
                                      headHash: operationData.headHash,
                                      payload: jsonPayload) { (result, error) in
@@ -111,7 +110,6 @@ public class TezosClient {
         completion(nil, error)
         return
       }
-      print("FYI, Result of forge was: " + result)
       self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
                                           forgeResult: result,
                                           secretKey: secretKey,
@@ -165,9 +163,6 @@ public class TezosClient {
     // Cheat and just encode this into an array.
     // TODO: Refactor this.
     let arraySignedJSONPayload = "[" + signedJsonPayload + "]"
-    print("FYI, signed JSON is: " + arraySignedJSONPayload)
-    print("FYI, edsig was " + signedResult.edsig)
-    print("FYI, signed bytes was: " + signedResult.signedOperation);
     let jsonPayload = "\"" + signedResult.signedOperation  + "\""
 
     self.preapplyAndInjectRPC(payload: arraySignedJSONPayload,
