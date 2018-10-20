@@ -14,6 +14,12 @@ public enum OperationKind: String {
  * An abstract super class representing an operation to perform on the blockchain.
  */
 public class Operation {
+  /** A Tezos balance representing 0. */
+  fileprivate static let zeroTezosBalance = TezosBalance(balance: "0")
+
+  /** A Tezos balance that is the default used for gas and storage limits. */
+  fileprivate static let defaultLimitTezosBalance = TezosBalance(balance: "10000")
+
   public let from: String
   public let kind: OperationKind
   public let fee: TezosBalance
@@ -30,9 +36,9 @@ public class Operation {
 
   fileprivate init(from: String,
                    kind: OperationKind,
-                   fee: TezosBalance,
-                   gasLimit: TezosBalance,
-                   storageLimit: TezosBalance) {
+                   fee: TezosBalance = Operation.zeroTezosBalance,
+                   gasLimit: TezosBalance = Operation.defaultLimitTezosBalance,
+                   storageLimit: TezosBalance = Operation.defaultLimitTezosBalance ) {
     self.from = from
     self.kind = kind
     self.fee = fee
@@ -53,12 +59,6 @@ public class SetDelegationOperation: Operation {
 
   public init(from: String, to delegate: String) {
     self.delegate = delegate
-
-    let zeroBalance = TezosBalance(balance: "0")
-    super.init(from: from,
-               kind: .delegation,
-               fee: zeroBalance,
-               gasLimit: zeroBalance,
-               storageLimit: zeroBalance)
+    super.init(from: from, kind: .delegation)
   }
 }
