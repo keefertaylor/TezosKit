@@ -14,12 +14,21 @@ public class TezosBalance {
     return integerAmount + "." + decimalAmount + " ꜩ"
   }
 
-  public init?(balance: Double) {
-    // TODO: implement.
-    return nil
+  public init(balance: Double) {
+    let integerValue = Int(balance)
+
+    // Convert 6 significant digits of decimals into integers to avoid having to deal with decimals.
+    let multiplierDoubleValue = (pow(10, decimalDigitCount) as NSDecimalNumber).doubleValue
+    let multiplierIntValue = (pow(10, decimalDigitCount) as NSDecimalNumber).intValue
+    let significantDecimalDigitsAsInteger = Int(balance * multiplierDoubleValue)
+    let significantIntegerDigitsAsInteger = integerValue * multiplierIntValue
+    let decimalValue = significantDecimalDigitsAsInteger - significantIntegerDigitsAsInteger
+
+    self.integerAmount = String(integerValue)
+    self.decimalAmount = String(decimalValue)
   }
 
-  public init?(balance: String) {
+  public init(balance: String) {
     // Pad small numbers with up to six zeros so that the below slicing works correctly
     var paddedBalance = balance
     while paddedBalance.count < decimalDigitCount {
