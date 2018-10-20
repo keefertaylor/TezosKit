@@ -21,8 +21,11 @@ public class Crypto {
 
   /**
    * Sign a forged operation with the given secret key.
+   *
+   * Returns a tuple containing the edsig and a signed operation.
    */
-  public static func signForgedOperation(operation: String, secretKey: String) -> String? {
+  public static func signForgedOperation(operation: String, secretKey: String) ->
+      (edsig: String, signedOperation: String)? {
     // Decode private key for signing from base58 encoded and checksummed private key.
     guard let decodedKey = Data(base58Decoding: secretKey) else {
       return nil
@@ -37,13 +40,16 @@ public class Crypto {
     guard let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation),
           let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation,
                                                         outputLength: 32),
-          let signedOperation = sodium.sign.signature(message: hashedOperation,
-                                                      secretKey: decodedSecretKeyBytes) else {
+          let signature = sodium.sign.signature(message: hashedOperation,
+                                                      secretKey: decodedSecretKeyBytes),
+          let signatureHex = sodium.utils.bin2hex(signature) else {
       return nil
     }
 
-    let encodedOperation = encode(message: signedOperation, prefix: signedOperationPrefix)
-    return encodedOperation
+    let edsig = encode(message: signature, prefix: signedOperationPrefix)
+    let signedOperation = operation + signatureHex
+
+    return (edsig: edsig, signedOperation: signedOperation)
   }
 
   /**
