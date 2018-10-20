@@ -12,6 +12,29 @@ public class Crypto {
   private static let sodium: Sodium = Sodium()
 
   /**
+   * Sign a forged operation with the given secret key.
+   *
+   * TODO: Modify this method to operate on a edsk base 58 encoded key rather than expecting to be
+   *       passed the secret key.
+   */
+  public static func signForgedOperation(operation: String, secretKey: [UInt8]) -> String? {
+    // 03 is a watermark for signing operations.
+    // TODO: Refactor to a named constant.
+    let watermarkedBinaryOperation = sodium.utils.hex2bin("03" + operation)!
+
+    // TODO: Play nicely with optionals and stop force unwrapping here.
+    let hashedWatermarkedBinaryOperation =
+        sodium.genericHash.hash(message: watermarkedBinaryOperation, outputLength: 32)!
+    let signedHashedWatermarkedBinaryOperation =
+        sodium.sign.signature(message: hashedWatermarkedBinaryOperation, secretKey: secretKey)!
+
+    let edsig: [UInt8] = [9, 245, 205, 134, 18] // edsig
+    let encoded = encode(message: signedHashedWatermarkedBinaryOperation, prefix: edsig)
+
+    return encoded
+  }
+
+  /**
    * Generates a KeyPair given a hex-encoded seed string.
    */
   public static func keyPair(from seedString: String) -> KeyPair? {
@@ -26,14 +49,14 @@ public class Crypto {
    * Generates a Tezos public key from the given input public key.
    */
   public static func tezosPublicKey(from key: [UInt8]) -> String {
-    return encode(key: key, prefix: publicKeyPrefix)
+    return encode(message: key, prefix: publicKeyPrefix)
   }
 
   /**
    * Generates a Tezos private key from the given input private key.
    */
   public static func tezosSecretKey(from key: [UInt8]) -> String {
-    return encode(key: key, prefix: secretKeyPrefix)
+    return encode(message: key, prefix: secretKeyPrefix)
   }
 
   /**
@@ -43,17 +66,17 @@ public class Crypto {
     guard let hash = sodium.genericHash.hash(message: key, key: [], outputLength: 20) else {
       return ""
     }
-    return encode(key: hash, prefix: publicKeyHashPrefix)
+    return encode(message: hash, prefix: publicKeyHashPrefix)
   }
 
   /**
-   * Encode a Base58 address from the given key and prefix.
+   * Encode a Base58 String from the given message and prefix.
    *
    * The returned address is a Base58 encoded String with the following format:
    *    [prefix][key][4 byte checksum]
    */
-  private static func encode(key: [UInt8], prefix: [UInt8]) -> String {
-    let prefixedKey = prefix + key
+  private static func encode(message: [UInt8], prefix: [UInt8]) -> String {
+    let prefixedKey = prefix + message
     let prefixedKeyCheckSum = calculateCheckSum(prefixedKey)
     let prefixedKeyWithCheckSum = prefixedKey + prefixedKeyCheckSum
     let data = Data(prefixedKeyWithCheckSum)
@@ -82,4 +105,12 @@ public class Crypto {
 
   /** Please do not instantiate this static helper class. */
   private init() {}
+}
+
+extension Data {
+    var bytes: [UInt8] {
+        var byteArray = [UInt8](repeating: 0, count: self.count)
+        self.copyBytes(to: &byteArray, count: self.count)
+        return byteArray
+    }
 }
