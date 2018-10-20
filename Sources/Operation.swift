@@ -28,7 +28,7 @@ public class AbstractOperation: Operation {
   /** A Tezos balance that is the default used for gas and storage limits. */
   fileprivate static let defaultLimitTezosBalance = TezosBalance(balance: "10000")
 
-  public let from: String
+  public let source: String
   public let kind: OperationKind
   public let fee: TezosBalance
   public let gasLimit: TezosBalance
@@ -48,20 +48,48 @@ public class AbstractOperation: Operation {
     operation["storage_limit"] = storageLimit.rpcRepresentation
     operation["gas_limit"] = gasLimit.rpcRepresentation
     operation["fee"] = fee.rpcRepresentation
+    operation["source"] = source
 
     return operation
   }
 
-  fileprivate init(from: String,
+  fileprivate init(source: String,
                    kind: OperationKind,
                    fee: TezosBalance = AbstractOperation.zeroTezosBalance,
                    gasLimit: TezosBalance = AbstractOperation.defaultLimitTezosBalance,
                    storageLimit: TezosBalance = AbstractOperation.defaultLimitTezosBalance ) {
-    self.from = from
+    self.source = source
     self.kind = kind
     self.fee = fee
     self.gasLimit = gasLimit
     self.storageLimit = storageLimit
+  }
+}
+
+/**
+ * An operation to send an amount of XTZ.
+ */
+public class TransactionOperation: AbstractOperation {
+  private let amount: TezosBalance
+  private let destination: String
+
+  public override var dictionaryRepresentation: [String : String] {
+    var operation = super.dictionaryRepresentation
+    operation["amount"] = amount.rpcRepresentation
+    operation["destination"] = destination
+
+    return operation
+  }
+
+  public convenience init(amount: TezosBalance, from wallet: Wallet, to destination: String) {
+    self.init(amount: amount, source: wallet.address, destination: destination)
+  }
+
+  public init(amount: TezosBalance, source: String, destination: String) {
+    self.amount = amount
+    self.destination = destination
+
+    super.init(source: source, kind: .transaction)
   }
 }
 
@@ -77,11 +105,11 @@ public class SetDelegationOperation: AbstractOperation {
   }
 
   public convenience init(from wallet: Wallet, to delegate: String) {
-    self.init(from: wallet.address, to: delegate)
+    self.init(source: wallet.address, to: delegate)
   }
 
-  public init(from: String, to delegate: String) {
+  public init(source: String, to delegate: String) {
     self.delegate = delegate
-    super.init(from: from, kind: .delegation)
+    super.init(source: source, kind: .delegation)
   }
 }
