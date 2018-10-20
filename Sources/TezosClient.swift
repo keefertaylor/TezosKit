@@ -113,28 +113,57 @@ public class TezosClient {
         completion(nil, error)
         return
       }
-      print("FYI, signed JSON is: " + signedJsonPayload)
 
-      let preApplyRPC = PreapplyOperationRPC(headChainID: operationData.chainID,
-                                             headHash: operationData.headHash,
-                                             payload: signedJsonPayload,
-                                             completion: { (preapplyJSON, error) in
+      // Cheat and just encode this into an array.
+      // TODO: Refactor this.
+      let arraySignedJSONPayload = "[" + signedJsonPayload + "]"
+      print("FYI, signed JSON is: " + arraySignedJSONPayload)
           print("FYI, edsig was " + signedResult.edsig)
           print("FYI, signed bytes was: " + signedResult.signedOperation);
-
-          let jsonPayload = "\"" + signedResult.signedOperation  + "\""
-          self.sendInjectionRPC(payload: jsonPayload, completion: completion)
-      })
-      self.sendRequest(rpc: preApplyRPC)
+      let jsonPayload = "\"" + signedResult.signedOperation  + "\""
+      self.preapplyAndInjectRPC(payload: arraySignedJSONPayload,
+                                signedBytesForInjection: jsonPayload,
+                                chainID: operationData.chainID,
+                                headHash: operationData.headHash,
+                                completion: completion)
     }
     self.sendRequest(rpc: forgeRPC)
+  }
+
+  /**
+   * Preapply an operation and inject the operation if successful.
+   *
+   * @param payload A JSON encoded string that will be preapplied.
+   * @param signedBytesForInjection A JSON encoded string that contains signed bytes for the
+   *        preapplied operation.
+   * @param chainID The chain which is being operated on.
+   * @param headhash The hash of the head of the chain being operated on.
+   * @param completion A completion block that will be called with the results of the operation.
+   */
+  private func preapplyAndInjectRPC(payload: String,
+                                    signedBytesForInjection: String,
+                                    chainID: String,
+                                    headHash: String,
+                                    completion: @escaping (String?, Error?) -> Void) {
+    let preapplyOperationRPC = PreapplyOperationRPC(headChainID: chainID,
+                                                    headHash: headHash,
+                                                    payload: payload,
+                                                    completion: { (result, error) in
+      guard let _ = result else {
+        completion(nil, error)
+        return
+      }
+
+      self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
+    })
+    self.sendRequest(rpc: preapplyOperationRPC)
   }
 
   /**
    * Send an injection RPC.
    *
    * @param payload A JSON compatible string representing the singed operation bytes.
-   * @param completion A completion block that will be called with the results fo the operation.
+   * @param completion A completion block that will be called with the results of the operation.
    */
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
     let injectRPC = InjectionRPC(payload: payload, completion: { (txHash, txError) in
@@ -189,6 +218,7 @@ public class TezosClient {
   /**
    * Retrieve data needed to forge / pre-apply / sign / inject an operation.
    */
+  // TODO: Refactor this tuple to be a first class object.
   private func getDataForSignedOperation(address: String) -> (chainID: String,
                                                               headHash: String,
                                                               protocolHash: String,
