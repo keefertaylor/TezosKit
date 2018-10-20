@@ -39,13 +39,17 @@ public class TezosRPC<T> {
 
   public func handleResponse(data: Data?, error: Error?) {
     if let error = error {
-      let tezosClientError = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.rpcError.rawValue, userInfo: [tezosClientUnderlyingErrorKey: error])
+      let tezosClientError = NSError(domain: tezosClientErrorDomain,
+                                     code:TezosClientErrorCode.rpcError.rawValue,
+                                     userInfo: [tezosClientUnderlyingErrorKey: error])
       completion(nil, tezosClientError)
       return
     }
 
     guard let data = data else {
-      let tezosClientError = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unexpectedResponse.rawValue, userInfo:nil)
+      let tezosClientError = NSError(domain: tezosClientErrorDomain,
+                                     code:TezosClientErrorCode.unexpectedResponse.rawValue,
+                                     userInfo:nil)
       completion(nil, tezosClientError)
       return
     }
@@ -133,9 +137,11 @@ public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
  *
  * TODO: Payload should be generated internally.
  */
-public class PreapplyOperationRPC: TezosRPC<[String: Any]> {
-  public init(payload: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
-    let endpoint = "chains/main/blocks/head/helpers/preapply/operation"
+public class PreapplyOperationRPC: TezosRPC<[[String: Any]]> {
+  public init(headChainID: String,
+              headHash: String,
+              payload: String, completion: @escaping ([[String: Any]]?, Error?) -> Void) {
+    let endpoint = "chains/" + headChainID + "/blocks/" + headHash + "/helpers/preapply/operations"
     super.init(endpoint: endpoint,
                responseAdapterClass: JSONResponseAdapter.self,
                payload: payload,
