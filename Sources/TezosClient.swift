@@ -52,14 +52,6 @@ public class TezosClient {
                    from address: String,
                    secretKey: String,
                    completion: @escaping (String?, Error?) -> Void) {
-    guard let operationData = getDataForSignedOperation(address: address) else {
-      let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
-      completion(nil, error)
-      return
-    }
-
-    let newCounter = String(operationData.operationCounter + 1)
-
     // TODO: Use Operation model objects here.
     var operation: [String: Any] = [:];
     operation["kind"] = "transaction"
@@ -69,36 +61,40 @@ public class TezosClient {
     operation["storage_limit"] = "0"
     operation["gas_limit"] = "0"
     operation["fee"] = "0"
-    operation["counter"] = newCounter
 
-    var payload: [String: Any] = [:]
-    payload["contents"] = [ operation ]
-    payload["branch"] = operationData.headHash
-
-    self.forgeSignPreapplyAndInjectOperation(operationPayload: payload,
+    self.forgeSignPreapplyAndInjectOperation(operation: operation,
+                                             address: address,
                                              secretKey: secretKey,
-                                             chainID: operationData.chainID,
-                                             headHash: operationData.headHash,
-                                             protocolHash: operationData.protocolHash,
                                              completion: completion)
   }
 
   /**
    * Forge, sign, preapply and then inject an operation.
    *
-   * @param operationPayload The operation payload which will be used to forge the operation.
+   * @param operation The operation which will be used to forge the operation.
+   * @param address The address that is performing the operation.
    * @param secretKey The edsk prefixed secret key which will be used to sign the operation.
-   * @param chainID The chain which is being operated on.
-   * @param headhash The hash of the head of the chain being operated on.
-   * @param protocolHash The hash of the protocol being operated on.
    * @param completion A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperation(operationPayload: [String: Any],
+  public func forgeSignPreapplyAndInjectOperation(operation: [String: Any],
+                                                  address: String,
                                                   secretKey: String,
-                                                  chainID: String,
-                                                  headHash: String,
-                                                  protocolHash: String,
                                                   completion: @escaping (String?, Error?) -> Void) {
+    guard let operationData = getDataForSignedOperation(address: address) else {
+      let error = NSError(domain: tezosClientErrorDomain, code:TezosClientErrorCode.unknown.rawValue, userInfo: nil)
+      completion(nil, error)
+      return
+    }
+
+    let newCounter = String(operationData.operationCounter + 1)
+
+    var mutableOperation = operation
+    mutableOperation["counter"] = newCounter
+
+    var operationPayload: [String: Any] = [:]
+    operationPayload["contents"] = [ mutableOperation ]
+    operationPayload["branch"] = operationData.headHash
+
     guard let jsonPayload = TezosClient.jsonString(for: operationPayload) else {
       let error = NSError(domain: tezosClientErrorDomain,
                           code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
@@ -108,8 +104,8 @@ public class TezosClient {
     }
 
     print("FYI, JSON encoded payload was: " + jsonPayload)
-    let forgeRPC = ForgeOperationRPC(headChainID: chainID,
-                                     headHash: headHash,
+    let forgeRPC = ForgeOperationRPC(headChainID: operationData.chainID,
+                                     headHash: operationData.headHash,
                                      payload: jsonPayload) { (result, error) in
       guard let result = result else {
         completion(nil, error)
@@ -119,9 +115,9 @@ public class TezosClient {
       self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
                                           forgeResult: result,
                                           secretKey: secretKey,
-                                          chainID: chainID,
-                                          headHash: headHash,
-                                          protocolHash: protocolHash,
+                                          chainID: operationData.chainID,
+                                          headHash: operationData.headHash,
+                                          protocolHash: operationData.protocolHash,
                                           completion: completion);
     }
     self.sendRequest(rpc: forgeRPC)
