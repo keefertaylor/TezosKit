@@ -11,9 +11,17 @@ public enum OperationKind: String {
 }
 
 /**
+ * Public protocol for operations.
+ */
+public protocol Operation {
+  /** Retrieve a dictionary representing the operation's state. */
+  var dictionaryRepresentation: [String: String] { get }
+}
+
+/**
  * An abstract super class representing an operation to perform on the blockchain.
  */
-public class Operation {
+public class AbstractOperation: Operation {
   /** A Tezos balance representing 0. */
   fileprivate static let zeroTezosBalance = TezosBalance(balance: "0")
 
@@ -34,11 +42,21 @@ public class Operation {
     }
   }
 
+  public var dictionaryRepresentation: [String : String] {
+    var operation: [String: String] = [:]
+    operation["kind"] = kind.rawValue
+    operation["storage_limit"] = storageLimit.rpcRepresentation
+    operation["gas_limit"] = gasLimit.rpcRepresentation
+    operation["fee"] = fee.rpcRepresentation
+
+    return operation
+  }
+
   fileprivate init(from: String,
                    kind: OperationKind,
-                   fee: TezosBalance = Operation.zeroTezosBalance,
-                   gasLimit: TezosBalance = Operation.defaultLimitTezosBalance,
-                   storageLimit: TezosBalance = Operation.defaultLimitTezosBalance ) {
+                   fee: TezosBalance = AbstractOperation.zeroTezosBalance,
+                   gasLimit: TezosBalance = AbstractOperation.defaultLimitTezosBalance,
+                   storageLimit: TezosBalance = AbstractOperation.defaultLimitTezosBalance ) {
     self.from = from
     self.kind = kind
     self.fee = fee
@@ -50,8 +68,13 @@ public class Operation {
 /**
  * An operation to set a delegate for an address.
  */
-public class SetDelegationOperation: Operation {
+public class SetDelegationOperation: AbstractOperation {
   public let delegate: String
+
+  public override var dictionaryRepresentation: [String : String] {
+    // TODO: Implement.
+    return super.dictionaryRepresentation
+  }
 
   public convenience init(from wallet: Wallet, to delegate: String) {
     self.init(from: wallet.address, to: delegate)
