@@ -16,7 +16,10 @@ public class AbstractResponseAdapter<T>: ResponseAdapter {
 
 public class StringResponseAdapter : AbstractResponseAdapter<String> {
   public override class func parse(input: Data) -> String? {
-    return String(data: input, encoding: .ascii)
+    guard let decodedString = String(data: input, encoding: .utf8) else {
+      return nil
+    }
+    return decodedString.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "\""))
   }
 }
 

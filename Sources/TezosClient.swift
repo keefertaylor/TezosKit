@@ -91,13 +91,10 @@ public class TezosClient {
         return
       }
 
-      // TODO: StringResponseAdapter should perform this stripping.
-      let strippedResult =
-          result.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "\""))
-      print("FYI, Result of forge was: " + strippedResult)
+      print("FYI, Result of forge was: " + result)
 
       // TODO: Play nicely with optionals and stop force unwrapping.
-      let signedResult = Crypto.signForgedOperation(operation: strippedResult,
+      let signedResult = Crypto.signForgedOperation(operation: result,
                                                     secretKey: secretKey)!
       payload["signature"] = signedResult.edsig
       payload["protocol"] = operationData.protocolHash
@@ -177,7 +174,7 @@ public class TezosClient {
     let getAddressCounterRPC =
         GetAddressCounterRPC(address: address) { (returnedOperationCounter: String?, error: Error?) in
       if let returnedOperationCounter = returnedOperationCounter,
-         let returnedOperationCounterIntValue = Int(returnedOperationCounter.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "\""))) {
+         let returnedOperationCounterIntValue = Int(returnedOperationCounter) {
         operationCounter = returnedOperationCounterIntValue
       }
       fetchersGroup.leave()
