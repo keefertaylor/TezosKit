@@ -14,19 +14,32 @@ public class Crypto {
 
   private static let operationWaterMark = "03"
 
+  // Length of checksum appended to Base58Check encoded strings.
+  private static let checksumLength = 4
+
   private static let sodium: Sodium = Sodium()
 
   /**
    * Sign a forged operation with the given secret key.
-   *
-   * TODO: Modify this method to operate on a edsk base 58 encoded key rather than expecting to be
-   *       passed the secret key.
    */
-  public static func signForgedOperation(operation: String, secretKey: [UInt8]) -> String? {
-    let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation)!
+  public static func signForgedOperation(operation: String, secretKey: String) -> String? {
+    // Decode private key for signing from base58 encoded and checksummed private key.
+    guard let decodedKey = Data(base58Decoding: secretKey) else {
+      return nil
+    }
 
-    guard let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation, outputLength: 32),
-          let signedOperation = sodium.sign.signature(message: hashedOperation, secretKey: secretKey) else {
+    // Decoded key will have extra bytes at the beginning for the prefix and extra bytes at the end
+    // as a checksum. Drop these bytes in order to get the original secret key.
+    var decodedSecretKeyBytes = Array(decodedKey)
+    decodedSecretKeyBytes.removeSubrange(0..<secretKeyPrefix.count)
+    decodedSecretKeyBytes.removeSubrange((decodedSecretKeyBytes.count - checksumLength)...)
+
+
+    guard let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation),
+          let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation,
+                                                        outputLength: 32),
+          let signedOperation = sodium.sign.signature(message: hashedOperation,
+                                                      secretKey: decodedSecretKeyBytes) else {
       return nil
     }
 
@@ -89,7 +102,7 @@ public class Crypto {
   private static func calculateCheckSum(_ input: [UInt8]) -> [UInt8] {
     let doubleHashedData = Data(input).sha256().sha256()
     let doubleHashedArray = Array(doubleHashedData)
-    return Array(doubleHashedArray.prefix(4))
+    return Array(doubleHashedArray.prefix(checksumLength))
   }
 
   /** Create a sha256 hash of the given data. */
@@ -105,12 +118,4 @@ public class Crypto {
 
   /** Please do not instantiate this static helper class. */
   private init() {}
-}
-
-extension Data {
-    var bytes: [UInt8] {
-        var byteArray = [UInt8](repeating: 0, count: self.count)
-        self.copyBytes(to: &byteArray, count: self.count)
-        return byteArray
-    }
 }
