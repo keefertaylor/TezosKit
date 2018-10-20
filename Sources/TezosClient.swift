@@ -123,15 +123,25 @@ public class TezosClient {
           print("FYI, signed bytes was: " + signedResult.signedOperation);
 
           let jsonPayload = "\"" + signedResult.signedOperation  + "\""
-          let injectRPC = InjectionRPC(payload: jsonPayload, completion: { (txHash, txError) in
-            completion(txHash, txError)
-          })
-
-          self.sendRequest(rpc: injectRPC)
+          self.sendInjectionRPC(payload: jsonPayload, completion: completion)
       })
       self.sendRequest(rpc: preApplyRPC)
     }
     self.sendRequest(rpc: forgeRPC)
+  }
+
+  /**
+   * Send an injection RPC.
+   *
+   * @param payload A JSON compatible string representing the singed operation bytes.
+   * @param completion A completion block that will be called with the results fo the operation.
+   */
+  private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
+    let injectRPC = InjectionRPC(payload: payload, completion: { (txHash, txError) in
+      completion(txHash, txError)
+    })
+
+    self.sendRequest(rpc: injectRPC)
   }
 
   /**
