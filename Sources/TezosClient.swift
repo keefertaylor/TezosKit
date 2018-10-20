@@ -55,7 +55,7 @@ public class TezosClient {
     // TODO: Use Operation model objects here.
     var operation: [String: Any] = [:];
     operation["kind"] = "transaction"
-    operation["amount"] = "100000"
+    operation["amount"] = "1000"
     operation["source"] = address
     operation["destination"] = recipientAddress
     operation["storage_limit"] = "10000"
@@ -140,7 +140,8 @@ public class TezosClient {
                                               protocolHash: String,
                                               completion: @escaping (String?, Error?) -> Void) {
     guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
-                                                        secretKey: secretKey) else {
+                                                        secretKey: secretKey),
+          let jsonSignedBytes = TezosClient.jsonString(for: signedResult.signedOperation) else {
       let error = NSError(domain: tezosClientErrorDomain,
                           code:TezosClientErrorCode.unknown.rawValue,
                           userInfo: nil)
@@ -152,7 +153,8 @@ public class TezosClient {
     mutableOperationPayload["signature"] = signedResult.edsig
     mutableOperationPayload ["protocol"] = protocolHash
 
-    guard let signedJsonPayload = TezosClient.jsonString(for: mutableOperationPayload) else {
+    let operationPayloadArray = [ mutableOperationPayload ]
+    guard let signedJsonPayload = TezosClient.jsonString(for: operationPayloadArray) else {
       let error = NSError(domain: tezosClientErrorDomain,
                           code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
                           userInfo: nil)
@@ -160,13 +162,8 @@ public class TezosClient {
       return
     }
 
-    // Cheat and just encode this into an array.
-    // TODO: Refactor this.
-    let arraySignedJSONPayload = "[" + signedJsonPayload + "]"
-    let jsonPayload = "\"" + signedResult.signedOperation  + "\""
-
-    self.preapplyAndInjectRPC(payload: arraySignedJSONPayload,
-                              signedBytesForInjection: jsonPayload,
+    self.preapplyAndInjectRPC(payload: signedJsonPayload,
+                              signedBytesForInjection: jsonSignedBytes,
                               chainID: chainID,
                               headHash: headHash,
                               completion: completion)
@@ -240,6 +237,28 @@ public class TezosClient {
       rpc.handleResponse(data: data, error: error)
     }
     request.resume()
+  }
+
+  /**
+   * Returns a JSON string representation of a string.
+   */
+  private static func jsonString(for string: String) -> String? {
+    return "\"" + string + "\""
+  }
+
+  /**
+   * Returns a JSON string representation of a given array.
+   */
+  private static func jsonString(for array: [[String: Any]]) -> String? {
+    do {
+      let jsonData = try JSONSerialization.data(withJSONObject: array, options: [])
+      guard let jsonPayload = String(data: jsonData, encoding: .utf8) else {
+        return nil
+      }
+      return jsonPayload
+    } catch {
+      return nil
+    }
   }
 
   /**
