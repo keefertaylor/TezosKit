@@ -63,7 +63,7 @@ public class GetChainHeadRPC : TezosRPC<[String: Any]> {
   public init(completion: @escaping ([String : Any]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head"
     super.init(endpoint: endpoint,
-               responseAdapterClass: JSONResponseAdapter.self,
+               responseAdapterClass: JSONDictionaryResponseAdapter.self,
                completion: completion)
   }
 }
@@ -108,7 +108,7 @@ public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
   public init(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/manager_key"
     super.init(endpoint: endpoint,
-               responseAdapterClass: JSONResponseAdapter.self,
+               responseAdapterClass: JSONDictionaryResponseAdapter.self,
                completion: completion)
   }
 }
@@ -143,7 +143,7 @@ public class PreapplyOperationRPC: TezosRPC<[[String: Any]]> {
               payload: String, completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let endpoint = "chains/" + headChainID + "/blocks/" + headHash + "/helpers/preapply/operations"
     super.init(endpoint: endpoint,
-               responseAdapterClass: JSONResponseAdapter.self,
+               responseAdapterClass: JSONArrayResponseAdapter.self,
                payload: payload,
                completion: completion)
   }

@@ -29,7 +29,21 @@ public class TezosBalanceAdapter : AbstractResponseAdapter<TezosBalance> {
   }
 }
 
-public class JSONResponseAdapter : AbstractResponseAdapter<[String : Any]> {
+public class JSONArrayResponseAdapter : AbstractResponseAdapter<[[String : Any]]> {
+  public override class func parse(input: Data) -> [[String : Any]]? {
+    do {
+      let json = try JSONSerialization.jsonObject(with: input)
+      guard let typedJSON = json as? [Dictionary<String, Any>] else {
+        return nil
+      }
+      return typedJSON
+    } catch {
+      return nil
+    }
+  }
+}
+
+public class JSONDictionaryResponseAdapter : AbstractResponseAdapter<[String : Any]> {
   public override class func parse(input: Data) -> [String : Any]? {
     do {
       let json = try JSONSerialization.jsonObject(with: input)
