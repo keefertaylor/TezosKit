@@ -115,13 +115,10 @@ public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
 
 /**
  * An RPC which will forge an operation.
- *
- * TODO: Payload should be generated internally.
  */
  public class ForgeOperationRPC: TezosRPC<String> {
   public init(headChainID: String,
               headHash: String,
-              counter: Int,
               payload: String,
               completion: @escaping (String?, Error?) -> Void) {
     let endpoint = "/chains/" + headChainID + "/blocks/" + headHash + "/helpers/forge/operations"
@@ -134,8 +131,6 @@ public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
 
 /**
  * An RPC which will pre-apply an operation.
- *
- * TODO: Payload should be generated internally.
  */
 public class PreapplyOperationRPC: TezosRPC<[[String: Any]]> {
   public init(headChainID: String,
@@ -151,8 +146,6 @@ public class PreapplyOperationRPC: TezosRPC<[[String: Any]]> {
 
 /**
  * An RPC which will inject an operation.
- *
- * TODO: Payload should be generated internally.
  */
  public class InjectionRPC: TezosRPC<String> {
   public init(payload: String,

@@ -108,10 +108,8 @@ public class TezosClient {
     }
 
     print("FYI, JSON encoded payload was: " + jsonPayload)
-    // TODO: Counter is an unused parameter, cleanup.
     let forgeRPC = ForgeOperationRPC(headChainID: chainID,
                                      headHash: headHash,
-                                     counter: 0,
                                      payload: jsonPayload) { (result, error) in
       guard let result = result else {
         completion(nil, error)
