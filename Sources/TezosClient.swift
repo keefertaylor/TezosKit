@@ -47,7 +47,7 @@ public class TezosClient {
     self.sendRequest(rpc: rpc)
   }
 
-  public func send(amount: Double,
+  public func send(amount: TezosBalance,
                    to recipientAddress: String,
                    from address: String,
                    secretKey: String,
@@ -55,7 +55,7 @@ public class TezosClient {
     // TODO: Use Operation model objects here.
     var operation: [String: Any] = [:];
     operation["kind"] = "transaction"
-    operation["amount"] = "1000"
+    operation["amount"] = amount.rpcRepresentation
     operation["source"] = address
     operation["destination"] = recipientAddress
     operation["storage_limit"] = "10000"
