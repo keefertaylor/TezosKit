@@ -92,42 +92,70 @@ public class TezosClient {
         completion(nil, error)
         return
       }
-
       print("FYI, Result of forge was: " + result)
-
-      guard let signedResult = Crypto.signForgedOperation(operation: result,
-                                                          secretKey: secretKey) else {
-        let error = NSError(domain: tezosClientErrorDomain,
-                            code:TezosClientErrorCode.unknown.rawValue,
-                            userInfo: nil)
-        completion(nil, error)
-        return
-      }
-      payload["signature"] = signedResult.edsig
-      payload["protocol"] = operationData.protocolHash
-
-      guard let signedJsonPayload = TezosClient.jsonString(for: payload) else {
-        let error = NSError(domain: tezosClientErrorDomain,
-                            code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
-                            userInfo: nil)
-        completion(nil, error)
-        return
-      }
-
-      // Cheat and just encode this into an array.
-      // TODO: Refactor this.
-      let arraySignedJSONPayload = "[" + signedJsonPayload + "]"
-      print("FYI, signed JSON is: " + arraySignedJSONPayload)
-          print("FYI, edsig was " + signedResult.edsig)
-          print("FYI, signed bytes was: " + signedResult.signedOperation);
-      let jsonPayload = "\"" + signedResult.signedOperation  + "\""
-      self.preapplyAndInjectRPC(payload: arraySignedJSONPayload,
-                                signedBytesForInjection: jsonPayload,
-                                chainID: operationData.chainID,
-                                headHash: operationData.headHash,
-                                completion: completion)
+      self.signPreapplyAndInjectRPC(operationPayload: payload,
+                                    forgeResult: result,
+                                    secretKey: secretKey,
+                                    chainID: operationData.chainID,
+                                    headHash: operationData.headHash,
+                                    protocolHash: operationData.protocolHash,
+                                    completion: completion);
     }
     self.sendRequest(rpc: forgeRPC)
+  }
+
+  /**
+   * Sign the result of a forged operation, preapply and inject it if successful.
+   *
+   * @param operationPayload The operation payload which was used to forge the operation.
+   * @param forgeResult The result of forging the operation payload.
+   * @param secretKey The edsk prefixed secret key which will be used to sign the operation.
+   * @param chainID The chain which is being operated on.
+   * @param headhash The hash of the head of the chain being operated on.
+   * @param protocolHash The hash of the protocol being operated on.
+   * @param completion A completion block that will be called with the results of the operation.
+   */
+  private func signPreapplyAndInjectRPC(operationPayload: [String: Any],
+                                        forgeResult: String,
+                                        secretKey: String,
+                                        chainID: String,
+                                        headHash: String,
+                                        protocolHash: String,
+                                        completion: @escaping (String?, Error?) -> Void) {
+    guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
+                                                        secretKey: secretKey) else {
+      let error = NSError(domain: tezosClientErrorDomain,
+                          code:TezosClientErrorCode.unknown.rawValue,
+                          userInfo: nil)
+      completion(nil, error)
+      return
+    }
+
+    var mutableOperationPayload = operationPayload
+    mutableOperationPayload["signature"] = signedResult.edsig
+    mutableOperationPayload ["protocol"] = protocolHash
+
+    guard let signedJsonPayload = TezosClient.jsonString(for: mutableOperationPayload) else {
+      let error = NSError(domain: tezosClientErrorDomain,
+                          code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
+                          userInfo: nil)
+      completion(nil, error)
+      return
+    }
+
+    // Cheat and just encode this into an array.
+    // TODO: Refactor this.
+    let arraySignedJSONPayload = "[" + signedJsonPayload + "]"
+    print("FYI, signed JSON is: " + arraySignedJSONPayload)
+    print("FYI, edsig was " + signedResult.edsig)
+    print("FYI, signed bytes was: " + signedResult.signedOperation);
+    let jsonPayload = "\"" + signedResult.signedOperation  + "\""
+
+    self.preapplyAndInjectRPC(payload: arraySignedJSONPayload,
+                              signedBytesForInjection: jsonPayload,
+                              chainID: chainID,
+                              headHash: headHash,
+                              completion: completion)
   }
 
   /**
