@@ -34,7 +34,6 @@ public class Crypto {
     decodedSecretKeyBytes.removeSubrange(0..<secretKeyPrefix.count)
     decodedSecretKeyBytes.removeSubrange((decodedSecretKeyBytes.count - checksumLength)...)
 
-
     guard let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation),
           let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation,
                                                         outputLength: 32),
