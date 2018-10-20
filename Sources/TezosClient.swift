@@ -75,31 +75,56 @@ public class TezosClient {
     payload["contents"] = [ operation ]
     payload["branch"] = operationData.headHash
 
-    guard let jsonPayload = TezosClient.jsonString(for: payload) else {
+    self.forgeSignPreapplyAndInjectOperation(operationPayload: payload,
+                                             secretKey: secretKey,
+                                             chainID: operationData.chainID,
+                                             headHash: operationData.headHash,
+                                             protocolHash: operationData.protocolHash,
+                                             completion: completion)
+  }
+
+  /**
+   * Forge, sign, preapply and then inject an operation.
+   *
+   * @param operationPayload The operation payload which will be used to forge the operation.
+   * @param secretKey The edsk prefixed secret key which will be used to sign the operation.
+   * @param chainID The chain which is being operated on.
+   * @param headhash The hash of the head of the chain being operated on.
+   * @param protocolHash The hash of the protocol being operated on.
+   * @param completion A completion block that will be called with the results of the operation.
+   */
+  public func forgeSignPreapplyAndInjectOperation(operationPayload: [String: Any],
+                                                  secretKey: String,
+                                                  chainID: String,
+                                                  headHash: String,
+                                                  protocolHash: String,
+                                                  completion: @escaping (String?, Error?) -> Void) {
+    guard let jsonPayload = TezosClient.jsonString(for: operationPayload) else {
       let error = NSError(domain: tezosClientErrorDomain,
                           code:TezosClientErrorCode.unexpectedRequestFormat.rawValue,
                           userInfo: nil)
       completion(nil, error)
       return
     }
-    print("FYI, JSON encoded payload was: " + jsonPayload)
 
-    let forgeRPC = ForgeOperationRPC(headChainID: operationData.chainID,
-                                headHash: operationData.headHash,
-                                counter: operationData.operationCounter,
-                                payload: jsonPayload) { (result, error) in
+    print("FYI, JSON encoded payload was: " + jsonPayload)
+    // TODO: Counter is an unused parameter, cleanup.
+    let forgeRPC = ForgeOperationRPC(headChainID: chainID,
+                                     headHash: headHash,
+                                     counter: 0,
+                                     payload: jsonPayload) { (result, error) in
       guard let result = result else {
         completion(nil, error)
         return
       }
       print("FYI, Result of forge was: " + result)
-      self.signPreapplyAndInjectRPC(operationPayload: payload,
-                                    forgeResult: result,
-                                    secretKey: secretKey,
-                                    chainID: operationData.chainID,
-                                    headHash: operationData.headHash,
-                                    protocolHash: operationData.protocolHash,
-                                    completion: completion);
+      self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
+                                          forgeResult: result,
+                                          secretKey: secretKey,
+                                          chainID: chainID,
+                                          headHash: headHash,
+                                          protocolHash: protocolHash,
+                                          completion: completion);
     }
     self.sendRequest(rpc: forgeRPC)
   }
@@ -115,13 +140,13 @@ public class TezosClient {
    * @param protocolHash The hash of the protocol being operated on.
    * @param completion A completion block that will be called with the results of the operation.
    */
-  private func signPreapplyAndInjectRPC(operationPayload: [String: Any],
-                                        forgeResult: String,
-                                        secretKey: String,
-                                        chainID: String,
-                                        headHash: String,
-                                        protocolHash: String,
-                                        completion: @escaping (String?, Error?) -> Void) {
+  private func signPreapplyAndInjectOperation(operationPayload: [String: Any],
+                                              forgeResult: String,
+                                              secretKey: String,
+                                              chainID: String,
+                                              headHash: String,
+                                              protocolHash: String,
+                                              completion: @escaping (String?, Error?) -> Void) {
     guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
                                                         secretKey: secretKey) else {
       let error = NSError(domain: tezosClientErrorDomain,
