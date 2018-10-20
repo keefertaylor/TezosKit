@@ -16,9 +16,9 @@ public enum OperationKind: String {
 public class Operation {
   public let from: String
   public let kind: OperationKind
-  public let fee: String
-  public let gasLimit: String
-  public let storageLimit: String
+  public let fee: TezosBalance
+  public let gasLimit: TezosBalance
+  public let storageLimit: TezosBalance
   public var requiresReveal: Bool {
     switch self.kind {
       case .delegation, .transaction, .origination:
@@ -28,7 +28,11 @@ public class Operation {
     }
   }
 
-  fileprivate init(from: String, kind: OperationKind, fee: String, gasLimit: String, storageLimit: String) {
+  fileprivate init(from: String,
+                   kind: OperationKind,
+                   fee: TezosBalance,
+                   gasLimit: TezosBalance,
+                   storageLimit: TezosBalance) {
     self.from = from
     self.kind = kind
     self.fee = fee
@@ -49,6 +53,12 @@ public class SetDelegationOperation: Operation {
 
   public init(from: String, to delegate: String) {
     self.delegate = delegate
-    super.init(from: from, kind: .delegation, fee: "0", gasLimit: "0", storageLimit: "0")
+
+    let zeroBalance = TezosBalance(balance: "0")
+    super.init(from: from,
+               kind: .delegation,
+               fee: zeroBalance,
+               gasLimit: zeroBalance,
+               storageLimit: zeroBalance)
   }
 }
