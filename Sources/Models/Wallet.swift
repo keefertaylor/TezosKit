@@ -5,8 +5,6 @@ import Foundation
  *
  * Clients can create a new wallet by calling the empty initializer. Clients can also restore an
  * existing wallet by providing an mnemonic and optional passphrase.
- *
- * TODO: Actually support passphrase in wallet generation.
  */
 public struct Wallet {
 
@@ -25,22 +23,27 @@ public struct Wallet {
    */
 	public let mnemonic: String
 
-	/** Create a new wallet by generating a mnemonic. */
-	public init?() {
+	/**
+   * Create a new wallet by generating a mnemonic and encrypted with an optional passphrase.
+   *
+   * @param passphrase An optional passphrase used for encryption.
+   */
+	public init?(passphrase: String = "") {
 		guard let mnemonic = MnemonicUtil.generateMnemonic() else {
 			return nil
 		}
-		self.init(mnemonic: mnemonic)
+		self.init(mnemonic: mnemonic, passphrase: passphrase)
 	}
 
 	/**
-   * Create a new wallet with the given mnemonic.
+   * Create a new wallet with the given mnemonic and encrypted with an optional passphrase.
    *
    * @param mnemonic A space delimited string of english mnemonic words from the BIP39
    *        specification.
+   * @param passphrase An optional passphrase used for encryption.
    */
-	public init?(mnemonic: String) {
-		guard let seedString = MnemonicUtil.seedString(from: mnemonic),
+	public init?(mnemonic: String, passphrase: String = "") {
+		guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
 			let keyPair = Crypto.keyPair(from: seedString) else {
 				return nil
 		}
