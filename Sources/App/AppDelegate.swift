@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		// Create a wallet.
 		guard let wallet = Wallet(mnemonic: expectedMnemonic) else {
-			print("Error creating wallet :(");
+			print("Error creating wallet :(")
 			return
 		}
 

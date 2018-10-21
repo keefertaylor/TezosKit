@@ -110,7 +110,7 @@ public class TezosClient {
 				chainID: operationData.chainID,
 				headHash: operationData.headHash,
 				protocolHash: operationData.protocolHash,
-				completion: completion);
+				completion: completion)
 		}
 		self.sendRequest(rpc: forgeRPC)
 	}
@@ -212,8 +212,8 @@ public class TezosClient {
 	public func sendRequest<T>(rpc: TezosRPC<T>) {
 		guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
 			let error = NSError(domain: tezosClientErrorDomain, code: TezosClientErrorCode.unknown.rawValue, userInfo: nil)
-			rpc.handleResponse(data: nil, error: error);
-			return;
+			rpc.handleResponse(data: nil, error: error)
+			return
 		}
 
 		var urlRequest = URLRequest(url: remoteNodeEndpoint)
@@ -283,6 +283,6 @@ public class TezosClient {
 			let protocolHash = protocolHash {
 			return (chainID: chainID, headHash: headHash, protocolHash: protocolHash, operationCounter: operationCounter)
 		}
-		return nil;
+		return nil
 	}
 }
