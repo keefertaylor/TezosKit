@@ -1,5 +1,7 @@
 import Foundation
 
+// TODO: Document this class.
+// TODO: Consider decomposing this class into smaller pieces.
 public class TezosClient {
   private let urlSession: URLSession
   private let remoteNodeURL: URL
