@@ -12,7 +12,7 @@ public class GetAddressBalanceRPC: TezosRPC<TezosBalance> {
 	public init(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
 		let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/balance"
 		super.init(endpoint: endpoint,
-			responseAdapterClass: TezosBalanceAdapter.self,
+			responseAdapterClass: TezosBalanceResponseAdapter.self,
 			completion: completion)
 	}
 }
