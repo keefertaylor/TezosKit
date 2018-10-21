@@ -1,21 +1,23 @@
 import Foundation
 
 /**
- * A custom error domain for errors from the TezosClient.
+ * A struct representing an error that occured in the Tezos Client.
  */
-let tezosClientErrorDomain = "com.keefertaylor.TezosClient"
+public struct TezosClientError: Error {
 
-/**
- * A key in the UserInfo dictionary representing the underlying error.
- */
-let tezosClientUnderlyingErrorKey = "tezosClientUnderlyingErrorKey"
+  /**
+   * Enumeration representing possible kinds of errors.
+   */
+  public enum ErrorKind {
+    case unknown
+    case rpcError
+    case unexpectedResponse
+    case unexpectedRequestFormat
+  }
 
-/**
- * Enumeration representing possible error codes.
- */
-public enum TezosClientErrorCode: Int {
-	case unknown = 0
-	case rpcError = 1
-	case unexpectedResponse = 2
-	case unexpectedRequestFormat = 3
+  /** The error code which occurred. */
+  let kind: ErrorKind
+
+  /** The underlying error returned from a subsystem, if one exists. */
+  let underlyingError: Error?
 }

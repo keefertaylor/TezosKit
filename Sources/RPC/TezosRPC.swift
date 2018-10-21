@@ -58,17 +58,13 @@ public class TezosRPC<T> {
    */
 	public func handleResponse(data: Data?, error: Error?) {
 		if let error = error {
-			let tezosClientError = NSError(domain: tezosClientErrorDomain,
-				code: TezosClientErrorCode.rpcError.rawValue,
-				userInfo: [tezosClientUnderlyingErrorKey: error])
+			let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: error)
 			completion(nil, tezosClientError)
 			return
 		}
 
 		guard let data = data else {
-			let tezosClientError = NSError(domain: tezosClientErrorDomain,
-				code: TezosClientErrorCode.unexpectedResponse.rawValue,
-				userInfo: nil)
+      let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
 			completion(nil, tezosClientError)
 			return
 		}

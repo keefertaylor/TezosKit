@@ -149,9 +149,7 @@ public class TezosClient {
 		secretKey: String,
 		completion: @escaping (String?, Error?) -> Void) {
 		guard let operationMetadata = getMetadataForOperation(address: address) else {
-			let error = NSError(domain: tezosClientErrorDomain,
-                          code: TezosClientErrorCode.unknown.rawValue,
-                          userInfo: nil)
+			let error = TezosClientError(kind: .unknown, underlyingError: nil)
 			completion(nil, error)
 			return
 		}
@@ -166,9 +164,7 @@ public class TezosClient {
 		operationPayload["branch"] = operationMetadata.headHash
 
 		guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
-			let error = NSError(domain: tezosClientErrorDomain,
-				code: TezosClientErrorCode.unexpectedRequestFormat.rawValue,
-				userInfo: nil)
+      let error = TezosClientError(kind: .unexpectedRequestFormat, underlyingError: nil)
 			completion(nil, error)
 			return
 		}
@@ -206,9 +202,7 @@ public class TezosClient {
 		guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
 			secretKey: secretKey),
 			let jsonSignedBytes = JSONUtils.jsonString(for: signedResult.signedOperation) else {
-				let error = NSError(domain: tezosClientErrorDomain,
-					code: TezosClientErrorCode.unknown.rawValue,
-					userInfo: nil)
+        let error = TezosClientError(kind: .unknown, underlyingError: nil)
 				completion(nil, error)
 				return
 		}
@@ -219,9 +213,7 @@ public class TezosClient {
 
 		let operationPayloadArray = [mutableOperationPayload]
 		guard let signedJsonPayload = JSONUtils.jsonString(for: operationPayloadArray) else {
-			let error = NSError(domain: tezosClientErrorDomain,
-				code: TezosClientErrorCode.unexpectedRequestFormat.rawValue,
-				userInfo: nil)
+      let error = TezosClientError(kind: .unexpectedRequestFormat, underlyingError: nil)
 			completion(nil, error)
 			return
 		}
@@ -278,7 +270,7 @@ public class TezosClient {
    */
 	public func send<T>(rpc: TezosRPC<T>) {
 		guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
-			let error = NSError(domain: tezosClientErrorDomain, code: TezosClientErrorCode.unknown.rawValue, userInfo: nil)
+      let error = TezosClientError(kind: .unknown, underlyingError: nil)
 			rpc.handleResponse(data: nil, error: error)
 			return
 		}
