@@ -19,11 +19,11 @@
 		7AA8F36C216015A300C05895 /* TezosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8F36B216015A300C05895 /* TezosClient.swift */; };
 		7AA8F36E2160211800C05895 /* TezosClientErrorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8F36D2160211800C05895 /* TezosClientErrorCodes.swift */; };
 		7AA8F37021605FE500C05895 /* ResponseAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8F36F21605FE500C05895 /* ResponseAdapters.swift */; };
-		7AA8F3722161699C00C05895 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8F3712161699C00C05895 /* Requests.swift */; };
 		7AA957D4217B8C1000865D55 /* TezosBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA957D3217B8C1000865D55 /* TezosBalance.swift */; };
 		7AA957E4217C0C8C00865D55 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA957E1217C0C8C00865D55 /* Crypto.swift */; };
 		7AA957E5217C0C8C00865D55 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA957E2217C0C8C00865D55 /* JSONUtils.swift */; };
 		7AA957E6217C0C8C00865D55 /* MnemonicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA957E3217C0C8C00865D55 /* MnemonicUtil.swift */; };
+		7AA957EA217C0ECD00865D55 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA957E9217C0ECD00865D55 /* Requests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,11 +42,11 @@
 		7AA8F36B216015A300C05895 /* TezosClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosClient.swift; sourceTree = "<group>"; };
 		7AA8F36D2160211800C05895 /* TezosClientErrorCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosClientErrorCodes.swift; sourceTree = "<group>"; };
 		7AA8F36F21605FE500C05895 /* ResponseAdapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAdapters.swift; sourceTree = "<group>"; };
-		7AA8F3712161699C00C05895 /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
 		7AA957D3217B8C1000865D55 /* TezosBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosBalance.swift; sourceTree = "<group>"; };
 		7AA957E1217C0C8C00865D55 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Crypto.swift; path = Utils/Crypto.swift; sourceTree = "<group>"; };
 		7AA957E2217C0C8C00865D55 /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONUtils.swift; path = Utils/JSONUtils.swift; sourceTree = "<group>"; };
 		7AA957E3217C0C8C00865D55 /* MnemonicUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MnemonicUtil.swift; path = Utils/MnemonicUtil.swift; sourceTree = "<group>"; };
+		7AA957E9217C0ECD00865D55 /* Requests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Requests.swift; path = RPC/Requests.swift; sourceTree = "<group>"; };
 		F989C498BDA454447F4F8EEC /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -92,6 +92,7 @@
 		7AA8F3582160158000C05895 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7AA957E9217C0ECD00865D55 /* Requests.swift */,
 				7AA957E1217C0C8C00865D55 /* Crypto.swift */,
 				7AA957E2217C0C8C00865D55 /* JSONUtils.swift */,
 				7AA957E3217C0C8C00865D55 /* MnemonicUtil.swift */,
@@ -101,7 +102,6 @@
 				7A1E2ED92176A26C0073C080 /* README.md */,
 				7AA8F36B216015A300C05895 /* TezosClient.swift */,
 				7AA8F36F21605FE500C05895 /* ResponseAdapters.swift */,
-				7AA8F3712161699C00C05895 /* Requests.swift */,
 				7AA8F3592160158000C05895 /* AppDelegate.swift */,
 				7A1E2EDB2176B3F40073C080 /* Operation.swift */,
 				7AA8F36D2160211800C05895 /* TezosClientErrorCodes.swift */,
@@ -224,8 +224,8 @@
 				7AA957E6217C0C8C00865D55 /* MnemonicUtil.swift in Sources */,
 				7AA957D4217B8C1000865D55 /* TezosBalance.swift in Sources */,
 				7AA8F36E2160211800C05895 /* TezosClientErrorCodes.swift in Sources */,
-				7AA8F3722161699C00C05895 /* Requests.swift in Sources */,
 				7AA8F37021605FE500C05895 /* ResponseAdapters.swift in Sources */,
+				7AA957EA217C0ECD00865D55 /* Requests.swift in Sources */,
 				7AA8F35A2160158000C05895 /* AppDelegate.swift in Sources */,
 				7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */,
 			);
