@@ -52,17 +52,9 @@ public class TezosClient {
                    from address: String,
                    secretKey: String,
                    completion: @escaping (String?, Error?) -> Void) {
-    // TODO: Use Operation model objects here.
-    var operation: [String: Any] = [:];
-    operation["kind"] = "transaction"
-    operation["amount"] = amount.rpcRepresentation
-    operation["source"] = address
-    operation["destination"] = recipientAddress
-    operation["storage_limit"] = "10000"
-    operation["gas_limit"] = "10000"
-    operation["fee"] = "0"
-
-    self.forgeSignPreapplyAndInjectOperation(operation: operation,
+    let transactionOperation =
+        TransactionOperation(amount: amount, source: address, destination: recipientAddress)
+    self.forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
                                              address: address,
                                              secretKey: secretKey,
                                              completion: completion)
@@ -76,7 +68,7 @@ public class TezosClient {
    * @param secretKey The edsk prefixed secret key which will be used to sign the operation.
    * @param completion A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperation(operation: [String: Any],
+  public func forgeSignPreapplyAndInjectOperation(operation: Operation,
                                                   address: String,
                                                   secretKey: String,
                                                   completion: @escaping (String?, Error?) -> Void) {
@@ -88,7 +80,7 @@ public class TezosClient {
 
     let newCounter = String(operationData.operationCounter + 1)
 
-    var mutableOperation = operation
+    var mutableOperation = operation.dictionaryRepresentation
     mutableOperation["counter"] = newCounter
 
     var operationPayload: [String: Any] = [:]
