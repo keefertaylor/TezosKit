@@ -129,9 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				7AA95818217CB3BD00865D55 /* RPC */,
-				7A1E2ED3217673FD0073C080 /* Wallet.swift */,
 				7AA9583D217CBC7600865D55 /* Client */,
-				7AA957D3217B8C1000865D55 /* TezosBalance.swift */,
+				7AA9583F217CBDB000865D55 /* Models */,
 				7A1E2ED92176A26C0073C080 /* README.md */,
 				7AA9583B217CBB1700865D55 /* Cryptography */,
 				7AA9583A217CBA4E00865D55 /* Utils */,
@@ -221,6 +220,15 @@
 				7AA8F36D2160211800C05895 /* TezosClientErrorCodes.swift */,
 			);
 			path = Client;
+			sourceTree = "<group>";
+		};
+		7AA9583F217CBDB000865D55 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7A1E2ED3217673FD0073C080 /* Wallet.swift */,
+				7AA957D3217B8C1000865D55 /* TezosBalance.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
