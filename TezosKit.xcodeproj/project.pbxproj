@@ -134,14 +134,10 @@
 				7A1E2ED92176A26C0073C080 /* README.md */,
 				7AA8F36B216015A300C05895 /* TezosClient.swift */,
 				7AA9583B217CBB1700865D55 /* Cryptography */,
-				7AA8F3592160158000C05895 /* AppDelegate.swift */,
 				7AA9583A217CBA4E00865D55 /* Utils */,
 				7AA95830217CB7A100865D55 /* Operation */,
 				7AA8F36D2160211800C05895 /* TezosClientErrorCodes.swift */,
-				7AA8F35D2160158000C05895 /* Main.storyboard */,
-				7AA8F3602160158100C05895 /* Assets.xcassets */,
-				7AA8F3622160158100C05895 /* LaunchScreen.storyboard */,
-				7AA8F3652160158100C05895 /* Info.plist */,
+				7AA9583C217CBBEA00865D55 /* App */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -205,6 +201,18 @@
 				7AA9582A217CB6F700865D55 /* Crypto.swift */,
 			);
 			path = Cryptography;
+			sourceTree = "<group>";
+		};
+		7AA9583C217CBBEA00865D55 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7AA8F3592160158000C05895 /* AppDelegate.swift */,
+				7AA8F35D2160158000C05895 /* Main.storyboard */,
+				7AA8F3602160158100C05895 /* Assets.xcassets */,
+				7AA8F3622160158100C05895 /* LaunchScreen.storyboard */,
+				7AA8F3652160158100C05895 /* Info.plist */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
@@ -488,7 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -509,7 +517,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
