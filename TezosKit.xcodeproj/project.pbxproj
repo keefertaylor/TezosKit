@@ -76,9 +76,9 @@
 		7AA95821217CB53600865D55 /* StringResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseAdapter.swift; sourceTree = "<group>"; };
 		7AA95822217CB53600865D55 /* AbstractResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractResponseAdapter.swift; sourceTree = "<group>"; };
 		7AA95823217CB53600865D55 /* JSONDictionaryResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDictionaryResponseAdapter.swift; sourceTree = "<group>"; };
-		7AA9582A217CB6F700865D55 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Crypto.swift; path = Utils/Crypto.swift; sourceTree = "<group>"; };
-		7AA9582B217CB6F700865D55 /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONUtils.swift; path = Utils/JSONUtils.swift; sourceTree = "<group>"; };
-		7AA9582C217CB6F700865D55 /* MnemonicUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MnemonicUtil.swift; path = Utils/MnemonicUtil.swift; sourceTree = "<group>"; };
+		7AA9582A217CB6F700865D55 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		7AA9582B217CB6F700865D55 /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
+		7AA9582C217CB6F700865D55 /* MnemonicUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MnemonicUtil.swift; sourceTree = "<group>"; };
 		7AA95831217CB80A00865D55 /* AbstractOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractOperation.swift; sourceTree = "<group>"; };
 		7AA95832217CB80A00865D55 /* TransactionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperation.swift; sourceTree = "<group>"; };
 		7AA95833217CB80A00865D55 /* DelegationOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationOperation.swift; sourceTree = "<group>"; };
@@ -134,10 +134,8 @@
 				7AA957D3217B8C1000865D55 /* TezosBalance.swift */,
 				7A1E2ED92176A26C0073C080 /* README.md */,
 				7AA8F36B216015A300C05895 /* TezosClient.swift */,
-				7AA9582A217CB6F700865D55 /* Crypto.swift */,
-				7AA9582B217CB6F700865D55 /* JSONUtils.swift */,
-				7AA9582C217CB6F700865D55 /* MnemonicUtil.swift */,
 				7AA8F3592160158000C05895 /* AppDelegate.swift */,
+				7AA9583A217CBA4E00865D55 /* Utils */,
 				7AA95830217CB7A100865D55 /* Operation */,
 				7AA8F36D2160211800C05895 /* TezosClientErrorCodes.swift */,
 				7AA8F35D2160158000C05895 /* Main.storyboard */,
@@ -189,6 +187,16 @@
 				7AA95832217CB80A00865D55 /* TransactionOperation.swift */,
 			);
 			path = Operation;
+			sourceTree = "<group>";
+		};
+		7AA9583A217CBA4E00865D55 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7AA9582A217CB6F700865D55 /* Crypto.swift */,
+				7AA9582B217CB6F700865D55 /* JSONUtils.swift */,
+				7AA9582C217CB6F700865D55 /* MnemonicUtil.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
