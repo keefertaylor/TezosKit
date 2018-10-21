@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // See: KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA
     let address = "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA"
     tezosClient.getBalance(address: address) { (result: TezosBalance?, error: Error?) in
-      print("Got Balance (Addr):  " + result!.formattedBalance)
+      print("Got Balance (Addr):  " + result!.humanReadableRepresentation)
     }
     tezosClient.getDelegate(address: address) { (delegate: String?, error: Error?) in
       print("Got delegate (Addr): " + delegate!)
