@@ -1,0 +1,48 @@
+PODS:
+  - Base58String (0.1.0):
+    - BigInt (~> 3.1)
+  - BigInt (3.1.0):
+    - SipHash (~> 1.2)
+  - CKMnemonic (0.1.7):
+    - CryptoSwift
+  - CryptoSwift (0.12.0)
+  - SipHash (1.2.2)
+  - Sodium (0.6)
+
+DEPENDENCIES:
+  - Base58String (from `https://github.com/cloutiertyler/Base58String.git`)
+  - CKMnemonic
+  - Sodium (from `https://github.com/jedisct1/swift-sodium.git`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BigInt
+    - CKMnemonic
+    - CryptoSwift
+    - SipHash
+
+EXTERNAL SOURCES:
+  Base58String:
+    :git: https://github.com/cloutiertyler/Base58String.git
+  Sodium:
+    :git: https://github.com/jedisct1/swift-sodium.git
+
+CHECKOUT OPTIONS:
+  Base58String:
+    :commit: 4989d0eea6a690eb163bfdc3491c5c532275010e
+    :git: https://github.com/cloutiertyler/Base58String.git
+  Sodium:
+    :commit: fb1a2643f99c23fe5c15adca80d657901b6bd9a1
+    :git: https://github.com/jedisct1/swift-sodium.git
+
+SPEC CHECKSUMS:
+  Base58String: a12a7d574e00d07c5f58ff5b7adf7f1353a32a44
+  BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
+  CKMnemonic: 88e745afffea6f3c719c799d9869a2ea5eb9f08b
+  CryptoSwift: 1c07ca50843dd48bc54e6ea53d7a4dba3b645716
+  SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
+  Sodium: 3cd000dc8d21be5d448fbb4366a7b1c9392b1ae6
+
+PODFILE CHECKSUM: 043aca4e66be2f874b8d23c91c35daabb3003b2c
+
+COCOAPODS: 1.5.3
