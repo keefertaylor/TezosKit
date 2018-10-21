@@ -19,7 +19,7 @@ public class TezosClient {
   }
 
   public func getBalance(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
-    let rpc = GetAccountBalanceRPC(address: address, completion: completion)
+    let rpc = GetAddressBalanceRPC(address: address, completion: completion)
     self.sendRequest(rpc: rpc)
   }
 
@@ -95,7 +95,7 @@ public class TezosClient {
       return
     }
 
-    let forgeRPC = ForgeOperationRPC(headChainID: operationData.chainID,
+    let forgeRPC = ForgeOperationRPC(chainID: operationData.chainID,
                                      headHash: operationData.headHash,
                                      payload: jsonPayload) { (result, error) in
       guard let result = result else {
@@ -176,7 +176,7 @@ public class TezosClient {
                                     chainID: String,
                                     headHash: String,
                                     completion: @escaping (String?, Error?) -> Void) {
-    let preapplyOperationRPC = PreapplyOperationRPC(headChainID: chainID,
+    let preapplyOperationRPC = PreapplyOperationRPC(chainID: chainID,
                                                     headHash: headHash,
                                                     payload: payload,
                                                     completion: { (result, error) in
@@ -216,7 +216,7 @@ public class TezosClient {
 
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
-    if rpc.shouldPOSTWithPayload,
+    if rpc.isPOSTRequest,
        let payload = rpc.payload,
        let payloadData = payload.data(using: .utf8) {
       urlRequest.httpMethod = "POST"
