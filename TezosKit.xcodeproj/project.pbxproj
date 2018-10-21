@@ -128,7 +128,6 @@
 		7AA8F3582160158000C05895 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7A1E2ECF217671B20073C080 /* KeyPair.swift */,
 				7AA95818217CB3BD00865D55 /* RPC */,
 				7A1E2ED3217673FD0073C080 /* Wallet.swift */,
 				7AA957D3217B8C1000865D55 /* TezosBalance.swift */,
@@ -202,6 +201,7 @@
 		7AA9583B217CBB1700865D55 /* Cryptography */ = {
 			isa = PBXGroup;
 			children = (
+				7A1E2ECF217671B20073C080 /* KeyPair.swift */,
 				7AA9582A217CB6F700865D55 /* Crypto.swift */,
 			);
 			path = Cryptography;

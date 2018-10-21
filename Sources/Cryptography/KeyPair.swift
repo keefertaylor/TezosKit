@@ -8,6 +8,7 @@ public protocol KeyPair {
 }
 
 /** Generic KeyPair struct. */
+// TODO: This is useful for testing. Refactor to a test target when a proper one exists.
 public struct DefaultKeyPair: KeyPair {
   public let publicKey: [UInt8]
   public let secretKey: [UInt8]
