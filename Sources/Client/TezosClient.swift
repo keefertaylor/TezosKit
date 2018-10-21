@@ -281,10 +281,7 @@ public class TezosClient {
 		}
 
 		let request = self.urlSession.dataTask(with: urlRequest as URLRequest) { (data, response, error) in
-      if let httpResp = urlRequest as? HTTPURLResponse, httpResp.statusCode != 200 {
-        print("very wrong")
-      }
-
+      // TODO: Ensure a 200 was received, otherwise error.
 			rpc.handleResponse(data: data, error: error)
 		}
 		request.resume()
