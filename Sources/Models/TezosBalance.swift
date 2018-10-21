@@ -55,12 +55,13 @@ public struct TezosBalance {
 
 	/**
    * Initialize a new balance from an RPC representation of a balance.
-   *
-   * @warning The only allowed characters in the input string are digits. This method will crash if
-   *          given an unexpected input.
-   * TODO: Make this initializer nicely tell clients they've messed up rather than crashing.
    */
-	public init(balance: String) {
+	public init?(balance: String) {
+    // Make sure the given string only contains digits.
+    guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: balance)) else {
+      return nil
+    }
+
 		// Pad small numbers with up to six zeros so that the below slicing works correctly
 		var paddedBalance = balance
 		while paddedBalance.count < decimalDigitCount {

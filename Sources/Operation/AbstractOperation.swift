@@ -7,10 +7,10 @@ import Foundation
  */
 public class AbstractOperation: Operation {
 	/** A Tezos balance representing 0. */
-	public static let zeroTezosBalance = TezosBalance(balance: "0")
+	public static let zeroTezosBalance = TezosBalance(balance: "0")!
 
 	/** A Tezos balance that is the default used for gas and storage limits. */
-	public static let defaultLimitTezosBalance = TezosBalance(balance: "10000")
+	public static let defaultLimitTezosBalance = TezosBalance(balance: "10000")!
 
 	public let source: String
 	public let kind: OperationKind
