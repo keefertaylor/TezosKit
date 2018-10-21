@@ -117,22 +117,18 @@ public class TezosClient {
    *
    * @param balance The balance to send.
    * @param recipientAddress The address which will receive the balance.
-   * @param address The address which will send the balance.
-   * @param secretKey A "edsk" prefixed secret key associated with the address parameter which will
-   *        be used to sign the operation.
+   * @param wallet The wallet which will send the balance.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
 	public func send(amount: TezosBalance,
 		to recipientAddress: String,
-		from address: String,
-		secretKey: String,
+		from wallet: Wallet,
 		completion: @escaping (String?, Error?) -> Void) {
 		let transactionOperation =
-			TransactionOperation(amount: amount, source: address, destination: recipientAddress)
+			TransactionOperation(amount: amount, source: wallet, destination: recipientAddress)
 		self.forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
-			address: address,
-			secretKey: secretKey,
+			wallet: wallet,
 			completion: completion)
 	}
 
@@ -140,15 +136,13 @@ public class TezosClient {
    * Forge, sign, preapply and then inject an operation.
    *
    * @param operation The operation which will be used to forge the operation.
-   * @param address The address that is performing the operation.
-   * @param secretKey The edsk prefixed secret key which will be used to sign the operation.
+   * @param wallet The wallet which will send the balance.
    * @param completion A completion block that will be called with the results of the operation.
    */
 	public func forgeSignPreapplyAndInjectOperation(operation: Operation,
-		address: String,
-		secretKey: String,
+		wallet: Wallet,
 		completion: @escaping (String?, Error?) -> Void) {
-		guard let operationMetadata = getMetadataForOperation(address: address) else {
+		guard let operationMetadata = getMetadataForOperation(address: wallet.address) else {
 			let error = TezosClientError(kind: .unknown, underlyingError: nil)
 			completion(nil, error)
 			return
@@ -179,7 +173,7 @@ public class TezosClient {
 			self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
         operationMetadata: operationMetadata,
 				forgeResult: result,
-				secretKey: secretKey,
+				secretKey: wallet.secretKey,
 				completion: completion)
 		}
 		self.send(rpc: forgeRPC)
