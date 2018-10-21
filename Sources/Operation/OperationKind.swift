@@ -6,8 +6,12 @@ import Foundation
  * operations.
  */
 public enum OperationKind: String {
+  // Implemented operations
+  case transaction = "transaction"
+  case reveal = "reveal"
+
+  // Planned / Unimplemented
 	case delegation = "delegation"
-	case transaction = "transaction"
 	case origination = "origination"
 	case activateAccount = "activate_account"
 }
