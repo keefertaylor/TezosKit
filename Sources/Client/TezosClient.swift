@@ -1,6 +1,5 @@
 import Foundation
 
-// TODO: Document this class.
 /**
  * TezosClient is the gateway into the Tezos Network.
  *
@@ -20,7 +19,7 @@ import Foundation
  *
  * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
  * conforms the the |TezosRPC| protocol and calling:
- *      func sendRequest<T>(rpc: TezosRPC<T>)
+ *      func send<T>(rpc: TezosRPC<T>)
  *
  * Operations
  * -------------
@@ -70,7 +69,7 @@ public class TezosClient {
   /** Retrieve data about the chain head. */
 	public func getHead(completion: @escaping ([String: Any]?, Error?) -> Void) {
 		let rpc = GetChainHeadRPC(completion: completion)
-		self.sendRequest(rpc: rpc)
+		self.send(rpc: rpc)
 	}
 
   /** Retrieve the balance of a given wallet. */
@@ -81,7 +80,7 @@ public class TezosClient {
   /** Retrieve the balance of a given address. */
 	public func getBalance(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
 		let rpc = GetAddressBalanceRPC(address: address, completion: completion)
-		self.sendRequest(rpc: rpc)
+		self.send(rpc: rpc)
 	}
 
   /** Retrieve the delegate of a given wallet. */
@@ -92,25 +91,25 @@ public class TezosClient {
   /** Retrieve the delegate of a given address. */
 	public func getDelegate(address: String, completion: @escaping (String?, Error?) -> Void) {
 		let rpc = GetDelegateRPC(address: address, completion: completion)
-		self.sendRequest(rpc: rpc)
+		self.send(rpc: rpc)
 	}
 
   /** Retrieve the hash of the block at the head of the chain. */
 	public func getHeadHash(completion: @escaping (String?, Error?) -> Void) {
 		let rpc = GetChainHeadHashRPC(completion: completion)
-		self.sendRequest(rpc: rpc)
+		self.send(rpc: rpc)
 	}
 
   /** Retrieve the address counter for the given address. */
 	public func getAddressCounter(address: String, completion: @escaping (Int?, Error?) -> Void) {
 		let rpc = GetAddressCounterRPC(address: address, completion: completion)
-		self.sendRequest(rpc: rpc)
+		self.send(rpc: rpc)
 	}
 
   /** Retrieve the address manager key for the given address. */
 	public func getAddressManagerKey(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
 		let rpc = GetAddressManagerKeyRPC(address: address, completion: completion)
-		self.sendRequest(rpc: rpc)
+		self.send(rpc: rpc)
 	}
 
   /**
@@ -187,7 +186,7 @@ public class TezosClient {
 				secretKey: secretKey,
 				completion: completion)
 		}
-		self.sendRequest(rpc: forgeRPC)
+		self.send(rpc: forgeRPC)
 	}
 
 	/**
@@ -257,7 +256,7 @@ public class TezosClient {
 
 				self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
 			})
-		self.sendRequest(rpc: preapplyOperationRPC)
+		self.send(rpc: preapplyOperationRPC)
 	}
 
 	/**
@@ -271,14 +270,13 @@ public class TezosClient {
 			completion(txHash, txError)
 		})
 
-		self.sendRequest(rpc: injectRPC)
+		self.send(rpc: injectRPC)
 	}
 
 	/**
    * Send an RPC as a GET or POST request.
    */
-  // TODO: rename for consistency.
-	public func sendRequest<T>(rpc: TezosRPC<T>) {
+	public func send<T>(rpc: TezosRPC<T>) {
 		guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
 			let error = NSError(domain: tezosClientErrorDomain, code: TezosClientErrorCode.unknown.rawValue, userInfo: nil)
 			rpc.handleResponse(data: nil, error: error)
@@ -339,10 +337,10 @@ public class TezosClient {
 
     // Send RPCs and wait for results
 		fetchersGroup.enter()
-		self.sendRequest(rpc: chainHeadRequestRPC)
+		self.send(rpc: chainHeadRequestRPC)
 
 		fetchersGroup.enter()
-		self.sendRequest(rpc: getAddressCounterRPC)
+		self.send(rpc: getAddressCounterRPC)
 
 		fetchersGroup.wait()
 
