@@ -16,4 +16,7 @@ public struct OperationMetadata {
 
   /** The counter for the address being operated on. */
   public let addressCounter: Int
+
+  /** The key for the address, or nil if the key is not yet revealed. */
+  public let key: String?
 }
