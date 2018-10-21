@@ -89,20 +89,22 @@ public class TezosClient {
 		address: String,
 		secretKey: String,
 		completion: @escaping (String?, Error?) -> Void) {
-		guard let operationData = getDataForSignedOperation(address: address) else {
-			let error = NSError(domain: tezosClientErrorDomain, code: TezosClientErrorCode.unknown.rawValue, userInfo: nil)
+		guard let operationMetadata = getMetadataForOperation(address: address) else {
+			let error = NSError(domain: tezosClientErrorDomain,
+                          code: TezosClientErrorCode.unknown.rawValue,
+                          userInfo: nil)
 			completion(nil, error)
 			return
 		}
 
-		let newCounter = String(operationData.addressCounter + 1)
+		let newCounter = String(operationMetadata.addressCounter + 1)
 
 		var mutableOperation = operation.dictionaryRepresentation
 		mutableOperation["counter"] = newCounter
 
 		var operationPayload: [String: Any] = [:]
 		operationPayload["contents"] = [mutableOperation]
-		operationPayload["branch"] = operationData.headHash
+		operationPayload["branch"] = operationMetadata.headHash
 
 		guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
 			let error = NSError(domain: tezosClientErrorDomain,
@@ -112,19 +114,17 @@ public class TezosClient {
 			return
 		}
 
-		let forgeRPC = ForgeOperationRPC(chainID: operationData.chainID,
-			headHash: operationData.headHash,
+		let forgeRPC = ForgeOperationRPC(chainID: operationMetadata.chainID,
+			headHash: operationMetadata.headHash,
 			payload: jsonPayload) { (result, error) in
 			guard let result = result else {
 				completion(nil, error)
 				return
 			}
 			self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
+        operationMetadata: operationMetadata,
 				forgeResult: result,
 				secretKey: secretKey,
-				chainID: operationData.chainID,
-				headHash: operationData.headHash,
-				protocolHash: operationData.protocolHash,
 				completion: completion)
 		}
 		self.sendRequest(rpc: forgeRPC)
@@ -134,19 +134,15 @@ public class TezosClient {
    * Sign the result of a forged operation, preapply and inject it if successful.
    *
    * @param operationPayload The operation payload which was used to forge the operation.
+   * @param operationMetadata Metadata related to the operation.
    * @param forgeResult The result of forging the operation payload.
    * @param secretKey The edsk prefixed secret key which will be used to sign the operation.
-   * @param chainID The chain which is being operated on.
-   * @param headhash The hash of the head of the chain being operated on.
-   * @param protocolHash The hash of the protocol being operated on.
    * @param completion A completion block that will be called with the results of the operation.
    */
 	private func signPreapplyAndInjectOperation(operationPayload: [String: Any],
+    operationMetadata: OperationMetadata,
 		forgeResult: String,
 		secretKey: String,
-		chainID: String,
-		headHash: String,
-		protocolHash: String,
 		completion: @escaping (String?, Error?) -> Void) {
 		guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
 			secretKey: secretKey),
@@ -160,7 +156,7 @@ public class TezosClient {
 
 		var mutableOperationPayload = operationPayload
 		mutableOperationPayload["signature"] = signedResult.edsig
-		mutableOperationPayload ["protocol"] = protocolHash
+		mutableOperationPayload ["protocol"] = operationMetadata.protocolHash
 
 		let operationPayloadArray = [mutableOperationPayload]
 		guard let signedJsonPayload = JSONUtils.jsonString(for: operationPayloadArray) else {
@@ -173,8 +169,7 @@ public class TezosClient {
 
 		self.preapplyAndInjectRPC(payload: signedJsonPayload,
 			signedBytesForInjection: jsonSignedBytes,
-			chainID: chainID,
-			headHash: headHash,
+			operationMetadata: operationMetadata,
 			completion: completion)
 	}
 
@@ -184,17 +179,15 @@ public class TezosClient {
    * @param payload A JSON encoded string that will be preapplied.
    * @param signedBytesForInjection A JSON encoded string that contains signed bytes for the
    *        preapplied operation.
-   * @param chainID The chain which is being operated on.
-   * @param headhash The hash of the head of the chain being operated on.
+   * @param operationMetadata Metadata related to the operation.
    * @param completion A completion block that will be called with the results of the operation.
    */
 	private func preapplyAndInjectRPC(payload: String,
 		signedBytesForInjection: String,
-		chainID: String,
-		headHash: String,
+		operationMetadata: OperationMetadata,
 		completion: @escaping (String?, Error?) -> Void) {
-		let preapplyOperationRPC = PreapplyOperationRPC(chainID: chainID,
-			headHash: headHash,
+		let preapplyOperationRPC = PreapplyOperationRPC(chainID: operationMetadata.chainID,
+			headHash: operationMetadata.headHash,
 			payload: payload,
 			completion: { (result, error) in
 				guard let _ = result else {
@@ -249,12 +242,12 @@ public class TezosClient {
 	}
 
 	/**
-   * Retrieve data needed to forge / pre-apply / sign / inject an operation.
+   * Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
    *
    * This method parallelizes fetches to get chain and address data and returns all required data
    * together as an OperationData object.
    */
-	private func getDataForSignedOperation(address: String) -> OperationData? {
+	private func getMetadataForOperation(address: String) -> OperationMetadata? {
 		let fetchersGroup = DispatchGroup()
 
     // Fetch data about the chain being operated on.
@@ -297,10 +290,10 @@ public class TezosClient {
        let headHash = headHash,
        let chainID = chainID,
  			 let protocolHash = protocolHash {
-      return OperationData(chainID: chainID,
-                           headHash: headHash,
-                           protocolHash: protocolHash,
-                           addressCounter: operationCounter)
+      return OperationMetadata(chainID: chainID,
+                               headHash: headHash,
+                               protocolHash: protocolHash,
+                               addressCounter: operationCounter)
 		}
 		return nil
 	}
