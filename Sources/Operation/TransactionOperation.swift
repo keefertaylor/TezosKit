@@ -15,11 +15,11 @@ public class TransactionOperation: AbstractOperation {
 
 	/**
    * @param amount The amount of XTZ to transact.
-   * @param from The wallet that is sending the XTZ.
+   * @param source The wallet that is sending the XTZ.
    * @param to The address that is receiving the XTZ.
    */
-	public convenience init(amount: TezosBalance, from wallet: Wallet, to destination: String) {
-		self.init(amount: amount, source: wallet.address, destination: destination)
+	public convenience init(amount: TezosBalance, source: Wallet, destination: String) {
+		self.init(amount: amount, source: source.address, destination: destination)
 	}
 
 	/**
