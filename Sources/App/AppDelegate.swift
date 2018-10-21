@@ -70,8 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	private func testAddressRPCs() {
-		let publicNodeURL = URL(string: "https://rpc.tezrpc.me")!
-		let tezosClient = TezosClient(remoteNodeURL: publicNodeURL)
+		let tezosClient = TezosClient()
 
 		// Originated account for Tezos.Community.
 		// See: KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA

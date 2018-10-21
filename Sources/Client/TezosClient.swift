@@ -3,9 +3,24 @@ import Foundation
 // TODO: Document this class.
 // TODO: Consider decomposing this class into smaller pieces.
 public class TezosClient {
+  /** The default node URL to use. */
+  public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
+
 	private let urlSession: URLSession
 	private let remoteNodeURL: URL
 
+  /**
+   * Initialze a new TezosClient using the default Node URL.
+   */
+  public convenience init() {
+    self.init(remoteNodeURL: type(of: self).defaultNodeURL)
+  }
+
+  /**
+   * Initialize a new TezosClient.
+   *
+   * @param removeNodeURL The path to the remote node.
+   */
 	public init(remoteNodeURL: URL) {
 		self.remoteNodeURL = remoteNodeURL
 		self.urlSession = URLSession.shared
