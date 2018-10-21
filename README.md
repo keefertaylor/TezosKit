@@ -21,13 +21,13 @@ TezosKit is available via the Swift package manager.
 To get started building and developing locally:
 
 ```console
-\# Clone TezosKit repo
+# Clone TezosKit repo
 $ git clone https://github.com/keefertaylor/TezosKit.git
 
-\# Build library
+# Build library
 $ swift build
 
-\# Generate an xcode project
+# Generate an xcode project
 $ swift package generate-xcodeproj
 generated: ./TezosKit.xcodeproj
 $ open ./TezosKit.xcodeproj
