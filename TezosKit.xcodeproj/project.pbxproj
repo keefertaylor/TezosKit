@@ -124,7 +124,7 @@
 		7AA95818217CB3BD00865D55 /* RPC */ = {
 			isa = PBXGroup;
 			children = (
-				7AA9581D217CB43A00865D55 /* Response Adapters */,
+				7AA9581D217CB43A00865D55 /* ResponseAdapters */,
 				7AA9581A217CB3EF00865D55 /* InjectOperationRPC.swift */,
 				7AA95819217CB3EF00865D55 /* PreapplyOperationRPC.swift */,
 				7AA9580A217CB3A300865D55 /* ForgeOperationRPC.swift */,
@@ -139,12 +139,12 @@
 			path = RPC;
 			sourceTree = "<group>";
 		};
-		7AA9581D217CB43A00865D55 /* Response Adapters */ = {
+		7AA9581D217CB43A00865D55 /* ResponseAdapters */ = {
 			isa = PBXGroup;
 			children = (
 				7AA8F36F21605FE500C05895 /* ResponseAdapters.swift */,
 			);
-			path = "Response Adapters";
+			path = ResponseAdapters;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
