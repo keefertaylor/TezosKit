@@ -18,6 +18,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 
+  private func testWalletGenerationPassPhrase() {
+    let passphrase = "TezosKitTest"
+
+    let expectedMnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
+    let expectedPublicKey = "edpktnCgi3C7ZLyLrF4NAebDkgu5PZRRJ9BafxskVEj6U1GycyRird"
+    let expectedSecretKey = "edskRjazzmroxmJagYDhCT1jXna8m9H2qvjtPAcrZYZ31og4ud1u2kkxYGv8e7CjmbW33QubzugueXqLFPMbM2eAj6j3AQHrCW"
+    let expectedPublicKeyHash = "tz1ZfhME1B2kmagqEJ9P7PE8joM3TbVQ5r4v"
+
+    // Create a wallet.
+    guard let wallet = Wallet(mnemonic: expectedMnemonic, passphrase: passphrase) else {
+      print("Error creating wallet :(")
+      return
+    }
+
+    print("Expected Public Key: " + expectedPublicKey)
+    print("Actual Public Key  : " + wallet.publicKey)
+    print("")
+
+    print("Expected Private Key: " + expectedSecretKey)
+    print("Actual Private Key  : " + wallet.secretKey)
+    print("")
+
+    print("Expected Hash Key: " + expectedPublicKeyHash)
+    print("Actual Hash Key  : " + wallet.address)
+    print("")
+
+    print("Expected mnemonic: " + expectedMnemonic)
+    print("Actual mnemonic  : " + wallet.mnemonic)
+    print("")
+  }
+
 	private func testWalletGeneration() {
 		// Params for a wallet. This wallet is never originated and should *NOT* be used as the secret
 		// key will live in github.
