@@ -3,11 +3,20 @@ import Foundation
 /**
  * A model class representing a balance of Tezos.
  */
-public class TezosBalance {
-  // The number of decimal places available in Tezos values.
+public struct TezosBalance {
+  /** The number of decimal places available in Tezos values. */
   private let decimalDigitCount = 6
 
+  /**
+   * A string representing the integer amount of the balance.
+   * For instance, a balance of 123.456 would be represented in this field as "123".
+   */
   private let integerAmount: String
+
+  /**
+   * A string representing the decimal amount of the balance.
+   * For instance, a balance of 123.456 would be represented in this field as "456".
+   */
   private let decimalAmount: String
 
   /**
