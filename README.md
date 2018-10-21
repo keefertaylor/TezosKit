@@ -1,6 +1,6 @@
 # TezosKit
 
-TezosKit is a Swift library that is compatible with the [Tezos Blockchain](tezos.com). TezosKit implements communication with the blockchain via the JSON API.
+TezosKit is a Swift library that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements communication with the blockchain via the JSON API.
 
 Currently, TezosKit supports:
 * Getting account balances
