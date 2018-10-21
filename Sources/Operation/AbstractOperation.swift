@@ -21,7 +21,7 @@ public class AbstractOperation: Operation {
 		switch self.kind {
 		case .delegation, .transaction, .origination:
 			return true
-		case .activateAccount:
+		case .activateAccount, .reveal:
 			return false
 		}
 	}
