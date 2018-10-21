@@ -130,7 +130,7 @@
 				7AA9582B217CB6F700865D55 /* JSONUtils.swift */,
 				7AA9582C217CB6F700865D55 /* MnemonicUtil.swift */,
 				7AA8F3592160158000C05895 /* AppDelegate.swift */,
-				7A1E2EDB2176B3F40073C080 /* Operation.swift */,
+				7AA95830217CB7A100865D55 /* Operation */,
 				7AA8F36D2160211800C05895 /* TezosClientErrorCodes.swift */,
 				7AA8F35D2160158000C05895 /* Main.storyboard */,
 				7AA8F3602160158100C05895 /* Assets.xcassets */,
@@ -169,6 +169,14 @@
 				7AA9581F217CB53600865D55 /* TezosBalanceResponseAdapter.swift */,
 			);
 			path = ResponseAdapters;
+			sourceTree = "<group>";
+		};
+		7AA95830217CB7A100865D55 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				7A1E2EDB2176B3F40073C080 /* Operation.swift */,
+			);
+			path = Operation;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
