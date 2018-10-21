@@ -287,6 +287,10 @@ public class TezosClient {
 		}
 
 		let request = self.urlSession.dataTask(with: urlRequest as URLRequest) { (data, response, error) in
+      if let httpResp = urlRequest as? HTTPURLResponse, httpResp.statusCode != 200 {
+        print("very wrong")
+      }
+
 			rpc.handleResponse(data: data, error: error)
 		}
 		request.resume()
@@ -327,12 +331,25 @@ public class TezosClient {
 				fetchersGroup.leave()
 		}
 
+    // Fetch data about the key.
+    var addressKey: String? = nil
+    let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address) { (fetchedManagerAndKey, error) in
+      if let fetchedManagerAndKey = fetchedManagerAndKey,
+         let fetchedKey = fetchedManagerAndKey["key"] as? String {
+         addressKey = fetchedKey
+      }
+      fetchersGroup.leave()
+    }
+
     // Send RPCs and wait for results
 		fetchersGroup.enter()
 		self.send(rpc: chainHeadRequestRPC)
 
 		fetchersGroup.enter()
 		self.send(rpc: getAddressCounterRPC)
+
+    fetchersGroup.enter()
+    self.send(rpc: getAddressManagerKeyRPC)
 
 		fetchersGroup.wait()
 
@@ -344,7 +361,8 @@ public class TezosClient {
       return OperationMetadata(chainID: chainID,
                                headHash: headHash,
                                protocolHash: protocolHash,
-                               addressCounter: operationCounter)
+                               addressCounter: operationCounter,
+                               key: addressKey)
 		}
 		return nil
 	}
