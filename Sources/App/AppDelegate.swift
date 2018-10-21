@@ -82,8 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		tezosClient.getDelegate(address: address) { (delegate: String?, error: Error?) in
 			print("Got delegate (Addr): " + delegate!)
 		}
-		tezosClient.getAddressCounter(address: address) { (counter: String?, error: Error?) in
-			print("Got counter: " + counter!)
+		tezosClient.getAddressCounter(address: address) { (counter: Int?, error: Error?) in
+			print("Got counter: \(counter!)")
 		}
 		tezosClient.getAddressManagerKey(address: address) { (managerKey: [String: Any]?, error: Error?) in
 			print("Got address manager key: \(managerKey!)")

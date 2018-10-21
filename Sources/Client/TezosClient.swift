@@ -39,7 +39,7 @@ public class TezosClient {
 		self.sendRequest(rpc: rpc)
 	}
 
-	public func getAddressCounter(address: String, completion: @escaping (String?, Error?) -> Void) {
+	public func getAddressCounter(address: String, completion: @escaping (Int?, Error?) -> Void) {
 		let rpc = GetAddressCounterRPC(address: address, completion: completion)
 		self.sendRequest(rpc: rpc)
 	}
@@ -260,10 +260,9 @@ public class TezosClient {
 
 		var operationCounter: Int? = nil
 		let getAddressCounterRPC =
-			GetAddressCounterRPC(address: address) { (returnedOperationCounter: String?, error: Error?) in
-				if let returnedOperationCounter = returnedOperationCounter,
-					let returnedOperationCounterIntValue = Int(returnedOperationCounter) {
-					operationCounter = returnedOperationCounterIntValue
+			GetAddressCounterRPC(address: address) { (returnedOperationCounter: Int?, error: Error?) in
+				if let returnedOperationCounter = returnedOperationCounter {
+					operationCounter = returnedOperationCounter
 				}
 				fetchersGroup.leave()
 		}
