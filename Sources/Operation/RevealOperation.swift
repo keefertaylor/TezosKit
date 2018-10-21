@@ -17,6 +17,15 @@ public class RevealOperation: AbstractOperation {
   public let publicKey: String
 
   /**
+   * Initialize a new reveal operation for the given wallet.
+   *
+   * @param wallet The wallet that will be revealed.
+   */
+  public convenience init(from wallet: Wallet) {
+    self.init(from: wallet.address, publicKey: wallet.publicKey)
+  }
+
+  /**
    * Initialize a new reveal operation.
    *
    * @param address The address to reveal.
