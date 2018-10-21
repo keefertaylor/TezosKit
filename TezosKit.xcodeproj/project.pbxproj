@@ -11,6 +11,7 @@
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
+		7A53BF1B217CF35700BA15D1 /* OperationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A53BF1A217CF35700BA15D1 /* OperationData.swift */; };
 		7AA8F35A2160158000C05895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8F3592160158000C05895 /* AppDelegate.swift */; };
 		7AA8F35F2160158000C05895 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AA8F35D2160158000C05895 /* Main.storyboard */; };
 		7AA8F3612160158100C05895 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AA8F3602160158100C05895 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		7A53BF1A217CF35700BA15D1 /* OperationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationData.swift; sourceTree = "<group>"; };
 		7AA8F3562160158000C05895 /* TezosKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TezosKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AA8F3592160158000C05895 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AA8F35E2160158000C05895 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -153,13 +155,13 @@
 		7AA8F3582160158000C05895 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7AA95818217CB3BD00865D55 /* RPC */,
-				7AA9583D217CBC7600865D55 /* Client */,
-				7AA9583F217CBDB000865D55 /* Models */,
-				7AA9583B217CBB1700865D55 /* Cryptography */,
-				7AA9583A217CBA4E00865D55 /* Utils */,
-				7AA95830217CB7A100865D55 /* Operation */,
 				7AA9583C217CBBEA00865D55 /* App */,
+				7AA9583D217CBC7600865D55 /* Client */,
+				7AA9583B217CBB1700865D55 /* Cryptography */,
+				7AA9583F217CBDB000865D55 /* Models */,
+				7AA95830217CB7A100865D55 /* Operation */,
+				7AA95818217CB3BD00865D55 /* RPC */,
+				7AA9583A217CBA4E00865D55 /* Utils */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				7A1E2ED3217673FD0073C080 /* Wallet.swift */,
+				7A53BF1A217CF35700BA15D1 /* OperationData.swift */,
 				7AA957D3217B8C1000865D55 /* TezosBalance.swift */,
 			);
 			path = Models;
@@ -439,6 +442,7 @@
 				7AA8F35A2160158000C05895 /* AppDelegate.swift in Sources */,
 				7AA95837217CB80A00865D55 /* DelegationOperation.swift in Sources */,
 				7AA95824217CB53700865D55 /* ResponseAdapter.swift in Sources */,
+				7A53BF1B217CF35700BA15D1 /* OperationData.swift in Sources */,
 				7AA95815217CB3A400865D55 /* GetAddressCounterRPC.swift in Sources */,
 				7AA95826217CB53700865D55 /* JSONArrayResponseAdapter.swift in Sources */,
 				7AA9581C217CB3EF00865D55 /* InjectOperationRPC.swift in Sources */,

@@ -95,7 +95,7 @@ public class TezosClient {
 			return
 		}
 
-		let newCounter = String(operationData.operationCounter + 1)
+		let newCounter = String(operationData.addressCounter + 1)
 
 		var mutableOperation = operation.dictionaryRepresentation
 		mutableOperation["counter"] = newCounter
@@ -250,38 +250,40 @@ public class TezosClient {
 
 	/**
    * Retrieve data needed to forge / pre-apply / sign / inject an operation.
+   *
+   * This method parallelizes fetches to get chain and address data and returns all required data
+   * together as an OperationData object.
    */
-	// TODO: Refactor this tuple to be a first class object.
-	private func getDataForSignedOperation(address: String) -> (chainID: String,
-		headHash: String,
-		protocolHash: String,
-		operationCounter: Int)? {
+	private func getDataForSignedOperation(address: String) -> OperationData? {
 		let fetchersGroup = DispatchGroup()
 
+    // Fetch data about the chain being operated on.
 		var chainID: String? = nil
 		var headHash: String? = nil
 		var protocolHash: String? = nil
-		let chainHeadRequestRPC = GetChainHeadRPC() { (json: [String: Any]?, error: Error?) in
+		let chainHeadRequestRPC = GetChainHeadRPC() { (json, error) in
 			if let json = json,
-				let returnedChainID = json["chain_id"] as? String,
-				let returnedHeadHash = json["hash"] as? String,
-				let returnedProtocolHash = json["protocol"] as? String {
-				chainID = returnedChainID
-				headHash = returnedHeadHash
-				protocolHash = returnedProtocolHash
+				let fetchedChainID = json["chain_id"] as? String,
+				let fetchedHeadHash = json["hash"] as? String,
+				let fetchedProtocolHash = json["protocol"] as? String {
+				chainID = fetchedChainID
+				headHash = fetchedHeadHash
+				protocolHash = fetchedProtocolHash
 			}
 			fetchersGroup.leave()
 		}
 
+    // Fetch data about the address being operated on.
 		var operationCounter: Int? = nil
 		let getAddressCounterRPC =
-			GetAddressCounterRPC(address: address) { (returnedOperationCounter: Int?, error: Error?) in
-				if let returnedOperationCounter = returnedOperationCounter {
-					operationCounter = returnedOperationCounter
+			GetAddressCounterRPC(address: address) { (fetchedOperationCounter, error) in
+				if let fetchedOperationCounter = fetchedOperationCounter {
+					operationCounter = fetchedOperationCounter
 				}
 				fetchersGroup.leave()
 		}
 
+    // Send RPCs and wait for results
 		fetchersGroup.enter()
 		self.sendRequest(rpc: chainHeadRequestRPC)
 
@@ -290,12 +292,15 @@ public class TezosClient {
 
 		fetchersGroup.wait()
 
-		// If all data was retrived successfully return them in a tuple. Otherwise, return nil.
+		// Return fetched data as an OperationData if all data was successfully retrieved.
 		if let operationCounter = operationCounter,
-			let headHash = headHash,
-			let chainID = chainID,
-			let protocolHash = protocolHash {
-			return (chainID: chainID, headHash: headHash, protocolHash: protocolHash, operationCounter: operationCounter)
+       let headHash = headHash,
+       let chainID = chainID,
+ 			 let protocolHash = protocolHash {
+      return OperationData(chainID: chainID,
+                           headHash: headHash,
+                           protocolHash: protocolHash,
+                           addressCounter: operationCounter)
 		}
 		return nil
 	}
