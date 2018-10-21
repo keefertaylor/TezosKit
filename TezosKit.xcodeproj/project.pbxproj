@@ -48,6 +48,16 @@
 		7AA9584A217CCADE00865D55 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95849217CCADE00865D55 /* File.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7AA95854217CCBEE00865D55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AA8F34E2160158000C05895 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AA8F3552160158000C05895;
+			remoteInfo = TezosKit;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		017EDEEC626A3CB7D1466B41 /* Pods-TezosKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKit/Pods-TezosKit.release.xcconfig"; sourceTree = "<group>"; };
 		633241BA0820D6F7BA4CA23E /* Pods-TezosKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKit/Pods-TezosKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +101,8 @@
 		7AA95843217CC9E000865D55 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7AA95847217CCA9C00865D55 /* TestKeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestKeyPair.swift; path = Tests/Cryptography/TestKeyPair.swift; sourceTree = "<group>"; };
 		7AA95849217CCADE00865D55 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = Tests/Cryptography/File.swift; sourceTree = "<group>"; };
+		7AA9584F217CCBEE00865D55 /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AA95853217CCBEE00865D55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F989C498BDA454447F4F8EEC /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -100,6 +112,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2506405B78B2D5A90BFD9DFA /* libPods-TezosKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AA9584C217CCBEE00865D55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +140,7 @@
 				7A1E2ED92176A26C0073C080 /* README.md */,
 				7AA95845217CC9F500865D55 /* Tests */,
 				7AA8F3582160158000C05895 /* Sources */,
+				7AA95850217CCBEE00865D55 /* TezosKitTests */,
 				7AA8F3572160158000C05895 /* Products */,
 				66DCFF36F3CA345FF65DA166 /* Pods */,
 				E1B299C2AF182A8A0B52D6BE /* Frameworks */,
@@ -131,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				7AA8F3562160158000C05895 /* TezosKit.app */,
+				7AA9584F217CCBEE00865D55 /* TezosKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -245,7 +266,6 @@
 		7AA95845217CC9F500865D55 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				7AA95846217CCA8B00865D55 /* Cryptography */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -257,6 +277,16 @@
 				7AA95849217CCADE00865D55 /* File.swift */,
 			);
 			name = Cryptography;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		7AA95850217CCBEE00865D55 /* TezosKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				7AA95846217CCA8B00865D55 /* Cryptography */,
+				7AA95853217CCBEE00865D55 /* Info.plist */,
+			);
+			path = TezosKitTests;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
@@ -288,6 +318,24 @@
 			productReference = 7AA8F3562160158000C05895 /* TezosKit.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7AA9584E217CCBEE00865D55 /* TezosKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AA95856217CCBEE00865D55 /* Build configuration list for PBXNativeTarget "TezosKitTests" */;
+			buildPhases = (
+				7AA9584B217CCBEE00865D55 /* Sources */,
+				7AA9584C217CCBEE00865D55 /* Frameworks */,
+				7AA9584D217CCBEE00865D55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7AA95855217CCBEE00865D55 /* PBXTargetDependency */,
+			);
+			name = TezosKitTests;
+			productName = TezosKitTests;
+			productReference = 7AA9584F217CCBEE00865D55 /* TezosKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -301,6 +349,10 @@
 					7AA8F3552160158000C05895 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1000;
+					};
+					7AA9584E217CCBEE00865D55 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 7AA8F3552160158000C05895;
 					};
 				};
 			};
@@ -318,6 +370,7 @@
 			projectRoot = "";
 			targets = (
 				7AA8F3552160158000C05895 /* TezosKit */,
+				7AA9584E217CCBEE00865D55 /* TezosKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -332,6 +385,13 @@
 				7AA95844217CC9E000865D55 /* README.md in Resources */,
 				7A1E2EDA2176A26D0073C080 /* README.md in Resources */,
 				7AA8F35F2160158000C05895 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AA9584D217CCBEE00865D55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +459,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AA9584B217CCBEE00865D55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7AA95855217CCBEE00865D55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AA8F3552160158000C05895 /* TezosKit */;
+			targetProxy = 7AA95854217CCBEE00865D55 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7AA8F35D2160158000C05895 /* Main.storyboard */ = {
@@ -578,6 +653,46 @@
 			};
 			name = Release;
 		};
+		7AA95857217CCBEE00865D55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JQ7L3SB3TH;
+				INFOPLIST_FILE = TezosKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.TezosKit.TezosKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TezosKit.app/TezosKit";
+			};
+			name = Debug;
+		};
+		7AA95858217CCBEE00865D55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JQ7L3SB3TH;
+				INFOPLIST_FILE = TezosKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.TezosKit.TezosKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TezosKit.app/TezosKit";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -595,6 +710,15 @@
 			buildConfigurations = (
 				7AA8F3692160158100C05895 /* Debug */,
 				7AA8F36A2160158100C05895 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AA95856217CCBEE00865D55 /* Build configuration list for PBXNativeTarget "TezosKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AA95857217CCBEE00865D55 /* Debug */,
+				7AA95858217CCBEE00865D55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
