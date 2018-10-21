@@ -1,16 +1,57 @@
 import Foundation
 
 // TODO: Document this class.
-// TODO: Consider decomposing this class into smaller pieces.
+/**
+ * TezosClient is the gateway into the Tezos Network.
+ *
+ * Configuration
+ * -------------
+ * The client is initialized with a node URL which points to a node who can receive JSON RPC
+ * requests from this client. The default not is rpc.tezrpc.me, a public node provided by TezTech.
+ *
+ * RPCs
+ * -------------
+ * TezosClient contains support for GET and POST RPCS and will make requests based on the
+ * RPCs provided to it.
+ *
+ * All supported RPC operations are provided in the Sources/Requests folder of the project. In
+ * addition, TezosClient provides convenience methods for constructing and sending all supported
+ * operations.
+ *
+ * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
+ * conforms the the |TezosRPC| protocol and calling:
+ *      func sendRequest<T>(rpc: TezosRPC<T>)
+ *
+ * Operations
+ * -------------
+ * TezosClient also contains support for performing signed operations on the Tezos blockchain. These
+ * operations require a multi-step process to perform (forge, sign, pre-apply, inject).
+ *
+ * All supported signed operations are provided in the Sources/Operations folder of the project. In
+ * addition, TezosClient provides convenience methods for constructing and performing all supported
+ * signed operations.
+ *
+ * Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
+ * Operation object that conforms to the |Operation| protocol and calling:
+ * object that
+ * conforms the the TezosRPC protocol and calling:
+ *      func forgeSignPreapplyAndInjectOperation(operation: Operation,
+ *                                               address: String,
+ *                                               secretKey: String,
+ *                                               completion: @escaping (String?, Error?) -> Void)
+ */
 public class TezosClient {
   /** The default node URL to use. */
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
+  /** The URL session that will be used to manage URL requests. */
 	private let urlSession: URLSession
+
+  /** A URL pointing to a remote node that will handle requests made by this client. */
 	private let remoteNodeURL: URL
 
   /**
-   * Initialze a new TezosClient using the default Node URL.
+   * Initialize a new TezosClient using the default Node URL.
    */
   public convenience init() {
     self.init(remoteNodeURL: type(of: self).defaultNodeURL)
@@ -26,44 +67,63 @@ public class TezosClient {
 		self.urlSession = URLSession.shared
 	}
 
+  /** Retrieve data about the chain head. */
 	public func getHead(completion: @escaping ([String: Any]?, Error?) -> Void) {
 		let rpc = GetChainHeadRPC(completion: completion)
 		self.sendRequest(rpc: rpc)
 	}
 
+  /** Retrieve the balance of a given wallet. */
 	public func getBalance(wallet: Wallet, completion: @escaping (TezosBalance?, Error?) -> Void) {
 		self.getBalance(address: wallet.address, completion: completion)
 	}
 
+  /** Retrieve the balance of a given address. */
 	public func getBalance(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
 		let rpc = GetAddressBalanceRPC(address: address, completion: completion)
 		self.sendRequest(rpc: rpc)
 	}
 
+  /** Retrieve the delegate of a given wallet. */
 	public func getDelegate(wallet: Wallet, completion: @escaping (String?, Error?) -> Void) {
 		self.getDelegate(address: wallet.address, completion: completion)
 	}
 
+  /** Retrieve the delegate of a given address. */
 	public func getDelegate(address: String, completion: @escaping (String?, Error?) -> Void) {
 		let rpc = GetDelegateRPC(address: address, completion: completion)
 		self.sendRequest(rpc: rpc)
 	}
 
+  /** Retrieve the hash of the block at the head of the chain. */
 	public func getHeadHash(completion: @escaping (String?, Error?) -> Void) {
 		let rpc = GetChainHeadHashRPC(completion: completion)
 		self.sendRequest(rpc: rpc)
 	}
 
+  /** Retrieve the address counter for the given address. */
 	public func getAddressCounter(address: String, completion: @escaping (Int?, Error?) -> Void) {
 		let rpc = GetAddressCounterRPC(address: address, completion: completion)
 		self.sendRequest(rpc: rpc)
 	}
 
+  /** Retrieve the address manager key for the given address. */
 	public func getAddressManagerKey(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
 		let rpc = GetAddressManagerKeyRPC(address: address, completion: completion)
 		self.sendRequest(rpc: rpc)
 	}
 
+  /**
+   * Transact Tezos between accounts.
+   *
+   * @param balance The balance to send.
+   * @param recipientAddress The address which will receive the balance.
+   * @param address The address which will send the balance.
+   * @param secretKey A "edsk" prefixed secret key associated with the address parameter which will
+   *        be used to sign the operation.
+   * @param completion A completion block which will be called with a string representing the
+   *        transaction ID hash if the operation was successful.
+   */
 	public func send(amount: TezosBalance,
 		to recipientAddress: String,
 		from address: String,
@@ -217,6 +277,7 @@ public class TezosClient {
 	/**
    * Send an RPC as a GET or POST request.
    */
+  // TODO: rename for consistency.
 	public func sendRequest<T>(rpc: TezosRPC<T>) {
 		guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
 			let error = NSError(domain: tezosClientErrorDomain, code: TezosClientErrorCode.unknown.rawValue, userInfo: nil)
