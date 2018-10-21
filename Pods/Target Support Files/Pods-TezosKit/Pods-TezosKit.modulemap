@@ -1,6 +1,0 @@
-module Pods_TezosKit {
-  umbrella header "Pods-TezosKit-umbrella.h"
-
-  export *
-  module * { export * }
-}
