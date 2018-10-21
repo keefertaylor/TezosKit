@@ -12,5 +12,9 @@
 xcuserdata
 *.moved-aside
 
-#CocoaPods
+# Swift package manager.
+.build
+Package.resolved
+
+# CocoaPods
 Podfile.old
