@@ -38,6 +38,8 @@ import Foundation
  *                                               address: String,
  *                                               secretKey: String,
  *                                               completion: @escaping (String?, Error?) -> Void)
+ * TODO: update documentation for multiple operations at once
+ * TODO: update documentation for reveal operation
  */
 public class TezosClient {
   /** The default node URL to use. */
@@ -133,7 +135,7 @@ public class TezosClient {
 	}
 
 	/**
-   * Forge, sign, preapply and then inject an operation.
+   * Forge, sign, preapply and then inject a single operation.
    *
    * @param operation The operation which will be used to forge the operation.
    * @param wallet The wallet which will send the balance.
@@ -142,19 +144,43 @@ public class TezosClient {
 	public func forgeSignPreapplyAndInjectOperation(operation: Operation,
 		wallet: Wallet,
 		completion: @escaping (String?, Error?) -> Void) {
+    self.forgeSignPreapplyAndInjectOperations(operations: [operation],
+                                              wallet: wallet,
+                                              completion: completion)
+  }
+
+  /**
+   * Forge, sign, preapply and then inject a set of operations.
+   *
+   * Operations are processed in the order they are placed in the operation array.
+   *
+   * @param operation The operation which will be used to forge the operation.
+   * @param wallet The wallet which will send the balance.
+   * @param completion A completion block that will be called with the results of the operation.
+   */
+  public func forgeSignPreapplyAndInjectOperations(operations: [Operation],
+    wallet: Wallet,
+    completion: @escaping (String?, Error?) -> Void) {
 		guard let operationMetadata = getMetadataForOperation(address: wallet.address) else {
 			let error = TezosClientError(kind: .unknown, underlyingError: nil)
 			completion(nil, error)
 			return
 		}
 
-		let newCounter = String(operationMetadata.addressCounter + 1)
+    // Process all operations to have increasing counters and place them in the contents array.
+    var contents: [[String: Any]] = []
+    var counter = operationMetadata.addressCounter
+    for operation in operations {
+      counter = counter + 1
 
-		var mutableOperation = operation.dictionaryRepresentation
-		mutableOperation["counter"] = newCounter
+      var mutableOperation = operation.dictionaryRepresentation
+      mutableOperation["counter"] = String(counter)
+
+      contents.append(mutableOperation)
+    }
 
 		var operationPayload: [String: Any] = [:]
-		operationPayload["contents"] = [mutableOperation]
+		operationPayload["contents"] = contents
 		operationPayload["branch"] = operationMetadata.headHash
 
 		guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
