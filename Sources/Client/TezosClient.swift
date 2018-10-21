@@ -32,13 +32,16 @@ import Foundation
  *
  * Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
  * Operation object that conforms to the |Operation| protocol and calling:
- * object that
- * conforms the the TezosRPC protocol and calling:
  *      func forgeSignPreapplyAndInjectOperation(operation: Operation,
- *                                               address: String,
- *                                               secretKey: String,
+ *                                               wallet: Wallet
  *                                               completion: @escaping (String?, Error?) -> Void)
- * TODO: update documentation for multiple operations at once
+ *
+ * Clients can also send multiple signed operations at once by constructing an array of operations.
+ * Operations are applied in the order they are given in the array. Clients should pass the array
+ * to:
+ *      func forgeSignPreapplyAndInjectOperations(operations: [Operation],
+ *                                                wallet: Wallet,
+ *                                                completion: @escaping (String?, Error?) -> Void)
  * TODO: update documentation for reveal operation
  */
 public class TezosClient {
