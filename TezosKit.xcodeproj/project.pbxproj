@@ -44,8 +44,7 @@
 		7AA95838217CB80A00865D55 /* OperationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95834217CB80A00865D55 /* OperationKind.swift */; };
 		7AA95841217CC56F00865D55 /* IntegerResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */; };
 		7AA95844217CC9E000865D55 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7AA95843217CC9E000865D55 /* README.md */; };
-		7AA95848217CCA9C00865D55 /* TestKeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95847217CCA9C00865D55 /* TestKeyPair.swift */; };
-		7AA9584A217CCADE00865D55 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95849217CCADE00865D55 /* File.swift */; };
+		7AA9585D217CCCC200865D55 /* TestKeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA9585C217CCCC200865D55 /* TestKeyPair.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,10 +98,10 @@
 		7AA95834217CB80A00865D55 /* OperationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationKind.swift; sourceTree = "<group>"; };
 		7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerResponseAdapter.swift; sourceTree = "<group>"; };
 		7AA95843217CC9E000865D55 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		7AA95847217CCA9C00865D55 /* TestKeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestKeyPair.swift; path = Tests/Cryptography/TestKeyPair.swift; sourceTree = "<group>"; };
-		7AA95849217CCADE00865D55 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = Tests/Cryptography/File.swift; sourceTree = "<group>"; };
 		7AA9584F217CCBEE00865D55 /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AA95853217CCBEE00865D55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AA9585B217CCCC100865D55 /* TezosKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TezosKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		7AA9585C217CCCC200865D55 /* TestKeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyPair.swift; sourceTree = "<group>"; };
 		F989C498BDA454447F4F8EEC /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -270,23 +269,22 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
-		7AA95846217CCA8B00865D55 /* Cryptography */ = {
-			isa = PBXGroup;
-			children = (
-				7AA95847217CCA9C00865D55 /* TestKeyPair.swift */,
-				7AA95849217CCADE00865D55 /* File.swift */,
-			);
-			name = Cryptography;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		7AA95850217CCBEE00865D55 /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				7AA95846217CCA8B00865D55 /* Cryptography */,
 				7AA95853217CCBEE00865D55 /* Info.plist */,
+				7AA9585B217CCCC100865D55 /* TezosKitTests-Bridging-Header.h */,
+				7AA9585A217CCC8F00865D55 /* Cryptography */,
 			);
 			path = TezosKitTests;
+			sourceTree = "<group>";
+		};
+		7AA9585A217CCC8F00865D55 /* Cryptography */ = {
+			isa = PBXGroup;
+			children = (
+				7AA9585C217CCCC200865D55 /* TestKeyPair.swift */,
+			);
+			path = Cryptography;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
@@ -352,6 +350,7 @@
 					};
 					7AA9584E217CCBEE00865D55 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 						TestTargetID = 7AA8F3552160158000C05895;
 					};
 				};
@@ -424,7 +423,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AA9582D217CB6F700865D55 /* Crypto.swift in Sources */,
-				7AA95848217CCA9C00865D55 /* TestKeyPair.swift in Sources */,
 				7AA95810217CB3A400865D55 /* GetChainHeadRPC.swift in Sources */,
 				7AA95828217CB53700865D55 /* AbstractResponseAdapter.swift in Sources */,
 				7AA95814217CB3A400865D55 /* TezosRPC.swift in Sources */,
@@ -454,7 +452,6 @@
 				7AA9581C217CB3EF00865D55 /* InjectOperationRPC.swift in Sources */,
 				7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */,
 				7AA95827217CB53700865D55 /* StringResponseAdapter.swift in Sources */,
-				7AA9584A217CCADE00865D55 /* File.swift in Sources */,
 				7AA95838217CB80A00865D55 /* OperationKind.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,6 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA9585D217CCCC200865D55 /* TestKeyPair.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +655,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JQ7L3SB3TH;
 				INFOPLIST_FILE = TezosKitTests/Info.plist;
@@ -667,6 +666,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.TezosKit.TezosKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TezosKitTests/Cryptography/TezosKitTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TezosKit.app/TezosKit";
@@ -677,6 +678,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JQ7L3SB3TH;
 				INFOPLIST_FILE = TezosKitTests/Info.plist;
@@ -687,6 +689,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.TezosKit.TezosKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TezosKitTests/Cryptography/TezosKitTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TezosKit.app/TezosKit";
