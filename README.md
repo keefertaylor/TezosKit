@@ -11,6 +11,44 @@ Currently, TezosKit supports:
 
 TezosKit aims to support a greater array of RPCs in the future, similar to [eztz](https://github.com/TezTech/eztz) or [TezosJ](https://github.com/LMilfont/TezosJ-plainjava).
 
+## Installation
+
+
+TezosKit is available via the Swift package manager.
+
+### Build / Develop
+
+To get started building and developing locally:
+
+```console
+\# Clone TezosKit repo
+$ git clone https://github.com/keefertaylor/TezosKit.git
+
+\# Build library
+$ swift build
+
+\# Generate an xcode project
+$ swift package generate-xcodeproj
+generated: ./TezosKit.xcodeproj
+$ open ./TezosKit.xcodeproj
+```
+
+### Depending on TezosKit
+
+Depend on TezosKit by adding the following to your `Package.swift`:
+
+```
+.package(url: "https://github.com/keefertaylor/TezosKit.git", .branch("master")),
+```
+
+### LibSodium Errors
+
+If you receive errors about missing Sodium headers, you need to install `libsodium`:
+
+```console
+$ brew install libsodium
+```
+
 ## Getting Started
 
 ### Create a Network Client
