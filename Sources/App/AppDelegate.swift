@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print("")
 
     print("Expected Private Key: " + expectedSecretKey)
-    print("Actual Private Key  : " + wallet.keys.gsecretKey)
+    print("Actual Private Key  : " + wallet.keys.secretKey)
     print("")
 
     print("Expected Hash Key: " + expectedPublicKeyHash)
