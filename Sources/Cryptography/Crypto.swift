@@ -8,7 +8,7 @@ import Sodium
  */
 public class Crypto {
 	private static let publicKeyPrefix: [UInt8] = [13, 15, 37, 217] // edpk
-	private static let secretKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
+	private static let secretKeyPrefix: [UInt8] = [43, 246, 78, 7]  // edsk
 	private static let publicKeyHashPrefix: [UInt8] = [6, 161, 159] // tz1
 
 	private static let signedOperationPrefix: [UInt8] = [9, 245, 205, 134, 18] // edsig
@@ -19,6 +19,35 @@ public class Crypto {
 	private static let checksumLength = 4
 
 	private static let sodium: Sodium = Sodium()
+
+  /**
+   * Check that a given address is valid public key hash address.
+   */
+  public static func validateAddress(address: String) -> Bool {
+    guard let decodedData = Data(base58Decoding: address) else {
+      return false
+    }
+    let decodedBytes = decodedData.bytes
+
+    // Check that the prefix is correct.
+    for (i, byte) in publicKeyHashPrefix.enumerated() {
+      if decodedBytes[i] != byte {
+        return false
+      }
+    }
+
+    // Check that checksum is correct.
+    let checksumStartIndex = decodedBytes.count - checksumLength
+    let addressWithoutChecksum = decodedBytes[0..<checksumStartIndex]
+    let checksum = decodedBytes[checksumStartIndex...]
+    let expectedChecksum = self.calculateChecksum(Array(addressWithoutChecksum))
+    for (i, byte) in checksum.enumerated() {
+      if expectedChecksum[i] != byte {
+        return false
+      }
+    }
+    return true
+  }
 
 	/**
    * Sign a forged operation with the given secret key.
@@ -96,7 +125,7 @@ public class Crypto {
    */
 	private static func encode(message: [UInt8], prefix: [UInt8]) -> String {
 		let prefixedKey = prefix + message
-		let prefixedKeyCheckSum = calculateCheckSum(prefixedKey)
+		let prefixedKeyCheckSum = calculateChecksum(prefixedKey)
 		let prefixedKeyWithCheckSum = prefixedKey + prefixedKeyCheckSum
 		let data = Data(prefixedKeyWithCheckSum)
 		return String(base58Encoding: data)
@@ -105,7 +134,7 @@ public class Crypto {
 	/**
    * Calculate a checksum for a given input by hashing twice and then taking the first four bytes.
    */
-	private static func calculateCheckSum(_ input: [UInt8]) -> [UInt8] {
+	private static func calculateChecksum(_ input: [UInt8]) -> [UInt8] {
 		let doubleHashedData = Data(input).sha256().sha256()
 		let doubleHashedArray = Array(doubleHashedData)
 		return Array(doubleHashedArray.prefix(checksumLength))

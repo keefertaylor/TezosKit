@@ -11,12 +11,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Run some basic tests.
 		// TODO: Refactor these to be proper unit tests.
-		testWalletGeneration()
-		testChainRPCs()
-		testAddressRPCs()
+    testWalletGeneration()
+    testChainRPCs()
+    testAddressRPCs()
+    testCryptoUtils()
 
 		return true
 	}
+
+  public func testCryptoUtils() {
+    let validAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPH"
+    let validOriginatedAddress = "KT1Agon3ARPS7U74UedWpR96j1CCbPCsSTsL"
+    let invalidAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPh"
+    let publicKey = "edpkvESBNf3cbx7sb4CjyurMxFJjCkUVkunDMjsXD4Squoo5nJR4L4"
+
+    print("Validating Addresses")
+    print("Expect:  true\nActual:  \(Crypto.validateAddress(address: validAddress))\n")
+    print("Expect:  false\nActual:  \(Crypto.validateAddress(address: validOriginatedAddress))\n")
+    print("Expect:  false\nActual:  \(Crypto.validateAddress(address: invalidAddress))\n")
+    print("Expect:  false\nActual:  \(Crypto.validateAddress(address: publicKey))\n")
+    print("")
+  }
 
   private func testWalletGenerationPassPhrase() {
     let passphrase = "TezosKitTest"
