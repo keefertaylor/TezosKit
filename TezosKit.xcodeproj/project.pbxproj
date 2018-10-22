@@ -47,6 +47,7 @@
 		7AA9585D217CCCC200865D55 /* TestKeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA9585C217CCCC200865D55 /* TestKeyPair.swift */; };
 		7ABC8543217D6B91006DE8FD /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8542217D6B90006DE8FD /* Keys.swift */; };
 		7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */; };
+		7ABC8549217E8070006DE8FD /* TypeCheckCodeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		7AA9585C217CCCC200865D55 /* TestKeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyPair.swift; sourceTree = "<group>"; };
 		7ABC8542217D6B90006DE8FD /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperation.swift; sourceTree = "<group>"; };
+		7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeCheckCodeRPC.swift; sourceTree = "<group>"; };
 		F989C498BDA454447F4F8EEC /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -177,6 +179,7 @@
 			children = (
 				7AA9581D217CB43A00865D55 /* ResponseAdapters */,
 				7AA9581A217CB3EF00865D55 /* InjectOperationRPC.swift */,
+				7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */,
 				7AA95819217CB3EF00865D55 /* PreapplyOperationRPC.swift */,
 				7AA9580A217CB3A300865D55 /* ForgeOperationRPC.swift */,
 				7AA95809217CB3A300865D55 /* GetAddressBalanceRPC.swift */,
@@ -435,6 +438,7 @@
 				7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */,
 				7A53BF6A217D295400BA15D1 /* RevealOperation.swift in Sources */,
 				7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */,
+				7ABC8549217E8070006DE8FD /* TypeCheckCodeRPC.swift in Sources */,
 				7AA9580F217CB3A400865D55 /* GetChainHeadHashRPC.swift in Sources */,
 				7AA9582E217CB6F700865D55 /* JSONUtils.swift in Sources */,
 				7AA95829217CB53700865D55 /* JSONDictionaryResponseAdapter.swift in Sources */,
