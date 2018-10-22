@@ -12,14 +12,6 @@ public class DelegationOperation: AbstractOperation {
 	}
 
   /**
-   * @param wallet The wallet that will delegate funds.
-   * @param delegate The address to delegate to.
-   */
-	public convenience init(from wallet: Wallet, to delegate: String) {
-		self.init(source: wallet.address, to: delegate)
-	}
-
-  /**
    * @param source The address that will delegate funds.
    * @param delegate The address to delegate to.
    */
