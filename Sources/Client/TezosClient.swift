@@ -156,7 +156,6 @@ public class TezosClient {
    *
    * TODO: Support clearing a delegate.
    *
-   * @param balance The balance to send.
    * @param recipientAddress The address which will receive the balance.
    * @param source The address sending the balance.
    * @param keys The keys to use to sign the operation for the address.
@@ -172,6 +171,23 @@ public class TezosClient {
       source: source,
       keys: keys,
       completion: completion)
+  }
+
+  /**
+   * Register an address as a delegate.
+   *
+   * @param recipientAddress The address which will receive the balance.
+   * @param source The address sending the balance.
+   * @param keys The keys to use to sign the operation for the address.
+   * @param completion A completion block which will be called with a string representing the
+   *        transaction ID hash if the operation was successful.
+   */
+  public func registerDelegate(delegate: String, keys: Keys, completion: @escaping (String?, Error?) -> Void) {
+    let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate)
+    self.forgeSignPreapplyAndInjectOperation(operation: registerDelegateOperation,
+                                             source: delegate,
+                                             keys: keys,
+                                             completion: completion)
   }
 
 	/**
