@@ -134,10 +134,9 @@ let sendToBobOperation = TransactionOperation(amount: amountToSend,
 
 let operations = [ sendToJimOperation, sendToBobOperation ]
 tezosClient.forgeSignPreapplyAndInjectOperations(operations: operations,
-												 wallet: myWallet { (txHash, error) {
+												 source: myWallet.address,
+												 keys: myWallet.keys) { (txHash, error) in
   print("Sent Jim and Bob some XTZ! See: https://tzscan.io/\(txHash!)")
-}
-
 ```
 
 ## Contributing

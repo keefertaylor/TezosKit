@@ -33,14 +33,16 @@ import Foundation
  * Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
  * Operation object that conforms to the |Operation| protocol and calling:
  *      func forgeSignPreapplyAndInjectOperation(operation: Operation,
- *                                               wallet: Wallet
+ *                                               source: String,
+ *                                               keys: Keys,
  *                                               completion: @escaping (String?, Error?) -> Void)
  *
  * Clients can also send multiple signed operations at once by constructing an array of operations.
  * Operations are applied in the order they are given in the array. Clients should pass the array
  * to:
  *      func forgeSignPreapplyAndInjectOperations(operations: [Operation],
- *                                                wallet: Wallet,
+ *                                                source: String,
+ *                                                keys: Keys,
  *                                                completion: @escaping (String?, Error?) -> Void)
  *
  * Some signed operations require an address be revealed in order to complete the operation. For
@@ -153,7 +155,8 @@ public class TezosClient {
 		wallet: Wallet,
 		completion: @escaping (String?, Error?) -> Void) {
     self.forgeSignPreapplyAndInjectOperations(operations: [operation],
-                                              wallet: wallet,
+                                              source: wallet.address,
+                                              keys: wallet.keys,
                                               completion: completion)
   }
 
@@ -163,13 +166,15 @@ public class TezosClient {
    * Operations are processed in the order they are placed in the operation array.
    *
    * @param operation The operation which will be used to forge the operation.
-   * @param wallet The wallet which will send the balance.
+   * @param source The address performing the operation.
+   * @param keys The keys to use to sign the operation for the address.
    * @param completion A completion block that will be called with the results of the operation.
    */
   public func forgeSignPreapplyAndInjectOperations(operations: [Operation],
-    wallet: Wallet,
+    source: String,
+    keys: Keys,
     completion: @escaping (String?, Error?) -> Void) {
-		guard let operationMetadata = getMetadataForOperation(address: wallet.address) else {
+		guard let operationMetadata = getMetadataForOperation(address: source) else {
 			let error = TezosClientError(kind: .unknown, underlyingError: nil)
 			completion(nil, error)
 			return
@@ -184,7 +189,7 @@ public class TezosClient {
     if operationMetadata.key == nil {
       for operation in operations {
         if operation.requiresReveal {
-          let revealOperation = RevealOperation(from: wallet)
+          let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
           mutableOperations.insert(revealOperation, at: 0)
           break
         }
@@ -223,7 +228,8 @@ public class TezosClient {
 			self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
         operationMetadata: operationMetadata,
 				forgeResult: result,
-				secretKey: wallet.keys.secretKey,
+        source: source,
+				keys: keys,
 				completion: completion)
 		}
 		self.send(rpc: forgeRPC)
@@ -235,16 +241,18 @@ public class TezosClient {
    * @param operationPayload The operation payload which was used to forge the operation.
    * @param operationMetadata Metadata related to the operation.
    * @param forgeResult The result of forging the operation payload.
-   * @param secretKey The edsk prefixed secret key which will be used to sign the operation.
+   * @param source The address performing the operation.
+   * @param keys The keys to use to sign the operation for the address.
    * @param completion A completion block that will be called with the results of the operation.
    */
 	private func signPreapplyAndInjectOperation(operationPayload: [String: Any],
     operationMetadata: OperationMetadata,
 		forgeResult: String,
-		secretKey: String,
+    source: String,
+		keys: Keys,
 		completion: @escaping (String?, Error?) -> Void) {
 		guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
-			secretKey: secretKey),
+			secretKey: keys.secretKey),
 			let jsonSignedBytes = JSONUtils.jsonString(for: signedResult.signedOperation) else {
         let error = TezosClientError(kind: .unknown, underlyingError: nil)
 				completion(nil, error)
