@@ -11,6 +11,7 @@ TezosKit provides first class support for the following RPCs:
 * Generating and restoring wallets 
 * Sending transactions between accounts
 * Sending multiple operations in a single request
+* Setting a delegate
 * (With more coming soon!)
 
 The library is extensible allowing client code to easily create additional RPCs and signed operations, as required. 
@@ -137,6 +138,20 @@ tezosClient.forgeSignPreapplyAndInjectOperations(operations: operations,
 												 source: myWallet.address,
 												 keys: myWallet.keys) { (txHash, error) in
   print("Sent Jim and Bob some XTZ! See: https://tzscan.io/\(txHash!)")
+}
+```
+
+### Set a Delegate
+
+```swift
+let wallet = ...
+let originatedAccountAddress = <Some Account Managed By Wallet>
+let delegateAddress = ...
+tezosClient.delegate(from: originatedAccountAddress,
+                     to: delegateAddress,
+					 keys: wallet.keys) { (txHash, txError) in 
+  print("Delegate for \(originatedAccountAddress) set to \(delegateAddress). See: https://tzscan.io/\(txHash!)")
+}
 ```
 
 ## Contributing
