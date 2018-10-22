@@ -2,18 +2,26 @@
 
 TezosKit is a Swift library that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements communication with the blockchain via the JSON API.
 
-TezosKit aims to support a greater array of RPCs in the future, similar to [eztz](https://github.com/TezTech/eztz) or [TezosJ](https://github.com/LMilfont/TezosJ-plainjava).
+## Functionality
 
-Currently, TezosKit supports:
+TezosKit provides first class support for the following RPCs:
 * Getting account balances
 * Getting data about the chain head
 * Getting account delegates 
 * Generating and restoring wallets 
 * Sending transactions between accounts
 * Sending multiple operations in a single request
+* (With more coming soon!)
+
+The library is extensible allowing client code to easily create additional RPCs and signed operations, as required. 
+
+TesosKit takes care of complex block chain interactions for you:
+* Addresses are revealed automatically, if needed
+* Sending multiple operations by passing them in an array
+
+TezosKit is heavily inspired by functionality provided by other Tezos SDKs, such as [eztz](https://github.com/TezTech/eztz) or [TezosJ](https://github.com/LMilfont/TezosJ-plainjava).
 
 ## Installation
-
 
 TezosKit is available via the Swift package manager.
 
@@ -22,13 +30,13 @@ TezosKit is available via the Swift package manager.
 To get started building and developing locally:
 
 ```console
-\# Clone TezosKit repo
+# Clone TezosKit repo
 $ git clone https://github.com/keefertaylor/TezosKit.git
 
-\# Build library
+# Build library
 $ swift build
 
-\# Generate an xcode project
+# Generate an xcode project
 $ swift package generate-xcodeproj
 generated: ./TezosKit.xcodeproj
 $ open ./TezosKit.xcodeproj
@@ -95,17 +103,41 @@ print("New wallet mnemonic is: \(wallet.mnemonic)")
 
 ```swift
 let wallet = Wallet()
-let sendAmount = TezosBalance(balance: 1.0)
+let sendAmount = TezosBalance(balance: 1.0)!
 let recipientAddress = ...
 tezosClient.send(amount: sendAmount,
                  to recipientAddress: recipientAddress,
                  from address: wallet.address,
-                 secretKey: wallet.secretKey) { (txHash?, txError?) in 
-  guard let txHash = txHash else {
-    return
-  }
-  print("Transaction sent. See: https://tzscan.io/\(txHash)")
+                 secretKey: wallet.secretKey) { (txHash, txError) in 
+  print("Transaction sent. See: https://tzscan.io/\(txHash!)")
 }
+```
+
+### Send Multiple Transactions at Once
+
+Here's an example of how you can send multiple transactions at once. You 
+can easily send Jim and Bob some XTZ in one call:
+
+```swift
+let myWallet: Wallet = ...
+let jimsAddress: String = tz1...
+let bobsAddress: String = tz1...
+
+let amountToSend = TezosBalance("2")!
+
+let sendToJimOperation = TransactionOperation(amount: amountToSend,
+				    						  source: myWallet,
+											  destination: jimsAddress)
+let sendToBobOperation = TransactionOperation(amount: amountToSend,
+											  source: myWallet,
+											  destination: bobsAddress)
+
+let operations = [ sendToJimOperation, sendToBobOperation ]
+tezosClient.forgeSignPreapplyAndInjectOperations(operations: operations,
+												 wallet: myWallet { (txHash, error) {
+  print("Sent Jim and Bob some XTZ! See: https://tzscan.io/\(txHash!)")
+}
+
 ```
 
 ## Contributing

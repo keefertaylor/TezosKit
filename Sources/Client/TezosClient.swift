@@ -42,7 +42,12 @@ import Foundation
  *      func forgeSignPreapplyAndInjectOperations(operations: [Operation],
  *                                                wallet: Wallet,
  *                                                completion: @escaping (String?, Error?) -> Void)
- * TODO: update documentation for reveal operation
+ *
+ * Some signed operations require an address be revealed in order to complete the operation. For
+ * operations supported in TezosKit, the reveal operation will be automatically applied when needed.
+ * For clients who create their own custom signed operations, TezosKit will apply the reveal
+ * operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
+ * correctly.
  */
 public class TezosClient {
   /** The default node URL to use. */
