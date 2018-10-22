@@ -147,6 +147,33 @@ public class TezosClient {
 			completion: completion)
 	}
 
+  /**
+   * Delegate the balance of an originated account.
+   *
+   * Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
+   * is not checked on an input to this methods. Thus, the source address must be a KT1 address and
+   * the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+   *
+   * TODO: Support clearing a delegate.
+   *
+   * @param balance The balance to send.
+   * @param recipientAddress The address which will receive the balance.
+   * @param source The address sending the balance.
+   * @param keys The keys to use to sign the operation for the address.
+   * @param completion A completion block which will be called with a string representing the
+   *        transaction ID hash if the operation was successful.
+   */
+  public func delegate(from source: String,
+    to delegate: String,
+    keys: Keys,
+    completion: @escaping (String?, Error?) -> Void) {
+    let delegationOperation = DelegationOperation(source: source, to: delegate)
+    self.forgeSignPreapplyAndInjectOperation(operation: delegationOperation,
+      source: source,
+      keys: keys,
+      completion: completion)
+  }
+
 	/**
    * Forge, sign, preapply and then inject a single operation.
    *
