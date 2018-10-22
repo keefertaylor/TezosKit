@@ -127,16 +127,16 @@ let bobsAddress: String = tz1...
 let amountToSend = TezosBalance("2")!
 
 let sendToJimOperation = TransactionOperation(amount: amountToSend,
-				    						  source: myWallet,
-											  destination: jimsAddress)
+                                              source: myWallet,
+                                              destination: jimsAddress)
 let sendToBobOperation = TransactionOperation(amount: amountToSend,
-											  source: myWallet,
-											  destination: bobsAddress)
+                                              source: myWallet,
+                                              destination: bobsAddress)
 
 let operations = [ sendToJimOperation, sendToBobOperation ]
 tezosClient.forgeSignPreapplyAndInjectOperations(operations: operations,
-												 source: myWallet.address,
-												 keys: myWallet.keys) { (txHash, error) in
+                                                 source: myWallet.address,
+                                                 keys: myWallet.keys) { (txHash, error) in
   print("Sent Jim and Bob some XTZ! See: https://tzscan.io/\(txHash!)")
 }
 ```
@@ -149,8 +149,9 @@ let originatedAccountAddress = <Some Account Managed By Wallet>
 let delegateAddress = ...
 tezosClient.delegate(from: originatedAccountAddress,
                      to: delegateAddress,
-					 keys: wallet.keys) { (txHash, txError) in 
-  print("Delegate for \(originatedAccountAddress) set to \(delegateAddress). See: https://tzscan.io/\(txHash!)")
+                     keys: wallet.keys) { (txHash, txError) in 
+  print("Delegate for \(originatedAccountAddress) set to \(delegateAddress).")
+  print("See: https://tzscan.io/\(txHash!)")
 }
 ```
 
