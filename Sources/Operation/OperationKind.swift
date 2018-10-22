@@ -9,9 +9,9 @@ public enum OperationKind: String {
   // Implemented operations
   case transaction = "transaction"
   case reveal = "reveal"
+  case delegation = "delegation"
 
   // Planned / Unimplemented
-	case delegation = "delegation"
 	case origination = "origination"
 	case activateAccount = "activate_account"
 }
