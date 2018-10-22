@@ -170,10 +170,26 @@ public class TezosClient {
 			return
 		}
 
+    // Create a mutable copy of operations in case we need to add a reveal operation.
+    var mutableOperations = operations
+
+    // Determine if the address performing the operations has been revealed. If it has not been,
+    // check if any of the operations to perform requires the address to be revealed. If so,
+    // prepend a reveal operation to the operations to perform.
+    if operationMetadata.key == nil {
+      for operation in operations {
+        if operation.requiresReveal {
+          let revealOperation = RevealOperation(from: wallet)
+          mutableOperations.insert(revealOperation, at: 0)
+          break
+        }
+      }
+    }
+
     // Process all operations to have increasing counters and place them in the contents array.
     var contents: [[String: Any]] = []
     var counter = operationMetadata.addressCounter
-    for operation in operations {
+    for operation in mutableOperations {
       counter = counter + 1
 
       var mutableOperation = operation.dictionaryRepresentation
