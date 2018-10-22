@@ -46,6 +46,7 @@
 		7AA95841217CC56F00865D55 /* IntegerResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */; };
 		7AA9585D217CCCC200865D55 /* TestKeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA9585C217CCCC200865D55 /* TestKeyPair.swift */; };
 		7ABC8543217D6B91006DE8FD /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8542217D6B90006DE8FD /* Keys.swift */; };
+		7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		7AA9585B217CCCC100865D55 /* TezosKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TezosKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		7AA9585C217CCCC200865D55 /* TestKeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyPair.swift; sourceTree = "<group>"; };
 		7ABC8542217D6B90006DE8FD /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperation.swift; sourceTree = "<group>"; };
 		F989C498BDA454447F4F8EEC /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				7A53BF69217D295300BA15D1 /* RevealOperation.swift */,
+				7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */,
 				7A1E2EDB2176B3F40073C080 /* Operation.swift */,
 				7AA95831217CB80A00865D55 /* AbstractOperation.swift */,
 				7AA95833217CB80A00865D55 /* DelegationOperation.swift */,
@@ -447,6 +450,7 @@
 				7AA95825217CB53700865D55 /* TezosBalanceResponseAdapter.swift in Sources */,
 				7AA95816217CB3A400865D55 /* GetAddressDelegateRPC.swift in Sources */,
 				7AA95836217CB80A00865D55 /* TransactionOperation.swift in Sources */,
+				7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */,
 				7AA8F35A2160158000C05895 /* AppDelegate.swift in Sources */,
 				7AA95837217CB80A00865D55 /* DelegationOperation.swift in Sources */,
 				7AA95824217CB53700865D55 /* ResponseAdapter.swift in Sources */,
