@@ -223,7 +223,7 @@ public class TezosClient {
 			self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
         operationMetadata: operationMetadata,
 				forgeResult: result,
-				secretKey: wallet.secretKey,
+				secretKey: wallet.keys.secretKey,
 				completion: completion)
 		}
 		self.send(rpc: forgeRPC)

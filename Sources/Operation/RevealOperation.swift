@@ -22,7 +22,7 @@ public class RevealOperation: AbstractOperation {
    * @param wallet The wallet that will be revealed.
    */
   public convenience init(from wallet: Wallet) {
-    self.init(from: wallet.address, publicKey: wallet.publicKey)
+    self.init(from: wallet.address, publicKey: wallet.keys.publicKey)
   }
 
   /**

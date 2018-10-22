@@ -7,14 +7,13 @@ import Foundation
  * existing wallet by providing an mnemonic and optional passphrase.
  */
 public struct Wallet {
+  /** Keys for the wallet. */
+  public let keys: Keys
 
-	/** A base58check encoded public key for the wallet, prefixed with "edpk". */
-	public let publicKey: String
-
-	/** A base58check encoded secret key for the wallet, prefixed with "edsk". */
-	public let secretKey: String
-
-	/** A base58check encoded public key hash for the wallet, prefixed with "tz1". */
+	/**
+   * A base58check encoded public key hash for the wallet, prefixed with "tz1" which represents an
+   * address in the Tezos ecosystem.
+   */
 	public let address: String
 
 	/**
@@ -56,8 +55,7 @@ public struct Wallet {
 
 	/** Private initializer to create the wallet with the given inputs. */
 	private init(publicKey: String, secretKey: String, address: String, mnemonic: String) {
-		self.publicKey = publicKey
-		self.secretKey = secretKey
+    self.keys = Keys(publicKey: publicKey, secretKey: secretKey)
 		self.address = address
 		self.mnemonic = mnemonic
 	}
