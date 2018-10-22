@@ -129,18 +129,21 @@ public class TezosClient {
    *
    * @param balance The balance to send.
    * @param recipientAddress The address which will receive the balance.
-   * @param wallet The wallet which will send the balance.
+   * @param source The address sending the balance.
+   * @param keys The keys to use to sign the operation for the address.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
 	public func send(amount: TezosBalance,
 		to recipientAddress: String,
-		from wallet: Wallet,
+		from source: String,
+    keys: Keys,
 		completion: @escaping (String?, Error?) -> Void) {
 		let transactionOperation =
-			TransactionOperation(amount: amount, source: wallet, destination: recipientAddress)
+			TransactionOperation(amount: amount, source: source, destination: recipientAddress)
 		self.forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
-			wallet: wallet,
+      source: source,
+      keys: keys,
 			completion: completion)
 	}
 
@@ -148,15 +151,17 @@ public class TezosClient {
    * Forge, sign, preapply and then inject a single operation.
    *
    * @param operation The operation which will be used to forge the operation.
-   * @param wallet The wallet which will send the balance.
+   * @param source The address performing the operation.
+   * @param keys The keys to use to sign the operation for the address.
    * @param completion A completion block that will be called with the results of the operation.
    */
 	public func forgeSignPreapplyAndInjectOperation(operation: Operation,
-		wallet: Wallet,
+    source: String,
+    keys: Keys,
 		completion: @escaping (String?, Error?) -> Void) {
     self.forgeSignPreapplyAndInjectOperations(operations: [operation],
-                                              source: wallet.address,
-                                              keys: wallet.keys,
+                                              source: source,
+                                              keys: keys,
                                               completion: completion)
   }
 
