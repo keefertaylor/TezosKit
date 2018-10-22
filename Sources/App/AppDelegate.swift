@@ -33,11 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     print("Expected Public Key: " + expectedPublicKey)
-    print("Actual Public Key  : " + wallet.publicKey)
+    print("Actual Public Key  : " + wallet.keys.publicKey)
     print("")
 
     print("Expected Private Key: " + expectedSecretKey)
-    print("Actual Private Key  : " + wallet.secretKey)
+    print("Actual Private Key  : " + wallet.keys.gsecretKey)
     print("")
 
     print("Expected Hash Key: " + expectedPublicKeyHash)
@@ -66,11 +66,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 
 		print("Expected Public Key: " + expectedPublicKey)
-		print("Actual Public Key  : " + wallet.publicKey)
+		print("Actual Public Key  : " + wallet.keys.publicKey)
 		print("")
 
 		print("Expected Private Key: " + expectedSecretKey)
-		print("Actual Private Key  : " + wallet.secretKey)
+		print("Actual Private Key  : " + wallet.keys.secretKey)
 		print("")
 
 		print("Expected Hash Key: " + expectedPublicKeyHash)
