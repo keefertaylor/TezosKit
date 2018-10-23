@@ -52,10 +52,13 @@ public class Crypto {
 	/**
    * Sign a forged operation with the given secret key.
    *
-   * Returns a tuple containing the edsig and a signed operation.
+   * @param operation A hex encoded string representing the forged operation
+   * @param secretKey A base58check encoded secret key prefixed with 'edsk' which will sign the
+   *        operation.
+   * @return A OperationSigningResult with the results of the signing if successful, otherwise nil.
    */
-	public static func signForgedOperation(operation: String, secretKey: String) ->
-	(edsig: String, signedOperation: String)? {
+	public static func signForgedOperation(operation: String,
+                                         secretKey: String) -> (OperationSigningResult)? {
 		// Decode private key for signing from base58 encoded and checksummed private key.
 		guard let decodedKey = Data(base58Decoding: secretKey) else {
 			return nil
@@ -77,9 +80,12 @@ public class Crypto {
 		}
 
 		let edsig = encode(message: signature, prefix: signedOperationPrefix)
-		let signedOperation = operation + signatureHex
+		let sbytes = operation + signatureHex
 
-		return (edsig: edsig, signedOperation: signedOperation)
+		return OperationSigningResult(operation: operation,
+                                  signature: signature,
+                                  edsig: edsig,
+                                  sbytes: sbytes)
 	}
 
 	/**

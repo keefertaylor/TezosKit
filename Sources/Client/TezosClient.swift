@@ -299,16 +299,16 @@ public class TezosClient {
     source: String,
 		keys: Keys,
 		completion: @escaping (String?, Error?) -> Void) {
-		guard let signedResult = Crypto.signForgedOperation(operation: forgeResult,
+		guard let operationSigningResult = Crypto.signForgedOperation(operation: forgeResult,
 			secretKey: keys.secretKey),
-			let jsonSignedBytes = JSONUtils.jsonString(for: signedResult.signedOperation) else {
+			let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
         let error = TezosClientError(kind: .unknown, underlyingError: nil)
 				completion(nil, error)
 				return
 		}
 
 		var mutableOperationPayload = operationPayload
-		mutableOperationPayload["signature"] = signedResult.edsig
+		mutableOperationPayload["signature"] = operationSigningResult.edsig
 		mutableOperationPayload ["protocol"] = operationMetadata.protocolHash
 
 		let operationPayloadArray = [mutableOperationPayload]
