@@ -19,5 +19,5 @@ public struct TezosClientError: Error {
   let kind: ErrorKind
 
   /** The underlying error returned from a subsystem, if one exists. */
-  let underlyingError: Error?
+  let underlyingError: String?
 }
