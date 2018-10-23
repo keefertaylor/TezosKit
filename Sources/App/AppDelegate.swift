@@ -1,7 +1,4 @@
 import UIKit
-import CKMnemonic
-import Sodium
-import Base58String
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -11,9 +8,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Run some basic tests.
 		// TODO: Refactor these to be proper unit tests.
-    testWalletGeneration()
-    testChainRPCs()
-    testAddressRPCs()
+    //    testWalletGeneration()
+    //    testChainRPCs()
+    //    testAddressRPCs()
     testCryptoUtils()
 
 		return true
@@ -31,6 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print("Expect:  false\nActual:  \(Crypto.validateAddress(address: invalidAddress))\n")
     print("Expect:  false\nActual:  \(Crypto.validateAddress(address: publicKey))\n")
     print("")
+
+    let fakeOperation = "123456"
+    let wallet = Wallet()!
+    let randomWallet = Wallet()!
+    let result = Crypto.signForgedOperation(operation: fakeOperation, secretKey: wallet.keys.secretKey)!
+
+    print("Validating Signatures")
+    print("Expect:  true\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: result.signature, publicKey: wallet.keys.publicKey))\n")
+    print("Expect:  false\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: result.signature, publicKey: randomWallet.keys.publicKey))\n")
+    print("Expect:  false\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: [1, 2, 3], publicKey: wallet.keys.publicKey))\n")
+    print("")
+
   }
 
   private func testWalletGenerationPassPhrase() {

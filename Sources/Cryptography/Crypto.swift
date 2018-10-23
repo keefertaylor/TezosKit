@@ -49,6 +49,17 @@ public class Crypto {
     return true
   }
 
+  /**
+   * Verify that the given signature is a signed version of the given bytes by the secret key
+   * associated with the given public key.
+   */
+  public static func verifyBytes(bytes: [UInt8], signature: [UInt8], publicKey: String) -> Bool {
+    guard let decodedPublicKeyBytes = self.decodedKey(from: publicKey, prefix: publicKeyPrefix) else {
+      return false
+    }
+    return sodium.sign.verify(message: bytes, publicKey: decodedPublicKeyBytes, signature: signature)
+  }
+
 	/**
    * Sign a forged operation with the given secret key.
    *
@@ -59,16 +70,9 @@ public class Crypto {
    */
 	public static func signForgedOperation(operation: String,
                                          secretKey: String) -> (OperationSigningResult)? {
-		// Decode private key for signing from base58 encoded and checksummed private key.
-		guard let decodedKey = Data(base58Decoding: secretKey) else {
-			return nil
-		}
-
-		// Decoded key will have extra bytes at the beginning for the prefix and extra bytes at the end
-		// as a checksum. Drop these bytes in order to get the original secret key.
-		var decodedSecretKeyBytes = Array(decodedKey)
-		decodedSecretKeyBytes.removeSubrange(0..<secretKeyPrefix.count)
-		decodedSecretKeyBytes.removeSubrange((decodedSecretKeyBytes.count - checksumLength)...)
+    guard let decodedSecretKeyBytes = self.decodedKey(from: secretKey, prefix: secretKeyPrefix) else {
+      return nil
+    }
 
 		guard let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation),
 			let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation,
@@ -82,7 +86,7 @@ public class Crypto {
 		let edsig = encode(message: signature, prefix: signedOperationPrefix)
 		let sbytes = operation + signatureHex
 
-		return OperationSigningResult(operation: operation,
+		return OperationSigningResult(operationBytes: hashedOperation,
                                   signature: signature,
                                   edsig: edsig,
                                   sbytes: sbytes)
@@ -156,6 +160,21 @@ public class Crypto {
 			res.mutableBytes.assumingMemoryBound(to: UInt8.self))
 		return res as Data
 	}
+
+  /** Decode an original key from the Base58 encoded key containing a prefix and checksum. */
+  private static func decodedKey(from encodedKey: String, prefix: [UInt8]) -> [UInt8]? {
+    guard let decodedKey = Data(base58Decoding: encodedKey) else {
+      return nil
+    }
+
+    // Decoded key will have extra bytes at the beginning for the prefix and extra bytes at the end
+    // as a checksum. Drop these bytes in order to get the original key.
+    var decodedSecretKeyBytes = Array(decodedKey)
+    decodedSecretKeyBytes.removeSubrange(0..<prefix.count)
+    decodedSecretKeyBytes.removeSubrange((decodedSecretKeyBytes.count - checksumLength)...)
+
+    return decodedSecretKeyBytes
+  }
 
 	/** Please do not instantiate this static helper class. */
 	private init() { }

@@ -2,8 +2,8 @@ import Foundation
 
 /** A property bag representing various artifacts from signing an operation. */
 public struct OperationSigningResult {
-  /** The original operation which was signed. */
-  public let operation: String
+  /** The hashed operation bytes which were produced via hashing and signed. */
+  public let operationBytes: [UInt8]
 
   /** The signature of the signed bytes. */
   public let signature: [UInt8]
