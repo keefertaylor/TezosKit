@@ -17,10 +17,10 @@ public struct Wallet {
 	public let address: String
 
 	/**
-   * A space delimited string of english mnemonic words used to generate the wallet with the BIP39
-   * specification.
+   * If this wallet was gnerated from a mnemonic, a space delimited string of english mnemonic words
+   * used to generate the wallet with the BIP39 specification, otherwise nil.
    */
-	public let mnemonic: String
+	public let mnemonic: String?
 
 	/**
    * Create a new wallet by generating a mnemonic and encrypted with an optional passphrase.
@@ -53,8 +53,21 @@ public struct Wallet {
 			mnemonic: mnemonic)
 	}
 
+  /**
+   * Create a wallet with a given secret key.
+   *
+   * @param secretKey A base58check encoded secret key, prefixed with "edsk".
+   */
+  public init?(secretKey: String) {
+    guard let publicKey = Crypto.extractPublicKey(secretKey: secretKey),
+          let address = Crypto.extractPublicKeyHash(secretKey: secretKey) else {
+      return nil
+    }
+    self.init(publicKey: publicKey, secretKey: secretKey, address: address, mnemonic: nil)
+  }
+
 	/** Private initializer to create the wallet with the given inputs. */
-	private init(publicKey: String, secretKey: String, address: String, mnemonic: String) {
+	private init(publicKey: String, secretKey: String, address: String, mnemonic: String?) {
     self.keys = Keys(publicKey: publicKey, secretKey: secretKey)
 		self.address = address
 		self.mnemonic = mnemonic

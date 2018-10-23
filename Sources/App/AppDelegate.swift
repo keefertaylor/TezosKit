@@ -8,10 +8,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Run some basic tests.
 		// TODO: Refactor these to be proper unit tests.
-    //    testWalletGeneration()
+        testWalletGeneration()
     //    testChainRPCs()
     //    testAddressRPCs()
-    testCryptoUtils()
+    //    testCryptoUtils()
 
 		return true
 	}
@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print("")
 
     print("Expected mnemonic: " + expectedMnemonic)
-    print("Actual mnemonic  : " + wallet.mnemonic)
+    print("Actual mnemonic  : " + wallet.mnemonic!)
     print("")
   }
 
@@ -97,6 +97,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return
 		}
 
+    print("Testing generating wallet with mnemonic")
+    print("")
+
 		print("Expected Public Key: " + expectedPublicKey)
 		print("Actual Public Key  : " + wallet.keys.publicKey)
 		print("")
@@ -110,8 +113,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		print("")
 
 		print("Expected mnemonic: " + expectedMnemonic)
-		print("Actual mnemonic  : " + wallet.mnemonic)
+		print("Actual mnemonic  : " + wallet.mnemonic!)
 		print("")
+
+    print("Testing generating wallet from secretKey")
+    print("")
+
+    guard let restoredWallet = Wallet(secretKey: wallet.keys.secretKey) else {
+      print("Error restoring wallet :(")
+      return
+    }
+
+    print("Expected Public Key: " + expectedPublicKey)
+    print("Actual Public Key  : " + restoredWallet.keys.publicKey)
+    print("")
+
+    print("Expected Private Key: " + expectedSecretKey)
+    print("Actual Private Key  : " + restoredWallet.keys.secretKey)
+    print("")
+
+    print("Expected Hash Key: " + expectedPublicKeyHash)
+    print("Actual Hash Key  : " + restoredWallet.address)
+    print("")
 	}
 
 	private func testChainRPCs() {
