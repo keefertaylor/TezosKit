@@ -21,6 +21,28 @@ public class Crypto {
 	private static let sodium: Sodium = Sodium()
 
   /**
+   * Extract a base58check encoded public key prefixed with edpk from a given base58check encoded
+   * secret key prefixed with edsk.
+   */
+  public static func extractPublicKey(secretKey: String) -> String? {
+    guard let publicKeyBytes = self.extractPublicKeyBytes(secretKey: secretKey) else {
+      return nil
+    }
+    return encode(message: publicKeyBytes, prefix: publicKeyPrefix)
+  }
+
+  /**
+   * Extract a base58check encoded public key hash prefixed with tz1 from a given base58check
+   * encoded secret key prefixed with edsk.
+   */
+  public static func extractPublicKeyHash(secretKey: String) -> String? {
+    guard let publicKeyBytes = self.extractPublicKeyBytes(secretKey: secretKey) else {
+      return nil
+    }
+    return self.tezosPublicKeyHash(from: publicKeyBytes)
+  }
+
+  /**
    * Check that a given address is valid public key hash address.
    */
   public static func validateAddress(address: String) -> Bool {
@@ -174,6 +196,17 @@ public class Crypto {
     decodedSecretKeyBytes.removeSubrange((decodedSecretKeyBytes.count - checksumLength)...)
 
     return decodedSecretKeyBytes
+  }
+
+  /**
+   * Extract a bytes for a public key from a given base58check encoded secret key prefixed with
+   * "edsk".
+   */
+  public static func extractPublicKeyBytes(secretKey: String) -> [UInt8]? {
+    guard let decodedSecretKeyBytes = self.decodedKey(from: secretKey, prefix: secretKeyPrefix) else {
+      return nil
+    }
+    return Array(decodedSecretKeyBytes[32...])
   }
 
 	/** Please do not instantiate this static helper class. */

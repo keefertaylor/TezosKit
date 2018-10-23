@@ -40,6 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print("Expect:  false\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: [1, 2, 3], publicKey: wallet.keys.publicKey))\n")
     print("")
 
+    print("Testing Key Extraction")
+    print("Expected PK: \(wallet.keys.publicKey)")
+    print("Actual PK:   \(Crypto.extractPublicKey(secretKey: wallet.keys.secretKey)!)")
+    print("")
+
+    print("Expected PKH: \(wallet.address)")
+    print("Actual PKH:   \(Crypto.extractPublicKeyHash(secretKey: wallet.keys.secretKey)!)")
+    print("")
   }
 
   private func testWalletGenerationPassPhrase() {
