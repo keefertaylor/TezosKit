@@ -1,7 +1,8 @@
 import CommonCrypto
-import Base58String
+//import Base58String
 import Foundation
 import Sodium
+import CBBase58
 
 /**
  * A static helper class that provides utility functions for cyptography.
@@ -46,7 +47,7 @@ public class Crypto {
    * Check that a given address is valid public key hash address.
    */
   public static func validateAddress(address: String) -> Bool {
-    guard let decodedData = Data(base58Decoding: address) else {
+    guard let decodedData = address.dataFromBase58Check() as Data? else {
       return false
     }
     let decodedBytes = decodedData.bytes
@@ -159,8 +160,8 @@ public class Crypto {
 		let prefixedKey = prefix + message
 		let prefixedKeyCheckSum = calculateChecksum(prefixedKey)
 		let prefixedKeyWithCheckSum = prefixedKey + prefixedKeyCheckSum
-		let data = Data(prefixedKeyWithCheckSum)
-		return String(base58Encoding: data)
+		let data = Data(prefixedKeyWithCheckSum) as NSData
+    return data.base58String()
 	}
 
 	/**
@@ -185,7 +186,7 @@ public class Crypto {
 
   /** Decode an original key from the Base58 encoded key containing a prefix and checksum. */
   private static func decodedKey(from encodedKey: String, prefix: [UInt8]) -> [UInt8]? {
-    guard let decodedKey = Data(base58Decoding: encodedKey) else {
+    guard let decodedKey = encodedKey.dataFromBase58() as Data? else {
       return nil
     }
 
