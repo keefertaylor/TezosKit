@@ -25,40 +25,7 @@ TezosKit is heavily inspired by functionality provided by other Tezos SDKs, such
 
 ## Installation
 
-TezosKit is available via the Swift package manager.
-
-### Build / Develop
-
-To get started building and developing locally:
-
-```console
-# Clone TezosKit repo
-$ git clone https://github.com/keefertaylor/TezosKit.git
-
-# Build library
-$ swift build
-
-# Generate an xcode project
-$ swift package generate-xcodeproj
-generated: ./TezosKit.xcodeproj
-$ open ./TezosKit.xcodeproj
-```
-
-### Depending on TezosKit
-
-Depend on TezosKit by adding the following to your `Package.swift`:
-
-```
-.package(url: "https://github.com/keefertaylor/TezosKit.git", .branch("master")),
-```
-
-### LibSodium Errors
-
-If you receive errors about missing Sodium headers, you need to install `libsodium`:
-
-```console
-$ brew install libsodium
-```
+TBD
 
 ## Getting Started
 
