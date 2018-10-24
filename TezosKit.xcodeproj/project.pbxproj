@@ -49,6 +49,7 @@
 		7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */; };
 		7ABC8549217E8070006DE8FD /* TypeCheckCodeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */; };
 		7ABC854B217EA4AE006DE8FD /* OperationSigningResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC854A217EA4AE006DE8FD /* OperationSigningResult.swift */; };
+		7ABC854E2181348E006DE8FD /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC854D2181348D006DE8FD /* Base58String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperation.swift; sourceTree = "<group>"; };
 		7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeCheckCodeRPC.swift; sourceTree = "<group>"; };
 		7ABC854A217EA4AE006DE8FD /* OperationSigningResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationSigningResult.swift; sourceTree = "<group>"; };
+		7ABC854D2181348D006DE8FD /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base58String.swift; path = Base58String/Base58String.swift; sourceTree = "<group>"; };
 		F989C498BDA454447F4F8EEC /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 		7AA8F34D2160158000C05895 = {
 			isa = PBXGroup;
 			children = (
+				7ABC854C21813427006DE8FD /* Base58String */,
 				7AA95845217CC9F500865D55 /* Tests */,
 				7AA8F3582160158000C05895 /* Sources */,
 				7AA95850217CCBEE00865D55 /* TezosKitTests */,
@@ -297,6 +300,14 @@
 				7AA9585C217CCCC200865D55 /* TestKeyPair.swift */,
 			);
 			path = Cryptography;
+			sourceTree = "<group>";
+		};
+		7ABC854C21813427006DE8FD /* Base58String */ = {
+			isa = PBXGroup;
+			children = (
+				7ABC854D2181348D006DE8FD /* Base58String.swift */,
+			);
+			name = Base58String;
 			sourceTree = "<group>";
 		};
 		E1B299C2AF182A8A0B52D6BE /* Frameworks */ = {
@@ -464,6 +475,7 @@
 				7AA95824217CB53700865D55 /* ResponseAdapter.swift in Sources */,
 				7A53BF1B217CF35700BA15D1 /* OperationMetadata.swift in Sources */,
 				7AA95815217CB3A400865D55 /* GetAddressCounterRPC.swift in Sources */,
+				7ABC854E2181348E006DE8FD /* Base58String.swift in Sources */,
 				7AA95826217CB53700865D55 /* JSONArrayResponseAdapter.swift in Sources */,
 				7AA9581C217CB3EF00865D55 /* InjectOperationRPC.swift in Sources */,
 				7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */,
