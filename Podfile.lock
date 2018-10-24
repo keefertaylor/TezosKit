@@ -1,32 +1,44 @@
 PODS:
-  - CBBase58 (0.9.1):
-    - OpenSSL-Universal
+  - Base58String (0.1.0):
+    - BigInt (~> 3.1)
+  - BigInt (3.1.0):
+    - SipHash (~> 1.2)
   - CKMnemonic (0.1.7):
     - CryptoSwift
   - CryptoSwift (0.12.0)
-  - OpenSSL-Universal (1.0.2.13)
+  - SipHash (1.2.2)
   - Sodium (0.7.0)
 
 DEPENDENCIES:
-  - CBBase58
+  - Base58String (from `https://github.com/cloutiertyler/Base58String.git`)
   - CKMnemonic
   - Sodium (~> 0.7.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - CBBase58
+    - BigInt
     - CKMnemonic
     - CryptoSwift
-    - OpenSSL-Universal
+    - SipHash
     - Sodium
 
+EXTERNAL SOURCES:
+  Base58String:
+    :git: https://github.com/cloutiertyler/Base58String.git
+
+CHECKOUT OPTIONS:
+  Base58String:
+    :commit: 4989d0eea6a690eb163bfdc3491c5c532275010e
+    :git: https://github.com/cloutiertyler/Base58String.git
+
 SPEC CHECKSUMS:
-  CBBase58: a86f26f59eaf3fbba2d9b81e3ef5b02563cdab3d
+  Base58String: a12a7d574e00d07c5f58ff5b7adf7f1353a32a44
+  BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   CKMnemonic: 88e745afffea6f3c719c799d9869a2ea5eb9f08b
   CryptoSwift: 1c07ca50843dd48bc54e6ea53d7a4dba3b645716
-  OpenSSL-Universal: 401888162f11c33ebbd46f782d9229da35c61327
+  SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
   Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
 
-PODFILE CHECKSUM: 86e2b9afc14bedff787f3979f4eabf23d7ef351e
+PODFILE CHECKSUM: 0fee9e12e57b4fdd0a7bc481460be760a455d824
 
 COCOAPODS: 1.5.3

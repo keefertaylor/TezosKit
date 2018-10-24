@@ -1,6 +1,0 @@
-module CBBase58 {
-  umbrella header "CBBase58-umbrella.h"
-
-  export *
-  module * { export * }
-}
