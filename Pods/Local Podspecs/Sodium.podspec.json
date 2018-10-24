@@ -1,6 +1,6 @@
 {
   "name": "Sodium",
-  "version": "0.6",
+  "version": "0.7.0",
   "license": {
     "type": "ISC",
     "file": "LICENSE"
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/jedisct1/swift-sodium.git",
-    "tag": "0.6"
+    "tag": "0.7.0"
   },
   "platforms": {
     "ios": "8.0",
