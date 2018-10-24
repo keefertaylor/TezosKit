@@ -397,7 +397,7 @@ public class TezosClient {
         if httpResponse.statusCode >= 400 && httpResponse.statusCode < 500 {
           errorKind = .unexpectedRequestFormat
         // Status code 50X: Bad request was sent to server.
-        } else if httpResponse.statusCode > 500 {
+        } else if httpResponse.statusCode >= 500 {
           errorKind = .unexpectedResponse
         }
 
@@ -412,11 +412,11 @@ public class TezosClient {
 
         // Drop data and send our error to let subsequent handlers know something went wrong and to
         // give up.
-        var error = TezosClientError(kind: errorKind, underlyingError: errorMessage)
+        let error = TezosClientError(kind: errorKind, underlyingError: errorMessage)
         rpc.handleResponse(data: nil, error: error)
+        return
       }
 
-      // TODO: Ensure a 200 was received, otherwise error.
 			rpc.handleResponse(data: data, error: error)
 		}
 		request.resume()

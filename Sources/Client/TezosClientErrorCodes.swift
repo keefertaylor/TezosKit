@@ -8,7 +8,7 @@ public struct TezosClientError: Error {
   /**
    * Enumeration representing possible kinds of errors.
    */
-  public enum ErrorKind {
+  public enum ErrorKind: String {
     case unknown
     case rpcError
     case unexpectedResponse
@@ -20,4 +20,15 @@ public struct TezosClientError: Error {
 
   /** The underlying error returned from a subsystem, if one exists. */
   let underlyingError: String?
+}
+
+extension TezosClientError: LocalizedError {
+    public var errorDescription: String? {
+    let errorKindDesc = "TezosClientError " + kind.rawValue
+    if let underlyingError = self.underlyingError {
+      return underlyingError + "(" + errorKindDesc + ")"
+    } else {
+      return errorKindDesc
+    }
+  }
 }
