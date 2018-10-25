@@ -1,0 +1,8 @@
+os: osx
+language: objective-c
+xcode_project: TezosKit.xcodeproj
+xcode_scheme: TezosKit
+
+before_install:
+  - brew update
+  - brew install libsodium
