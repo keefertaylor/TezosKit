@@ -1,5 +1,4 @@
 import CommonCrypto
-import Base58String
 import Foundation
 import Sodium
 
