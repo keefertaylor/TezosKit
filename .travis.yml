@@ -4,8 +4,8 @@ xcode_project: TezosKit.xcodeproj
 xcode_scheme: TezosKit
 
 script:
-- set -o pipefail && xcodebuild -workspace Optimize.xcworkspace -scheme ProdApp -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X -UseModernBuildSystem=NO build test | xcpretty && exit ${PIPESTATUS[0]}
-
+- set -o pipefail && xcodebuild -workspace TezosKit.xcworkspace -scheme TezosKitExampleApp -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X -UseModernBuildSystem=YES build | xcpretty && exit ${PIPESTATUS[0]}
+  
 before_install:
   - brew update
   - brew install libsodium
