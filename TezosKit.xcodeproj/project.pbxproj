@@ -51,6 +51,7 @@
 		7ABC854B217EA4AE006DE8FD /* OperationSigningResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC854A217EA4AE006DE8FD /* OperationSigningResult.swift */; };
 		7ABC854E2181348E006DE8FD /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC854D2181348D006DE8FD /* Base58String.swift */; };
 		7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC856B21824D6C006DE8FD /* JSONUtilsTest.swift */; };
+		7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC856D2182655E006DE8FD /* MnemonicUtilsTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		7ABC856121824D58006DE8FD /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ABC856521824D58006DE8FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7ABC856B21824D6C006DE8FD /* JSONUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtilsTest.swift; sourceTree = "<group>"; };
+		7ABC856D2182655E006DE8FD /* MnemonicUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicUtilsTest.swift; sourceTree = "<group>"; };
 		7E9BE05434FE436544BF4787 /* libPods-TezosKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18ABC256DB067253D1C0A45 /* Pods-TezosKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		F989C498BDA454447F4F8EEC /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -301,6 +303,7 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				7ABC856D2182655E006DE8FD /* MnemonicUtilsTest.swift */,
 				7ABC856B21824D6C006DE8FD /* JSONUtilsTest.swift */,
 				7ABC856521824D58006DE8FD /* Info.plist */,
 			);
@@ -505,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */,
+				7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
