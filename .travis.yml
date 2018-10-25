@@ -8,15 +8,3 @@ script: [
 
 after_success:
 - echo "Uploading..." && bash <(curl -s https://codecov.io/bash) && echo "Upload finished."
-  
-
-
-language: swift
-os: osx
-osx_image: xcode10
-script:
-  - "xcodebuild -scheme TezosKitTests -workspace TezosKit.xcworkspace -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X build test"
-
-before_install:
-  - brew update
-  - brew install libsodium
