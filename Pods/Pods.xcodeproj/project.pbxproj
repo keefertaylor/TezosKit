@@ -31,7 +31,7 @@
 		147EFAFB7B1F97862A5C125EAE0B5344 /* CKMnemonic-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A236B3D7A78DF026308F01FCB838AE8B /* CKMnemonic-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		151285E63215B2287AD2AA814571D138 /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D541A976EF7D0B4AC1425091849DEC1 /* BlockMode.swift */; };
 		156769DC923B730BA4153D1BA1BA4800 /* StreamDecryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A84AB8D04C2BC08657B3615D6FD4109 /* StreamDecryptor.swift */; };
-		170735A1FA4B6DFC70B52D8CE28E82EB /* Pods-TezosKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A8CC12E7F3941C137C36CBAE479B1E13 /* Pods-TezosKit-dummy.m */; };
+		170735A1FA4B6DFC70B52D8CE28E82EB /* Pods-TezosKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5D9CE9E43379BCD671D9CF5B84D620 /* Pods-TezosKit-dummy.m */; };
 		17681A337AEE0EF578BB50886D6F9D1D /* crypto_secretbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 05A4E72BBEA0B4861C65598A474C75E9 /* crypto_secretbox.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		17D0CF4411AD012607140EC9DF0DE9BD /* TezosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0A638FA31879A8192402C973491C8 /* TezosClient.swift */; };
 		1B0FC926444A3900B48212F67FEC13F7 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEC5C490ED078314EEB155909C980EA /* Stream.swift */; };
@@ -48,6 +48,7 @@
 		2A3CE742D1381685E58CEA24D4D05619 /* ShortHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929F998CD103D321197B4441A43FAA6 /* ShortHash.swift */; };
 		2AE558342373C6D9C90311CDA7CF36F3 /* crypto_aead_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = DFEF173051B22738B2082DE2C2C611BA /* crypto_aead_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2B0CCE39BEB0570DBE47374723A71DFB /* OperationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FB71E9788F5CBFE7BF72D04C510EA6 /* OperationKind.swift */; };
+		2B7432BDAC942C31FAB6EF706798F85E /* Pods-TezosKitTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EC26B6A3D27B1DC8274C44FAA18F14 /* Pods-TezosKitTests-dummy.m */; };
 		2CC0A90C3134B48EEA96550427E155D4 /* GetAddressCounterRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1CF5B3D220903475F759AE357E5755 /* GetAddressCounterRPC.swift */; };
 		2CE3377AC1364C2B517188E414941CC2 /* Strideable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABB711F5E3CB60B9C30EC87030A406 /* Strideable.swift */; };
 		2D4AB05DF4CD443722FFA0B7D2CA7E8D /* String+MnemonicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1388543574A693ACB227402CE04CC5 /* String+MnemonicData.swift */; };
@@ -181,7 +182,7 @@
 		B044F9F8948D1BA063327ACAB9F59A2E /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7441159A72273DD5021F1936C81F4788 /* Blowfish.swift */; };
 		B463EFD9893DE9DB5FDAB2DB2DDB38C7 /* KeyPairProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94981855EB97BB172D3A47C70E6FD184 /* KeyPairProtocol.swift */; };
 		B55C9E43811253E66497F2AE9E40BF80 /* ForgeOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54D3438B6F05A8F4AC073F68CD4C87D /* ForgeOperationRPC.swift */; };
-		B67C0FDC58628D2DAAEF907E378402D4 /* Pods-TezosKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C57EF5F3BA2B36DC626B7B9441383D94 /* Pods-TezosKit-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B67C0FDC58628D2DAAEF907E378402D4 /* Pods-TezosKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C064422F510CAA016C1336713BB4E936 /* Pods-TezosKit-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B786E9CE1E8E65F5B6A2197300A005E9 /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1420772F6094BCDF0A47B3EC2EAFF92 /* BatchedCollection.swift */; };
 		B7E1B734B07D0A5CE6BCCD3D7C03730F /* Floating Point Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102BB30A203535A46C9C60C55D330A7D /* Floating Point Conversion.swift */; };
 		B8586AF7FD92A9BB19706F3430E18897 /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136AC359BEBA405387A47A748BC41BC /* Base58String.swift */; };
@@ -250,6 +251,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		043F33EFFA40A53ECDD6D3BA6B076257 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A4633757602E1CEA6CA2AF2D1584D805;
+			remoteInfo = "Pods-TezosKit";
+		};
 		0711DDA92925B65EEDC64A7CA764B883 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -360,14 +368,15 @@
 		0A71174616DD4A8E5B3F3C193941850C /* Keys.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keys.swift; path = Sources/Models/Keys.swift; sourceTree = "<group>"; };
 		0ED0A638FA31879A8192402C973491C8 /* TezosClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TezosClient.swift; path = Sources/Client/TezosClient.swift; sourceTree = "<group>"; };
 		102BB30A203535A46C9C60C55D330A7D /* Floating Point Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Floating Point Conversion.swift"; path = "sources/Floating Point Conversion.swift"; sourceTree = "<group>"; };
-		11BF97B6CA733EF02B273ED6739F09F2 /* Pods-TezosKit-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TezosKit-acknowledgements.plist"; sourceTree = "<group>"; };
 		122E77E073F8FAA54C8CC215A02DA036 /* Integer Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Integer Conversion.swift"; path = "sources/Integer Conversion.swift"; sourceTree = "<group>"; };
 		134C32E8F404304E5B426673029B3031 /* crypto_hash_sha256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_hash_sha256.h; path = Sodium/libsodium/crypto_hash_sha256.h; sourceTree = "<group>"; };
 		13AEA1A1E7E2AB0F54B86AA145475E80 /* AES.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.swift; path = Sources/CryptoSwift/AES.swift; sourceTree = "<group>"; };
 		1453314F15C532959DD2FCB6FAD1155B /* PBKDF2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF2.swift; path = Sources/CryptoSwift/PKCS/PBKDF2.swift; sourceTree = "<group>"; };
 		19B08C509022A30AD3D50140FD5249EB /* crypto_kdf_blake2b.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_kdf_blake2b.h; path = Sodium/libsodium/crypto_kdf_blake2b.h; sourceTree = "<group>"; };
-		1D15031F16A01ED1B08385CDE1D1AB0E /* Pods-TezosKit-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TezosKit-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1B96A2E938608E8980F9E78E32F4B070 /* libCKMnemonic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCKMnemonic.a; path = libCKMnemonic.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C909A2BC797475F677359A30BF6CAC9 /* Pods-TezosKit-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TezosKit-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1FB52EB2AEDF922A81ACDB101F498BAB /* ResponseAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseAdapter.swift; path = Sources/RPC/ResponseAdapters/ResponseAdapter.swift; sourceTree = "<group>"; };
+		214BD94E0AA124C473237A2ADFE521B3 /* Pods-TezosKitTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TezosKitTests-frameworks.sh"; sourceTree = "<group>"; };
 		214DC342BDE7A70E42C746C28D7AC85F /* Box.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Box.swift; path = Sodium/Box.swift; sourceTree = "<group>"; };
 		23617455CEADFA48A007B92C37C1EAAE /* TezosKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = TezosKit.modulemap; path = ../../Headers/Public/TezosKit/TezosKit.modulemap; sourceTree = "<group>"; };
 		24359D1897C25C707FE109BDE55C1631 /* crypto_pwhash_argon2id.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_pwhash_argon2id.h; path = Sodium/libsodium/crypto_pwhash_argon2id.h; sourceTree = "<group>"; };
@@ -378,14 +387,17 @@
 		26BE2BC23A8AB38AE7BFE3FBC2CC7D11 /* Sodium.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = Sodium.modulemap; path = ../../Headers/Public/Sodium/Sodium.modulemap; sourceTree = "<group>"; };
 		28275EDDECC52CD1FD18F1C1DEEE54DC /* randombytes_salsa20_random.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = randombytes_salsa20_random.h; path = Sodium/libsodium/randombytes_salsa20_random.h; sourceTree = "<group>"; };
 		28DEDD2F8A4B683F618F1BDF15150066 /* HKDF.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HKDF.swift; path = Sources/CryptoSwift/HKDF.swift; sourceTree = "<group>"; };
+		291007C83D2E3635E72E83CCDBDF98EA /* Pods-TezosKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TezosKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		29E4403CA4EFE771AE195C8029CABBCB /* TypeCheckCodeRPC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TypeCheckCodeRPC.swift; path = Sources/RPC/TypeCheckCodeRPC.swift; sourceTree = "<group>"; };
 		2D3C795E5A3766C64DCA41BABE327E8A /* Data+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Extension.swift"; path = "Sources/CryptoSwift/Foundation/Data+Extension.swift"; sourceTree = "<group>"; };
 		2D55DF79209FD44BA57FD48AC10E1A81 /* JSONDictionaryResponseAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONDictionaryResponseAdapter.swift; path = Sources/RPC/ResponseAdapters/JSONDictionaryResponseAdapter.swift; sourceTree = "<group>"; };
+		2D5D9CE9E43379BCD671D9CF5B84D620 /* Pods-TezosKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TezosKit-dummy.m"; sourceTree = "<group>"; };
 		2DD7884B8A5A853560EE7C6DE93F6D70 /* SHA3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA3.swift; path = Sources/CryptoSwift/SHA3.swift; sourceTree = "<group>"; };
-		2F2484909A42FB088298071B9335C927 /* libCKMnemonic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCKMnemonic.a; path = libCKMnemonic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3026B4F1452D5CF6DE59C3FC90E7DDF9 /* IntegerResponseAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IntegerResponseAdapter.swift; path = Sources/RPC/ResponseAdapters/IntegerResponseAdapter.swift; sourceTree = "<group>"; };
 		3042C2A25EFACC4FD99C476B967C0091 /* Sodium.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sodium.swift; path = Sodium/Sodium.swift; sourceTree = "<group>"; };
+		3079150FDF1F355DC0BBD05A3447F453 /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-TezosKit.a"; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		310BF18703D1F952D5E8A17A487AB915 /* Data+CKBitArray.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+CKBitArray.swift"; path = "CKMnemonic/CKMnemonic/CKMnemonic/Data+CKBitArray.swift"; sourceTree = "<group>"; };
+		314945BBDE08902AE2B40A497C6C6B3F /* Pods-TezosKit-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TezosKit-acknowledgements.plist"; sourceTree = "<group>"; };
 		31FEB0C72F83138DBC078161B6C25023 /* String+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Sources/CryptoSwift/String+Extension.swift"; sourceTree = "<group>"; };
 		32010AF77340D6EADABCE62C6B3CB289 /* crypto_secretstream_xchacha20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_secretstream_xchacha20poly1305.h; path = Sodium/libsodium/crypto_secretstream_xchacha20poly1305.h; sourceTree = "<group>"; };
 		343D74EB6FB39B1A25580F0387B44A0D /* SecretStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecretStream.swift; path = Sodium/SecretStream.swift; sourceTree = "<group>"; };
@@ -403,15 +415,13 @@
 		41F4D3EBCEF37C5EC48EDF0F7B2DBBB2 /* Prime Test.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Prime Test.swift"; path = "sources/Prime Test.swift"; sourceTree = "<group>"; };
 		42023378BF32462A4CC1624E6E66282C /* crypto_core_salsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_core_salsa20.h; path = Sodium/libsodium/crypto_core_salsa20.h; sourceTree = "<group>"; };
 		4470033DD3A3218BD0FA7DAF13FDB4D4 /* crypto_kx.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_kx.h; path = Sodium/libsodium/crypto_kx.h; sourceTree = "<group>"; };
-		44903A55865F7F78F7001E64CA38DCFF /* libPods-TezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-TezosKit.a"; path = "libPods-TezosKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F944D68437AAC6848BF291A15A898D /* TezosRPC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TezosRPC.swift; path = Sources/RPC/TezosRPC.swift; sourceTree = "<group>"; };
 		4632CA4ECC2FCEF9DC3B54172A209552 /* crypto_onetimeauth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_onetimeauth.h; path = Sodium/libsodium/crypto_onetimeauth.h; sourceTree = "<group>"; };
 		46B5D1E46603DEADA6597ABAB4C2A8F7 /* BlockDecryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockDecryptor.swift; path = Sources/CryptoSwift/BlockDecryptor.swift; sourceTree = "<group>"; };
-		49DE8D0C530642C42F9DF6155F15278E /* Pods-TezosKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TezosKit.debug.xcconfig"; sourceTree = "<group>"; };
+		49EC26B6A3D27B1DC8274C44FAA18F14 /* Pods-TezosKitTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TezosKitTests-dummy.m"; sourceTree = "<group>"; };
 		4A1388543574A693ACB227402CE04CC5 /* String+MnemonicData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+MnemonicData.swift"; path = "CKMnemonic/CKMnemonic/CKMnemonic/String+MnemonicData.swift"; sourceTree = "<group>"; };
 		4A84AB8D04C2BC08657B3615D6FD4109 /* StreamDecryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StreamDecryptor.swift; path = Sources/CryptoSwift/StreamDecryptor.swift; sourceTree = "<group>"; };
 		4AB578EDF76BD405D217CBF3E8F66A70 /* crypto_shorthash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_shorthash.h; path = Sodium/libsodium/crypto_shorthash.h; sourceTree = "<group>"; };
-		4BFF39FB00643AD865B0AFD4A22D4530 /* libCryptoSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCryptoSwift.a; path = libCryptoSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD788B88664982FAD8591751A0E860B /* DigestType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DigestType.swift; path = Sources/CryptoSwift/DigestType.swift; sourceTree = "<group>"; };
 		4D1C4E982A9E1D43182A28B3B6711302 /* Digest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Digest.swift; path = Sources/CryptoSwift/Digest.swift; sourceTree = "<group>"; };
 		4D5AC7AA030FFD0C488AA8F9CF27695C /* crypto_sign_ed25519.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_sign_ed25519.h; path = Sodium/libsodium/crypto_sign_ed25519.h; sourceTree = "<group>"; };
@@ -426,6 +436,7 @@
 		57D47667291EF80938B5040D818EFF4D /* CipherModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CipherModeWorker.swift; path = Sources/CryptoSwift/BlockMode/CipherModeWorker.swift; sourceTree = "<group>"; };
 		582ECE8B2E4689DD8873FD3605763DAB /* TezosKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "TezosKit-umbrella.h"; path = "../../Headers/Public/TezosKit/TezosKit-umbrella.h"; sourceTree = "<group>"; };
 		5860E1F3129C5A99D0D900BF6637F190 /* SipHasher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SipHasher.swift; path = SipHash/SipHasher.swift; sourceTree = "<group>"; };
+		588866729EB2AFF7FE1BD9022E4B3B6D /* Pods-TezosKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TezosKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58C7EFCC97478C6ACA8423735A06BCFD /* Sodium.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Sodium.h; path = Sodium/Sodium.h; sourceTree = "<group>"; };
 		59CFC2C974D6097DF8AF3DC1295FD69F /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Blowfish+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Blowfish+Foundation.swift"; sourceTree = "<group>"; };
 		5B632EE9A15D590250A071D32BEA6A7A /* Division.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Division.swift; path = sources/Division.swift; sourceTree = "<group>"; };
@@ -453,6 +464,7 @@
 		665129739A1D46DDD11CCA1D9F49CABB /* Array+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Array+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Array+Foundation.swift"; sourceTree = "<group>"; };
 		681DC5F70A593D349CF35C36D0AF4338 /* Words and Bits.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Words and Bits.swift"; path = "sources/Words and Bits.swift"; sourceTree = "<group>"; };
 		6832AB8C10DA2F1EAF09A0A7E14F8303 /* RandomUInt64.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomUInt64.swift; path = SipHash/RandomUInt64.swift; sourceTree = "<group>"; };
+		6A9EAB7A1F558442AF0C8631442AB0B7 /* Pods-TezosKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TezosKit.debug.xcconfig"; sourceTree = "<group>"; };
 		6B319F65B749B863AEEF0E19E78B3B65 /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
 		6B6F364AC4363E90089137BE18A18360 /* Auth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Auth.swift; path = Sodium/Auth.swift; sourceTree = "<group>"; };
 		6BA2EAA0DD1A75BE7A93C9BCBF4A6687 /* NoPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NoPadding.swift; path = Sources/CryptoSwift/NoPadding.swift; sourceTree = "<group>"; };
@@ -471,6 +483,7 @@
 		7541980B1DFCAB02033C825E12974AE3 /* CryptoSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CryptoSwift-dummy.m"; sourceTree = "<group>"; };
 		76D161A45C481DFB25FC56D2C661916C /* GCD.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GCD.swift; path = sources/GCD.swift; sourceTree = "<group>"; };
 		77508DD6ABB7CB2599AA5ECEDAE35C8F /* crypto_sign.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_sign.h; path = Sodium/libsodium/crypto_sign.h; sourceTree = "<group>"; };
+		78017547BA78FAC4FB287AE3863A8BCD /* Pods-TezosKitTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TezosKitTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		79ABB711F5E3CB60B9C30EC87030A406 /* Strideable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Strideable.swift; path = sources/Strideable.swift; sourceTree = "<group>"; };
 		7A170D5C2BB7E2A9C462BE3ACD4168B7 /* BlockModeOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockModeOptions.swift; path = Sources/CryptoSwift/BlockMode/BlockModeOptions.swift; sourceTree = "<group>"; };
 		7A208002605B5BA362665170C199439B /* BigInt.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BigInt.xcconfig; sourceTree = "<group>"; };
@@ -495,6 +508,7 @@
 		88270DA1CDB3AFFD510E2C6B6F9343EF /* NonceGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NonceGenerator.swift; path = Sodium/Generators/NonceGenerator.swift; sourceTree = "<group>"; };
 		8920955D370B45DD9FFB2D841A3682D9 /* Sodium.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Sodium.xcconfig; sourceTree = "<group>"; };
 		8A79E5780C702EF80248732177B297CF /* crypto_onetimeauth_poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_onetimeauth_poly1305.h; path = Sodium/libsodium/crypto_onetimeauth_poly1305.h; sourceTree = "<group>"; };
+		8BBD543B32A61E08341A3CFE2664C8D8 /* libBigInt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBigInt.a; path = libBigInt.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB6767C6B7C874BFF5002DEA382D280 /* Authenticator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Authenticator.swift; path = Sources/CryptoSwift/Authenticator.swift; sourceTree = "<group>"; };
 		8DD5A40748B8CE0BF3FF33BF0CD145FC /* version.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = version.h; path = Sodium/libsodium/version.h; sourceTree = "<group>"; };
 		8DEC5C490ED078314EEB155909C980EA /* Stream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Stream.swift; path = Sodium/Stream.swift; sourceTree = "<group>"; };
@@ -507,12 +521,10 @@
 		94981855EB97BB172D3A47C70E6FD184 /* KeyPairProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeyPairProtocol.swift; path = Sodium/Generators/KeyPairProtocol.swift; sourceTree = "<group>"; };
 		9683649A089C81FB2A8C6FA1BCB2F3B8 /* GetChainHeadRPC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GetChainHeadRPC.swift; path = Sources/RPC/GetChainHeadRPC.swift; sourceTree = "<group>"; };
 		970565293FE7C236D341BAD2C2412225 /* Data Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data Conversion.swift"; path = "sources/Data Conversion.swift"; sourceTree = "<group>"; };
-		977C2444D6412004145AF8D86CE3A41B /* Pods-TezosKit-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TezosKit-frameworks.sh"; sourceTree = "<group>"; };
 		98B3C4141D40483F2537FB070FE9D287 /* KeyPairGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeyPairGenerator.swift; path = Sodium/Generators/KeyPairGenerator.swift; sourceTree = "<group>"; };
 		995EF4CAD678480E1479AA458965C91B /* CompactMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompactMap.swift; path = Sources/CryptoSwift/CompactMap.swift; sourceTree = "<group>"; };
 		9B46764F45B7A1AA92B397B7E2F95B0E /* OFB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OFB.swift; path = Sources/CryptoSwift/BlockMode/OFB.swift; sourceTree = "<group>"; };
 		9C730B822EB00E62A012158DC2D85A3A /* Bytes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bytes.swift; path = Sodium/Bytes.swift; sourceTree = "<group>"; };
-		9D1B234895152A47740AB0C090864664 /* libSodium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSodium.a; path = libSodium.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D210F31978F76FBC1E7529AE02B209E /* BigInt-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BigInt-dummy.m"; sourceTree = "<group>"; };
 		9D858AD6DA7F3E1E87AC2F0495856C14 /* crypto_auth_hmacsha512.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_auth_hmacsha512.h; path = Sodium/libsodium/crypto_auth_hmacsha512.h; sourceTree = "<group>"; };
 		9DC7E39A3E5C3FFE6B7C7CD3A0106812 /* GetChainHeadHashRPC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GetChainHeadHashRPC.swift; path = Sources/RPC/GetChainHeadHashRPC.swift; sourceTree = "<group>"; };
@@ -523,6 +535,7 @@
 		9FEEBCAA39B3D01194EDD3108FBFDAB1 /* CKMnemonic-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CKMnemonic-prefix.pch"; sourceTree = "<group>"; };
 		A0A1E91F732BB7ACEEFE881D03ED70A4 /* CTR.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CTR.swift; path = Sources/CryptoSwift/BlockMode/CTR.swift; sourceTree = "<group>"; };
 		A183DF01658118AB1E0DF95FC6875B76 /* Sodium-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Sodium-umbrella.h"; path = "../../Headers/Public/Sodium/Sodium-umbrella.h"; sourceTree = "<group>"; };
+		A18B954A47661CD2CE80C9A35EFA1F00 /* libSipHash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSipHash.a; path = libSipHash.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A236B3D7A78DF026308F01FCB838AE8B /* CKMnemonic-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CKMnemonic-umbrella.h"; path = "../../Headers/Public/CKMnemonic/CKMnemonic-umbrella.h"; sourceTree = "<group>"; };
 		A23E49809E6CBC4AD8B0EC8372BC64AA /* SipHash.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SipHash.xcconfig; sourceTree = "<group>"; };
 		A277129EDF853479F2455DF6CC121C8D /* JSONUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONUtils.swift; path = Sources/Utils/JSONUtils.swift; sourceTree = "<group>"; };
@@ -531,14 +544,10 @@
 		A801EA58F714B7D36E3FB7B278C9EC49 /* Bitwise Ops.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bitwise Ops.swift"; path = "sources/Bitwise Ops.swift"; sourceTree = "<group>"; };
 		A83795794CD9F3A88E761DE50D25CE69 /* crypto_core_curve25519.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_core_curve25519.h; path = Sodium/libsodium/crypto_core_curve25519.h; sourceTree = "<group>"; };
 		A84CEA01EE898DD77305E903C1EA6A17 /* PKCS5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS5.swift; path = Sources/CryptoSwift/PKCS/PKCS5.swift; sourceTree = "<group>"; };
-		A8A10B190DD12837B07F01A4B3285666 /* Pods-TezosKit-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TezosKit-resources.sh"; sourceTree = "<group>"; };
-		A8CC12E7F3941C137C36CBAE479B1E13 /* Pods-TezosKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TezosKit-dummy.m"; sourceTree = "<group>"; };
 		A9821BE588674F2A709E5FFE53F072AA /* UInt32+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt32+Extension.swift"; path = "Sources/CryptoSwift/UInt32+Extension.swift"; sourceTree = "<group>"; };
 		A99A46D548C7D9E5CF29F497AB800D34 /* Cipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cipher.swift; path = Sources/CryptoSwift/Cipher.swift; sourceTree = "<group>"; };
-		AAEA06E80BF6F6AF3759DF637137C8DD /* Pods-TezosKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TezosKit.modulemap"; sourceTree = "<group>"; };
 		AB5784508A97BECE5A53404CD6B4493A /* KeyPair.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeyPair.swift; path = Sources/Cryptography/KeyPair.swift; sourceTree = "<group>"; };
 		AB77343DF18F88863A499C19446E21AC /* BigInt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = BigInt.modulemap; path = ../../Headers/Public/BigInt/BigInt.modulemap; sourceTree = "<group>"; };
-		AC4CF82EB4550E907D6BB55DCC973A78 /* libTezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libTezosKit.a; path = libTezosKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAC36602EBE2236E2FCF2DA99D91E91 /* MnemonicUtil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MnemonicUtil.swift; path = Sources/Utils/MnemonicUtil.swift; sourceTree = "<group>"; };
 		AE8AB5D2788FB73869CCB979D7BF7CFA /* SipHash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SipHash-dummy.m"; sourceTree = "<group>"; };
 		AFA3E0B6613DF9DD1A66208F0193C191 /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RegisterDelegateOperation.swift; path = Sources/Operation/RegisterDelegateOperation.swift; sourceTree = "<group>"; };
@@ -556,21 +565,23 @@
 		BD95014C3937D972C675EE0D2D5CBF95 /* randombytes_sysrandom.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = randombytes_sysrandom.h; path = Sodium/libsodium/randombytes_sysrandom.h; sourceTree = "<group>"; };
 		BE98F8497A04561DF5033B16AB88ABE8 /* SipHashable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SipHashable.swift; path = SipHash/SipHashable.swift; sourceTree = "<group>"; };
 		BF7C4A974A6B82C8210DB7B350163962 /* CryptoSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-prefix.pch"; sourceTree = "<group>"; };
+		C064422F510CAA016C1336713BB4E936 /* Pods-TezosKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TezosKit-umbrella.h"; sourceTree = "<group>"; };
 		C214DAD222822C43C44B25F4380733EC /* crypto_verify_16.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_verify_16.h; path = Sodium/libsodium/crypto_verify_16.h; sourceTree = "<group>"; };
 		C214F6723A7D49CAB3812A837FE792C1 /* SipHash-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SipHash-umbrella.h"; path = "../../Headers/Public/SipHash/SipHash-umbrella.h"; sourceTree = "<group>"; };
 		C235130874C41B2BA858CC6AB30C7D50 /* Chinese.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Chinese.swift; path = CKMnemonic/CKMnemonic/CKMnemonic/Language/Chinese.swift; sourceTree = "<group>"; };
 		C269AB99B82CE25F3F33BE4C784E35C0 /* Collection+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Extension.swift"; path = "Sources/CryptoSwift/Collection+Extension.swift"; sourceTree = "<group>"; };
 		C36143FE2FB5B6C136C3423F698CDB5C /* Hashable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Hashable.swift; path = sources/Hashable.swift; sourceTree = "<group>"; };
-		C57EF5F3BA2B36DC626B7B9441383D94 /* Pods-TezosKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TezosKit-umbrella.h"; sourceTree = "<group>"; };
 		C5FCB36023B3E977D7ABCD80C9CB9632 /* crypto_stream_xsalsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream_xsalsa20.h; path = Sodium/libsodium/crypto_stream_xsalsa20.h; sourceTree = "<group>"; };
 		C764BF4FBFA563FAC4A610D363276E43 /* runtime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = runtime.h; path = Sodium/libsodium/runtime.h; sourceTree = "<group>"; };
 		C929C4F3BF181A1BCDF008D5CFD1E5DA /* Checksum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Checksum.swift; path = Sources/CryptoSwift/Checksum.swift; sourceTree = "<group>"; };
+		C9B86939362DC7AF049264B6041E1F61 /* Pods-TezosKitTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TezosKitTests-resources.sh"; sourceTree = "<group>"; };
 		CD629497B93FF95143F98B257407698E /* KeyExchange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeyExchange.swift; path = Sodium/KeyExchange.swift; sourceTree = "<group>"; };
 		CE65FC5DB905E39D4152F14018CF56F2 /* crypto_secretbox_xsalsa20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_secretbox_xsalsa20poly1305.h; path = Sodium/libsodium/crypto_secretbox_xsalsa20poly1305.h; sourceTree = "<group>"; };
 		D024866238E9C46D8A9F2AE1AD7724E3 /* crypto_hash_sha512.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_hash_sha512.h; path = Sodium/libsodium/crypto_hash_sha512.h; sourceTree = "<group>"; };
 		D1420772F6094BCDF0A47B3EC2EAFF92 /* BatchedCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BatchedCollection.swift; path = Sources/CryptoSwift/BatchedCollection.swift; sourceTree = "<group>"; };
+		D1A07C16EA136BD3870959C10CB41F47 /* Pods-TezosKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TezosKit.modulemap"; sourceTree = "<group>"; };
 		D2155BF3CF3D1E9D6502A25877DC5987 /* crypto_auth_hmacsha512256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_auth_hmacsha512256.h; path = Sodium/libsodium/crypto_auth_hmacsha512256.h; sourceTree = "<group>"; };
-		D402EE2A7E56FA4BC85E40FB088122A6 /* Pods-TezosKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TezosKit.release.xcconfig"; sourceTree = "<group>"; };
+		D3880C6B3E69849B7A64531E768CCC58 /* libCryptoSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCryptoSwift.a; path = libCryptoSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D66AA6729CB0256D9BDE57D3F983B260 /* String+FoundationExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+FoundationExtension.swift"; path = "Sources/CryptoSwift/Foundation/String+FoundationExtension.swift"; sourceTree = "<group>"; };
 		D803FF2589F5F1694F4BD5A9B645E59C /* HMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HMAC.swift; path = Sources/CryptoSwift/HMAC.swift; sourceTree = "<group>"; };
 		D842119E987BA770DD453AC05D9F3535 /* RandomBytes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomBytes.swift; path = Sodium/RandomBytes.swift; sourceTree = "<group>"; };
@@ -578,6 +589,7 @@
 		D91C627A19877E8F8E54B8C220D2F2D3 /* TezosBalance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TezosBalance.swift; path = Sources/Models/TezosBalance.swift; sourceTree = "<group>"; };
 		D98B8A6CD2A738CE5FCD7596DB1996A3 /* CKMnemonic.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CKMnemonic.xcconfig; sourceTree = "<group>"; };
 		D9D0A91518FBE7B57EA253148A18A3A4 /* TezosKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TezosKit.xcconfig; sourceTree = "<group>"; };
+		DCABB5812820B6711FA70707B967242F /* libTezosKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libTezosKit.a; path = libTezosKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD73E43601C292EE98F06FF59C24206 /* CMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CMAC.swift; path = Sources/CryptoSwift/CMAC.swift; sourceTree = "<group>"; };
 		DE385A7CDA9267CD56966EDBEBF9E41D /* KeyDerivation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeyDerivation.swift; path = Sodium/KeyDerivation.swift; sourceTree = "<group>"; };
 		DE78CBA391248B4BF9E7D2E5860371F8 /* Sodium-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Sodium-dummy.m"; sourceTree = "<group>"; };
@@ -587,11 +599,9 @@
 		DFEF173051B22738B2082DE2C2C611BA /* crypto_aead_xchacha20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_aead_xchacha20poly1305.h; path = Sodium/libsodium/crypto_aead_xchacha20poly1305.h; sourceTree = "<group>"; };
 		E05DAFD41633261C354A7F20B8D4E9B9 /* SipHash.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = SipHash.modulemap; path = ../../Headers/Public/SipHash/SipHash.modulemap; sourceTree = "<group>"; };
 		E24CBD8F16DB7EE150EC566FFB924106 /* Square Root.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Square Root.swift"; path = "sources/Square Root.swift"; sourceTree = "<group>"; };
-		E3A831B5D44D7ACBF688DB33D418331C /* libBigInt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libBigInt.a; path = libBigInt.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E40275197AED6D9D7BB5471C051821DD /* Sodium-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Sodium-prefix.pch"; sourceTree = "<group>"; };
 		E54D3438B6F05A8F4AC073F68CD4C87D /* ForgeOperationRPC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ForgeOperationRPC.swift; path = Sources/RPC/ForgeOperationRPC.swift; sourceTree = "<group>"; };
 		E7731A4349B2B14D2BF280B349380CBC /* Operation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = Sources/Operation/Operation.swift; sourceTree = "<group>"; };
-		E7CFDBC7D9B0FFD4515531ED28084F5B /* libSipHash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSipHash.a; path = libSipHash.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D7854CCCAC3C5943DD87A5E32D2D9B /* ExitCode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExitCode.swift; path = Sodium/ExitCode.swift; sourceTree = "<group>"; };
 		E8A3C7199E9276FB2865CBBECBF59127 /* Aead.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Aead.swift; path = Sodium/Aead.swift; sourceTree = "<group>"; };
 		E9DE5F370A2AEFFC2D6CB2940C73E65A /* Int+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Int+Extension.swift"; path = "Sources/CryptoSwift/Int+Extension.swift"; sourceTree = "<group>"; };
@@ -600,9 +610,15 @@
 		EB2C5FC3B74C1D568361C76AC4E776D1 /* PKCS7Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7Padding.swift; path = Sources/CryptoSwift/PKCS/PKCS7Padding.swift; sourceTree = "<group>"; };
 		EBCB8579ECA2187F36BB98C28439D3A2 /* SecretKeyGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecretKeyGenerator.swift; path = Sodium/Generators/SecretKeyGenerator.swift; sourceTree = "<group>"; };
 		ECB6F30BF8BEACE36FA76EE5A5437282 /* crypto_stream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream.h; path = Sodium/libsodium/crypto_stream.h; sourceTree = "<group>"; };
+		ED42A58EF95AF10286334504D25F1144 /* Pods-TezosKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TezosKit.release.xcconfig"; sourceTree = "<group>"; };
+		EE42CCECBC795BC0B5B68B2A71172852 /* Pods-TezosKit-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TezosKit-resources.sh"; sourceTree = "<group>"; };
 		EE7CEF140F33CE1B2AEDF63D597DC841 /* Sign.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sign.swift; path = Sodium/Sign.swift; sourceTree = "<group>"; };
 		F0484374290568D75CB9958DC3C439DD /* crypto_aead_aes256gcm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_aead_aes256gcm.h; path = Sodium/libsodium/crypto_aead_aes256gcm.h; sourceTree = "<group>"; };
 		F2055E414C70567AD0B59B66DD3A6C99 /* crypto_stream_salsa208.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream_salsa208.h; path = Sodium/libsodium/crypto_stream_salsa208.h; sourceTree = "<group>"; };
+		F2CC5339A08147018C8C368DB3E37716 /* libPods-TezosKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-TezosKitTests.a"; path = "libPods-TezosKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F30D6EA629AB0EF37E6A6FAC4C7A3A84 /* Pods-TezosKitTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TezosKitTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F37E8BB3686A5E53A29795DF915DF65E /* Pods-TezosKit-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TezosKit-frameworks.sh"; sourceTree = "<group>"; };
+		F3A5CD943E736227A18E5DF629C07107 /* libSodium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSodium.a; path = libSodium.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4ED9516A03C7292AE90583B4821F538 /* Subtraction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Subtraction.swift; path = sources/Subtraction.swift; sourceTree = "<group>"; };
 		F615E5965369550FAA53BB82CC61EBEB /* crypto_hash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_hash.h; path = Sodium/libsodium/crypto_hash.h; sourceTree = "<group>"; };
 		F689FECDD056003D2EA8426BD010AC14 /* crypto_box.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_box.h; path = Sodium/libsodium/crypto_box.h; sourceTree = "<group>"; };
@@ -657,6 +673,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A50B8DCC9D1D00BDED7614C47DCA9D66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E69C3905B1E4E5A8AF2EA233129B096F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -948,18 +971,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		619536C8582991EAC289A77D8B2F71E9 /* Products */ = {
+		513A9A1C5908D81D676A8D89F0F00A6D /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				E3A831B5D44D7ACBF688DB33D418331C /* libBigInt.a */,
-				2F2484909A42FB088298071B9335C927 /* libCKMnemonic.a */,
-				4BFF39FB00643AD865B0AFD4A22D4530 /* libCryptoSwift.a */,
-				44903A55865F7F78F7001E64CA38DCFF /* libPods-TezosKit.a */,
-				E7CFDBC7D9B0FFD4515531ED28084F5B /* libSipHash.a */,
-				9D1B234895152A47740AB0C090864664 /* libSodium.a */,
-				AC4CF82EB4550E907D6BB55DCC973A78 /* libTezosKit.a */,
+				59F4CE42A1355841767B6EF82EC9B019 /* Pods-TezosKit */,
+				AA80AB6AA8682C1CB89936E643953E7B /* Pods-TezosKitTests */,
 			);
-			name = Products;
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		59F4CE42A1355841767B6EF82EC9B019 /* Pods-TezosKit */ = {
+			isa = PBXGroup;
+			children = (
+				D1A07C16EA136BD3870959C10CB41F47 /* Pods-TezosKit.modulemap */,
+				1C909A2BC797475F677359A30BF6CAC9 /* Pods-TezosKit-acknowledgements.markdown */,
+				314945BBDE08902AE2B40A497C6C6B3F /* Pods-TezosKit-acknowledgements.plist */,
+				2D5D9CE9E43379BCD671D9CF5B84D620 /* Pods-TezosKit-dummy.m */,
+				F37E8BB3686A5E53A29795DF915DF65E /* Pods-TezosKit-frameworks.sh */,
+				EE42CCECBC795BC0B5B68B2A71172852 /* Pods-TezosKit-resources.sh */,
+				C064422F510CAA016C1336713BB4E936 /* Pods-TezosKit-umbrella.h */,
+				6A9EAB7A1F558442AF0C8631442AB0B7 /* Pods-TezosKit.debug.xcconfig */,
+				ED42A58EF95AF10286334504D25F1144 /* Pods-TezosKit.release.xcconfig */,
+			);
+			name = "Pods-TezosKit";
+			path = "Target Support Files/Pods-TezosKit";
 			sourceTree = "<group>";
 		};
 		6B1E3674B8FE598403F41F2077B6CE7B /* TezosKit */ = {
@@ -1014,8 +1049,8 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
 				103CA268480D451E37692335898BAF31 /* Pods */,
-				619536C8582991EAC289A77D8B2F71E9 /* Products */,
-				B65C0941AE2B6F22232A49FDCD341F0D /* Targets Support Files */,
+				9ABBC11E1412EB6B136BA887EB0BF4FB /* Products */,
+				513A9A1C5908D81D676A8D89F0F00A6D /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1046,6 +1081,21 @@
 			path = CKMnemonic;
 			sourceTree = "<group>";
 		};
+		9ABBC11E1412EB6B136BA887EB0BF4FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8BBD543B32A61E08341A3CFE2664C8D8 /* libBigInt.a */,
+				1B96A2E938608E8980F9E78E32F4B070 /* libCKMnemonic.a */,
+				D3880C6B3E69849B7A64531E768CCC58 /* libCryptoSwift.a */,
+				3079150FDF1F355DC0BBD05A3447F453 /* libPods-TezosKit.a */,
+				F2CC5339A08147018C8C368DB3E37716 /* libPods-TezosKitTests.a */,
+				A18B954A47661CD2CE80C9A35EFA1F00 /* libSipHash.a */,
+				F3A5CD943E736227A18E5DF629C07107 /* libSodium.a */,
+				DCABB5812820B6711FA70707B967242F /* libTezosKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A77F26B3029DCBA3B712D590CC9FA48F /* SipHash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1059,12 +1109,19 @@
 			path = SipHash;
 			sourceTree = "<group>";
 		};
-		B65C0941AE2B6F22232A49FDCD341F0D /* Targets Support Files */ = {
+		AA80AB6AA8682C1CB89936E643953E7B /* Pods-TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				EB5B85F51FC5E7C067C63374A28FA707 /* Pods-TezosKit */,
+				F30D6EA629AB0EF37E6A6FAC4C7A3A84 /* Pods-TezosKitTests-acknowledgements.markdown */,
+				78017547BA78FAC4FB287AE3863A8BCD /* Pods-TezosKitTests-acknowledgements.plist */,
+				49EC26B6A3D27B1DC8274C44FAA18F14 /* Pods-TezosKitTests-dummy.m */,
+				214BD94E0AA124C473237A2ADFE521B3 /* Pods-TezosKitTests-frameworks.sh */,
+				C9B86939362DC7AF049264B6041E1F61 /* Pods-TezosKitTests-resources.sh */,
+				588866729EB2AFF7FE1BD9022E4B3B6D /* Pods-TezosKitTests.debug.xcconfig */,
+				291007C83D2E3635E72E83CCDBDF98EA /* Pods-TezosKitTests.release.xcconfig */,
 			);
-			name = "Targets Support Files";
+			name = "Pods-TezosKitTests";
+			path = "Target Support Files/Pods-TezosKitTests";
 			sourceTree = "<group>";
 		};
 		D3D93D4B902B6FFC6BBEA6954032F5DA /* Support Files */ = {
@@ -1078,23 +1135,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Sodium";
-			sourceTree = "<group>";
-		};
-		EB5B85F51FC5E7C067C63374A28FA707 /* Pods-TezosKit */ = {
-			isa = PBXGroup;
-			children = (
-				AAEA06E80BF6F6AF3759DF637137C8DD /* Pods-TezosKit.modulemap */,
-				1D15031F16A01ED1B08385CDE1D1AB0E /* Pods-TezosKit-acknowledgements.markdown */,
-				11BF97B6CA733EF02B273ED6739F09F2 /* Pods-TezosKit-acknowledgements.plist */,
-				A8CC12E7F3941C137C36CBAE479B1E13 /* Pods-TezosKit-dummy.m */,
-				977C2444D6412004145AF8D86CE3A41B /* Pods-TezosKit-frameworks.sh */,
-				A8A10B190DD12837B07F01A4B3285666 /* Pods-TezosKit-resources.sh */,
-				C57EF5F3BA2B36DC626B7B9441383D94 /* Pods-TezosKit-umbrella.h */,
-				49DE8D0C530642C42F9DF6155F15278E /* Pods-TezosKit.debug.xcconfig */,
-				D402EE2A7E56FA4BC85E40FB088122A6 /* Pods-TezosKit.release.xcconfig */,
-			);
-			name = "Pods-TezosKit";
-			path = "Target Support Files/Pods-TezosKit";
 			sourceTree = "<group>";
 		};
 		FC53ADA11CE25B25B6CFA9815D25FAD7 /* Support Files */ = {
@@ -1251,7 +1291,7 @@
 			);
 			name = CKMnemonic;
 			productName = CKMnemonic;
-			productReference = 2F2484909A42FB088298071B9335C927 /* libCKMnemonic.a */;
+			productReference = 1B96A2E938608E8980F9E78E32F4B070 /* libCKMnemonic.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		1AE6B1723D74CA8F3E47BECF45D3D7C6 /* SipHash */ = {
@@ -1269,7 +1309,7 @@
 			);
 			name = SipHash;
 			productName = SipHash;
-			productReference = E7CFDBC7D9B0FFD4515531ED28084F5B /* libSipHash.a */;
+			productReference = A18B954A47661CD2CE80C9A35EFA1F00 /* libSipHash.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		22935C575D2252B12628F42FE316437B /* TezosKit */ = {
@@ -1292,7 +1332,24 @@
 			);
 			name = TezosKit;
 			productName = TezosKit;
-			productReference = AC4CF82EB4550E907D6BB55DCC973A78 /* libTezosKit.a */;
+			productReference = DCABB5812820B6711FA70707B967242F /* libTezosKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		251187C85372D3B6177E46F17E1E03B0 /* Pods-TezosKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 858A6228733CF896BD6C73A7135FDDC2 /* Build configuration list for PBXNativeTarget "Pods-TezosKitTests" */;
+			buildPhases = (
+				3CF48FE3C4661A071C709998075A42A8 /* Sources */,
+				E69C3905B1E4E5A8AF2EA233129B096F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91D265475907E103BF6B31425DE8E230 /* PBXTargetDependency */,
+			);
+			name = "Pods-TezosKitTests";
+			productName = "Pods-TezosKitTests";
+			productReference = F2CC5339A08147018C8C368DB3E37716 /* libPods-TezosKitTests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		32FAD978FA80DC78F06AA029B790E7A2 /* Sodium */ = {
@@ -1310,7 +1367,7 @@
 			);
 			name = Sodium;
 			productName = Sodium;
-			productReference = 9D1B234895152A47740AB0C090864664 /* libSodium.a */;
+			productReference = F3A5CD943E736227A18E5DF629C07107 /* libSodium.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		5ACBBB39CE6A55EF5815078BCC188A37 /* BigInt */ = {
@@ -1329,7 +1386,7 @@
 			);
 			name = BigInt;
 			productName = BigInt;
-			productReference = E3A831B5D44D7ACBF688DB33D418331C /* libBigInt.a */;
+			productReference = 8BBD543B32A61E08341A3CFE2664C8D8 /* libBigInt.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		A4633757602E1CEA6CA2AF2D1584D805 /* Pods-TezosKit */ = {
@@ -1352,7 +1409,7 @@
 			);
 			name = "Pods-TezosKit";
 			productName = "Pods-TezosKit";
-			productReference = 44903A55865F7F78F7001E64CA38DCFF /* libPods-TezosKit.a */;
+			productReference = 3079150FDF1F355DC0BBD05A3447F453 /* libPods-TezosKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		D99318B32961FEC382D9F70EA83D459D /* CryptoSwift */ = {
@@ -1370,7 +1427,7 @@
 			);
 			name = CryptoSwift;
 			productName = CryptoSwift;
-			productReference = 4BFF39FB00643AD865B0AFD4A22D4530 /* libCryptoSwift.a */;
+			productReference = D3880C6B3E69849B7A64531E768CCC58 /* libCryptoSwift.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -1390,7 +1447,7 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 619536C8582991EAC289A77D8B2F71E9 /* Products */;
+			productRefGroup = 9ABBC11E1412EB6B136BA887EB0BF4FB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1398,6 +1455,7 @@
 				00F5DFE73C93CBB3C26DC4B8D7C8A070 /* CKMnemonic */,
 				D99318B32961FEC382D9F70EA83D459D /* CryptoSwift */,
 				A4633757602E1CEA6CA2AF2D1584D805 /* Pods-TezosKit */,
+				251187C85372D3B6177E46F17E1E03B0 /* Pods-TezosKitTests */,
 				1AE6B1723D74CA8F3E47BECF45D3D7C6 /* SipHash */,
 				32FAD978FA80DC78F06AA029B790E7A2 /* Sodium */,
 				22935C575D2252B12628F42FE316437B /* TezosKit */,
@@ -1662,6 +1720,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3CF48FE3C4661A071C709998075A42A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B7432BDAC942C31FAB6EF706798F85E /* Pods-TezosKitTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7CC64DE2ED93A728A784DE95E0EC66B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1786,6 +1852,12 @@
 			name = SipHash;
 			target = 1AE6B1723D74CA8F3E47BECF45D3D7C6 /* SipHash */;
 			targetProxy = 0711DDA92925B65EEDC64A7CA764B883 /* PBXContainerItemProxy */;
+		};
+		91D265475907E103BF6B31425DE8E230 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-TezosKit";
+			target = A4633757602E1CEA6CA2AF2D1584D805 /* Pods-TezosKit */;
+			targetProxy = 043F33EFFA40A53ECDD6D3BA6B076257 /* PBXContainerItemProxy */;
 		};
 		93F776D87A42BCCAF00BEEB912153C06 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1981,7 +2053,7 @@
 		};
 		243C0DEBB2618E1CB266D14CD031B032 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D402EE2A7E56FA4BC85E40FB088122A6 /* Pods-TezosKit.release.xcconfig */;
+			baseConfigurationReference = ED42A58EF95AF10286334504D25F1144 /* Pods-TezosKit.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2112,6 +2184,28 @@
 			};
 			name = Release;
 		};
+		B29283C2E51477297BF844A664C7A2CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 588866729EB2AFF7FE1BD9022E4B3B6D /* Pods-TezosKitTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		BAEA2EAF67B358A743DB5CA0D8390325 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D9D0A91518FBE7B57EA253148A18A3A4 /* TezosKit.xcconfig */;
@@ -2140,7 +2234,7 @@
 		};
 		BDF4886AD24E0DCF8C81FB6B50A80DC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49DE8D0C530642C42F9DF6155F15278E /* Pods-TezosKit.debug.xcconfig */;
+			baseConfigurationReference = 6A9EAB7A1F558442AF0C8631442AB0B7 /* Pods-TezosKit.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2275,6 +2369,29 @@
 			};
 			name = Release;
 		};
+		DDE9253EE14DC6FA2083CED8F63577E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 291007C83D2E3635E72E83CCDBDF98EA /* Pods-TezosKitTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		E56138A2D2AC9D758D95A7DF36196F80 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A23E49809E6CBC4AD8B0EC8372BC64AA /* SipHash.xcconfig */;
@@ -2380,6 +2497,15 @@
 			buildConfigurations = (
 				04D4179A883E36923B273F62E13BCB95 /* Debug */,
 				BEF7B2B021EB12B87031806EE0FAA2D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		858A6228733CF896BD6C73A7135FDDC2 /* Build configuration list for PBXNativeTarget "Pods-TezosKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B29283C2E51477297BF844A664C7A2CE /* Debug */,
+				DDE9253EE14DC6FA2083CED8F63577E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
