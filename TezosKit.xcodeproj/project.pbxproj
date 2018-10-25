@@ -44,7 +44,6 @@
 		7AA95837217CB80A00865D55 /* DelegationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95833217CB80A00865D55 /* DelegationOperation.swift */; };
 		7AA95838217CB80A00865D55 /* OperationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95834217CB80A00865D55 /* OperationKind.swift */; };
 		7AA95841217CC56F00865D55 /* IntegerResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */; };
-		7AA9585D217CCCC200865D55 /* TestKeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA9585C217CCCC200865D55 /* TestKeyPair.swift */; };
 		7ABC8543217D6B91006DE8FD /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8542217D6B90006DE8FD /* Keys.swift */; };
 		7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */; };
 		7ABC8549217E8070006DE8FD /* TypeCheckCodeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */; };
@@ -104,9 +103,6 @@
 		7AA95834217CB80A00865D55 /* OperationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationKind.swift; sourceTree = "<group>"; };
 		7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerResponseAdapter.swift; sourceTree = "<group>"; };
 		7AA9584F217CCBEE00865D55 /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AA95853217CCBEE00865D55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7AA9585B217CCCC100865D55 /* TezosKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TezosKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		7AA9585C217CCCC200865D55 /* TestKeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestKeyPair.swift; sourceTree = "<group>"; };
 		7ABC8542217D6B90006DE8FD /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperation.swift; sourceTree = "<group>"; };
 		7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeCheckCodeRPC.swift; sourceTree = "<group>"; };
@@ -149,7 +145,6 @@
 				7ABC854C21813427006DE8FD /* Base58String */,
 				7AA95845217CC9F500865D55 /* Tests */,
 				7AA8F3582160158000C05895 /* Sources */,
-				7AA95850217CCBEE00865D55 /* TezosKitTests */,
 				7AA8F3572160158000C05895 /* Products */,
 				66DCFF36F3CA345FF65DA166 /* Pods */,
 				E1B299C2AF182A8A0B52D6BE /* Frameworks */,
@@ -282,24 +277,6 @@
 			children = (
 			);
 			name = Tests;
-			sourceTree = "<group>";
-		};
-		7AA95850217CCBEE00865D55 /* TezosKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				7AA95853217CCBEE00865D55 /* Info.plist */,
-				7AA9585B217CCCC100865D55 /* TezosKitTests-Bridging-Header.h */,
-				7AA9585A217CCC8F00865D55 /* Cryptography */,
-			);
-			path = TezosKitTests;
-			sourceTree = "<group>";
-		};
-		7AA9585A217CCC8F00865D55 /* Cryptography */ = {
-			isa = PBXGroup;
-			children = (
-				7AA9585C217CCCC200865D55 /* TestKeyPair.swift */,
-			);
-			path = Cryptography;
 			sourceTree = "<group>";
 		};
 		7ABC854C21813427006DE8FD /* Base58String */ = {
@@ -488,7 +465,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AA9585D217CCCC200865D55 /* TestKeyPair.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
