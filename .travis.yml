@@ -3,11 +3,10 @@ os: osx
 osx_image: xcode10
 
 script:
-- set -o pipefail && xcodebuild -workspace TezosKit.xcworkspace -scheme TezosKitTests -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X -UseModernBuildSystem=YES build test | xcpretty && exit ${PIPESTATUS[0]}
+  - set -o pipefail && xcodebuild -workspace TezosKit.xcworkspace -scheme TezosKitTests -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X -UseModernBuildSystem=YES build test | xcpretty && exit ${PIPESTATUS[0]}
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
   
 before_install:
-- brew update
-- brew install libsodium
-  
-after_success:
-- bash <(curl -s https://codecov.io/bash)
+  - brew update
+  - brew install libsodium
