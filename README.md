@@ -25,7 +25,22 @@ TezosKit is heavily inspired by functionality provided by other Tezos SDKs, such
 
 ## Installation
 
-TBD
+### CocoaPods
+TezosKit supports installation via CocoaPods. You can depened on TezosKit by adding the following to your Podfile:
+
+```
+pod "TezosKit", :git => 'https://github.com/keefertaylor/TezosKit.git'
+```
+
+### LibSodium Errors
+
+If you receive build errors about missing headers for Sodium, you need to install the LibSodium library.
+
+The easiest way to do this is with Homebrew:
+
+```shell
+$ brew update && brew install libsodium
+```
 
 ## Getting Started
 
