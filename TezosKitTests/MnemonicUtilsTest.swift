@@ -1,9 +1,9 @@
 import XCTest
 import TezosKit
 
-class MnemonicUtilsTest: XCTestCase {
+class MnemonicUtilsTest2: XCTestCase {
   // Mnemonic and Passphrase for tests.
-  private let validMnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
+  private let mnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
   private let passphrase = "TezosKitTests"
 
   // Expected seed strings with / without passphrase.
@@ -17,14 +17,14 @@ class MnemonicUtilsTest: XCTestCase {
   }
 
   public func testSeedStringFromMnemonicNoPassphrase() {
-    guard let result = MnemonicUtil.seedString(from: validMnemonic) else {
+    guard let result = MnemonicUtil.seedString(from: mnemonic) else {
       fatalError()
     }
     XCTAssertEqual(result, expectedSeedStringNoPassphrase)
   }
 
   public func testSeedStringFromMnemonicEmptyPassphrase() {
-    guard let result = MnemonicUtil.seedString(from: validMnemonic, passphrase: "") else {
+    guard let result = MnemonicUtil.seedString(from: mnemonic, passphrase: "") else {
       fatalError()
     }
 
@@ -33,7 +33,7 @@ class MnemonicUtilsTest: XCTestCase {
   }
 
   public func testSeedStringFromMnemonicWithPassphrase() {
-    guard let result = MnemonicUtil.seedString(from: validMnemonic, passphrase: passphrase) else {
+    guard let result = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase) else {
       fatalError()
     }
 
