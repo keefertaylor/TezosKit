@@ -1,5 +1,6 @@
 # Xcode
 .DS_Store
+*/xcuserdata/*
 
 # Swift package manager.
 .build
