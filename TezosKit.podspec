@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "TezosKitLib"
+  s.name         = "TezosKit"
   s.version      = "0.0.1"
   s.summary      = "TezosKit provides a Swift based toolchain for interacting with the Tezos blockchain"
   s.description  = <<-DESC
