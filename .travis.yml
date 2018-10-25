@@ -1,8 +1,6 @@
+language: swift
 os: osx
-language: objective-c
-xcode_project: TezosKit.xcodeproj
-xcode_scheme: TezosKit
-xcode_sdk: iphonesimulator12.0
+osx_image: xcode10
 
 script:
 - set -o pipefail && xcodebuild -workspace TezosKit.xcworkspace -scheme TezosKitExampleApp -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X -UseModernBuildSystem=YES build | xcpretty && exit ${PIPESTATUS[0]}
