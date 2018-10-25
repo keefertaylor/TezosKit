@@ -4,10 +4,23 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>TezosKit.xcscheme</key>
+		<key>TezosKitExampleApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>7</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>7AA8F3552160158000C05895</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7AA9584E217CCBEE00865D55</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
