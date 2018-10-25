@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "458B818B1439362A80B9A028D5576A8A"
+               BlueprintIdentifier = "A4633757602E1CEA6CA2AF2D1584D805"
                BlueprintName = "Pods-TezosKit"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-TezosKit.a">

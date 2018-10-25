@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4D6EA23CB8191180411FABB9414D474B"
+               BlueprintIdentifier = "32FAD978FA80DC78F06AA029B790E7A2"
                BlueprintName = "Sodium"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libSodium.a">

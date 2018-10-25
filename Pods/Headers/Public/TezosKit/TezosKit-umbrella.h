@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double TezosKitLibVersionNumber;
-FOUNDATION_EXPORT const unsigned char TezosKitLibVersionString[];
+FOUNDATION_EXPORT double TezosKitVersionNumber;
+FOUNDATION_EXPORT const unsigned char TezosKitVersionString[];
 

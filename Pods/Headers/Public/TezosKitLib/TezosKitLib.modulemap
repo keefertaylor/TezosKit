@@ -1,6 +1,0 @@
-module TezosKitLib {
-  umbrella header "TezosKitLib-umbrella.h"
-
-  export *
-  module * { export * }
-}
