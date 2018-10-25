@@ -16,8 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 
-THIS WILL NOT BUILD
-
   public func testCryptoUtils() {
     let validAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPH"
     let validOriginatedAddress = "KT1Agon3ARPS7U74UedWpR96j1CCbPCsSTsL"
