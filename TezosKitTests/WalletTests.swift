@@ -82,7 +82,7 @@ class WalletTests: XCTestCase {
   }
 
   public func testGenerateWalletFromInvalidSecretKey() {
-//    let wallet = Wallet(secretKey: "")
-//    XCTAssertNil(wallet)
+    let wallet = Wallet(secretKey: "thisIsNotAValidKey")
+    XCTAssertNil(wallet)
   }
 }

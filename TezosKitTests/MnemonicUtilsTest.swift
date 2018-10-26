@@ -1,7 +1,7 @@
 import XCTest
 import TezosKit
 
-class MnemonicUtilsTest2: XCTestCase {
+class MnemonicUtilsTest: XCTestCase {
   // Mnemonic and Passphrase for tests.
   private let mnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
   private let passphrase = "TezosKitTests"
