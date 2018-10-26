@@ -1,6 +1,7 @@
 import Foundation
 
 /** An RPC which will type check code. */
+// TODO: Add tests for this class.
 public class TypeCheckCodeRPC: TezosRPC<String> {
   /**
    * TODO: Finish.

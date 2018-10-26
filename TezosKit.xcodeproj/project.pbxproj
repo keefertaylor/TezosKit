@@ -66,6 +66,15 @@
 		7ABC859821839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC859721839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift */; };
 		7ABC859A2183961E006DE8FD /* JSONArrayResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85992183961D006DE8FD /* JSONArrayResponseAdapterTest.swift */; };
 		7ABC859C2183973F006DE8FD /* TezosRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC859B2183973F006DE8FD /* TezosRPCTest.swift */; };
+		7ABC859E21839C53006DE8FD /* InjectOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC859D21839C53006DE8FD /* InjectOperationRPCTest.swift */; };
+		7ABC85A021839D32006DE8FD /* PreapplyOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC859F21839D32006DE8FD /* PreapplyOperationRPCTest.swift */; };
+		7ABC85A221839DA4006DE8FD /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85A121839DA3006DE8FD /* ForgeOperationRPCTest.swift */; };
+		7ABC85A421839E09006DE8FD /* GetAddressBalanceRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85A321839E09006DE8FD /* GetAddressBalanceRPCTest.swift */; };
+		7ABC85A621839E76006DE8FD /* GetAddressCounterRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85A521839E76006DE8FD /* GetAddressCounterRPCTest.swift */; };
+		7ABC85A821839EA7006DE8FD /* GetDelegateRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85A721839EA7006DE8FD /* GetDelegateRPCTest.swift */; };
+		7ABC85AA21839F02006DE8FD /* GetAddressManagerKeyRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85A921839F02006DE8FD /* GetAddressManagerKeyRPCTest.swift */; };
+		7ABC85AE21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85AD21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift */; };
+		7ABC85B021839F7D006DE8FD /* GetChainHeadRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85AF21839F7D006DE8FD /* GetChainHeadRPCTest.swift */; };
 		E8CEEC8185D40796901B11A4 /* Pods_TezosKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711B3872659EEE9B847690A5 /* Pods_TezosKitTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +155,15 @@
 		7ABC859721839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDictionaryResponseAdapterTest.swift; sourceTree = "<group>"; };
 		7ABC85992183961D006DE8FD /* JSONArrayResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONArrayResponseAdapterTest.swift; sourceTree = "<group>"; };
 		7ABC859B2183973F006DE8FD /* TezosRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosRPCTest.swift; sourceTree = "<group>"; };
+		7ABC859D21839C53006DE8FD /* InjectOperationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectOperationRPCTest.swift; sourceTree = "<group>"; };
+		7ABC859F21839D32006DE8FD /* PreapplyOperationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreapplyOperationRPCTest.swift; sourceTree = "<group>"; };
+		7ABC85A121839DA3006DE8FD /* ForgeOperationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgeOperationRPCTest.swift; sourceTree = "<group>"; };
+		7ABC85A321839E09006DE8FD /* GetAddressBalanceRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPCTest.swift; sourceTree = "<group>"; };
+		7ABC85A521839E76006DE8FD /* GetAddressCounterRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressCounterRPCTest.swift; sourceTree = "<group>"; };
+		7ABC85A721839EA7006DE8FD /* GetDelegateRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDelegateRPCTest.swift; sourceTree = "<group>"; };
+		7ABC85A921839F02006DE8FD /* GetAddressManagerKeyRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressManagerKeyRPCTest.swift; sourceTree = "<group>"; };
+		7ABC85AD21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPCTest.swift; sourceTree = "<group>"; };
+		7ABC85AF21839F7D006DE8FD /* GetChainHeadRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetChainHeadRPCTest.swift; sourceTree = "<group>"; };
 		AD462AF223A5CD5683C948D9 /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18ABC256DB067253D1C0A45 /* Pods-TezosKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -333,6 +351,15 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				7ABC85AF21839F7D006DE8FD /* GetChainHeadRPCTest.swift */,
+				7ABC85AD21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift */,
+				7ABC85A921839F02006DE8FD /* GetAddressManagerKeyRPCTest.swift */,
+				7ABC85A721839EA7006DE8FD /* GetDelegateRPCTest.swift */,
+				7ABC85A521839E76006DE8FD /* GetAddressCounterRPCTest.swift */,
+				7ABC85A321839E09006DE8FD /* GetAddressBalanceRPCTest.swift */,
+				7ABC85A121839DA3006DE8FD /* ForgeOperationRPCTest.swift */,
+				7ABC859F21839D32006DE8FD /* PreapplyOperationRPCTest.swift */,
+				7ABC859D21839C53006DE8FD /* InjectOperationRPCTest.swift */,
 				7ABC859B2183973F006DE8FD /* TezosRPCTest.swift */,
 				7ABC85992183961D006DE8FD /* JSONArrayResponseAdapterTest.swift */,
 				7ABC859721839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift */,
@@ -589,19 +616,28 @@
 				7ABC859421838D6D006DE8FD /* IntegerResponseAdapterTest.swift in Sources */,
 				7ABC85862182B08B006DE8FD /* DelegationOperationTest.swift in Sources */,
 				7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */,
+				7ABC859E21839C53006DE8FD /* InjectOperationRPCTest.swift in Sources */,
+				7ABC85A021839D32006DE8FD /* PreapplyOperationRPCTest.swift in Sources */,
 				7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */,
 				7ABC857E21826C71006DE8FD /* WalletTests.swift in Sources */,
 				7ABC859821839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift in Sources */,
+				7ABC85AA21839F02006DE8FD /* GetAddressManagerKeyRPCTest.swift in Sources */,
 				7ABC85902183875C006DE8FD /* StringResponseAdapterTest.swift in Sources */,
+				7ABC85A821839EA7006DE8FD /* GetDelegateRPCTest.swift in Sources */,
+				7ABC85B021839F7D006DE8FD /* GetChainHeadRPCTest.swift in Sources */,
 				7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */,
 				7ABC859621839171006DE8FD /* TezosClientErrorCodesTest.swift in Sources */,
+				7ABC85A421839E09006DE8FD /* GetAddressBalanceRPCTest.swift in Sources */,
 				7ABC858C21838522006DE8FD /* TransactionOperationTest.swift in Sources */,
 				7ABC85822182A595006DE8FD /* CryptoTests.swift in Sources */,
 				7ABC85882183834D006DE8FD /* RegisterDelegateOperationTest.swift in Sources */,
+				7ABC85A621839E76006DE8FD /* GetAddressCounterRPCTest.swift in Sources */,
+				7ABC85A221839DA4006DE8FD /* ForgeOperationRPCTest.swift in Sources */,
 				7ABC858A218383F4006DE8FD /* RevealOperationTest.swift in Sources */,
 				7ABC859A2183961E006DE8FD /* JSONArrayResponseAdapterTest.swift in Sources */,
 				7ABC859C2183973F006DE8FD /* TezosRPCTest.swift in Sources */,
 				7ABC85922183899B006DE8FD /* TezosBalanceResponseAdapterTest.swift in Sources */,
+				7ABC85AE21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
