@@ -65,13 +65,12 @@ public class TezosRPC<T> {
 			return
 		}
 
-		guard let data = data else {
+		guard let data = data,
+          let result = self.responseAdapterClass.parse(input: data) else {
       let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
 			completion(nil, tezosClientError)
 			return
 		}
-
-		let result = self.responseAdapterClass.parse(input: data)
 		completion(result, nil)
 	}
 }
