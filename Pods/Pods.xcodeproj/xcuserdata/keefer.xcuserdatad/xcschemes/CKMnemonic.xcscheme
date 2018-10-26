@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00F5DFE73C93CBB3C26DC4B8D7C8A070"
+               BlueprintIdentifier = "89CA6DBD3C182658EF11B055DB96A5F9"
                BlueprintName = "CKMnemonic"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libCKMnemonic.a">
+               BuildableName = "CKMnemonic.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

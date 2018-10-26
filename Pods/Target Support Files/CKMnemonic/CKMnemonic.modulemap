@@ -1,0 +1,6 @@
+framework module CKMnemonic {
+  umbrella header "CKMnemonic-umbrella.h"
+
+  export *
+  module * { export * }
+}

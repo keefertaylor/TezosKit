@@ -141,6 +141,23 @@ strip_invalid_archs() {
   STRIP_BINARY_RETVAL=1
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CKMnemonic/CKMnemonic.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TezosKit/TezosKit.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CKMnemonic/CKMnemonic.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TezosKit/TezosKit.framework"
+fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
 fi

@@ -3,7 +3,8 @@ os: osx
 osx_image: xcode10
 
 script:
-  - xcodebuild -scheme TezosKitTests -workspace TezosKit.xcworkspace -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X build test
+  - xcodebuild -enableCodeCoverage=YES -scheme TezosKitTests -workspace TezosKit.xcworkspace -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X build test
   
 after_success:
+  - slather
   - bash <(curl -s https://codecov.io/bash)

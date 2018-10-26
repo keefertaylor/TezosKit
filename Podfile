@@ -1,5 +1,5 @@
 use_modular_headers!
-
+use_frameworks!
 target 'TezosKit' do
 	pod "TezosKit", :git => 'https://github.com/keefertaylor/TezosKit.git'
 

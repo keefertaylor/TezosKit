@@ -1,4 +1,4 @@
-module Pods_TezosKit {
+framework module Pods_TezosKit {
   umbrella header "Pods-TezosKit-umbrella.h"
 
   export *

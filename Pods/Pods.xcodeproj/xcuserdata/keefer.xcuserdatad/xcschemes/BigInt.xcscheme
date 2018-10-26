@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5ACBBB39CE6A55EF5815078BCC188A37"
+               BlueprintIdentifier = "137411A4D3CCDCAE6EE1A79271E0889C"
                BlueprintName = "BigInt"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libBigInt.a">
+               BuildableName = "BigInt.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
