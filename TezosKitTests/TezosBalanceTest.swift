@@ -30,7 +30,7 @@ class TezosBalanceTest: XCTestCase {
   }
 
   public func testBalanceFromStringSmallNumber() {
-    guard let balance = TezosBalance(balance: "000035") else {
+    guard let balance = TezosBalance(balance: "35") else {
       XCTFail()
       return
     }
