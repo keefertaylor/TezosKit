@@ -53,6 +53,8 @@
 		7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC856D2182655E006DE8FD /* MnemonicUtilsTest.swift */; };
 		7ABC857E21826C71006DE8FD /* WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC857D21826C71006DE8FD /* WalletTests.swift */; };
 		7ABC85802182A072006DE8FD /* TezosBalanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC857F2182A072006DE8FD /* TezosBalanceTest.swift */; };
+		7ABC85822182A595006DE8FD /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85812182A595006DE8FD /* CryptoTests.swift */; };
+		7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85832182AE86006DE8FD /* AbstractOperationTest.swift */; };
 		E8CEEC8185D40796901B11A4 /* Pods_TezosKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711B3872659EEE9B847690A5 /* Pods_TezosKitTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +122,8 @@
 		7ABC856D2182655E006DE8FD /* MnemonicUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicUtilsTest.swift; sourceTree = "<group>"; };
 		7ABC857D21826C71006DE8FD /* WalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTests.swift; sourceTree = "<group>"; };
 		7ABC857F2182A072006DE8FD /* TezosBalanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosBalanceTest.swift; sourceTree = "<group>"; };
+		7ABC85812182A595006DE8FD /* CryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
+		7ABC85832182AE86006DE8FD /* AbstractOperationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractOperationTest.swift; sourceTree = "<group>"; };
 		AD462AF223A5CD5683C948D9 /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18ABC256DB067253D1C0A45 /* Pods-TezosKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -307,6 +311,8 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				7ABC85832182AE86006DE8FD /* AbstractOperationTest.swift */,
+				7ABC85812182A595006DE8FD /* CryptoTests.swift */,
 				7ABC857F2182A072006DE8FD /* TezosBalanceTest.swift */,
 				7ABC857D21826C71006DE8FD /* WalletTests.swift */,
 				7ABC856D2182655E006DE8FD /* MnemonicUtilsTest.swift */,
@@ -547,9 +553,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ABC85802182A072006DE8FD /* TezosBalanceTest.swift in Sources */,
+				7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */,
 				7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */,
 				7ABC857E21826C71006DE8FD /* WalletTests.swift in Sources */,
 				7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */,
+				7ABC85822182A595006DE8FD /* CryptoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
