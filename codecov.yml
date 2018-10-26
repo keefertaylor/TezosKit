@@ -1,0 +1,9 @@
+# List of ignore directories for code coverage.
+ignore:
+  - "TezosKitTests"
+  - "Sources/App"
+  - "Pods/BigInt/"
+  - "Pods/CKMnemonic"
+  - "Pods/CryptoSwift"
+  - "Pods/SipHash"
+  - "Pods/Sodium"
