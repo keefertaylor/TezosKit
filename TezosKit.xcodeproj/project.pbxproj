@@ -56,6 +56,7 @@
 		7ABC85822182A595006DE8FD /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85812182A595006DE8FD /* CryptoTests.swift */; };
 		7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85832182AE86006DE8FD /* AbstractOperationTest.swift */; };
 		7ABC85862182B08B006DE8FD /* DelegationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85852182B08B006DE8FD /* DelegationOperationTest.swift */; };
+		7ABC85882183834D006DE8FD /* RegisterDelegateOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85872183834D006DE8FD /* RegisterDelegateOperationTest.swift */; };
 		E8CEEC8185D40796901B11A4 /* Pods_TezosKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711B3872659EEE9B847690A5 /* Pods_TezosKitTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 		7ABC85812182A595006DE8FD /* CryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
 		7ABC85832182AE86006DE8FD /* AbstractOperationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractOperationTest.swift; sourceTree = "<group>"; };
 		7ABC85852182B08B006DE8FD /* DelegationOperationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationOperationTest.swift; sourceTree = "<group>"; };
+		7ABC85872183834D006DE8FD /* RegisterDelegateOperationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperationTest.swift; sourceTree = "<group>"; };
 		AD462AF223A5CD5683C948D9 /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18ABC256DB067253D1C0A45 /* Pods-TezosKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -313,6 +315,7 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				7ABC85872183834D006DE8FD /* RegisterDelegateOperationTest.swift */,
 				7ABC85852182B08B006DE8FD /* DelegationOperationTest.swift */,
 				7ABC85832182AE86006DE8FD /* AbstractOperationTest.swift */,
 				7ABC85812182A595006DE8FD /* CryptoTests.swift */,
@@ -562,6 +565,7 @@
 				7ABC857E21826C71006DE8FD /* WalletTests.swift in Sources */,
 				7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */,
 				7ABC85822182A595006DE8FD /* CryptoTests.swift in Sources */,
+				7ABC85882183834D006DE8FD /* RegisterDelegateOperationTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
