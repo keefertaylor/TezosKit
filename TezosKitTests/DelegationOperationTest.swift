@@ -1,33 +1,18 @@
-//
-//  DelegationOperationTest.swift
-//  TezosKitTests
-//
-//  Created by Keefer Taylor on 10/26/18.
-//  Copyright © 2018 Keefer Taylor. All rights reserved.
-//
-
 import XCTest
+import TezosKit
 
 class DelegationOperationTest: XCTestCase {
+  public func testDictionaryRepresentation() {
+    let source = "tz1abc"
+    let delegate = "tz1def"
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    let operation = DelegationOperation(source: source, to: delegate)
+    let dictionary = operation.dictionaryRepresentation
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    XCTAssertNotNil(dictionary["source"])
+    XCTAssertEqual(dictionary["source"], source)
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+    XCTAssertNotNil(dictionary["delegate"])
+    XCTAssertEqual(dictionary["delegate"], delegate)
+  }
 }
