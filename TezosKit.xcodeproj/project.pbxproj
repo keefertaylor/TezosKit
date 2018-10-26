@@ -63,6 +63,7 @@
 		7ABC85922183899B006DE8FD /* TezosBalanceResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC85912183899B006DE8FD /* TezosBalanceResponseAdapterTest.swift */; };
 		7ABC859421838D6D006DE8FD /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC859321838D6D006DE8FD /* IntegerResponseAdapterTest.swift */; };
 		7ABC859621839171006DE8FD /* TezosClientErrorCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC859521839171006DE8FD /* TezosClientErrorCodesTest.swift */; };
+		7ABC859821839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC859721839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift */; };
 		E8CEEC8185D40796901B11A4 /* Pods_TezosKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711B3872659EEE9B847690A5 /* Pods_TezosKitTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +141,7 @@
 		7ABC85912183899B006DE8FD /* TezosBalanceResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosBalanceResponseAdapterTest.swift; sourceTree = "<group>"; };
 		7ABC859321838D6D006DE8FD /* IntegerResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerResponseAdapterTest.swift; sourceTree = "<group>"; };
 		7ABC859521839171006DE8FD /* TezosClientErrorCodesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosClientErrorCodesTest.swift; sourceTree = "<group>"; };
+		7ABC859721839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDictionaryResponseAdapterTest.swift; sourceTree = "<group>"; };
 		AD462AF223A5CD5683C948D9 /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18ABC256DB067253D1C0A45 /* Pods-TezosKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -327,6 +329,7 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				7ABC859721839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift */,
 				7ABC859521839171006DE8FD /* TezosClientErrorCodesTest.swift */,
 				7ABC859321838D6D006DE8FD /* IntegerResponseAdapterTest.swift */,
 				7ABC85912183899B006DE8FD /* TezosBalanceResponseAdapterTest.swift */,
@@ -582,6 +585,7 @@
 				7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */,
 				7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */,
 				7ABC857E21826C71006DE8FD /* WalletTests.swift in Sources */,
+				7ABC859821839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift in Sources */,
 				7ABC85902183875C006DE8FD /* StringResponseAdapterTest.swift in Sources */,
 				7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */,
 				7ABC859621839171006DE8FD /* TezosClientErrorCodesTest.swift in Sources */,
