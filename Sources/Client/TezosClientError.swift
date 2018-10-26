@@ -26,7 +26,7 @@ extension TezosClientError: LocalizedError {
     public var errorDescription: String? {
     let errorKindDesc = "TezosClientError " + kind.rawValue
     if let underlyingError = self.underlyingError {
-      return underlyingError + "(" + errorKindDesc + ")"
+      return underlyingError + " (" + errorKindDesc + ")"
     } else {
       return errorKindDesc
     }
