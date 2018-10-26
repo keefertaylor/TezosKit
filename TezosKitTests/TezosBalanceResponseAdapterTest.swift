@@ -11,7 +11,7 @@ class TezosBalanceResponseAdapterTest: XCTestCase {
     }
 
     XCTAssertNotNil(parsedBalance)
-    //    XCTAssertEqual(parsedBalance, balance)
+    XCTAssertEqual(parsedBalance, balance)
   }
 
   // Balances are returned as quoted from the API. Make sure that quotes can be stripped when
@@ -25,7 +25,7 @@ class TezosBalanceResponseAdapterTest: XCTestCase {
     }
 
     XCTAssertNotNil(parsedBalance)
-    //    XCTAssertEqual(parsedBalance, balance)
+    XCTAssertEqual(parsedBalance, balance)
   }
 
   // Ensure white space does not mess up parsing.
@@ -38,7 +38,7 @@ class TezosBalanceResponseAdapterTest: XCTestCase {
     }
 
     XCTAssertNotNil(parsedBalance)
-    //    XCTAssertEqual(parsedBalance, balance)
+    XCTAssertEqual(parsedBalance, balance)
   }
 
   // Ensure invalid strings cannot be parsed.

@@ -36,4 +36,17 @@ class TezosBalanceTest: XCTestCase {
     }
     XCTAssertEqual(balance.humanReadableRepresentation, "0.000035 ꜩ")
   }
+
+  public func testEquality() {
+    guard let threeFiftyAsString = TezosBalance(balance: "3500000") else {
+      XCTFail()
+      return
+    }
+
+    let threeFiftyAsDecimal = TezosBalance(balance: 3.5)
+    let fourAsDecimal = TezosBalance(balance: 4.0)
+
+    XCTAssertEqual(threeFiftyAsString, threeFiftyAsDecimal)
+    XCTAssertNotEqual(threeFiftyAsDecimal, fourAsDecimal)
+  }
 }

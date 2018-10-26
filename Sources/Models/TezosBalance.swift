@@ -79,3 +79,9 @@ public struct TezosBalance {
 		self.decimalAmount = String(decimalString)
 	}
 }
+
+extension TezosBalance: Equatable {
+  public static func == (lhs: TezosBalance, rhs: TezosBalance) -> Bool {
+    return lhs.rpcRepresentation == rhs.rpcRepresentation
+  }
+}
