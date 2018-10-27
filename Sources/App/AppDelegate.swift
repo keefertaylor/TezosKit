@@ -8,78 +8,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Run some basic tests.
 		// TODO: Refactor these to be proper unit tests.
-        testWalletGeneration()
-    //    testChainRPCs()
-    //    testAddressRPCs()
-    //    testCryptoUtils()
+		testWalletGeneration()
+		//    testChainRPCs()
+		//    testAddressRPCs()
+		//    testCryptoUtils()
 
 		return true
 	}
 
-  public func testCryptoUtils() {
-    let validAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPH"
-    let validOriginatedAddress = "KT1Agon3ARPS7U74UedWpR96j1CCbPCsSTsL"
-    let invalidAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPh"
-    let publicKey = "edpkvESBNf3cbx7sb4CjyurMxFJjCkUVkunDMjsXD4Squoo5nJR4L4"
+	public func testCryptoUtils() {
+		let validAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPH"
+		let validOriginatedAddress = "KT1Agon3ARPS7U74UedWpR96j1CCbPCsSTsL"
+		let invalidAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPh"
+		let publicKey = "edpkvESBNf3cbx7sb4CjyurMxFJjCkUVkunDMjsXD4Squoo5nJR4L4"
 
-    print("Validating Addresses")
-    print("Expect:  true\nActual:  \(Crypto.validateAddress(address: validAddress))\n")
-    print("Expect:  false\nActual:  \(Crypto.validateAddress(address: validOriginatedAddress))\n")
-    print("Expect:  false\nActual:  \(Crypto.validateAddress(address: invalidAddress))\n")
-    print("Expect:  false\nActual:  \(Crypto.validateAddress(address: publicKey))\n")
-    print("")
+		print("Validating Addresses")
+		print("Expect:  true\nActual:  \(Crypto.validateAddress(address: validAddress))\n")
+		print("Expect:  false\nActual:  \(Crypto.validateAddress(address: validOriginatedAddress))\n")
+		print("Expect:  false\nActual:  \(Crypto.validateAddress(address: invalidAddress))\n")
+		print("Expect:  false\nActual:  \(Crypto.validateAddress(address: publicKey))\n")
+		print("")
 
-    let fakeOperation = "123456"
-    let wallet = Wallet()!
-    let randomWallet = Wallet()!
-    let result = Crypto.signForgedOperation(operation: fakeOperation, secretKey: wallet.keys.secretKey)!
+		let fakeOperation = "123456"
+		let wallet = Wallet()!
+		let randomWallet = Wallet()!
+		let result = Crypto.signForgedOperation(operation: fakeOperation, secretKey: wallet.keys.secretKey)!
 
-    print("Validating Signatures")
-    print("Expect:  true\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: result.signature, publicKey: wallet.keys.publicKey))\n")
-    print("Expect:  false\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: result.signature, publicKey: randomWallet.keys.publicKey))\n")
-    print("Expect:  false\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: [1, 2, 3], publicKey: wallet.keys.publicKey))\n")
-    print("")
+		print("Validating Signatures")
+		print("Expect:  true\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: result.signature, publicKey: wallet.keys.publicKey))\n")
+		print("Expect:  false\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: result.signature, publicKey: randomWallet.keys.publicKey))\n")
+		print("Expect:  false\nActual:   \(Crypto.verifyBytes(bytes: result.operationBytes, signature: [1, 2, 3], publicKey: wallet.keys.publicKey))\n")
+		print("")
 
-    print("Testing Key Extraction")
-    print("Expected PK: \(wallet.keys.publicKey)")
-    print("Actual PK:   \(Crypto.extractPublicKey(secretKey: wallet.keys.secretKey)!)")
-    print("")
+		print("Testing Key Extraction")
+		print("Expected PK: \(wallet.keys.publicKey)")
+		print("Actual PK:   \(Crypto.extractPublicKey(secretKey: wallet.keys.secretKey)!)")
+		print("")
 
-    print("Expected PKH: \(wallet.address)")
-    print("Actual PKH:   \(Crypto.extractPublicKeyHash(secretKey: wallet.keys.secretKey)!)")
-    print("")
-  }
+		print("Expected PKH: \(wallet.address)")
+		print("Actual PKH:   \(Crypto.extractPublicKeyHash(secretKey: wallet.keys.secretKey)!)")
+		print("")
+	}
 
-  private func testWalletGenerationPassPhrase() {
-    let passphrase = "TezosKitTest"
+	private func testWalletGenerationPassPhrase() {
+		let passphrase = "TezosKitTest"
 
-    let expectedMnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
-    let expectedPublicKey = "edpktnCgi3C7ZLyLrF4NAebDkgu5PZRRJ9BafxskVEj6U1GycyRird"
-    let expectedSecretKey = "edskRjazzmroxmJagYDhCT1jXna8m9H2qvjtPAcrZYZ31og4ud1u2kkxYGv8e7CjmbW33QubzugueXqLFPMbM2eAj6j3AQHrCW"
-    let expectedPublicKeyHash = "tz1ZfhME1B2kmagqEJ9P7PE8joM3TbVQ5r4v"
+		let expectedMnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
+		let expectedPublicKey = "edpktnCgi3C7ZLyLrF4NAebDkgu5PZRRJ9BafxskVEj6U1GycyRird"
+		let expectedSecretKey = "edskRjazzmroxmJagYDhCT1jXna8m9H2qvjtPAcrZYZ31og4ud1u2kkxYGv8e7CjmbW33QubzugueXqLFPMbM2eAj6j3AQHrCW"
+		let expectedPublicKeyHash = "tz1ZfhME1B2kmagqEJ9P7PE8joM3TbVQ5r4v"
 
-    // Create a wallet.
-    guard let wallet = Wallet(mnemonic: expectedMnemonic, passphrase: passphrase) else {
-      print("Error creating wallet :(")
-      return
-    }
+		// Create a wallet.
+		guard let wallet = Wallet(mnemonic: expectedMnemonic, passphrase: passphrase) else {
+			print("Error creating wallet :(")
+			return
+		}
 
-    print("Expected Public Key: " + expectedPublicKey)
-    print("Actual Public Key  : " + wallet.keys.publicKey)
-    print("")
+		print("Expected Public Key: " + expectedPublicKey)
+		print("Actual Public Key  : " + wallet.keys.publicKey)
+		print("")
 
-    print("Expected Private Key: " + expectedSecretKey)
-    print("Actual Private Key  : " + wallet.keys.secretKey)
-    print("")
+		print("Expected Private Key: " + expectedSecretKey)
+		print("Actual Private Key  : " + wallet.keys.secretKey)
+		print("")
 
-    print("Expected Hash Key: " + expectedPublicKeyHash)
-    print("Actual Hash Key  : " + wallet.address)
-    print("")
+		print("Expected Hash Key: " + expectedPublicKeyHash)
+		print("Actual Hash Key  : " + wallet.address)
+		print("")
 
-    print("Expected mnemonic: " + expectedMnemonic)
-    print("Actual mnemonic  : " + wallet.mnemonic!)
-    print("")
-  }
+		print("Expected mnemonic: " + expectedMnemonic)
+		print("Actual mnemonic  : " + wallet.mnemonic!)
+		print("")
+	}
 
 	private func testWalletGeneration() {
 		// Params for a wallet. This wallet is never originated and should *NOT* be used as the secret
@@ -97,8 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return
 		}
 
-    print("Testing generating wallet with mnemonic")
-    print("")
+		print("Testing generating wallet with mnemonic")
+		print("")
 
 		print("Expected Public Key: " + expectedPublicKey)
 		print("Actual Public Key  : " + wallet.keys.publicKey)
@@ -116,25 +116,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		print("Actual mnemonic  : " + wallet.mnemonic!)
 		print("")
 
-    print("Testing generating wallet from secretKey")
-    print("")
+		print("Testing generating wallet from secretKey")
+		print("")
 
-    guard let restoredWallet = Wallet(secretKey: wallet.keys.secretKey) else {
-      print("Error restoring wallet :(")
-      return
-    }
+		guard let restoredWallet = Wallet(secretKey: wallet.keys.secretKey) else {
+			print("Error restoring wallet :(")
+			return
+		}
 
-    print("Expected Public Key: " + expectedPublicKey)
-    print("Actual Public Key  : " + restoredWallet.keys.publicKey)
-    print("")
+		print("Expected Public Key: " + expectedPublicKey)
+		print("Actual Public Key  : " + restoredWallet.keys.publicKey)
+		print("")
 
-    print("Expected Private Key: " + expectedSecretKey)
-    print("Actual Private Key  : " + restoredWallet.keys.secretKey)
-    print("")
+		print("Expected Private Key: " + expectedSecretKey)
+		print("Actual Private Key  : " + restoredWallet.keys.secretKey)
+		print("")
 
-    print("Expected Hash Key: " + expectedPublicKeyHash)
-    print("Actual Hash Key  : " + restoredWallet.address)
-    print("")
+		print("Expected Hash Key: " + expectedPublicKeyHash)
+		print("Actual Hash Key  : " + restoredWallet.address)
+		print("")
 	}
 
 	private func testChainRPCs() {
