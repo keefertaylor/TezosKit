@@ -43,13 +43,16 @@ public struct Wallet {
    */
 	public init?(mnemonic: String, passphrase: String = "") {
 		guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-			let keyPair = Crypto.keyPair(from: seedString) else {
+			let keyPair = Crypto.keyPair(from: seedString),
+      let publicKey = Crypto.tezosPublicKey(from: keyPair.publicKey),
+      let secretKey = Crypto.tezosSecretKey(from: keyPair.secretKey),
+      let address = Crypto.tezosPublicKeyHash(from: keyPair.publicKey) else {
 				return nil
 		}
 
-		self.init(publicKey: Crypto.tezosPublicKey(from: keyPair.publicKey),
-			secretKey: Crypto.tezosSecretKey(from: keyPair.secretKey),
-			address: Crypto.tezosPublicKeyHash(from: keyPair.publicKey),
+		self.init(publicKey: publicKey,
+			secretKey: secretKey,
+			address: address,
 			mnemonic: mnemonic)
 	}
 

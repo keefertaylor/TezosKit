@@ -61,7 +61,10 @@ public class Crypto {
     let checksumStartIndex = decodedBytes.count - checksumLength
     let addressWithoutChecksum = decodedBytes[0..<checksumStartIndex]
     let checksum = decodedBytes[checksumStartIndex...]
-    let expectedChecksum = self.calculateChecksum(Array(addressWithoutChecksum))
+    guard let expectedChecksum = self.calculateChecksum(Array(addressWithoutChecksum)) else {
+      return false
+    }
+
     for (i, byte) in checksum.enumerated() {
       if expectedChecksum[i] != byte {
         return false
@@ -100,13 +103,12 @@ public class Crypto {
 				outputLength: 32),
 			let signature = sodium.sign.signature(message: hashedOperation,
 				secretKey: decodedSecretKeyBytes),
-			let signatureHex = sodium.utils.bin2hex(signature) else {
+			let signatureHex = sodium.utils.bin2hex(signature),
+      let edsig = encode(message: signature, prefix: signedOperationPrefix) else {
 				return nil
 		}
 
-		let edsig = encode(message: signature, prefix: signedOperationPrefix)
 		let sbytes = operation + signatureHex
-
 		return OperationSigningResult(operationBytes: hashedOperation,
                                   signature: signature,
                                   edsig: edsig,
@@ -127,21 +129,21 @@ public class Crypto {
 	/**
    * Generates a Tezos public key from the given input public key.
    */
-	public static func tezosPublicKey(from key: [UInt8]) -> String {
+	public static func tezosPublicKey(from key: [UInt8]) -> String? {
 		return encode(message: key, prefix: publicKeyPrefix)
 	}
 
 	/**
    * Generates a Tezos private key from the given input private key.
    */
-	public static func tezosSecretKey(from key: [UInt8]) -> String {
+	public static func tezosSecretKey(from key: [UInt8]) -> String? {
 		return encode(message: key, prefix: secretKeyPrefix)
 	}
 
 	/**
    * Generates a Tezos public key hash (An address) from the given input public key.
    */
-	public static func tezosPublicKeyHash(from key: [UInt8]) -> String {
+	public static func tezosPublicKeyHash(from key: [UInt8]) -> String? {
 		guard let hash = sodium.genericHash.hash(message: key, key: [], outputLength: 20) else {
 			return ""
 		}
@@ -154,9 +156,12 @@ public class Crypto {
    * The returned address is a Base58 encoded String with the following format:
    *    [prefix][key][4 byte checksum]
    */
-	private static func encode(message: [UInt8], prefix: [UInt8]) -> String {
+	private static func encode(message: [UInt8], prefix: [UInt8]) -> String? {
 		let prefixedKey = prefix + message
-		let prefixedKeyCheckSum = calculateChecksum(prefixedKey)
+		guard let prefixedKeyCheckSum = calculateChecksum(prefixedKey) else {
+      return nil
+    }
+
 		let prefixedKeyWithCheckSum = prefixedKey + prefixedKeyCheckSum
 		let data = Data(prefixedKeyWithCheckSum)
 		return String(base58Encoding: data)
@@ -165,14 +170,17 @@ public class Crypto {
 	/**
    * Calculate a checksum for a given input by hashing twice and then taking the first four bytes.
    */
-	private static func calculateChecksum(_ input: [UInt8]) -> [UInt8] {
-		let doubleHashedData = Data(input).sha256().sha256()
+	private static func calculateChecksum(_ input: [UInt8]) -> [UInt8]? {
+    guard let hashedData = sha256(Data(input)),
+          let doubleHashedData = sha256(hashedData) else {
+      return nil
+    }
 		let doubleHashedArray = Array(doubleHashedData)
 		return Array(doubleHashedArray.prefix(checksumLength))
 	}
 
 	/** Create a sha256 hash of the given data. */
-	private func sha256(_ data: Data) -> Data? {
+	private static func sha256(_ data: Data) -> Data? {
 		guard let res = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH)) else {
 			return nil
 		}
