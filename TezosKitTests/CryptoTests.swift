@@ -40,11 +40,13 @@ class CryptoTests: XCTestCase {
     let validOriginatedAddress = "KT1Agon3ARPS7U74UedWpR96j1CCbPCsSTsL"
     let invalidAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPh"
     let publicKey = "edpkvESBNf3cbx7sb4CjyurMxFJjCkUVkunDMjsXD4Squoo5nJR4L4"
+    let nonBase58Address = "tz10ol1OLscph"
 
     XCTAssertTrue(Crypto.validateAddress(address: validAddress))
     XCTAssertFalse(Crypto.validateAddress(address: validOriginatedAddress))
     XCTAssertFalse(Crypto.validateAddress(address: invalidAddress))
     XCTAssertFalse(Crypto.validateAddress(address: publicKey))
+    XCTAssertFalse(Crypto.validateAddress(address: nonBase58Address))
   }
 
   public func testVerifyBytes() {
@@ -72,5 +74,44 @@ class CryptoTests: XCTestCase {
                    [157, 20, 81, 191, 15, 135, 239, 179, 10, 160, 229, 185, 145, 23, 78, 66, 127, 4, 124, 81, 94, 40, 28, 90, 237, 88, 213, 226, 125, 40, 11, 153])
   }
 
-  // TODO: Finish writing unit tests for this class.
+  public func testKeyPairFromSeedString() {
+    let validSeedString = "cce78b57ed8f4ec6767ed35f3aa41df525a03455e24bcc45a8518f63fbeda772"
+    guard let keyPair = Crypto.keyPair(from: validSeedString) else {
+      XCTFail()
+      return
+    }
+    XCTAssertEqual(keyPair.publicKey,[66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155, 177, 178, 251, 105, 153, 60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62])
+    XCTAssertEqual(keyPair.secretKey, [204, 231, 139, 87, 237, 143, 78, 198, 118, 126, 211, 95, 58, 164, 29, 245, 37, 160, 52, 85, 226, 75, 204, 69, 168, 81, 143, 99, 251, 237, 167, 114, 66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155, 177, 178, 251, 105, 153, 60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62])
+
+    let invalidSeedString = "123xyzDefinitelyNotHexEncoded"
+    let invalidKeyPair = Crypto.keyPair(from: invalidSeedString)
+    XCTAssertNil(invalidKeyPair)
+  }
+
+  public func testTezosPublicKeyFromKey() {
+    let validInputKey: [UInt8] = [66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155, 177, 178, 251, 105, 153, 60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62]
+    guard let publicKey = Crypto.tezosPublicKey(from: validInputKey) else {
+      XCTFail()
+      return
+    }
+    XCTAssertEqual(publicKey, "edpku9ZF6UUAEo1AL3NWy1oxHLL6AfQcGYwA5hFKrEKVHMT3Xx889A")
+  }
+
+  public func testTezosSecretKeyFromKey() {
+    let validInputKey: [UInt8] = [204, 231, 139, 87, 237, 143, 78, 198, 118, 126, 211, 95, 58, 164, 29, 245, 37, 160, 52, 85, 226, 75, 204, 69, 168, 81, 143, 99, 251, 237, 167, 114, 66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155, 177, 178, 251, 105, 153, 60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62]
+    guard let secretKey = Crypto.tezosSecretKey(from: validInputKey) else {
+      XCTFail()
+      return
+    }
+    XCTAssertEqual(secretKey, "edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp")
+  }
+
+  public func testTezosPublicHashKeyFromKey() {
+    let validInputKey: [UInt8] = [66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155, 177, 178, 251, 105, 153, 60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62]
+    guard let publicKeyHash = Crypto.tezosPublicKeyHash(from: validInputKey) else {
+      XCTFail()
+      return
+    }
+    XCTAssertEqual(publicKeyHash, "tz1Y3qqTg9HdrzZGbEjiCPmwuZ7fWVxpPtRw")
+  }
 }
