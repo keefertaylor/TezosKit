@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CKMnemonic.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>

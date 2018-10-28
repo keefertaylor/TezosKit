@@ -12,8 +12,7 @@
     "Keefer Taylor": "keefer@keefertaylor.com"
   },
   "source": {
-    "git": "https://github.com/keefertaylor/TezosKit.git",
-    "commit": "06d64d0be02d075689ee8b3b4ee7d295f4ea0348"
+    "git": "https://github.com/keefertaylor/TezosKit.git"
   },
   "source_files": [
     "Sources/**/*.swift",
@@ -25,14 +24,14 @@
     "ios": "8.0"
   },
   "dependencies": {
-    "CKMnemonic": [
+    "BigInt": [
+      "~> 3.1"
+    ],
+    "MnemonicKit": [
 
     ],
     "Sodium": [
       "~> 0.7.0"
-    ],
-    "BigInt": [
-      "~> 3.1"
     ]
   }
 }
