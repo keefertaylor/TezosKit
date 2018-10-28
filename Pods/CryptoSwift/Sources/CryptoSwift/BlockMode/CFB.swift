@@ -1,4 +1,5 @@
 //
+//  CFB.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -16,55 +17,32 @@
 //  Cipher feedback (CFB)
 //
 
-public struct CFB: BlockMode {
-    public enum Error: Swift.Error {
-        /// Invalid IV
-        case invalidInitializationVector
-    }
-
-    public let options: BlockModeOption = [.initializationVectorRequired, .useEncryptToDecrypt]
-    private let iv: Array<UInt8>
-
-    public init(iv: Array<UInt8>) {
-        self.iv = iv
-    }
-
-    public func worker(blockSize: Int, cipherOperation: @escaping CipherOperationOnBlock) throws -> CipherModeWorker {
-        if iv.count != blockSize {
-            throw Error.invalidInitializationVector
-        }
-
-        return CFBModeWorker(blockSize: blockSize, iv: iv.slice, cipherOperation: cipherOperation)
-    }
-}
-
 struct CFBModeWorker: BlockModeWorker {
-    let cipherOperation: CipherOperationOnBlock
-    let blockSize: Int
-    let additionalBufferSize: Int = 0
-    private let iv: ArraySlice<UInt8>
-    private var prev: ArraySlice<UInt8>?
+    typealias Element = Array<UInt8>
 
-    init(blockSize: Int, iv: ArraySlice<UInt8>, cipherOperation: @escaping CipherOperationOnBlock) {
-        self.blockSize = blockSize
+    let cipherOperation: CipherOperationOnBlock
+    private let iv: Element
+    private var prev: Element?
+
+    init(iv: Array<UInt8>, cipherOperation: @escaping CipherOperationOnBlock) {
         self.iv = iv
         self.cipherOperation = cipherOperation
     }
 
-    mutating func encrypt(block plaintext: ArraySlice<UInt8>) -> Array<UInt8> {
+    mutating func encrypt(_ plaintext: ArraySlice<UInt8>) -> Array<UInt8> {
         guard let ciphertext = cipherOperation(prev ?? iv) else {
             return Array(plaintext)
         }
-        prev = xor(plaintext, ciphertext.slice)
-        return Array(prev ?? [])
+        prev = xor(plaintext, ciphertext)
+        return prev ?? []
     }
 
-    mutating func decrypt(block ciphertext: ArraySlice<UInt8>) -> Array<UInt8> {
+    mutating func decrypt(_ ciphertext: ArraySlice<UInt8>) -> Array<UInt8> {
         guard let plaintext = cipherOperation(prev ?? iv) else {
             return Array(ciphertext)
         }
-        let result: Array<UInt8> = xor(plaintext, ciphertext)
-        prev = ciphertext
+        let result = xor(plaintext, ciphertext)
+        prev = Array(ciphertext)
         return result
     }
 }

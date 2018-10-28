@@ -1,4 +1,5 @@
 import CKMnemonic
+import MnemonicKit
 
 /**
  * A static utility wrapper class for CKMnemonic which provides syntactic sugar to transform

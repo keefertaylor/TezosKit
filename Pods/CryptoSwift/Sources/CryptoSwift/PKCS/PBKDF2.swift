@@ -1,4 +1,5 @@
 //
+//  PBKDF2.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -16,18 +17,20 @@
 //  https://www.ietf.org/rfc/rfc2898.txt
 //
 
-#if canImport(Darwin)
-import Darwin
+#if os(Linux) || os(Android) || os(FreeBSD)
+    import Glibc
 #else
-import Glibc
+    import Darwin
 #endif
 
 public extension PKCS5 {
+
     /// A key derivation function.
     ///
     /// PBKDF2 - Password-Based Key Derivation Function 2. Key stretching technique.
     ///          DK = PBKDF2(PRF, Password, Salt, c, dkLen)
     public struct PBKDF2 {
+
         public enum Error: Swift.Error {
             case invalidInput
             case derivedKeyTooLong
@@ -44,13 +47,12 @@ public extension PKCS5 {
         ///   - variant: hash variant
         ///   - iterations: iteration count, a positive integer
         ///   - keyLength: intended length of derived key
-        ///   - variant: MAC variant. Defaults to SHA256
         public init(password: Array<UInt8>, salt: Array<UInt8>, iterations: Int = 4096 /* c */, keyLength: Int? = nil /* dkLen */, variant: HMAC.Variant = .sha256) throws {
             precondition(iterations > 0)
 
             let prf = HMAC(key: password, variant: variant)
 
-            guard iterations > 0 && !salt.isEmpty else {
+            guard iterations > 0 && !password.isEmpty && !salt.isEmpty else {
                 throw Error.invalidInput
             }
 
@@ -83,6 +85,7 @@ public extension PKCS5 {
 }
 
 fileprivate extension PKCS5.PBKDF2 {
+
     func ARR(_ i: Int) -> Array<UInt8> {
         var inti = Array<UInt8>(repeating: 0, count: 4)
         inti[0] = UInt8((i >> 24) & 0xff)

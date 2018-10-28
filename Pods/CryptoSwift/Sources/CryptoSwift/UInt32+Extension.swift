@@ -1,4 +1,5 @@
 //
+//  UInt32Extension.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -13,10 +14,10 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-#if canImport(Darwin)
-import Darwin
+#if os(Linux) || os(Android) || os(FreeBSD)
+    import Glibc
 #else
-import Glibc
+    import Darwin
 #endif
 
 protocol _UInt32Type {}
@@ -24,25 +25,23 @@ extension UInt32: _UInt32Type {}
 
 /** array of bytes */
 extension UInt32 {
+
     @_specialize(exported: true, where T == ArraySlice<UInt8>)
-    init<T: Collection>(bytes: T) where T.Element == UInt8, T.Index == Int {
+    init<T: Collection>(bytes: T) where T.Iterator.Element == UInt8, T.Index == Int {
         self = UInt32(bytes: bytes, fromIndex: bytes.startIndex)
     }
 
     @_specialize(exported: true, where T == ArraySlice<UInt8>)
-    init<T: Collection>(bytes: T, fromIndex index: T.Index) where T.Element == UInt8, T.Index == Int {
-        if bytes.isEmpty {
-            self = 0
-            return
-        }
-
-        let count = bytes.count
-
-        let val0 = count > 0 ? UInt32(bytes[index.advanced(by: 0)]) << 24 : 0
-        let val1 = count > 1 ? UInt32(bytes[index.advanced(by: 1)]) << 16 : 0
-        let val2 = count > 2 ? UInt32(bytes[index.advanced(by: 2)]) << 8 : 0
-        let val3 = count > 3 ? UInt32(bytes[index.advanced(by: 3)]) : 0
+    init<T: Collection>(bytes: T, fromIndex index: T.Index) where T.Iterator.Element == UInt8, T.Index == Int {
+        let val0 = UInt32(bytes[index.advanced(by: 0)]) << 24
+        let val1 = UInt32(bytes[index.advanced(by: 1)]) << 16
+        let val2 = UInt32(bytes[index.advanced(by: 2)]) << 8
+        let val3 = UInt32(bytes[index.advanced(by: 3)])
 
         self = val0 | val1 | val2 | val3
+    }
+
+    func bytes(totalBytes: Int = MemoryLayout<UInt32>.size) -> Array<UInt8> {
+        return arrayOfBytes(value: self, length: totalBytes)
     }
 }

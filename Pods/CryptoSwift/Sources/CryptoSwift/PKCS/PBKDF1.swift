@@ -1,4 +1,5 @@
 //
+//  PBKDF1.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -14,12 +15,14 @@
 //
 
 public extension PKCS5 {
+
     /// A key derivation function.
     ///
     /// PBKDF1 is recommended only for compatibility with existing
     /// applications since the keys it produces may not be large enough for
     /// some applications.
     public struct PBKDF1 {
+
         public enum Error: Swift.Error {
             case invalidInput
             case derivedKeyTooLong

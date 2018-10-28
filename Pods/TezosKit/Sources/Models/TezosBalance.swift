@@ -57,10 +57,10 @@ public struct TezosBalance {
    * Initialize a new balance from an RPC representation of a balance.
    */
 	public init?(balance: String) {
-    // Make sure the given string only contains digits.
-    guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: balance)) else {
-      return nil
-    }
+		// Make sure the given string only contains digits.
+		guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: balance)) else {
+			return nil
+		}
 
 		// Pad small numbers with up to six zeros so that the below slicing works correctly
 		var paddedBalance = balance
@@ -77,5 +77,11 @@ public struct TezosBalance {
 
 		self.integerAmount = String(integerString)
 		self.decimalAmount = String(decimalString)
+	}
+}
+
+extension TezosBalance: Equatable {
+	public static func == (lhs: TezosBalance, rhs: TezosBalance) -> Bool {
+		return lhs.rpcRepresentation == rhs.rpcRepresentation
 	}
 }

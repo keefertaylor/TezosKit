@@ -1,5 +1,6 @@
 //
-//  CryptoSwift
+//  PGPDataExtension.swift
+//  SwiftPGP
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
 //  This software is provided 'as-is', without any express or implied warranty.
@@ -16,11 +17,12 @@
 import Foundation
 
 extension Data {
+
     /// Two octet checksum as defined in RFC-4880. Sum of all octets, mod 65536
     public func checksum() -> UInt16 {
         var s: UInt32 = 0
         var bytesArray = bytes
-        for i in 0 ..< bytesArray.count {
+        for i in 0..<bytesArray.count {
             s = s + UInt32(bytesArray[i])
         }
         s = s % 65536
@@ -59,10 +61,6 @@ extension Data {
         return Data(bytes: Checksum.crc32(bytes, seed: seed, reflect: reflect).bytes())
     }
 
-    public func crc32c(seed: UInt32? = nil, reflect: Bool = true) -> Data {
-        return Data(bytes: Checksum.crc32c(bytes, seed: seed, reflect: reflect).bytes())
-    }
-
     public func crc16(seed: UInt16? = nil) -> Data {
         return Data(bytes: Checksum.crc16(bytes, seed: seed).bytes())
     }
@@ -81,9 +79,6 @@ extension Data {
 }
 
 extension Data {
-    public init(hex: String) {
-        self.init(bytes: Array<UInt8>(hex: hex))
-    }
 
     public var bytes: Array<UInt8> {
         return Array(self)

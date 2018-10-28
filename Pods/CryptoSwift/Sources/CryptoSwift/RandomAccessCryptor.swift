@@ -1,4 +1,5 @@
 //
+//  RandomAccessCryptor.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -13,8 +14,12 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-public final class CMAC: CBCMAC {
-    override func process(lastBlock: ArraySlice<UInt8>, with x: [UInt8]) -> [UInt8] {
-        return xor(lastBlock, x)
-    }
+/// Random access cryptor
+public protocol RandomAccessCryptor: Updatable {
+    /// Seek to position in file, if block mode allows random access.
+    ///
+    /// - parameter to: new value of counter
+    ///
+    /// - returns: true if seek succeed
+    @discardableResult mutating func seek(to: Int) -> Bool
 }

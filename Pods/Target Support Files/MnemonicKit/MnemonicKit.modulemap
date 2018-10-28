@@ -1,0 +1,6 @@
+framework module MnemonicKit {
+  umbrella header "MnemonicKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

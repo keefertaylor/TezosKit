@@ -1,4 +1,5 @@
 //
+//  MD5.swift
 //  CryptoSwift
 //
 //  Copyright (C) 2014-2017 Marcin Krzyżanowski <marcin@krzyzanowskim.com>
@@ -122,6 +123,7 @@ public final class MD5: DigestType {
 }
 
 extension MD5: Updatable {
+
     public func update(withBytes bytes: ArraySlice<UInt8>, isLast: Bool = false) throws -> Array<UInt8> {
         accumulated += bytes
 

@@ -58,20 +58,19 @@ public class TezosRPC<T> {
    */
 	public func handleResponse(data: Data?, error: Error?) {
 		if let error = error {
-        let desc = error.localizedDescription
+			let desc = error.localizedDescription
 			let tezosClientError = TezosClientError(kind: .rpcError,
-                                              underlyingError: desc)
+				underlyingError: desc)
 			completion(nil, tezosClientError)
 			return
 		}
 
-		guard let data = data else {
-      let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
-			completion(nil, tezosClientError)
-			return
+		guard let data = data,
+			let result = self.responseAdapterClass.parse(input: data) else {
+				let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
+				completion(nil, tezosClientError)
+				return
 		}
-
-		let result = self.responseAdapterClass.parse(input: data)
 		completion(result, nil)
 	}
 }
