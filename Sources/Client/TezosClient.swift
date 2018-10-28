@@ -73,9 +73,19 @@ public class TezosClient {
    *
    * @param removeNodeURL The path to the remote node.
    */
-	public init(remoteNodeURL: URL) {
+	public convenience init(remoteNodeURL: URL) {
+    let urlSession = URLSession.shared
+    self.init(remoteNodeURL: remoteNodeURL, urlSession: urlSession)
+  }
+
+  /**
+    * Initialize a new TezosClient.
+    *
+    * @param removeNodeURL The path to the remote node.
+    */
+  public init(remoteNodeURL: URL, urlSession: URLSession) {
 		self.remoteNodeURL = remoteNodeURL
-		self.urlSession = URLSession.shared
+		self.urlSession = urlSession
 	}
 
 	/** Retrieve data about the chain head. */
