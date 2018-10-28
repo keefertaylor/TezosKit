@@ -14,8 +14,7 @@ Pod::Spec.new do |s|
   s.exclude_files = "Sources/App/*.swift"
   s.swift_version = '4.2'
   s.ios.deployment_target = '8.0'
-  # TODO: Support OSX when supported by dependencies.
-  # s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.10'
 
   s.dependency 'BigInt', '~> 3.1'		
   s.dependency 'MnemonicKit'
