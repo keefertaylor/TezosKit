@@ -70,7 +70,7 @@ class WalletTests: XCTestCase {
 
 	public func testGenerateWalletFromSecretKey() {
 		guard let wallet = Wallet(secretKey: expectedSecretKeyNoPassphrase) else {
-			fatalError()
+			XCTFail()
 			return
 		}
 
