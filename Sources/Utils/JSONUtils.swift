@@ -33,8 +33,13 @@ public class JSONUtils {
    */
 	private static func jsonString(forUntypedObject object: Any) -> String? {
 		do {
-			let jsonData = try JSONSerialization.data(withJSONObject: object, options: [.sortedKeys])
-			guard let jsonPayload = String(data: jsonData, encoding: .utf8) else {
+      var options: JSONSerialization.WritingOptions = []
+      if #available(iOS 11.0, *) {
+        options = [.sortedKeys]
+      }
+      let jsonData = try JSONSerialization.data(withJSONObject: object, options: options)
+
+      guard let jsonPayload = String(data: jsonData, encoding: .utf8) else {
 				return nil
 			}
 			return jsonPayload
