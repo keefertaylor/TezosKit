@@ -11,12 +11,19 @@ class JSONDictionaryResponseAdapterTest: XCTestCase {
 		}
 
 		XCTAssertNotNil(parsedDictionary["a"])
-		XCTAssertEqual(parsedDictionary["a"] as! String, "b")
+    guard let a = parsedDictionary["a"] as? String else {
+      XCTFail()
+      return
+    }
+		XCTAssertEqual(a, "b")
 
 		XCTAssertNotNil(parsedDictionary["c"])
-
-		XCTAssertNotNil((parsedDictionary["c"] as! [String: String])["d"])
-		XCTAssertEqual((parsedDictionary["c"] as! [String: String])["d"] as! String, "e")
+    guard let c = parsedDictionary["c"] as? [String: String],
+          let d = c["d"] else {
+      XCTFail()
+      return
+    }
+		XCTAssertEqual(d, "e")
 	}
 
 	public func testParseDictionaryWithArray() {
