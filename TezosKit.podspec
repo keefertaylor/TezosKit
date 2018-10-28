@@ -16,7 +16,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   # TODO: Support OSX when supported by dependencies.
   # s.osx.deployment_target = '10.10'
-		
+
+  s.dependency 'BigInt', '~> 3.1'		
   s.dependency 'MnemonicKit'
-  s.dependency 'Sodium', '~> 0.7.0'
+  s.dependency 'Sodium', '~> 0.7.0'  
 end
