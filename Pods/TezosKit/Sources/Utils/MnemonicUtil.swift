@@ -21,8 +21,8 @@ public class MnemonicUtil {
    */
 	public static func seedString(from mnemonic: String, passphrase: String = "") -> String? {
     guard let rawSeedString =
-        Mnemonic.deterministicSeedString(from: mnemonic, passphrase: passphrase) else {
-      return nil
+      Mnemonic.deterministicSeedString(from: mnemonic, passphrase: passphrase) else {
+        return nil
     }
     return String(rawSeedString[..<rawSeedString.index(rawSeedString.startIndex, offsetBy: 64)])
 	}

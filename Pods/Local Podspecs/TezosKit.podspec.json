@@ -12,7 +12,8 @@
     "Keefer Taylor": "keefer@keefertaylor.com"
   },
   "source": {
-    "git": "https://github.com/keefertaylor/TezosKit.git"
+    "git": "https://github.com/keefertaylor/TezosKit.git",
+    "tag": "0.0.1"
   },
   "source_files": [
     "Sources/**/*.swift",
@@ -21,7 +22,8 @@
   "exclude_files": "Sources/App/*.swift",
   "swift_version": "4.2",
   "platforms": {
-    "ios": "8.0"
+    "ios": "8.0",
+    "osx": "10.10"
   },
   "dependencies": {
     "BigInt": [
@@ -33,5 +35,12 @@
     "Sodium": [
       "~> 0.7.0"
     ]
-  }
+  },
+  "testspecs": [
+    {
+      "name": "Tests",
+      "test_type": "unit",
+      "source_files": "TezosKitTests/*.swift"
+    }
+  ]
 }

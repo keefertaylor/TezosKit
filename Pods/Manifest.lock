@@ -28,7 +28,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TezosKit:
-    :commit: 0cf9aeb0730aa0708859f7ed3ff272b050b13ceb
+    :commit: f029574ccac6593896a7b9df8bf486e211caaf85
     :git: https://github.com/keefertaylor/TezosKit.git
 
 SPEC CHECKSUMS:
@@ -37,7 +37,7 @@ SPEC CHECKSUMS:
   MnemonicKit: ed9bd0a6638aea4a99f70aab9a70cd44b9f1e8ab
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
   Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
-  TezosKit: cf882ddb5ced34647eccc9cd723f253b7e1d3d6f
+  TezosKit: 0cbc35d2860c896527db722160c4a91dc68967e9
 
 PODFILE CHECKSUM: fda86bf0b8bc246ca52579fa03bdef938ff5d2a3
 
