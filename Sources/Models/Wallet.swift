@@ -76,3 +76,9 @@ public struct Wallet {
 		self.mnemonic = mnemonic
 	}
 }
+
+extension Wallet: Equatable {
+  public static func == (lhs: Wallet, rhs: Wallet) -> Bool {
+    return lhs.keys == rhs.keys
+  }
+}

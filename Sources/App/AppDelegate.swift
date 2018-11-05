@@ -6,9 +6,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    let wallet = Wallet()!
 		// Run some basic tests.
 		// TODO: Refactor these to be proper unit tests.
-		testWalletGeneration()
+//    testWalletGeneration()
 		//    testChainRPCs()
 		//    testAddressRPCs()
 		//    testCryptoUtils()

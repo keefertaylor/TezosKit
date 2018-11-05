@@ -85,4 +85,50 @@ class WalletTests: XCTestCase {
 		let wallet = Wallet(secretKey: "thisIsNotAValidKey")
 		XCTAssertNil(wallet)
 	}
+
+  public func testEqualityFromMnemonicAndPassphrase() {
+    // Wallet 1 and wallet 2
+    guard let wallet1 = Wallet(mnemonic: mnemonic, passphrase: passphrase),
+          let wallet2 = Wallet(mnemonic: mnemonic, passphrase: passphrase) else {
+            XCTFail()
+            return
+    }
+    XCTAssertEqual(wallet1, wallet2)
+
+    // Wallet 3 is the same as wallet 1 but with a different mnemonic.
+    guard let wallet3 = Wallet(mnemonic: "pear pear pear pear pear pear pear", passphrase: passphrase) else {
+      XCTFail()
+      return
+    }
+    XCTAssertNotEqual(wallet1, wallet3)
+
+    // Wallet 4 is the same as wallet 1 but with a different passphrase.
+    guard let wallet4 = Wallet(mnemonic: mnemonic, passphrase: "TezosKit2") else {
+      XCTFail()
+      return
+    }
+    XCTAssertNotEqual(wallet1, wallet4)
+
+    // Wallet 5 is different from wallet 1 by both its mnemonic and passphrase.
+    guard let wallet5 = Wallet(mnemonic: "pear pear pear pear", passphrase: "TezosKit2") else {
+      XCTFail()
+      return
+    }
+    XCTAssertNotEqual(wallet1, wallet5)
+  }
+
+  public func testEqualityFromSecretKeys() {
+    // Test equality on wallets generated from a secret key.
+    let secretKey1 = "edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp"
+    let secretKey2 = "edskRr4SG9qd4Hx9jZvdQ5dS2bCKxUnaEnXv9BrwSs2YxU8g8WpQ2CfXuiE96BWSsceaSi6HvSz4YnTKkwVqeWpUF288SzLXZ5"
+    guard let wallet1 = Wallet(secretKey: secretKey1),
+          let wallet2 = Wallet(secretKey: secretKey1),
+          let wallet3 = Wallet(secretKey: secretKey2) else {
+            XCTFail()
+            return
+    }
+    // Wallets 1 and 2 were generated from the same secret key, wallet 3 was not.
+    XCTAssertEqual(wallet1, wallet2)
+    XCTAssertNotEqual(wallet1, wallet3)
+  }
 }
