@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		565E88F7FCAF403DA1415625 /* Pods_TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD462AF223A5CD5683C948D9 /* Pods_TezosKit.framework */; };
+		772E4E6C2190DA4D002A44A3 /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6B2190DA4D002A44A3 /* KeysTests.swift */; };
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
@@ -93,6 +94,7 @@
 		633241BA0820D6F7BA4CA23E /* Pods-TezosKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKit/Pods-TezosKit.debug.xcconfig"; sourceTree = "<group>"; };
 		711B3872659EEE9B847690A5 /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D48894E33C2934F3738C60 /* Pods-TezosKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		772E4E6B2190DA4D002A44A3 /* KeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				772E4E6B2190DA4D002A44A3 /* KeysTests.swift */,
 				7ABC85AF21839F7D006DE8FD /* GetChainHeadRPCTest.swift */,
 				7ABC85AD21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift */,
 				7ABC85A921839F02006DE8FD /* GetAddressManagerKeyRPCTest.swift */,
@@ -617,6 +620,7 @@
 				7ABC85862182B08B006DE8FD /* DelegationOperationTest.swift in Sources */,
 				7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */,
 				7ABC859E21839C53006DE8FD /* InjectOperationRPCTest.swift in Sources */,
+				772E4E6C2190DA4D002A44A3 /* KeysTests.swift in Sources */,
 				7ABC85A021839D32006DE8FD /* PreapplyOperationRPCTest.swift in Sources */,
 				7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */,
 				7ABC857E21826C71006DE8FD /* WalletTests.swift in Sources */,
