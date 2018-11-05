@@ -42,7 +42,8 @@ public struct TezosBalance {
 	public init(balance: Double) {
 		let integerValue = Int(balance)
 
-		// Convert 6 significant digits of decimals into integers to avoid having to deal with decimals.
+		// Convert decimalDigitCount significant digits of decimals into integers to avoid having to
+    // deal with decimals.
 		let multiplierDoubleValue = (pow(10, decimalDigitCount) as NSDecimalNumber).doubleValue
 		let multiplierIntValue = (pow(10, decimalDigitCount) as NSDecimalNumber).intValue
 		let significantDecimalDigitsAsInteger = Int(balance * multiplierDoubleValue)
@@ -50,7 +51,9 @@ public struct TezosBalance {
 		let decimalValue = significantDecimalDigitsAsInteger - significantIntegerDigitsAsInteger
 
 		self.integerAmount = String(integerValue)
-		self.decimalAmount = String(decimalValue)
+    // If there was no decimal value then decimal value is evaluated to be 0, rather than being five
+    // digits long.
+    self.decimalAmount = decimalValue == 0 ? "000000" : String(decimalValue)
 	}
 
 	/**
