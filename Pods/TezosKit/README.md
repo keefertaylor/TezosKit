@@ -2,6 +2,15 @@
 
 TezosKit is a Swift library that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements communication with the blockchain via the JSON API.
 
+Donations help me find time to work on TezosKit. If you find the library useful, please consider donating to support ongoing develoment.
+
+|Currency| Address |
+|---------|---|
+| __Tezos__ | tz1SNXT8yZCwTss2YcoFi3qbXvTZiCojx833 |
+| __Bitcoin__ | 1CdPoF9cvw3YEiuRCHxdsGpvb5tSUYBBo |
+| __Bitcoin Cash__ | qqpr9are9gzs5r0q7hy3gdehj3w074pyqsrhpdmxg6 |
+
+
 ## Functionality
 
 TezosKit provides first class support for the following RPCs:
@@ -141,14 +150,6 @@ tezosClient.delegate(from: originatedAccountAddress,
 ## Contributing
 
 I am happy to accept pull requests. 
-
-## Donations
-
-Greatly appreciated.
-
-* Bitcoin: 1CdPoF9cvw3YEiuRCHxdsGpvb5tSUYBBo 
-* Bitcoin Cash: qqpr9are9gzs5r0q7hy3gdehj3w074pyqsrhpdmxg6 
-* Tezos: tz1SNXT8yZCwTss2YcoFi3qbXvTZiCojx833
 
 ## License
 

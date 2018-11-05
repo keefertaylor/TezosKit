@@ -8,3 +8,10 @@ public struct Keys {
 	/** A base58check encoded secret key for the wallet, prefixed with "edsk". */
 	public let secretKey: String
 }
+
+extension Keys: Equatable {
+  public static func == (lhs: Keys, rhs: Keys) -> Bool {
+    return lhs.publicKey == rhs.publicKey && lhs.secretKey == rhs.secretKey
+  }
+}
+

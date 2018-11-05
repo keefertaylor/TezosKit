@@ -9,7 +9,7 @@ This library is originally forked from CKMnemonic: https://github.com/CikeQiu/CK
 TezosKit supports installation via CocoaPods. You can depened on MnemonicKit by adding the following to your Podfile:
 
 ```
-pod "MnemonicKit", :git => 'https://github.com/keefertaylor/MnemonicKit.git'
+pod "MnemonicKit"
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ pod "MnemonicKit", :git => 'https://github.com/keefertaylor/MnemonicKit.git'
 ```
 
 
-### Generate a Mnemonic from a Hex Represetation
+### Generate a Mnemonic from a Hex Representation
 
 ```swift
   let hexRepresentation: String = ...

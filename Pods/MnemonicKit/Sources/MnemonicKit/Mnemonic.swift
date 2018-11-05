@@ -102,6 +102,38 @@ public class Mnemonic: NSObject {
     return mnemonicString(from: hexString, language: language)
 	}
 
+
+  /**
+   * Validate that the given string is a valid mnemonic.
+   */
+  public static func validate(mnemonic: String) -> Bool {
+    let normalizedMnemonic = mnemonic.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+    let mnemonicComponents = normalizedMnemonic.components(separatedBy: " ")
+    guard mnemonicComponents.count > 0 else {
+      return false
+    }
+
+    // Use the first component of the mnemonic to determine the language, then make sure all
+    // subsequent components are in that language.
+    if String.englishMnemonics.contains(mnemonicComponents[0]) {
+      for mnemonicComponent in mnemonicComponents {
+        guard String.englishMnemonics.contains(mnemonicComponent) else {
+          return false
+        }
+      }
+      return true
+    } else if String.chineseMnemonics.contains(mnemonicComponents[0]) {
+      for mnemonicComponent in mnemonicComponents {
+        guard String.chineseMnemonics.contains(mnemonicComponent) else {
+          return false
+        }
+      }
+      return true
+    } else {
+      return false
+    }
+  }
+
   /**
    * Change a string into data.
    */
