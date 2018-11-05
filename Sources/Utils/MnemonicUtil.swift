@@ -27,6 +27,16 @@ public class MnemonicUtil {
     return String(rawSeedString[..<rawSeedString.index(rawSeedString.startIndex, offsetBy: 64)])
 	}
 
+  /**
+   * Validate if the given mnemonic is a valid mnemonic.
+   *
+   * @param mnemonic The mnemonic to validate.
+   * @return true if the mnemonic was valid, otherwise false.
+   */
+  public static func validate(mnemonic: String) -> Bool {
+    return Mnemonic.validate(mnemonic: mnemonic)
+  }
+
 	/** Please do not instantiate this static utility class. */
 	private init() { fatalError() }
 }

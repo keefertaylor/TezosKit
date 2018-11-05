@@ -40,4 +40,34 @@ class MnemonicUtilsTest: XCTestCase {
 		// Empty passphrase should be the same as no passphrase.
 		XCTAssertEqual(result, expectedSeedStringWithPassphrase)
 	}
+
+  public func testValidateMnemonic() {
+    // Valid mnemonic.
+    let validMnemonic =
+        "pear peasant pelican pen pear peasant pelican pen pear peasant pelican pen pear peasant pelican pen"
+    XCTAssertTrue(MnemonicUtil.validate(mnemonic: validMnemonic))
+
+    // Invalid mnemonic.
+    let invalidMnemonic = "slacktivist snacktivity snuggie"
+    XCTAssertFalse(MnemonicUtil.validate(mnemonic: invalidMnemonic))
+
+    // Empty string should be invalid.
+    XCTAssertFalse(MnemonicUtil.validate(mnemonic: ""))
+
+    // Unknown languages don't validate.
+    let spanishMnemonic = "pera campesina pelican"
+    XCTAssertFalse(MnemonicUtil.validate(mnemonic: spanishMnemonic))
+
+    // Mixed cases should be normalized.
+    let mixedCaseMnemonic = "pear PEASANT PeLiCaN pen"
+    XCTAssertTrue(MnemonicUtil.validate(mnemonic: mixedCaseMnemonic))
+
+    // Mixed valid words and invalid words should be invalid.
+    let mixedLanguageMnemonic = "pear peasant pelican pen 路 级 少 图"
+    XCTAssertFalse(MnemonicUtil.validate(mnemonic: mixedLanguageMnemonic))
+
+    // Whitespace padding shouldn't matter.
+    let whitespacePaddedMnemonic = "    pear peasant pelican pen\t\t\n"
+    XCTAssertTrue(MnemonicUtil.validate(mnemonic: whitespacePaddedMnemonic))
+  }
 }
