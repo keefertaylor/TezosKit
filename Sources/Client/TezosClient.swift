@@ -200,6 +200,17 @@ public class TezosClient {
 			completion: completion)
 	}
 
+  /**
+   * Originate a new account from the given account.
+   */
+  public func originateAccount(managerAddress: String, keys: Keys, completion: @escaping (String?, Error?) -> Void) {
+    let originateAccountOperation = OriginateAccountOperation(address: managerAddress)
+    self.forgeSignPreapplyAndInjectOperation(operation: originateAccountOperation,
+                                             source: managerAddress,
+                                             keys: keys,
+                                             completion: completion)
+  }
+
 	/**
    * Forge, sign, preapply and then inject a single operation.
    *
