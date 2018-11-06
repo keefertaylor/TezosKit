@@ -49,7 +49,6 @@
 		7AA95841217CC56F00865D55 /* IntegerResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */; };
 		7ABC8543217D6B91006DE8FD /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8542217D6B90006DE8FD /* Keys.swift */; };
 		7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */; };
-		7ABC8549217E8070006DE8FD /* TypeCheckCodeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */; };
 		7ABC854B217EA4AE006DE8FD /* OperationSigningResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC854A217EA4AE006DE8FD /* OperationSigningResult.swift */; };
 		7ABC854E2181348E006DE8FD /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC854D2181348D006DE8FD /* Base58String.swift */; };
 		7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC856B21824D6C006DE8FD /* JSONUtilsTest.swift */; };
@@ -139,7 +138,6 @@
 		7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerResponseAdapter.swift; sourceTree = "<group>"; };
 		7ABC8542217D6B90006DE8FD /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		7ABC8546217E73E1006DE8FD /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperation.swift; sourceTree = "<group>"; };
-		7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeCheckCodeRPC.swift; sourceTree = "<group>"; };
 		7ABC854A217EA4AE006DE8FD /* OperationSigningResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationSigningResult.swift; sourceTree = "<group>"; };
 		7ABC854D2181348D006DE8FD /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base58String.swift; path = Base58String/Base58String.swift; sourceTree = "<group>"; };
 		7ABC856121824D58006DE8FD /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,7 +244,6 @@
 			children = (
 				7AA9581D217CB43A00865D55 /* ResponseAdapters */,
 				7AA9581A217CB3EF00865D55 /* InjectOperationRPC.swift */,
-				7ABC8548217E8070006DE8FD /* TypeCheckCodeRPC.swift */,
 				7AA95819217CB3EF00865D55 /* PreapplyOperationRPC.swift */,
 				7AA9580A217CB3A300865D55 /* ForgeOperationRPC.swift */,
 				7AA95809217CB3A300865D55 /* GetAddressBalanceRPC.swift */,
@@ -586,7 +583,6 @@
 				7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */,
 				7A53BF6A217D295400BA15D1 /* RevealOperation.swift in Sources */,
 				7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */,
-				7ABC8549217E8070006DE8FD /* TypeCheckCodeRPC.swift in Sources */,
 				7AA9580F217CB3A400865D55 /* GetChainHeadHashRPC.swift in Sources */,
 				7AA9582E217CB6F700865D55 /* JSONUtils.swift in Sources */,
 				7AA95829217CB53700865D55 /* JSONDictionaryResponseAdapter.swift in Sources */,
