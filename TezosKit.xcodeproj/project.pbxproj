@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		565E88F7FCAF403DA1415625 /* Pods_TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD462AF223A5CD5683C948D9 /* Pods_TezosKit.framework */; };
 		772E4E6C2190DA4D002A44A3 /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6B2190DA4D002A44A3 /* KeysTests.swift */; };
+		772E4E6E21912778002A44A3 /* OriginationAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6D21912778002A44A3 /* OriginationAccountOperation.swift */; };
+		772E4E702191351C002A44A3 /* OriginateAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */; };
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
@@ -95,6 +97,8 @@
 		711B3872659EEE9B847690A5 /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75D48894E33C2934F3738C60 /* Pods-TezosKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		772E4E6B2190DA4D002A44A3 /* KeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
+		772E4E6D21912778002A44A3 /* OriginationAccountOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginationAccountOperation.swift; sourceTree = "<group>"; };
+		772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -280,6 +284,7 @@
 				7AA95833217CB80A00865D55 /* DelegationOperation.swift */,
 				7AA95834217CB80A00865D55 /* OperationKind.swift */,
 				7AA95832217CB80A00865D55 /* TransactionOperation.swift */,
+				772E4E6D21912778002A44A3 /* OriginationAccountOperation.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -353,6 +358,7 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */,
 				772E4E6B2190DA4D002A44A3 /* KeysTests.swift */,
 				7ABC85AF21839F7D006DE8FD /* GetChainHeadRPCTest.swift */,
 				7ABC85AD21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift */,
@@ -593,6 +599,7 @@
 				7AA9582F217CB6F700865D55 /* MnemonicUtil.swift in Sources */,
 				7AA95841217CC56F00865D55 /* IntegerResponseAdapter.swift in Sources */,
 				7AA95811217CB3A400865D55 /* GetAddressBalanceRPC.swift in Sources */,
+				772E4E6E21912778002A44A3 /* OriginationAccountOperation.swift in Sources */,
 				7AA95825217CB53700865D55 /* TezosBalanceResponseAdapter.swift in Sources */,
 				7AA95816217CB3A400865D55 /* GetAddressDelegateRPC.swift in Sources */,
 				7AA95836217CB80A00865D55 /* TransactionOperation.swift in Sources */,
@@ -617,6 +624,7 @@
 			files = (
 				7ABC85802182A072006DE8FD /* TezosBalanceTest.swift in Sources */,
 				7ABC859421838D6D006DE8FD /* IntegerResponseAdapterTest.swift in Sources */,
+				772E4E702191351C002A44A3 /* OriginateAccountOperation.swift in Sources */,
 				7ABC85862182B08B006DE8FD /* DelegationOperationTest.swift in Sources */,
 				7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */,
 				7ABC859E21839C53006DE8FD /* InjectOperationRPCTest.swift in Sources */,

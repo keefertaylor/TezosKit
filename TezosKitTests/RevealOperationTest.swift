@@ -31,5 +31,4 @@ class RevealOperationTest: XCTestCase {
 		XCTAssertNotNil(dictionary["public_key"])
 		XCTAssertEqual(dictionary["public_key"], wallet.keys.publicKey)
 	}
-
 }
