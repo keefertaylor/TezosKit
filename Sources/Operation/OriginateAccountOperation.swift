@@ -1,7 +1,6 @@
 import Foundation
 
 /** An operation that originates a new KT1 account. */
-// TODO: Test
 public class OriginateAccountOperation: AbstractOperation {
   let managerPublicKeyHash: String
 
