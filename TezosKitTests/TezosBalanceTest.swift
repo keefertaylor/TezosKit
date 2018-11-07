@@ -3,26 +3,36 @@ import TezosKit
 
 class TezosBalanceTest: XCTestCase {
 	public func testHumanReadableRepresentationWithDecimalNumber() {
-		guard let balanceFromString = TezosBalance(balance: "3500000") else {
-			XCTFail()
+		guard let balanceFromStringNoLeadingZeros = TezosBalance(balance: "3500000"),
+        let balanceFromStringLeadingZeros = TezosBalance(balance: "3050000") else {
+      XCTFail()
 			return
 		}
-		let balanceFromNumber = TezosBalance(balance: 3.50)
+		let balanceFromNumberNoLeadingZeros = TezosBalance(balance: 3.50)
+    let balanceFromNumberLeadingZeros = TezosBalance(balance: 3.05)
 
-		XCTAssertEqual(balanceFromNumber.humanReadableRepresentation, "3.500000 ꜩ")
-		XCTAssertEqual(balanceFromString.humanReadableRepresentation, "3.500000 ꜩ")
-	}
+		XCTAssertEqual(balanceFromNumberNoLeadingZeros.humanReadableRepresentation, "3.500000 ꜩ")
+		XCTAssertEqual(balanceFromStringNoLeadingZeros.humanReadableRepresentation, "3.500000 ꜩ")
+
+    XCTAssertEqual(balanceFromStringLeadingZeros.humanReadableRepresentation, "3.050000 ꜩ")
+    XCTAssertEqual(balanceFromNumberLeadingZeros.humanReadableRepresentation, "3.050000 ꜩ")
+  }
 
 	public func testRPCRepresentationWithDecimalNumber() {
-		guard let balanceFromString = TezosBalance(balance: "3500000") else {
-			XCTFail()
-			return
-		}
-		let balanceFromNumber = TezosBalance(balance: 3.50)
+    guard let balanceFromStringNoLeadingZeros = TezosBalance(balance: "3500000"),
+      let balanceFromStringLeadingZeros = TezosBalance(balance: "3050000") else {
+        XCTFail()
+        return
+    }
+    let balanceFromNumberNoLeadingZeros = TezosBalance(balance: 3.50)
+    let balanceFromNumberLeadingZeros = TezosBalance(balance: 3.05)
 
-		XCTAssertEqual(balanceFromNumber.rpcRepresentation, "3500000")
-		XCTAssertEqual(balanceFromString.rpcRepresentation, "3500000")
-	}
+		XCTAssertEqual(balanceFromNumberNoLeadingZeros.rpcRepresentation, "3500000")
+		XCTAssertEqual(balanceFromStringNoLeadingZeros.rpcRepresentation, "3500000")
+
+    XCTAssertEqual(balanceFromStringLeadingZeros.rpcRepresentation, "3050000")
+    XCTAssertEqual(balanceFromNumberLeadingZeros.rpcRepresentation, "3050000")
+  }
 
   public func testHumanReadableRepresentationWithWholeNumber() {
     guard let balanceFromString = TezosBalance(balance: "3000000") else {

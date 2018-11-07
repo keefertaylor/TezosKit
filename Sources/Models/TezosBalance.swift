@@ -51,9 +51,15 @@ public struct TezosBalance {
 		let decimalValue = significantDecimalDigitsAsInteger - significantIntegerDigitsAsInteger
 
 		self.integerAmount = String(integerValue)
-    // If there was no decimal value then decimal value is evaluated to be 0, rather than being five
-    // digits long.
-    self.decimalAmount = decimalValue == 0 ? "000000" : String(decimalValue)
+
+    // Decimal values need to be at least decimalDigitCount long. If the decimal value resolved to
+    // be less than 6 then the number dropped leading zeros. E.G. '0' instead of '000000' or '400'
+    // rather than 000400.
+    var paddedDecimalAmount = String(decimalValue)
+    while paddedDecimalAmount.count < decimalDigitCount {
+      paddedDecimalAmount = "0" + paddedDecimalAmount
+    }
+    self.decimalAmount = paddedDecimalAmount
 	}
 
 	/**
