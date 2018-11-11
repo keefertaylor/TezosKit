@@ -23,7 +23,7 @@ public struct TezosBalance {
    * A human readable representation of the given balance.
    */
 	public var humanReadableRepresentation: String {
-		return integerAmount + "." + decimalAmount + " ꜩ"
+		return integerAmount + "." + decimalAmount
 	}
 
 	/**
