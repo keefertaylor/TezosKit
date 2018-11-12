@@ -1,0 +1,5 @@
+--exclude Pods
+--header "Copyright Keefer Taylor, 2018"
+--allman false
+--indent 2
+--disable redundantSelf
