@@ -20,8 +20,9 @@ TezosKit provides first class support for the following RPCs:
 * Generating and restoring wallets 
 * Sending transactions between accounts
 * Sending multiple operations in a single request
-* Setting a delegate
+* Setting / clearing delegates
 * Registering as a delegate
+* Originating accounts
 * (With more coming soon!)
 
 The library is extensible allowing client code to easily create additional RPCs and signed operations, as required. 
