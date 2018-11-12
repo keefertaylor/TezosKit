@@ -164,8 +164,6 @@ public class TezosClient {
    * is not checked on an input to this methods. Thus, the source address must be a KT1 address and
    * the keys to sign the operation for the address are the keys used to manage the TZ1 address.
    *
-   * TODO: Support clearing a delegate.
-   *
    * @param recipientAddress The address which will receive the balance.
    * @param source The address sending the balance.
    * @param keys The keys to use to sign the operation for the address.
@@ -182,6 +180,25 @@ public class TezosClient {
 			keys: keys,
 			completion: completion)
 	}
+
+  /**
+   * Clear the delegate of an originated account.
+   *
+   * @param source The address which is removing the delegate.
+   * @param keys The keys to use to sign the operation for the address.
+   * @param completion A completion block which will be called with a string representing the
+   *        transaction ID hash if the operation was successful.
+   */
+  public func undelegate(from source: String,
+                         keys: Keys,
+                         completion: @escaping (String?, Error?) -> Void) {
+    let undelegateOperatoin = UndelegateOperation(source: source)
+    self.forgeSignPreapplyAndInjectOperation(operation: undelegateOperatoin,
+                                             source: source,
+                                             keys: keys,
+                                             completion: completion)
+
+  }
 
 	/**
    * Register an address as a delegate.
