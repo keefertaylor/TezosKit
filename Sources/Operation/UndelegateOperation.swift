@@ -1,3 +1,5 @@
+// Copyright Keefer Taylor, 2018
+
 import Foundation
 
 /** An operation to set a clear a delegate for an address. */

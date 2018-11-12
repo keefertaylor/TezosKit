@@ -1,3 +1,5 @@
+// Copyright Keefer Taylor, 2018
+
 import Foundation
 
 /** An operation that originates a new KT1 account. */
@@ -7,7 +9,7 @@ public class OriginateAccountOperation: AbstractOperation {
   public override var dictionaryRepresentation: [String: String] {
     var operation = super.dictionaryRepresentation
     operation["balance"] = "0"
-    operation["managerPubkey"] = self.managerPublicKeyHash
+    operation["managerPubkey"] = managerPublicKeyHash
 
     return operation
   }
@@ -19,7 +21,7 @@ public class OriginateAccountOperation: AbstractOperation {
 
   /** Create a new origination operation that will occur from the given address. */
   public init(address: String) {
-    self.managerPublicKeyHash = address
+    managerPublicKeyHash = address
     super.init(source: address, kind: .origination)
   }
 }

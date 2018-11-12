@@ -1,3 +1,5 @@
+// Copyright Keefer Taylor, 2018
+
 import Foundation
 
 /**
@@ -5,10 +7,10 @@ import Foundation
  * associated types to play nicely together.
  */
 public class AbstractResponseAdapter<T>: ResponseAdapter {
-	public class func parse(input: Data) -> T? {
-		fatalError("Use a concrete implementation of the response adapter class")
-	}
+  public class func parse(input _: Data) -> T? {
+    fatalError("Use a concrete implementation of the response adapter class")
+  }
 
-	/** Please do not instantiate adapters. Adapters should only be used as static utility classes. */
-	private init() { }
+  /** Please do not instantiate adapters. Adapters should only be used as static utility classes. */
+  private init() {}
 }

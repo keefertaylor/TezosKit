@@ -1,3 +1,5 @@
+// Copyright Keefer Taylor, 2018
+
 import Foundation
 
 /**
@@ -6,7 +8,7 @@ import Foundation
 public class IntegerResponseAdapter: AbstractResponseAdapter<Int> {
   public override class func parse(input: Data) -> Int? {
     guard let parsedString = StringResponseAdapter.parse(input: input),
-          let integer = Int(parsedString) else {
+      let integer = Int(parsedString) else {
       return nil
     }
     return integer

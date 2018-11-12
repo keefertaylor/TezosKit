@@ -1,5 +1,7 @@
-import XCTest
+// Copyright Keefer Taylor, 2018
+
 import TezosKit
+import XCTest
 
 class OriginateAccountOperationTest: XCTestCase {
   public func testDictionaryRepresentation() {

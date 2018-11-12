@@ -1,5 +1,7 @@
-import XCTest
+// Copyright Keefer Taylor, 2018
+
 @testable import TezosKit
+import XCTest
 
 class KeysTests: XCTestCase {
   public func testEquality() {

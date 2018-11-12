@@ -1,3 +1,5 @@
+// Copyright Keefer Taylor, 2018
+
 import Foundation
 
 /**
@@ -6,12 +8,12 @@ import Foundation
  * operations.
  */
 public enum OperationKind: String {
-	// Implemented operations
-	case transaction = "transaction"
-	case reveal = "reveal"
-	case delegation = "delegation"
-  case origination = "origination"
+  // Implemented operations
+  case transaction
+  case reveal
+  case delegation
+  case origination
 
-	// Planned / Unimplemented
-	case activateAccount = "activate_account"
+  // Planned / Unimplemented
+  case activateAccount = "activate_account"
 }
