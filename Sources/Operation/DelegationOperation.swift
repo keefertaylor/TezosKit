@@ -7,7 +7,7 @@ public class DelegationOperation: AbstractOperation {
 
 	public override var dictionaryRepresentation: [String: String] {
 		var operation = super.dictionaryRepresentation
-		operation["delegate"] = delegate
+    operation["delegate"] = delegate
 		return operation
 	}
 

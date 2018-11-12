@@ -11,6 +11,8 @@
 		772E4E6C2190DA4D002A44A3 /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6B2190DA4D002A44A3 /* KeysTests.swift */; };
 		772E4E6E21912778002A44A3 /* OriginateAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6D21912778002A44A3 /* OriginateAccountOperation.swift */; };
 		772E4E702191351C002A44A3 /* OriginateAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */; };
+		772E4E802199118F002A44A3 /* UndelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E7F2199118F002A44A3 /* UndelegateOperation.swift */; };
+		772E4E82219911DA002A44A3 /* UndelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E81219911DA002A44A3 /* UndelegateOperation.swift */; };
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
@@ -98,6 +100,8 @@
 		772E4E6B2190DA4D002A44A3 /* KeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
 		772E4E6D21912778002A44A3 /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
 		772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
+		772E4E7F2199118F002A44A3 /* UndelegateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndelegateOperation.swift; sourceTree = "<group>"; };
+		772E4E81219911DA002A44A3 /* UndelegateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndelegateOperation.swift; sourceTree = "<group>"; };
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 				7AA95834217CB80A00865D55 /* OperationKind.swift */,
 				7AA95832217CB80A00865D55 /* TransactionOperation.swift */,
 				772E4E6D21912778002A44A3 /* OriginateAccountOperation.swift */,
+				772E4E7F2199118F002A44A3 /* UndelegateOperation.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				772E4E81219911DA002A44A3 /* UndelegateOperation.swift */,
 				772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */,
 				772E4E6B2190DA4D002A44A3 /* KeysTests.swift */,
 				7ABC85AF21839F7D006DE8FD /* GetChainHeadRPCTest.swift */,
@@ -575,6 +581,7 @@
 			files = (
 				7AA9582D217CB6F700865D55 /* Crypto.swift in Sources */,
 				7ABC8543217D6B91006DE8FD /* Keys.swift in Sources */,
+				772E4E802199118F002A44A3 /* UndelegateOperation.swift in Sources */,
 				7AA95810217CB3A400865D55 /* GetChainHeadRPC.swift in Sources */,
 				7AA95828217CB53700865D55 /* AbstractResponseAdapter.swift in Sources */,
 				7AA95814217CB3A400865D55 /* TezosRPC.swift in Sources */,
@@ -621,6 +628,7 @@
 				7ABC85802182A072006DE8FD /* TezosBalanceTest.swift in Sources */,
 				7ABC859421838D6D006DE8FD /* IntegerResponseAdapterTest.swift in Sources */,
 				772E4E702191351C002A44A3 /* OriginateAccountOperation.swift in Sources */,
+				772E4E82219911DA002A44A3 /* UndelegateOperation.swift in Sources */,
 				7ABC85862182B08B006DE8FD /* DelegationOperationTest.swift in Sources */,
 				7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */,
 				7ABC859E21839C53006DE8FD /* InjectOperationRPCTest.swift in Sources */,
