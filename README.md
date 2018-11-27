@@ -39,7 +39,7 @@ TezosKit is heavily inspired by functionality provided by other Tezos SDKs, such
 TezosKit supports installation via CocoaPods. You can depened on TezosKit by adding the following to your Podfile:
 
 ```
-pod "TezosKit", :git => 'https://github.com/keefertaylor/TezosKit.git'
+pod "TezosKit"
 ```
 
 ### LibSodium Errors
