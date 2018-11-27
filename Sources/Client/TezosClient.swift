@@ -230,6 +230,62 @@ public class TezosClient {
   }
 
   /**
+   * Retrieve ballots cast so far during a voting period.
+   */
+  public func getBallotsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
+    let rpc = GetBallotsListRPC(completion: completion)
+    self.send(rpc: rpc)
+  }
+
+  /**
+   * Retrieve the expected quorum.
+   */
+  public func getExpectedQuorum(completion: @escaping (Int?, Error?) -> Void) {
+    let rpc = GetExpectedQuorumRPC(completion: completion)
+    self.send(rpc: rpc)
+  }
+
+  /**
+   * Retrieve the current period kind for voting.
+   */
+  public func getCurrentPeriodKind(completion: @escaping (PeriodKind?, Error?) -> Void) {
+    let rpc = GetCurrentPeriodKindRPC(completion: completion)
+    self.send(rpc: rpc)
+  }
+
+  /**
+   * Retrieve the sum of ballots cast so far during a voting period.
+   */
+  public func getBallots(completion: @escaping ([String: Any]?, Error?) -> Void) {
+    let rpc = GetBallotsRPC(completion: completion)
+    self.send(rpc: rpc)
+  }
+
+  /**
+   * Retrieve a list of proposals with number of supporters.
+   */
+  public func getProposalsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
+    let rpc = GetProposalsListRPC(completion: completion)
+    self.send(rpc: rpc)
+  }
+
+  /**
+   * Retrieve the current proposal under evaluation.
+   */
+  public func getProposalUnderEvaluation(completion: @escaping (String?, Error?) -> Void) {
+    let rpc = GetProposalUnderEvaluationRPC(completion: completion)
+    self.send(rpc: rpc)
+  }
+
+  /**
+   * Retrieve a list of delegates with their voting weight, in number of rolls.
+  */
+  public func getVotingDelegateRights(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
+    let rpc = GetVotingDelegateRightsRPC(completion: completion)
+    self.send(rpc: rpc)
+  }
+
+  /**
    * Forge, sign, preapply and then inject a single operation.
    *
    * @param operation The operation which will be used to forge the operation.
