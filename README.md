@@ -23,7 +23,7 @@ TezosKit provides first class support for the following RPCs:
 * Setting / clearing delegates
 * Registering as a delegate
 * Originating accounts
-* (With more coming soon!)
+* Examining upgrade votes
 
 The library is extensible allowing client code to easily create additional RPCs and signed operations, as required. 
 
