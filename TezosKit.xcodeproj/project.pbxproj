@@ -13,6 +13,22 @@
 		772E4E702191351C002A44A3 /* OriginateAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */; };
 		772E4E802199118F002A44A3 /* UndelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E7F2199118F002A44A3 /* UndelegateOperation.swift */; };
 		772E4E82219911DA002A44A3 /* UndelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E81219911DA002A44A3 /* UndelegateOperation.swift */; };
+		772E4E8D21AC9ECB002A44A3 /* GetBallotsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E8C21AC9ECB002A44A3 /* GetBallotsRPC.swift */; };
+		772E4E8F21AC9F52002A44A3 /* GetBallotsListRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E8E21AC9F52002A44A3 /* GetBallotsListRPC.swift */; };
+		772E4E9121AC9F95002A44A3 /* GetCurrentPeriodKindRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E9021AC9F95002A44A3 /* GetCurrentPeriodKindRPC.swift */; };
+		772E4E9321ACA03A002A44A3 /* GetExpectedQuorumRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E9221ACA03A002A44A3 /* GetExpectedQuorumRPC.swift */; };
+		772E4E9521ACA1DA002A44A3 /* GetVotingDelegateRightsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E9421ACA1DA002A44A3 /* GetVotingDelegateRightsRPC.swift */; };
+		772E4E9721ACA2E2002A44A3 /* GetProposalsListRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E9621ACA2E2002A44A3 /* GetProposalsListRPC.swift */; };
+		772E4E9921ACA384002A44A3 /* GetProposalUnderEvaluationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E4E9821ACA384002A44A3 /* GetProposalUnderEvaluationRPC.swift */; };
+		775137F321ACE6970054D05E /* GetBallotsListRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137F221ACE6970054D05E /* GetBallotsListRPCTest.swift */; };
+		775137F521ACE6A20054D05E /* GetBallotsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137F421ACE6A20054D05E /* GetBallotsRPCTest.swift */; };
+		775137F721ACE6AB0054D05E /* GetCurrentPeriodKindRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137F621ACE6AB0054D05E /* GetCurrentPeriodKindRPCTest.swift */; };
+		775137F921ACE6B90054D05E /* GetExpectedQuorumRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137F821ACE6B90054D05E /* GetExpectedQuorumRPCTest.swift */; };
+		775137FB21ACE6C90054D05E /* GetProposalUnderEvaluationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137FA21ACE6C90054D05E /* GetProposalUnderEvaluationRPCTest.swift */; };
+		775137FD21ACE6D40054D05E /* GetProposalsListRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137FC21ACE6D40054D05E /* GetProposalsListRPCTest.swift */; };
+		775137FF21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137FE21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift */; };
+		7751380121ADCA900054D05E /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380021ADCA900054D05E /* PeriodKind.swift */; };
+		7751380321ADCB850054D05E /* PeriodKindResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */; };
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
@@ -102,6 +118,22 @@
 		772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
 		772E4E7F2199118F002A44A3 /* UndelegateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndelegateOperation.swift; sourceTree = "<group>"; };
 		772E4E81219911DA002A44A3 /* UndelegateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndelegateOperation.swift; sourceTree = "<group>"; };
+		772E4E8C21AC9ECB002A44A3 /* GetBallotsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBallotsRPC.swift; sourceTree = "<group>"; };
+		772E4E8E21AC9F52002A44A3 /* GetBallotsListRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBallotsListRPC.swift; sourceTree = "<group>"; };
+		772E4E9021AC9F95002A44A3 /* GetCurrentPeriodKindRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentPeriodKindRPC.swift; sourceTree = "<group>"; };
+		772E4E9221ACA03A002A44A3 /* GetExpectedQuorumRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPC.swift; sourceTree = "<group>"; };
+		772E4E9421ACA1DA002A44A3 /* GetVotingDelegateRightsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVotingDelegateRightsRPC.swift; sourceTree = "<group>"; };
+		772E4E9621ACA2E2002A44A3 /* GetProposalsListRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalsListRPC.swift; sourceTree = "<group>"; };
+		772E4E9821ACA384002A44A3 /* GetProposalUnderEvaluationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPC.swift; sourceTree = "<group>"; };
+		775137F221ACE6970054D05E /* GetBallotsListRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBallotsListRPCTest.swift; sourceTree = "<group>"; };
+		775137F421ACE6A20054D05E /* GetBallotsRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBallotsRPCTest.swift; sourceTree = "<group>"; };
+		775137F621ACE6AB0054D05E /* GetCurrentPeriodKindRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentPeriodKindRPCTest.swift; sourceTree = "<group>"; };
+		775137F821ACE6B90054D05E /* GetExpectedQuorumRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPCTest.swift; sourceTree = "<group>"; };
+		775137FA21ACE6C90054D05E /* GetProposalUnderEvaluationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPCTest.swift; sourceTree = "<group>"; };
+		775137FC21ACE6D40054D05E /* GetProposalsListRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalsListRPCTest.swift; sourceTree = "<group>"; };
+		775137FE21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVotingDelegateRightsRPCTest.swift; sourceTree = "<group>"; };
+		7751380021ADCA900054D05E /* PeriodKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
+		7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapter.swift; sourceTree = "<group>"; };
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -257,6 +289,13 @@
 				7AA95807217CB3A300865D55 /* GetChainHeadHashRPC.swift */,
 				7AA95808217CB3A300865D55 /* GetChainHeadRPC.swift */,
 				7AA9580C217CB3A300865D55 /* TezosRPC.swift */,
+				772E4E9421ACA1DA002A44A3 /* GetVotingDelegateRightsRPC.swift */,
+				772E4E9821ACA384002A44A3 /* GetProposalUnderEvaluationRPC.swift */,
+				772E4E9621ACA2E2002A44A3 /* GetProposalsListRPC.swift */,
+				772E4E8C21AC9ECB002A44A3 /* GetBallotsRPC.swift */,
+				772E4E9021AC9F95002A44A3 /* GetCurrentPeriodKindRPC.swift */,
+				772E4E9221ACA03A002A44A3 /* GetExpectedQuorumRPC.swift */,
+				772E4E8E21AC9F52002A44A3 /* GetBallotsListRPC.swift */,
 			);
 			path = RPC;
 			sourceTree = "<group>";
@@ -265,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				7AA95822217CB53600865D55 /* AbstractResponseAdapter.swift */,
+				7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */,
 				7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */,
 				7AA95820217CB53600865D55 /* JSONArrayResponseAdapter.swift */,
 				7AA95823217CB53600865D55 /* JSONDictionaryResponseAdapter.swift */,
@@ -338,6 +378,7 @@
 				7A1E2ED3217673FD0073C080 /* Wallet.swift */,
 				7A53BF1A217CF35700BA15D1 /* OperationMetadata.swift */,
 				7AA957D3217B8C1000865D55 /* TezosBalance.swift */,
+				7751380021ADCA900054D05E /* PeriodKind.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +402,13 @@
 			isa = PBXGroup;
 			children = (
 				772E4E81219911DA002A44A3 /* UndelegateOperation.swift */,
+				775137F221ACE6970054D05E /* GetBallotsListRPCTest.swift */,
+				775137F421ACE6A20054D05E /* GetBallotsRPCTest.swift */,
+				775137F621ACE6AB0054D05E /* GetCurrentPeriodKindRPCTest.swift */,
+				775137F821ACE6B90054D05E /* GetExpectedQuorumRPCTest.swift */,
+				775137FA21ACE6C90054D05E /* GetProposalUnderEvaluationRPCTest.swift */,
+				775137FE21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift */,
+				775137FC21ACE6D40054D05E /* GetProposalsListRPCTest.swift */,
 				772E4E6F2191351C002A44A3 /* OriginateAccountOperation.swift */,
 				772E4E6B2190DA4D002A44A3 /* KeysTests.swift */,
 				7ABC85AF21839F7D006DE8FD /* GetChainHeadRPCTest.swift */,
@@ -580,10 +628,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AA9582D217CB6F700865D55 /* Crypto.swift in Sources */,
+				772E4E9121AC9F95002A44A3 /* GetCurrentPeriodKindRPC.swift in Sources */,
 				7ABC8543217D6B91006DE8FD /* Keys.swift in Sources */,
 				772E4E802199118F002A44A3 /* UndelegateOperation.swift in Sources */,
 				7AA95810217CB3A400865D55 /* GetChainHeadRPC.swift in Sources */,
 				7AA95828217CB53700865D55 /* AbstractResponseAdapter.swift in Sources */,
+				772E4E9521ACA1DA002A44A3 /* GetVotingDelegateRightsRPC.swift in Sources */,
 				7AA95814217CB3A400865D55 /* TezosRPC.swift in Sources */,
 				7AA95835217CB80A00865D55 /* AbstractOperation.swift in Sources */,
 				7ABC854B217EA4AE006DE8FD /* OperationSigningResult.swift in Sources */,
@@ -591,6 +641,7 @@
 				7A53BF6A217D295400BA15D1 /* RevealOperation.swift in Sources */,
 				7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */,
 				7AA9580F217CB3A400865D55 /* GetChainHeadHashRPC.swift in Sources */,
+				772E4E9721ACA2E2002A44A3 /* GetProposalsListRPC.swift in Sources */,
 				7AA9582E217CB6F700865D55 /* JSONUtils.swift in Sources */,
 				7AA95829217CB53700865D55 /* JSONDictionaryResponseAdapter.swift in Sources */,
 				7AA95813217CB3A400865D55 /* GetAddressManagerKeyRPC.swift in Sources */,
@@ -598,21 +649,27 @@
 				7AA957D4217B8C1000865D55 /* TezosBalance.swift in Sources */,
 				7AA9581B217CB3EF00865D55 /* PreapplyOperationRPC.swift in Sources */,
 				7AA8F36E2160211800C05895 /* TezosClientError.swift in Sources */,
+				7751380121ADCA900054D05E /* PeriodKind.swift in Sources */,
 				7AA95812217CB3A400865D55 /* ForgeOperationRPC.swift in Sources */,
+				772E4E9921ACA384002A44A3 /* GetProposalUnderEvaluationRPC.swift in Sources */,
 				7AA9582F217CB6F700865D55 /* MnemonicUtil.swift in Sources */,
 				7AA95841217CC56F00865D55 /* IntegerResponseAdapter.swift in Sources */,
 				7AA95811217CB3A400865D55 /* GetAddressBalanceRPC.swift in Sources */,
 				772E4E6E21912778002A44A3 /* OriginateAccountOperation.swift in Sources */,
 				7AA95825217CB53700865D55 /* TezosBalanceResponseAdapter.swift in Sources */,
 				7AA95816217CB3A400865D55 /* GetAddressDelegateRPC.swift in Sources */,
+				772E4E8F21AC9F52002A44A3 /* GetBallotsListRPC.swift in Sources */,
 				7AA95836217CB80A00865D55 /* TransactionOperation.swift in Sources */,
 				7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */,
+				772E4E8D21AC9ECB002A44A3 /* GetBallotsRPC.swift in Sources */,
+				7751380321ADCB850054D05E /* PeriodKindResponseAdapter.swift in Sources */,
 				7AA8F35A2160158000C05895 /* AppDelegate.swift in Sources */,
 				7AA95837217CB80A00865D55 /* DelegationOperation.swift in Sources */,
 				7AA95824217CB53700865D55 /* ResponseAdapter.swift in Sources */,
 				7A53BF1B217CF35700BA15D1 /* OperationMetadata.swift in Sources */,
 				7AA95815217CB3A400865D55 /* GetAddressCounterRPC.swift in Sources */,
 				7ABC854E2181348E006DE8FD /* Base58String.swift in Sources */,
+				772E4E9321ACA03A002A44A3 /* GetExpectedQuorumRPC.swift in Sources */,
 				7AA95826217CB53700865D55 /* JSONArrayResponseAdapter.swift in Sources */,
 				7AA9581C217CB3EF00865D55 /* InjectOperationRPC.swift in Sources */,
 				7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */,
@@ -632,11 +689,15 @@
 				7ABC85862182B08B006DE8FD /* DelegationOperationTest.swift in Sources */,
 				7ABC85842182AE86006DE8FD /* AbstractOperationTest.swift in Sources */,
 				7ABC859E21839C53006DE8FD /* InjectOperationRPCTest.swift in Sources */,
+				775137FD21ACE6D40054D05E /* GetProposalsListRPCTest.swift in Sources */,
 				772E4E6C2190DA4D002A44A3 /* KeysTests.swift in Sources */,
+				775137F921ACE6B90054D05E /* GetExpectedQuorumRPCTest.swift in Sources */,
 				7ABC85A021839D32006DE8FD /* PreapplyOperationRPCTest.swift in Sources */,
+				775137F721ACE6AB0054D05E /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */,
 				7ABC857E21826C71006DE8FD /* WalletTests.swift in Sources */,
 				7ABC859821839465006DE8FD /* JSONDictionaryResponseAdapterTest.swift in Sources */,
+				775137F521ACE6A20054D05E /* GetBallotsRPCTest.swift in Sources */,
 				7ABC85AA21839F02006DE8FD /* GetAddressManagerKeyRPCTest.swift in Sources */,
 				7ABC85902183875C006DE8FD /* StringResponseAdapterTest.swift in Sources */,
 				7ABC85A821839EA7006DE8FD /* GetDelegateRPCTest.swift in Sources */,
@@ -644,6 +705,7 @@
 				7ABC856E2182655E006DE8FD /* MnemonicUtilsTest.swift in Sources */,
 				7ABC859621839171006DE8FD /* TezosClientErrorCodesTest.swift in Sources */,
 				7ABC85A421839E09006DE8FD /* GetAddressBalanceRPCTest.swift in Sources */,
+				775137FF21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift in Sources */,
 				7ABC858C21838522006DE8FD /* TransactionOperationTest.swift in Sources */,
 				7ABC85822182A595006DE8FD /* CryptoTests.swift in Sources */,
 				7ABC85882183834D006DE8FD /* RegisterDelegateOperationTest.swift in Sources */,
@@ -651,9 +713,11 @@
 				7ABC85A221839DA4006DE8FD /* ForgeOperationRPCTest.swift in Sources */,
 				7ABC858A218383F4006DE8FD /* RevealOperationTest.swift in Sources */,
 				7ABC859A2183961E006DE8FD /* JSONArrayResponseAdapterTest.swift in Sources */,
+				775137F321ACE6970054D05E /* GetBallotsListRPCTest.swift in Sources */,
 				7ABC859C2183973F006DE8FD /* TezosRPCTest.swift in Sources */,
 				7ABC85922183899B006DE8FD /* TezosBalanceResponseAdapterTest.swift in Sources */,
 				7ABC85AE21839F6F006DE8FD /* GetChainHeadHashRPCTest.swift in Sources */,
+				775137FB21ACE6C90054D05E /* GetProposalUnderEvaluationRPCTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
