@@ -307,8 +307,9 @@ public class TezosClient {
 
     let forgeRPC = ForgeOperationRPC(chainID: operationMetadata.chainID,
                                      headHash: operationMetadata.headHash,
-                                     payload: jsonPayload) { result, error in
-      guard let result = result else {
+                                     payload: jsonPayload) { [weak self] result, error in
+      guard let self = self,
+        let result = result else {
         completion(nil, error)
         return
       }
@@ -379,8 +380,9 @@ public class TezosClient {
     let preapplyOperationRPC = PreapplyOperationRPC(chainID: operationMetadata.chainID,
                                                     headHash: operationMetadata.headHash,
                                                     payload: payload,
-                                                    completion: { result, error in
-                                                      guard let _ = result else {
+                                                    completion: { [weak self] result, error in
+                                                      guard let self = self,
+                                                        let _ = result else {
                                                         completion(nil, error)
                                                         return
                                                       }
