@@ -5,15 +5,14 @@ import Foundation
 /**
  * An RPC which will retrieve the sum of ballots cast so far during a voting period.
  */
-public class GetBallotsRPC: TezosRPC<String> {
+public class GetBallotsRPC: TezosRPC<[String: Any]> {
   /**
-   * @param blockID The level to count ballots at.
    * @param completion A block to be called at the completion of the operation.
    */
-  public init(blockID: UInt, completion: @escaping (String?, Error?) -> Void) {
-    let endpoint = "chains/main/blocks/\(blockID)/votes/ballots"
+  public init(completion: @escaping ([String: Any]?, Error?) -> Void) {
+    let endpoint = "chains/main/blocks/head/votes/ballots"
     super.init(endpoint: endpoint,
-               responseAdapterClass: StringResponseAdapter.self,
+               responseAdapterClass: JSONDictionaryResponseAdapter.self,
                completion: completion)
   }
 }
