@@ -279,7 +279,7 @@ public class TezosClient {
 
   /**
    * Retrieve a list of delegates with their voting weight, in number of rolls.
-  */
+   */
   public func getVotingDelegateRights(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetVotingDelegateRightsRPC(completion: completion)
     self.send(rpc: rpc)
