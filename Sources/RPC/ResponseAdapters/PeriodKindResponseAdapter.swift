@@ -4,8 +4,6 @@ import Foundation
 
 /**
  * Parse a given response as a string representing an PeriodKind.
- *
- * TODO(keefer): Add tests.
  */
 public class PeriodKindResponseAdapter: AbstractResponseAdapter<PeriodKind> {
   public override class func parse(input: Data) -> PeriodKind? {

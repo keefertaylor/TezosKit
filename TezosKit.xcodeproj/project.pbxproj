@@ -29,6 +29,7 @@
 		775137FF21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137FE21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift */; };
 		7751380121ADCA900054D05E /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380021ADCA900054D05E /* PeriodKind.swift */; };
 		7751380321ADCB850054D05E /* PeriodKindResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */; };
+		7751380921ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380821ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift */; };
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
@@ -134,6 +135,7 @@
 		775137FE21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVotingDelegateRightsRPCTest.swift; sourceTree = "<group>"; };
 		7751380021ADCA900054D05E /* PeriodKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
 		7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapter.swift; sourceTree = "<group>"; };
+		7751380821ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapterTest.swift; sourceTree = "<group>"; };
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 		7ABC856221824D58006DE8FD /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				7751380821ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift */,
 				772E4E81219911DA002A44A3 /* UndelegateOperation.swift */,
 				775137F221ACE6970054D05E /* GetBallotsListRPCTest.swift */,
 				775137F421ACE6A20054D05E /* GetBallotsRPCTest.swift */,
@@ -692,6 +695,7 @@
 				775137FD21ACE6D40054D05E /* GetProposalsListRPCTest.swift in Sources */,
 				772E4E6C2190DA4D002A44A3 /* KeysTests.swift in Sources */,
 				775137F921ACE6B90054D05E /* GetExpectedQuorumRPCTest.swift in Sources */,
+				7751380921ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift in Sources */,
 				7ABC85A021839D32006DE8FD /* PreapplyOperationRPCTest.swift in Sources */,
 				775137F721ACE6AB0054D05E /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				7ABC856C21824D6C006DE8FD /* JSONUtilsTest.swift in Sources */,
