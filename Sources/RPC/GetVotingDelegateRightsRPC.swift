@@ -11,7 +11,7 @@ public class GetVotingDelegateRightsRPC: TezosRPC<String> {
    * @param completion A block to be called at the completion of the operation.
    */
   public init(blockID: UInt, completion: @escaping (String?, Error?) -> Void) {
-    let endpoint = "/chains/main/blocks/\(blockID)/votes/listings"
+    let endpoint = "chains/main/blocks/\(blockID)/votes/listings"
     super.init(endpoint: endpoint,
                responseAdapterClass: StringResponseAdapter.self,
                completion: completion)

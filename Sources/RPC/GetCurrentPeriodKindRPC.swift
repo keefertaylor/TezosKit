@@ -13,7 +13,7 @@ public class GetCurrentPeriodKindRPC: TezosRPC<String> {
    * @param completion A block to be called at the completion of the operation.
    */
   public init(blockID: UInt, completion: @escaping (String?, Error?) -> Void) {
-    let endpoint = " /chains/main/blocks/\(blockID)/votes/current_period_kind"
+    let endpoint = "chains/main/blocks/\(blockID)/votes/current_period_kind"
     super.init(endpoint: endpoint,
                responseAdapterClass: StringResponseAdapter.self,
                completion: completion)
