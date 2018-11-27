@@ -5,9 +5,9 @@ import XCTest
 
 class GetVotingDelegateRightsRPCTest: XCTestCase {
   public func testGetVotingDelegateRightsRPC() {
-    let rpc = GetVotingDelegateRightsRPC(blockID: 1000) { _, _ in }
+    let rpc = GetVotingDelegateRightsRPC() { _, _ in }
 
-    XCTAssertEqual(rpc.endpoint, "chains/main/blocks/1000/votes/listings")
+    XCTAssertEqual(rpc.endpoint, "chains/main/blocks/head/votes/listings")
     XCTAssertNil(rpc.payload)
     XCTAssertFalse(rpc.isPOSTRequest)
   }
