@@ -28,6 +28,7 @@
 		775137FD21ACE6D40054D05E /* GetProposalsListRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137FC21ACE6D40054D05E /* GetProposalsListRPCTest.swift */; };
 		775137FF21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775137FE21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift */; };
 		7751380121ADCA900054D05E /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380021ADCA900054D05E /* PeriodKind.swift */; };
+		7751380321ADCB850054D05E /* PeriodKindResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */; };
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
@@ -132,6 +133,7 @@
 		775137FC21ACE6D40054D05E /* GetProposalsListRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalsListRPCTest.swift; sourceTree = "<group>"; };
 		775137FE21ACE6DE0054D05E /* GetVotingDelegateRightsRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVotingDelegateRightsRPCTest.swift; sourceTree = "<group>"; };
 		7751380021ADCA900054D05E /* PeriodKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
+		7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapter.swift; sourceTree = "<group>"; };
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				7AA95822217CB53600865D55 /* AbstractResponseAdapter.swift */,
+				7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */,
 				7AA95840217CC56F00865D55 /* IntegerResponseAdapter.swift */,
 				7AA95820217CB53600865D55 /* JSONArrayResponseAdapter.swift */,
 				7AA95823217CB53600865D55 /* JSONDictionaryResponseAdapter.swift */,
@@ -659,6 +662,7 @@
 				7AA95836217CB80A00865D55 /* TransactionOperation.swift in Sources */,
 				7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */,
 				772E4E8D21AC9ECB002A44A3 /* GetBallotsRPC.swift in Sources */,
+				7751380321ADCB850054D05E /* PeriodKindResponseAdapter.swift in Sources */,
 				7AA8F35A2160158000C05895 /* AppDelegate.swift in Sources */,
 				7AA95837217CB80A00865D55 /* DelegationOperation.swift in Sources */,
 				7AA95824217CB53700865D55 /* ResponseAdapter.swift in Sources */,
