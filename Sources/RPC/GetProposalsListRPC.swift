@@ -7,11 +7,10 @@ import Foundation
  */
 public class GetProposalsListRPC: TezosRPC<String> {
   /**
-   * @param blockID The level to examine the proposals list at.
    * @param completion A block to be called at the completion of the operation.
    */
-  public init(blockID: UInt, completion: @escaping (String?, Error?) -> Void) {
-    let endpoint = "chains/main/blocks/\(blockID)/votes/proposals"
+  public init(completion: @escaping (String?, Error?) -> Void) {
+    let endpoint = "chains/main/blocks/head/votes/proposals"
     super.init(endpoint: endpoint,
                responseAdapterClass: StringResponseAdapter.self,
                completion: completion)
