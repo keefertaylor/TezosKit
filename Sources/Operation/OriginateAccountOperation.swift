@@ -21,7 +21,15 @@ public class OriginateAccountOperation: AbstractOperation {
 
   /** Create a new origination operation that will occur from the given address. */
   public init(address: String) {
+    let fee = TezosBalance(balance: 0.001285)
+    let gasLimit = TezosBalance(balance: 0.010000)
+    let storageLimit = TezosBalance(balance: 0.000257)
+
     managerPublicKeyHash = address
-    super.init(source: address, kind: .origination)
+    super.init(source: address,
+               kind: .origination,
+               fee: fee,
+               gasLimit: gasLimit,
+               storageLimit: storageLimit)
   }
 }
