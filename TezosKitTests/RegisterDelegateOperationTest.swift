@@ -11,9 +11,9 @@ class RegisterDelegateOperationTest: XCTestCase {
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"], source)
+    XCTAssertEqual(dictionary["source"]as! String, source )
 
     XCTAssertNotNil(dictionary["delegate"])
-    XCTAssertEqual(dictionary["delegate"], source)
+    XCTAssertEqual(dictionary["delegate"] as! String, source)
   }
 }
