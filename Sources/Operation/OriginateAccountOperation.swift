@@ -5,11 +5,20 @@ import Foundation
 /** An operation that originates a new KT1 account. */
 public class OriginateAccountOperation: AbstractOperation {
   let managerPublicKeyHash: String
+  let contractCode: ContractCode?
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["balance"] = "0"
     operation["managerPubkey"] = managerPublicKeyHash
+
+    if let contractCode = self.contractCode {
+      operation["script"] = [
+        "code": contractCode.code,
+        "storage": contractCode.storage
+      ]
+    }
+
     return operation
   }
 
@@ -17,8 +26,9 @@ public class OriginateAccountOperation: AbstractOperation {
    * Create a new origination operation that will occur from the given wallet's address.
    *
    * @param wallet The wallet originating the transaction.
+   * @param contractCode Optional code to associate with the originated contract.
    */
-  public convenience init(wallet: Wallet) {
+  public convenience init(wallet: Wallet, contractCode: ContractCode? = nil) {
     self.init(address: wallet.address)
   }
 
@@ -26,13 +36,15 @@ public class OriginateAccountOperation: AbstractOperation {
    * Create a new origination operation that will occur from the given address.
    *
    * @param address The address originating the transaction.
+   * @param contractCode Optional code to associate with the originated contract.
    */
-  public init(address: String) {
+  public init(address: String, contractCode: ContractCode? = nil) {
     managerPublicKeyHash = address
+    self.contractCode = contractCode
 
-    let fee = TezosBalance(balance: 0.001285)
+    let fee = TezosBalance(balance: 0.101385)
     let gasLimit = TezosBalance(balance: 0.010000)
-    let storageLimit = TezosBalance(balance: 0.000257)
+    let storageLimit = TezosBalance(balance: 0.01)
 
     super.init(source: address,
                kind: .origination,
