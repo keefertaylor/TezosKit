@@ -242,7 +242,7 @@ public class TezosClient {
    */
   public func getAddressCode(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
     let rpc = GetAddressCodeRPC(address: address, completion: completion)
-    self.send(rpc: rpc);
+    self.send(rpc: rpc)
   }
 
   /**

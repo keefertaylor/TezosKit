@@ -15,7 +15,7 @@ public class OriginateAccountOperation: AbstractOperation {
     if let contractCode = self.contractCode {
       operation["script"] = [
         "code": contractCode.code,
-        "storage": contractCode.storage
+        "storage": contractCode.storage,
       ]
     }
 
@@ -28,7 +28,7 @@ public class OriginateAccountOperation: AbstractOperation {
    * @param wallet The wallet originating the transaction.
    * @param contractCode Optional code to associate with the originated contract.
    */
-  public convenience init(wallet: Wallet, contractCode: ContractCode? = nil) {
+  public convenience init(wallet: Wallet, contractCode _: ContractCode? = nil) {
     self.init(address: wallet.address)
   }
 
