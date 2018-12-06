@@ -32,6 +32,7 @@
 		7751380921ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380821ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift */; };
 		77FE004421B899DD009C3CD1 /* GetAddressCodeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE004321B899DD009C3CD1 /* GetAddressCodeRPC.swift */; };
 		77FE004621B8BCC5009C3CD1 /* ContractCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE004521B8BCC5009C3CD1 /* ContractCode.swift */; };
+		77FE004821B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE004721B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift */; };
 		7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ECF217671B20073C080 /* KeyPair.swift */; };
 		7A1E2ED4217673FE0073C080 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2ED3217673FD0073C080 /* Wallet.swift */; };
 		7A1E2EDC2176B3F40073C080 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1E2EDB2176B3F40073C080 /* Operation.swift */; };
@@ -140,6 +141,7 @@
 		7751380821ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapterTest.swift; sourceTree = "<group>"; };
 		77FE004321B899DD009C3CD1 /* GetAddressCodeRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressCodeRPC.swift; sourceTree = "<group>"; };
 		77FE004521B8BCC5009C3CD1 /* ContractCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractCode.swift; sourceTree = "<group>"; };
+		77FE004721B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractCodeResponseAdapter.swift; sourceTree = "<group>"; };
 		7A1E2ECF217671B20073C080 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		7A1E2ED3217673FD0073C080 /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		7A1E2EDB2176B3F40073C080 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				7AA9581E217CB53600865D55 /* ResponseAdapter.swift */,
 				7AA95821217CB53600865D55 /* StringResponseAdapter.swift */,
 				7AA9581F217CB53600865D55 /* TezosBalanceResponseAdapter.swift */,
+				77FE004721B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift */,
 			);
 			path = ResponseAdapters;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				7AA95836217CB80A00865D55 /* TransactionOperation.swift in Sources */,
 				7ABC8547217E73E1006DE8FD /* RegisterDelegateOperation.swift in Sources */,
 				77FE004421B899DD009C3CD1 /* GetAddressCodeRPC.swift in Sources */,
+				77FE004821B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift in Sources */,
 				772E4E8D21AC9ECB002A44A3 /* GetBallotsRPC.swift in Sources */,
 				7751380321ADCB850054D05E /* PeriodKindResponseAdapter.swift in Sources */,
 				7AA8F35A2160158000C05895 /* AppDelegate.swift in Sources */,
