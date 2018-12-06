@@ -230,6 +230,16 @@ public class TezosClient {
   }
 
   /**
+   * Returns the code associated with the address as a NSDictionary.
+   *
+   * @param address The address of the contract to load.
+   */
+  public func getAddressCode(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
+    let rpc = GetAddressCodeRPC(address: address, completion: completion)
+    self.send(rpc: rpc);
+  }
+
+  /**
    * Retrieve ballots cast so far during a voting period.
    */
   public func getBallotsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
