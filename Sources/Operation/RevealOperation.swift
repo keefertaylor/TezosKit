@@ -35,10 +35,6 @@ public class RevealOperation: AbstractOperation {
    */
   public init(from address: String, publicKey: String) {
     self.publicKey = publicKey
-    super.init(source: address,
-               kind: .reveal,
-               fee: AbstractOperation.zeroTezosBalance,
-               gasLimit: AbstractOperation.zeroTezosBalance,
-               storageLimit: AbstractOperation.zeroTezosBalance)
+    super.init(source: address, kind: .reveal)
   }
 }
