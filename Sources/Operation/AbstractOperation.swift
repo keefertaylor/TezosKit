@@ -28,7 +28,7 @@ public class AbstractOperation: Operation {
     }
   }
 
-  public var dictionaryRepresentation: [String: String] {
+  public var dictionaryRepresentation: [String: Any] {
     var operation: [String: String] = [:]
     operation["kind"] = kind.rawValue
     operation["storage_limit"] = storageLimit.rpcRepresentation

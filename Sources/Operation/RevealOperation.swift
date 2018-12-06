@@ -9,7 +9,7 @@ import Foundation
  * operations.
  */
 public class RevealOperation: AbstractOperation {
-  public override var dictionaryRepresentation: [String: String] {
+  public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["public_key"] = publicKey
     return operation

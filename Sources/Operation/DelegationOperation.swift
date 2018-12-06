@@ -7,7 +7,7 @@ public class DelegationOperation: AbstractOperation {
   /** The address that will be set as the delegate. */
   public let delegate: String
 
-  public override var dictionaryRepresentation: [String: String] {
+  public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["delegate"] = delegate
     return operation
