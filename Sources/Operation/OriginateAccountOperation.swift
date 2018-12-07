@@ -4,24 +4,52 @@ import Foundation
 
 /** An operation that originates a new KT1 account. */
 public class OriginateAccountOperation: AbstractOperation {
-  let managerPublicKeyHash: String
+  private let managerPublicKeyHash: String
+  private let contractCode: ContractCode?
 
-  public override var dictionaryRepresentation: [String: String] {
+  public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["balance"] = "0"
     operation["managerPubkey"] = managerPublicKeyHash
 
+    if let contractCode = self.contractCode {
+      operation["script"] = [
+        "code": contractCode.code,
+        "storage": contractCode.storage,
+      ]
+    }
+
     return operation
   }
 
-  /** Create a new origination operation that will occur from the given wallet's address. */
-  public convenience init(wallet: Wallet) {
-    self.init(address: wallet.address)
+  /**
+   * Create a new origination operation that will occur from the given wallet's address.
+   *
+   * @param wallet The wallet originating the transaction.
+   * @param contractCode Optional code to associate with the originated contract.
+   */
+  public convenience init(wallet: Wallet, contractCode: ContractCode? = nil) {
+    self.init(address: wallet.address, contractCode: contractCode)
   }
 
-  /** Create a new origination operation that will occur from the given address. */
-  public init(address: String) {
+  /**
+   * Create a new origination operation that will occur from the given address.
+   *
+   * @param address The address originating the transaction.
+   * @param contractCode Optional code to associate with the originated contract.
+   */
+  public init(address: String, contractCode: ContractCode? = nil) {
     managerPublicKeyHash = address
-    super.init(source: address, kind: .origination)
+    self.contractCode = contractCode
+
+    let fee = TezosBalance(balance: 0.101385)
+    let gasLimit = TezosBalance(balance: 0.010000)
+    let storageLimit = TezosBalance(balance: 0.01)
+
+    super.init(source: address,
+               kind: .origination,
+               fee: fee,
+               gasLimit: gasLimit,
+               storageLimit: storageLimit)
   }
 }

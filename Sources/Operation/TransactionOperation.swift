@@ -7,7 +7,7 @@ public class TransactionOperation: AbstractOperation {
   private let amount: TezosBalance
   private let destination: String
 
-  public override var dictionaryRepresentation: [String: String] {
+  public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["amount"] = amount.rpcRepresentation
     operation["destination"] = destination
