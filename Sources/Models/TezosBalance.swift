@@ -6,6 +6,9 @@ import Foundation
  * A model class representing a balance of Tezos.
  */
 public struct TezosBalance {
+  /** A balance of zero. */
+  public static let zeroBalance = TezosBalance(balance: 0.0)
+
   /** The number of decimal places available in Tezos values. */
   private let decimalDigitCount = 6
 

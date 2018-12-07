@@ -13,6 +13,13 @@ public class DelegationOperation: AbstractOperation {
     return operation
   }
 
+  public override var defaultFees: OperationFees {
+    let fee = TezosBalance(balance: 0.001257)
+    let storageLimit = TezosBalance.zeroBalance
+    let gasLimit = TezosBalance(balance: 0.010000)
+    return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
+  }
+
   /**
    * @param source The address that will delegate funds.
    * @param delegate The address to delegate to.

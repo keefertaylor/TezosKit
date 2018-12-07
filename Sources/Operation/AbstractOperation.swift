@@ -10,6 +10,8 @@ import Foundation
 public class AbstractOperation: Operation {
   public let source: String
   public let kind: OperationKind
+  public let operationFees: OperationFees?
+
   public var requiresReveal: Bool {
     switch kind {
     case .delegation, .transaction, .origination:
@@ -24,12 +26,24 @@ public class AbstractOperation: Operation {
     operation["kind"] = kind.rawValue
     operation["source"] = source
 
+    let operationFee = self.operationFees ?? self.defaultFees
+    operation["storage_limit"] = operationFee.storageLimit.rpcRepresentation
+    operation["gas_limit"] = operationFee.gasLimit.rpcRepresentation
+    operation["fee"] = operationFee.fee.rpcRepresentation
+
     return operation
   }
 
+  public var defaultFees: OperationFees {
+    fatalError("Not enough information to provide default fees.")
+  }
+
   public init(source: String,
-              kind: OperationKind) {
+              kind: OperationKind,
+              operationFees: OperationFees? = nil) {
     self.source = source
     self.kind = kind
+
+    self.operationFees = operationFees
   }
 }

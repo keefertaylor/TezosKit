@@ -9,14 +9,21 @@ import Foundation
  * operations.
  */
 public class RevealOperation: AbstractOperation {
+  /** The public key for the address being revealed. */
+  public let publicKey: String
+
   public override var dictionaryRepresentation: [String: String] {
     var operation = super.dictionaryRepresentation
     operation["public_key"] = publicKey
     return operation
   }
 
-  /** The public key for the address being revealed. */
-  public let publicKey: String
+  public override var defaultFees: OperationFees {
+    let fee = TezosBalance(balance: 0.001269)
+    let storageLimit = TezosBalance.zeroBalance
+    let gasLimit = TezosBalance(balance: 0.010000)
+    return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
+  }
 
   /**
    * Initialize a new reveal operation for the given wallet.

@@ -15,6 +15,13 @@ public class TransactionOperation: AbstractOperation {
     return operation
   }
 
+  public override var defaultFees: OperationFees {
+    let fee = TezosBalance(balance: 0.001272)
+    let storageLimit = TezosBalance(balance: 0.000257)
+    let gasLimit = TezosBalance(balance: 0.010100)
+    return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
+  }
+
   /**
    * @param amount The amount of XTZ to transact.
    * @param source The wallet that is sending the XTZ.

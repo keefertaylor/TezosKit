@@ -14,6 +14,13 @@ public class OriginateAccountOperation: AbstractOperation {
     return operation
   }
 
+  public override var defaultFees: OperationFees {
+    let fee = TezosBalance(balance: 0.001285)
+    let storageLimit = TezosBalance(balance: 0.000257)
+    let gasLimit = TezosBalance(balance: 0.010000)
+    return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
+  }
+
   /** Create a new origination operation that will occur from the given wallet's address. */
   public convenience init(wallet: Wallet) {
     self.init(address: wallet.address)
