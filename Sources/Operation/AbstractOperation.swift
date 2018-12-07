@@ -34,6 +34,7 @@ public class AbstractOperation: Operation {
     operation["storage_limit"] = storageLimit.rpcRepresentation
     operation["gas_limit"] = gasLimit.rpcRepresentation
     operation["fee"] = fee.rpcRepresentation
+    operation["source"] = source
 
     return operation
   }
