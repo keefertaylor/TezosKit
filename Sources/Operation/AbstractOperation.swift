@@ -31,15 +31,9 @@ public class AbstractOperation: Operation {
   public var dictionaryRepresentation: [String: Any] {
     var operation: [String: String] = [:]
     operation["kind"] = kind.rawValue
-
-    let fee = TezosBalance(balance: 0.001272)
-    let storageLimit = TezosBalance(balance: 0.000257)
-    let gasLimit = TezosBalance(balance: 0.010100)
-
-    operation["storage_limit"] = "0"
-    operation["gas_limit"] =  "23305"
-    operation["fee"] =  "1000000"
-    operation["source"] = source
+    operation["storage_limit"] = storageLimit.rpcRepresentation
+    operation["gas_limit"] = gasLimit.rpcRepresentation
+    operation["fee"] = fee.rpcRepresentation
 
     return operation
   }
