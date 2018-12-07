@@ -4,8 +4,8 @@ import Foundation
 
 /** An operation that originates a new KT1 account. */
 public class OriginateAccountOperation: AbstractOperation {
-  let managerPublicKeyHash: String
-  let contractCode: ContractCode?
+  private let managerPublicKeyHash: String
+  private let contractCode: ContractCode?
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
