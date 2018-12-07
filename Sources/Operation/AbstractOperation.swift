@@ -35,7 +35,9 @@ public class AbstractOperation: Operation {
   }
 
   public var defaultFees: OperationFees {
-    fatalError("Not enough information to provide default fees.")
+    return OperationFees(fee: TezosBalance.zeroBalance,
+                         gasLimit: TezosBalance.zeroBalance,
+                         storageLimit: TezosBalance.zeroBalance)
   }
 
   public init(source: String,
