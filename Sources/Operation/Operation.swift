@@ -11,7 +11,7 @@ public protocol Operation {
   var requiresReveal: Bool { get }
 
   /** Retrieve a dictionary representing the operation. */
-  var dictionaryRepresentation: [String: String] { get }
+  var dictionaryRepresentation: [String: Any] { get }
 
   /** The default fees for this operation. */
   var defaultFees: OperationFees { get }
