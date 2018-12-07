@@ -22,7 +22,7 @@ public class RevealOperation: AbstractOperation {
     let fee = TezosBalance(balance: 0.001269)
     let storageLimit = TezosBalance.zeroBalance
     let gasLimit = TezosBalance(balance: 0.010000)
-    return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
+    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
   /**
@@ -31,7 +31,7 @@ public class RevealOperation: AbstractOperation {
    * @param wallet The wallet that will be revealed.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public convenience init(from wallet: Wallet, operationFees: OperationFees? = nil) {
+  public convenience init(from wallet: Wallet, operationFees _: OperationFees? = nil) {
     self.init(from: wallet.address, publicKey: wallet.keys.publicKey)
   }
 

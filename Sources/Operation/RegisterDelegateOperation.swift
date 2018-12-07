@@ -17,7 +17,7 @@ public class RegisterDelegateOperation: AbstractOperation {
     let fee = TezosBalance(balance: 0.001257)
     let storageLimit = TezosBalance.zeroBalance
     let gasLimit = TezosBalance(balance: 0.010000)
-    return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
+    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
   /**

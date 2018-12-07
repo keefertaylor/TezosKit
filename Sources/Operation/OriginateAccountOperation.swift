@@ -18,7 +18,7 @@ public class OriginateAccountOperation: AbstractOperation {
     let fee = TezosBalance(balance: 0.001285)
     let storageLimit = TezosBalance(balance: 0.000257)
     let gasLimit = TezosBalance(balance: 0.010000)
-    return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
+    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
   /**
@@ -35,7 +35,7 @@ public class OriginateAccountOperation: AbstractOperation {
    *
    * @param wallet The wallet which will originate the new account.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-*/
+   */
   public init(address: String, operationFees: OperationFees? = nil) {
     managerPublicKeyHash = address
     super.init(source: address, kind: .origination, operationFees: operationFees)

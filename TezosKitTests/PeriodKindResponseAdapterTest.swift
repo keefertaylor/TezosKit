@@ -28,7 +28,7 @@ class PeriodKindResponseAdapterTest: XCTestCase {
     guard let proposalData = "\"proposal\"".data(using: .utf8),
       let proposal = PeriodKindResponseAdapter.parse(input: proposalData) else {
       XCTFail()
-        return
+      return
     }
     XCTAssertEqual(proposal, .proposal)
   }
@@ -38,7 +38,7 @@ class PeriodKindResponseAdapterTest: XCTestCase {
     guard let proposalData = "\nproposal   ".data(using: .utf8),
       let proposal = PeriodKindResponseAdapter.parse(input: proposalData) else {
       XCTFail()
-        return
+      return
     }
     XCTAssertEqual(proposal, .proposal)
   }

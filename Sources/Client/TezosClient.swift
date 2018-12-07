@@ -34,7 +34,7 @@ import Foundation
  *
  * Operations are sent with a fee and a limit for gas and storage to use to include the transaction
  * on the blockchain. These parameters are encapsulated in an OperationFees object which is optionally passed
- * to operation objects. Operations will fall back to default fees if no custom fees are provided. 
+ * to operation objects. Operations will fall back to default fees if no custom fees are provided.
  *
  * Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
  * Operation object that conforms to the |Operation| protocol and calling:
@@ -223,7 +223,7 @@ public class TezosClient {
    */
   public func registerDelegate(delegate: String, keys: Keys,
                                operationFees: OperationFees? = nil,
-completion: @escaping (String?, Error?) -> Void) {
+                               completion: @escaping (String?, Error?) -> Void) {
     let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: registerDelegateOperation,
                                         source: delegate,
@@ -242,7 +242,7 @@ completion: @escaping (String?, Error?) -> Void) {
    */
   public func originateAccount(managerAddress: String, keys: Keys,
                                operationFees: OperationFees? = nil,
-completion: @escaping (String?, Error?) -> Void) {
+                               completion: @escaping (String?, Error?) -> Void) {
     let originateAccountOperation = OriginateAccountOperation(address: managerAddress, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: originateAccountOperation,
                                         source: managerAddress,
