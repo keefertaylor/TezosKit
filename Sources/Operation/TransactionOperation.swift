@@ -26,20 +26,22 @@ public class TransactionOperation: AbstractOperation {
    * @param amount The amount of XTZ to transact.
    * @param source The wallet that is sending the XTZ.
    * @param to The address that is receiving the XTZ.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public convenience init(amount: TezosBalance, source: Wallet, destination: String) {
-    self.init(amount: amount, source: source.address, destination: destination)
+  public convenience init(amount: TezosBalance, source: Wallet, destination: String, operationFees: OperationFees? = nil) {
+    self.init(amount: amount, source: source.address, destination: destination, operationFees: operationFees)
   }
 
   /**
    * @param amount The amount of XTZ to transact.
    * @param from The address that is sending the XTZ.
    * @param to The address that is receiving the XTZ.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(amount: TezosBalance, source: String, destination: String) {
+  public init(amount: TezosBalance, source: String, destination: String, operationFees: OperationFees? = nil) {
     self.amount = amount
     self.destination = destination
 
-    super.init(source: source, kind: .transaction)
+    super.init(source: source, kind: .transaction, operationFees: operationFees)
   }
 }

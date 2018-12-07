@@ -13,8 +13,9 @@ public class UndelegateOperation: AbstractOperation {
 
   /**
    * @param source The address that will delegate funds.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(source: String) {
-    super.init(source: source, kind: .delegation)
+  public init(source: String, operationFees: OperationFees? = nil) {
+    super.init(source: source, kind: .delegation, operationFees: operationFees)
   }
 }

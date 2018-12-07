@@ -29,8 +29,9 @@ public class RevealOperation: AbstractOperation {
    * Initialize a new reveal operation for the given wallet.
    *
    * @param wallet The wallet that will be revealed.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public convenience init(from wallet: Wallet) {
+  public convenience init(from wallet: Wallet, operationFees: OperationFees? = nil) {
     self.init(from: wallet.address, publicKey: wallet.keys.publicKey)
   }
 
@@ -39,9 +40,10 @@ public class RevealOperation: AbstractOperation {
    *
    * @param address The address to reveal.
    * @param publicKey The public key of the address to reveal.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(from address: String, publicKey: String) {
+  public init(from address: String, publicKey: String, operationFees: OperationFees? = nil) {
     self.publicKey = publicKey
-    super.init(source: address, kind: .reveal)
+    super.init(source: address, kind: .reveal, operationFees: operationFees)
   }
 }

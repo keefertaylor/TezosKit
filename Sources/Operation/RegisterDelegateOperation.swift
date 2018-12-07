@@ -22,9 +22,10 @@ public class RegisterDelegateOperation: AbstractOperation {
 
   /**
    * @param delegate The address will register as a delegate.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(delegate: String) {
+  public init(delegate: String, operationFees: OperationFees? = nil) {
     self.delegate = delegate
-    super.init(source: delegate, kind: .delegation)
+    super.init(source: delegate, kind: .delegation, operationFees: operationFees)
   }
 }

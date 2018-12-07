@@ -21,14 +21,23 @@ public class OriginateAccountOperation: AbstractOperation {
     return OperationFees(fee: fee,  gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
-  /** Create a new origination operation that will occur from the given wallet's address. */
-  public convenience init(wallet: Wallet) {
-    self.init(address: wallet.address)
+  /**
+   * Create a new origination operation that will occur from the given wallet's address.
+   *
+   * @param wallet The wallet which will originate the new account.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   */
+  public convenience init(wallet: Wallet, operationFees: OperationFees? = nil) {
+    self.init(address: wallet.address, operationFees: operationFees)
   }
 
-  /** Create a new origination operation that will occur from the given address. */
-  public init(address: String) {
+  /** Create a new origination operation that will occur from the given address.
+   *
+   * @param wallet The wallet which will originate the new account.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+*/
+  public init(address: String, operationFees: OperationFees? = nil) {
     managerPublicKeyHash = address
-    super.init(source: address, kind: .origination)
+    super.init(source: address, kind: .origination, operationFees: operationFees)
   }
 }
