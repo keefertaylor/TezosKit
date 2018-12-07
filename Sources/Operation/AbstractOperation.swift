@@ -8,17 +8,10 @@ import Foundation
  * implementation.
  */
 public class AbstractOperation: Operation {
-  /** A Tezos balance representing 0. */
-  public static let zeroTezosBalance = TezosBalance(balance: "0")!
-
-  /** A Tezos balance that is the default used for gas and storage limits. */
-  public static let defaultLimitTezosBalance = TezosBalance(balance: "10000")!
-
   public let source: String
   public let kind: OperationKind
-  public let fee: TezosBalance
-  public let gasLimit: TezosBalance
-  public let storageLimit: TezosBalance
+  public let operationFees: OperationFees?
+
   public var requiresReveal: Bool {
     switch kind {
     case .delegation, .transaction, .origination:
@@ -31,23 +24,28 @@ public class AbstractOperation: Operation {
   public var dictionaryRepresentation: [String: Any] {
     var operation: [String: String] = [:]
     operation["kind"] = kind.rawValue
-    operation["storage_limit"] = storageLimit.rpcRepresentation
-    operation["gas_limit"] = gasLimit.rpcRepresentation
-    operation["fee"] = fee.rpcRepresentation
     operation["source"] = source
+
+    let operationFee = self.operationFees ?? self.defaultFees
+    operation["storage_limit"] = operationFee.storageLimit.rpcRepresentation
+    operation["gas_limit"] = operationFee.gasLimit.rpcRepresentation
+    operation["fee"] = operationFee.fee.rpcRepresentation
 
     return operation
   }
 
+  public var defaultFees: OperationFees {
+    return OperationFees(fee: TezosBalance.zeroBalance,
+                         gasLimit: TezosBalance.zeroBalance,
+                         storageLimit: TezosBalance.zeroBalance)
+  }
+
   public init(source: String,
               kind: OperationKind,
-              fee: TezosBalance = AbstractOperation.zeroTezosBalance,
-              gasLimit: TezosBalance = AbstractOperation.defaultLimitTezosBalance,
-              storageLimit: TezosBalance = AbstractOperation.defaultLimitTezosBalance) {
+              operationFees: OperationFees? = nil) {
     self.source = source
     self.kind = kind
-    self.fee = fee
-    self.gasLimit = gasLimit
-    self.storageLimit = storageLimit
+
+    self.operationFees = operationFees
   }
 }

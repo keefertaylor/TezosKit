@@ -30,6 +30,7 @@
 		7751380121ADCA900054D05E /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380021ADCA900054D05E /* PeriodKind.swift */; };
 		7751380321ADCB850054D05E /* PeriodKindResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */; };
 		7751380921ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7751380821ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift */; };
+		77FE004A21B9E668009C3CD1 /* OperationFees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE004921B9E668009C3CD1 /* OperationFees.swift */; };
 		77FE004421B899DD009C3CD1 /* GetAddressCodeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE004321B899DD009C3CD1 /* GetAddressCodeRPC.swift */; };
 		77FE004621B8BCC5009C3CD1 /* ContractCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE004521B8BCC5009C3CD1 /* ContractCode.swift */; };
 		77FE004821B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE004721B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift */; };
@@ -139,6 +140,7 @@
 		7751380021ADCA900054D05E /* PeriodKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
 		7751380221ADCB850054D05E /* PeriodKindResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapter.swift; sourceTree = "<group>"; };
 		7751380821ADD28C0054D05E /* PeriodKindResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapterTest.swift; sourceTree = "<group>"; };
+		77FE004921B9E668009C3CD1 /* OperationFees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFees.swift; sourceTree = "<group>"; };
 		77FE004321B899DD009C3CD1 /* GetAddressCodeRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressCodeRPC.swift; sourceTree = "<group>"; };
 		77FE004521B8BCC5009C3CD1 /* ContractCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractCode.swift; sourceTree = "<group>"; };
 		77FE004721B9D07B009C3CD1 /* ContractCodeResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractCodeResponseAdapter.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				7ABC8542217D6B90006DE8FD /* Keys.swift */,
+				77FE004921B9E668009C3CD1 /* OperationFees.swift */,
 				7A1E2ED3217673FD0073C080 /* Wallet.swift */,
 				7A53BF1A217CF35700BA15D1 /* OperationMetadata.swift */,
 				7AA957D3217B8C1000865D55 /* TezosBalance.swift */,
@@ -647,6 +650,7 @@
 				7AA95828217CB53700865D55 /* AbstractResponseAdapter.swift in Sources */,
 				772E4E9521ACA1DA002A44A3 /* GetVotingDelegateRightsRPC.swift in Sources */,
 				7AA95814217CB3A400865D55 /* TezosRPC.swift in Sources */,
+				77FE004A21B9E668009C3CD1 /* OperationFees.swift in Sources */,
 				7AA95835217CB80A00865D55 /* AbstractOperation.swift in Sources */,
 				7ABC854B217EA4AE006DE8FD /* OperationSigningResult.swift in Sources */,
 				7A1E2ED0217671B20073C080 /* KeyPair.swift in Sources */,

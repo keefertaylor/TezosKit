@@ -13,11 +13,19 @@ public class RegisterDelegateOperation: AbstractOperation {
     return operation
   }
 
+  public override var defaultFees: OperationFees {
+    let fee = TezosBalance(balance: 0.001257)
+    let storageLimit = TezosBalance.zeroBalance
+    let gasLimit = TezosBalance(balance: 0.010000)
+    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
+  }
+
   /**
    * @param delegate The address will register as a delegate.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(delegate: String) {
+  public init(delegate: String, operationFees: OperationFees? = nil) {
     self.delegate = delegate
-    super.init(source: delegate, kind: .delegation)
+    super.init(source: delegate, kind: .delegation, operationFees: operationFees)
   }
 }

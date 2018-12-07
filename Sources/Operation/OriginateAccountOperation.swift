@@ -22,34 +22,35 @@ public class OriginateAccountOperation: AbstractOperation {
     return operation
   }
 
-  /**
-   * Create a new origination operation that will occur from the given wallet's address.
-   *
-   * @param wallet The wallet originating the transaction.
-   * @param contractCode Optional code to associate with the originated contract.
-   */
-  public convenience init(wallet: Wallet, contractCode: ContractCode? = nil) {
-    self.init(address: wallet.address, contractCode: contractCode)
+  public override var defaultFees: OperationFees {
+    let fee = TezosBalance(balance: 0.001285)
+    let storageLimit = TezosBalance(balance: 0.000257)
+    let gasLimit = TezosBalance(balance: 0.010000)
+    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
   /**
-   * Create a new origination operation that will occur from the given address.
+   * Create a new origination operation that will occur from the given wallet's address.
    *
-   * @param address The address originating the transaction.
-   * @param contractCode Optional code to associate with the originated contract.
+   * @param wallet The wallet which will originate the new account.
+   * @param contractCode Optional code to associate with the originated contract.  
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(address: String, contractCode: ContractCode? = nil) {
+  public convenience init(wallet: Wallet, contractCode: ContractCode? = nil, operationFees: OperationFees? = nil) {
+    self.init(address: wallet.address, contractCode: contractCode, operationFees: operationFees)
+  }
+
+  /** Create a new origination operation that will occur from the given address.
+   *
+   * @param wallet The wallet which will originate the new account.
+   * @param contractCode Optional code to associate with the originated contract.  
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   */
+  public init(address: String, contractCode: ContractCode? = nil, operationFees: OperationFees? = nil) {
     managerPublicKeyHash = address
     self.contractCode = contractCode
 
-    let fee = TezosBalance(balance: 0.101385)
-    let gasLimit = TezosBalance(balance: 0.010000)
-    let storageLimit = TezosBalance(balance: 0.01)
+    super.init(source: address, kind: .origination, operationFees: operationFees)
 
-    super.init(source: address,
-               kind: .origination,
-               fee: fee,
-               gasLimit: gasLimit,
-               storageLimit: storageLimit)
   }
 }

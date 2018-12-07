@@ -12,4 +12,7 @@ public protocol Operation {
 
   /** Retrieve a dictionary representing the operation. */
   var dictionaryRepresentation: [String: Any] { get }
+
+  /** The default fees for this operation. */
+  var defaultFees: OperationFees { get }
 }

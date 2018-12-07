@@ -9,22 +9,30 @@ import Foundation
  * operations.
  */
 public class RevealOperation: AbstractOperation {
+  /** The public key for the address being revealed. */
+  private let publicKey: String
+
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["public_key"] = publicKey
     return operation
   }
 
-  /** The public key for the address being revealed. */
-  public let publicKey: String
+  public override var defaultFees: OperationFees {
+    let fee = TezosBalance(balance: 0.001269)
+    let storageLimit = TezosBalance.zeroBalance
+    let gasLimit = TezosBalance(balance: 0.010000)
+    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
+  }
 
   /**
    * Initialize a new reveal operation for the given wallet.
    *
    * @param wallet The wallet that will be revealed.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public convenience init(from wallet: Wallet) {
-    self.init(from: wallet.address, publicKey: wallet.keys.publicKey)
+  public convenience init(from wallet: Wallet, operationFees: OperationFees? = nil) {
+    self.init(from: wallet.address, publicKey: wallet.keys.publicKey, operationFees: operationFees)
   }
 
   /**
@@ -32,13 +40,10 @@ public class RevealOperation: AbstractOperation {
    *
    * @param address The address to reveal.
    * @param publicKey The public key of the address to reveal.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(from address: String, publicKey: String) {
+  public init(from address: String, publicKey: String, operationFees: OperationFees? = nil) {
     self.publicKey = publicKey
-    super.init(source: address,
-               kind: .reveal,
-               fee: AbstractOperation.zeroTezosBalance,
-               gasLimit: AbstractOperation.zeroTezosBalance,
-               storageLimit: AbstractOperation.zeroTezosBalance)
+    super.init(source: address, kind: .reveal, operationFees: operationFees)
   }
 }

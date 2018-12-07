@@ -147,8 +147,8 @@ tezosClient.delegate(from: originatedAccountAddress,
   print("Delegate for \(originatedAccountAddress) set to \(delegateAddress).")
   print("See: https://tzscan.io/\(txHash!)")
 }
-```
 
+```
 ### Fetch the code of a Smart Contract
 
 ```swift
@@ -187,6 +187,25 @@ Assuming a smart contract takes a single string as an argument:
     print("Called a smart contract. See https://tzscan.io/\(txHash!)")
   }
 ```
+
+## Detailed Documentation
+
+### Overview
+
+The core components are: 
+*TezosClient* - A gateway to a node that operates in the Tezos Blockchain.
+*TezosRPC* - A superclass for all RPC objects. RPCs are responsible for making a request to an RPC endpoint and decoding the response.
+*ResponseAdapter* - Utilized by TezosRPC to transform raw response data into a first class object.
+*Operation* - Representations of operations that can be committed to the blockchain.
+*OperationFees* - Represents the fee, gas limit and storage limit used when injecting an operation.
+*Wallet* - Represents an address on the blockchain and a set of keys to manage that address.
+*Crypto* - Cryptographic functions.
+
+TODO: Describe interaction between these objects and how to exend RPCs and Operations. *In the meantime, check out the class comments on TezosClient.swift*.
+
+### Fees
+
+The `OperationFees` object encapsulates the fee, gas limit and storage limit to inject an operation onto the blockchain. Every `Operation` object contains a default set of fees taken from [eztz](https://github.com/TezTech/eztz/blob/master/PROTO_003_FEES.md). Clients can pass custom `OperationFees` objects when creating Operations to define their own fees. 
 
 ## Contributing
 
