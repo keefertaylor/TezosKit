@@ -31,8 +31,8 @@ public class RevealOperation: AbstractOperation {
    * @param wallet The wallet that will be revealed.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public convenience init(from wallet: Wallet, operationFees _: OperationFees? = nil) {
-    self.init(from: wallet.address, publicKey: wallet.keys.publicKey)
+  public convenience init(from wallet: Wallet, operationFees: OperationFees? = nil) {
+    self.init(from: wallet.address, publicKey: wallet.keys.publicKey, operationFees: operationFees)
   }
 
   /**
