@@ -143,6 +143,7 @@ public class TezosClient {
    * @param recipientAddress The address which will receive the balance.
    * @param source The address sending the balance.
    * @param keys The keys to use to sign the operation for the address.
+   * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
@@ -150,9 +151,10 @@ public class TezosClient {
                    to recipientAddress: String,
                    from source: String,
                    keys: Keys,
+                   parameters: [String: Any]? = nil,
                    completion: @escaping (String?, Error?) -> Void) {
     let transactionOperation =
-      TransactionOperation(amount: amount, source: source, destination: recipientAddress)
+      TransactionOperation(amount: amount, source: source, destination: recipientAddress, parameters: parameters)
     forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
                                         source: source,
                                         keys: keys,
