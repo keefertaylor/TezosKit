@@ -24,7 +24,7 @@ TezosKit provides first class support for the following RPCs:
 * Registering as a delegate
 * Originating accounts
 * Examining upgrade votes
-* Deploying / Examining smart contracts
+* Deploying / Examining / Calling smart contracts
 
 The library is extensible allowing client code to easily create additional RPCs and signed operations, as required. 
 
@@ -147,6 +147,45 @@ tezosClient.delegate(from: originatedAccountAddress,
   print("Delegate for \(originatedAccountAddress) set to \(delegateAddress).")
   print("See: https://tzscan.io/\(txHash!)")
 }
+```
+
+### Fetch the code of a Smart Contract
+
+```swift
+  let contractAddress: String = ...
+  tezosClient.getAddressCode(address: contractAddress) { code: ContractCode, err in
+     ...
+  }
+```  
+
+### Deploy a Smart Contract 
+
+```swift
+  let wallet: Wallet = ...
+  let code: ContractCode = ...
+  tezosClient.originateAccount(managerAddress: wallet.address, 
+                               keys: wallet.keys,
+                               contractCode: contractCode) { txHash, txError) in
+    print("Originated a smart contract. See https://tzscan.io/\(txHash!)")
+  }
+```
+
+### Call a Smart Contract
+
+Assuming a smart contract takes a single string as an argument:
+
+```swift
+   let txAmount: TezosBalance = ...
+   let wallet: Wallet = ...
+   let contractAddr: String = ...
+   let parameters = ["string": "argument_to_smart_contract"]   
+   tezosClient.send(amount: txAmount, 
+                    to: contractAddr, 
+                    from: wallet.address,  
+                    keys: wallet.keys, 
+                    parameters: parameters) { txhash, txError in
+    print("Called a smart contract. See https://tzscan.io/\(txHash!)")
+  }
 ```
 
 ## Contributing
