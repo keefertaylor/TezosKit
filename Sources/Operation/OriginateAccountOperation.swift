@@ -28,8 +28,8 @@ public class OriginateAccountOperation: AbstractOperation {
    * @param wallet The wallet originating the transaction.
    * @param contractCode Optional code to associate with the originated contract.
    */
-  public convenience init(wallet: Wallet, contractCode _: ContractCode? = nil) {
-    self.init(address: wallet.address)
+  public convenience init(wallet: Wallet, contractCode: ContractCode? = nil) {
+    self.init(address: wallet.address, contractCode: contractCode)
   }
 
   /**
