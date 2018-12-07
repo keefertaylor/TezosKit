@@ -236,18 +236,31 @@ public class TezosClient {
    *
    * @param managerAddress The address which will manage the new account.
    * @param keys The keys to use to sign the operation for the address.
+   * @param contractCode Optional code to associate with the originated contract.  
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func originateAccount(managerAddress: String, keys: Keys,
+  public func originateAccount(managerAddress: String, 
+                               keys: Keys,
+                               contractCode: ContractCode? = nil,
                                operationFees: OperationFees? = nil,
                                completion: @escaping (String?, Error?) -> Void) {
-    let originateAccountOperation = OriginateAccountOperation(address: managerAddress, operationFees: operationFees)
+    let originateAccountOperation = OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: originateAccountOperation,
                                         source: managerAddress,
                                         keys: keys,
                                         completion: completion)
+  }
+
+  /**
+   * Returns the code associated with the address as a NSDictionary.
+   *
+   * @param address The address of the contract to load.
+   */
+  public func getAddressCode(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
+    let rpc = GetAddressCodeRPC(address: address, completion: completion)
+    self.send(rpc: rpc)
   }
 
   /**

@@ -10,9 +10,9 @@ import Foundation
  */
 public class RevealOperation: AbstractOperation {
   /** The public key for the address being revealed. */
-  public let publicKey: String
+  private let publicKey: String
 
-  public override var dictionaryRepresentation: [String: String] {
+  public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["public_key"] = publicKey
     return operation
