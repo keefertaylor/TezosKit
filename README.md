@@ -161,7 +161,7 @@ The core components are:
 *Wallet* - Represents an address on the blockchain and a set of keys to manage that address.
 *Crypto* - Cryptographic functions.
 
-TODO: Describe interaction betweent these objects adn how to exend RPCs and Operations. *In the meantime, check out the class comments on TezosClient.swift*.
+TODO: Describe interaction between these objects and how to exend RPCs and Operations. *In the meantime, check out the class comments on TezosClient.swift*.
 
 ### Fees
 
