@@ -32,6 +32,10 @@ import Foundation
  * addition, TezosClient provides convenience methods for constructing and performing all supported
  * signed operations.
  *
+ * Operations are sent with a fee and a limit for gas and storage to use to include the transaction
+ * on the blockchain. These parameters are encapsulated in an OperationFees object which is optionally passed
+ * to operation objects. Operations will fall back to default fees if no custom fees are provided. 
+ *
  * Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
  * Operation object that conforms to the |Operation| protocol and calling:
  *      func forgeSignPreapplyAndInjectOperation(operation: Operation,
@@ -143,6 +147,7 @@ public class TezosClient {
    * @param recipientAddress The address which will receive the balance.
    * @param source The address sending the balance.
    * @param keys The keys to use to sign the operation for the address.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
@@ -150,9 +155,10 @@ public class TezosClient {
                    to recipientAddress: String,
                    from source: String,
                    keys: Keys,
+                   operationFees: OperationFees? = nil,
                    completion: @escaping (String?, Error?) -> Void) {
     let transactionOperation =
-      TransactionOperation(amount: amount, source: source, destination: recipientAddress)
+      TransactionOperation(amount: amount, source: source, destination: recipientAddress, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
                                         source: source,
                                         keys: keys,
@@ -169,14 +175,16 @@ public class TezosClient {
    * @param recipientAddress The address which will receive the balance.
    * @param source The address sending the balance.
    * @param keys The keys to use to sign the operation for the address.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
   public func delegate(from source: String,
                        to delegate: String,
                        keys: Keys,
+                       operationFees: OperationFees? = nil,
                        completion: @escaping (String?, Error?) -> Void) {
-    let delegationOperation = DelegationOperation(source: source, to: delegate)
+    let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: delegationOperation,
                                         source: source,
                                         keys: keys,
@@ -188,13 +196,15 @@ public class TezosClient {
    *
    * @param source The address which is removing the delegate.
    * @param keys The keys to use to sign the operation for the address.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
   public func undelegate(from source: String,
                          keys: Keys,
+                         operationFees: OperationFees? = nil,
                          completion: @escaping (String?, Error?) -> Void) {
-    let undelegateOperatoin = UndelegateOperation(source: source)
+    let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: undelegateOperatoin,
                                         source: source,
                                         keys: keys,
@@ -207,11 +217,14 @@ public class TezosClient {
    * @param recipientAddress The address which will receive the balance.
    * @param source The address sending the balance.
    * @param keys The keys to use to sign the operation for the address.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func registerDelegate(delegate: String, keys: Keys, completion: @escaping (String?, Error?) -> Void) {
-    let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate)
+  public func registerDelegate(delegate: String, keys: Keys,
+                               operationFees: OperationFees? = nil,
+completion: @escaping (String?, Error?) -> Void) {
+    let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: registerDelegateOperation,
                                         source: delegate,
                                         keys: keys,
@@ -220,9 +233,17 @@ public class TezosClient {
 
   /**
    * Originate a new account from the given account.
+   *
+   * @param managerAddress The address which will manage the new account.
+   * @param keys The keys to use to sign the operation for the address.
+   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * @param completion A completion block which will be called with a string representing the
+   *        transaction ID hash if the operation was successful.
    */
-  public func originateAccount(managerAddress: String, keys: Keys, completion: @escaping (String?, Error?) -> Void) {
-    let originateAccountOperation = OriginateAccountOperation(address: managerAddress)
+  public func originateAccount(managerAddress: String, keys: Keys,
+                               operationFees: OperationFees? = nil,
+completion: @escaping (String?, Error?) -> Void) {
+    let originateAccountOperation = OriginateAccountOperation(address: managerAddress, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: originateAccountOperation,
                                         source: managerAddress,
                                         keys: keys,
