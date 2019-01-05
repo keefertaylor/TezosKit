@@ -1,5 +1,7 @@
 # TezosKit &nbsp;&nbsp;&nbsp; [![Build Status](https://travis-ci.org/keefertaylor/TezosKit.svg?branch=master)](https://travis-ci.org/keefertaylor/TezosKit) &nbsp;&nbsp;&nbsp;  [![codecov](https://codecov.io/gh/keefertaylor/TezosKit/branch/master/graph/badge.svg)](https://codecov.io/gh/keefertaylor/TezosKit)
 
+TEST FOR TRAVIS
+
 TezosKit is a Swift library that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements communication with the blockchain via the JSON API.
 
 Donations help me find time to work on TezosKit. If you find the library useful, please consider donating to support ongoing develoment.
