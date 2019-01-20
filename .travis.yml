@@ -1,13 +1,28 @@
-language: swift
-os: osx
 osx_image: xcode10
-
+language: swift
+cache:
+  directories:
+  - Carthage
+env:
+  global:
+  - FRAMEWORK_NAME=TezosKit
+before_install:
+- gem install slather
+- brew update
+- brew outdated carthage || brew upgrade carthage
+- carthage bootstrap --platform iOS --cache-builds
+before_deploy:
+- carthage build --no-skip-current --platform iOS --cache-builds
+- carthage archive $FRAMEWORK_NAME
 script:
-  - xcodebuild -enableCodeCoverage=YES -scheme TezosKitTests -workspace TezosKit.xcworkspace -destination platform\=iOS\ Simulator,OS\=12.0,name\=iPhone\ X build test
-  
+- set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.0' ONLY_ACTIVE_ARCH=YES | xcpretty
+deploy:
+  provider: releases
+  file: "$FRAMEWORK_NAME.framework.zip"
+  skip_cleanup: true
+  on:
+    repo: keefertaylor/TezosKit
+    tags: true
 after_success:
   - slather
   - bash <(curl -s https://codecov.io/bash)
-  
-before_install:
-  - gem install slather
