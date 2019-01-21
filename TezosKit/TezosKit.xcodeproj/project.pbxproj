@@ -7,81 +7,81 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		77CE32DD21F54A45006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE32D321F54A45006ADABA /* TezosKit.framework */; };
-		77CE32E221F54A45006ADABA /* TezosKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE32E121F54A45006ADABA /* TezosKitTests.swift */; };
-		77CE32E421F54A45006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE32D621F54A45006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77CE332921F550E2006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE331F21F550E2006ADABA /* TezosKit.framework */; };
+		77CE332E21F550E2006ADABA /* TezosKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE332D21F550E2006ADABA /* TezosKitTests.swift */; };
+		77CE333021F550E2006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE332221F550E2006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		77CE32DE21F54A45006ADABA /* PBXContainerItemProxy */ = {
+		77CE332A21F550E2006ADABA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 77CE32CA21F54A45006ADABA /* Project object */;
+			containerPortal = 77CE331621F550E2006ADABA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 77CE32D221F54A45006ADABA;
+			remoteGlobalIDString = 77CE331E21F550E2006ADABA;
 			remoteInfo = TezosKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		77CE32D321F54A45006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CE32D621F54A45006ADABA /* TezosKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
-		77CE32D721F54A45006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77CE32DC21F54A45006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CE32E121F54A45006ADABA /* TezosKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosKitTests.swift; sourceTree = "<group>"; };
-		77CE32E321F54A45006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77CE331F21F550E2006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77CE332221F550E2006ADABA /* TezosKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
+		77CE332321F550E2006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77CE332821F550E2006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77CE332D21F550E2006ADABA /* TezosKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosKitTests.swift; sourceTree = "<group>"; };
+		77CE332F21F550E2006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		77CE32D021F54A45006ADABA /* Frameworks */ = {
+		77CE331C21F550E2006ADABA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		77CE32D921F54A45006ADABA /* Frameworks */ = {
+		77CE332521F550E2006ADABA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE32DD21F54A45006ADABA /* TezosKit.framework in Frameworks */,
+				77CE332921F550E2006ADABA /* TezosKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		77CE32C921F54A45006ADABA = {
+		77CE331521F550E2006ADABA = {
 			isa = PBXGroup;
 			children = (
-				77CE32D521F54A45006ADABA /* TezosKit */,
-				77CE32E021F54A45006ADABA /* TezosKitTests */,
-				77CE32D421F54A45006ADABA /* Products */,
+				77CE332121F550E2006ADABA /* TezosKit */,
+				77CE332C21F550E2006ADABA /* TezosKitTests */,
+				77CE332021F550E2006ADABA /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		77CE32D421F54A45006ADABA /* Products */ = {
+		77CE332021F550E2006ADABA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				77CE32D321F54A45006ADABA /* TezosKit.framework */,
-				77CE32DC21F54A45006ADABA /* TezosKitTests.xctest */,
+				77CE331F21F550E2006ADABA /* TezosKit.framework */,
+				77CE332821F550E2006ADABA /* TezosKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		77CE32D521F54A45006ADABA /* TezosKit */ = {
+		77CE332121F550E2006ADABA /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
-				77CE32D621F54A45006ADABA /* TezosKit.h */,
-				77CE32D721F54A45006ADABA /* Info.plist */,
+				77CE332221F550E2006ADABA /* TezosKit.h */,
+				77CE332321F550E2006ADABA /* Info.plist */,
 			);
 			path = TezosKit;
 			sourceTree = "<group>";
 		};
-		77CE32E021F54A45006ADABA /* TezosKitTests */ = {
+		77CE332C21F550E2006ADABA /* TezosKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				77CE32E121F54A45006ADABA /* TezosKitTests.swift */,
-				77CE32E321F54A45006ADABA /* Info.plist */,
+				77CE332D21F550E2006ADABA /* TezosKitTests.swift */,
+				77CE332F21F550E2006ADABA /* Info.plist */,
 			);
 			path = TezosKitTests;
 			sourceTree = "<group>";
@@ -89,25 +89,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		77CE32CE21F54A45006ADABA /* Headers */ = {
+		77CE331A21F550E2006ADABA /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE32E421F54A45006ADABA /* TezosKit.h in Headers */,
+				77CE333021F550E2006ADABA /* TezosKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		77CE32D221F54A45006ADABA /* TezosKit */ = {
+		77CE331E21F550E2006ADABA /* TezosKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77CE32E721F54A45006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */;
+			buildConfigurationList = 77CE333321F550E2006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */;
 			buildPhases = (
-				77CE32CE21F54A45006ADABA /* Headers */,
-				77CE32CF21F54A45006ADABA /* Sources */,
-				77CE32D021F54A45006ADABA /* Frameworks */,
-				77CE32D121F54A45006ADABA /* Resources */,
+				77CE331A21F550E2006ADABA /* Headers */,
+				77CE331B21F550E2006ADABA /* Sources */,
+				77CE331C21F550E2006ADABA /* Frameworks */,
+				77CE331D21F550E2006ADABA /* Resources */,
 			);
 			buildRules = (
 			);
@@ -115,72 +115,72 @@
 			);
 			name = TezosKit;
 			productName = TezosKit;
-			productReference = 77CE32D321F54A45006ADABA /* TezosKit.framework */;
+			productReference = 77CE331F21F550E2006ADABA /* TezosKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		77CE32DB21F54A45006ADABA /* TezosKitTests */ = {
+		77CE332721F550E2006ADABA /* TezosKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77CE32EA21F54A45006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */;
+			buildConfigurationList = 77CE333621F550E2006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */;
 			buildPhases = (
-				77CE32D821F54A45006ADABA /* Sources */,
-				77CE32D921F54A45006ADABA /* Frameworks */,
-				77CE32DA21F54A45006ADABA /* Resources */,
+				77CE332421F550E2006ADABA /* Sources */,
+				77CE332521F550E2006ADABA /* Frameworks */,
+				77CE332621F550E2006ADABA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				77CE32DF21F54A45006ADABA /* PBXTargetDependency */,
+				77CE332B21F550E2006ADABA /* PBXTargetDependency */,
 			);
 			name = TezosKitTests;
 			productName = TezosKitTests;
-			productReference = 77CE32DC21F54A45006ADABA /* TezosKitTests.xctest */;
+			productReference = 77CE332821F550E2006ADABA /* TezosKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		77CE32CA21F54A45006ADABA /* Project object */ = {
+		77CE331621F550E2006ADABA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Keefer Taylor";
 				TargetAttributes = {
-					77CE32D221F54A45006ADABA = {
+					77CE331E21F550E2006ADABA = {
 						CreatedOnToolsVersion = 10.1;
 					};
-					77CE32DB21F54A45006ADABA = {
+					77CE332721F550E2006ADABA = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
-			buildConfigurationList = 77CE32CD21F54A45006ADABA /* Build configuration list for PBXProject "TezosKit" */;
+			buildConfigurationList = 77CE331921F550E2006ADABA /* Build configuration list for PBXProject "TezosKit" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 77CE32C921F54A45006ADABA;
-			productRefGroup = 77CE32D421F54A45006ADABA /* Products */;
+			mainGroup = 77CE331521F550E2006ADABA;
+			productRefGroup = 77CE332021F550E2006ADABA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				77CE32D221F54A45006ADABA /* TezosKit */,
-				77CE32DB21F54A45006ADABA /* TezosKitTests */,
+				77CE331E21F550E2006ADABA /* TezosKit */,
+				77CE332721F550E2006ADABA /* TezosKitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		77CE32D121F54A45006ADABA /* Resources */ = {
+		77CE331D21F550E2006ADABA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		77CE32DA21F54A45006ADABA /* Resources */ = {
+		77CE332621F550E2006ADABA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,33 +190,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		77CE32CF21F54A45006ADABA /* Sources */ = {
+		77CE331B21F550E2006ADABA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		77CE32D821F54A45006ADABA /* Sources */ = {
+		77CE332421F550E2006ADABA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE32E221F54A45006ADABA /* TezosKitTests.swift in Sources */,
+				77CE332E21F550E2006ADABA /* TezosKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		77CE32DF21F54A45006ADABA /* PBXTargetDependency */ = {
+		77CE332B21F550E2006ADABA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 77CE32D221F54A45006ADABA /* TezosKit */;
-			targetProxy = 77CE32DE21F54A45006ADABA /* PBXContainerItemProxy */;
+			target = 77CE331E21F550E2006ADABA /* TezosKit */;
+			targetProxy = 77CE332A21F550E2006ADABA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		77CE32E521F54A45006ADABA /* Debug */ = {
+		77CE333121F550E2006ADABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -280,7 +280,7 @@
 			};
 			name = Debug;
 		};
-		77CE32E621F54A45006ADABA /* Release */ = {
+		77CE333221F550E2006ADABA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -338,7 +338,7 @@
 			};
 			name = Release;
 		};
-		77CE32E821F54A45006ADABA /* Debug */ = {
+		77CE333421F550E2006ADABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -363,7 +363,7 @@
 			};
 			name = Debug;
 		};
-		77CE32E921F54A45006ADABA /* Release */ = {
+		77CE333521F550E2006ADABA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -388,7 +388,7 @@
 			};
 			name = Release;
 		};
-		77CE32EB21F54A45006ADABA /* Debug */ = {
+		77CE333721F550E2006ADABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -406,7 +406,7 @@
 			};
 			name = Debug;
 		};
-		77CE32EC21F54A45006ADABA /* Release */ = {
+		77CE333821F550E2006ADABA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -427,34 +427,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		77CE32CD21F54A45006ADABA /* Build configuration list for PBXProject "TezosKit" */ = {
+		77CE331921F550E2006ADABA /* Build configuration list for PBXProject "TezosKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				77CE32E521F54A45006ADABA /* Debug */,
-				77CE32E621F54A45006ADABA /* Release */,
+				77CE333121F550E2006ADABA /* Debug */,
+				77CE333221F550E2006ADABA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77CE32E721F54A45006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */ = {
+		77CE333321F550E2006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				77CE32E821F54A45006ADABA /* Debug */,
-				77CE32E921F54A45006ADABA /* Release */,
+				77CE333421F550E2006ADABA /* Debug */,
+				77CE333521F550E2006ADABA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77CE32EA21F54A45006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */ = {
+		77CE333621F550E2006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				77CE32EB21F54A45006ADABA /* Debug */,
-				77CE32EC21F54A45006ADABA /* Release */,
+				77CE333721F550E2006ADABA /* Debug */,
+				77CE333821F550E2006ADABA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 77CE32CA21F54A45006ADABA /* Project object */;
+	rootObject = 77CE331621F550E2006ADABA /* Project object */;
 }
