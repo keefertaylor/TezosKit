@@ -1,4 +1,10 @@
-# TezosKit &nbsp;&nbsp;&nbsp; [![Build Status](https://travis-ci.org/keefertaylor/TezosKit.svg?branch=master)](https://travis-ci.org/keefertaylor/TezosKit) &nbsp;&nbsp;&nbsp;  [![codecov](https://codecov.io/gh/keefertaylor/TezosKit/branch/master/graph/badge.svg)](https://codecov.io/gh/keefertaylor/TezosKit)
+# TezosKit
+
+[![Build Status](https://travis-ci.org/keefertaylor/MnemonicKit.svg?branch=master)](https://travis-ci.org/keefertaylor/TezosKit)
+[![codecov](https://codecov.io/gh/keefertaylor/MnemonicKit/branch/master/graph/badge.svg)](https://codecov.io/gh/keefertaylor/TezosKit)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Version](https://img.shields.io/cocoapods/v/MnemonicKit.svg?style=flat)](http://cocoapods.org/pods/TezosKit)
+[![License](https://img.shields.io/cocoapods/l/MnemonicKit.svg?style=flat)](http://cocoapods.org/pods/TezosKit)
 
 TezosKit is a Swift library that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements communication with the blockchain via the JSON API.
 
@@ -41,6 +47,15 @@ TezosKit supports installation via CocoaPods. You can depened on TezosKit by add
 
 ```
 pod "TezosKit"
+```
+
+#### Carthage
+
+ If you use [Carthage](https://github.com/Carthage/Carthage) to manage your dependencies, simply add
+TezosKit to your `Cartfile`:
+
+ ```
+github "keefertaylor/TezosKit"
 ```
 
 ### LibSodium Errors
