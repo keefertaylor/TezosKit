@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		77CE332921F550E2006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE331F21F550E2006ADABA /* TezosKit.framework */; };
-		77CE337F21F55294006ADABA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CE333B21F55294006ADABA /* Info.plist */; };
 		77CE338021F55295006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE333C21F55294006ADABA /* README.md */; };
 		77CE338121F55295006ADABA /* GetAddressBalanceRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE333E21F55294006ADABA /* GetAddressBalanceRPC.swift */; };
 		77CE338221F55295006ADABA /* GetChainHeadHashRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE333F21F55294006ADABA /* GetChainHeadHashRPC.swift */; };
@@ -85,7 +84,6 @@
 /* Begin PBXFileReference section */
 		77CE331F21F550E2006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE332821F550E2006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CE333B21F55294006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE333C21F55294006ADABA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77CE333E21F55294006ADABA /* GetAddressBalanceRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPC.swift; sourceTree = "<group>"; };
 		77CE333F21F55294006ADABA /* GetChainHeadHashRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPC.swift; sourceTree = "<group>"; };
@@ -199,7 +197,6 @@
 				77CE337721F55294006ADABA /* App */,
 				77CE337321F55294006ADABA /* Client */,
 				77CE336721F55294006ADABA /* Cryptography */,
-				77CE333B21F55294006ADABA /* Info.plist */,
 				77CE336B21F55294006ADABA /* Models */,
 				77CE335D21F55294006ADABA /* Operation */,
 				77CE333C21F55294006ADABA /* README.md */,
@@ -436,7 +433,6 @@
 				77CE33B621F55295006ADABA /* Main.storyboard in Resources */,
 				77CE33B521F55295006ADABA /* LaunchScreen.storyboard in Resources */,
 				77CE33B421F55295006ADABA /* Assets.xcassets in Resources */,
-				77CE337F21F55294006ADABA /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
