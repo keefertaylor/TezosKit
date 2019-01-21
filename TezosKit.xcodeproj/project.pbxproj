@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		77CE332921F550E2006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE331F21F550E2006ADABA /* TezosKit.framework */; };
-		77CE333021F550E2006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE332221F550E2006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77CE337F21F55294006ADABA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CE333B21F55294006ADABA /* Info.plist */; };
 		77CE338021F55295006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE333C21F55294006ADABA /* README.md */; };
 		77CE338121F55295006ADABA /* GetAddressBalanceRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE333E21F55294006ADABA /* GetAddressBalanceRPC.swift */; };
@@ -61,18 +60,15 @@
 		77CE33B021F55295006ADABA /* ContractCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE337221F55294006ADABA /* ContractCode.swift */; };
 		77CE33B121F55295006ADABA /* TezosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE337421F55294006ADABA /* TezosClient.swift */; };
 		77CE33B221F55295006ADABA /* TezosClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE337521F55294006ADABA /* TezosClientError.swift */; };
-		77CE33B321F55295006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE337621F55294006ADABA /* TezosKit.h */; };
 		77CE33B421F55295006ADABA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77CE337821F55294006ADABA /* Assets.xcassets */; };
 		77CE33B521F55295006ADABA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77CE337921F55294006ADABA /* LaunchScreen.storyboard */; };
 		77CE33B621F55295006ADABA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77CE337B21F55294006ADABA /* Main.storyboard */; };
 		77CE33B721F55295006ADABA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE337D21F55294006ADABA /* AppDelegate.swift */; };
-		77CE33B821F55295006ADABA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CE337E21F55294006ADABA /* Info.plist */; };
 		77CE33BF21F555C7006ADABA /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BA21F555C7006ADABA /* BigInt.framework */; };
 		77CE33C021F555C7006ADABA /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BB21F555C7006ADABA /* MnemonicKit.framework */; };
 		77CE33C121F555C7006ADABA /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BC21F555C7006ADABA /* SipHash.framework */; };
 		77CE33C221F555C7006ADABA /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BD21F555C7006ADABA /* CryptoSwift.framework */; };
 		77CE33C321F555C7006ADABA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BE21F555C7006ADABA /* Sodium.framework */; };
-		77CE33C721F5571D006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE33C521F5571D006ADABA /* README.md */; };
 		77CE33C821F5571D006ADABA /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE33C621F5571D006ADABA /* Base58String.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,7 +84,6 @@
 
 /* Begin PBXFileReference section */
 		77CE331F21F550E2006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CE332221F550E2006ADABA /* TezosKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
 		77CE332821F550E2006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE333B21F55294006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE333C21F55294006ADABA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -147,13 +142,11 @@
 		77CE337A21F55294006ADABA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77CE337C21F55294006ADABA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		77CE337D21F55294006ADABA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		77CE337E21F55294006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE33BA21F555C7006ADABA /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
 		77CE33BB21F555C7006ADABA /* MnemonicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MnemonicKit.framework; path = Carthage/Build/iOS/MnemonicKit.framework; sourceTree = "<group>"; };
 		77CE33BC21F555C7006ADABA /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SipHash.framework; path = Carthage/Build/iOS/SipHash.framework; sourceTree = "<group>"; };
 		77CE33BD21F555C7006ADABA /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		77CE33BE21F555C7006ADABA /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
-		77CE33C521F5571D006ADABA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77CE33C621F5571D006ADABA /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,7 +206,6 @@
 				77CE333D21F55294006ADABA /* RPC */,
 				77CE337621F55294006ADABA /* TezosKit.h */,
 				77CE335A21F55294006ADABA /* Utils */,
-				77CE332221F550E2006ADABA /* TezosKit.h */,
 			);
 			path = TezosKit;
 			sourceTree = "<group>";
@@ -325,7 +317,6 @@
 				77CE337921F55294006ADABA /* LaunchScreen.storyboard */,
 				77CE337B21F55294006ADABA /* Main.storyboard */,
 				77CE337D21F55294006ADABA /* AppDelegate.swift */,
-				77CE337E21F55294006ADABA /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -345,7 +336,6 @@
 		77CE33C421F5571D006ADABA /* Base58String */ = {
 			isa = PBXGroup;
 			children = (
-				77CE33C521F5571D006ADABA /* README.md */,
 				77CE33C621F5571D006ADABA /* Base58String.swift */,
 			);
 			path = Base58String;
@@ -358,8 +348,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE333021F550E2006ADABA /* TezosKit.h in Headers */,
-				77CE33B321F55295006ADABA /* TezosKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,8 +434,6 @@
 			files = (
 				77CE338021F55295006ADABA /* README.md in Resources */,
 				77CE33B621F55295006ADABA /* Main.storyboard in Resources */,
-				77CE33B821F55295006ADABA /* Info.plist in Resources */,
-				77CE33C721F5571D006ADABA /* README.md in Resources */,
 				77CE33B521F55295006ADABA /* LaunchScreen.storyboard in Resources */,
 				77CE33B421F55295006ADABA /* Assets.xcassets in Resources */,
 				77CE337F21F55294006ADABA /* Info.plist in Resources */,
