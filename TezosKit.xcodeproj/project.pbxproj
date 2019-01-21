@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		77CE332921F550E2006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE331F21F550E2006ADABA /* TezosKit.framework */; };
-		77CE332E21F550E2006ADABA /* TezosKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE332D21F550E2006ADABA /* TezosKitTests.swift */; };
 		77CE333021F550E2006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE332221F550E2006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -27,8 +26,6 @@
 		77CE332221F550E2006ADABA /* TezosKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
 		77CE332321F550E2006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE332821F550E2006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CE332D21F550E2006ADABA /* TezosKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosKitTests.swift; sourceTree = "<group>"; };
-		77CE332F21F550E2006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				77CE332121F550E2006ADABA /* TezosKit */,
-				77CE332C21F550E2006ADABA /* TezosKitTests */,
 				77CE332021F550E2006ADABA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,15 +71,6 @@
 				77CE332321F550E2006ADABA /* Info.plist */,
 			);
 			path = TezosKit;
-			sourceTree = "<group>";
-		};
-		77CE332C21F550E2006ADABA /* TezosKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				77CE332D21F550E2006ADABA /* TezosKitTests.swift */,
-				77CE332F21F550E2006ADABA /* Info.plist */,
-			);
-			path = TezosKitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,7 +188,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE332E21F550E2006ADABA /* TezosKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
