@@ -174,7 +174,7 @@
 		77CE33BD21F555C7006ADABA /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		77CE33BE21F555C7006ADABA /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		77CE33C621F5571D006ADABA /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58String.swift; sourceTree = "<group>"; };
-		77CE34FC21F6A5BE006ADABA /* TezosKitTests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77CE34FC21F6A5BE006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE34FE21F6A5BE006ADABA /* TezosKitTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosKitTests2.swift; sourceTree = "<group>"; };
 		77CE350021F6A5BE006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE350821F6A5CB006ADABA /* GetExpectedQuorumRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPCTest.swift; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				77CE331F21F550E2006ADABA /* TezosKit.framework */,
-				77CE34FC21F6A5BE006ADABA /* TezosKitTests2.xctest */,
+				77CE34FC21F6A5BE006ADABA /* TezosKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -473,9 +473,9 @@
 			productReference = 77CE331F21F550E2006ADABA /* TezosKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		77CE34FB21F6A5BE006ADABA /* TezosKitTests2 */ = {
+		77CE34FB21F6A5BE006ADABA /* TezosKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77CE350421F6A5BE006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests2" */;
+			buildConfigurationList = 77CE350421F6A5BE006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */;
 			buildPhases = (
 				77CE34F821F6A5BE006ADABA /* Sources */,
 				77CE34F921F6A5BE006ADABA /* Frameworks */,
@@ -486,9 +486,9 @@
 			dependencies = (
 				77CE350321F6A5BE006ADABA /* PBXTargetDependency */,
 			);
-			name = TezosKitTests2;
+			name = TezosKitTests;
 			productName = TezosKitTests2;
-			productReference = 77CE34FC21F6A5BE006ADABA /* TezosKitTests2.xctest */;
+			productReference = 77CE34FC21F6A5BE006ADABA /* TezosKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -523,7 +523,7 @@
 			projectRoot = "";
 			targets = (
 				77CE331E21F550E2006ADABA /* TezosKit */,
-				77CE34FB21F6A5BE006ADABA /* TezosKitTests2 */,
+				77CE34FB21F6A5BE006ADABA /* TezosKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -898,7 +898,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77CE350421F6A5BE006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests2" */ = {
+		77CE350421F6A5BE006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77CE350521F6A5BE006ADABA /* Debug */,

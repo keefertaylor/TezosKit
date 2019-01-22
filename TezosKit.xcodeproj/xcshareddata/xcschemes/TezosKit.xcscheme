@@ -20,19 +20,34 @@
                ReferencedContainer = "container:TezosKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "77CE34FB21F6A5BE006ADABA"
+               BuildableName = "TezosKitTests.xctest"
+               BlueprintName = "TezosKitTests"
+               ReferencedContainer = "container:TezosKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      codeCoverageEnabled = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "77CE332721F550E2006ADABA"
+               BlueprintIdentifier = "77CE34FB21F6A5BE006ADABA"
                BuildableName = "TezosKitTests.xctest"
                BlueprintName = "TezosKitTests"
                ReferencedContainer = "container:TezosKit.xcodeproj">
