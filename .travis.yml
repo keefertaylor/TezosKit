@@ -11,11 +11,12 @@ before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
 - carthage bootstrap --platform iOS --cache-builds
+- xcrun simctl list
 before_deploy:
 - carthage build --no-skip-current --platform iOS --cache-builds
 - carthage archive $FRAMEWORK_NAME
 script:
-- set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS
+- set -o pipefail && xcodebuild build -scheme TezosKit -destination 'platform=iOS
   Simulator,name=iPhone XS' ONLY_ACTIVE_ARCH=YES | xcpretty
 deploy:
   provider: releases
