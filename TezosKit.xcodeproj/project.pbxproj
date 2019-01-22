@@ -246,7 +246,7 @@
 			children = (
 				77CE33C421F5571D006ADABA /* Base58String */,
 				77CE332121F550E2006ADABA /* TezosKit */,
-				77CE34FD21F6A5BE006ADABA /* TezosKitTests2 */,
+				77CE34FD21F6A5BE006ADABA /*  Tests */,
 				77CE332021F550E2006ADABA /* Products */,
 				77CE33B921F555C7006ADABA /* Frameworks */,
 			);
@@ -395,10 +395,9 @@
 			path = Base58String;
 			sourceTree = SOURCE_ROOT;
 		};
-		77CE34FD21F6A5BE006ADABA /* TezosKitTests2 */ = {
+		77CE34FD21F6A5BE006ADABA /*  Tests */ = {
 			isa = PBXGroup;
 			children = (
-				77CE350721F6A5CB006ADABA /* Tests */,
 				77CE34FE21F6A5BE006ADABA /* TezosKitTests2.swift */,
 				77CE350821F6A5CB006ADABA /* GetExpectedQuorumRPCTest.swift */,
 				77CE350921F6A5CB006ADABA /* GetAddressBalanceRPCTest.swift */,
@@ -440,15 +439,8 @@
 				77CE352E21F6A5CB006ADABA /* AbstractOperationTest.swift */,
 				77CE350021F6A5BE006ADABA /* Info.plist */,
 			);
-			path = TezosKitTests2;
+			path = " Tests";
 			sourceTree = "<group>";
-		};
-		77CE350721F6A5CB006ADABA /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tests;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
