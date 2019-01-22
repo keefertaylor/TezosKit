@@ -16,8 +16,7 @@ before_deploy:
 - carthage build --no-skip-current --platform iOS --cache-builds
 - carthage archive $FRAMEWORK_NAME
 script:
-- set -o pipefail && xcodebuild build -scheme TezosKit -destination 'platform=iOS
-  Simulator,name=iPhone X,OS=12.0' ONLY_ACTIVE_ARCH=YES | xcpretty
+- set -o pipefail && xcodebuild build -scheme TezosKit -destination 'id=12BA173C-33E7-4FE2-8839-EC760B7288E6' ONLY_ACTIVE_ARCH=YES | xcpretty
 deploy:
   provider: releases
   file: "$FRAMEWORK_NAME.framework.zip"
