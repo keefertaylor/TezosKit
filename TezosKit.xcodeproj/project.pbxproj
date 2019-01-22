@@ -63,7 +63,57 @@
 		77CE33C221F555C7006ADABA /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BD21F555C7006ADABA /* CryptoSwift.framework */; };
 		77CE33C321F555C7006ADABA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BE21F555C7006ADABA /* Sodium.framework */; };
 		77CE33C821F5571D006ADABA /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE33C621F5571D006ADABA /* Base58String.swift */; };
+		77CE342321F6A48F006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE331F21F550E2006ADABA /* TezosKit.framework */; };
+		77CE34C221F6A4DC006ADABA /* GetExpectedQuorumRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE349B21F6A4DC006ADABA /* GetExpectedQuorumRPCTest.swift */; };
+		77CE34C321F6A4DC006ADABA /* GetAddressBalanceRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE349C21F6A4DC006ADABA /* GetAddressBalanceRPCTest.swift */; };
+		77CE34C421F6A4DC006ADABA /* TezosBalanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE349D21F6A4DC006ADABA /* TezosBalanceTest.swift */; };
+		77CE34C521F6A4DC006ADABA /* JSONDictionaryResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE349E21F6A4DC006ADABA /* JSONDictionaryResponseAdapterTest.swift */; };
+		77CE34C621F6A4DC006ADABA /* OriginateAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE349F21F6A4DC006ADABA /* OriginateAccountOperation.swift */; };
+		77CE34C721F6A4DC006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A021F6A4DC006ADABA /* ForgeOperationRPCTest.swift */; };
+		77CE34C821F6A4DC006ADABA /* MnemonicUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A121F6A4DC006ADABA /* MnemonicUtilsTest.swift */; };
+		77CE34C921F6A4DC006ADABA /* DelegationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A221F6A4DC006ADABA /* DelegationOperationTest.swift */; };
+		77CE34CA21F6A4DC006ADABA /* GetProposalsListRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A321F6A4DC006ADABA /* GetProposalsListRPCTest.swift */; };
+		77CE34CB21F6A4DC006ADABA /* GetChainHeadRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A421F6A4DC006ADABA /* GetChainHeadRPCTest.swift */; };
+		77CE34CC21F6A4DC006ADABA /* GetBallotsListRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A521F6A4DC006ADABA /* GetBallotsListRPCTest.swift */; };
+		77CE34CD21F6A4DC006ADABA /* TezosBalanceResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A621F6A4DC006ADABA /* TezosBalanceResponseAdapterTest.swift */; };
+		77CE34CE21F6A4DC006ADABA /* RegisterDelegateOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A721F6A4DC006ADABA /* RegisterDelegateOperationTest.swift */; };
+		77CE34CF21F6A4DC006ADABA /* TransactionOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A821F6A4DC006ADABA /* TransactionOperationTest.swift */; };
+		77CE34D021F6A4DC006ADABA /* PreapplyOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34A921F6A4DC006ADABA /* PreapplyOperationRPCTest.swift */; };
+		77CE34D121F6A4DC006ADABA /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34AA21F6A4DC006ADABA /* CryptoTests.swift */; };
+		77CE34D221F6A4DC006ADABA /* GetChainHeadHashRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34AB21F6A4DC006ADABA /* GetChainHeadHashRPCTest.swift */; };
+		77CE34D321F6A4DC006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34AC21F6A4DC006ADABA /* IntegerResponseAdapterTest.swift */; };
+		77CE34D421F6A4DC006ADABA /* JSONArrayResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34AD21F6A4DC006ADABA /* JSONArrayResponseAdapterTest.swift */; };
+		77CE34D521F6A4DC006ADABA /* GetAddressCounterRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34AE21F6A4DC006ADABA /* GetAddressCounterRPCTest.swift */; };
+		77CE34D621F6A4DC006ADABA /* JSONUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34AF21F6A4DC006ADABA /* JSONUtilsTest.swift */; };
+		77CE34D721F6A4DC006ADABA /* TezosRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B021F6A4DC006ADABA /* TezosRPCTest.swift */; };
+		77CE34D821F6A4DC006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B121F6A4DC006ADABA /* RevealOperationTest.swift */; };
+		77CE34D921F6A4DC006ADABA /* PeriodKindResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B221F6A4DC006ADABA /* PeriodKindResponseAdapterTest.swift */; };
+		77CE34DA21F6A4DC006ADABA /* GetDelegateRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B321F6A4DC006ADABA /* GetDelegateRPCTest.swift */; };
+		77CE34DB21F6A4DD006ADABA /* UndelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B421F6A4DC006ADABA /* UndelegateOperation.swift */; };
+		77CE34DC21F6A4DD006ADABA /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B521F6A4DC006ADABA /* KeysTests.swift */; };
+		77CE34DD21F6A4DD006ADABA /* InjectOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B621F6A4DC006ADABA /* InjectOperationRPCTest.swift */; };
+		77CE34DE21F6A4DD006ADABA /* StringResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B721F6A4DC006ADABA /* StringResponseAdapterTest.swift */; };
+		77CE34DF21F6A4DD006ADABA /* TezosKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B821F6A4DC006ADABA /* TezosKitTests.swift */; };
+		77CE34E021F6A4DD006ADABA /* TezosClientErrorCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34B921F6A4DC006ADABA /* TezosClientErrorCodesTest.swift */; };
+		77CE34E121F6A4DD006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34BA21F6A4DC006ADABA /* GetProposalUnderEvaluationRPCTest.swift */; };
+		77CE34E221F6A4DD006ADABA /* WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34BB21F6A4DC006ADABA /* WalletTests.swift */; };
+		77CE34E321F6A4DD006ADABA /* GetBallotsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34BC21F6A4DC006ADABA /* GetBallotsRPCTest.swift */; };
+		77CE34E421F6A4DD006ADABA /* GetAddressManagerKeyRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34BD21F6A4DC006ADABA /* GetAddressManagerKeyRPCTest.swift */; };
+		77CE34E521F6A4DD006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34BE21F6A4DC006ADABA /* GetCurrentPeriodKindRPCTest.swift */; };
+		77CE34E621F6A4DD006ADABA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CE34BF21F6A4DC006ADABA /* Info.plist */; };
+		77CE34E721F6A4DD006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34C021F6A4DC006ADABA /* GetVotingDelegateRightsRPCTest.swift */; };
+		77CE34E821F6A4DD006ADABA /* AbstractOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34C121F6A4DC006ADABA /* AbstractOperationTest.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		77CE342421F6A48F006ADABA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77CE331621F550E2006ADABA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77CE331E21F550E2006ADABA;
+			remoteInfo = TezosKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		77CE331F21F550E2006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +174,46 @@
 		77CE33BD21F555C7006ADABA /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		77CE33BE21F555C7006ADABA /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		77CE33C621F5571D006ADABA /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58String.swift; sourceTree = "<group>"; };
+		77CE341E21F6A48F006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77CE349B21F6A4DC006ADABA /* GetExpectedQuorumRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPCTest.swift; sourceTree = "<group>"; };
+		77CE349C21F6A4DC006ADABA /* GetAddressBalanceRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPCTest.swift; sourceTree = "<group>"; };
+		77CE349D21F6A4DC006ADABA /* TezosBalanceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosBalanceTest.swift; sourceTree = "<group>"; };
+		77CE349E21F6A4DC006ADABA /* JSONDictionaryResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDictionaryResponseAdapterTest.swift; sourceTree = "<group>"; };
+		77CE349F21F6A4DC006ADABA /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
+		77CE34A021F6A4DC006ADABA /* ForgeOperationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgeOperationRPCTest.swift; sourceTree = "<group>"; };
+		77CE34A121F6A4DC006ADABA /* MnemonicUtilsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MnemonicUtilsTest.swift; sourceTree = "<group>"; };
+		77CE34A221F6A4DC006ADABA /* DelegationOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationOperationTest.swift; sourceTree = "<group>"; };
+		77CE34A321F6A4DC006ADABA /* GetProposalsListRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetProposalsListRPCTest.swift; sourceTree = "<group>"; };
+		77CE34A421F6A4DC006ADABA /* GetChainHeadRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChainHeadRPCTest.swift; sourceTree = "<group>"; };
+		77CE34A521F6A4DC006ADABA /* GetBallotsListRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBallotsListRPCTest.swift; sourceTree = "<group>"; };
+		77CE34A621F6A4DC006ADABA /* TezosBalanceResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosBalanceResponseAdapterTest.swift; sourceTree = "<group>"; };
+		77CE34A721F6A4DC006ADABA /* RegisterDelegateOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperationTest.swift; sourceTree = "<group>"; };
+		77CE34A821F6A4DC006ADABA /* TransactionOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperationTest.swift; sourceTree = "<group>"; };
+		77CE34A921F6A4DC006ADABA /* PreapplyOperationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreapplyOperationRPCTest.swift; sourceTree = "<group>"; };
+		77CE34AA21F6A4DC006ADABA /* CryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
+		77CE34AB21F6A4DC006ADABA /* GetChainHeadHashRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPCTest.swift; sourceTree = "<group>"; };
+		77CE34AC21F6A4DC006ADABA /* IntegerResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerResponseAdapterTest.swift; sourceTree = "<group>"; };
+		77CE34AD21F6A4DC006ADABA /* JSONArrayResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONArrayResponseAdapterTest.swift; sourceTree = "<group>"; };
+		77CE34AE21F6A4DC006ADABA /* GetAddressCounterRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressCounterRPCTest.swift; sourceTree = "<group>"; };
+		77CE34AF21F6A4DC006ADABA /* JSONUtilsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilsTest.swift; sourceTree = "<group>"; };
+		77CE34B021F6A4DC006ADABA /* TezosRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosRPCTest.swift; sourceTree = "<group>"; };
+		77CE34B121F6A4DC006ADABA /* RevealOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealOperationTest.swift; sourceTree = "<group>"; };
+		77CE34B221F6A4DC006ADABA /* PeriodKindResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapterTest.swift; sourceTree = "<group>"; };
+		77CE34B321F6A4DC006ADABA /* GetDelegateRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetDelegateRPCTest.swift; sourceTree = "<group>"; };
+		77CE34B421F6A4DC006ADABA /* UndelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UndelegateOperation.swift; sourceTree = "<group>"; };
+		77CE34B521F6A4DC006ADABA /* KeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
+		77CE34B621F6A4DC006ADABA /* InjectOperationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectOperationRPCTest.swift; sourceTree = "<group>"; };
+		77CE34B721F6A4DC006ADABA /* StringResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseAdapterTest.swift; sourceTree = "<group>"; };
+		77CE34B821F6A4DC006ADABA /* TezosKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosKitTests.swift; sourceTree = "<group>"; };
+		77CE34B921F6A4DC006ADABA /* TezosClientErrorCodesTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosClientErrorCodesTest.swift; sourceTree = "<group>"; };
+		77CE34BA21F6A4DC006ADABA /* GetProposalUnderEvaluationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPCTest.swift; sourceTree = "<group>"; };
+		77CE34BB21F6A4DC006ADABA /* WalletTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletTests.swift; sourceTree = "<group>"; };
+		77CE34BC21F6A4DC006ADABA /* GetBallotsRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBallotsRPCTest.swift; sourceTree = "<group>"; };
+		77CE34BD21F6A4DC006ADABA /* GetAddressManagerKeyRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressManagerKeyRPCTest.swift; sourceTree = "<group>"; };
+		77CE34BE21F6A4DC006ADABA /* GetCurrentPeriodKindRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCurrentPeriodKindRPCTest.swift; sourceTree = "<group>"; };
+		77CE34BF21F6A4DC006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77CE34C021F6A4DC006ADABA /* GetVotingDelegateRightsRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetVotingDelegateRightsRPCTest.swift; sourceTree = "<group>"; };
+		77CE34C121F6A4DC006ADABA /* AbstractOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractOperationTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +229,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		77CE341B21F6A48F006ADABA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77CE342321F6A48F006ADABA /* TezosKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -147,6 +245,7 @@
 			children = (
 				77CE33C421F5571D006ADABA /* Base58String */,
 				77CE332121F550E2006ADABA /* TezosKit */,
+				77CE349A21F6A4DC006ADABA /* Tests */,
 				77CE332021F550E2006ADABA /* Products */,
 				77CE33B921F555C7006ADABA /* Frameworks */,
 			);
@@ -156,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				77CE331F21F550E2006ADABA /* TezosKit.framework */,
+				77CE341E21F6A48F006ADABA /* TezosKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -294,6 +394,52 @@
 			path = Base58String;
 			sourceTree = SOURCE_ROOT;
 		};
+		77CE349A21F6A4DC006ADABA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				77CE349B21F6A4DC006ADABA /* GetExpectedQuorumRPCTest.swift */,
+				77CE349C21F6A4DC006ADABA /* GetAddressBalanceRPCTest.swift */,
+				77CE349D21F6A4DC006ADABA /* TezosBalanceTest.swift */,
+				77CE349E21F6A4DC006ADABA /* JSONDictionaryResponseAdapterTest.swift */,
+				77CE349F21F6A4DC006ADABA /* OriginateAccountOperation.swift */,
+				77CE34A021F6A4DC006ADABA /* ForgeOperationRPCTest.swift */,
+				77CE34A121F6A4DC006ADABA /* MnemonicUtilsTest.swift */,
+				77CE34A221F6A4DC006ADABA /* DelegationOperationTest.swift */,
+				77CE34A321F6A4DC006ADABA /* GetProposalsListRPCTest.swift */,
+				77CE34A421F6A4DC006ADABA /* GetChainHeadRPCTest.swift */,
+				77CE34A521F6A4DC006ADABA /* GetBallotsListRPCTest.swift */,
+				77CE34A621F6A4DC006ADABA /* TezosBalanceResponseAdapterTest.swift */,
+				77CE34A721F6A4DC006ADABA /* RegisterDelegateOperationTest.swift */,
+				77CE34A821F6A4DC006ADABA /* TransactionOperationTest.swift */,
+				77CE34A921F6A4DC006ADABA /* PreapplyOperationRPCTest.swift */,
+				77CE34AA21F6A4DC006ADABA /* CryptoTests.swift */,
+				77CE34AB21F6A4DC006ADABA /* GetChainHeadHashRPCTest.swift */,
+				77CE34AC21F6A4DC006ADABA /* IntegerResponseAdapterTest.swift */,
+				77CE34AD21F6A4DC006ADABA /* JSONArrayResponseAdapterTest.swift */,
+				77CE34AE21F6A4DC006ADABA /* GetAddressCounterRPCTest.swift */,
+				77CE34AF21F6A4DC006ADABA /* JSONUtilsTest.swift */,
+				77CE34B021F6A4DC006ADABA /* TezosRPCTest.swift */,
+				77CE34B121F6A4DC006ADABA /* RevealOperationTest.swift */,
+				77CE34B221F6A4DC006ADABA /* PeriodKindResponseAdapterTest.swift */,
+				77CE34B321F6A4DC006ADABA /* GetDelegateRPCTest.swift */,
+				77CE34B421F6A4DC006ADABA /* UndelegateOperation.swift */,
+				77CE34B521F6A4DC006ADABA /* KeysTests.swift */,
+				77CE34B621F6A4DC006ADABA /* InjectOperationRPCTest.swift */,
+				77CE34B721F6A4DC006ADABA /* StringResponseAdapterTest.swift */,
+				77CE34B821F6A4DC006ADABA /* TezosKitTests.swift */,
+				77CE34B921F6A4DC006ADABA /* TezosClientErrorCodesTest.swift */,
+				77CE34BA21F6A4DC006ADABA /* GetProposalUnderEvaluationRPCTest.swift */,
+				77CE34BB21F6A4DC006ADABA /* WalletTests.swift */,
+				77CE34BC21F6A4DC006ADABA /* GetBallotsRPCTest.swift */,
+				77CE34BD21F6A4DC006ADABA /* GetAddressManagerKeyRPCTest.swift */,
+				77CE34BE21F6A4DC006ADABA /* GetCurrentPeriodKindRPCTest.swift */,
+				77CE34BF21F6A4DC006ADABA /* Info.plist */,
+				77CE34C021F6A4DC006ADABA /* GetVotingDelegateRightsRPCTest.swift */,
+				77CE34C121F6A4DC006ADABA /* AbstractOperationTest.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -325,6 +471,24 @@
 			productReference = 77CE331F21F550E2006ADABA /* TezosKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		77CE341D21F6A48F006ADABA /* TezosKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77CE342621F6A48F006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */;
+			buildPhases = (
+				77CE341A21F6A48F006ADABA /* Sources */,
+				77CE341B21F6A48F006ADABA /* Frameworks */,
+				77CE341C21F6A48F006ADABA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				77CE342521F6A48F006ADABA /* PBXTargetDependency */,
+			);
+			name = TezosKitTests;
+			productName = TezosKitTests;
+			productReference = 77CE341E21F6A48F006ADABA /* TezosKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -336,6 +500,9 @@
 				ORGANIZATIONNAME = "Keefer Taylor";
 				TargetAttributes = {
 					77CE331E21F550E2006ADABA = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					77CE341D21F6A48F006ADABA = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
@@ -354,6 +521,7 @@
 			projectRoot = "";
 			targets = (
 				77CE331E21F550E2006ADABA /* TezosKit */,
+				77CE341D21F6A48F006ADABA /* TezosKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -363,6 +531,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77CE341C21F6A48F006ADABA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77CE34E621F6A4DD006ADABA /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +603,60 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		77CE341A21F6A48F006ADABA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77CE34D921F6A4DC006ADABA /* PeriodKindResponseAdapterTest.swift in Sources */,
+				77CE34C421F6A4DC006ADABA /* TezosBalanceTest.swift in Sources */,
+				77CE34CF21F6A4DC006ADABA /* TransactionOperationTest.swift in Sources */,
+				77CE34DA21F6A4DC006ADABA /* GetDelegateRPCTest.swift in Sources */,
+				77CE34C821F6A4DC006ADABA /* MnemonicUtilsTest.swift in Sources */,
+				77CE34DE21F6A4DD006ADABA /* StringResponseAdapterTest.swift in Sources */,
+				77CE34E021F6A4DD006ADABA /* TezosClientErrorCodesTest.swift in Sources */,
+				77CE34E121F6A4DD006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */,
+				77CE34DC21F6A4DD006ADABA /* KeysTests.swift in Sources */,
+				77CE34CA21F6A4DC006ADABA /* GetProposalsListRPCTest.swift in Sources */,
+				77CE34D721F6A4DC006ADABA /* TezosRPCTest.swift in Sources */,
+				77CE34D221F6A4DC006ADABA /* GetChainHeadHashRPCTest.swift in Sources */,
+				77CE34E221F6A4DD006ADABA /* WalletTests.swift in Sources */,
+				77CE34DB21F6A4DD006ADABA /* UndelegateOperation.swift in Sources */,
+				77CE34D621F6A4DC006ADABA /* JSONUtilsTest.swift in Sources */,
+				77CE34DD21F6A4DD006ADABA /* InjectOperationRPCTest.swift in Sources */,
+				77CE34CD21F6A4DC006ADABA /* TezosBalanceResponseAdapterTest.swift in Sources */,
+				77CE34CB21F6A4DC006ADABA /* GetChainHeadRPCTest.swift in Sources */,
+				77CE34C721F6A4DC006ADABA /* ForgeOperationRPCTest.swift in Sources */,
+				77CE34E821F6A4DD006ADABA /* AbstractOperationTest.swift in Sources */,
+				77CE34C521F6A4DC006ADABA /* JSONDictionaryResponseAdapterTest.swift in Sources */,
+				77CE34CE21F6A4DC006ADABA /* RegisterDelegateOperationTest.swift in Sources */,
+				77CE34C321F6A4DC006ADABA /* GetAddressBalanceRPCTest.swift in Sources */,
+				77CE34D121F6A4DC006ADABA /* CryptoTests.swift in Sources */,
+				77CE34C921F6A4DC006ADABA /* DelegationOperationTest.swift in Sources */,
+				77CE34CC21F6A4DC006ADABA /* GetBallotsListRPCTest.swift in Sources */,
+				77CE34D421F6A4DC006ADABA /* JSONArrayResponseAdapterTest.swift in Sources */,
+				77CE34E521F6A4DD006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */,
+				77CE34D521F6A4DC006ADABA /* GetAddressCounterRPCTest.swift in Sources */,
+				77CE34DF21F6A4DD006ADABA /* TezosKitTests.swift in Sources */,
+				77CE34D021F6A4DC006ADABA /* PreapplyOperationRPCTest.swift in Sources */,
+				77CE34D821F6A4DC006ADABA /* RevealOperationTest.swift in Sources */,
+				77CE34C621F6A4DC006ADABA /* OriginateAccountOperation.swift in Sources */,
+				77CE34E721F6A4DD006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */,
+				77CE34C221F6A4DC006ADABA /* GetExpectedQuorumRPCTest.swift in Sources */,
+				77CE34E421F6A4DD006ADABA /* GetAddressManagerKeyRPCTest.swift in Sources */,
+				77CE34D321F6A4DC006ADABA /* IntegerResponseAdapterTest.swift in Sources */,
+				77CE34E321F6A4DD006ADABA /* GetBallotsRPCTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		77CE342521F6A48F006ADABA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77CE331E21F550E2006ADABA /* TezosKit */;
+			targetProxy = 77CE342421F6A48F006ADABA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		77CE333121F550E2006ADABA /* Debug */ = {
@@ -610,6 +839,42 @@
 			};
 			name = Release;
 		};
+		77CE342721F6A48F006ADABA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				INFOPLIST_FILE = TezosKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		77CE342821F6A48F006ADABA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				INFOPLIST_FILE = TezosKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -627,6 +892,15 @@
 			buildConfigurations = (
 				77CE333421F550E2006ADABA /* Debug */,
 				77CE333521F550E2006ADABA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		77CE342621F6A48F006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77CE342721F6A48F006ADABA /* Debug */,
+				77CE342821F6A48F006ADABA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
