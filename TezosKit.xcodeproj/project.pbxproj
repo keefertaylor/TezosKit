@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		77CE338021F55295006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE333C21F55294006ADABA /* README.md */; };
 		77CE338121F55295006ADABA /* GetAddressBalanceRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE333E21F55294006ADABA /* GetAddressBalanceRPC.swift */; };
 		77CE338221F55295006ADABA /* GetChainHeadHashRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE333F21F55294006ADABA /* GetChainHeadHashRPC.swift */; };
 		77CE338321F55295006ADABA /* GetAddressCounterRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE334021F55294006ADABA /* GetAddressCounterRPC.swift */; };
@@ -68,7 +67,6 @@
 
 /* Begin PBXFileReference section */
 		77CE331F21F550E2006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CE333C21F55294006ADABA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77CE333E21F55294006ADABA /* GetAddressBalanceRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPC.swift; sourceTree = "<group>"; };
 		77CE333F21F55294006ADABA /* GetChainHeadHashRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPC.swift; sourceTree = "<group>"; };
 		77CE334021F55294006ADABA /* GetAddressCounterRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressCounterRPC.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				77CE336721F55294006ADABA /* Cryptography */,
 				77CE336B21F55294006ADABA /* Models */,
 				77CE335D21F55294006ADABA /* Operation */,
-				77CE333C21F55294006ADABA /* README.md */,
 				77CE333D21F55294006ADABA /* RPC */,
 				77CE337621F55294006ADABA /* TezosKit.h */,
 				77CE335A21F55294006ADABA /* Utils */,
@@ -366,7 +363,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE338021F55295006ADABA /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
