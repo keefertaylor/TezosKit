@@ -59,11 +59,8 @@
 		77CE33B221F55295006ADABA /* TezosClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE337521F55294006ADABA /* TezosClientError.swift */; };
 		77CE33BF21F555C7006ADABA /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BA21F555C7006ADABA /* BigInt.framework */; };
 		77CE33C021F555C7006ADABA /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BB21F555C7006ADABA /* MnemonicKit.framework */; };
-		77CE33C121F555C7006ADABA /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BC21F555C7006ADABA /* SipHash.framework */; };
-		77CE33C221F555C7006ADABA /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BD21F555C7006ADABA /* CryptoSwift.framework */; };
 		77CE33C321F555C7006ADABA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE33BE21F555C7006ADABA /* Sodium.framework */; };
 		77CE33C821F5571D006ADABA /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE33C621F5571D006ADABA /* Base58String.swift */; };
-		77CE34FF21F6A5BE006ADABA /* TezosKitTests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE34FE21F6A5BE006ADABA /* TezosKitTests2.swift */; };
 		77CE350121F6A5BE006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE331F21F550E2006ADABA /* TezosKit.framework */; };
 		77CE352F21F6A5CB006ADABA /* GetExpectedQuorumRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE350821F6A5CB006ADABA /* GetExpectedQuorumRPCTest.swift */; };
 		77CE353021F6A5CB006ADABA /* GetAddressBalanceRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE350921F6A5CB006ADABA /* GetAddressBalanceRPCTest.swift */; };
@@ -94,7 +91,6 @@
 		77CE354921F6A5CB006ADABA /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE352221F6A5CB006ADABA /* KeysTests.swift */; };
 		77CE354A21F6A5CB006ADABA /* InjectOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE352321F6A5CB006ADABA /* InjectOperationRPCTest.swift */; };
 		77CE354B21F6A5CB006ADABA /* StringResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE352421F6A5CB006ADABA /* StringResponseAdapterTest.swift */; };
-		77CE354C21F6A5CB006ADABA /* TezosKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE352521F6A5CB006ADABA /* TezosKitTests.swift */; };
 		77CE354D21F6A5CB006ADABA /* TezosClientErrorCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE352621F6A5CB006ADABA /* TezosClientErrorCodesTest.swift */; };
 		77CE354E21F6A5CB006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE352721F6A5CB006ADABA /* GetProposalUnderEvaluationRPCTest.swift */; };
 		77CE354F21F6A5CB006ADABA /* WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE352821F6A5CB006ADABA /* WalletTests.swift */; };
@@ -175,7 +171,6 @@
 		77CE33BE21F555C7006ADABA /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		77CE33C621F5571D006ADABA /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58String.swift; sourceTree = "<group>"; };
 		77CE34FC21F6A5BE006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		77CE34FE21F6A5BE006ADABA /* TezosKitTests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosKitTests2.swift; sourceTree = "<group>"; };
 		77CE350021F6A5BE006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE350821F6A5CB006ADABA /* GetExpectedQuorumRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPCTest.swift; sourceTree = "<group>"; };
 		77CE350921F6A5CB006ADABA /* GetAddressBalanceRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPCTest.swift; sourceTree = "<group>"; };
@@ -206,7 +201,6 @@
 		77CE352221F6A5CB006ADABA /* KeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
 		77CE352321F6A5CB006ADABA /* InjectOperationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectOperationRPCTest.swift; sourceTree = "<group>"; };
 		77CE352421F6A5CB006ADABA /* StringResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseAdapterTest.swift; sourceTree = "<group>"; };
-		77CE352521F6A5CB006ADABA /* TezosKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosKitTests.swift; sourceTree = "<group>"; };
 		77CE352621F6A5CB006ADABA /* TezosClientErrorCodesTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosClientErrorCodesTest.swift; sourceTree = "<group>"; };
 		77CE352721F6A5CB006ADABA /* GetProposalUnderEvaluationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPCTest.swift; sourceTree = "<group>"; };
 		77CE352821F6A5CB006ADABA /* WalletTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletTests.swift; sourceTree = "<group>"; };
@@ -224,8 +218,6 @@
 			files = (
 				77CE33BF21F555C7006ADABA /* BigInt.framework in Frameworks */,
 				77CE33C021F555C7006ADABA /* MnemonicKit.framework in Frameworks */,
-				77CE33C121F555C7006ADABA /* SipHash.framework in Frameworks */,
-				77CE33C221F555C7006ADABA /* CryptoSwift.framework in Frameworks */,
 				77CE33C321F555C7006ADABA /* Sodium.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,7 +238,7 @@
 			children = (
 				77CE33C421F5571D006ADABA /* Base58String */,
 				77CE332121F550E2006ADABA /* TezosKit */,
-				77CE34FD21F6A5BE006ADABA /*  Tests */,
+				77CE34FD21F6A5BE006ADABA /* Tests */,
 				77CE332021F550E2006ADABA /* Products */,
 				77CE33B921F555C7006ADABA /* Frameworks */,
 			);
@@ -395,10 +387,9 @@
 			path = Base58String;
 			sourceTree = SOURCE_ROOT;
 		};
-		77CE34FD21F6A5BE006ADABA /*  Tests */ = {
+		77CE34FD21F6A5BE006ADABA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				77CE34FE21F6A5BE006ADABA /* TezosKitTests2.swift */,
 				77CE350821F6A5CB006ADABA /* GetExpectedQuorumRPCTest.swift */,
 				77CE350921F6A5CB006ADABA /* GetAddressBalanceRPCTest.swift */,
 				77CE350A21F6A5CB006ADABA /* TezosBalanceTest.swift */,
@@ -428,7 +419,6 @@
 				77CE352221F6A5CB006ADABA /* KeysTests.swift */,
 				77CE352321F6A5CB006ADABA /* InjectOperationRPCTest.swift */,
 				77CE352421F6A5CB006ADABA /* StringResponseAdapterTest.swift */,
-				77CE352521F6A5CB006ADABA /* TezosKitTests.swift */,
 				77CE352621F6A5CB006ADABA /* TezosClientErrorCodesTest.swift */,
 				77CE352721F6A5CB006ADABA /* GetProposalUnderEvaluationRPCTest.swift */,
 				77CE352821F6A5CB006ADABA /* WalletTests.swift */,
@@ -439,7 +429,7 @@
 				77CE352E21F6A5CB006ADABA /* AbstractOperationTest.swift */,
 				77CE350021F6A5BE006ADABA /* Info.plist */,
 			);
-			path = " Tests";
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,9 +627,7 @@
 				77CE354121F6A5CB006ADABA /* JSONArrayResponseAdapterTest.swift in Sources */,
 				77CE355221F6A5CB006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				77CE354221F6A5CB006ADABA /* GetAddressCounterRPCTest.swift in Sources */,
-				77CE354C21F6A5CB006ADABA /* TezosKitTests.swift in Sources */,
 				77CE353D21F6A5CB006ADABA /* PreapplyOperationRPCTest.swift in Sources */,
-				77CE34FF21F6A5BE006ADABA /* TezosKitTests2.swift in Sources */,
 				77CE354521F6A5CB006ADABA /* RevealOperationTest.swift in Sources */,
 				77CE353321F6A5CB006ADABA /* OriginateAccountOperation.swift in Sources */,
 				77CE355421F6A5CB006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */,
@@ -846,13 +834,13 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
-				INFOPLIST_FILE = TezosKitTests2/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -864,13 +852,13 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
-				INFOPLIST_FILE = TezosKitTests2/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
