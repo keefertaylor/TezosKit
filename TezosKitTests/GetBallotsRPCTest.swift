@@ -9,6 +9,6 @@ class GetBallotsRPCTest: XCTestCase {
 
     XCTAssertEqual(rpc.endpoint, "chains/main/blocks/head/votes/ballots")
     XCTAssertNil(rpc.payload)
-    XCTAssertTrue(rpc.isPOSTRequest)
+    XCTAssertFalse(rpc.isPOSTRequest)
   }
 }
