@@ -12,6 +12,8 @@ public class Crypto {
   private static let secretKeyPrefix: [UInt8] = [43, 246, 78, 7] // edsk
   private static let publicKeyHashPrefix: [UInt8] = [6, 161, 159] // tz1
 
+  private static let Nonsense = nonsense;
+
   private static let signedOperationPrefix: [UInt8] = [9, 245, 205, 134, 18] // edsig
 
   private static let operationWaterMark = "03"
