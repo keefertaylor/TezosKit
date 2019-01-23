@@ -12,6 +12,8 @@
 		77CE35A721F7DC76006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE359921F7DC76006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77CE363121F7EF32006ADABA /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE363021F7EF32006ADABA /* BigInt.framework */; };
 		77CE363321F7F032006ADABA /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE363221F7F032006ADABA /* SipHash.framework */; };
+		77CE363721F7F327006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE363521F7F327006ADABA /* README.md */; };
+		77CE363821F7F327006ADABA /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE363621F7F327006ADABA /* Base58String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE363021F7EF32006ADABA /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
 		77CE363221F7F032006ADABA /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SipHash.framework; path = Carthage/Build/iOS/SipHash.framework; sourceTree = "<group>"; };
+		77CE363521F7F327006ADABA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		77CE363621F7F327006ADABA /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				77CE363421F7F327006ADABA /* Base58String */,
 				77CE359821F7DC76006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* TezosKitTests */,
 				77CE359721F7DC76006ADABA /* Products */,
@@ -112,6 +117,15 @@
 				77CE363021F7EF32006ADABA /* BigInt.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		77CE363421F7F327006ADABA /* Base58String */ = {
+			isa = PBXGroup;
+			children = (
+				77CE363521F7F327006ADABA /* README.md */,
+				77CE363621F7F327006ADABA /* Base58String.swift */,
+			);
+			path = Base58String;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77CE363721F7F327006ADABA /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77CE363821F7F327006ADABA /* Base58String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +471,7 @@
 		77CE35AE21F7DC76006ADABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				INFOPLIST_FILE = TezosKitTests/Info.plist;
@@ -473,6 +490,7 @@
 		77CE35AF21F7DC76006ADABA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				INFOPLIST_FILE = TezosKitTests/Info.plist;
