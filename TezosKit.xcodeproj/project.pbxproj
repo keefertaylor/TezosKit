@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DF1FBF1ACF8C3B8FB9CB932 /* Pods_TezosKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */; };
 		77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		77CE35A721F7DC76006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE359921F7DC76006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77CE363121F7EF32006ADABA /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE363021F7EF32006ADABA /* BigInt.framework */; };
@@ -108,7 +107,6 @@
 		77CE370421F7F49F006ADABA /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DD21F7F49E006ADABA /* CryptoTests.swift */; };
 		77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */; };
 		77CE370621F7F49F006ADABA /* TezosBalanceResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DF21F7F49E006ADABA /* TezosBalanceResponseAdapterTest.swift */; };
-		873E08C17313C4144DA1BF94 /* Pods_TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,7 +133,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		363745113F4D450A52CD8B14 /* Pods-TezosKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.release.xcconfig"; path = "Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359921F7DC76006ADABA /* TezosKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
 		77CE359A21F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -239,11 +236,8 @@
 		77CE36DD21F7F49E006ADABA /* CryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
 		77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationOperationTest.swift; sourceTree = "<group>"; };
 		77CE36DF21F7F49E006ADABA /* TezosBalanceResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosBalanceResponseAdapterTest.swift; sourceTree = "<group>"; };
-		9B118EEF2745A1A2891233C1 /* Pods-TezosKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKit.debug.xcconfig"; path = "Target Support Files/Pods-TezosKit/Pods-TezosKit.debug.xcconfig"; sourceTree = "<group>"; };
-		B41C3FC8E3EE931A098387CF /* Pods-TezosKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKitTests.debug.xcconfig"; path = "Target Support Files/Pods-TezosKitTests/Pods-TezosKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD7FEEC39DE882C75D81B9D1 /* Pods-TezosKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TezosKit.release.xcconfig"; path = "Target Support Files/Pods-TezosKit/Pods-TezosKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,7 +250,6 @@
 				77CE36B421F7F3C0006ADABA /* Sodium.framework in Frameworks */,
 				77CE363321F7F032006ADABA /* SipHash.framework in Frameworks */,
 				77CE363121F7EF32006ADABA /* BigInt.framework in Frameworks */,
-				873E08C17313C4144DA1BF94 /* Pods_TezosKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +258,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */,
-				4DF1FBF1ACF8C3B8FB9CB932 /* Pods_TezosKitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +272,6 @@
 				77CE35A321F7DC76006ADABA /* TezosKitTests */,
 				77CE359721F7DC76006ADABA /* Products */,
 				77CE362F21F7EF32006ADABA /* Frameworks */,
-				9676959EC94C14524ED84FBC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -495,17 +486,6 @@
 			path = Sources/Utils;
 			sourceTree = SOURCE_ROOT;
 		};
-		9676959EC94C14524ED84FBC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9B118EEF2745A1A2891233C1 /* Pods-TezosKit.debug.xcconfig */,
-				FD7FEEC39DE882C75D81B9D1 /* Pods-TezosKit.release.xcconfig */,
-				B41C3FC8E3EE931A098387CF /* Pods-TezosKitTests.debug.xcconfig */,
-				363745113F4D450A52CD8B14 /* Pods-TezosKitTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -524,7 +504,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77CE35AA21F7DC76006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */;
 			buildPhases = (
-				477656853B84A8CA7709880E /* [CP] Check Pods Manifest.lock */,
 				77CE359121F7DC76006ADABA /* Headers */,
 				77CE359221F7DC76006ADABA /* Sources */,
 				77CE359321F7DC76006ADABA /* Frameworks */,
@@ -545,7 +524,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77CE35AD21F7DC76006ADABA /* Build configuration list for PBXNativeTarget "TezosKitTests" */;
 			buildPhases = (
-				27422850F955FA274CB199EC /* [CP] Check Pods Manifest.lock */,
 				77CE359B21F7DC76006ADABA /* Sources */,
 				77CE359C21F7DC76006ADABA /* Frameworks */,
 				77CE359D21F7DC76006ADABA /* Resources */,
@@ -619,50 +597,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		27422850F955FA274CB199EC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TezosKitTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		477656853B84A8CA7709880E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TezosKit-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		77CE362E21F7EEE2006ADABA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -950,7 +884,6 @@
 		};
 		77CE35AB21F7DC76006ADABA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B118EEF2745A1A2891233C1 /* Pods-TezosKit.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -981,7 +914,6 @@
 		};
 		77CE35AC21F7DC76006ADABA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD7FEEC39DE882C75D81B9D1 /* Pods-TezosKit.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -1012,7 +944,6 @@
 		};
 		77CE35AE21F7DC76006ADABA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B41C3FC8E3EE931A098387CF /* Pods-TezosKitTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1032,7 +963,6 @@
 		};
 		77CE35AF21F7DC76006ADABA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 363745113F4D450A52CD8B14 /* Pods-TezosKitTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
