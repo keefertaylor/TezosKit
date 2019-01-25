@@ -1,10 +1,4 @@
-//
-//  TezosKit.h
-//  TezosKit
-//
-//  Created by Keefer Taylor on 1/22/19.
-//  Copyright © 2019 Keefer Taylor. All rights reserved.
-//
+// Copyright Keefer Taylor, 2018
 
 #import <UIKit/UIKit.h>
 
@@ -13,7 +7,3 @@ FOUNDATION_EXPORT double TezosKitVersionNumber;
 
 //! Project version string for TezosKit.
 FOUNDATION_EXPORT const unsigned char TezosKitVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <TezosKit/PublicHeader.h>
-
-

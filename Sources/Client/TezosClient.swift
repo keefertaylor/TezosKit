@@ -238,12 +238,12 @@ public class TezosClient {
    *
    * @param managerAddress The address which will manage the new account.
    * @param keys The keys to use to sign the operation for the address.
-   * @param contractCode Optional code to associate with the originated contract.  
+   * @param contractCode Optional code to associate with the originated contract.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func originateAccount(managerAddress: String, 
+  public func originateAccount(managerAddress: String,
                                keys: Keys,
                                contractCode: ContractCode? = nil,
                                operationFees: OperationFees? = nil,
@@ -527,7 +527,7 @@ public class TezosClient {
         // down based on HTTP response code.
         var errorKind: TezosClientError.ErrorKind = .unknown
         // Status code 40X: Bad request was sent to server.
-        if httpResponse.statusCode >= 400 && httpResponse.statusCode < 500 {
+        if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
           errorKind = .unexpectedRequestFormat
           // Status code 50X: Bad request was sent to server.
         } else if httpResponse.statusCode >= 500 {
