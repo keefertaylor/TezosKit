@@ -33,7 +33,7 @@ public class OriginateAccountOperation: AbstractOperation {
    * Create a new origination operation that will occur from the given wallet's address.
    *
    * @param wallet The wallet which will originate the new account.
-   * @param contractCode Optional code to associate with the originated contract.  
+   * @param contractCode Optional code to associate with the originated contract.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
   public convenience init(wallet: Wallet, contractCode: ContractCode? = nil, operationFees: OperationFees? = nil) {
@@ -43,7 +43,7 @@ public class OriginateAccountOperation: AbstractOperation {
   /** Create a new origination operation that will occur from the given address.
    *
    * @param wallet The wallet which will originate the new account.
-   * @param contractCode Optional code to associate with the originated contract.  
+   * @param contractCode Optional code to associate with the originated contract.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
   public init(address: String, contractCode: ContractCode? = nil, operationFees: OperationFees? = nil) {
@@ -51,6 +51,5 @@ public class OriginateAccountOperation: AbstractOperation {
     self.contractCode = contractCode
 
     super.init(source: address, kind: .origination, operationFees: operationFees)
-
   }
 }
