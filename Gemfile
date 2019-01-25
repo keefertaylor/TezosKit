@@ -1,1 +1,2 @@
+gem 'cocoapods'
 gem 'slather'
