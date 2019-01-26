@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
-		77CE363721F7F327006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE363521F7F327006ADABA /* README.md */; };
 		77CE363821F7F327006ADABA /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE363621F7F327006ADABA /* Base58String.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
@@ -75,7 +74,6 @@
 		77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382321FC7ED7006ADABA /* PeriodKind.swift */; };
 		77CE385E21FC7ED8006ADABA /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382421FC7ED7006ADABA /* Wallet.swift */; };
 		77CE385F21FC7ED8006ADABA /* ContractCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382521FC7ED7006ADABA /* ContractCode.swift */; };
-		77CE386021FC7ED8006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE382621FC7ED7006ADABA /* README.md */; };
 		77CE386121FC7ED8006ADABA /* GetAddressBalanceRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382821FC7ED7006ADABA /* GetAddressBalanceRPC.swift */; };
 		77CE386221FC7ED8006ADABA /* GetChainHeadHashRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382921FC7ED7006ADABA /* GetChainHeadHashRPC.swift */; };
 		77CE386321FC7ED8006ADABA /* GetAddressCounterRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */; };
@@ -138,7 +136,6 @@
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE363021F7EF32006ADABA /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
 		77CE363221F7F032006ADABA /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SipHash.framework; path = Carthage/Build/iOS/SipHash.framework; sourceTree = "<group>"; };
-		77CE363521F7F327006ADABA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77CE363621F7F327006ADABA /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58String.swift; sourceTree = "<group>"; };
 		77CE36B321F7F3C0006ADABA /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		77CE36B521F7F3CB006ADABA /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
@@ -205,7 +202,6 @@
 		77CE382321FC7ED7006ADABA /* PeriodKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
 		77CE382421FC7ED7006ADABA /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		77CE382521FC7ED7006ADABA /* ContractCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractCode.swift; sourceTree = "<group>"; };
-		77CE382621FC7ED7006ADABA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		77CE382821FC7ED7006ADABA /* GetAddressBalanceRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPC.swift; sourceTree = "<group>"; };
 		77CE382921FC7ED7006ADABA /* GetChainHeadHashRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPC.swift; sourceTree = "<group>"; };
 		77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressCounterRPC.swift; sourceTree = "<group>"; };
@@ -346,7 +342,6 @@
 		77CE363421F7F327006ADABA /* Base58String */ = {
 			isa = PBXGroup;
 			children = (
-				77CE363521F7F327006ADABA /* README.md */,
 				77CE363621F7F327006ADABA /* Base58String.swift */,
 			);
 			path = Base58String;
@@ -362,7 +357,6 @@
 				77CE381721FC7ED7006ADABA /* Cryptography */,
 				77CE381B21FC7ED7006ADABA /* Utils */,
 				77CE381E21FC7ED7006ADABA /* Models */,
-				77CE382621FC7ED7006ADABA /* README.md */,
 				77CE382721FC7ED7006ADABA /* RPC */,
 				77CE384421FC7ED8006ADABA /* Client */,
 			);
@@ -584,8 +578,6 @@
 				77CE385121FC7ED8006ADABA /* LaunchScreen.storyboard in Resources */,
 				77CE385021FC7ED8006ADABA /* Assets.xcassets in Resources */,
 				77CE388221FC7EED006ADABA /* Info.plist in Resources */,
-				77CE386021FC7ED8006ADABA /* README.md in Resources */,
-				77CE363721F7F327006ADABA /* README.md in Resources */,
 				77CE385221FC7ED8006ADABA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
