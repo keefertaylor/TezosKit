@@ -17,15 +17,15 @@ before_deploy:
 after_deploy:
 - pod trunk push --skip-import-validation --skip-tests --allow-warnings
 script:
-- set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS
-  Simulator,name=iPhone XS,OS=12.0' ONLY_ACTIVE_ARCH=YES | xcpretty
+- set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone
+  XS,OS=12.0' ONLY_ACTIVE_ARCH=YES | xcpretty
 after_success:
 - slather
 - bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
   api_key:
-    secure: LR2QILLIc4f3t7Eg9uZWGZp9sBQXN1wdQzzU75ZMqcBNIw+LBNd4CgsSY7YpeJg+Rsh3++CFThvYmOMAayfrv/DKkVP1LpM782++mjOh0k174gNe6thPPTc9NcdzYJj3Ij6Cej6+nMS5CQfs06YWBWbIwV0Yc/JHFJHa+5//Q2ayk+JSKalT3mbIDhPX3gYDoGw9qVLno3XzS5FRwjzf8aENLiTtKXG8WtGeXX3IbXgsZR1xgYwm1HAlDT8cZcL5xvYB02zIGYRIBtSODGlQ0XlSN3LPtKR9McZPOM1hlfkwnCcf9f1g+AmUeHF8Grh88tt2tjZAWK7z2b+XMNL/5MgW6jhRoGa2WUQOq6D6PPS5uJhJja3j8s8oZeKotwhCfgsf+yQXqfGjcf+coOPnvXCV6wHNFHabjXvpG65AJKmxWaLFM9nZfxt89a36BLAG6BcC8thiN40WK2Jid1kjeZ/mer+4vxKl8lHPWr6tLP98KIEeX4PeqYakRJe6j89FxkQb3AbWvqQIgOzxu3HidJayE7UQLH0UvuKmP5RZn3B/vVRXXfqIwn8clexEFXc8j0yfdP7fyypKLyzBpsfFwkkNqD6/JX20Ugq7gPaYDzWHeZe4OgwFo7xbp0x42dTvuoJoMRJJrTjI4remPnqKhpJgmkH1VasnFc8x5ZwU/1E=
+    secure: md8YfrZO/5WKAPmiIInTk7oWtc/B5FmibnEfwXeCGiVa+0N6CtcJNdQYFmYCxEm7+JCPXBKakk2UFM0T1eOAKOvnwqkxy+xP1aAxvjAP+1hpt8OVGtkXdmemoXNdxoQq+qqGLtfVtr5cVdeL1sqnpfKOdUQeCZXYcy8LL3oOuMwh3jn9bZbctVYTs7L1UD/p8tEFTdfxLxropQ+u96mXb1kmVkqKwzU4Sro6D9opHaGW2aHIJF3CVVAELr/pICM14HwMCvqhpZ8q3z9FhIdFab9EaFGZE9c7w00q+2wUdl0uoQJ7oe2nCtCYJj6Hh7onRUyc81e/MepEdQHyD5jLGmKbPpPFdGM+BjtVUfdvPAzV5kAp88HuqBAn++BVm2cT4wtawsUFsC4lnfR+0vBAxFU69L7JhxT744bc+X58XS+UUBFcAJsYlDU579iZWP0xFzZHjy+2q8PzuB/2iqY1n3aeSkkrHt7meAlmepzQUdJIM3BqUfibW/fqL/A5uhSOCHeaH70r24CkBlaUlQcOWUv5V48j99cae9vlNE/PJ68cC94LVz1t7jDM98sU6dCs7vgkPkYI4QzBKbnqCRk0MdvdwwATadmhjOJKtmJxm8tDmPAf4Gp9tLzCuDaokCd2HJpWUotmHy1DkM6+xGX4i3s21aU0U81bgQgYJFV1BWk=
   file: "$FRAMEWORK_NAME.framework.zip"
   skip_cleanup: true
   on:
