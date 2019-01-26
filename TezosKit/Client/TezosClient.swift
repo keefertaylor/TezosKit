@@ -371,12 +371,9 @@ public class TezosClient {
     // Determine if the address performing the operations has been revealed. If it has not been,
     // check if any of the operations to perform requires the address to be revealed. If so,
     // prepend a reveal operation to the operations to perform.
-    if operationMetadata.key == nil {
-      for operation in operations where operation.requiresReveal {
-        let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
-        mutableOperations.insert(revealOperation, at: 0)
-        break
-      }
+    if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
+      let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
+      mutableOperations.insert(revealOperation, at: 0)
     }
 
     // Process all operations to have increasing counters and place them in the contents array.
