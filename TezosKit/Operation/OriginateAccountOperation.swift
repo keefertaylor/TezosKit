@@ -15,7 +15,7 @@ public class OriginateAccountOperation: AbstractOperation {
     if let contractCode = self.contractCode {
       operation["script"] = [
         "code": contractCode.code,
-        "storage": contractCode.storage,
+        "storage": contractCode.storage
       ]
     }
 

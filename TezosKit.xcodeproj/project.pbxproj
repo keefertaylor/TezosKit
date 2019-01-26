@@ -476,6 +476,7 @@
 				77CE359421F7DC76006ADABA /* Resources */,
 				77CE362D21F7EED8006ADABA /* Copy Files */,
 				77CE362E21F7EEE2006ADABA /* ShellScript */,
+				77CE388421FCB8CD006ADABA /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -585,6 +586,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		77CE388421FCB8CD006ADABA /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, run `brew install swiftlint`\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
