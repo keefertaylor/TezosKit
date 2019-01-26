@@ -58,10 +58,6 @@
 		77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */; };
 		77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380E21FC7ED7006ADABA /* OperationKind.swift */; };
 		77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380F21FC7ED7006ADABA /* Operation.swift */; };
-		77CE385021FC7ED8006ADABA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77CE381121FC7ED7006ADABA /* Assets.xcassets */; };
-		77CE385121FC7ED8006ADABA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77CE381221FC7ED7006ADABA /* LaunchScreen.storyboard */; };
-		77CE385221FC7ED8006ADABA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77CE381421FC7ED7006ADABA /* Main.storyboard */; };
-		77CE385321FC7ED8006ADABA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381621FC7ED7006ADABA /* AppDelegate.swift */; };
 		77CE385421FC7ED8006ADABA /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381821FC7ED7006ADABA /* KeyPair.swift */; };
 		77CE385521FC7ED8006ADABA /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381921FC7ED7006ADABA /* Crypto.swift */; };
 		77CE385621FC7ED8006ADABA /* OperationSigningResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381A21FC7ED7006ADABA /* OperationSigningResult.swift */; };
@@ -103,7 +99,7 @@
 		77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384321FC7ED8006ADABA /* GetExpectedQuorumRPC.swift */; };
 		77CE387C21FC7ED8006ADABA /* TezosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384521FC7ED8006ADABA /* TezosClient.swift */; };
 		77CE387D21FC7ED8006ADABA /* TezosClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384621FC7ED8006ADABA /* TezosClientError.swift */; };
-		77CE388121FC7EED006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE387F21FC7EED006ADABA /* TezosKit.h */; };
+		77CE388121FC7EED006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE387F21FC7EED006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77CE388221FC7EED006ADABA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CE388021FC7EED006ADABA /* Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -186,10 +182,6 @@
 		77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperation.swift; sourceTree = "<group>"; };
 		77CE380E21FC7ED7006ADABA /* OperationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationKind.swift; sourceTree = "<group>"; };
 		77CE380F21FC7ED7006ADABA /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
-		77CE381121FC7ED7006ADABA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		77CE381321FC7ED7006ADABA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		77CE381521FC7ED7006ADABA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		77CE381621FC7ED7006ADABA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77CE381821FC7ED7006ADABA /* KeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		77CE381921FC7ED7006ADABA /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		77CE381A21FC7ED7006ADABA /* OperationSigningResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationSigningResult.swift; sourceTree = "<group>"; };
@@ -263,7 +255,6 @@
 			isa = PBXGroup;
 			children = (
 				77CE363421F7F327006ADABA /* Base58String */,
-				77CE387E21FC7EED006ADABA /* Tmp */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* Tests */,
 				77CE359721F7DC76006ADABA /* Products */,
@@ -353,7 +344,6 @@
 				77CE388021FC7EED006ADABA /* Info.plist */,
 				77CE387F21FC7EED006ADABA /* TezosKit.h */,
 				77CE380621FC7ED7006ADABA /* Operation */,
-				77CE381021FC7ED7006ADABA /* App */,
 				77CE381721FC7ED7006ADABA /* Cryptography */,
 				77CE381B21FC7ED7006ADABA /* Utils */,
 				77CE381E21FC7ED7006ADABA /* Models */,
@@ -377,17 +367,6 @@
 				77CE380F21FC7ED7006ADABA /* Operation.swift */,
 			);
 			path = Operation;
-			sourceTree = "<group>";
-		};
-		77CE381021FC7ED7006ADABA /* App */ = {
-			isa = PBXGroup;
-			children = (
-				77CE381121FC7ED7006ADABA /* Assets.xcassets */,
-				77CE381221FC7ED7006ADABA /* LaunchScreen.storyboard */,
-				77CE381421FC7ED7006ADABA /* Main.storyboard */,
-				77CE381621FC7ED7006ADABA /* AppDelegate.swift */,
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 		77CE381721FC7ED7006ADABA /* Cryptography */ = {
@@ -473,13 +452,6 @@
 			);
 			path = Client;
 			sourceTree = "<group>";
-		};
-		77CE387E21FC7EED006ADABA /* Tmp */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tmp;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -575,10 +547,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE385121FC7ED8006ADABA /* LaunchScreen.storyboard in Resources */,
-				77CE385021FC7ED8006ADABA /* Assets.xcassets in Resources */,
 				77CE388221FC7EED006ADABA /* Info.plist in Resources */,
-				77CE385221FC7ED8006ADABA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,7 +595,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE385321FC7ED8006ADABA /* AppDelegate.swift in Sources */,
 				77CE386B21FC7ED8006ADABA /* IntegerResponseAdapter.swift in Sources */,
 				77CE385B21FC7ED8006ADABA /* OperationMetadata.swift in Sources */,
 				77CE387A21FC7ED8006ADABA /* PreapplyOperationRPC.swift in Sources */,
@@ -734,25 +702,6 @@
 			targetProxy = 77CE35A121F7DC76006ADABA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		77CE381221FC7ED7006ADABA /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				77CE381321FC7ED7006ADABA /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		77CE381421FC7ED7006ADABA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				77CE381521FC7ED7006ADABA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		77CE35A821F7DC76006ADABA /* Debug */ = {
