@@ -379,7 +379,7 @@ public class TezosClient {
     var contents: [[String: Any]] = []
     var counter = operationMetadata.addressCounter
     for operation in mutableOperations {
-      counter = counter + 1
+      counter += 1
 
       var mutableOperation = operation.dictionaryRepresentation
       mutableOperation["counter"] = String(counter)

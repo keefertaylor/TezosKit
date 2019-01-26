@@ -14,13 +14,13 @@ class TransactionOperationTest: XCTestCase {
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as! String, source)
+    XCTAssertEqual(dictionary["source"] as? String, source)
 
     XCTAssertNotNil(dictionary["destination"])
-    XCTAssertEqual(dictionary["destination"] as! String, destination)
+    XCTAssertEqual(dictionary["destination"] as? String, destination)
 
     XCTAssertNotNil(dictionary["amount"])
-    XCTAssertEqual(dictionary["amount"] as! String, balance.rpcRepresentation)
+    XCTAssertEqual(dictionary["amount"] as? String, balance.rpcRepresentation)
   }
 
   public func testTransationFromWallet() {
@@ -33,12 +33,12 @@ class TransactionOperationTest: XCTestCase {
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as! String, wallet.address)
+    XCTAssertEqual(dictionary["source"] as? String, wallet.address)
 
     XCTAssertNotNil(dictionary["destination"])
-    XCTAssertEqual(dictionary["destination"] as! String, destination)
+    XCTAssertEqual(dictionary["destination"] as? String, destination)
 
     XCTAssertNotNil(dictionary["amount"])
-    XCTAssertEqual(dictionary["amount"] as! String, balance.rpcRepresentation)
+    XCTAssertEqual(dictionary["amount"] as? String, balance.rpcRepresentation)
   }
 }

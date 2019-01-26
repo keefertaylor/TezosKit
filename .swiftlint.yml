@@ -1,0 +1,15 @@
+disabled_rules:
+  - xctfail_message
+opt_in_rules:
+  - empty_count
+  - file_header
+excluded:
+  - Base58String/
+  - Carthage/
+  - Pods/
+  - Tests/
+
+identifier_name:
+  min_length: 1
+file_header:
+  required_pattern: Copyright Keefer Taylor, 201(8|9)

@@ -5,7 +5,8 @@ import XCTest
 
 class MnemonicUtilsTest: XCTestCase {
   // Mnemonic and Passphrase for tests.
-  private let mnemonic = "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
+  private let mnemonic =
+      "soccer click number muscle police corn couch bitter gorilla camp camera shove expire praise pill"
   private let passphrase = "TezosKitTests"
 
   // Expected seed strings with / without passphrase.
