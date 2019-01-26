@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		77CE35A721F7DC76006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE359921F7DC76006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		77CE363121F7EF32006ADABA /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE363021F7EF32006ADABA /* BigInt.framework */; };
-		77CE363321F7F032006ADABA /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE363221F7F032006ADABA /* SipHash.framework */; };
 		77CE363721F7F327006ADABA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CE363521F7F327006ADABA /* README.md */; };
 		77CE363821F7F327006ADABA /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE363621F7F327006ADABA /* Base58String.swift */; };
 		77CE367B21F7F36A006ADABA /* TezosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE363A21F7F36A006ADABA /* TezosClient.swift */; };
@@ -67,9 +65,6 @@
 		77CE36B021F7F36A006ADABA /* ContractCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE367721F7F36A006ADABA /* ContractCode.swift */; };
 		77CE36B121F7F36A006ADABA /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE367921F7F36A006ADABA /* JSONUtils.swift */; };
 		77CE36B221F7F36A006ADABA /* MnemonicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE367A21F7F36A006ADABA /* MnemonicUtil.swift */; };
-		77CE36B421F7F3C0006ADABA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B321F7F3C0006ADABA /* Sodium.framework */; };
-		77CE36B621F7F3CB006ADABA /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B521F7F3CB006ADABA /* CryptoSwift.framework */; };
-		77CE36B821F7F3D6006ADABA /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B721F7F3D6006ADABA /* MnemonicKit.framework */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -107,6 +102,9 @@
 		77CE370421F7F49F006ADABA /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DD21F7F49E006ADABA /* CryptoTests.swift */; };
 		77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */; };
 		77CE370621F7F49F006ADABA /* TezosBalanceResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DF21F7F49E006ADABA /* TezosBalanceResponseAdapterTest.swift */; };
+		77CE370721FBE67C006ADABA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B321F7F3C0006ADABA /* Sodium.framework */; };
+		77CE370821FBE67C006ADABA /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE363021F7EF32006ADABA /* BigInt.framework */; };
+		77CE370A21FBE67C006ADABA /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B721F7F3D6006ADABA /* MnemonicKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,11 +243,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE36B821F7F3D6006ADABA /* MnemonicKit.framework in Frameworks */,
-				77CE36B621F7F3CB006ADABA /* CryptoSwift.framework in Frameworks */,
-				77CE36B421F7F3C0006ADABA /* Sodium.framework in Frameworks */,
-				77CE363321F7F032006ADABA /* SipHash.framework in Frameworks */,
-				77CE363121F7EF32006ADABA /* BigInt.framework in Frameworks */,
+				77CE370721FBE67C006ADABA /* Sodium.framework in Frameworks */,
+				77CE370821FBE67C006ADABA /* BigInt.framework in Frameworks */,
+				77CE370A21FBE67C006ADABA /* MnemonicKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
