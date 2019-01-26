@@ -13,8 +13,6 @@ excluded:
   - Base58String/
   - Carthage/
   - Pods/
-  # TODO: Don't exclude tests
-  - Tests/
 
 identifier_name:
   min_length: 1

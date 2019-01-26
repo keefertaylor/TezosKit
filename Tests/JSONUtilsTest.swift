@@ -58,6 +58,7 @@ class JSONUtilsTest: XCTestCase {
       [["key1": "val1", "key2": Int(42)]] // Values besides strings
     ]
 
+    // swiftlint:disable line_length
     // Parallel sorted array to |inputs|.
     let expectedOutputs = [
       "[{\"key1\":\"val1\",\"key2\":\"val2\"}]",
@@ -65,6 +66,7 @@ class JSONUtilsTest: XCTestCase {
       "[{\"\\\"quotedKey2\\\"\":\"val2\",\"key1\":\"\\\"quotedVal1\\\"\"}]",
       "[{\"key1\":\"val1\",\"key2\":42}]"
     ]
+    // swiftlint:enable line_length
 
     for (i, input) in inputs.enumerated() {
       // Fail if serialization fails.
