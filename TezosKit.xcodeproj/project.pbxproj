@@ -265,7 +265,7 @@
 			children = (
 				77CE363421F7F327006ADABA /* Base58String */,
 				77CE359821F7DC76006ADABA /* TezosKit */,
-				77CE35A321F7DC76006ADABA /* TezosKitTests */,
+				77CE35A321F7DC76006ADABA /* Tests */,
 				77CE359721F7DC76006ADABA /* Products */,
 				77CE362F21F7EF32006ADABA /* Frameworks */,
 			);
@@ -296,7 +296,7 @@
 			path = TezosKit;
 			sourceTree = "<group>";
 		};
-		77CE35A321F7DC76006ADABA /* TezosKitTests */ = {
+		77CE35A321F7DC76006ADABA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				77CE36C221F7F49C006ADABA /* AbstractOperationTest.swift */,
@@ -338,7 +338,7 @@
 				77CE36D021F7F49D006ADABA /* WalletTests.swift */,
 				77CE35A621F7DC76006ADABA /* Info.plist */,
 			);
-			path = TezosKitTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		77CE362F21F7EF32006ADABA /* Frameworks */ = {
