@@ -87,7 +87,7 @@ public struct TezosBalance {
                           offsetBy: paddedBalance.count - decimalDigitCount)
 
     let integerString = paddedBalance[paddedBalance.startIndex ..< integerDigitEndIndex].isEmpty ?
-      paddedBalance[paddedBalance.startIndex ..< integerDigitEndIndex] : "0"
+        "0" : paddedBalance[paddedBalance.startIndex ..< integerDigitEndIndex]
     let decimalString = paddedBalance[integerDigitEndIndex ..< paddedBalance.endIndex]
 
     integerAmount = String(integerString)

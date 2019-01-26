@@ -1,4 +1,5 @@
 disabled_rules:
+  # TODO: Opt in to this rule.
   - xctfail_message
 opt_in_rules:
   - empty_count
@@ -7,6 +8,7 @@ excluded:
   - Base58String/
   - Carthage/
   - Pods/
+  # TODO: Don't exclude tests
   - Tests/
 
 identifier_name:
