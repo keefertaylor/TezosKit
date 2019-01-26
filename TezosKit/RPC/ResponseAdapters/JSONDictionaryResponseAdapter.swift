@@ -9,7 +9,7 @@ public class JSONDictionaryResponseAdapter: AbstractResponseAdapter<[String: Any
   public override class func parse(input: Data) -> [String: Any]? {
     do {
       let json = try JSONSerialization.jsonObject(with: input)
-      guard let typedJSON = json as? Dictionary<String, Any> else {
+      guard let typedJSON = json as? [String: Any] else {
         return nil
       }
       return typedJSON

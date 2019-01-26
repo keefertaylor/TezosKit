@@ -4,8 +4,10 @@ import Foundation
 
 /** An operation to set a delegate for an address. */
 public class DelegationOperation: AbstractOperation {
+  // swiftlint:disable weak_delegate
   /** The address that will be set as the delegate. */
   public let delegate: String
+  // swiftlint:enable weak_delegate
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation

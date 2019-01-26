@@ -1,9 +1,14 @@
 disabled_rules:
-  # TODO: Opt in to this rule.
+  - file_length
+  - function_parameter_count
+  - function_body_length
+  - type_body_length
   - xctfail_message
+
 opt_in_rules:
   - empty_count
   - file_header
+
 excluded:
   - Base58String/
   - Carthage/
@@ -13,5 +18,6 @@ excluded:
 
 identifier_name:
   min_length: 1
+
 file_header:
   required_pattern: Copyright Keefer Taylor, 201(8|9)

@@ -13,6 +13,8 @@ public class StringResponseAdapter: AbstractResponseAdapter<String> {
     guard let decodedString = String(data: input, encoding: .utf8) else {
       return nil
     }
-    return decodedString.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "\""))
+
+    let characterSet = CharacterSet(charactersIn: "\"").union(.whitespacesAndNewlines)
+    return decodedString.trimmingCharacters(in: characterSet)
   }
 }

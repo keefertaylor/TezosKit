@@ -33,7 +33,11 @@ public class TransactionOperation: AbstractOperation {
    * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public convenience init(amount: TezosBalance, source: Wallet, destination: String, parameters _: [String: Any]? = nil, operationFees: OperationFees? = nil) {
+  public convenience init(amount: TezosBalance,
+                          source: Wallet,
+                          destination: String,
+                          parameters _: [String: Any]? = nil,
+                          operationFees: OperationFees? = nil) {
     self.init(amount: amount, source: source.address, destination: destination, operationFees: operationFees)
   }
 
@@ -44,7 +48,11 @@ public class TransactionOperation: AbstractOperation {
    * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
    * @param operationFees OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(amount: TezosBalance, source: String, destination: String, parameters: [String: Any]? = nil, operationFees: OperationFees? = nil) {
+  public init(amount: TezosBalance,
+              source: String,
+              destination: String,
+              parameters: [String: Any]? = nil,
+              operationFees: OperationFees? = nil) {
     self.amount = amount
     self.destination = destination
     self.parameters = parameters

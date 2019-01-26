@@ -21,7 +21,7 @@ public class TezosRPC<T> {
   private let responseAdapterClass: AbstractResponseAdapter<T>.Type
   private let completion: (T?, Error?) -> Void
   public var isPOSTRequest: Bool {
-    if let _ = payload {
+    if payload != nil {
       return true
     }
     return false

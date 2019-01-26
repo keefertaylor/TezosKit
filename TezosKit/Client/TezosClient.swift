@@ -160,7 +160,11 @@ public class TezosClient {
                    operationFees: OperationFees? = nil,
                    completion: @escaping (String?, Error?) -> Void) {
     let transactionOperation =
-      TransactionOperation(amount: amount, source: source, destination: recipientAddress, parameters: parameters, operationFees: operationFees)
+      TransactionOperation(amount: amount,
+                           source: source,
+                           destination: recipientAddress,
+                           parameters: parameters,
+                           operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
                                         source: source,
                                         keys: keys,
@@ -248,7 +252,9 @@ public class TezosClient {
                                contractCode: ContractCode? = nil,
                                operationFees: OperationFees? = nil,
                                completion: @escaping (String?, Error?) -> Void) {
-    let originateAccountOperation = OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
+    let originateAccountOperation = OriginateAccountOperation(address: managerAddress,
+                                                              contractCode: contractCode,
+                                                              operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(operation: originateAccountOperation,
                                         source: managerAddress,
                                         keys: keys,
@@ -366,12 +372,10 @@ public class TezosClient {
     // check if any of the operations to perform requires the address to be revealed. If so,
     // prepend a reveal operation to the operations to perform.
     if operationMetadata.key == nil {
-      for operation in operations {
-        if operation.requiresReveal {
-          let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
-          mutableOperations.insert(revealOperation, at: 0)
-          break
-        }
+      for operation in operations where operation.requiresReveal {
+        let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
+        mutableOperations.insert(revealOperation, at: 0)
+        break
       }
     }
 
@@ -474,12 +478,13 @@ public class TezosClient {
                                                     payload: payload,
                                                     completion: { [weak self] result, error in
                                                       guard let self = self,
-                                                        let _ = result else {
+                                                          result != nil else {
                                                         completion(nil, error)
                                                         return
                                                       }
 
-                                                      self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
+                                                      self.sendInjectionRPC(payload: signedBytesForInjection,
+                                                                            completion: completion)
     })
     send(rpc: preapplyOperationRPC)
   }

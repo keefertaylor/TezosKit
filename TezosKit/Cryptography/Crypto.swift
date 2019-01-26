@@ -53,10 +53,8 @@ public class Crypto {
     let decodedBytes = decodedData.bytes
 
     // Check that the prefix is correct.
-    for (i, byte) in publicKeyHashPrefix.enumerated() {
-      if decodedBytes[i] != byte {
-        return false
-      }
+    for (i, byte) in publicKeyHashPrefix.enumerated() where decodedBytes[i] != byte {
+      return false
     }
 
     // Check that checksum is correct.
@@ -67,10 +65,8 @@ public class Crypto {
       return false
     }
 
-    for (i, byte) in checksum.enumerated() {
-      if expectedChecksum[i] != byte {
-        return false
-      }
+    for (i, byte) in checksum.enumerated() where expectedChecksum[i] != byte {
+      return false
     }
     return true
   }
