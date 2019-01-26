@@ -10,8 +10,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Keefer Taylor" => "keefer@keefertaylor.com" }
   s.source       = { :git => "https://github.com/keefertaylor/TezosKit.git", :tag => "1.1.0" }
-  s.source_files  = "Sources/**/*.swift", "Base58String/*.swift"
-  s.exclude_files = "Sources/App/*.swift"
+  s.source_files  = "TezosKit/**/*.swift", "Base58String/*.swift"
   s.swift_version = "4.2"
   s.ios.deployment_target = "8.0"
   s.osx.deployment_target = "10.10"
