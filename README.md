@@ -49,6 +49,17 @@ TezosKit supports installation via CocoaPods. You can depened on TezosKit by add
 pod "TezosKit"
 ```
 
+### Carthage
+
+If you use [Carthage](https://github.com/Carthage/Carthage) to manage your dependencies, simply add
+TezosKit to your `Cartfile`:
+
+ ```
+github "keefertaylor/TezosKit"
+```
+
+ If you use Carthage to build your dependencies, make sure you have added `BigInt.framework`, `MnemonicKit.framework`,  and `Sodium.framework` to the "_Linked Frameworks and Libraries_" section of your target, and have included them in your Carthage framework copying build phase.
+
 ### LibSodium Errors
 
 If you receive build errors about missing headers for Sodium, you need to install the LibSodium library.
