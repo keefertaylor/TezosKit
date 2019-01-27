@@ -39,10 +39,12 @@ public class TezosRPC<T> {
    * @param payload A payload that should be sent with a POST request.
    * @param completion A completion block which will be called at the end of the request.
    */
-  public init(endpoint: String,
-              responseAdapterClass: AbstractResponseAdapter<T>.Type,
-              payload: String? = nil,
-              completion: @escaping (T?, Error?) -> Void) {
+  public init(
+    endpoint: String,
+    responseAdapterClass: AbstractResponseAdapter<T>.Type,
+    payload: String? = nil,
+    completion: @escaping (T?, Error?) -> Void
+  ) {
     self.endpoint = endpoint
     self.responseAdapterClass = responseAdapterClass
     self.payload = payload

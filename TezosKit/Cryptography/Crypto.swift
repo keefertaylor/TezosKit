@@ -90,8 +90,7 @@ public class Crypto {
    *        operation.
    * @return A OperationSigningResult with the results of the signing if successful, otherwise nil.
    */
-  public static func signForgedOperation(operation: String,
-                                         secretKey: String) -> OperationSigningResult? {
+  public static func signForgedOperation(operation: String, secretKey: String) -> OperationSigningResult? {
     guard let decodedSecretKeyBytes = self.decodedKey(from: secretKey, prefix: secretKeyPrefix) else {
       return nil
     }

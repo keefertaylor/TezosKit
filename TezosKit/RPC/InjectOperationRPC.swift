@@ -10,8 +10,10 @@ public class InjectionRPC: TezosRPC<String> {
    * @param payload A JSON encoded string that represents the signed payload to inject.
    * @param completion A block to be called on completion of the operation.
    */
-  public init(payload: String,
-              completion: @escaping (String?, Error?) -> Void) {
+  public init(
+    payload: String,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let endpoint = "/injection/operation"
     super.init(
       endpoint: endpoint,

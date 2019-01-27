@@ -20,9 +20,9 @@ public class TransactionOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = TezosBalance(balance: 0.001272)
-    let storageLimit = TezosBalance(balance: 0.000257)
-    let gasLimit = TezosBalance(balance: 0.010100)
+    let fee = TezosBalance(balance: 0.001_272)
+    let storageLimit = TezosBalance(balance: 0.000_257)
+    let gasLimit = TezosBalance(balance: 0.010_100)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 

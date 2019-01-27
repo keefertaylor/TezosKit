@@ -152,13 +152,15 @@ public class TezosClient {
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func send(amount: TezosBalance,
-                   to recipientAddress: String,
-                   from source: String,
-                   keys: Keys,
-                   parameters: [String: Any]? = nil,
-                   operationFees: OperationFees? = nil,
-                   completion: @escaping (String?, Error?) -> Void) {
+  public func send(
+    amount: TezosBalance,
+    to recipientAddress: String,
+    from source: String,
+    keys: Keys,
+    parameters: [String: Any]? = nil,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let transactionOperation = TransactionOperation(
       amount: amount,
       source: source,
@@ -188,11 +190,13 @@ public class TezosClient {
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func delegate(from source: String,
-                       to delegate: String,
-                       keys: Keys,
-                       operationFees: OperationFees? = nil,
-                       completion: @escaping (String?, Error?) -> Void) {
+  public func delegate(
+    from source: String,
+    to delegate: String,
+    keys: Keys,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(
       operation: delegationOperation,
@@ -211,10 +215,12 @@ public class TezosClient {
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func undelegate(from source: String,
-                         keys: Keys,
-                         operationFees: OperationFees? = nil,
-                         completion: @escaping (String?, Error?) -> Void) {
+  public func undelegate(
+    from source: String,
+    keys: Keys,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(
       operation: undelegateOperatoin,
@@ -234,9 +240,12 @@ public class TezosClient {
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func registerDelegate(delegate: String, keys: Keys,
-                               operationFees: OperationFees? = nil,
-                               completion: @escaping (String?, Error?) -> Void) {
+  public func registerDelegate(
+    delegate: String,
+    keys: Keys,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(
       operation: registerDelegateOperation,
@@ -256,11 +265,13 @@ public class TezosClient {
    * @param completion A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func originateAccount(managerAddress: String,
-                               keys: Keys,
-                               contractCode: ContractCode? = nil,
-                               operationFees: OperationFees? = nil,
-                               completion: @escaping (String?, Error?) -> Void) {
+  public func originateAccount(
+    managerAddress: String,
+    keys: Keys,
+    contractCode: ContractCode? = nil,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let originateAccountOperation =
       OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
     forgeSignPreapplyAndInjectOperation(
@@ -345,10 +356,12 @@ public class TezosClient {
    * @param keys The keys to use to sign the operation for the address.
    * @param completion A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperation(operation: Operation,
-                                                  source: String,
-                                                  keys: Keys,
-                                                  completion: @escaping (String?, Error?) -> Void) {
+  public func forgeSignPreapplyAndInjectOperation(
+    operation: Operation,
+    source: String,
+    keys: Keys,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     forgeSignPreapplyAndInjectOperations(
       operations: [operation],
       source: source,
@@ -367,10 +380,12 @@ public class TezosClient {
    * @param keys The keys to use to sign the operation for the address.
    * @param completion A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperations(operations: [Operation],
-                                                   source: String,
-                                                   keys: Keys,
-                                                   completion: @escaping (String?, Error?) -> Void) {
+  public func forgeSignPreapplyAndInjectOperations(
+    operations: [Operation],
+    source: String,
+    keys: Keys,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     guard let operationMetadata = getMetadataForOperation(address: source) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
@@ -442,12 +457,14 @@ public class TezosClient {
    * @param keys The keys to use to sign the operation for the address.
    * @param completion A completion block that will be called with the results of the operation.
    */
-  private func signPreapplyAndInjectOperation(operationPayload: [String: Any],
-                                              operationMetadata: OperationMetadata,
-                                              forgeResult: String,
-                                              source _: String,
-                                              keys: Keys,
-                                              completion: @escaping (String?, Error?) -> Void) {
+  private func signPreapplyAndInjectOperation(
+    operationPayload: [String: Any],
+    operationMetadata: OperationMetadata,
+    forgeResult: String,
+    source _: String,
+    keys: Keys,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     guard let operationSigningResult = Crypto.signForgedOperation(operation: forgeResult, secretKey: keys.secretKey),
       let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
@@ -487,22 +504,22 @@ public class TezosClient {
     payload: String,
     signedBytesForInjection: String,
     operationMetadata: OperationMetadata,
-    completion: @escaping (String?, Error?) -> Void) {
+    completion: @escaping (String?, Error?) -> Void
+  ) {
       let preapplyOperationRPC = PreapplyOperationRPC(
         chainID: operationMetadata.chainID,
         headHash: operationMetadata.headHash,
-        payload: payload,
-        completion: { [weak self] result, error in
+        payload: payload
+    ) { [weak self] result, error in
           guard let self = self,
             result != nil else {
               completion(nil, error)
               return
           }
           self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
-        }
-      )
-      send(rpc: preapplyOperationRPC)
-    }
+      }
+    send(rpc: preapplyOperationRPC)
+  }
 
   /**
    * Send an injection RPC.
@@ -511,12 +528,9 @@ public class TezosClient {
    * @param completion A completion block that will be called with the results of the operation.
    */
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
-    let injectRPC = InjectionRPC(
-      payload: payload,
-      completion: { txHash, txError in
+    let injectRPC = InjectionRPC(payload: payload) { txHash, txError in
         completion(txHash, txError)
-      }
-    )
+    }
 
     send(rpc: injectRPC)
   }

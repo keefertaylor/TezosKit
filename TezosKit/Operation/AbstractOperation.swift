@@ -42,12 +42,9 @@ public class AbstractOperation: Operation {
     )
   }
 
-  public init(source: String,
-              kind: OperationKind,
-              operationFees: OperationFees? = nil) {
+  public init(source: String, kind: OperationKind, operationFees: OperationFees? = nil) {
     self.source = source
     self.kind = kind
-
     self.operationFees = operationFees
   }
 }

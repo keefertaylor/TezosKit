@@ -12,10 +12,12 @@ public class ForgeOperationRPC: TezosRPC<String> {
    * @param payload A JSON encoded string representing the operation to inject.
    * @param completion A block to call when the RPC is complete.
    */
-  public init(chainID: String,
-              headHash: String,
-              payload: String,
-              completion: @escaping (String?, Error?) -> Void) {
+  public init(
+    chainID: String,
+    headHash: String,
+    payload: String,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let endpoint = "/chains/" + chainID + "/blocks/" + headHash + "/helpers/forge/operations"
     super.init(
       endpoint: endpoint,

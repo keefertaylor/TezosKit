@@ -50,7 +50,8 @@ class JSONUtilsTest: XCTestCase {
   public func testJSONForArray() {
     let inputs: [[[String: Any]]] = [
       [["key1": "val1", "key2": "val2"]], // Normal
-      [ // Multiple elements
+      // Multiple elements
+      [
         ["dict1key1": "dict1val1", "dict1key2": "dict1val2"],
         ["dict2key1": "dict2val1", "dict2key2": "dict2val2"]
       ],
