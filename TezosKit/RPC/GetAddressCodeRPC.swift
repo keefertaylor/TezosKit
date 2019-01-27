@@ -12,8 +12,6 @@ public class GetAddressCodeRPC: TezosRPC<ContractCode> {
    */
   public init(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/context/contracts/\(address)/script"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: ContractCodeResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: ContractCodeResponseAdapter.self, completion: completion)
   }
 }

@@ -97,20 +97,20 @@ public class Crypto {
     }
 
     guard let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation),
-      let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation,
-                                                    outputLength: 32),
-      let signature = sodium.sign.signature(message: hashedOperation,
-                                            secretKey: decodedSecretKeyBytes),
+      let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation, outputLength: 32),
+      let signature = sodium.sign.signature(message: hashedOperation, secretKey: decodedSecretKeyBytes),
       let signatureHex = sodium.utils.bin2hex(signature),
       let edsig = encode(message: signature, prefix: signedOperationPrefix) else {
       return nil
     }
 
     let sbytes = operation + signatureHex
-    return OperationSigningResult(operationBytes: hashedOperation,
-                                  signature: signature,
-                                  edsig: edsig,
-                                  sbytes: sbytes)
+    return OperationSigningResult(
+      operationBytes: hashedOperation,
+      signature: signature,
+      edsig: edsig,
+      sbytes: sbytes
+    )
   }
 
   /**
@@ -182,9 +182,11 @@ public class Crypto {
     guard let res = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH)) else {
       return nil
     }
-    CC_SHA256((data as NSData).bytes,
-              CC_LONG(data.count),
-              res.mutableBytes.assumingMemoryBound(to: UInt8.self))
+    CC_SHA256(
+      (data as NSData).bytes,
+      CC_LONG(data.count),
+      res.mutableBytes.assumingMemoryBound(to: UInt8.self)
+    )
     return res as Data
   }
 

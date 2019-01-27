@@ -11,8 +11,6 @@ public class GetBallotsRPC: TezosRPC<[String: Any]> {
    */
   public init(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/ballots"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: JSONDictionaryResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: JSONDictionaryResponseAdapter.self, completion: completion)
   }
 }

@@ -17,9 +17,11 @@ public class ForgeOperationRPC: TezosRPC<String> {
               payload: String,
               completion: @escaping (String?, Error?) -> Void) {
     let endpoint = "/chains/" + chainID + "/blocks/" + headHash + "/helpers/forge/operations"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: StringResponseAdapter.self,
-               payload: payload,
-               completion: completion)
+    super.init(
+      endpoint: endpoint,
+      responseAdapterClass: StringResponseAdapter.self,
+      payload: payload,
+      completion: completion
+    )
   }
 }

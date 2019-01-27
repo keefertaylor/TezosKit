@@ -61,8 +61,7 @@ public class TezosRPC<T> {
   public func handleResponse(data: Data?, error: Error?) {
     if let error = error {
       let desc = error.localizedDescription
-      let tezosClientError = TezosClientError(kind: .rpcError,
-                                              underlyingError: desc)
+      let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: desc)
       completion(nil, tezosClientError)
       return
     }

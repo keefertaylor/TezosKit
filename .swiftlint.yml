@@ -8,6 +8,9 @@ disabled_rules:
 opt_in_rules:
   - empty_count
   - file_header
+  - multiline_arguments
+  - multiline_arguments_brackets
+
 
 excluded:
   - Base58String/

@@ -52,10 +52,7 @@ public struct Wallet {
       return nil
     }
 
-    self.init(publicKey: publicKey,
-              secretKey: secretKey,
-              address: address,
-              mnemonic: mnemonic)
+    self.init(publicKey: publicKey, secretKey: secretKey, address: address, mnemonic: mnemonic)
   }
 
   /**

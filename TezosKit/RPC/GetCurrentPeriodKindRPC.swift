@@ -11,8 +11,6 @@ public class GetCurrentPeriodKindRPC: TezosRPC<PeriodKind> {
    */
   public init(completion: @escaping (PeriodKind?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/current_period_kind"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: PeriodKindResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: PeriodKindResponseAdapter.self, completion: completion)
   }
 }

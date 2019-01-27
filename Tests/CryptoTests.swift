@@ -59,15 +59,19 @@ class CryptoTests: XCTestCase {
     let randomWallet = Wallet()!
     let result = Crypto.signForgedOperation(operation: fakeOperation, secretKey: wallet.keys.secretKey)!
 
-    XCTAssertTrue(Crypto.verifyBytes(bytes: result.operationBytes,
-                                     signature: result.signature,
-                                     publicKey: wallet.keys.publicKey))
-    XCTAssertFalse(Crypto.verifyBytes(bytes: result.operationBytes,
-                                      signature: result.signature,
-                                      publicKey: randomWallet.keys.publicKey))
-    XCTAssertFalse(Crypto.verifyBytes(bytes: result.operationBytes,
-                                      signature: [1, 2, 3], publicKey:
-      wallet.keys.publicKey))
+    XCTAssertTrue(
+      Crypto.verifyBytes(bytes: result.operationBytes, signature: result.signature, publicKey: wallet.keys.publicKey)
+    )
+    XCTAssertFalse(
+      Crypto.verifyBytes(
+        bytes: result.operationBytes,
+        signature: result.signature,
+        publicKey: randomWallet.keys.publicKey
+      )
+    )
+    XCTAssertFalse(
+      Crypto.verifyBytes(bytes: result.operationBytes, signature: [1, 2, 3], publicKey: wallet.keys.publicKey)
+    )
   }
 
   public func testSignForgedOperation() {
@@ -81,17 +85,25 @@ class CryptoTests: XCTestCase {
       result.signature,
       [208, 47, 19, 208, 168, 253, 44, 130, 231, 240, 15, 213, 223, 59, 178, 60, 130, 146, 175, 120, 119, 21, 237, 130,
        115, 88, 31, 213, 202, 126, 150, 205, 13, 237, 56, 251, 254, 240, 202, 228, 141, 180, 235, 175, 184, 189, 172,
-       121, 43, 25, 235, 97, 235, 140, 144, 168, 32, 75, 190, 101, 126, 99, 117, 13])
+       121, 43, 25, 235, 97, 235, 140, 144, 168, 32, 75, 190, 101, 126, 99, 117, 13]
+    )
 
     // swiftlint:disable line_length
-    XCTAssertEqual(result.sbytes, "deadbeefd02f13d0a8fd2c82e7f00fd5df3bb23c8292af787715ed8273581fd5ca7e96cd0ded38fbfef0cae48db4ebafb8bdac792b19eb61eb8c90a8204bbe657e63750d")
-    XCTAssertEqual(result.edsig,
-                   "edsigu13UN5tAjQsxaLmXL7vCXM9BRggVDygne5LDZs7fHNH61PXfgbmXaAAq63GR8gqgeqa3aYNH4dnv18LdHaSCetC9sSJUCF")
+    XCTAssertEqual(
+      result.sbytes,
+      "deadbeefd02f13d0a8fd2c82e7f00fd5df3bb23c8292af787715ed8273581fd5ca7e96cd0ded38fbfef0cae48db4ebafb8bdac792b19eb61eb8c90a8204bbe657e63750d"
+    )
+    XCTAssertEqual(
+      result.edsig,
+      "edsigu13UN5tAjQsxaLmXL7vCXM9BRggVDygne5LDZs7fHNH61PXfgbmXaAAq63GR8gqgeqa3aYNH4dnv18LdHaSCetC9sSJUCF"
+    )
     // swiftlint:enable line_length
 
-    XCTAssertEqual(result.operationBytes,
-                   [157, 20, 81, 191, 15, 135, 239, 179, 10, 160, 229, 185, 145, 23, 78, 66, 127, 4, 124, 81, 94, 40,
-                    28, 90, 237, 88, 213, 226, 125, 40, 11, 153])
+    XCTAssertEqual(
+      result.operationBytes,
+      [157, 20, 81, 191, 15, 135, 239, 179, 10, 160, 229, 185, 145, 23, 78, 66, 127, 4, 124, 81, 94, 40, 28, 90, 237,
+       88, 213, 226, 125, 40, 11, 153]
+    )
   }
 
   public func testKeyPairFromSeedString() {
@@ -100,13 +112,17 @@ class CryptoTests: XCTestCase {
       XCTFail()
       return
     }
-    XCTAssertEqual(keyPair.publicKey,
-                   [66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155, 177, 178, 251, 105, 153,
-                    60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62])
-    XCTAssertEqual(keyPair.secretKey,
-                   [204, 231, 139, 87, 237, 143, 78, 198, 118, 126, 211, 95, 58, 164, 29, 245, 37, 160, 52, 85, 226, 75,
-                    204, 69, 168, 81, 143, 99, 251, 237, 167, 114, 66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42,
-                    181, 165, 129, 155, 177, 178, 251, 105, 153, 60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62])
+    XCTAssertEqual(
+      keyPair.publicKey,
+      [66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155, 177, 178, 251, 105, 153, 60, 80, 4,
+       131, 120, 21, 185, 220, 85, 146, 62]
+    )
+    XCTAssertEqual(
+      keyPair.secretKey,
+      [204, 231, 139, 87, 237, 143, 78, 198, 118, 126, 211, 95, 58, 164, 29, 245, 37, 160, 52, 85, 226, 75, 204, 69,
+       168, 81, 143, 99, 251, 237, 167, 114, 66, 154, 152, 108, 128, 114, 164, 10, 31, 58, 62, 42, 181, 165, 129, 155,
+       177, 178, 251, 105, 153, 60, 80, 4, 131, 120, 21, 185, 220, 85, 146, 62]
+    )
 
     let invalidSeedString = "123xyzDefinitelyNotHexEncoded"
     let invalidKeyPair = Crypto.keyPair(from: invalidSeedString)
@@ -133,8 +149,10 @@ class CryptoTests: XCTestCase {
       XCTFail()
       return
     }
-    XCTAssertEqual(secretKey,
-                   "edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp")
+    XCTAssertEqual(
+      secretKey,
+      "edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp"
+    )
   }
 
   public func testTezosPublicHashKeyFromKey() {

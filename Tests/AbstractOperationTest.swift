@@ -20,9 +20,7 @@ class AbstractOperationTest: XCTestCase {
     let storageLimit = TezosBalance(balance: 3)
     let operationFees = OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
 
-    let abstractOperation = AbstractOperation(source: source,
-                                              kind: kind,
-                                              operationFees: operationFees)
+    let abstractOperation = AbstractOperation(source: source, kind: kind, operationFees: operationFees)
     let dictionary = abstractOperation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])

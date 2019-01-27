@@ -159,16 +159,19 @@ public class TezosClient {
                    parameters: [String: Any]? = nil,
                    operationFees: OperationFees? = nil,
                    completion: @escaping (String?, Error?) -> Void) {
-    let transactionOperation =
-      TransactionOperation(amount: amount,
-                           source: source,
-                           destination: recipientAddress,
-                           parameters: parameters,
-                           operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
-                                        source: source,
-                                        keys: keys,
-                                        completion: completion)
+    let transactionOperation = TransactionOperation(
+      amount: amount,
+      source: source,
+      destination: recipientAddress,
+      parameters: parameters,
+      operationFees: operationFees
+    )
+    forgeSignPreapplyAndInjectOperation(
+      operation: transactionOperation,
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -191,10 +194,12 @@ public class TezosClient {
                        operationFees: OperationFees? = nil,
                        completion: @escaping (String?, Error?) -> Void) {
     let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: delegationOperation,
-                                        source: source,
-                                        keys: keys,
-                                        completion: completion)
+    forgeSignPreapplyAndInjectOperation(
+      operation: delegationOperation,
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -211,10 +216,12 @@ public class TezosClient {
                          operationFees: OperationFees? = nil,
                          completion: @escaping (String?, Error?) -> Void) {
     let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: undelegateOperatoin,
-                                        source: source,
-                                        keys: keys,
-                                        completion: completion)
+    forgeSignPreapplyAndInjectOperation(
+      operation: undelegateOperatoin,
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -231,10 +238,12 @@ public class TezosClient {
                                operationFees: OperationFees? = nil,
                                completion: @escaping (String?, Error?) -> Void) {
     let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: registerDelegateOperation,
-                                        source: delegate,
-                                        keys: keys,
-                                        completion: completion)
+    forgeSignPreapplyAndInjectOperation(
+      operation: registerDelegateOperation,
+      source: delegate,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -252,13 +261,14 @@ public class TezosClient {
                                contractCode: ContractCode? = nil,
                                operationFees: OperationFees? = nil,
                                completion: @escaping (String?, Error?) -> Void) {
-    let originateAccountOperation = OriginateAccountOperation(address: managerAddress,
-                                                              contractCode: contractCode,
-                                                              operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: originateAccountOperation,
-                                        source: managerAddress,
-                                        keys: keys,
-                                        completion: completion)
+    let originateAccountOperation =
+      OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
+    forgeSignPreapplyAndInjectOperation(
+      operation: originateAccountOperation,
+      source: managerAddress,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -339,10 +349,12 @@ public class TezosClient {
                                                   source: String,
                                                   keys: Keys,
                                                   completion: @escaping (String?, Error?) -> Void) {
-    forgeSignPreapplyAndInjectOperations(operations: [operation],
-                                         source: source,
-                                         keys: keys,
-                                         completion: completion)
+    forgeSignPreapplyAndInjectOperations(
+      operations: [operation],
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -398,20 +410,24 @@ public class TezosClient {
       return
     }
 
-    let forgeRPC = ForgeOperationRPC(chainID: operationMetadata.chainID,
-                                     headHash: operationMetadata.headHash,
-                                     payload: jsonPayload) { [weak self] result, error in
+    let forgeRPC = ForgeOperationRPC(
+      chainID: operationMetadata.chainID,
+      headHash: operationMetadata.headHash,
+      payload: jsonPayload
+    ) { [weak self] result, error in
       guard let self = self,
         let result = result else {
         completion(nil, error)
         return
       }
-      self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
-                                          operationMetadata: operationMetadata,
-                                          forgeResult: result,
-                                          source: source,
-                                          keys: keys,
-                                          completion: completion)
+      self.signPreapplyAndInjectOperation(
+        operationPayload: operationPayload,
+        operationMetadata: operationMetadata,
+        forgeResult: result,
+        source: source,
+        keys: keys,
+        completion: completion
+      )
     }
     send(rpc: forgeRPC)
   }
@@ -432,8 +448,7 @@ public class TezosClient {
                                               source _: String,
                                               keys: Keys,
                                               completion: @escaping (String?, Error?) -> Void) {
-    guard let operationSigningResult = Crypto.signForgedOperation(operation: forgeResult,
-                                                                  secretKey: keys.secretKey),
+    guard let operationSigningResult = Crypto.signForgedOperation(operation: forgeResult, secretKey: keys.secretKey),
       let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
@@ -451,10 +466,12 @@ public class TezosClient {
       return
     }
 
-    preapplyAndInjectRPC(payload: signedJsonPayload,
-                         signedBytesForInjection: jsonSignedBytes,
-                         operationMetadata: operationMetadata,
-                         completion: completion)
+    preapplyAndInjectRPC(
+      payload: signedJsonPayload,
+      signedBytesForInjection: jsonSignedBytes,
+      operationMetadata: operationMetadata,
+      completion: completion
+    )
   }
 
   /**
@@ -466,25 +483,26 @@ public class TezosClient {
    * @param operationMetadata Metadata related to the operation.
    * @param completion A completion block that will be called with the results of the operation.
    */
-  private func preapplyAndInjectRPC(payload: String,
-                                    signedBytesForInjection: String,
-                                    operationMetadata: OperationMetadata,
-                                    completion: @escaping (String?, Error?) -> Void) {
-    let preapplyOperationRPC = PreapplyOperationRPC(chainID: operationMetadata.chainID,
-                                                    headHash: operationMetadata.headHash,
-                                                    payload: payload,
-                                                    completion: { [weak self] result, error in
-                                                      guard let self = self,
-                                                          result != nil else {
-                                                        completion(nil, error)
-                                                        return
-                                                      }
-
-                                                      self.sendInjectionRPC(payload: signedBytesForInjection,
-                                                                            completion: completion)
-    })
-    send(rpc: preapplyOperationRPC)
-  }
+  private func preapplyAndInjectRPC(
+    payload: String,
+    signedBytesForInjection: String,
+    operationMetadata: OperationMetadata,
+    completion: @escaping (String?, Error?) -> Void) {
+      let preapplyOperationRPC = PreapplyOperationRPC(
+        chainID: operationMetadata.chainID,
+        headHash: operationMetadata.headHash,
+        payload: payload,
+        completion: { [weak self] result, error in
+          guard let self = self,
+            result != nil else {
+              completion(nil, error)
+              return
+          }
+          self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
+        }
+      )
+      send(rpc: preapplyOperationRPC)
+    }
 
   /**
    * Send an injection RPC.
@@ -493,9 +511,12 @@ public class TezosClient {
    * @param completion A completion block that will be called with the results of the operation.
    */
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
-    let injectRPC = InjectionRPC(payload: payload, completion: { txHash, txError in
-      completion(txHash, txError)
-    })
+    let injectRPC = InjectionRPC(
+      payload: payload,
+      completion: { txHash, txError in
+        completion(txHash, txError)
+      }
+    )
 
     send(rpc: injectRPC)
   }
@@ -618,11 +639,13 @@ public class TezosClient {
       let headHash = headHash,
       let chainID = chainID,
       let protocolHash = protocolHash {
-      return OperationMetadata(chainID: chainID,
-                               headHash: headHash,
-                               protocolHash: protocolHash,
-                               addressCounter: operationCounter,
-                               key: addressKey)
+      return OperationMetadata(
+        chainID: chainID,
+        headHash: headHash,
+        protocolHash: protocolHash,
+        addressCounter: operationCounter,
+        key: addressKey
+      )
     }
     return nil
   }

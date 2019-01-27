@@ -11,8 +11,6 @@ public class GetVotingDelegateRightsRPC: TezosRPC<[[String: Any]]> {
    */
   public init(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/listings"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: JSONArrayResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: JSONArrayResponseAdapter.self, completion: completion)
   }
 }

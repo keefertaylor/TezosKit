@@ -17,9 +17,11 @@ public class PreapplyOperationRPC: TezosRPC<[[String: Any]]> {
               payload: String,
               completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let endpoint = "chains/" + chainID + "/blocks/" + headHash + "/helpers/preapply/operations"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: JSONArrayResponseAdapter.self,
-               payload: payload,
-               completion: completion)
+    super.init(
+      endpoint: endpoint,
+      responseAdapterClass: JSONArrayResponseAdapter.self,
+      payload: payload,
+      completion: completion
+    )
   }
 }

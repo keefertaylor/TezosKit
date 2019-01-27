@@ -11,8 +11,6 @@ public class GetChainHeadHashRPC: TezosRPC<String> {
    */
   public init(completion: @escaping (String?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/hash"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: StringResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self, completion: completion)
   }
 }

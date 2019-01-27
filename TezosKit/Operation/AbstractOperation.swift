@@ -35,9 +35,11 @@ public class AbstractOperation: Operation {
   }
 
   public var defaultFees: OperationFees {
-    return OperationFees(fee: TezosBalance.zeroBalance,
-                         gasLimit: TezosBalance.zeroBalance,
-                         storageLimit: TezosBalance.zeroBalance)
+    return OperationFees(
+      fee: TezosBalance.zeroBalance,
+      gasLimit: TezosBalance.zeroBalance,
+      storageLimit: TezosBalance.zeroBalance
+    )
   }
 
   public init(source: String,

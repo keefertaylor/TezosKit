@@ -11,8 +11,6 @@ public class GetProposalUnderEvaluationRPC: TezosRPC<String> {
    */
   public init(completion: @escaping (String?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/current_proposal"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: StringResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self, completion: completion)
   }
 }

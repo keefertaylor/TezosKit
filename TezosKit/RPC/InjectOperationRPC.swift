@@ -13,9 +13,11 @@ public class InjectionRPC: TezosRPC<String> {
   public init(payload: String,
               completion: @escaping (String?, Error?) -> Void) {
     let endpoint = "/injection/operation"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: StringResponseAdapter.self,
-               payload: payload,
-               completion: completion)
+    super.init(
+      endpoint: endpoint,
+      responseAdapterClass: StringResponseAdapter.self,
+      payload: payload,
+      completion: completion
+    )
   }
 }

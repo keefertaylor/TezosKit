@@ -11,8 +11,6 @@ public class GetExpectedQuorumRPC: TezosRPC<Int> {
    */
   public init(completion: @escaping (Int?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/current_quorum"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: IntegerResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: IntegerResponseAdapter.self, completion: completion)
   }
 }
