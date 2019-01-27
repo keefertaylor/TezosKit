@@ -7,7 +7,7 @@ import Foundation
  */
 public class GetChainHeadHashRPC: TezosRPC<String> {
   /**
-   * @param completion A completion block to be called on success or failure.
+   * - Parameter completion: A completion block to be called on success or failure.
    */
   public init(completion: @escaping (String?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/hash"

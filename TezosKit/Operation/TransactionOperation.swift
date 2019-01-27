@@ -27,11 +27,12 @@ public class TransactionOperation: AbstractOperation {
   }
 
   /**
-   * @param amount The amount of XTZ to transact.
-   * @param source The wallet that is sending the XTZ.
-   * @param to The address that is receiving the XTZ.
-   * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter amount: The amount of XTZ to transact.
+   * - Parameter source: The wallet that is sending the XTZ.
+   * - Parameter to: The address that is receiving the XTZ.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
+   *             contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public convenience init(
     amount: TezosBalance,
@@ -44,11 +45,11 @@ public class TransactionOperation: AbstractOperation {
   }
 
   /**
-   * @param amount The amount of XTZ to transact.
-   * @param from The address that is sending the XTZ.
-   * @param to The address that is receiving the XTZ.
-   * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter amount: The amount of XTZ to transact.
+   * - Parameter from: The address that is sending the XTZ.
+   * - Parameter to: The address that is receiving the XTZ.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public init(
     amount: TezosBalance,

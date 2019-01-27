@@ -23,9 +23,9 @@ public class DelegationOperation: AbstractOperation {
   }
 
   /**
-   * @param source The address that will delegate funds.
-   * @param delegate The address to delegate to.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter source: The address that will delegate funds.
+   * - Parameter delegate: The address to delegate to.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public init(source: String, to delegate: String, operationFees: OperationFees? = nil) {
     self.delegate = delegate

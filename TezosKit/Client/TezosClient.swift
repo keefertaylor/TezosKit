@@ -77,7 +77,7 @@ public class TezosClient {
   /**
    * Initialize a new TezosClient.
    *
-   * @param removeNodeURL The path to the remote node.
+   * - Parameter remoteNodeURL: The path to the remote node.
    */
   public convenience init(remoteNodeURL: URL) {
     let urlSession = URLSession.shared
@@ -87,7 +87,7 @@ public class TezosClient {
   /**
    * Initialize a new TezosClient.
    *
-   * @param removeNodeURL The path to the remote node.
+   * - Parameter remoteNodeURLL The path to the remote node.
    */
   public init(remoteNodeURL: URL, urlSession: URLSession) {
     self.remoteNodeURL = remoteNodeURL
@@ -143,13 +143,13 @@ public class TezosClient {
   /**
    * Transact Tezos between accounts.
    *
-   * @param balance The balance to send.
-   * @param recipientAddress The address which will receive the balance.
-   * @param source The address sending the balance.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
+   * - Parameter balance: The balance to send.
+   * - Parameter recipientAddress: The address which will receive the balance.
+   * - Parameter source: The address sending the balance.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
   public func send(
@@ -183,12 +183,12 @@ public class TezosClient {
    * is not checked on an input to this methods. Thus, the source address must be a KT1 address and
    * the keys to sign the operation for the address are the keys used to manage the TZ1 address.
    *
-   * @param recipientAddress The address which will receive the balance.
-   * @param source The address sending the balance.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter recipientAddress: The address which will receive the balance.
+   * - Parameter source: The address sending the balance.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash if the
+   *             operation was successful.
    */
   public func delegate(
     from source: String,
@@ -209,11 +209,11 @@ public class TezosClient {
   /**
    * Clear the delegate of an originated account.
    *
-   * @param source The address which is removing the delegate.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter source: The address which is removing the delegate.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the  transaction ID hash
+   *             if the operation was successful.
    */
   public func undelegate(
     from source: String,
@@ -233,12 +233,12 @@ public class TezosClient {
   /**
    * Register an address as a delegate.
    *
-   * @param recipientAddress The address which will receive the balance.
-   * @param source The address sending the balance.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter recipientAddress: The address which will receive the balance.
+   * - Parameter source: The address sending the balance.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
+   *             if the operation was successful.
    */
   public func registerDelegate(
     delegate: String,
@@ -258,12 +258,12 @@ public class TezosClient {
   /**
    * Originate a new account from the given account.
    *
-   * @param managerAddress The address which will manage the new account.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param contractCode Optional code to associate with the originated contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter managerAddress: The address which will manage the new account.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter contractCode: Optional code to associate with the originated contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
+   *             if the operation was successful.
    */
   public func originateAccount(
     managerAddress: String,
@@ -285,7 +285,7 @@ public class TezosClient {
   /**
    * Returns the code associated with the address as a NSDictionary.
    *
-   * @param address The address of the contract to load.
+   * - Parameter address: The address of the contract to load.
    */
   public func getAddressCode(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
     let rpc = GetAddressCodeRPC(address: address, completion: completion)
@@ -351,10 +351,10 @@ public class TezosClient {
   /**
    * Forge, sign, preapply and then inject a single operation.
    *
-   * @param operation The operation which will be used to forge the operation.
-   * @param source The address performing the operation.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter operation: The operation which will be used to forge the operation.
+   * - Parameter source: The address performing the operation.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   public func forgeSignPreapplyAndInjectOperation(
     operation: Operation,
@@ -375,10 +375,10 @@ public class TezosClient {
    *
    * Operations are processed in the order they are placed in the operation array.
    *
-   * @param operation The operation which will be used to forge the operation.
-   * @param source The address performing the operation.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter operation: The operation which will be used to forge the operation.
+   * - Parameter source: The address performing the operation.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   public func forgeSignPreapplyAndInjectOperations(
     operations: [Operation],
@@ -450,12 +450,12 @@ public class TezosClient {
   /**
    * Sign the result of a forged operation, preapply and inject it if successful.
    *
-   * @param operationPayload The operation payload which was used to forge the operation.
-   * @param operationMetadata Metadata related to the operation.
-   * @param forgeResult The result of forging the operation payload.
-   * @param source The address performing the operation.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter operationPayload: The operation payload which was used to forge the operation.
+   * - Parameter operationMetadata: Metadata related to the operation.
+   * - Parameter forgeResult: The result of forging the operation payload.
+   * - Parameter source: The address performing the operation.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func signPreapplyAndInjectOperation(
     operationPayload: [String: Any],
@@ -494,11 +494,10 @@ public class TezosClient {
   /**
    * Preapply an operation and inject the operation if successful.
    *
-   * @param payload A JSON encoded string that will be preapplied.
-   * @param signedBytesForInjection A JSON encoded string that contains signed bytes for the
-   *        preapplied operation.
-   * @param operationMetadata Metadata related to the operation.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter payload: A JSON encoded string that will be preapplied.
+   * - Parameter signedBytesForInjection: A JSON encoded string that contains signed bytes for the preapplied operation.
+   * - Parameter operationMetadata: Metadata related to the operation.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func preapplyAndInjectRPC(
     payload: String,
@@ -524,8 +523,8 @@ public class TezosClient {
   /**
    * Send an injection RPC.
    *
-   * @param payload A JSON compatible string representing the singed operation bytes.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter payload: A JSON compatible string representing the singed operation bytes.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
     let injectRPC = InjectionRPC(payload: payload) { txHash, txError in

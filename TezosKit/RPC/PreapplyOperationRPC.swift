@@ -7,10 +7,10 @@ import Foundation
  */
 public class PreapplyOperationRPC: TezosRPC<[[String: Any]]> {
   /**
-   * @param chainID The chain ID to operate on.
-   * @param headHash The hash of the block at the head of chain to operate on.
-   * @param payload A JSON encoded string representing an operation to preapply with forged bytes.
-   * @param completion A block to be called at completion of the operation.
+   * - Parameter chainID: The chain ID to operate on.
+   * - Parameter headHash: The hash of the block at the head of chain to operate on.
+   * - Parameter payload: A JSON encoded string representing an operation to preapply with forged bytes.
+   * - Parameter completion: A block to be called at completion of the operation.
    */
   public init(
     chainID: String,

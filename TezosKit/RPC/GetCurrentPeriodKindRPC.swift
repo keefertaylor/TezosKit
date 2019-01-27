@@ -7,7 +7,7 @@ import Foundation
  */
 public class GetCurrentPeriodKindRPC: TezosRPC<PeriodKind> {
   /**
-   * @param completion A block to be called at the completion of the operation.
+   * - Parameter completion: A block to be called at the completion of the operation.
    */
   public init(completion: @escaping (PeriodKind?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/current_period_kind"

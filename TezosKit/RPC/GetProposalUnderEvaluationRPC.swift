@@ -7,7 +7,7 @@ import Foundation
  */
 public class GetProposalUnderEvaluationRPC: TezosRPC<String> {
   /**
-   * @param completion A block to be called at the completion of the operation.
+   * - Parameter completion: A block to be called at the completion of the operation.
    */
   public init(completion: @escaping (String?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/current_proposal"

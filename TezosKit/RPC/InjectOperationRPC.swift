@@ -7,8 +7,8 @@ import Foundation
  */
 public class InjectionRPC: TezosRPC<String> {
   /**
-   * @param payload A JSON encoded string that represents the signed payload to inject.
-   * @param completion A block to be called on completion of the operation.
+   * - Parameter payload: A JSON encoded string that represents the signed payload to inject.
+   * - Parameter completion: A block to be called on completion of the operation.
    */
   public init(
     payload: String,

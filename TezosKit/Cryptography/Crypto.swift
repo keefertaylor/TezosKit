@@ -85,10 +85,9 @@ public class Crypto {
   /**
    * Sign a forged operation with the given secret key.
    *
-   * @param operation A hex encoded string representing the forged operation
-   * @param secretKey A base58check encoded secret key prefixed with 'edsk' which will sign the
-   *        operation.
-   * @return A OperationSigningResult with the results of the signing if successful, otherwise nil.
+   * - Parameter operation: A hex encoded string representing the forged operation
+   * - Parameter secretKey: A base58check encoded secret key prefixed with 'edsk' which will sign the operation.
+   * - Returns: A OperationSigningResult with the results of the signing if successful, otherwise nil.
    */
   public static func signForgedOperation(operation: String, secretKey: String) -> OperationSigningResult? {
     guard let decodedSecretKeyBytes = self.decodedKey(from: secretKey, prefix: secretKeyPrefix) else {

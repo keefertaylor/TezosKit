@@ -41,7 +41,7 @@ public struct TezosBalance {
   /**
    * Initialize a new balance from a given decimal number.
    *
-   * @warning Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
+   * - Warning:  Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
    * is dropped.
    */
   public init(balance: Double) {
