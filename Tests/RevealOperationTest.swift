@@ -12,10 +12,10 @@ class RevealOperationTest: XCTestCase {
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as! String, source)
+    XCTAssertEqual(dictionary["source"] as? String, source)
 
     XCTAssertNotNil(dictionary["public_key"])
-    XCTAssertEqual(dictionary["public_key"] as! String, publicKey)
+    XCTAssertEqual(dictionary["public_key"] as? String, publicKey)
   }
 
   public func testDictionaryRepresentationFromWallet() {
@@ -28,9 +28,9 @@ class RevealOperationTest: XCTestCase {
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as! String, wallet.address)
+    XCTAssertEqual(dictionary["source"] as? String, wallet.address)
 
     XCTAssertNotNil(dictionary["public_key"])
-    XCTAssertEqual(dictionary["public_key"] as! String, wallet.keys.publicKey)
+    XCTAssertEqual(dictionary["public_key"] as? String, wallet.keys.publicKey)
   }
 }

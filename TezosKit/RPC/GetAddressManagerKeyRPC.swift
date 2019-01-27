@@ -7,13 +7,11 @@ import Foundation
  */
 public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
   /**
-   * @param address The address to retrieve info about.
-   * @param completion A completion block to be called on success or failure.
+   * - Parameter address: The address to retrieve info about.
+   * - Parameter completion: A completion block to be called on success or failure.
    */
   public init(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/manager_key"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: JSONDictionaryResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: JSONDictionaryResponseAdapter.self, completion: completion)
   }
 }

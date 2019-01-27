@@ -17,8 +17,8 @@ public class MnemonicUtil {
   /**
    * Generate a seed string from a given mnemonic.
    *
-   * @param mnemonic A BIP39 mnemonic phrase.
-   * @param passphrase An optional passphrase used for encryption.
+   * - Parameter mnemonic: A BIP39 mnemonic phrase.
+   * - Parameter passphrase: An optional passphrase used for encryption.
    */
   public static func seedString(from mnemonic: String, passphrase: String = "") -> String? {
     guard let rawSeedString =
@@ -31,8 +31,8 @@ public class MnemonicUtil {
   /**
    * Validate if the given mnemonic is a valid mnemonic.
    *
-   * @param mnemonic The mnemonic to validate.
-   * @return true if the mnemonic was valid, otherwise false.
+   * - Parameter mnemonic: The mnemonic to validate.
+   * - Returns: true if the mnemonic was valid, otherwise false.
    */
   public static func validate(mnemonic: String) -> Bool {
     return Mnemonic.validate(mnemonic: mnemonic)

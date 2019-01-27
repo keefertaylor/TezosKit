@@ -12,9 +12,9 @@ class DelegationOperationTest: XCTestCase {
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as! String, source)
+    XCTAssertEqual(dictionary["source"] as? String, source)
 
     XCTAssertNotNil(dictionary["delegate"])
-    XCTAssertEqual(dictionary["delegate"] as! String, delegate)
+    XCTAssertEqual(dictionary["delegate"] as? String, delegate)
   }
 }

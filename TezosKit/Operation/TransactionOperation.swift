@@ -20,31 +20,45 @@ public class TransactionOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = TezosBalance(balance: 0.001272)
-    let storageLimit = TezosBalance(balance: 0.000257)
-    let gasLimit = TezosBalance(balance: 0.010100)
+    let fee = TezosBalance(balance: 0.001_272)
+    let storageLimit = TezosBalance(balance: 0.000_257)
+    let gasLimit = TezosBalance(balance: 0.010_100)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
   /**
-   * @param amount The amount of XTZ to transact.
-   * @param source The wallet that is sending the XTZ.
-   * @param to The address that is receiving the XTZ.
-   * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter amount: The amount of XTZ to transact.
+   * - Parameter source: The wallet that is sending the XTZ.
+   * - Parameter to: The address that is receiving the XTZ.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
+   *             contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
-  public convenience init(amount: TezosBalance, source: Wallet, destination: String, parameters _: [String: Any]? = nil, operationFees: OperationFees? = nil) {
+  public convenience init(
+    amount: TezosBalance,
+    source: Wallet,
+    destination: String,
+    parameters _: [String: Any]? = nil,
+    operationFees: OperationFees? = nil
+  ) {
     self.init(amount: amount, source: source.address, destination: destination, operationFees: operationFees)
   }
 
   /**
-   * @param amount The amount of XTZ to transact.
-   * @param from The address that is sending the XTZ.
-   * @param to The address that is receiving the XTZ.
-   * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter amount: The amount of XTZ to transact.
+   * - Parameter from: The address that is sending the XTZ.
+   * - Parameter to: The address that is receiving the XTZ.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
+   *             contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
-  public init(amount: TezosBalance, source: String, destination: String, parameters: [String: Any]? = nil, operationFees: OperationFees? = nil) {
+  public init(
+    amount: TezosBalance,
+    source: String,
+    destination: String,
+    parameters: [String: Any]? = nil,
+    operationFees: OperationFees? = nil
+  ) {
     self.amount = amount
     self.destination = destination
     self.parameters = parameters

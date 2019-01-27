@@ -20,24 +20,22 @@ class AbstractOperationTest: XCTestCase {
     let storageLimit = TezosBalance(balance: 3)
     let operationFees = OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
 
-    let abstractOperation = AbstractOperation(source: source,
-                                              kind: kind,
-                                              operationFees: operationFees)
+    let abstractOperation = AbstractOperation(source: source, kind: kind, operationFees: operationFees)
     let dictionary = abstractOperation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as! String, source)
+    XCTAssertEqual(dictionary["source"] as? String, source)
 
     XCTAssertNotNil(dictionary["kind"])
-    XCTAssertEqual(dictionary["kind"] as! String, kind.rawValue)
+    XCTAssertEqual(dictionary["kind"] as? String, kind.rawValue)
 
     XCTAssertNotNil(dictionary["fee"])
-    XCTAssertEqual(dictionary["fee"] as! String, fee.rpcRepresentation)
+    XCTAssertEqual(dictionary["fee"] as? String, fee.rpcRepresentation)
 
     XCTAssertNotNil(dictionary["gas_limit"])
-    XCTAssertEqual(dictionary["gas_limit"] as! String, gasLimit.rpcRepresentation)
+    XCTAssertEqual(dictionary["gas_limit"] as? String, gasLimit.rpcRepresentation)
 
     XCTAssertNotNil(dictionary["storage_limit"])
-    XCTAssertEqual(dictionary["storage_limit"] as! String, storageLimit.rpcRepresentation)
+    XCTAssertEqual(dictionary["storage_limit"] as? String, storageLimit.rpcRepresentation)
   }
 }

@@ -19,17 +19,17 @@ public class RevealOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = TezosBalance(balance: 0.001269)
+    let fee = TezosBalance(balance: 0.001_269)
     let storageLimit = TezosBalance.zeroBalance
-    let gasLimit = TezosBalance(balance: 0.010000)
+    let gasLimit = TezosBalance(balance: 0.010_000)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
   /**
    * Initialize a new reveal operation for the given wallet.
    *
-   * @param wallet The wallet that will be revealed.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter wallet: The wallet that will be revealed.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public convenience init(from wallet: Wallet, operationFees: OperationFees? = nil) {
     self.init(from: wallet.address, publicKey: wallet.keys.publicKey, operationFees: operationFees)
@@ -38,9 +38,9 @@ public class RevealOperation: AbstractOperation {
   /**
    * Initialize a new reveal operation.
    *
-   * @param address The address to reveal.
-   * @param publicKey The public key of the address to reveal.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter address: The address to reveal.
+   * - Parameter publicKey: The public key of the address to reveal.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public init(from address: String, publicKey: String, operationFees: OperationFees? = nil) {
     self.publicKey = publicKey

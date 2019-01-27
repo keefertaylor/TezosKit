@@ -41,7 +41,7 @@ public struct TezosBalance {
   /**
    * Initialize a new balance from a given decimal number.
    *
-   * @warning Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
+   * - Warning:  Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
    * is dropped.
    */
   public init(balance: Double) {
@@ -83,10 +83,10 @@ public struct TezosBalance {
     }
 
     let integerDigitEndIndex =
-      paddedBalance.index(paddedBalance.startIndex,
-                          offsetBy: paddedBalance.count - decimalDigitCount)
+      paddedBalance.index(paddedBalance.startIndex, offsetBy: paddedBalance.count - decimalDigitCount)
 
-    let integerString = paddedBalance[paddedBalance.startIndex ..< integerDigitEndIndex].count > 0 ? paddedBalance[paddedBalance.startIndex ..< integerDigitEndIndex] : "0"
+    let integerRange = paddedBalance.startIndex ..< integerDigitEndIndex
+    let integerString = paddedBalance[integerRange].isEmpty ? "0" : paddedBalance[integerRange]
     let decimalString = paddedBalance[integerDigitEndIndex ..< paddedBalance.endIndex]
 
     integerAmount = String(integerString)

@@ -53,10 +53,8 @@ public class Crypto {
     let decodedBytes = decodedData.bytes
 
     // Check that the prefix is correct.
-    for (i, byte) in publicKeyHashPrefix.enumerated() {
-      if decodedBytes[i] != byte {
-        return false
-      }
+    for (i, byte) in publicKeyHashPrefix.enumerated() where decodedBytes[i] != byte {
+      return false
     }
 
     // Check that checksum is correct.
@@ -67,10 +65,8 @@ public class Crypto {
       return false
     }
 
-    for (i, byte) in checksum.enumerated() {
-      if expectedChecksum[i] != byte {
-        return false
-      }
+    for (i, byte) in checksum.enumerated() where expectedChecksum[i] != byte {
+      return false
     }
     return true
   }
@@ -89,32 +85,30 @@ public class Crypto {
   /**
    * Sign a forged operation with the given secret key.
    *
-   * @param operation A hex encoded string representing the forged operation
-   * @param secretKey A base58check encoded secret key prefixed with 'edsk' which will sign the
-   *        operation.
-   * @return A OperationSigningResult with the results of the signing if successful, otherwise nil.
+   * - Parameter operation: A hex encoded string representing the forged operation
+   * - Parameter secretKey: A base58check encoded secret key prefixed with 'edsk' which will sign the operation.
+   * - Returns: A OperationSigningResult with the results of the signing if successful, otherwise nil.
    */
-  public static func signForgedOperation(operation: String,
-                                         secretKey: String) -> OperationSigningResult? {
+  public static func signForgedOperation(operation: String, secretKey: String) -> OperationSigningResult? {
     guard let decodedSecretKeyBytes = self.decodedKey(from: secretKey, prefix: secretKeyPrefix) else {
       return nil
     }
 
     guard let watermarkedOperation = sodium.utils.hex2bin(operationWaterMark + operation),
-      let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation,
-                                                    outputLength: 32),
-      let signature = sodium.sign.signature(message: hashedOperation,
-                                            secretKey: decodedSecretKeyBytes),
+      let hashedOperation = sodium.genericHash.hash(message: watermarkedOperation, outputLength: 32),
+      let signature = sodium.sign.signature(message: hashedOperation, secretKey: decodedSecretKeyBytes),
       let signatureHex = sodium.utils.bin2hex(signature),
       let edsig = encode(message: signature, prefix: signedOperationPrefix) else {
       return nil
     }
 
     let sbytes = operation + signatureHex
-    return OperationSigningResult(operationBytes: hashedOperation,
-                                  signature: signature,
-                                  edsig: edsig,
-                                  sbytes: sbytes)
+    return OperationSigningResult(
+      operationBytes: hashedOperation,
+      signature: signature,
+      edsig: edsig,
+      sbytes: sbytes
+    )
   }
 
   /**
@@ -186,9 +180,11 @@ public class Crypto {
     guard let res = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH)) else {
       return nil
     }
-    CC_SHA256((data as NSData).bytes,
-              CC_LONG(data.count),
-              res.mutableBytes.assumingMemoryBound(to: UInt8.self))
+    CC_SHA256(
+      (data as NSData).bytes,
+      CC_LONG(data.count),
+      res.mutableBytes.assumingMemoryBound(to: UInt8.self)
+    )
     return res as Data
   }
 

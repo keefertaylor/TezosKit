@@ -7,12 +7,10 @@ import Foundation
  */
 public class GetChainHeadRPC: TezosRPC<[String: Any]> {
   /**
-   * @param completion A block to be called at the completion of the operation.
+   * - Parameter completion: A block to be called at the completion of the operation.
    */
   public init(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: JSONDictionaryResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: JSONDictionaryResponseAdapter.self, completion: completion)
   }
 }

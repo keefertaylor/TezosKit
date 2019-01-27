@@ -27,7 +27,7 @@ public struct Wallet {
   /**
    * Create a new wallet by generating a mnemonic and encrypted with an optional passphrase.
    *
-   * @param passphrase An optional passphrase used for encryption.
+   * - Parameter passphrase: An optional passphrase used for encryption.
    */
   public init?(passphrase: String = "") {
     guard let mnemonic = MnemonicUtil.generateMnemonic() else {
@@ -39,9 +39,8 @@ public struct Wallet {
   /**
    * Create a new wallet with the given mnemonic and encrypted with an optional passphrase.
    *
-   * @param mnemonic A space delimited string of english mnemonic words from the BIP39
-   *        specification.
-   * @param passphrase An optional passphrase used for encryption.
+   * - Parameter mnemonic: A space delimited string of english mnemonic words from the BIP39 specification.
+   * - Parameter passphrase: An optional passphrase used for encryption.
    */
   public init?(mnemonic: String, passphrase: String = "") {
     guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
@@ -52,16 +51,13 @@ public struct Wallet {
       return nil
     }
 
-    self.init(publicKey: publicKey,
-              secretKey: secretKey,
-              address: address,
-              mnemonic: mnemonic)
+    self.init(publicKey: publicKey, secretKey: secretKey, address: address, mnemonic: mnemonic)
   }
 
   /**
    * Create a wallet with a given secret key.
    *
-   * @param secretKey A base58check encoded secret key, prefixed with "edsk".
+   * - Parameter secretKey: A base58check encoded secret key, prefixed with "edsk".
    */
   public init?(secretKey: String) {
     guard let publicKey = Crypto.extractPublicKey(secretKey: secretKey),

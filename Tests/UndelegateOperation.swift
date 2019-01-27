@@ -11,7 +11,7 @@ class UndelegateOperationTest: XCTestCase {
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as! String, source)
+    XCTAssertEqual(dictionary["source"] as? String, source)
 
     XCTAssertNil(dictionary["delegate"])
   }

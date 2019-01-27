@@ -19,8 +19,8 @@ class PeriodKindResponseAdapterTest: XCTestCase {
 
     XCTAssertEqual(proposal, .proposal)
     XCTAssertEqual(testing, .testing)
-    XCTAssertEqual(testingVote, .testing_vote)
-    XCTAssertEqual(promotionVote, .promotion_vote)
+    XCTAssertEqual(testingVote, .testingVote)
+    XCTAssertEqual(promotionVote, .promotionVote)
   }
 
   // Ensure quotes are stripped properly

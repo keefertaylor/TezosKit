@@ -77,7 +77,7 @@ public class TezosClient {
   /**
    * Initialize a new TezosClient.
    *
-   * @param removeNodeURL The path to the remote node.
+   * - Parameter remoteNodeURL: The path to the remote node.
    */
   public convenience init(remoteNodeURL: URL) {
     let urlSession = URLSession.shared
@@ -87,7 +87,7 @@ public class TezosClient {
   /**
    * Initialize a new TezosClient.
    *
-   * @param removeNodeURL The path to the remote node.
+   * - Parameter remoteNodeURLL The path to the remote node.
    */
   public init(remoteNodeURL: URL, urlSession: URLSession) {
     self.remoteNodeURL = remoteNodeURL
@@ -143,28 +143,38 @@ public class TezosClient {
   /**
    * Transact Tezos between accounts.
    *
-   * @param balance The balance to send.
-   * @param recipientAddress The address which will receive the balance.
-   * @param source The address sending the balance.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param parameters Optional parameters to include in the transaction if the call is being made to a smart contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
+   * - Parameter balance: The balance to send.
+   * - Parameter recipientAddress: The address which will receive the balance.
+   * - Parameter source: The address sending the balance.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
+   *             contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
    */
-  public func send(amount: TezosBalance,
-                   to recipientAddress: String,
-                   from source: String,
-                   keys: Keys,
-                   parameters: [String: Any]? = nil,
-                   operationFees: OperationFees? = nil,
-                   completion: @escaping (String?, Error?) -> Void) {
-    let transactionOperation =
-      TransactionOperation(amount: amount, source: source, destination: recipientAddress, parameters: parameters, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: transactionOperation,
-                                        source: source,
-                                        keys: keys,
-                                        completion: completion)
+  public func send(
+    amount: TezosBalance,
+    to recipientAddress: String,
+    from source: String,
+    keys: Keys,
+    parameters: [String: Any]? = nil,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
+    let transactionOperation = TransactionOperation(
+      amount: amount,
+      source: source,
+      destination: recipientAddress,
+      parameters: parameters,
+      operationFees: operationFees
+    )
+    forgeSignPreapplyAndInjectOperation(
+      operation: transactionOperation,
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -174,91 +184,109 @@ public class TezosClient {
    * is not checked on an input to this methods. Thus, the source address must be a KT1 address and
    * the keys to sign the operation for the address are the keys used to manage the TZ1 address.
    *
-   * @param recipientAddress The address which will receive the balance.
-   * @param source The address sending the balance.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter recipientAddress: The address which will receive the balance.
+   * - Parameter source: The address sending the balance.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
+   *             if the operation was successful.
    */
-  public func delegate(from source: String,
-                       to delegate: String,
-                       keys: Keys,
-                       operationFees: OperationFees? = nil,
-                       completion: @escaping (String?, Error?) -> Void) {
+  public func delegate(
+    from source: String,
+    to delegate: String,
+    keys: Keys,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: delegationOperation,
-                                        source: source,
-                                        keys: keys,
-                                        completion: completion)
+    forgeSignPreapplyAndInjectOperation(
+      operation: delegationOperation,
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
    * Clear the delegate of an originated account.
    *
-   * @param source The address which is removing the delegate.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter source: The address which is removing the delegate.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the  transaction ID hash
+   *             if the operation was successful.
    */
-  public func undelegate(from source: String,
-                         keys: Keys,
-                         operationFees: OperationFees? = nil,
-                         completion: @escaping (String?, Error?) -> Void) {
+  public func undelegate(
+    from source: String,
+    keys: Keys,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: undelegateOperatoin,
-                                        source: source,
-                                        keys: keys,
-                                        completion: completion)
+    forgeSignPreapplyAndInjectOperation(
+      operation: undelegateOperatoin,
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
    * Register an address as a delegate.
    *
-   * @param recipientAddress The address which will receive the balance.
-   * @param source The address sending the balance.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter recipientAddress: The address which will receive the balance.
+   * - Parameter source: The address sending the balance.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
+   *             if the operation was successful.
    */
-  public func registerDelegate(delegate: String, keys: Keys,
-                               operationFees: OperationFees? = nil,
-                               completion: @escaping (String?, Error?) -> Void) {
+  public func registerDelegate(
+    delegate: String,
+    keys: Keys,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: registerDelegateOperation,
-                                        source: delegate,
-                                        keys: keys,
-                                        completion: completion)
+    forgeSignPreapplyAndInjectOperation(
+      operation: registerDelegateOperation,
+      source: delegate,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
    * Originate a new account from the given account.
    *
-   * @param managerAddress The address which will manage the new account.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param contractCode Optional code to associate with the originated contract.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
-   * @param completion A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
+   * - Parameter managerAddress: The address which will manage the new account.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter contractCode: Optional code to associate with the originated contract.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
+   *             if the operation was successful.
    */
-  public func originateAccount(managerAddress: String,
-                               keys: Keys,
-                               contractCode: ContractCode? = nil,
-                               operationFees: OperationFees? = nil,
-                               completion: @escaping (String?, Error?) -> Void) {
-    let originateAccountOperation = OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(operation: originateAccountOperation,
-                                        source: managerAddress,
-                                        keys: keys,
-                                        completion: completion)
+  public func originateAccount(
+    managerAddress: String,
+    keys: Keys,
+    contractCode: ContractCode? = nil,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
+    let originateAccountOperation =
+      OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
+    forgeSignPreapplyAndInjectOperation(
+      operation: originateAccountOperation,
+      source: managerAddress,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
    * Returns the code associated with the address as a NSDictionary.
    *
-   * @param address The address of the contract to load.
+   * - Parameter address: The address of the contract to load.
    */
   public func getAddressCode(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
     let rpc = GetAddressCodeRPC(address: address, completion: completion)
@@ -324,19 +352,23 @@ public class TezosClient {
   /**
    * Forge, sign, preapply and then inject a single operation.
    *
-   * @param operation The operation which will be used to forge the operation.
-   * @param source The address performing the operation.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter operation: The operation which will be used to forge the operation.
+   * - Parameter source: The address performing the operation.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperation(operation: Operation,
-                                                  source: String,
-                                                  keys: Keys,
-                                                  completion: @escaping (String?, Error?) -> Void) {
-    forgeSignPreapplyAndInjectOperations(operations: [operation],
-                                         source: source,
-                                         keys: keys,
-                                         completion: completion)
+  public func forgeSignPreapplyAndInjectOperation(
+    operation: Operation,
+    source: String,
+    keys: Keys,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
+    forgeSignPreapplyAndInjectOperations(
+      operations: [operation],
+      source: source,
+      keys: keys,
+      completion: completion
+    )
   }
 
   /**
@@ -344,15 +376,17 @@ public class TezosClient {
    *
    * Operations are processed in the order they are placed in the operation array.
    *
-   * @param operation The operation which will be used to forge the operation.
-   * @param source The address performing the operation.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter operation: The operation which will be used to forge the operation.
+   * - Parameter source: The address performing the operation.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperations(operations: [Operation],
-                                                   source: String,
-                                                   keys: Keys,
-                                                   completion: @escaping (String?, Error?) -> Void) {
+  public func forgeSignPreapplyAndInjectOperations(
+    operations: [Operation],
+    source: String,
+    keys: Keys,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     guard let operationMetadata = getMetadataForOperation(address: source) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
@@ -365,21 +399,16 @@ public class TezosClient {
     // Determine if the address performing the operations has been revealed. If it has not been,
     // check if any of the operations to perform requires the address to be revealed. If so,
     // prepend a reveal operation to the operations to perform.
-    if operationMetadata.key == nil {
-      for operation in operations {
-        if operation.requiresReveal {
-          let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
-          mutableOperations.insert(revealOperation, at: 0)
-          break
-        }
-      }
+    if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
+      let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
+      mutableOperations.insert(revealOperation, at: 0)
     }
 
     // Process all operations to have increasing counters and place them in the contents array.
     var contents: [[String: Any]] = []
     var counter = operationMetadata.addressCounter
     for operation in mutableOperations {
-      counter = counter + 1
+      counter += 1
 
       var mutableOperation = operation.dictionaryRepresentation
       mutableOperation["counter"] = String(counter)
@@ -397,20 +426,24 @@ public class TezosClient {
       return
     }
 
-    let forgeRPC = ForgeOperationRPC(chainID: operationMetadata.chainID,
-                                     headHash: operationMetadata.headHash,
-                                     payload: jsonPayload) { [weak self] result, error in
+    let forgeRPC = ForgeOperationRPC(
+      chainID: operationMetadata.chainID,
+      headHash: operationMetadata.headHash,
+      payload: jsonPayload
+    ) { [weak self] result, error in
       guard let self = self,
         let result = result else {
         completion(nil, error)
         return
       }
-      self.signPreapplyAndInjectOperation(operationPayload: operationPayload,
-                                          operationMetadata: operationMetadata,
-                                          forgeResult: result,
-                                          source: source,
-                                          keys: keys,
-                                          completion: completion)
+      self.signPreapplyAndInjectOperation(
+        operationPayload: operationPayload,
+        operationMetadata: operationMetadata,
+        forgeResult: result,
+        source: source,
+        keys: keys,
+        completion: completion
+      )
     }
     send(rpc: forgeRPC)
   }
@@ -418,21 +451,22 @@ public class TezosClient {
   /**
    * Sign the result of a forged operation, preapply and inject it if successful.
    *
-   * @param operationPayload The operation payload which was used to forge the operation.
-   * @param operationMetadata Metadata related to the operation.
-   * @param forgeResult The result of forging the operation payload.
-   * @param source The address performing the operation.
-   * @param keys The keys to use to sign the operation for the address.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter operationPayload: The operation payload which was used to forge the operation.
+   * - Parameter operationMetadata: Metadata related to the operation.
+   * - Parameter forgeResult: The result of forging the operation payload.
+   * - Parameter source: The address performing the operation.
+   * - Parameter keys: The keys to use to sign the operation for the address.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
-  private func signPreapplyAndInjectOperation(operationPayload: [String: Any],
-                                              operationMetadata: OperationMetadata,
-                                              forgeResult: String,
-                                              source _: String,
-                                              keys: Keys,
-                                              completion: @escaping (String?, Error?) -> Void) {
-    guard let operationSigningResult = Crypto.signForgedOperation(operation: forgeResult,
-                                                                  secretKey: keys.secretKey),
+  private func signPreapplyAndInjectOperation(
+    operationPayload: [String: Any],
+    operationMetadata: OperationMetadata,
+    forgeResult: String,
+    source _: String,
+    keys: Keys,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
+    guard let operationSigningResult = Crypto.signForgedOperation(operation: forgeResult, secretKey: keys.secretKey),
       let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
@@ -450,50 +484,53 @@ public class TezosClient {
       return
     }
 
-    preapplyAndInjectRPC(payload: signedJsonPayload,
-                         signedBytesForInjection: jsonSignedBytes,
-                         operationMetadata: operationMetadata,
-                         completion: completion)
+    preapplyAndInjectRPC(
+      payload: signedJsonPayload,
+      signedBytesForInjection: jsonSignedBytes,
+      operationMetadata: operationMetadata,
+      completion: completion
+    )
   }
 
   /**
    * Preapply an operation and inject the operation if successful.
    *
-   * @param payload A JSON encoded string that will be preapplied.
-   * @param signedBytesForInjection A JSON encoded string that contains signed bytes for the
-   *        preapplied operation.
-   * @param operationMetadata Metadata related to the operation.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter payload: A JSON encoded string that will be preapplied.
+   * - Parameter signedBytesForInjection: A JSON encoded string that contains signed bytes for the preapplied operation.
+   * - Parameter operationMetadata: Metadata related to the operation.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
-  private func preapplyAndInjectRPC(payload: String,
-                                    signedBytesForInjection: String,
-                                    operationMetadata: OperationMetadata,
-                                    completion: @escaping (String?, Error?) -> Void) {
-    let preapplyOperationRPC = PreapplyOperationRPC(chainID: operationMetadata.chainID,
-                                                    headHash: operationMetadata.headHash,
-                                                    payload: payload,
-                                                    completion: { [weak self] result, error in
-                                                      guard let self = self,
-                                                        let _ = result else {
-                                                        completion(nil, error)
-                                                        return
-                                                      }
-
-                                                      self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
-    })
+  private func preapplyAndInjectRPC(
+    payload: String,
+    signedBytesForInjection: String,
+    operationMetadata: OperationMetadata,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
+      let preapplyOperationRPC = PreapplyOperationRPC(
+        chainID: operationMetadata.chainID,
+        headHash: operationMetadata.headHash,
+        payload: payload
+    ) { [weak self] result, error in
+          guard let self = self,
+            result != nil else {
+              completion(nil, error)
+              return
+          }
+          self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
+      }
     send(rpc: preapplyOperationRPC)
   }
 
   /**
    * Send an injection RPC.
    *
-   * @param payload A JSON compatible string representing the singed operation bytes.
-   * @param completion A completion block that will be called with the results of the operation.
+   * - Parameter payload: A JSON compatible string representing the singed operation bytes.
+   * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
-    let injectRPC = InjectionRPC(payload: payload, completion: { txHash, txError in
-      completion(txHash, txError)
-    })
+    let injectRPC = InjectionRPC(payload: payload) { txHash, txError in
+        completion(txHash, txError)
+    }
 
     send(rpc: injectRPC)
   }
@@ -616,11 +653,13 @@ public class TezosClient {
       let headHash = headHash,
       let chainID = chainID,
       let protocolHash = protocolHash {
-      return OperationMetadata(chainID: chainID,
-                               headHash: headHash,
-                               protocolHash: protocolHash,
-                               addressCounter: operationCounter,
-                               key: addressKey)
+      return OperationMetadata(
+        chainID: chainID,
+        headHash: headHash,
+        protocolHash: protocolHash,
+        addressCounter: operationCounter,
+        key: addressKey
+      )
     }
     return nil
   }

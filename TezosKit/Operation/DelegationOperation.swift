@@ -4,8 +4,10 @@ import Foundation
 
 /** An operation to set a delegate for an address. */
 public class DelegationOperation: AbstractOperation {
+  // swiftlint:disable weak_delegate
   /** The address that will be set as the delegate. */
   public let delegate: String
+  // swiftlint:enable weak_delegate
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
@@ -14,16 +16,16 @@ public class DelegationOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = TezosBalance(balance: 0.001257)
+    let fee = TezosBalance(balance: 0.001_257)
     let storageLimit = TezosBalance.zeroBalance
-    let gasLimit = TezosBalance(balance: 0.010000)
+    let gasLimit = TezosBalance(balance: 0.010_000)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
   /**
-   * @param source The address that will delegate funds.
-   * @param delegate The address to delegate to.
-   * @param operationFees OperationFees for the transaction. If nil, default fees are used.
+   * - Parameter source: The address that will delegate funds.
+   * - Parameter delegate: The address to delegate to.
+   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public init(source: String, to delegate: String, operationFees: OperationFees? = nil) {
     self.delegate = delegate

@@ -7,12 +7,10 @@ import Foundation
  */
 public class GetVotingDelegateRightsRPC: TezosRPC<[[String: Any]]> {
   /**
-   * @param completion A block to be called at the completion of the operation.
+   * - Parameter completion: A block to be called at the completion of the operation.
    */
   public init(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/listings"
-    super.init(endpoint: endpoint,
-               responseAdapterClass: JSONArrayResponseAdapter.self,
-               completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: JSONArrayResponseAdapter.self, completion: completion)
   }
 }
