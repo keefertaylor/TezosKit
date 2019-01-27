@@ -147,7 +147,8 @@ public class TezosClient {
    * - Parameter recipientAddress: The address which will receive the balance.
    * - Parameter source: The address sending the balance.
    * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
+   *             contract.
    * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    * - Parameter completion: A completion block which will be called with a string representing the
    *        transaction ID hash if the operation was successful.
@@ -187,8 +188,8 @@ public class TezosClient {
    * - Parameter source: The address sending the balance.
    * - Parameter keys: The keys to use to sign the operation for the address.
    * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash if the
-   *             operation was successful.
+   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
+   *             if the operation was successful.
    */
   public func delegate(
     from source: String,

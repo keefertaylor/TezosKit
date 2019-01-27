@@ -48,7 +48,8 @@ public class TransactionOperation: AbstractOperation {
    * - Parameter amount: The amount of XTZ to transact.
    * - Parameter from: The address that is sending the XTZ.
    * - Parameter to: The address that is receiving the XTZ.
-   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
+   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
+   *             contract.
    * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public init(
