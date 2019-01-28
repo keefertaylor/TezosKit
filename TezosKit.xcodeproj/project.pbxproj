@@ -126,6 +126,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -253,6 +254,7 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				7791E60F21FE862600957650 /* TezosKitExample.playground */,
 				77CE363421F7F327006ADABA /* Base58String */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* Tests */,
@@ -342,12 +344,12 @@
 			children = (
 				77CE388021FC7EED006ADABA /* Info.plist */,
 				77CE387F21FC7EED006ADABA /* TezosKit.h */,
+				77CE384421FC7ED8006ADABA /* Client */,
 				77CE380621FC7ED7006ADABA /* Operation */,
 				77CE381721FC7ED7006ADABA /* Cryptography */,
 				77CE381B21FC7ED7006ADABA /* Utils */,
 				77CE381E21FC7ED7006ADABA /* Models */,
 				77CE382721FC7ED7006ADABA /* RPC */,
-				77CE384421FC7ED8006ADABA /* Client */,
 			);
 			path = TezosKit;
 			sourceTree = SOURCE_ROOT;

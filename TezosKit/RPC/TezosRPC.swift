@@ -59,21 +59,29 @@ public class TezosRPC<T> {
    *
    * - Parameter data: Optional data returned from the network request.
    * - Parameter error: Optional error returned from the network request.
+   * - Parameter callbackQueue: A thread that the completion handler will be executed on, default is the main thread.
    */
-  public func handleResponse(data: Data?, error: Error?) {
+  public func handleResponse(data: Data?, error: Error?, callbackQueue: DispatchQueue = DispatchQueue.main) {
     if let error = error {
       let desc = error.localizedDescription
       let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: desc)
-      completion(nil, tezosClientError)
+      callbackQueue.async {
+        self.completion(nil, tezosClientError)
+      }
       return
     }
 
     guard let data = data,
       let result = self.responseAdapterClass.parse(input: data) else {
       let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
-      completion(nil, tezosClientError)
+      callbackQueue.async {
+        self.completion(nil, tezosClientError)
+      }
       return
     }
-    completion(result, nil)
+
+    callbackQueue.async {
+      self.completion(result, nil)
+    }
   }
 }
