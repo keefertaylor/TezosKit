@@ -555,7 +555,11 @@ public class TezosClient {
       urlRequest.httpBody = payloadData
     }
 
-    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [callbackQueue] data, response, error in
+    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
+      guard let self = self else {
+        return;
+      }
+
       // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
       if let httpResponse = response as? HTTPURLResponse,
         httpResponse.statusCode != 200 {
@@ -581,11 +585,11 @@ public class TezosClient {
         // Drop data and send our error to let subsequent handlers know something went wrong and to
         // give up.
         let error = TezosClientError(kind: errorKind, underlyingError: errorMessage)
-        rpc.handleResponse(data: nil, error: error, callbackQueue: callbackQueue)
+        rpc.handleResponse(data: nil, error: error, callbackQueue: self.callbackQueue)
         return
       }
 
-      rpc.handleResponse(data: data, error: error, callbackQueue: callbackQueue)
+      rpc.handleResponse(data: data, error: error, callbackQueue: self.callbackQueue)
     }
     request.resume()
   }
