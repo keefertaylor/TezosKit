@@ -10,6 +10,12 @@ import Foundation
  * The client is initialized with a node URL which points to a node who can receive JSON RPC
  * requests from this client. The default not is rpc.tezrpc.me, a public node provided by TezTech.
  *
+ * The client can be initialized with a custom URLSession can be provided to manage network requests. By default, the
+ * shared URLSession is used.
+ *
+ * The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the main
+ * dispatch queue is used.
+ *
  * RPCs
  * -------------
  * TezosClient contains support for GET and POST RPCS and will make requests based on the
@@ -67,31 +73,24 @@ public class TezosClient {
   /** A URL pointing to a remote node that will handle requests made by this client. */
   private let remoteNodeURL: URL
 
-  /**
-   * Initialize a new TezosClient using the default Node URL.
-   */
-  public convenience init() {
-    self.init(remoteNodeURL: type(of: self).defaultNodeURL)
-  }
+  /** The queue that callbacks from requests will be made on. */
+  private let callbackQueue: DispatchQueue
 
   /**
    * Initialize a new TezosClient.
    *
-   * - Parameter remoteNodeURL: The path to the remote node.
+   * - Parameter remoteNodeURL: The path to the remote node, defaults to the default URL
+   * - Parameter urlSession: The URLSession that will manage network requests, defaults to the shared session.
+   * - Parameter callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
    */
-  public convenience init(remoteNodeURL: URL) {
-    let urlSession = URLSession.shared
-    self.init(remoteNodeURL: remoteNodeURL, urlSession: urlSession)
-  }
-
-  /**
-   * Initialize a new TezosClient.
-   *
-   * - Parameter remoteNodeURLL The path to the remote node.
-   */
-  public init(remoteNodeURL: URL, urlSession: URLSession) {
+  public init(
+    remoteNodeURL: URL = defaultNodeURL,
+    urlSession: URLSession = URLSession.shared,
+    callbackQueue: DispatchQueue = DispatchQueue.main
+  ) {
     self.remoteNodeURL = remoteNodeURL
     self.urlSession = urlSession
+    self.callbackQueue = callbackQueue
   }
 
   /** Retrieve data about the chain head. */
@@ -541,7 +540,7 @@ public class TezosClient {
   public func send<T>(rpc: TezosRPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
-      rpc.handleResponse(data: nil, error: error)
+      rpc.handleResponse(data: nil, error: error, callbackQueue: callbackQueue)
       return
     }
 
@@ -556,7 +555,11 @@ public class TezosClient {
       urlRequest.httpBody = payloadData
     }
 
-    let request = urlSession.dataTask(with: urlRequest as URLRequest) { data, response, error in
+    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
+      guard let self = self else {
+        return
+      }
+
       // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
       if let httpResponse = response as? HTTPURLResponse,
         httpResponse.statusCode != 200 {
@@ -582,11 +585,11 @@ public class TezosClient {
         // Drop data and send our error to let subsequent handlers know something went wrong and to
         // give up.
         let error = TezosClientError(kind: errorKind, underlyingError: errorMessage)
-        rpc.handleResponse(data: nil, error: error)
+        rpc.handleResponse(data: nil, error: error, callbackQueue: self.callbackQueue)
         return
       }
 
-      rpc.handleResponse(data: data, error: error)
+      rpc.handleResponse(data: data, error: error, callbackQueue: self.callbackQueue)
     }
     request.resume()
   }
