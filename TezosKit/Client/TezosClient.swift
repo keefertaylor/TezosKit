@@ -14,7 +14,7 @@ import Foundation
  * shared URLSession is used.
  *
  * The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the main
- * dispatch queue is used. 
+ * dispatch queue is used.
  *
  * RPCs
  * -------------
@@ -75,23 +75,6 @@ public class TezosClient {
 
   /** The queue that callbacks from requests will be made on. */
   private let callbackQueue: DispatchQueue
-
-  /**
-   * Initialize a new TezosClient using the default Node URL.
-   */
-  public convenience init() {
-    self.init(remoteNodeURL: type(of: self).defaultNodeURL)
-  }
-
-  /**
-   * Initialize a new TezosClient.
-   *
-   * - Parameter remoteNodeURL: The path to the remote node.
-   */
-  public convenience init(remoteNodeURL: URL) {
-    let urlSession = URLSession.shared
-    self.init(remoteNodeURL: remoteNodeURL, urlSession: urlSession)
-  }
 
   /**
    * Initialize a new TezosClient.
