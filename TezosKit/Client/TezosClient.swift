@@ -10,7 +10,11 @@ import Foundation
  * The client is initialized with a node URL which points to a node who can receive JSON RPC
  * requests from this client. The default not is rpc.tezrpc.me, a public node provided by TezTech.
  *
- * The client also manages callbacks on a dispatch queue which can be managed by the client.
+ * The client can be initialized with a custom URLSession can be provided to manage network requests. By default, the
+ * shared URLSession is used.
+ *
+ * The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the main
+ * dispatch queue is used. 
  *
  * RPCs
  * -------------
