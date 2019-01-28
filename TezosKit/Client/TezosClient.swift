@@ -557,7 +557,7 @@ public class TezosClient {
 
     let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
       guard let self = self else {
-        return;
+        return
       }
 
       // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
