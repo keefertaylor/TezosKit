@@ -15,6 +15,7 @@ import Foundation
  * Concrete subclasses should construct an endpoint and payload and inform this class by calling
  * |super.init|.
  */
+// TODO: Rename this to a generic RPC
 public class TezosRPC<T> {
   public let endpoint: String
   public let payload: String?

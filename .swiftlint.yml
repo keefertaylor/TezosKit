@@ -4,6 +4,8 @@ disabled_rules:
   - function_body_length
   - type_body_length
   - xctfail_message
+  # TODO: Re-enable this rule after a draft is done.
+  - todo
 
 opt_in_rules:
   - attributes
@@ -34,7 +36,6 @@ opt_in_rules:
   - sorted_imports
   - trailing_closure
   - vertical_parameter_alignment_on_call
-# TODO: Documentation.
 
 excluded:
   - Base58String/
