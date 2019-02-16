@@ -96,6 +96,7 @@
 		77CE387D21FC7ED8006ADABA /* TezosClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384621FC7ED8006ADABA /* TezosClientError.swift */; };
 		77CE388121FC7EED006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE387F21FC7EED006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D2532218866E00D34B01 /* TezosCrypto.framework */; };
+		77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,6 +218,7 @@
 		77CE387F21FC7EED006ADABA /* TezosKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
 		77CE388021FC7EED006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F4D2532218866E00D34B01 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
+		77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandler.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -422,6 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				77CE384521FC7ED8006ADABA /* TezosClient.swift */,
+				77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */,
 				77CE384621FC7ED8006ADABA /* TezosClientError.swift */,
 			);
 			path = Client;
@@ -621,6 +624,7 @@
 				77CE386C21FC7ED8006ADABA /* ContractCodeResponseAdapter.swift in Sources */,
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
 				77CE384721FC7ED8006ADABA /* OriginateAccountOperation.swift in Sources */,
+				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,
 				77CE387721FC7ED8006ADABA /* GetVotingDelegateRightsRPC.swift in Sources */,
