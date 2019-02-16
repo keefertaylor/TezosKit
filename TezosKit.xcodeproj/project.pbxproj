@@ -96,6 +96,7 @@
 		77CE387C21FC7ED8006ADABA /* TezosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384521FC7ED8006ADABA /* TezosClient.swift */; };
 		77CE387D21FC7ED8006ADABA /* TezosClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384621FC7ED8006ADABA /* TezosClientError.swift */; };
 		77CE388121FC7EED006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE387F21FC7EED006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D2532218866E00D34B01 /* TezosCrypto.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,6 +218,7 @@
 		77CE384621FC7ED8006ADABA /* TezosClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosClientError.swift; sourceTree = "<group>"; };
 		77CE387F21FC7EED006ADABA /* TezosKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
 		77CE388021FC7EED006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77F4D2532218866E00D34B01 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -226,6 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */,
 				77CE370721FBE67C006ADABA /* Sodium.framework in Frameworks */,
 				77CE370821FBE67C006ADABA /* BigInt.framework in Frameworks */,
 				77CE370A21FBE67C006ADABA /* MnemonicKit.framework in Frameworks */,
@@ -311,6 +314,7 @@
 		77CE362F21F7EF32006ADABA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77F4D2532218866E00D34B01 /* TezosCrypto.framework */,
 				77CE36B721F7F3D6006ADABA /* MnemonicKit.framework */,
 				77CE36B521F7F3CB006ADABA /* CryptoSwift.framework */,
 				77CE36B321F7F3C0006ADABA /* Sodium.framework */,
@@ -449,8 +453,8 @@
 				77CE359321F7DC76006ADABA /* Frameworks */,
 				77CE359421F7DC76006ADABA /* Resources */,
 				77CE362D21F7EED8006ADABA /* Copy Files */,
-				77CE362E21F7EEE2006ADABA /* ShellScript */,
-				77CE388421FCB8CD006ADABA /* Run Script */,
+				77CE362E21F7EEE2006ADABA /* Carthage */,
+				77CE388421FCB8CD006ADABA /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -534,7 +538,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		77CE362E21F7EEE2006ADABA /* ShellScript */ = {
+		77CE362E21F7EEE2006ADABA /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -547,7 +551,9 @@
 				"$(SRCROOT)/Carthage/Build/iOS/MnemonicKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Sodium.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TezosCrypto.framework",
 			);
+			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -556,12 +562,13 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sodium.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MnemonicKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TezosCrypto.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
-		77CE388421FCB8CD006ADABA /* Run Script */ = {
+		77CE388421FCB8CD006ADABA /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -570,7 +577,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
