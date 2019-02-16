@@ -2,16 +2,18 @@
 
 import Foundation
 
+/**
+ * A response handler handles responses that are received when network requests are completed.
+ */
 public class RPCResponseHandler {
+  /** The queue that callbacks from requests will be made on. */
   private let callbackQueue: DispatchQueue
 
-  /** The queue that callbacks from requests will be made on. */
-  public init(DispatchQueue callbackQueue) {
+  public init(callbackQueue: DispatchQueue) {
     self.callbackQueue = callbackQueue
   }
 
-  public func handleResponse() {
-
+  public func handleResponse<T>(rpc: TezosRPC<T>, data: Data?, response: URLResponse?, error: Error?) {
     // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
     if let httpResponse = response as? HTTPURLResponse,
       httpResponse.statusCode != 200 {

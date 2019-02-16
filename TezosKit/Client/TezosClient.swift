@@ -77,6 +77,9 @@ public class TezosClient {
   /** A response handler for RPCs. */
   private let responseHandler: RPCResponseHandler
 
+  /** The queue that callbacks from requests will be made on. */
+  private let callbackQueue: DispatchQueue
+
   /**
    * Initialize a new TezosClient.
    *
@@ -91,7 +94,8 @@ public class TezosClient {
   ) {
     self.remoteNodeURL = remoteNodeURL
     self.urlSession = urlSession
-    self.responseHandler = RPCResponseHandler(callbackQueue)
+    self.callbackQueue = callbackQueue
+    self.responseHandler = RPCResponseHandler(callbackQueue: callbackQueue)
   }
 
   /** Retrieve data about the chain head. */
@@ -559,11 +563,8 @@ public class TezosClient {
       urlRequest.httpBody = payloadData
     }
 
-    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
-      guard let self = self else {
-        return
-      }
-      self.responseHandler.handleResponse()
+    let request = urlSession.dataTask(with: urlRequest as URLRequest) { data, response, error in
+      self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
     }
     request.resume()
   }
