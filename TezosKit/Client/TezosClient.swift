@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
+import TezosCrypto
 
 /**
  * TezosClient is the gateway into the Tezos Network.

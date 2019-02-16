@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
-		77CE363821F7F327006ADABA /* Base58String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE363621F7F327006ADABA /* Base58String.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -58,9 +57,6 @@
 		77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */; };
 		77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380E21FC7ED7006ADABA /* OperationKind.swift */; };
 		77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380F21FC7ED7006ADABA /* Operation.swift */; };
-		77CE385421FC7ED8006ADABA /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381821FC7ED7006ADABA /* KeyPair.swift */; };
-		77CE385521FC7ED8006ADABA /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381921FC7ED7006ADABA /* Crypto.swift */; };
-		77CE385621FC7ED8006ADABA /* OperationSigningResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381A21FC7ED7006ADABA /* OperationSigningResult.swift */; };
 		77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381C21FC7ED7006ADABA /* JSONUtils.swift */; };
 		77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */; };
 		77CE385921FC7ED8006ADABA /* TezosBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381F21FC7ED7006ADABA /* TezosBalance.swift */; };
@@ -132,7 +128,6 @@
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77CE363021F7EF32006ADABA /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
 		77CE363221F7F032006ADABA /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SipHash.framework; path = Carthage/Build/iOS/SipHash.framework; sourceTree = "<group>"; };
-		77CE363621F7F327006ADABA /* Base58String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58String.swift; sourceTree = "<group>"; };
 		77CE36B321F7F3C0006ADABA /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
 		77CE36B521F7F3CB006ADABA /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		77CE36B721F7F3D6006ADABA /* MnemonicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MnemonicKit.framework; path = Carthage/Build/iOS/MnemonicKit.framework; sourceTree = "<group>"; };
@@ -182,9 +177,6 @@
 		77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperation.swift; sourceTree = "<group>"; };
 		77CE380E21FC7ED7006ADABA /* OperationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationKind.swift; sourceTree = "<group>"; };
 		77CE380F21FC7ED7006ADABA /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
-		77CE381821FC7ED7006ADABA /* KeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
-		77CE381921FC7ED7006ADABA /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
-		77CE381A21FC7ED7006ADABA /* OperationSigningResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationSigningResult.swift; sourceTree = "<group>"; };
 		77CE381C21FC7ED7006ADABA /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MnemonicUtil.swift; sourceTree = "<group>"; };
 		77CE381F21FC7ED7006ADABA /* TezosBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosBalance.swift; sourceTree = "<group>"; };
@@ -255,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
-				77CE363421F7F327006ADABA /* Base58String */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* Tests */,
 				77CE359721F7DC76006ADABA /* Products */,
@@ -331,14 +322,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		77CE363421F7F327006ADABA /* Base58String */ = {
-			isa = PBXGroup;
-			children = (
-				77CE363621F7F327006ADABA /* Base58String.swift */,
-			);
-			path = Base58String;
-			sourceTree = "<group>";
-		};
 		77CE380521FC7ED7006ADABA /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +329,6 @@
 				77CE387F21FC7EED006ADABA /* TezosKit.h */,
 				77CE384421FC7ED8006ADABA /* Client */,
 				77CE380621FC7ED7006ADABA /* Operation */,
-				77CE381721FC7ED7006ADABA /* Cryptography */,
 				77CE381B21FC7ED7006ADABA /* Utils */,
 				77CE381E21FC7ED7006ADABA /* Models */,
 				77CE382721FC7ED7006ADABA /* RPC */,
@@ -368,16 +350,6 @@
 				77CE380F21FC7ED7006ADABA /* Operation.swift */,
 			);
 			path = Operation;
-			sourceTree = "<group>";
-		};
-		77CE381721FC7ED7006ADABA /* Cryptography */ = {
-			isa = PBXGroup;
-			children = (
-				77CE381821FC7ED7006ADABA /* KeyPair.swift */,
-				77CE381921FC7ED7006ADABA /* Crypto.swift */,
-				77CE381A21FC7ED7006ADABA /* OperationSigningResult.swift */,
-			);
-			path = Cryptography;
 			sourceTree = "<group>";
 		};
 		77CE381B21FC7ED7006ADABA /* Utils */ = {
@@ -637,7 +609,6 @@
 				77CE386221FC7ED8006ADABA /* GetChainHeadHashRPC.swift in Sources */,
 				77CE387821FC7ED8006ADABA /* GetBallotsListRPC.swift in Sources */,
 				77CE386921FC7ED8006ADABA /* JSONDictionaryResponseAdapter.swift in Sources */,
-				77CE385621FC7ED8006ADABA /* OperationSigningResult.swift in Sources */,
 				77CE385A21FC7ED8006ADABA /* Keys.swift in Sources */,
 				77CE387421FC7ED8006ADABA /* GetAddressDelegateRPC.swift in Sources */,
 				77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */,
@@ -654,10 +625,7 @@
 				77CE385E21FC7ED8006ADABA /* Wallet.swift in Sources */,
 				77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */,
 				77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */,
-				77CE363821F7F327006ADABA /* Base58String.swift in Sources */,
-				77CE385521FC7ED8006ADABA /* Crypto.swift in Sources */,
 				77CE387D21FC7ED8006ADABA /* TezosClientError.swift in Sources */,
-				77CE385421FC7ED8006ADABA /* KeyPair.swift in Sources */,
 				77CE384821FC7ED8006ADABA /* DelegationOperation.swift in Sources */,
 				77CE387621FC7ED8006ADABA /* GetCurrentPeriodKindRPC.swift in Sources */,
 				77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */,
