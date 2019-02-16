@@ -42,7 +42,6 @@
 		77CE370121F7F49F006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DA21F7F49E006ADABA /* GetVotingDelegateRightsRPCTest.swift */; };
 		77CE370221F7F49F006ADABA /* PreapplyOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DB21F7F49E006ADABA /* PreapplyOperationRPCTest.swift */; };
 		77CE370321F7F49F006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DC21F7F49E006ADABA /* GetProposalUnderEvaluationRPCTest.swift */; };
-		77CE370421F7F49F006ADABA /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DD21F7F49E006ADABA /* CryptoTests.swift */; };
 		77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */; };
 		77CE370621F7F49F006ADABA /* TezosBalanceResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36DF21F7F49E006ADABA /* TezosBalanceResponseAdapterTest.swift */; };
 		77CE370721FBE67C006ADABA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B321F7F3C0006ADABA /* Sodium.framework */; };
@@ -166,7 +165,6 @@
 		77CE36DA21F7F49E006ADABA /* GetVotingDelegateRightsRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetVotingDelegateRightsRPCTest.swift; sourceTree = "<group>"; };
 		77CE36DB21F7F49E006ADABA /* PreapplyOperationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreapplyOperationRPCTest.swift; sourceTree = "<group>"; };
 		77CE36DC21F7F49E006ADABA /* GetProposalUnderEvaluationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPCTest.swift; sourceTree = "<group>"; };
-		77CE36DD21F7F49E006ADABA /* CryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
 		77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationOperationTest.swift; sourceTree = "<group>"; };
 		77CE36DF21F7F49E006ADABA /* TezosBalanceResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosBalanceResponseAdapterTest.swift; sourceTree = "<group>"; };
 		77CE380721FC7ED7006ADABA /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
@@ -270,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				77CE36C221F7F49C006ADABA /* AbstractOperationTest.swift */,
-				77CE36DD21F7F49E006ADABA /* CryptoTests.swift */,
 				77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */,
 				77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */,
 				77CE36C421F7F49C006ADABA /* GetAddressBalanceRPCTest.swift */,
@@ -552,6 +549,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Sodium.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/TezosCrypto.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Base58Swift.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -563,6 +561,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MnemonicKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TezosCrypto.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Base58Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -654,7 +653,6 @@
 				77CE36EA21F7F49F006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				77CE36EC21F7F49F006ADABA /* GetChainHeadRPCTest.swift in Sources */,
 				77CE370221F7F49F006ADABA /* PreapplyOperationRPCTest.swift in Sources */,
-				77CE370421F7F49F006ADABA /* CryptoTests.swift in Sources */,
 				77CE36F921F7F49F006ADABA /* GetAddressManagerKeyRPCTest.swift in Sources */,
 				77CE36F621F7F49F006ADABA /* GetBallotsListRPCTest.swift in Sources */,
 				77CE36E321F7F49F006ADABA /* GetChainHeadHashRPCTest.swift in Sources */,
