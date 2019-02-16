@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
+import TezosCrypto
 
 /**
  * A model of a wallet in the Tezos ecosystem.
@@ -44,10 +45,10 @@ public struct Wallet {
    */
   public init?(mnemonic: String, passphrase: String = "") {
     guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-      let keyPair = Crypto.keyPair(from: seedString),
-      let publicKey = Crypto.tezosPublicKey(from: keyPair.publicKey),
-      let secretKey = Crypto.tezosSecretKey(from: keyPair.secretKey),
-      let address = Crypto.tezosPublicKeyHash(from: keyPair.publicKey) else {
+      let keyPair = TezosCrypto.keyPair(from: seedString),
+      let publicKey = TezosCrypto.tezosPublicKey(from: keyPair.publicKey),
+      let secretKey = TezosCrypto.tezosSecretKey(from: keyPair.secretKey),
+      let address = TezosCrypto.tezosPublicKeyHash(from: keyPair.publicKey) else {
       return nil
     }
 
@@ -60,8 +61,8 @@ public struct Wallet {
    * - Parameter secretKey: A base58check encoded secret key, prefixed with "edsk".
    */
   public init?(secretKey: String) {
-    guard let publicKey = Crypto.extractPublicKey(secretKey: secretKey),
-      let address = Crypto.extractPublicKeyHash(secretKey: secretKey) else {
+    guard let publicKey = TezosCrypto.extractPublicKey(secretKey: secretKey),
+      let address = TezosCrypto.extractPublicKeyHash(secretKey: secretKey) else {
       return nil
     }
     self.init(publicKey: publicKey, secretKey: secretKey, address: address, mnemonic: nil)
