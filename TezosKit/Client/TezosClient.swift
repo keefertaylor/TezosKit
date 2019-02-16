@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
+import TezosCrypto
 
 /**
  * TezosClient is the gateway into the Tezos Network.
@@ -465,11 +466,14 @@ public class TezosClient {
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    guard let operationSigningResult = Crypto.signForgedOperation(operation: forgeResult, secretKey: keys.secretKey),
+    guard let operationSigningResult = TezosCrypto.signForgedOperation(
+        operation: forgeResult,
+        secretKey: keys.secretKey
+      ),
       let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
-      return
+        return
     }
 
     var mutableOperationPayload = operationPayload
