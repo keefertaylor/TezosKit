@@ -9,10 +9,12 @@ public class RPCResponseHandler {
   /** The queue that callbacks from requests will be made on. */
   private let callbackQueue: DispatchQueue
 
+  /** Initialize a new response handler with the given callback queue. */
   public init(callbackQueue: DispatchQueue) {
     self.callbackQueue = callbackQueue
   }
 
+  /** Handle the given response from making the given RPC. */
   public func handleResponse<T>(rpc: TezosRPC<T>, data: Data?, response: URLResponse?, error: Error?) {
     // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
     if let httpResponse = response as? HTTPURLResponse,
