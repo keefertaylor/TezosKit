@@ -563,7 +563,10 @@ public class TezosClient {
       urlRequest.httpBody = payloadData
     }
 
-    let request = urlSession.dataTask(with: urlRequest as URLRequest) { data, response, error in
+    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
+      guard let self = self else {
+        return;
+      }
       self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
     }
     request.resume()
