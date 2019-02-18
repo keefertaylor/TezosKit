@@ -565,7 +565,7 @@ public class TezosClient {
 
     let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
       guard let self = self else {
-        return;
+        return
       }
       self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
     }
