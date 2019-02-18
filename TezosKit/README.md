@@ -1,11 +1,6 @@
 # Code Overview
 A brief overview of the various subfolders.
 
-## App 
-Contains app-specific code and resources to build TezosKit into an iOS application. 
-
-It will eventually go away and be replaced by tests when TezosKit is ready to be consumed as a static library and/or framework.
-
 ## Client
 Contains logic and error handling for the gateway to interact with the Tezos network.
 
