@@ -6,15 +6,6 @@ import Foundation
  * A response handler handles responses that are received when network requests are completed.
  */
 public class RPCResponseHandler {
-  // TODO: Remove
-  /** The queue that callbacks from requests will be made on. */
-  private let callbackQueue: DispatchQueue
-
-  /** Initialize a new response handler with the given callback queue. */
-  public init(callbackQueue: DispatchQueue) {
-    self.callbackQueue = callbackQueue
-  }
-
   // TODO: Create a convenience method for error handling
 
   /**
@@ -56,7 +47,6 @@ public class RPCResponseHandler {
       // Drop data and send our error to let subsequent handlers know something went wrong and to
       // give up.
       let error = TezosClientError(kind: errorKind, underlyingError: errorMessage)
-      rpc.handleResponse(data: nil, error: error, callbackQueue: self.callbackQueue)
       return (nil, error)
     }
 
@@ -64,10 +54,6 @@ public class RPCResponseHandler {
     if let error = error {
       let desc = error.localizedDescription
       let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: desc)
-      callbackQueue.async {
-        // TODO: Make completion public
-        rpc.completion(nil, tezosClientError)
-      }
       return (nil, error)
     }
 
@@ -88,7 +74,6 @@ public class RPCResponseHandler {
    * - Returns: The parsed type if the data was was valid, otherwise nil.
    */
   private func parse<T>(_ data: Data, with responseAdapterClass: AbstractResponseAdapter<T>.Type) -> T? {
-    // TODO: Drop input:
     guard let result = responseAdapterClass.parse(input: data) else {
       return nil
     }
