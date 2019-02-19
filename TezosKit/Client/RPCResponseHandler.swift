@@ -101,6 +101,6 @@ public class RPCResponseHandler {
     guard let result = responseAdapterClass.parse(input: data) else {
       return nil
     }
-    return result;
+    return result
   }
 }

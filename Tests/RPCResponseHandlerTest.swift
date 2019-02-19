@@ -14,17 +14,18 @@ extension TestError: LocalizedError {
   }
 }
 
-
 class RPCResponseHandlerTest: XCTestCase {
   /// Response handler to test.
   let responseHandler = RPCResponseHandler()
 
   /// Test values.
   let testURL = URL(string: "http://github.com/keefertaylor/TezosKit")!
+
   let testErrorString = "flagrant error!"
-  var testErrorStringData: Data! = nil
+  var testErrorStringData: Data? // Above string as raw bytes.
+
   let testParsedString = "success!"
-  var testParsedStringData: Data! = nil
+  var testParsedStringData: Data? // Above string as raw bytes.
 
   public override func setUp() {
     super.setUp()
@@ -43,7 +44,7 @@ class RPCResponseHandlerTest: XCTestCase {
     )
 
     XCTAssertNil(result)
-    XCTAssertNotNil(error);
+    XCTAssertNotNil(error)
 
     guard let tezosKitError = error as? TezosClientError else {
       XCTFail()
@@ -64,7 +65,7 @@ class RPCResponseHandlerTest: XCTestCase {
     )
 
     XCTAssertNil(result)
-    XCTAssertNotNil(error);
+    XCTAssertNotNil(error)
 
     guard let tezosKitError = error as? TezosClientError else {
       XCTFail()
@@ -76,7 +77,7 @@ class RPCResponseHandlerTest: XCTestCase {
   }
 
   public func testHandleResponseWithHTTPInvalid() {
-    let response = httpResponse(with: 9000)
+    let response = httpResponse(with: 9_000)
     let (result, error) = responseHandler.handleResponse(
       response: response,
       data: testErrorStringData,
@@ -85,7 +86,7 @@ class RPCResponseHandlerTest: XCTestCase {
     )
 
     XCTAssertNil(result)
-    XCTAssertNotNil(error);
+    XCTAssertNotNil(error)
 
     guard let tezosKitError = error as? TezosClientError else {
       XCTFail()
@@ -106,7 +107,7 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: StringResponseAdapter.self
     )
 
-    XCTAssertNotNil(error);
+    XCTAssertNotNil(error)
     XCTAssertNil(result)
 
     guard let tezosKitError = error as? TezosClientError else {
@@ -127,7 +128,7 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: StringResponseAdapter.self
     )
 
-    XCTAssertNil(error);
+    XCTAssertNil(error)
     XCTAssertNotNil(result)
     XCTAssertEqual(result, testParsedString)
   }
@@ -141,7 +142,7 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: StringResponseAdapter.self
     )
 
-    XCTAssertNotNil(error);
+    XCTAssertNotNil(error)
     XCTAssertNil(result)
 
     guard let tezosKitError = error as? TezosClientError else {
@@ -162,7 +163,7 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: PeriodKindResponseAdapter.self
     )
 
-    XCTAssertNotNil(error);
+    XCTAssertNotNil(error)
     XCTAssertNil(result)
 
     guard let tezosKitError = error as? TezosClientError else {
@@ -173,7 +174,6 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
     XCTAssertEqual(tezosKitError.underlyingError, nil)
   }
-
 
   private func httpResponse(with code: Int) -> HTTPURLResponse {
     return HTTPURLResponse(url: testURL, statusCode: code, httpVersion: nil, headerFields: nil)!
