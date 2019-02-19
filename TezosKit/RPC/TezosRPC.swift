@@ -15,11 +15,12 @@ import Foundation
  * Concrete subclasses should construct an endpoint and payload and inform this class by calling
  * |super.init|.
  */
+// TODO: Genericize this class and other classes.
 public class TezosRPC<T> {
   public let endpoint: String
   public let payload: String?
-  private let responseAdapterClass: AbstractResponseAdapter<T>.Type
-  private let completion: (T?, Error?) -> Void
+  public let responseAdapterClass: AbstractResponseAdapter<T>.Type
+  public let completion: (T?, Error?) -> Void
   public var isPOSTRequest: Bool {
     if payload != nil {
       return true

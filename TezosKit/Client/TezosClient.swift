@@ -567,7 +567,10 @@ public class TezosClient {
       guard let self = self else {
         return
       }
-      self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
+      let result = self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
+
+      // TODO: Dispatch to correct thread.
+      rpc.completion(result.result, result.error)
     }
     request.resume()
   }

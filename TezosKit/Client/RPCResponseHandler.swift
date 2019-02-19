@@ -6,6 +6,7 @@ import Foundation
  * A response handler handles responses that are received when network requests are completed.
  */
 public class RPCResponseHandler {
+  // TODO: Remove
   /** The queue that callbacks from requests will be made on. */
   private let callbackQueue: DispatchQueue
 
@@ -14,8 +15,22 @@ public class RPCResponseHandler {
     self.callbackQueue = callbackQueue
   }
 
-  /** Handle the given response from making the given RPC. */
-  public func handleResponse<T>(rpc: TezosRPC<T>, data: Data?, response: URLResponse?, error: Error?) {
+  // TODO: Create a convenience method for error handling
+
+  /**
+   * Handle a response from the network.
+   * - Parameter rpc: The RPC which made the request to the network.
+   * - Parameter data: Raw data returned from the network, if it exists.
+   * - Parameter response: The URLResponse associated with the request, if it exists.
+   * - Parameter error: An error in the request, if one occurred.
+   * - Returns: A tuple containing the results of the parsing operation if successful, otherwise an error.
+   */
+  public func handleResponse<T>(
+    rpc: TezosRPC<T>,
+    data: Data?,
+    response: URLResponse?,
+    error: Error?
+  ) -> (result: T?, error: Error?) {
     // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
     if let httpResponse = response as? HTTPURLResponse,
       httpResponse.statusCode != 200 {
@@ -42,9 +57,41 @@ public class RPCResponseHandler {
       // give up.
       let error = TezosClientError(kind: errorKind, underlyingError: errorMessage)
       rpc.handleResponse(data: nil, error: error, callbackQueue: self.callbackQueue)
-      return
+      return (nil, error)
     }
 
-    rpc.handleResponse(data: data, error: error, callbackQueue: self.callbackQueue)
+    // Check for a generic error on the request. If so, propagate.
+    if let error = error {
+      let desc = error.localizedDescription
+      let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: desc)
+      callbackQueue.async {
+        // TODO: Make completion public
+        rpc.completion(nil, tezosClientError)
+      }
+      return (nil, error)
+    }
+
+    // Ensure that data came back.
+    guard let data = data,
+      let parsedData = parse(data, with: rpc.responseAdapterClass) else {
+        let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
+        return (nil, tezosClientError)
+    }
+
+    return (parsedData, nil)
+  }
+
+  /**
+   * Parse the given data to an object with the given response adapter.
+   * - Parameter data: Data to parse.
+   * - Paramater responseAdapterClass: A response adapter class to use for parsing the data.
+   * - Returns: The parsed type if the data was was valid, otherwise nil.
+   */
+  private func parse<T>(_ data: Data, with responseAdapterClass: AbstractResponseAdapter<T>.Type) -> T? {
+    // TODO: Drop input:
+    guard let result = responseAdapterClass.parse(input: data) else {
+      return nil
+    }
+    return result;
   }
 }
