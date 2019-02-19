@@ -97,6 +97,7 @@
 		77CE388121FC7EED006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE387F21FC7EED006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D2532218866E00D34B01 /* TezosCrypto.framework */; };
 		77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */; };
+		77F4D260221BA24D00D34B01 /* WalletKeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D25F221BA24D00D34B01 /* WalletKeychainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +220,7 @@
 		77CE388021FC7EED006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F4D2532218866E00D34B01 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
 		77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandler.swift; sourceTree = "<group>"; };
+		77F4D25F221BA24D00D34B01 /* WalletKeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKeychainManager.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -360,6 +362,7 @@
 			children = (
 				77CE381C21FC7ED7006ADABA /* JSONUtils.swift */,
 				77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */,
+				77F4D25F221BA24D00D34B01 /* WalletKeychainManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				77CE387021FC7ED8006ADABA /* GetChainHeadRPC.swift in Sources */,
 				77CE384B21FC7ED8006ADABA /* RegisterDelegateOperation.swift in Sources */,
 				77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */,
+				77F4D260221BA24D00D34B01 /* WalletKeychainManager.swift in Sources */,
 				77CE386F21FC7ED8006ADABA /* JSONArrayResponseAdapter.swift in Sources */,
 				77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */,
 				77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */,
