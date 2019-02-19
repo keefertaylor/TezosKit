@@ -12,7 +12,7 @@ public class RPCResponseHandler {
    * - Parameter data: Raw data returned from the network, if it exists.
    * - Parameter error: An error in the request, if one occurred.
    * - Parameter responseAdapterClass: A response adapter class that will adapt the raw data to a first class object.
-   * - Returns: A tuple containing the results of the parsing operation if successful, otherwise an error.
+   * - Returns: A tuple containing the result of the parsing operation if successful, otherwise an error.
    */
   public func handleResponse<T>(
     response: URLResponse?,
