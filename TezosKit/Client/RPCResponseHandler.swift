@@ -6,8 +6,6 @@ import Foundation
  * A response handler handles responses that are received when network requests are completed.
  */
 public class RPCResponseHandler {
-  // TODO: Create a convenience method for error handling
-
   /**
    * Handle a response from the network.
    * - Parameter rpc: The RPC which made the request to the network.
@@ -25,36 +23,42 @@ public class RPCResponseHandler {
     // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
     if let httpResponse = response as? HTTPURLResponse,
         httpResponse.statusCode != 200 {
-      let error = parseError(from: httpResponse, with: data)
-      return (nil, error)
+       let httpError = parseError(from: httpResponse, with: data)
+      return (nil, httpError)
     }
 
     // Check for a generic error on the request. If so, propagate.
     if let error = error {
-      let desc = error.localizedDescription
-      let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: desc)
-      return (nil, tezosClientError)
+       let desc = error.localizedDescription
+       let rpcError = TezosClientError(kind: .rpcError, underlyingError: desc)
+      return (nil, rpcError)
     }
 
     // Ensure that data came back.
     guard let data = data,
-      let parsedData = parse(data, with: rpc.responseAdapterClass) else {
-        let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
-        return (nil, tezosClientError)
+          let parsedData = parse(data, with: rpc.responseAdapterClass) else {
+      let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
+      return (nil, tezosClientError)
     }
 
     return (parsedData, nil)
   }
 
-  /**
-   * Attempt to parse an error from a given URLResponse.
-   */
+ /**
+  * Parse an error from a given HTTPURLResponse.
+  *
+  * - Note: This method assumes that the HTTPResponse contained an error.
+  *
+  * - Parameter httpResponse: The HTTPURLResponse to parse.
+  * - Parameter data: Optional data that may have been returned with the response.
+  * - Returns: An appropriate error based on the inputs.
+  */
   private func parseError(from httpResponse: HTTPURLResponse, with data: Data?) -> Error? {
     // Decode the server's response to a string in order to bundle it with the error if it is in
     // a readable format.
     var errorMessage = ""
     if let data = data,
-      let dataString = String(data: data, encoding: .utf8) {
+       let dataString = String(data: data, encoding: .utf8) {
       errorMessage = dataString
     }
 
@@ -65,6 +69,14 @@ public class RPCResponseHandler {
     return error
   }
 
+  /**
+   * Parse an error kind from a given HTTPURLResponse.
+   *
+   * - Note: This method assumes that the HTTPResponse contained an error.
+   *
+   * - Parameter httpResponse: The HTTPURLResponse to parse.
+   * - Returns: An appropriate error kind based on the response.
+   */
   private func parseErrorKind(from httpResponse: HTTPURLResponse) -> TezosClientError.ErrorKind {
     // Default to unknown error and try to give a more specific error code if it can be narrowed
     // down based on HTTP response code.
@@ -72,7 +84,7 @@ public class RPCResponseHandler {
     // Status code 40X: Bad request was sent to server.
     if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
       errorKind = .unexpectedRequestFormat
-      // Status code 50X: Bad request was sent to server.
+    // Status code 50X: Bad request was sent to server.
     } else if httpResponse.statusCode >= 500 {
       errorKind = .unexpectedResponse
     }
