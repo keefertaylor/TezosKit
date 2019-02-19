@@ -568,10 +568,14 @@ public class TezosClient {
         return
       }
 
-      // TODO: Better name for result.
-      let result = self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
+      let (result, error) = self.responseHandler.handleResponse(
+        response: response,
+        data: data,
+        error: error,
+        responseAdapterClass: rpc.responseAdapterClass
+      )
       self.callbackQueue.async {
-        rpc.completion(result.result, result.error)
+        rpc.completion(result, error)
       }
     }
     request.resume()

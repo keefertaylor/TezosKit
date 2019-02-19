@@ -8,17 +8,17 @@ import Foundation
 public class RPCResponseHandler {
   /**
    * Handle a response from the network.
-   * - Parameter rpc: The RPC which made the request to the network.
-   * - Parameter data: Raw data returned from the network, if it exists.
    * - Parameter response: The URLResponse associated with the request, if it exists.
+   * - Parameter data: Raw data returned from the network, if it exists.
    * - Parameter error: An error in the request, if one occurred.
+   * - Parameter responseAdapterClass: A response adapter class that will adapt the raw data to a first class object.
    * - Returns: A tuple containing the results of the parsing operation if successful, otherwise an error.
    */
   public func handleResponse<T>(
-    rpc: TezosRPC<T>,
-    data: Data?,
     response: URLResponse?,
-    error: Error?
+    data: Data?,
+    error: Error?,
+    responseAdapterClass: AbstractResponseAdapter<T>.Type
   ) -> (result: T?, error: Error?) {
     // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
     if let httpResponse = response as? HTTPURLResponse,
@@ -36,7 +36,7 @@ public class RPCResponseHandler {
 
     // Ensure that data came back.
     guard let data = data,
-          let parsedData = parse(data, with: rpc.responseAdapterClass) else {
+          let parsedData = parse(data, with: responseAdapterClass) else {
       let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
       return (nil, tezosClientError)
     }
