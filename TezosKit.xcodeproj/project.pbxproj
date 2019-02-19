@@ -98,6 +98,7 @@
 		77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D2532218866E00D34B01 /* TezosCrypto.framework */; };
 		77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */; };
 		77F4D260221BA24D00D34B01 /* WalletKeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D25F221BA24D00D34B01 /* WalletKeychainManager.swift */; };
+		77F4D262221BB01C00D34B01 /* Valet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D261221BB01C00D34B01 /* Valet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +222,7 @@
 		77F4D2532218866E00D34B01 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
 		77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandler.swift; sourceTree = "<group>"; };
 		77F4D25F221BA24D00D34B01 /* WalletKeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKeychainManager.swift; sourceTree = "<group>"; };
+		77F4D261221BB01C00D34B01 /* Valet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Valet.framework; path = Carthage/Build/iOS/Valet.framework; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -230,6 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77F4D262221BB01C00D34B01 /* Valet.framework in Frameworks */,
 				77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */,
 				77CE370721FBE67C006ADABA /* Sodium.framework in Frameworks */,
 				77CE370821FBE67C006ADABA /* BigInt.framework in Frameworks */,
@@ -315,6 +318,7 @@
 		77CE362F21F7EF32006ADABA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77F4D261221BB01C00D34B01 /* Valet.framework */,
 				77F4D2532218866E00D34B01 /* TezosCrypto.framework */,
 				77CE36B721F7F3D6006ADABA /* MnemonicKit.framework */,
 				77CE36B521F7F3CB006ADABA /* CryptoSwift.framework */,
@@ -556,6 +560,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Sodium.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/TezosCrypto.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Base58Swift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Valet.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -568,6 +573,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MnemonicKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TezosCrypto.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Base58Swift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Valet.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
