@@ -548,7 +548,9 @@ public class TezosClient {
   public func send<T>(rpc: TezosRPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
-      rpc.completion(nil, error)
+      callbackQueue.async {
+        rpc.completion(nil, error)
+      }
       return
     }
 
