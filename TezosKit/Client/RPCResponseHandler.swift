@@ -54,7 +54,7 @@ public class RPCResponseHandler {
     if let error = error {
       let desc = error.localizedDescription
       let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: desc)
-      return (nil, error)
+      return (nil, tezosClientError)
     }
 
     // Ensure that data came back.

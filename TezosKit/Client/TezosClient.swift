@@ -95,7 +95,7 @@ public class TezosClient {
     self.remoteNodeURL = remoteNodeURL
     self.urlSession = urlSession
     self.callbackQueue = callbackQueue
-    self.responseHandler = RPCResponseHandler(callbackQueue: callbackQueue)
+    self.responseHandler = RPCResponseHandler()
   }
 
   /** Retrieve data about the chain head. */
@@ -548,7 +548,7 @@ public class TezosClient {
   public func send<T>(rpc: TezosRPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
       let error = TezosClientError(kind: .unknown, underlyingError: nil)
-      rpc.handleResponse(data: nil, error: error, callbackQueue: callbackQueue)
+      rpc.completion(nil, error)
       return
     }
 
@@ -567,10 +567,12 @@ public class TezosClient {
       guard let self = self else {
         return
       }
-      let result = self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
 
-      // TODO: Dispatch to correct thread.
-      rpc.completion(result.result, result.error)
+      // TODO: Better name for result.
+      let result = self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
+      self.callbackQueue.async {
+        rpc.completion(result.result, result.error)
+      }
     }
     request.resume()
   }
