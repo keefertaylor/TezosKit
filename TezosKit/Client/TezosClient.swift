@@ -64,21 +64,9 @@ import TezosCrypto
  * operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
  * correctly.
  */
-public class TezosClient {
+public class TezosClient: AbstractClient {
   /** The default node URL to use. */
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
-
-  /** The URL session that will be used to manage URL requests. */
-  private let urlSession: URLSession
-
-  /** A URL pointing to a remote node that will handle requests made by this client. */
-  private let remoteNodeURL: URL
-
-  /** A response handler for RPCs. */
-  private let responseHandler: RPCResponseHandler
-
-  /** The queue that callbacks from requests will be made on. */
-  private let callbackQueue: DispatchQueue
 
   /**
    * Initialize a new TezosClient.
@@ -92,10 +80,12 @@ public class TezosClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    self.remoteNodeURL = remoteNodeURL
-    self.urlSession = urlSession
-    self.callbackQueue = callbackQueue
-    self.responseHandler = RPCResponseHandler()
+    super.init(
+      remoteNodeURL: remoteNodeURL,
+      urlSession: urlSession,
+      callbackQueue: callbackQueue,
+      responseHandler: RPCResponseHandler()
+    )
   }
 
   /** Retrieve data about the chain head. */
@@ -540,47 +530,6 @@ public class TezosClient {
     }
 
     send(rpc: injectRPC)
-  }
-
-  /**
-   * Send an RPC as a GET or POST request.
-   */
-  public func send<T>(rpc: TezosRPC<T>) {
-    guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
-      let error = TezosClientError(kind: .unknown, underlyingError: nil)
-      callbackQueue.async {
-        rpc.completion(nil, error)
-      }
-      return
-    }
-
-    var urlRequest = URLRequest(url: remoteNodeEndpoint)
-
-    if rpc.isPOSTRequest,
-      let payload = rpc.payload,
-      let payloadData = payload.data(using: .utf8) {
-      urlRequest.httpMethod = "POST"
-      urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-      urlRequest.cachePolicy = .reloadIgnoringCacheData
-      urlRequest.httpBody = payloadData
-    }
-
-    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
-      guard let self = self else {
-        return
-      }
-
-      let (result, error) = self.responseHandler.handleResponse(
-        response: response,
-        data: data,
-        error: error,
-        responseAdapterClass: rpc.responseAdapterClass
-      )
-      self.callbackQueue.async {
-        rpc.completion(result, error)
-      }
-    }
-    request.resume()
   }
 
   /**
