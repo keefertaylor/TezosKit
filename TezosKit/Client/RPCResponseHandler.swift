@@ -85,7 +85,7 @@ public class RPCResponseHandler {
     if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
       errorKind = .unexpectedRequestFormat
     // Status code 50X: Bad request was sent to server.
-    } else if httpResponse.statusCode >= 500 {
+    } else if httpResponse.statusCode >= 500, httpResponse.statusCode < 600 {
       errorKind = .unexpectedResponse
     }
     return errorKind
