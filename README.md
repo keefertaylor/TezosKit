@@ -221,8 +221,8 @@ tezosNodeClient.send(
 
 The core components are: 
 - *TezosNodeClient* - A gateway to a node that operates in the Tezos Blockchain.
-- *TezosRPC* - A superclass for all RPC objects. RPCs are responsible for making a request to an RPC endpoint and decoding the response.
-- *ResponseAdapter* - Utilized by TezosRPC to transform raw response data into a first class object.
+- *RPC* - A superclass for all RPC objects. RPCs are responsible for making a request to an RPC endpoint and decoding the response.
+- *ResponseAdapter* - Utilized to transform raw response data into a first class object.
 - *Operation* - Representations of operations that can be committed to the blockchain.
 - *OperationFees* - Represents the fee, gas limit and storage limit used when injecting an operation.
 - *Wallet* - Represents an address on the blockchain and a set of keys to manage that address.
