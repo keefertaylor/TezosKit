@@ -46,7 +46,7 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertNil(result)
     XCTAssertNotNil(error)
 
-    guard let tezosKitError = error as? TezosClientError else {
+    guard let tezosKitError = error as? TezosKitError else {
       XCTFail()
       return
     }
@@ -67,7 +67,7 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertNil(result)
     XCTAssertNotNil(error)
 
-    guard let tezosKitError = error as? TezosClientError else {
+    guard let tezosKitError = error as? TezosKitError else {
       XCTFail()
       return
     }
@@ -88,7 +88,7 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertNil(result)
     XCTAssertNotNil(error)
 
-    guard let tezosKitError = error as? TezosClientError else {
+    guard let tezosKitError = error as? TezosKitError else {
       XCTFail()
       return
     }
@@ -110,7 +110,7 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertNotNil(error)
     XCTAssertNil(result)
 
-    guard let tezosKitError = error as? TezosClientError else {
+    guard let tezosKitError = error as? TezosKitError else {
       XCTFail()
       return
     }
@@ -145,7 +145,7 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertNotNil(error)
     XCTAssertNil(result)
 
-    guard let tezosKitError = error as? TezosClientError else {
+    guard let tezosKitError = error as? TezosKitError else {
       XCTFail()
       return
     }
@@ -166,7 +166,7 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertNotNil(error)
     XCTAssertNil(result)
 
-    guard let tezosKitError = error as? TezosClientError else {
+    guard let tezosKitError = error as? TezosKitError else {
       XCTFail()
       return
     }

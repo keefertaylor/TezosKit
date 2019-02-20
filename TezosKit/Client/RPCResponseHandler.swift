@@ -30,15 +30,15 @@ public class RPCResponseHandler {
     // Check for a generic error on the request. If so, propagate.
     if let error = error {
        let desc = error.localizedDescription
-       let rpcError = TezosClientError(kind: .rpcError, underlyingError: desc)
+       let rpcError = TezosKitError(kind: .rpcError, underlyingError: desc)
       return (nil, rpcError)
     }
 
     // Ensure that data came back.
     guard let data = data,
           let parsedData = parse(data, with: responseAdapterClass) else {
-      let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
-      return (nil, tezosClientError)
+      let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+      return (nil, tezosKitError)
     }
 
     return (parsedData, nil)
@@ -65,7 +65,7 @@ public class RPCResponseHandler {
     // Drop data and send our error to let subsequent handlers know something went wrong and to
     // give up.
     let errorKind = parseErrorKind(from: httpResponse)
-    let error = TezosClientError(kind: errorKind, underlyingError: errorMessage)
+    let error = TezosKitError(kind: errorKind, underlyingError: errorMessage)
     return error
   }
 
@@ -77,10 +77,10 @@ public class RPCResponseHandler {
    * - Parameter httpResponse: The HTTPURLResponse to parse.
    * - Returns: An appropriate error kind based on the response.
    */
-  private func parseErrorKind(from httpResponse: HTTPURLResponse) -> TezosClientError.ErrorKind {
+  private func parseErrorKind(from httpResponse: HTTPURLResponse) -> TezosKitError.ErrorKind {
     // Default to unknown error and try to give a more specific error code if it can be narrowed
     // down based on HTTP response code.
-    var errorKind: TezosClientError.ErrorKind = .unknown
+    var errorKind: TezosKitError.ErrorKind = .unknown
     // Status code 40X: Bad request was sent to server.
     if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
       errorKind = .unexpectedRequestFormat

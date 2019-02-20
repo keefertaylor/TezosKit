@@ -382,7 +382,7 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (String?, Error?) -> Void
   ) {
     guard let operationMetadata = getMetadataForOperation(address: source) else {
-      let error = TezosClientError(kind: .unknown, underlyingError: nil)
+      let error = TezosKitError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
       return
     }
@@ -415,7 +415,7 @@ public class TezosNodeClient: AbstractClient {
     operationPayload["branch"] = operationMetadata.headHash
 
     guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
-      let error = TezosClientError(kind: .unexpectedRequestFormat, underlyingError: nil)
+      let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
       completion(nil, error)
       return
     }
@@ -465,7 +465,7 @@ public class TezosNodeClient: AbstractClient {
         secretKey: keys.secretKey
       ),
       let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
-      let error = TezosClientError(kind: .unknown, underlyingError: nil)
+      let error = TezosKitError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
         return
     }
@@ -476,7 +476,7 @@ public class TezosNodeClient: AbstractClient {
 
     let operationPayloadArray = [mutableOperationPayload]
     guard let signedJsonPayload = JSONUtils.jsonString(for: operationPayloadArray) else {
-      let error = TezosClientError(kind: .unexpectedRequestFormat, underlyingError: nil)
+      let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
       completion(nil, error)
       return
     }

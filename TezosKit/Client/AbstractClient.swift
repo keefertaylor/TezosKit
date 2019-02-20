@@ -42,7 +42,7 @@ public class AbstractClient {
    */
   public func send<T>(rpc: TezosRPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
-      let error = TezosClientError(kind: .unknown, underlyingError: nil)
+      let error = TezosKitError(kind: .unknown, underlyingError: nil)
       callbackQueue.async {
         rpc.completion(nil, error)
       }

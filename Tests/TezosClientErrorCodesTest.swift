@@ -3,12 +3,12 @@
 @testable import TezosKit
 import XCTest
 
-class TezosClientErrorCodesTest: XCTestCase {
+class TezosKitErrorCodesTest: XCTestCase {
   public func testLocalizedDescription() {
-    let errorKind: TezosClientError.ErrorKind = .unexpectedResponse
-    let expectedLocalizedDescription = "TezosClientError \(errorKind.rawValue)"
+    let errorKind: TezosKitError.ErrorKind = .unexpectedResponse
+    let expectedLocalizedDescription = "TezosKitError \(errorKind.rawValue)"
 
-    let error = TezosClientError(kind: errorKind, underlyingError: nil)
+    let error = TezosKitError(kind: errorKind, underlyingError: nil)
 
     let localizedDescription = error.localizedDescription
 
@@ -16,11 +16,11 @@ class TezosClientErrorCodesTest: XCTestCase {
   }
 
   public func testLocalizedDescriptionWithUnderlyingError() {
-    let errorKind: TezosClientError.ErrorKind = .unexpectedResponse
+    let errorKind: TezosKitError.ErrorKind = .unexpectedResponse
     let errorString = "A string describing an error"
-    let expectedLocalizedDescription = "\(errorString) (TezosClientError \(errorKind.rawValue))"
+    let expectedLocalizedDescription = "\(errorString) (TezosKitError \(errorKind.rawValue))"
 
-    let error = TezosClientError(kind: errorKind, underlyingError: errorString)
+    let error = TezosKitError(kind: errorKind, underlyingError: errorString)
 
     let localizedDescription = error.localizedDescription
 
