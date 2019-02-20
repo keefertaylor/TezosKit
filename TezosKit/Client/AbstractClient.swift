@@ -60,7 +60,7 @@ public class AbstractClient {
       urlRequest.httpBody = payloadData
     }
 
-    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
+    let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
         return
       }
