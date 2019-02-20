@@ -3,16 +3,16 @@
 @testable import TezosKit
 import XCTest
 
-class TezosRPCTest: XCTestCase {
+class RPCTest: XCTestCase {
   public func testIsPOSTRequest() {
-    let getRPC = TezosRPC(
+    let getRPC = RPC(
       endpoint: "a",
       responseAdapterClass: StringResponseAdapter.self
     ) { _, _ in
     }
     XCTAssertFalse(getRPC.isPOSTRequest)
 
-    let postRPC = TezosRPC(
+    let postRPC = RPC(
       endpoint: "a",
       responseAdapterClass: StringResponseAdapter.self,
       payload: "abc"

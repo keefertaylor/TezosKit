@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will inject an operation on the Tezos blockchain.
  */
-public class InjectionRPC: TezosRPC<String> {
+public class InjectionRPC: RPC<String> {
   /**
    * - Parameter payload: A JSON encoded string that represents the signed payload to inject.
    * - Parameter completion: A block to be called on completion of the operation.

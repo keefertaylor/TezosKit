@@ -40,7 +40,7 @@ public class AbstractClient {
   /**
    * Send an RPC as a GET or POST request.
    */
-  public func send<T>(rpc: TezosRPC<T>) {
+  public func send<T>(rpc: RPC<T>) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
       let error = TezosKitError(kind: .unknown, underlyingError: nil)
       callbackQueue.async {

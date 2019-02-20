@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will pre-apply an operation.
  */
-public class PreapplyOperationRPC: TezosRPC<[[String: Any]]> {
+public class PreapplyOperationRPC: RPC<[[String: Any]]> {
   /**
    * - Parameter chainID: The chain ID to operate on.
    * - Parameter headHash: The hash of the block at the head of chain to operate on.

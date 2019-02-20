@@ -15,7 +15,7 @@ import Foundation
  * Concrete subclasses should construct an endpoint and payload and inform this class by calling
  * |super.init|.
  */
-public class TezosRPC<T> {
+public class RPC<T> {
   public let endpoint: String
   public let payload: String?
   public let responseAdapterClass: AbstractResponseAdapter<T>.Type

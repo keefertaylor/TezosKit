@@ -27,8 +27,8 @@ import TezosCrypto
  * operations.
  *
  * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
- * conforms the the |TezosRPC| protocol and calling:
- *      func send<T>(rpc: TezosRPC<T>)
+ * conforms the the |RPC| protocol and calling:
+ *      func send<T>(rpc: RPC<T>)
  *
  * Operations
  * -------------

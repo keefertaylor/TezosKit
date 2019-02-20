@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve the current period kind for voting.
  */
-public class GetCurrentPeriodKindRPC: TezosRPC<PeriodKind> {
+public class GetCurrentPeriodKindRPC: RPC<PeriodKind> {
   /**
    * - Parameter completion: A block to be called at the completion of the operation.
    */

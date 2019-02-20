@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve the hash of the head of the main chain.
  */
-public class GetChainHeadHashRPC: TezosRPC<String> {
+public class GetChainHeadHashRPC: RPC<String> {
   /**
    * - Parameter completion: A completion block to be called on success or failure.
    */

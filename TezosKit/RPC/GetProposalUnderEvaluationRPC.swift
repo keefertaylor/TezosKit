@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve the current proposal under evaluation.
  */
-public class GetProposalUnderEvaluationRPC: TezosRPC<String> {
+public class GetProposalUnderEvaluationRPC: RPC<String> {
   /**
    * - Parameter completion: A block to be called at the completion of the operation.
    */

@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve ballots cast so far during a voting period.
  */
-public class GetBallotsListRPC: TezosRPC<[[String: Any]]> {
+public class GetBallotsListRPC: RPC<[[String: Any]]> {
   /**
    * - Parameter completion: A block to be called at the completion of the operation.
    */
