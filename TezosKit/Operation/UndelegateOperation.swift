@@ -5,9 +5,9 @@ import Foundation
 /** An operation to set a clear a delegate for an address. */
 public class UndelegateOperation: AbstractOperation {
   public override var defaultFees: OperationFees {
-    let fee = TezosBalance(balance: 0.001_257)
-    let storageLimit = TezosBalance.zeroBalance
-    let gasLimit = TezosBalance(balance: 0.010_000)
+    let fee = Tez(0.001_257)
+    let storageLimit = Tez.zeroBalance
+    let gasLimit = Tez(0.010_000)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
