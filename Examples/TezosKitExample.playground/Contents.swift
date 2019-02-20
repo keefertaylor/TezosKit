@@ -2,10 +2,10 @@
 
 import TezosKit
 
-let tezosClient = TezosClient()
+let tezosNodeClient = TezosNodeClient()
 let wallet = Wallet()!
 
-tezosClient.getHeadHash { headHash, error in
+tezosNodeClient.getHeadHash { headHash, error in
   guard let headHash = headHash,
     error == nil else {
     print("Couldn't fetch head :(")
@@ -17,7 +17,7 @@ tezosClient.getHeadHash { headHash, error in
   print("The hash of the head block was \(headHash)")
 }
 
-tezosClient.getBalance(wallet: wallet) { balance, error in
+tezosNodeClient.getBalance(wallet: wallet) { balance, error in
   guard let balance = balance,
     error == nil else {
     print("Couldn't fetch balance :(")

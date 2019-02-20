@@ -92,7 +92,7 @@
 		77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384121FC7ED8006ADABA /* ForgeOperationRPC.swift */; };
 		77CE387A21FC7ED8006ADABA /* PreapplyOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384221FC7ED8006ADABA /* PreapplyOperationRPC.swift */; };
 		77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384321FC7ED8006ADABA /* GetExpectedQuorumRPC.swift */; };
-		77CE387C21FC7ED8006ADABA /* TezosClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384521FC7ED8006ADABA /* TezosClient.swift */; };
+		77CE387C21FC7ED8006ADABA /* TezosNodeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384521FC7ED8006ADABA /* TezosNodeClient.swift */; };
 		77CE387D21FC7ED8006ADABA /* TezosClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE384621FC7ED8006ADABA /* TezosClientError.swift */; };
 		77CE388121FC7EED006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE387F21FC7EED006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D2532218866E00D34B01 /* TezosCrypto.framework */; };
@@ -215,7 +215,7 @@
 		77CE384121FC7ED8006ADABA /* ForgeOperationRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgeOperationRPC.swift; sourceTree = "<group>"; };
 		77CE384221FC7ED8006ADABA /* PreapplyOperationRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreapplyOperationRPC.swift; sourceTree = "<group>"; };
 		77CE384321FC7ED8006ADABA /* GetExpectedQuorumRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPC.swift; sourceTree = "<group>"; };
-		77CE384521FC7ED8006ADABA /* TezosClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosClient.swift; sourceTree = "<group>"; };
+		77CE384521FC7ED8006ADABA /* TezosNodeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosNodeClient.swift; sourceTree = "<group>"; };
 		77CE384621FC7ED8006ADABA /* TezosClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezosClientError.swift; sourceTree = "<group>"; };
 		77CE387F21FC7EED006ADABA /* TezosKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TezosKit.h; sourceTree = "<group>"; };
 		77CE388021FC7EED006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -428,7 +428,7 @@
 		77CE384421FC7ED8006ADABA /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				77CE384521FC7ED8006ADABA /* TezosClient.swift */,
+				77CE384521FC7ED8006ADABA /* TezosNodeClient.swift */,
 				77F4D265221CCE4B00D34B01 /* AbstractClient.swift */,
 				77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */,
 				77CE384621FC7ED8006ADABA /* TezosClientError.swift */,
@@ -638,7 +638,7 @@
 				77CE386121FC7ED8006ADABA /* GetAddressBalanceRPC.swift in Sources */,
 				77CE384C21FC7ED8006ADABA /* UndelegateOperation.swift in Sources */,
 				77CE386421FC7ED8006ADABA /* GetBallotsRPC.swift in Sources */,
-				77CE387C21FC7ED8006ADABA /* TezosClient.swift in Sources */,
+				77CE387C21FC7ED8006ADABA /* TezosNodeClient.swift in Sources */,
 				77CE385E21FC7ED8006ADABA /* Wallet.swift in Sources */,
 				77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */,
 				77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */,

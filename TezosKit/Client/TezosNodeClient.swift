@@ -4,7 +4,7 @@ import Foundation
 import TezosCrypto
 
 /**
- * TezosClient is the gateway into the Tezos Network.
+ * TezosNodeClient is the gateway into the Tezos Network via a Tezos Node.
  *
  * Configuration
  * -------------
@@ -19,11 +19,11 @@ import TezosCrypto
  *
  * RPCs
  * -------------
- * TezosClient contains support for GET and POST RPCS and will make requests based on the
+ * TezosNodeClient contains support for GET and POST RPCS and will make requests based on the
  * RPCs provided to it.
  *
  * All supported RPC operations are provided in the Sources/Requests folder of the project. In
- * addition, TezosClient provides convenience methods for constructing and sending all supported
+ * addition, TezosNodeClient provides convenience methods for constructing and sending all supported
  * operations.
  *
  * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
@@ -32,11 +32,11 @@ import TezosCrypto
  *
  * Operations
  * -------------
- * TezosClient also contains support for performing signed operations on the Tezos blockchain. These
+ * TezosNodeClient also contains support for performing signed operations on the Tezos blockchain. These
  * operations require a multi-step process to perform (forge, sign, pre-apply, inject).
  *
  * All supported signed operations are provided in the Sources/Operations folder of the project. In
- * addition, TezosClient provides convenience methods for constructing and performing all supported
+ * addition, TezosNodeClient provides convenience methods for constructing and performing all supported
  * signed operations.
  *
  * Operations are sent with a fee and a limit for gas and storage to use to include the transaction
@@ -64,12 +64,12 @@ import TezosCrypto
  * operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
  * correctly.
  */
-public class TezosClient: AbstractClient {
+public class TezosNodeClient: AbstractClient {
   /** The default node URL to use. */
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
   /**
-   * Initialize a new TezosClient.
+   * Initialize a new TezosNodeClient.
    *
    * - Parameter remoteNodeURL: The path to the remote node, defaults to the default URL
    * - Parameter urlSession: The URLSession that will manage network requests, defaults to the shared session.
