@@ -5,7 +5,7 @@ import XCTest
 
 class TransactionOperationTest: XCTestCase {
   let destination = "tz1def"
-  let balance = TezosBalance(balance: 3.50)
+  let balance = Tez(3.50)
 
   public func testTransation() {
     let source = "tz1abc"

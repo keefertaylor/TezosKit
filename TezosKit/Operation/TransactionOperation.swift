@@ -4,7 +4,7 @@ import Foundation
 
 /** An operation to transact XTZ between addresses. */
 public class TransactionOperation: AbstractOperation {
-  private let amount: TezosBalance
+  private let amount: Tez
   private let destination: String
   private let parameters: [String: Any]?
 
@@ -20,9 +20,9 @@ public class TransactionOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = TezosBalance(balance: 0.001_272)
-    let storageLimit = TezosBalance(balance: 0.000_257)
-    let gasLimit = TezosBalance(balance: 0.010_100)
+    let fee = Tez(0.001_272)
+    let storageLimit = Tez(0.000_257)
+    let gasLimit = Tez(0.010_100)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
@@ -35,7 +35,7 @@ public class TransactionOperation: AbstractOperation {
    * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public convenience init(
-    amount: TezosBalance,
+    amount: Tez,
     source: Wallet,
     destination: String,
     parameters _: [String: Any]? = nil,
@@ -53,7 +53,7 @@ public class TransactionOperation: AbstractOperation {
    * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
    */
   public init(
-    amount: TezosBalance,
+    amount: Tez,
     source: String,
     destination: String,
     parameters: [String: Any]? = nil,

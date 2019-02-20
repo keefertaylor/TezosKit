@@ -2,14 +2,12 @@
 
 import Foundation
 
-/**
- * A model class representing a balance of Tezos.
- */
-public struct TezosBalance {
-  /** A balance of zero. */
-  public static let zeroBalance = TezosBalance(balance: 0.0)
+/// A model class representing a positive floating point amounty of Tez.
+public struct Tez {
+  /// A balance of zero.
+  public static let zeroBalance = Tez(0.0)
 
-  /** The number of decimal places available in Tezos values. */
+  /// The number of decimal places available in Tezos values.
   private let decimalDigitCount = 6
 
   /**
@@ -41,10 +39,10 @@ public struct TezosBalance {
   /**
    * Initialize a new balance from a given decimal number.
    *
-   * - Warning:  Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
+   * - Warning: Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
    * is dropped.
    */
-  public init(balance: Double) {
+  public init(_ balance: Double) {
     let integerValue = Int(balance)
 
     // Convert decimalDigitCount significant digits of decimals into integers to avoid having to
@@ -70,7 +68,7 @@ public struct TezosBalance {
   /**
    * Initialize a new balance from an RPC representation of a balance.
    */
-  public init?(balance: String) {
+  public init?(_ balance: String) {
     // Make sure the given string only contains digits.
     guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: balance)) else {
       return nil
@@ -94,8 +92,8 @@ public struct TezosBalance {
   }
 }
 
-extension TezosBalance: Equatable {
-  public static func == (lhs: TezosBalance, rhs: TezosBalance) -> Bool {
+extension Tez: Equatable {
+  public static func == (lhs: Tez, rhs: Tez) -> Bool {
     return lhs.rpcRepresentation == rhs.rpcRepresentation
   }
 }
