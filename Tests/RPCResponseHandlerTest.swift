@@ -16,27 +16,27 @@ extension TestError: LocalizedError {
 
 class RPCResponseHandlerTest: XCTestCase {
   /// Response handler to test.
-  let responseHandler = RPCResponseHandler()
+  static let responseHandler = RPCResponseHandler()
 
   /// Test values.
-  let testURL = URL(string: "http://github.com/keefertaylor/TezosKit")!
+  static let testURL = URL(string: "http://github.com/keefertaylor/TezosKit")!
 
-  let testErrorString = "flagrant error!"
+  static let testErrorString = "flagrant error!"
   var testErrorStringData: Data? // Above string as raw bytes.
 
-  let testParsedString = "success!"
+  static let testParsedString = "success!"
   var testParsedStringData: Data? // Above string as raw bytes.
 
   public override func setUp() {
     super.setUp()
 
-    testErrorStringData = testErrorString.data(using: .utf8)!
-    testParsedStringData = testParsedString.data(using: .utf8)!
+    testErrorStringData = RPCResponseHandlerTest.testErrorString.data(using: .utf8)!
+    testParsedStringData = RPCResponseHandlerTest.testParsedString.data(using: .utf8)!
   }
 
   public func testHandleResponseWithHTTP400() {
     let response = httpResponse(with: 400)
-    let (result, error) = responseHandler.handleResponse(
+    let (result, error) = RPCResponseHandlerTest.responseHandler.handleResponse(
       response: response,
       data: testErrorStringData,
       error: TestError.testError,
@@ -52,12 +52,12 @@ class RPCResponseHandlerTest: XCTestCase {
     }
 
     XCTAssertEqual(tezosKitError.kind, .unexpectedRequestFormat)
-    XCTAssertEqual(tezosKitError.underlyingError, testErrorString)
+    XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
   }
 
   public func testHandleResponseWithHTTP500() {
     let response = httpResponse(with: 500)
-    let (result, error) = responseHandler.handleResponse(
+    let (result, error) = RPCResponseHandlerTest.responseHandler.handleResponse(
       response: response,
       data: testErrorStringData,
       error: TestError.testError,
@@ -73,12 +73,12 @@ class RPCResponseHandlerTest: XCTestCase {
     }
 
     XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
-    XCTAssertEqual(tezosKitError.underlyingError, testErrorString)
+    XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
   }
 
   public func testHandleResponseWithHTTPInvalid() {
     let response = httpResponse(with: 9_000)
-    let (result, error) = responseHandler.handleResponse(
+    let (result, error) = RPCResponseHandlerTest.responseHandler.handleResponse(
       response: response,
       data: testErrorStringData,
       error: TestError.testError,
@@ -94,13 +94,13 @@ class RPCResponseHandlerTest: XCTestCase {
     }
 
     XCTAssertEqual(tezosKitError.kind, .unknown)
-    XCTAssertEqual(tezosKitError.underlyingError, testErrorString)
+    XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
   }
 
   public func testHandleResponseWithHTTP200AndError() {
     let response = httpResponse(with: 200)
     let testError = TestError.testError
-    let (result, error) = responseHandler.handleResponse(
+    let (result, error) = RPCResponseHandlerTest.responseHandler.handleResponse(
       response: response,
       data: testParsedStringData,
       error: testError,
@@ -121,7 +121,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
   public func testHandleResponseWithHTTP200AndNilErrorAndValidData() {
     let response = httpResponse(with: 200)
-    let (result, error) = responseHandler.handleResponse(
+    let (result, error) = RPCResponseHandlerTest.responseHandler.handleResponse(
       response: response,
       data: testParsedStringData,
       error: nil,
@@ -130,12 +130,12 @@ class RPCResponseHandlerTest: XCTestCase {
 
     XCTAssertNil(error)
     XCTAssertNotNil(result)
-    XCTAssertEqual(result, testParsedString)
+    XCTAssertEqual(result, RPCResponseHandlerTest.testParsedString)
   }
 
   public func testHandleResponseWithHTTP200AndNilErrorAndNoData() {
     let response = httpResponse(with: 200)
-    let (result, error) = responseHandler.handleResponse(
+    let (result, error) = RPCResponseHandlerTest.responseHandler.handleResponse(
       response: response,
       data: nil,
       error: nil,
@@ -156,7 +156,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
   public func testHandleResponseWithHTTP200AndNilErrorAndBadData() {
     let response = httpResponse(with: 200)
-    let (result, error) = responseHandler.handleResponse(
+    let (result, error) = RPCResponseHandlerTest.responseHandler.handleResponse(
       response: response,
       data: testParsedStringData,
       error: nil,
@@ -175,7 +175,9 @@ class RPCResponseHandlerTest: XCTestCase {
     XCTAssertEqual(tezosKitError.underlyingError, nil)
   }
 
+// MARK: - Helpers
+
   private func httpResponse(with code: Int) -> HTTPURLResponse {
-    return HTTPURLResponse(url: testURL, statusCode: code, httpVersion: nil, headerFields: nil)!
+    return HTTPURLResponse(url: RPCResponseHandlerTest.testURL, statusCode: code, httpVersion: nil, headerFields: nil)!
   }
 }
