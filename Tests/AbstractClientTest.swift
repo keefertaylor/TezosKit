@@ -102,7 +102,6 @@ class AbstractClientTest: XCTestCase {
     wait(for: [expectation], timeout: 10)
   }
 
-
   public func testBadHTTPResponseCompletesWithError() {
     // Fake URL session has data but has an HTTP error code.
     fakeURLSession.urlResponse = HTTPURLResponse(
