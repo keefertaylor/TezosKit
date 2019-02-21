@@ -15,9 +15,9 @@ class AbstractOperationTest: XCTestCase {
   public func testDictionaryRepresentation() {
     let source = "tz1abc"
     let kind: OperationKind = .delegation
-    let fee = TezosBalance(balance: 1)
-    let gasLimit = TezosBalance(balance: 2)
-    let storageLimit = TezosBalance(balance: 3)
+    let fee = Tez(1)
+    let gasLimit = Tez(2)
+    let storageLimit = Tez(3)
     let operationFees = OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
 
     let abstractOperation = AbstractOperation(source: source, kind: kind, operationFees: operationFees)

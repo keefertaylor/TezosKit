@@ -23,9 +23,9 @@ public class OriginateAccountOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = TezosBalance(balance: 0.001_285)
-    let storageLimit = TezosBalance(balance: 0.000_257)
-    let gasLimit = TezosBalance(balance: 0.010_000)
+    let fee = Tez(0.001_285)
+    let storageLimit = Tez(0.000_257)
+    let gasLimit = Tez(0.010_000)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 

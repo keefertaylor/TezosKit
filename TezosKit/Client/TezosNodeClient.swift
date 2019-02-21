@@ -95,12 +95,12 @@ public class TezosNodeClient: AbstractClient {
   }
 
   /** Retrieve the balance of a given wallet. */
-  public func getBalance(wallet: Wallet, completion: @escaping (TezosBalance?, Error?) -> Void) {
+  public func getBalance(wallet: Wallet, completion: @escaping (Tez?, Error?) -> Void) {
     getBalance(address: wallet.address, completion: completion)
   }
 
   /** Retrieve the balance of a given address. */
-  public func getBalance(address: String, completion: @escaping (TezosBalance?, Error?) -> Void) {
+  public func getBalance(address: String, completion: @escaping (Tez?, Error?) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address, completion: completion)
     send(rpc: rpc)
   }
@@ -148,7 +148,7 @@ public class TezosNodeClient: AbstractClient {
    *        transaction ID hash if the operation was successful.
    */
   public func send(
-    amount: TezosBalance,
+    amount: Tez,
     to recipientAddress: String,
     from source: String,
     keys: Keys,

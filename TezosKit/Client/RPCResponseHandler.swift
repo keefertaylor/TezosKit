@@ -44,6 +44,8 @@ public class RPCResponseHandler {
     return (parsedData, nil)
   }
 
+// MARK: - Helpers
+
  /**
   * Parse an error from a given HTTPURLResponse.
   *

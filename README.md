@@ -96,7 +96,7 @@ tezosNodeClient.getHead() { (result: [String: Any]?, error: Error?) in
 
 ```swift
 let address = "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA" // http://tezos.community
-tezosNodeClient.getBalance(address: address) { (balance: TezosBalance?, error: Error?) in
+tezosNodeClient.getBalance(address: address) { (balance: Tez?, error: Error?) in
   guard let balance = balance else {
     return
   }
@@ -115,7 +115,7 @@ print("New wallet mnemonic is: \(wallet.mnemonic)")
 
 ```swift
 let wallet = Wallet()
-let sendAmount = TezosBalance(balance: 1.0)!
+let sendAmount = Tez(1.0)!
 let recipientAddress = ...
 tezosNodeClient.send(
   amount: sendAmount,
@@ -137,7 +137,7 @@ let myWallet: Wallet = ...
 let jimsAddress: String = tz1...
 let bobsAddress: String = tz1...
 
-let amountToSend = TezosBalance("2")!
+let amountToSend = Tez("2")!
 
 let sendToJimOperation = TransactionOperation(amount: amountToSend,
                                               source: myWallet,
@@ -200,7 +200,8 @@ tezosNodeClient.delegate(
 Assuming a smart contract takes a single string as an argument:
 
 ```swift
-let txAmount: TezosBalance = ...
+<<<<<<< HEAD
+let txAmount: Tez = ...
 let wallet: Wallet = ...
 let contractAddr: String = ...
 let parameters = ["string": "argument_to_smart_contract"]   

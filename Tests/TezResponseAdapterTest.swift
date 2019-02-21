@@ -3,11 +3,11 @@
 import TezosKit
 import XCTest
 
-class TezosBalanceResponseAdapterTest: XCTestCase {
+class TezResponseAdapterTest: XCTestCase {
   public func testParseBalance() {
-    guard let balance = TezosBalance(balance: "3500000"),
+    guard let balance = Tez("3500000"),
       let balanceData = balance.rpcRepresentation.data(using: .utf8),
-      let parsedBalance = TezosBalanceResponseAdapter.parse(input: balanceData) else {
+      let parsedBalance = TezResponseAdapter.parse(input: balanceData) else {
       XCTFail()
       return
     }
@@ -19,9 +19,9 @@ class TezosBalanceResponseAdapterTest: XCTestCase {
   // Balances are returned as quoted from the API. Make sure that quotes can be stripped when
   // parsing.
   public func testParseBalanceWithQuotes() {
-    guard let balance = TezosBalance(balance: "3500000"),
+    guard let balance = Tez("3500000"),
       let balanceData = ("\"" + balance.rpcRepresentation + "\"").data(using: .utf8),
-      let parsedBalance = TezosBalanceResponseAdapter.parse(input: balanceData) else {
+      let parsedBalance = TezResponseAdapter.parse(input: balanceData) else {
       XCTFail()
       return
     }
@@ -32,9 +32,9 @@ class TezosBalanceResponseAdapterTest: XCTestCase {
 
   // Ensure white space does not mess up parsing.
   public func testParseBalanceWithWhitespace() {
-    guard let balance = TezosBalance(balance: "3500000"),
+    guard let balance = Tez("3500000"),
       let balanceData = ("    " + balance.rpcRepresentation + "\n\n\n").data(using: .utf8),
-      let parsedBalance = TezosBalanceResponseAdapter.parse(input: balanceData) else {
+      let parsedBalance = TezResponseAdapter.parse(input: balanceData) else {
       XCTFail()
       return
     }
@@ -50,7 +50,7 @@ class TezosBalanceResponseAdapterTest: XCTestCase {
       XCTFail()
       return
     }
-    let parsedBalance = TezosBalanceResponseAdapter.parse(input: invalidBalanceData)
+    let parsedBalance = TezResponseAdapter.parse(input: invalidBalanceData)
 
     XCTAssertNil(parsedBalance)
   }
