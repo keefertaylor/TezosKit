@@ -97,6 +97,7 @@
 		77CE388121FC7EED006ADABA /* TezosKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 77CE387F21FC7EED006ADABA /* TezosKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D2532218866E00D34B01 /* TezosCrypto.framework */; };
 		77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */; };
+		77F4D264221CB53900D34B01 /* RPCResponseHandlerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D263221CB53900D34B01 /* RPCResponseHandlerTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +220,7 @@
 		77CE388021FC7EED006ADABA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77F4D2532218866E00D34B01 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
 		77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandler.swift; sourceTree = "<group>"; };
+		77F4D263221CB53900D34B01 /* RPCResponseHandlerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandlerTest.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -269,6 +271,7 @@
 		77CE35A321F7DC76006ADABA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				77F4D263221CB53900D34B01 /* RPCResponseHandlerTest.swift */,
 				77CE36C221F7F49C006ADABA /* AbstractOperationTest.swift */,
 				77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */,
 				77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */,
@@ -653,6 +656,7 @@
 				77CE36F821F7F49F006ADABA /* StringResponseAdapterTest.swift in Sources */,
 				77CE36FB21F7F49F006ADABA /* MnemonicUtilsTest.swift in Sources */,
 				77CE36E621F7F49F006ADABA /* TransactionOperationTest.swift in Sources */,
+				77F4D264221CB53900D34B01 /* RPCResponseHandlerTest.swift in Sources */,
 				77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */,
 				77CE36EA21F7F49F006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				77CE36EC21F7F49F006ADABA /* GetChainHeadRPCTest.swift in Sources */,
