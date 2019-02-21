@@ -4,7 +4,7 @@ import Foundation
 import TezosCrypto
 
 /**
- * TezosClient is the gateway into the Tezos Network.
+ * TezosNodeClient is the gateway into the Tezos Network via a Tezos Node.
  *
  * Configuration
  * -------------
@@ -19,24 +19,24 @@ import TezosCrypto
  *
  * RPCs
  * -------------
- * TezosClient contains support for GET and POST RPCS and will make requests based on the
+ * TezosNodeClient contains support for GET and POST RPCS and will make requests based on the
  * RPCs provided to it.
  *
  * All supported RPC operations are provided in the Sources/Requests folder of the project. In
- * addition, TezosClient provides convenience methods for constructing and sending all supported
+ * addition, TezosNodeClient provides convenience methods for constructing and sending all supported
  * operations.
  *
  * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
- * conforms the the |TezosRPC| protocol and calling:
- *      func send<T>(rpc: TezosRPC<T>)
+ * conforms the the |RPC| protocol and calling:
+ *      func send<T>(rpc: RPC<T>)
  *
  * Operations
  * -------------
- * TezosClient also contains support for performing signed operations on the Tezos blockchain. These
+ * TezosNodeClient also contains support for performing signed operations on the Tezos blockchain. These
  * operations require a multi-step process to perform (forge, sign, pre-apply, inject).
  *
  * All supported signed operations are provided in the Sources/Operations folder of the project. In
- * addition, TezosClient provides convenience methods for constructing and performing all supported
+ * addition, TezosNodeClient provides convenience methods for constructing and performing all supported
  * signed operations.
  *
  * Operations are sent with a fee and a limit for gas and storage to use to include the transaction
@@ -64,24 +64,12 @@ import TezosCrypto
  * operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
  * correctly.
  */
-public class TezosClient {
+public class TezosNodeClient: AbstractClient {
   /** The default node URL to use. */
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
-  /** The URL session that will be used to manage URL requests. */
-  private let urlSession: URLSession
-
-  /** A URL pointing to a remote node that will handle requests made by this client. */
-  private let remoteNodeURL: URL
-
-  /** A response handler for RPCs. */
-  private let responseHandler: RPCResponseHandler
-
-  /** The queue that callbacks from requests will be made on. */
-  private let callbackQueue: DispatchQueue
-
   /**
-   * Initialize a new TezosClient.
+   * Initialize a new TezosNodeClient.
    *
    * - Parameter remoteNodeURL: The path to the remote node, defaults to the default URL
    * - Parameter urlSession: The URLSession that will manage network requests, defaults to the shared session.
@@ -92,10 +80,12 @@ public class TezosClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    self.remoteNodeURL = remoteNodeURL
-    self.urlSession = urlSession
-    self.callbackQueue = callbackQueue
-    self.responseHandler = RPCResponseHandler(callbackQueue: callbackQueue)
+    super.init(
+      remoteNodeURL: remoteNodeURL,
+      urlSession: urlSession,
+      callbackQueue: callbackQueue,
+      responseHandler: RPCResponseHandler()
+    )
   }
 
   /** Retrieve data about the chain head. */
@@ -392,7 +382,7 @@ public class TezosClient {
     completion: @escaping (String?, Error?) -> Void
   ) {
     guard let operationMetadata = getMetadataForOperation(address: source) else {
-      let error = TezosClientError(kind: .unknown, underlyingError: nil)
+      let error = TezosKitError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
       return
     }
@@ -425,7 +415,7 @@ public class TezosClient {
     operationPayload["branch"] = operationMetadata.headHash
 
     guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
-      let error = TezosClientError(kind: .unexpectedRequestFormat, underlyingError: nil)
+      let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
       completion(nil, error)
       return
     }
@@ -475,7 +465,7 @@ public class TezosClient {
         secretKey: keys.secretKey
       ),
       let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
-      let error = TezosClientError(kind: .unknown, underlyingError: nil)
+      let error = TezosKitError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
         return
     }
@@ -486,7 +476,7 @@ public class TezosClient {
 
     let operationPayloadArray = [mutableOperationPayload]
     guard let signedJsonPayload = JSONUtils.jsonString(for: operationPayloadArray) else {
-      let error = TezosClientError(kind: .unexpectedRequestFormat, underlyingError: nil)
+      let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
       completion(nil, error)
       return
     }
@@ -540,36 +530,6 @@ public class TezosClient {
     }
 
     send(rpc: injectRPC)
-  }
-
-  /**
-   * Send an RPC as a GET or POST request.
-   */
-  public func send<T>(rpc: TezosRPC<T>) {
-    guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: self.remoteNodeURL) else {
-      let error = TezosClientError(kind: .unknown, underlyingError: nil)
-      rpc.handleResponse(data: nil, error: error, callbackQueue: callbackQueue)
-      return
-    }
-
-    var urlRequest = URLRequest(url: remoteNodeEndpoint)
-
-    if rpc.isPOSTRequest,
-      let payload = rpc.payload,
-      let payloadData = payload.data(using: .utf8) {
-      urlRequest.httpMethod = "POST"
-      urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-      urlRequest.cachePolicy = .reloadIgnoringCacheData
-      urlRequest.httpBody = payloadData
-    }
-
-    let request = urlSession.dataTask(with: urlRequest as URLRequest) { [weak self] data, response, error in
-      guard let self = self else {
-        return
-      }
-      self.responseHandler.handleResponse(rpc: rpc, data: data, response: response, error: error)
-    }
-    request.resume()
   }
 
   /**

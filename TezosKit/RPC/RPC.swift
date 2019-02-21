@@ -15,11 +15,11 @@ import Foundation
  * Concrete subclasses should construct an endpoint and payload and inform this class by calling
  * |super.init|.
  */
-public class TezosRPC<T> {
+public class RPC<T> {
   public let endpoint: String
   public let payload: String?
-  private let responseAdapterClass: AbstractResponseAdapter<T>.Type
-  private let completion: (T?, Error?) -> Void
+  public let responseAdapterClass: AbstractResponseAdapter<T>.Type
+  public let completion: (T?, Error?) -> Void
   public var isPOSTRequest: Bool {
     if payload != nil {
       return true
@@ -49,39 +49,5 @@ public class TezosRPC<T> {
     self.responseAdapterClass = responseAdapterClass
     self.payload = payload
     self.completion = completion
-  }
-
-  /**
-   * Handle a response from the network.
-   *
-   * This method will attempt to deserialize the given data with the given response adapter and call
-   * completion with the resulting data or error.
-   *
-   * - Parameter data: Optional data returned from the network request.
-   * - Parameter error: Optional error returned from the network request.
-   * - Parameter callbackQueue: A thread that the completion handler will be executed on, default is the main thread.
-   */
-  public func handleResponse(data: Data?, error: Error?, callbackQueue: DispatchQueue = DispatchQueue.main) {
-    if let error = error {
-      let desc = error.localizedDescription
-      let tezosClientError = TezosClientError(kind: .rpcError, underlyingError: desc)
-      callbackQueue.async {
-        self.completion(nil, tezosClientError)
-      }
-      return
-    }
-
-    guard let data = data,
-      let result = self.responseAdapterClass.parse(input: data) else {
-      let tezosClientError = TezosClientError(kind: .unexpectedResponse, underlyingError: nil)
-      callbackQueue.async {
-        self.completion(nil, tezosClientError)
-      }
-      return
-    }
-
-    callbackQueue.async {
-      self.completion(result, nil)
-    }
   }
 }

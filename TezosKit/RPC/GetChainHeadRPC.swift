@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve a JSON dictionary of info about the head of the current chain.
  */
-public class GetChainHeadRPC: TezosRPC<[String: Any]> {
+public class GetChainHeadRPC: RPC<[String: Any]> {
   /**
    * - Parameter completion: A block to be called at the completion of the operation.
    */

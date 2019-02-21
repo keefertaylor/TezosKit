@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve a list of delegates with their voting weight, in number of rolls.
  */
-public class GetVotingDelegateRightsRPC: TezosRPC<[[String: Any]]> {
+public class GetVotingDelegateRightsRPC: RPC<[[String: Any]]> {
   /**
    * - Parameter completion: A block to be called at the completion of the operation.
    */

@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve a list of proposals with number of supporters.
  */
-public class GetProposalsListRPC: TezosRPC<[[String: Any]]> {
+public class GetProposalsListRPC: RPC<[[String: Any]]> {
   /**
    * - Parameter completion: A block to be called at the completion of the operation.
    */

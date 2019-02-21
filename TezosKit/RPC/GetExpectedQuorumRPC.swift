@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve the expected quorum.
  */
-public class GetExpectedQuorumRPC: TezosRPC<Int> {
+public class GetExpectedQuorumRPC: RPC<Int> {
   /**
    * - Parameter completion: A block to be called at the completion of the operation.
    */

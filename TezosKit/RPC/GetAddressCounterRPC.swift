@@ -5,7 +5,7 @@ import Foundation
 /**
  * A RPC which will retrieve the counter for an address.
  */
-public class GetAddressCounterRPC: TezosRPC<Int> {
+public class GetAddressCounterRPC: RPC<Int> {
   /**
    * - Parameter address: The address to retrieve info about.
    * - Parameter completion: A block to be called at completion of the operation.

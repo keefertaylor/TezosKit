@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC that will retrieve the delegate of a given address.
  */
-public class GetDelegateRPC: TezosRPC<String> {
+public class GetDelegateRPC: RPC<String> {
   /**
    * - Parameter address: The address to retrieve info about.
    * - Parameter completion: A completion block to be called on success or failure.

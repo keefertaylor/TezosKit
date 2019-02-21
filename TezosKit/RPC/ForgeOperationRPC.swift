@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will forge an operation.
  */
-public class ForgeOperationRPC: TezosRPC<String> {
+public class ForgeOperationRPC: RPC<String> {
   /**
    * - Parameter chainID: The chain which is being operated on.
    * - Parameter headhash: The hash of the head of the chain being operated on.

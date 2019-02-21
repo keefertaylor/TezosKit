@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC that will retrieve the manager key of a given address.
  */
-public class GetAddressManagerKeyRPC: TezosRPC<[String: Any]> {
+public class GetAddressManagerKeyRPC: RPC<[String: Any]> {
   /**
    * - Parameter address: The address to retrieve info about.
    * - Parameter completion: A completion block to be called on success or failure.

@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC which will retrieve the code associated with a smart contract.
  */
-public class GetAddressCodeRPC: TezosRPC<ContractCode> {
+public class GetAddressCodeRPC: RPC<ContractCode> {
   /**
    * - Parameter address: The address of the contract to load.
    * - Parameter completion: A completion block to be called on success or failure.
