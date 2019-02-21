@@ -5,7 +5,7 @@ import Foundation
 /**
  * An RPC that will retrieve the balance of a given address.
  */
-public class GetAddressBalanceRPC: TezosRPC<Tez> {
+public class GetAddressBalanceRPC: RPC<Tez> {
   /**
    * - Parameter address: The address to retrieve info about.
    * - Parameter completion: A completion block to be called on success or failure.
