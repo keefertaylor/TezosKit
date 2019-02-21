@@ -91,7 +91,7 @@ class AbstractClientTest: XCTestCase {
     let expectation = XCTestExpectation(description: "Completion is Called")
 
     // RPC endpoint will not resolve to a valid URL.
-    let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self) { (_, _) in
+    let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
