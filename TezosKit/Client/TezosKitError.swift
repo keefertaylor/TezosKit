@@ -11,6 +11,7 @@ public struct TezosKitError: Error {
    */
   public enum ErrorKind: String {
     case unknown
+    case invalidURL
     case rpcError
     case unexpectedResponse
     case unexpectedRequestFormat

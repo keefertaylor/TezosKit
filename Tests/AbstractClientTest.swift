@@ -87,6 +87,22 @@ class AbstractClientTest: XCTestCase {
     wait(for: [expectation], timeout: 10)
   }
 
+  public func testBadEndpoingCompletesWithURL() {
+    let expectation = XCTestExpectation(description: "Completion is Called")
+
+    // RPC endpoint will not resolve to a valid URL.
+    let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self) { (_, _) in
+      XCTAssertNil(result)
+      XCTAssertNotNil(error)
+
+      expectation.fulfill()
+    }
+    abstractClient?.send(rpc: rpc)
+
+    wait(for: [expectation], timeout: 10)
+  }
+
+
   public func testBadHTTPResponseCompletesWithError() {
     // Fake URL session has data but has an HTTP error code.
     fakeURLSession.urlResponse = HTTPURLResponse(
