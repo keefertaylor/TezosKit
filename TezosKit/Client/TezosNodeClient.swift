@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
+import PromiseKit
 import TezosCrypto
 
 /**
@@ -381,65 +382,61 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    guard let operationMetadata = getMetadataForOperation(address: source) else {
-      let error = TezosKitError(kind: .unknown, underlyingError: nil)
-      completion(nil, error)
-      return
-    }
+    getMetadataForOperation(address: source).done { operationMetadata in
+      // Create a mutable copy of operations in case we need to add a reveal operation.
+      var mutableOperations = operations
 
-    // Create a mutable copy of operations in case we need to add a reveal operation.
-    var mutableOperations = operations
+      // Determine if the address performing the operations has been revealed. If it has not been,
+      // check if any of the operations to perform requires the address to be revealed. If so,
+      // prepend a reveal operation to the operations to perform.
+      if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
+        let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
+        mutableOperations.insert(revealOperation, at: 0)
+      }
 
-    // Determine if the address performing the operations has been revealed. If it has not been,
-    // check if any of the operations to perform requires the address to be revealed. If so,
-    // prepend a reveal operation to the operations to perform.
-    if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-      let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
-      mutableOperations.insert(revealOperation, at: 0)
-    }
+      // Process all operations to have increasing counters and place them in the contents array.
+      var contents: [[String: Any]] = []
+      var counter = operationMetadata.addressCounter
+      for operation in mutableOperations {
+        counter += 1
 
-    // Process all operations to have increasing counters and place them in the contents array.
-    var contents: [[String: Any]] = []
-    var counter = operationMetadata.addressCounter
-    for operation in mutableOperations {
-      counter += 1
+        var mutableOperation = operation.dictionaryRepresentation
+        mutableOperation["counter"] = String(counter)
 
-      var mutableOperation = operation.dictionaryRepresentation
-      mutableOperation["counter"] = String(counter)
+        contents.append(mutableOperation)
+      }
 
-      contents.append(mutableOperation)
-    }
+      var operationPayload: [String: Any] = [:]
+      operationPayload["contents"] = contents
+      operationPayload["branch"] = operationMetadata.headHash
 
-    var operationPayload: [String: Any] = [:]
-    operationPayload["contents"] = contents
-    operationPayload["branch"] = operationMetadata.headHash
-
-    guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
-      let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
-      completion(nil, error)
-      return
-    }
-
-    let forgeRPC = ForgeOperationRPC(
-      chainID: operationMetadata.chainID,
-      headHash: operationMetadata.headHash,
-      payload: jsonPayload
-    ) { [weak self] result, error in
-      guard let self = self,
-        let result = result else {
+      guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
+        let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
         completion(nil, error)
         return
       }
-      self.signPreapplyAndInjectOperation(
-        operationPayload: operationPayload,
-        operationMetadata: operationMetadata,
-        forgeResult: result,
-        source: source,
-        keys: keys,
-        completion: completion
-      )
+
+      let forgeRPC = ForgeOperationRPC(
+        chainID: operationMetadata.chainID,
+        headHash: operationMetadata.headHash,
+        payload: jsonPayload
+      ) { [weak self] result, error in
+        guard let self = self,
+              let result = result else {
+          completion(nil, error)
+          return
+        }
+        self.signPreapplyAndInjectOperation(
+          operationPayload: operationPayload,
+          operationMetadata: operationMetadata,
+          forgeResult: result,
+          source: source,
+          keys: keys,
+          completion: completion
+        )
+      }
+      self.send(rpc: forgeRPC)
     }
-    send(rpc: forgeRPC)
   }
 
   /**
@@ -538,70 +535,73 @@ public class TezosNodeClient: AbstractClient {
    * This method parallelizes fetches to get chain and address data and returns all required data
    * together as an OperationData object.
    */
-  private func getMetadataForOperation(address: String) -> OperationMetadata? {
-    let fetchersGroup = DispatchGroup()
+  private func getMetadataForOperation(address: String) -> Promise<OperationMetadata> {
+    return Promise { seal in
+      let fetchersGroup = DispatchGroup()
 
-    // Fetch data about the chain being operated on.
-    var chainID: String?
-    var headHash: String?
-    var protocolHash: String?
-    let chainHeadRequestRPC = GetChainHeadRPC { json, _ in
-      if let json = json,
-        let fetchedChainID = json["chain_id"] as? String,
-        let fetchedHeadHash = json["hash"] as? String,
-        let fetchedProtocolHash = json["protocol"] as? String {
-        chainID = fetchedChainID
-        headHash = fetchedHeadHash
-        protocolHash = fetchedProtocolHash
+      // Fetch data about the chain being operated on.
+      var chainID: String?
+      var headHash: String?
+      var protocolHash: String?
+      let chainHeadRequestRPC = GetChainHeadRPC { json, _ in
+        if let json = json,
+           let fetchedChainID = json["chain_id"] as? String,
+           let fetchedHeadHash = json["hash"] as? String,
+           let fetchedProtocolHash = json["protocol"] as? String {
+          chainID = fetchedChainID
+          headHash = fetchedHeadHash
+          protocolHash = fetchedProtocolHash
+        }
+        fetchersGroup.leave()
       }
-      fetchersGroup.leave()
-    }
 
-    // Fetch data about the address being operated on.
-    var operationCounter: Int?
-    let getAddressCounterRPC =
-      GetAddressCounterRPC(address: address) { fetchedOperationCounter, _ in
+      // Fetch data about the address being operated on.
+      var operationCounter: Int?
+      let getAddressCounterRPC = GetAddressCounterRPC(address: address) { fetchedOperationCounter, _ in
         if let fetchedOperationCounter = fetchedOperationCounter {
           operationCounter = fetchedOperationCounter
         }
         fetchersGroup.leave()
       }
 
-    // Fetch data about the key.
-    var addressKey: String?
-    let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address) { fetchedManagerAndKey, _ in
-      if let fetchedManagerAndKey = fetchedManagerAndKey,
-        let fetchedKey = fetchedManagerAndKey["key"] as? String {
-        addressKey = fetchedKey
+      // Fetch data about the key.
+      var addressKey: String?
+      let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address) { fetchedManagerAndKey, _ in
+        if let fetchedManagerAndKey = fetchedManagerAndKey,
+          let fetchedKey = fetchedManagerAndKey["key"] as? String {
+          addressKey = fetchedKey
+        }
+        fetchersGroup.leave()
       }
-      fetchersGroup.leave()
+
+      // Send RPCs and wait for results
+      fetchersGroup.enter()
+      send(rpc: chainHeadRequestRPC)
+
+      fetchersGroup.enter()
+      send(rpc: getAddressCounterRPC)
+
+      fetchersGroup.enter()
+      send(rpc: getAddressManagerKeyRPC)
+
+      fetchersGroup.wait()
+
+      // Return fetched data as an OperationData if all data was successfully retrieved.
+      if let operationCounter = operationCounter,
+         let headHash = headHash,
+         let chainID = chainID,
+         let protocolHash = protocolHash {
+        let operationMetadata = OperationMetadata(
+          chainID: chainID,
+          headHash: headHash,
+          protocolHash: protocolHash,
+          addressCounter: operationCounter,
+          key: addressKey
+        )
+        seal.fulfill(operationMetadata)
+      }
+      let fetchFailedError = TezosKitError(kind: .rpcError, underlyingError: "Couldn't retrive operation metadata")
+      seal.reject(fetchFailedError)
     }
-
-    // Send RPCs and wait for results
-    fetchersGroup.enter()
-    send(rpc: chainHeadRequestRPC)
-
-    fetchersGroup.enter()
-    send(rpc: getAddressCounterRPC)
-
-    fetchersGroup.enter()
-    send(rpc: getAddressManagerKeyRPC)
-
-    fetchersGroup.wait()
-
-    // Return fetched data as an OperationData if all data was successfully retrieved.
-    if let operationCounter = operationCounter,
-      let headHash = headHash,
-      let chainID = chainID,
-      let protocolHash = protocolHash {
-      return OperationMetadata(
-        chainID: chainID,
-        headHash: headHash,
-        protocolHash: protocolHash,
-        addressCounter: operationCounter,
-        key: addressKey
-      )
-    }
-    return nil
   }
 }
