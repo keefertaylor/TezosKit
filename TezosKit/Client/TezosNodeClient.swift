@@ -436,6 +436,8 @@ public class TezosNodeClient: AbstractClient {
         )
       }
       self.send(rpc: forgeRPC)
+    }.catch { error in
+      completion(nil, error)
     }
   }
 
