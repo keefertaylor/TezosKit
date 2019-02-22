@@ -17,7 +17,8 @@ Pod::Spec.new do |s|
 
   s.dependency "BigInt", "~> 3.1"		
   s.dependency "MnemonicKit"
-  s.dependency "Sodium", "~> 0.7.0"  
+  s.dependency "PromiseKit"
+  s.dependency "Sodium", "~> 0.7.0"
   
   s.test_spec "Tests" do |test_spec|
     test_spec.source_files = "Tests/*.swift"
