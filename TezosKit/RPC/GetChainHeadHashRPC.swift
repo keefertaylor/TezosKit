@@ -6,11 +6,8 @@ import Foundation
  * An RPC which will retrieve the hash of the head of the main chain.
  */
 public class GetChainHeadHashRPC: RPC<String> {
-  /**
-   * - Parameter completion: A completion block to be called on success or failure.
-   */
-  public init(completion: @escaping (String?, Error?) -> Void) {
+  public init() {
     let endpoint = "chains/main/blocks/head/hash"
-    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self)
   }
 }

@@ -19,7 +19,6 @@ public class RPC<T> {
   public let endpoint: String
   public let payload: String?
   public let responseAdapterClass: AbstractResponseAdapter<T>.Type
-  public let completion: (T?, Error?) -> Void
   public var isPOSTRequest: Bool {
     if payload != nil {
       return true
@@ -42,12 +41,10 @@ public class RPC<T> {
   public init(
     endpoint: String,
     responseAdapterClass: AbstractResponseAdapter<T>.Type,
-    payload: String? = nil,
-    completion: @escaping (T?, Error?) -> Void
+    payload: String? = nil
   ) {
     self.endpoint = endpoint
     self.responseAdapterClass = responseAdapterClass
     self.payload = payload
-    self.completion = completion
   }
 }

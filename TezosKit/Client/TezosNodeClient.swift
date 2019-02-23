@@ -29,7 +29,7 @@ import TezosCrypto
  *
  * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
  * conforms the the |RPC| protocol and calling:
- *      func send<T>(rpc: RPC<T>)
+ *      func send<T>(rpc: RPC<T>, completion: (T, Error) -> Void)
  *
  * Operations
  * -------------
@@ -91,8 +91,8 @@ public class TezosNodeClient: AbstractClient {
 
   /** Retrieve data about the chain head. */
   public func getHead(completion: @escaping ([String: Any]?, Error?) -> Void) {
-    let rpc = GetChainHeadRPC(completion: completion)
-    send(rpc: rpc)
+    let rpc = GetChainHeadRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /** Retrieve the balance of a given wallet. */
@@ -102,8 +102,8 @@ public class TezosNodeClient: AbstractClient {
 
   /** Retrieve the balance of a given address. */
   public func getBalance(address: String, completion: @escaping (Tez?, Error?) -> Void) {
-    let rpc = GetAddressBalanceRPC(address: address, completion: completion)
-    send(rpc: rpc)
+    let rpc = GetAddressBalanceRPC(address: address)
+    send(rpc: rpc, completion: completion)
   }
 
   /** Retrieve the delegate of a given wallet. */
@@ -113,26 +113,26 @@ public class TezosNodeClient: AbstractClient {
 
   /** Retrieve the delegate of a given address. */
   public func getDelegate(address: String, completion: @escaping (String?, Error?) -> Void) {
-    let rpc = GetDelegateRPC(address: address, completion: completion)
-    send(rpc: rpc)
+    let rpc = GetDelegateRPC(address: address)
+    send(rpc: rpc, completion: completion)
   }
 
   /** Retrieve the hash of the block at the head of the chain. */
   public func getHeadHash(completion: @escaping (String?, Error?) -> Void) {
-    let rpc = GetChainHeadHashRPC(completion: completion)
-    send(rpc: rpc)
+    let rpc = GetChainHeadHashRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /** Retrieve the address counter for the given address. */
   public func getAddressCounter(address: String, completion: @escaping (Int?, Error?) -> Void) {
-    let rpc = GetAddressCounterRPC(address: address, completion: completion)
-    send(rpc: rpc)
+    let rpc = GetAddressCounterRPC(address: address)
+    send(rpc: rpc, completion: completion)
   }
 
   /** Retrieve the address manager key for the given address. */
   public func getAddressManagerKey(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
-    let rpc = GetAddressManagerKeyRPC(address: address, completion: completion)
-    send(rpc: rpc)
+    let rpc = GetAddressManagerKeyRPC(address: address)
+    send(rpc: rpc, completion: completion)
   }
 
   /**
@@ -284,8 +284,8 @@ public class TezosNodeClient: AbstractClient {
    * - Parameter address: The address of the contract to load.
    */
   public func getAddressCode(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
-    let rpc = GetAddressCodeRPC(address: address, completion: completion)
-    self.send(rpc: rpc)
+    let rpc = GetAddressCodeRPC(address: address)
+    send(rpc: rpc, completion: completion)
   }
 
   /**
@@ -293,55 +293,55 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getBallotsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetBallotsListRPC(completion: completion)
-    self.send(rpc: rpc)
+    send(rpc: rpc, completion: completion)
   }
 
   /**
    * Retrieve the expected quorum.
    */
   public func getExpectedQuorum(completion: @escaping (Int?, Error?) -> Void) {
-    let rpc = GetExpectedQuorumRPC(completion: completion)
-    self.send(rpc: rpc)
+    let rpc = GetExpectedQuorumRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /**
    * Retrieve the current period kind for voting.
    */
   public func getCurrentPeriodKind(completion: @escaping (PeriodKind?, Error?) -> Void) {
-    let rpc = GetCurrentPeriodKindRPC(completion: completion)
-    self.send(rpc: rpc)
+    let rpc = GetCurrentPeriodKindRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /**
    * Retrieve the sum of ballots cast so far during a voting period.
    */
   public func getBallots(completion: @escaping ([String: Any]?, Error?) -> Void) {
-    let rpc = GetBallotsRPC(completion: completion)
-    self.send(rpc: rpc)
+    let rpc = GetBallotsRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /**
    * Retrieve a list of proposals with number of supporters.
    */
   public func getProposalsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
-    let rpc = GetProposalsListRPC(completion: completion)
-    self.send(rpc: rpc)
+    let rpc = GetProposalsListRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /**
    * Retrieve the current proposal under evaluation.
    */
   public func getProposalUnderEvaluation(completion: @escaping (String?, Error?) -> Void) {
-    let rpc = GetProposalUnderEvaluationRPC(completion: completion)
-    self.send(rpc: rpc)
+    let rpc = GetProposalUnderEvaluationRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /**
    * Retrieve a list of delegates with their voting weight, in number of rolls.
    */
   public func getVotingDelegateRights(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
-    let rpc = GetVotingDelegateRightsRPC(completion: completion)
-    self.send(rpc: rpc)
+    let rpc = GetVotingDelegateRightsRPC()
+    send(rpc: rpc, completion: completion)
   }
 
   /**
@@ -420,11 +420,12 @@ public class TezosNodeClient: AbstractClient {
         chainID: operationMetadata.chainID,
         headHash: operationMetadata.headHash,
         payload: jsonPayload
-      ) { [weak self] result, error in
+      )
+      self.send(rpc: forgeRPC) { [weak self] result, error in
         guard let self = self,
-              let result = result else {
-          completion(nil, error)
-          return
+          let result = result else {
+            completion(nil, error)
+            return
         }
         self.signPreapplyAndInjectOperation(
           operationPayload: operationPayload,
@@ -435,7 +436,6 @@ public class TezosNodeClient: AbstractClient {
           completion: completion
         )
       }
-      self.send(rpc: forgeRPC)
     }.catch { error in
       completion(nil, error)
     }
@@ -506,15 +506,15 @@ public class TezosNodeClient: AbstractClient {
         chainID: operationMetadata.chainID,
         headHash: operationMetadata.headHash,
         payload: payload
-    ) { [weak self] result, error in
-          guard let self = self,
-            result != nil else {
-              completion(nil, error)
-              return
-          }
-          self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
+    )
+    send(rpc: preapplyOperationRPC) { [weak self] result, error in
+      guard let self = self,
+        result != nil else {
+          completion(nil, error)
+          return
       }
-    send(rpc: preapplyOperationRPC)
+      self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
+    }
   }
 
   /**
@@ -524,11 +524,10 @@ public class TezosNodeClient: AbstractClient {
    * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
-    let injectRPC = InjectionRPC(payload: payload) { txHash, txError in
-        completion(txHash, txError)
+    let injectRPC = InjectionRPC(payload: payload)
+    send(rpc: injectRPC) { txHash, txError in
+      completion(txHash, txError)
     }
-
-    send(rpc: injectRPC)
   }
 
   /**
@@ -545,11 +544,23 @@ public class TezosNodeClient: AbstractClient {
       var chainID: String?
       var headHash: String?
       var protocolHash: String?
-      let chainHeadRequestRPC = GetChainHeadRPC { json, _ in
+      let chainHeadRequestRPC = GetChainHeadRPC()
+
+      // Fetch data about the address being operated on.
+      var operationCounter: Int?
+      let getAddressCounterRPC = GetAddressCounterRPC(address: address)
+
+      // Fetch data about the key.
+      var addressKey: String?
+      let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
+
+      // Send RPCs and wait for results
+      fetchersGroup.enter()
+      send(rpc: chainHeadRequestRPC) { json, _ in
         if let json = json,
-           let fetchedChainID = json["chain_id"] as? String,
-           let fetchedHeadHash = json["hash"] as? String,
-           let fetchedProtocolHash = json["protocol"] as? String {
+          let fetchedChainID = json["chain_id"] as? String,
+          let fetchedHeadHash = json["hash"] as? String,
+          let fetchedProtocolHash = json["protocol"] as? String {
           chainID = fetchedChainID
           headHash = fetchedHeadHash
           protocolHash = fetchedProtocolHash
@@ -557,34 +568,22 @@ public class TezosNodeClient: AbstractClient {
         fetchersGroup.leave()
       }
 
-      // Fetch data about the address being operated on.
-      var operationCounter: Int?
-      let getAddressCounterRPC = GetAddressCounterRPC(address: address) { fetchedOperationCounter, _ in
+      fetchersGroup.enter()
+      send(rpc: getAddressCounterRPC) { fetchedOperationCounter, _ in
         if let fetchedOperationCounter = fetchedOperationCounter {
           operationCounter = fetchedOperationCounter
         }
         fetchersGroup.leave()
       }
 
-      // Fetch data about the key.
-      var addressKey: String?
-      let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address) { fetchedManagerAndKey, _ in
+      fetchersGroup.enter()
+      send(rpc: getAddressManagerKeyRPC) { fetchedManagerAndKey, _ in
         if let fetchedManagerAndKey = fetchedManagerAndKey,
           let fetchedKey = fetchedManagerAndKey["key"] as? String {
           addressKey = fetchedKey
         }
         fetchersGroup.leave()
       }
-
-      // Send RPCs and wait for results
-      fetchersGroup.enter()
-      send(rpc: chainHeadRequestRPC)
-
-      fetchersGroup.enter()
-      send(rpc: getAddressCounterRPC)
-
-      fetchersGroup.enter()
-      send(rpc: getAddressManagerKeyRPC)
 
       fetchersGroup.wait()
 

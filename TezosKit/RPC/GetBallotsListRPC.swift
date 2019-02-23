@@ -6,11 +6,8 @@ import Foundation
  * An RPC which will retrieve ballots cast so far during a voting period.
  */
 public class GetBallotsListRPC: RPC<[[String: Any]]> {
-  /**
-   * - Parameter completion: A block to be called at the completion of the operation.
-   */
   public init(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let endpoint = "chains/main/blocks/head/votes/ballot_list"
-    super.init(endpoint: endpoint, responseAdapterClass: JSONArrayResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: JSONArrayResponseAdapter.self)
   }
 }

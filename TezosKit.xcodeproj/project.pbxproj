@@ -101,6 +101,7 @@
 		77F4D266221CCE4B00D34B01 /* AbstractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D265221CCE4B00D34B01 /* AbstractClient.swift */; };
 		77F4D268221CD44100D34B01 /* AbstractClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D267221CD44100D34B01 /* AbstractClientTest.swift */; };
 		77F4D26C221F899800D34B01 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
+		77F4D26F22220C9600D34B01 /* AbstractClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +228,7 @@
 		77F4D265221CCE4B00D34B01 /* AbstractClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractClient.swift; sourceTree = "<group>"; };
 		77F4D267221CD44100D34B01 /* AbstractClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractClientTest.swift; sourceTree = "<group>"; };
 		77F4D26B221F899800D34B01 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
+		77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClient+Promises.swift"; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -259,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
+				77F4D26D22220C5200D34B01 /* Extensions */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* Tests */,
 				77CE359721F7DC76006ADABA /* Products */,
@@ -441,6 +444,14 @@
 				77CE384621FC7ED8006ADABA /* TezosKitError.swift */,
 			);
 			path = Client;
+			sourceTree = "<group>";
+		};
+		77F4D26D22220C5200D34B01 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -640,6 +651,7 @@
 				77CE386C21FC7ED8006ADABA /* ContractCodeResponseAdapter.swift in Sources */,
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
 				77CE384721FC7ED8006ADABA /* OriginateAccountOperation.swift in Sources */,
+				77F4D26F22220C9600D34B01 /* AbstractClient+Promises.swift in Sources */,
 				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,

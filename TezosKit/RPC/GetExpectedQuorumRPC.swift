@@ -6,11 +6,8 @@ import Foundation
  * An RPC which will retrieve the expected quorum.
  */
 public class GetExpectedQuorumRPC: RPC<Int> {
-  /**
-   * - Parameter completion: A block to be called at the completion of the operation.
-   */
-  public init(completion: @escaping (Int?, Error?) -> Void) {
+  public init() {
     let endpoint = "chains/main/blocks/head/votes/current_quorum"
-    super.init(endpoint: endpoint, responseAdapterClass: IntegerResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: IntegerResponseAdapter.self)
   }
 }

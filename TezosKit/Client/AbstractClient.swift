@@ -40,12 +40,12 @@ public class AbstractClient {
   /**
    * Send an RPC as a GET or POST request.
    */
-  public func send<T>(rpc: RPC<T>) {
+  public func send<T>(rpc: RPC<T>, completion: @escaping (T?, Error?) -> Void) {
     guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: remoteNodeURL) else {
       let errorMessage = "Invalid URL: \(remoteNodeURL)\(rpc.endpoint)"
       let error = TezosKitError(kind: .invalidURL, underlyingError: errorMessage)
       callbackQueue.async {
-        rpc.completion(nil, error)
+        completion(nil, error)
       }
       return
     }
@@ -73,7 +73,7 @@ public class AbstractClient {
         responseAdapterClass: rpc.responseAdapterClass
       )
       self.callbackQueue.async {
-        rpc.completion(result, error)
+        completion(result, error)
       }
     }
     request.resume()
