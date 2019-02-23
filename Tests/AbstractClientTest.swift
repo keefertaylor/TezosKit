@@ -68,7 +68,9 @@ class AbstractClientTest: XCTestCase {
 
     // RPC endpoint will not resolve to a valid URL.
     let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self) { (_, _) in
-      dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+      if #available(iOS 10, OSX 10.12, *) {
+        dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+      }
       expectation.fulfill()
     }
     abstractClient?.send(rpc: rpc)
@@ -79,7 +81,9 @@ class AbstractClientTest: XCTestCase {
   public func testCallbackOnCorrectQueue() {
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self) { (_, _) in
-      dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+      if #available(iOS 10, OSX 10.12, *) {
+        dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+      }
       expectation.fulfill()
     }
     abstractClient?.send(rpc: rpc)
