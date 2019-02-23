@@ -3,10 +3,12 @@
 import Foundation
 import PromiseKit
 
-public extension AbstractClient {
+extension AbstractClient {
   public func send<T>(rpc: RPC<T>) -> Promise<T> {
-    // TODO: Implement me.
     return Promise { seal in
+      send(rpc: rpc) { result, error in
+        seal.resolve(result, error)
+      }
     }
   }
 }
