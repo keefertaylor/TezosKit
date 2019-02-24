@@ -4,18 +4,7 @@
 import XCTest
 
 extension AbstractClientTest {
-  public override func setUp() {
-    super.setUp()
-
-    abstractClient = AbstractClient(
-      remoteNodeURL: URL(string: "http://github.com/keefertaylor/TezosKit")!,
-      urlSession: fakeURLSession,
-      callbackQueue: callbackQueue,
-      responseHandler: RPCResponseHandler()
-    )
-  }
-
-  public func testCallbackOnCorrectQueueForBadURL() {
+  public func testCallbackOnCorrectQueueForBadURL_promises() {
     let expectation = XCTestExpectation(description: "Completion is Called")
 
     // RPC endpoint will not resolve to a valid URL.
@@ -30,7 +19,7 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testCallbackOnCorrectQueue() {
+  public func testCallbackOnCorrectQueue_promises() {
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
     abstractClient?.send(rpc: rpc) { (_, _) in
@@ -43,7 +32,7 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testBadEndpoingCompletesWithURL() {
+  public func testBadEndpoingCompletesWithURL_promises() {
     let expectation = XCTestExpectation(description: "Completion is Called")
 
     // RPC endpoint will not resolve to a valid URL.
@@ -58,7 +47,7 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testBadHTTPResponseCompletesWithError() {
+  public func testBadHTTPResponseCompletesWithError_promises() {
     // Fake URL session has data but has an HTTP error code.
     fakeURLSession.urlResponse = HTTPURLResponse(
       url: URL(string: "http://keefertaylor.com")!,
@@ -80,7 +69,7 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testErrorCompletesWithError() {
+  public func testErrorCompletesWithError_promises() {
     // Valid HTTP response and data, but error is returned.
     fakeURLSession.urlResponse = HTTPURLResponse(
       url: URL(string: "http://keefertaylor.com")!,
@@ -103,7 +92,7 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testNilDataCompletesWithError() {
+  public func testNilDataCompletesWithError_promises() {
     // Valid HTTP response, but returned data is nil.
     fakeURLSession.urlResponse = HTTPURLResponse(
       url: URL(string: "http://keefertaylor.com")!,
@@ -124,7 +113,7 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testInocrrectDataCompletesWithError() {
+  public func testInocrrectDataCompletesWithError_promises() {
     // Response is a string but RPC attempts to decode to an int.
     fakeURLSession.urlResponse = HTTPURLResponse(
       url: URL(string: "http://keefertaylor.com")!,
@@ -145,7 +134,7 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testRequestCompletesWithResultAndNoError() {
+  public func testRequestCompletesWithResultAndNoError_promises() {
     // A valid response with not HTTP error.
     let expectedString = "Expected!"
     fakeURLSession.urlResponse = HTTPURLResponse(

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
@@ -102,8 +103,6 @@
 		77F4D268221CD44100D34B01 /* AbstractClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D267221CD44100D34B01 /* AbstractClientTest.swift */; };
 		77F4D26C221F899800D34B01 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77F4D26F22220C9600D34B01 /* AbstractClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */; };
-		77F4D27722221CFD00D34B01 /* AbstractClientPromisesKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D27622221CFD00D34B01 /* AbstractClientPromisesKitTests.swift */; };
-		77F4D27822221CFD00D34B01 /* AbstractClientPromisesKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D27622221CFD00D34B01 /* AbstractClientPromisesKitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +129,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,7 +231,6 @@
 		77F4D267221CD44100D34B01 /* AbstractClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractClientTest.swift; sourceTree = "<group>"; };
 		77F4D26B221F899800D34B01 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClient+Promises.swift"; sourceTree = "<group>"; };
-		77F4D27622221CFD00D34B01 /* AbstractClientPromisesKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractClientPromisesKitTests.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -485,7 +484,7 @@
 		77F4D27522221CE600D34B01 /* PromiseKit */ = {
 			isa = PBXGroup;
 			children = (
-				77F4D27622221CFD00D34B01 /* AbstractClientPromisesKitTests.swift */,
+				7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */,
 			);
 			path = PromiseKit;
 			sourceTree = "<group>";
@@ -692,7 +691,6 @@
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,
 				77CE387721FC7ED8006ADABA /* GetVotingDelegateRightsRPC.swift in Sources */,
-				77F4D27722221CFD00D34B01 /* AbstractClientPromisesKitTests.swift in Sources */,
 				77CE386121FC7ED8006ADABA /* GetAddressBalanceRPC.swift in Sources */,
 				77CE384C21FC7ED8006ADABA /* UndelegateOperation.swift in Sources */,
 				77CE386421FC7ED8006ADABA /* GetBallotsRPC.swift in Sources */,
@@ -717,7 +715,6 @@
 			files = (
 				77CE36F821F7F49F006ADABA /* StringResponseAdapterTest.swift in Sources */,
 				77CE36FB21F7F49F006ADABA /* MnemonicUtilsTest.swift in Sources */,
-				77F4D27822221CFD00D34B01 /* AbstractClientPromisesKitTests.swift in Sources */,
 				77CE36E621F7F49F006ADABA /* TransactionOperationTest.swift in Sources */,
 				77F4D264221CB53900D34B01 /* RPCResponseHandlerTest.swift in Sources */,
 				77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */,
@@ -748,6 +745,7 @@
 				77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */,
 				77CE36FC21F7F49F006ADABA /* GetProposalsListRPCTest.swift in Sources */,
 				77CE370021F7F49F006ADABA /* GetAddressCounterRPCTest.swift in Sources */,
+				7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */,
 				77CE36F321F7F49F006ADABA /* UndelegateOperation.swift in Sources */,
 				77CE370121F7F49F006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */,
 				77CE36F021F7F49F006ADABA /* JSONUtilsTest.swift in Sources */,
@@ -956,7 +954,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/TezosKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -975,7 +973,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/TezosKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
