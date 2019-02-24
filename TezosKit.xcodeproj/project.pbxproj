@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
-		77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
+		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7774780C222228590010BA4D /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
+		7774780F222228E50010BA4D /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -116,6 +118,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7774780D222228CA0010BA4D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7774780F222228E50010BA4D /* PromiseKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77CE362D21F7EED8006ADABA /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,6 +142,7 @@
 
 /* Begin PBXFileReference section */
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
+		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,7 +265,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77CE35A021F7DC76006ADABA /* TezosKit.framework in Frameworks */,
+				7774780C222228590010BA4D /* PromiseKit.framework in Frameworks */,
+				7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +276,7 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
 				77F4D26D22220C5200D34B01 /* Extensions */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
@@ -531,6 +546,7 @@
 				77CE359B21F7DC76006ADABA /* Sources */,
 				77CE359C21F7DC76006ADABA /* Frameworks */,
 				77CE359D21F7DC76006ADABA /* Resources */,
+				7774780D222228CA0010BA4D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -954,6 +970,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/TezosKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -973,6 +993,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/TezosKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

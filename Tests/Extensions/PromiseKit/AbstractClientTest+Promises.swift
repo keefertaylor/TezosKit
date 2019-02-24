@@ -1,11 +1,12 @@
 // Copyright Keefer Taylor, 2019.
 
+import PromiseKit
 @testable import TezosKit
 import XCTest
 
 extension AbstractClientTest {
   public func testCallbackOnCorrectQueueForBadURL_promises() {
-    let expectation = XCTestExpectation(description: "Completion is Called")
+    let expectation = XCTestExpectation(description: "Promise is resolved")
 
     // RPC endpoint will not resolve to a valid URL.
     let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self)
@@ -20,7 +21,7 @@ extension AbstractClientTest {
   }
 
   public func testCallbackOnCorrectQueue_promises() {
-    let expectation = XCTestExpectation(description: "Completion is Called")
+    let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
     abstractClient?.send(rpc: rpc) { (_, _) in
       if #available(iOS 10, OSX 10.12, *) {
@@ -32,15 +33,15 @@ extension AbstractClientTest {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testBadEndpoingCompletesWithURL_promises() {
-    let expectation = XCTestExpectation(description: "Completion is Called")
+  public func testBadEndpointCompletesWithURL_promises() {
+    let expectation = XCTestExpectation(description: "Promise is resolved")
 
     // RPC endpoint will not resolve to a valid URL.
     let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
-      XCTAssertNil(result)
+    abstractClient?.send(rpc).done { _ in
+      XCTFail()
+    }.catch { error in
       XCTAssertNotNil(error)
-
       expectation.fulfill()
     }
 
@@ -57,12 +58,12 @@ extension AbstractClientTest {
     )
     fakeURLSession.data = "SomeString".data(using: .utf8)
 
-    let expectation = XCTestExpectation(description: "Completion is Called")
+    let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
-      XCTAssertNil(result)
+    abstractClient?.send(rpc).done { _ in
+      XCTFail()
+    }.catch { error in
       XCTAssertNotNil(error)
-
       expectation.fulfill()
     }
 
@@ -80,12 +81,12 @@ extension AbstractClientTest {
     fakeURLSession.data = "Result".data(using: .utf8)
     fakeURLSession.error = TezosKitError(kind: .unknown, underlyingError: nil)
 
-    let expectation = XCTestExpectation(description: "Completion is Called")
+    let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
-      XCTAssertNil(result)
+    abstractClient?.send(rpc).done { _ in
+      XCTFail()
+    }.catch { error in
       XCTAssertNotNil(error)
-
       expectation.fulfill()
     }
 
@@ -101,12 +102,12 @@ extension AbstractClientTest {
       headerFields: nil
     )
 
-    let expectation = XCTestExpectation(description: "Completion is Called")
+    let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
-      XCTAssertNil(result)
+    abstractClient?.send(rpc).done { _ in
+      XCTFail()
+    }.catch { error in
       XCTAssertNotNil(error)
-
       expectation.fulfill()
     }
 
@@ -122,12 +123,12 @@ extension AbstractClientTest {
       headerFields: nil
     )
 
-    let expectation = XCTestExpectation(description: "Completion is Called")
+    let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: IntegerResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
-      XCTAssertNil(result)
+    abstractClient?.send(rpc).done { _ in
+      XCTFail()
+    } .catch { error in
       XCTAssertNotNil(error)
-
       expectation.fulfill()
     }
 
@@ -145,14 +146,14 @@ extension AbstractClientTest {
     )
     fakeURLSession.data = expectedString.data(using: .utf8)
 
-    let expectation = XCTestExpectation(description: "Completion is Called")
+    let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
+    abstractClient?.send(rpc).done { result in
       XCTAssertNotNil(result)
       XCTAssertEqual(result, expectedString)
-      XCTAssertNil(error)
-
       expectation.fulfill()
+    }.catch { _ in
+      XCTFail()
     }
 
     wait(for: [expectation], timeout: 10)

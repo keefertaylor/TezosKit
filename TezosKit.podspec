@@ -41,6 +41,6 @@ Pod::Spec.new do |s|
   end
 
   s.test_spec "Tests" do |test_spec|
-    test_spec.source_files = "Tests/*.swift"
+    test_spec.source_files = ["Tests/TezosKit/*.swift", "Tests/Extensions/PromiseKit/*.swift"]
   end    
 end

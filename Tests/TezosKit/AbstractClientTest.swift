@@ -91,7 +91,7 @@ class AbstractClientTest: XCTestCase {
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testBadEndpoingCompletesWithURL() {
+  public func testBadEndpointCompletesWithURL() {
     let expectation = XCTestExpectation(description: "Completion is Called")
 
     // RPC endpoint will not resolve to a valid URL.
