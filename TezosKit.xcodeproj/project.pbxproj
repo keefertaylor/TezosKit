@@ -449,9 +449,17 @@
 		77F4D26D22220C5200D34B01 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */,
+				77F4D2702222151B00D34B01 /* PromiseKit */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		77F4D2702222151B00D34B01 /* PromiseKit */ = {
+			isa = PBXGroup;
+			children = (
+				77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */,
+			);
+			path = PromiseKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
