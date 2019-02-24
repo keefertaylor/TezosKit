@@ -5,7 +5,7 @@ import XCTest
 
 class GetChainHeadRPCTest: XCTestCase {
   public func testGetChainHeadRPC() {
-    let rpc = GetChainHeadRPC { _, _ in }
+    let rpc = GetChainHeadRPC()
 
     XCTAssertEqual(rpc.endpoint, "chains/main/blocks/head")
     XCTAssertNil(rpc.payload)

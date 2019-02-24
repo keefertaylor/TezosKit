@@ -5,20 +5,10 @@ import XCTest
 
 class RPCTest: XCTestCase {
   public func testIsPOSTRequest() {
-    let getRPC = RPC(
-      endpoint: "a",
-      responseAdapterClass: StringResponseAdapter.self
-    ) { _, _ in
-    }
+    let getRPC = RPC(endpoint: "a", responseAdapterClass: StringResponseAdapter.self)
     XCTAssertFalse(getRPC.isPOSTRequest)
 
-    let postRPC = RPC(
-      endpoint: "a",
-      responseAdapterClass: StringResponseAdapter.self,
-      payload: "abc"
-    ) { _, _ in
-    }
-
+    let postRPC = RPC(endpoint: "a", responseAdapterClass: StringResponseAdapter.self, payload: "abc")
     XCTAssertTrue(postRPC.isPOSTRequest)
   }
 }

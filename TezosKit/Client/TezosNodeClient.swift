@@ -569,7 +569,7 @@ public class TezosNodeClient: AbstractClient {
     }
 
     fetchersGroup.enter()
-    send(rpc: getAddressCounterRPC)  { fetchedOperationCounter, _ in
+    send(rpc: getAddressCounterRPC) { fetchedOperationCounter, _ in
       if let fetchedOperationCounter = fetchedOperationCounter {
         operationCounter = fetchedOperationCounter
       }
@@ -577,7 +577,7 @@ public class TezosNodeClient: AbstractClient {
     }
 
     fetchersGroup.enter()
-    send(rpc: getAddressManagerKeyRPC)  { fetchedManagerAndKey, _ in
+    send(rpc: getAddressManagerKeyRPC) { fetchedManagerAndKey, _ in
       if let fetchedManagerAndKey = fetchedManagerAndKey,
         let fetchedKey = fetchedManagerAndKey["key"] as? String {
         addressKey = fetchedKey
