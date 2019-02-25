@@ -5,7 +5,7 @@ import XCTest
 
 class GetCurrentPeriodKindRPCTest: XCTestCase {
   public func testGetCurrentPeriodKindRPC() {
-    let rpc = GetCurrentPeriodKindRPC { _, _ in }
+    let rpc = GetCurrentPeriodKindRPC()
 
     XCTAssertEqual(rpc.endpoint, "chains/main/blocks/head/votes/current_period_kind")
     XCTAssertNil(rpc.payload)

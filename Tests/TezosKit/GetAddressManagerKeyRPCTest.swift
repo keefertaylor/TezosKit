@@ -13,7 +13,7 @@ import XCTest
 class GetAddressManagerKeyRPCTest: XCTestCase {
   public func testGetAddressManagerKeyRPC() {
     let address = "abc123"
-    let rpc = GetAddressManagerKeyRPC(address: address) { _, _ in }
+    let rpc = GetAddressManagerKeyRPC(address: address)
 
     XCTAssertEqual(rpc.endpoint, "/chains/main/blocks/head/context/contracts/" + address + "/manager_key")
     XCTAssertNil(rpc.payload)

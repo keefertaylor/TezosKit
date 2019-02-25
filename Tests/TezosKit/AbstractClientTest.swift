@@ -67,37 +67,41 @@ class AbstractClientTest: XCTestCase {
     let expectation = XCTestExpectation(description: "Completion is Called")
 
     // RPC endpoint will not resolve to a valid URL.
-    let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self) { (_, _) in
-      dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+    let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (_, _) in
+      if #available(iOS 10, OSX 10.12, *) {
+        dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+      }
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }
 
   public func testCallbackOnCorrectQueue() {
     let expectation = XCTestExpectation(description: "Completion is Called")
-    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self) { (_, _) in
-      dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (_, _) in
+      if #available(iOS 10, OSX 10.12, *) {
+        dispatchPrecondition(condition: .onQueue(self.callbackQueue))
+      }
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }
 
-  public func testBadEndpoingCompletesWithURL() {
+  public func testBadEndpointCompletesWithURL() {
     let expectation = XCTestExpectation(description: "Completion is Called")
 
     // RPC endpoint will not resolve to a valid URL.
-    let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self) { (result, error) in
+    let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }
@@ -113,13 +117,13 @@ class AbstractClientTest: XCTestCase {
     fakeURLSession.data = "SomeString".data(using: .utf8)
 
     let expectation = XCTestExpectation(description: "Completion is Called")
-    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self) { (result, error) in
+    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }
@@ -136,13 +140,13 @@ class AbstractClientTest: XCTestCase {
     fakeURLSession.error = TezosKitError(kind: .unknown, underlyingError: nil)
 
     let expectation = XCTestExpectation(description: "Completion is Called")
-    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self) { (result, error) in
+    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }
@@ -157,13 +161,13 @@ class AbstractClientTest: XCTestCase {
     )
 
     let expectation = XCTestExpectation(description: "Completion is Called")
-    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self) { (result, error) in
+    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }
@@ -178,13 +182,13 @@ class AbstractClientTest: XCTestCase {
     )
 
     let expectation = XCTestExpectation(description: "Completion is Called")
-    let rpc = RPC(endpoint: "/test", responseAdapterClass: IntegerResponseAdapter.self) { (result, error) in
+    let rpc = RPC(endpoint: "/test", responseAdapterClass: IntegerResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }
@@ -201,14 +205,14 @@ class AbstractClientTest: XCTestCase {
     fakeURLSession.data = expectedString.data(using: .utf8)
 
     let expectation = XCTestExpectation(description: "Completion is Called")
-    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self) { (result, error) in
+    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
+    abstractClient?.send(rpc: rpc) { (result, error) in
       XCTAssertNotNil(result)
       XCTAssertEqual(result, expectedString)
       XCTAssertNil(error)
 
       expectation.fulfill()
     }
-    abstractClient?.send(rpc: rpc)
 
     wait(for: [expectation], timeout: 10)
   }

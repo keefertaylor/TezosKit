@@ -6,7 +6,7 @@ import XCTest
 class GetDelegateRPCTest: XCTestCase {
   public func testGetDelegateRPC() {
     let address = "abc123"
-    let rpc = GetDelegateRPC(address: address) { _, _ in }
+    let rpc = GetDelegateRPC(address: address)
 
     XCTAssertEqual(rpc.endpoint, "/chains/main/blocks/head/context/contracts/" + address + "/delegate")
     XCTAssertNil(rpc.payload)

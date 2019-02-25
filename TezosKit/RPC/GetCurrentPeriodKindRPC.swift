@@ -6,11 +6,8 @@ import Foundation
  * An RPC which will retrieve the current period kind for voting.
  */
 public class GetCurrentPeriodKindRPC: RPC<PeriodKind> {
-  /**
-   * - Parameter completion: A block to be called at the completion of the operation.
-   */
-  public init(completion: @escaping (PeriodKind?, Error?) -> Void) {
+  public init() {
     let endpoint = "chains/main/blocks/head/votes/current_period_kind"
-    super.init(endpoint: endpoint, responseAdapterClass: PeriodKindResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: PeriodKindResponseAdapter.self)
   }
 }

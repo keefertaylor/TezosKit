@@ -8,10 +8,9 @@ import Foundation
 public class GetAddressCodeRPC: RPC<ContractCode> {
   /**
    * - Parameter address: The address of the contract to load.
-   * - Parameter completion: A completion block to be called on success or failure.
    */
-  public init(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
+  public init(address: String) {
     let endpoint = "chains/main/blocks/head/context/contracts/\(address)/script"
-    super.init(endpoint: endpoint, responseAdapterClass: ContractCodeResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: ContractCodeResponseAdapter.self)
   }
 }

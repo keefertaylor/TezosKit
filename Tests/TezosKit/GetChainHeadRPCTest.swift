@@ -3,9 +3,9 @@
 import TezosKit
 import XCTest
 
-class GetBallotsListRPCTest: XCTestCase {
-  public func testGetBallotsListRPC() {
-    let rpc = GetChainHeadRPC { _, _ in }
+class GetChainHeadRPCTest: XCTestCase {
+  public func testGetChainHeadRPC() {
+    let rpc = GetChainHeadRPC()
 
     XCTAssertEqual(rpc.endpoint, "chains/main/blocks/head")
     XCTAssertNil(rpc.payload)

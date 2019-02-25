@@ -6,11 +6,8 @@ import Foundation
  * An RPC which will retrieve a list of proposals with number of supporters.
  */
 public class GetProposalsListRPC: RPC<[[String: Any]]> {
-  /**
-   * - Parameter completion: A block to be called at the completion of the operation.
-   */
-  public init(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
+  public init() {
     let endpoint = "chains/main/blocks/head/votes/proposals"
-    super.init(endpoint: endpoint, responseAdapterClass: JSONArrayResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: JSONArrayResponseAdapter.self)
   }
 }

@@ -8,10 +8,9 @@ import Foundation
 public class GetDelegateRPC: RPC<String> {
   /**
    * - Parameter address: The address to retrieve info about.
-   * - Parameter completion: A completion block to be called on success or failure.
    */
-  public init(address: String, completion: @escaping (String?, Error?) -> Void) {
+  public init(address: String) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/delegate"
-    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self)
   }
 }

@@ -8,18 +8,15 @@ import Foundation
 public class InjectionRPC: RPC<String> {
   /**
    * - Parameter payload: A JSON encoded string that represents the signed payload to inject.
-   * - Parameter completion: A block to be called on completion of the operation.
    */
   public init(
-    payload: String,
-    completion: @escaping (String?, Error?) -> Void
+    payload: String
   ) {
     let endpoint = "/injection/operation"
     super.init(
       endpoint: endpoint,
       responseAdapterClass: StringResponseAdapter.self,
-      payload: payload,
-      completion: completion
+      payload: payload
     )
   }
 }

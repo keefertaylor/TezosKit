@@ -6,7 +6,7 @@ import XCTest
 class InjectOperationRPCTest: XCTestCase {
   public func testInjectRPC() {
     let payload = "payload"
-    let rpc = InjectionRPC(payload: payload) { _, _ in }
+    let rpc = InjectionRPC(payload: payload)
 
     XCTAssertEqual(rpc.endpoint, "/injection/operation")
     XCTAssertEqual(rpc.payload, payload)

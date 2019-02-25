@@ -8,10 +8,9 @@ import Foundation
 public class GetAddressBalanceRPC: RPC<Tez> {
   /**
    * - Parameter address: The address to retrieve info about.
-   * - Parameter completion: A completion block to be called on success or failure.
    */
-  public init(address: String, completion: @escaping (Tez?, Error?) -> Void) {
+  public init(address: String) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/balance"
-    super.init(endpoint: endpoint, responseAdapterClass: TezResponseAdapter.self, completion: completion)
+    super.init(endpoint: endpoint, responseAdapterClass: TezResponseAdapter.self)
   }
 }
