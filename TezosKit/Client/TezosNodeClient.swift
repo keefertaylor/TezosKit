@@ -134,19 +134,15 @@ public class TezosNodeClient: AbstractClient {
     send(rpc: rpc, completion: completion)
   }
 
-  /**
-   * Transact Tezos between accounts.
-   *
-   * - Parameter balance: The balance to send.
-   * - Parameter recipientAddress: The address which will receive the balance.
-   * - Parameter source: The address sending the balance.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
-   *             contract.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   * - Parameter completion: A completion block which will be called with a string representing the
-   *        transaction ID hash if the operation was successful.
-   */
+  /// Transact Tezos between accounts.
+  /// - Parameters:
+  ///   - amount: The amount of Tez to send.
+  ///   - recipientAddress: The address which will receive the Tez.
+  ///   - source: The address sending the balance.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block called with an optional transaction hash and error.
   public func send(
     amount: Tez,
     to recipientAddress: String,
@@ -171,20 +167,18 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Delegate the balance of an originated account.
-   *
-   * Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
-   * is not checked on an input to this methods. Thus, the source address must be a KT1 address and
-   * the keys to sign the operation for the address are the keys used to manage the TZ1 address.
-   *
-   * - Parameter recipientAddress: The address which will receive the balance.
-   * - Parameter source: The address sending the balance.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
-   *             if the operation was successful.
-   */
+  /// Delegate the balance of an originated account.
+  ///
+  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
+  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
+  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+  ///
+  /// - Parameters:
+  ///   - source: The address which will delegate.
+  ///   - delegate: The address which will receive the delegation.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block called with an optional transaction hash and error.
   public func delegate(
     from source: String,
     to delegate: String,
@@ -225,16 +219,12 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Register an address as a delegate.
-   *
-   * - Parameter recipientAddress: The address which will receive the balance.
-   * - Parameter source: The address sending the balance.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
-   *             if the operation was successful.
-   */
+  /// Register an address as a delegate.
+  /// - Parameters:
+  ///   - delegate: The address registering as a delegate.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block called with an optional transaction hash and error.
   public func registerDelegate(
     delegate: String,
     keys: Keys,

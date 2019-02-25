@@ -53,8 +53,8 @@ extension TezosNodeClient {
 
   /// Transact Tezos between accounts.
   /// - Parameters:
-  ///   - balance: The balance to send.
-  ///   - recipientAddress: The address which will receive the balance.
+  ///   - amount: The amount of Tez to send.
+  ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
   ///   - keys: The keys to use to sign the operation for the address.
   ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
@@ -89,8 +89,8 @@ extension TezosNodeClient {
   /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
   ///
   /// - Parameters:
-  ///   - recipientAddress: The address which will receive the balance.
-  ///   - source: The address sending the balance.
+  ///   - source: The address which will delegate.
+  ///   - delegate: The address which will receive the delegation.
   ///   - keys: The keys to use to sign the operation for the address.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
@@ -129,8 +129,7 @@ extension TezosNodeClient {
 
   /// Register an address as a delegate.
   /// - Parameters:
-  ///   - recipientAddress: The address which will receive the balance.
-  ///   - source: The address sending the balance.
+  ///   - delegate: The address registering as a delegate.
   ///   - keys: The keys to use to sign the operation for the address.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
