@@ -33,7 +33,8 @@ public struct Tez {
    * A representation of the given balance for use in RPC requests.
    */
   public var rpcRepresentation: String {
-    return integerAmount + decimalAmount
+    // Trim any leading zeroes by converting to an Int.
+    return (integerAmount + decimalAmount).replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
   }
 
   /**
