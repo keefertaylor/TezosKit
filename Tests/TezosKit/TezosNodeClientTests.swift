@@ -28,4 +28,19 @@ class TezosNodeClientTests: XCTestCase {
 
     wait(for: [expectation], timeout: TezosNodeClientTests.timeout)
   }
+
+  public func testGetAddressBalance() {
+    let testAddressBalance = "0277592"
+    fakeURLSession.data = testAddressBalance.data(using: .utf8)
+
+    let expectation = XCTestExpectation(description: "completion called")
+    nodeClient?.getBalance(address: "tz1sNXT8yZCwTss2YcoFi3qbXvTZiCojx833") { balance, error in
+      XCTAssertEqual(balance?.rpcRepresentation, testAddressBalance)
+      XCTAssertNil(error)
+
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: TezosNodeClientTests.timeout)
+  }
 }
