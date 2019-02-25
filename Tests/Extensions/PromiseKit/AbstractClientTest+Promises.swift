@@ -10,7 +10,7 @@ extension AbstractClientTest {
 
     // RPC endpoint will not resolve to a valid URL.
     let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (_, _) in
+    abstractClient?.send(_ rpc: rpc) { (_, _) in
       if #available(iOS 10, OSX 10.12, *) {
         dispatchPrecondition(condition: .onQueue(self.callbackQueue))
       }
@@ -23,7 +23,7 @@ extension AbstractClientTest {
   public func testCallbackOnCorrectQueue_promises() {
     let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (_, _) in
+    abstractClient?.send(_ rpc: rpc) { (_, _) in
       if #available(iOS 10, OSX 10.12, *) {
         dispatchPrecondition(condition: .onQueue(self.callbackQueue))
       }

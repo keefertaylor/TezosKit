@@ -28,7 +28,7 @@ import TezosCrypto
  *
  * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
  * conforms the the |RPC| protocol and calling:
- *      func send<T>(rpc: RPC<T>, completion: (T, Error) -> Void)
+ *      func send<T>(RPC<T>, completion: (T, Error) -> Void)
  *
  * Operations
  * -------------
@@ -45,7 +45,7 @@ import TezosCrypto
  *
  * Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
  * Operation object that conforms to the |Operation| protocol and calling:
- *      func forgeSignPreapplyAndInjectOperation(operation: Operation,
+ *      func forgeSignPreapplyAndInjectOperation(_ operation: Operation,
  *                                               source: String,
  *                                               keys: Keys,
  *                                               completion: @escaping (String?, Error?) -> Void)
@@ -53,7 +53,7 @@ import TezosCrypto
  * Clients can also send multiple signed operations at once by constructing an array of operations.
  * Operations are applied in the order they are given in the array. Clients should pass the array
  * to:
- *      func forgeSignPreapplyAndInjectOperations(operations: [Operation],
+ *      func forgeSignPreapplyAndInjectOperations(_ operations: [Operation],
  *                                                source: String,
  *                                                keys: Keys,
  *                                                completion: @escaping (String?, Error?) -> Void)
@@ -91,7 +91,7 @@ public class TezosNodeClient: AbstractClient {
   /** Retrieve data about the chain head. */
   public func getHead(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let rpc = GetChainHeadRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /** Retrieve the balance of a given wallet. */
@@ -102,7 +102,7 @@ public class TezosNodeClient: AbstractClient {
   /** Retrieve the balance of a given address. */
   public func getBalance(address: String, completion: @escaping (Tez?, Error?) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address)
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /** Retrieve the delegate of a given wallet. */
@@ -113,25 +113,25 @@ public class TezosNodeClient: AbstractClient {
   /** Retrieve the delegate of a given address. */
   public func getDelegate(address: String, completion: @escaping (String?, Error?) -> Void) {
     let rpc = GetDelegateRPC(address: address)
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /** Retrieve the hash of the block at the head of the chain. */
   public func getHeadHash(completion: @escaping (String?, Error?) -> Void) {
     let rpc = GetChainHeadHashRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /** Retrieve the address counter for the given address. */
   public func getAddressCounter(address: String, completion: @escaping (Int?, Error?) -> Void) {
     let rpc = GetAddressCounterRPC(address: address)
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /** Retrieve the address manager key for the given address. */
   public func getAddressManagerKey(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
     let rpc = GetAddressManagerKeyRPC(address: address)
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -163,8 +163,8 @@ public class TezosNodeClient: AbstractClient {
       parameters: parameters,
       operationFees: operationFees
     )
-    forgeSignPreapplyAndInjectOperation(
-      operation: transactionOperation,
+    forgeSignPreapplyAndInject(
+      transactionOperation,
       source: source,
       keys: keys,
       completion: completion
@@ -193,8 +193,8 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (String?, Error?) -> Void
   ) {
     let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(
-      operation: delegationOperation,
+    forgeSignPreapplyAndInject(
+      delegationOperation,
       source: source,
       keys: keys,
       completion: completion
@@ -217,8 +217,8 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (String?, Error?) -> Void
   ) {
     let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(
-      operation: undelegateOperatoin,
+    forgeSignPreapplyAndInject(
+      undelegateOperatoin,
       source: source,
       keys: keys,
       completion: completion
@@ -242,8 +242,8 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (String?, Error?) -> Void
   ) {
     let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(
-      operation: registerDelegateOperation,
+    forgeSignPreapplyAndInject(
+      registerDelegateOperation,
       source: delegate,
       keys: keys,
       completion: completion
@@ -269,8 +269,8 @@ public class TezosNodeClient: AbstractClient {
   ) {
     let originateAccountOperation =
       OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
-    forgeSignPreapplyAndInjectOperation(
-      operation: originateAccountOperation,
+    forgeSignPreapplyAndInject(
+      originateAccountOperation,
       source: managerAddress,
       keys: keys,
       completion: completion
@@ -284,7 +284,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getAddressCode(address: String, completion: @escaping (ContractCode?, Error?) -> Void) {
     let rpc = GetAddressCodeRPC(address: address)
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -292,7 +292,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getBallotsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetBallotsListRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -300,7 +300,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getExpectedQuorum(completion: @escaping (Int?, Error?) -> Void) {
     let rpc = GetExpectedQuorumRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -308,7 +308,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getCurrentPeriodKind(completion: @escaping (PeriodKind?, Error?) -> Void) {
     let rpc = GetCurrentPeriodKindRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -316,7 +316,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getBallots(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let rpc = GetBallotsRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -324,7 +324,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getProposalsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetProposalsListRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -332,7 +332,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getProposalUnderEvaluation(completion: @escaping (String?, Error?) -> Void) {
     let rpc = GetProposalUnderEvaluationRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -340,7 +340,7 @@ public class TezosNodeClient: AbstractClient {
    */
   public func getVotingDelegateRights(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetVotingDelegateRightsRPC()
-    send(rpc: rpc, completion: completion)
+    send(rpc, completion: completion)
   }
 
   /**
@@ -351,14 +351,14 @@ public class TezosNodeClient: AbstractClient {
    * - Parameter keys: The keys to use to sign the operation for the address.
    * - Parameter completion: A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperation(
-    operation: Operation,
+  public func forgeSignPreapplyAndInject(
+    _ operation: Operation,
     source: String,
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    forgeSignPreapplyAndInjectOperations(
-      operations: [operation],
+    forgeSignPreapplyAndInject(
+      [operation],
       source: source,
       keys: keys,
       completion: completion
@@ -370,13 +370,13 @@ public class TezosNodeClient: AbstractClient {
    *
    * Operations are processed in the order they are placed in the operation array.
    *
-   * - Parameter operation: The operation which will be used to forge the operation.
+   * - Parameter operations: The operations which will be forged.
    * - Parameter source: The address performing the operation.
    * - Parameter keys: The keys to use to sign the operation for the address.
    * - Parameter completion: A completion block that will be called with the results of the operation.
    */
-  public func forgeSignPreapplyAndInjectOperations(
-    operations: [Operation],
+  public func forgeSignPreapplyAndInject(
+    _ operations: [Operation],
     source: String,
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
@@ -425,7 +425,7 @@ public class TezosNodeClient: AbstractClient {
       headHash: operationMetadata.headHash,
       payload: jsonPayload
     )
-    self.send(rpc: forgeRPC) { [weak self] result, error in
+    self.send(forgeRPC) { [weak self] result, error in
       guard let self = self,
             let result = result else {
         completion(nil, error)
@@ -508,7 +508,7 @@ public class TezosNodeClient: AbstractClient {
         headHash: operationMetadata.headHash,
         payload: payload
     )
-    send(rpc: preapplyOperationRPC) { [weak self] result, error in
+    send(preapplyOperationRPC) { [weak self] result, error in
       guard let self = self,
         result != nil else {
           completion(nil, error)
@@ -526,7 +526,7 @@ public class TezosNodeClient: AbstractClient {
    */
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
     let injectRPC = InjectionRPC(payload: payload)
-    send(rpc: injectRPC) { txHash, txError in
+    send(injectRPC) { txHash, txError in
       completion(txHash, txError)
     }
   }
@@ -556,7 +556,7 @@ public class TezosNodeClient: AbstractClient {
 
     // Send RPCs and wait for results
     fetchersGroup.enter()
-    send(rpc: chainHeadRequestRPC) { json, _ in
+    send(chainHeadRequestRPC) { json, _ in
       if let json = json,
         let fetchedChainID = json["chain_id"] as? String,
         let fetchedHeadHash = json["hash"] as? String,
@@ -569,7 +569,7 @@ public class TezosNodeClient: AbstractClient {
     }
 
     fetchersGroup.enter()
-    send(rpc: getAddressCounterRPC) { fetchedOperationCounter, _ in
+    send(getAddressCounterRPC) { fetchedOperationCounter, _ in
       if let fetchedOperationCounter = fetchedOperationCounter {
         operationCounter = fetchedOperationCounter
       }
@@ -577,7 +577,7 @@ public class TezosNodeClient: AbstractClient {
     }
 
     fetchersGroup.enter()
-    send(rpc: getAddressManagerKeyRPC) { fetchedManagerAndKey, _ in
+    send(getAddressManagerKeyRPC) { fetchedManagerAndKey, _ in
       if let fetchedManagerAndKey = fetchedManagerAndKey,
         let fetchedKey = fetchedManagerAndKey["key"] as? String {
         addressKey = fetchedKey
