@@ -12,7 +12,7 @@ extension AbstractClient {
   /// - Returns: A promise which will resolve to the result of the RPC.
   public func send<T>(_ rpc: RPC<T>) -> Promise<T> {
     return Promise { seal in
-      send(rpc: rpc) { result, error in
+      send(rpc) { result, error in
         seal.resolve(result, error)
       }
     }
