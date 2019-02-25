@@ -58,6 +58,28 @@ class TezTest: XCTestCase {
     XCTAssertEqual(balanceFromString.rpcRepresentation, "3000000")
   }
 
+  public func testRPCRepresentationWithSmallNumber() {
+    guard let balanceFromString = Tez("10") else {
+      XCTFail()
+      return
+    }
+    let balanceFromNumber = Tez(0.000_010)
+
+    XCTAssertEqual(balanceFromNumber.rpcRepresentation, "10")
+    XCTAssertEqual(balanceFromString.rpcRepresentation, "10")
+  }
+
+  public func testHumanReadableRepresentationWithSmallNumber() {
+    guard let balanceFromString = Tez("10") else {
+      XCTFail()
+      return
+    }
+    let balanceFromNumber = Tez(0.000_010)
+
+    XCTAssertEqual(balanceFromNumber.humanReadableRepresentation, "0.000010")
+    XCTAssertEqual(balanceFromString.humanReadableRepresentation, "0.000010")
+  }
+
   public func testBalanceFromInvalidString() {
     let balance = Tez("3.50")
     XCTAssertNil(balance)
