@@ -14,6 +14,7 @@
 		77B1EAE12224A25600EA4FCE /* FakeURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE02224A25600EA4FCE /* FakeURLSession.swift */; };
 		77B1EAE32224A28D00EA4FCE /* FakeURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE22224A28D00EA4FCE /* FakeURLSessionDataTask.swift */; };
 		77B1EAE52224A3A100EA4FCE /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE42224A3A100EA4FCE /* TezosNodeClientTests.swift */; };
+		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -150,6 +151,7 @@
 		77B1EAE02224A25600EA4FCE /* FakeURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLSession.swift; sourceTree = "<group>"; };
 		77B1EAE22224A28D00EA4FCE /* FakeURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLSessionDataTask.swift; sourceTree = "<group>"; };
 		77B1EAE42224A3A100EA4FCE /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
+		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */,
+				77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */,
 			);
 			path = PromiseKit;
 			sourceTree = "<group>";
@@ -709,6 +712,7 @@
 				77CE385921FC7ED8006ADABA /* Tez.swift in Sources */,
 				77CE385F21FC7ED8006ADABA /* ContractCode.swift in Sources */,
 				77CE386821FC7ED8006ADABA /* ResponseAdapter.swift in Sources */,
+				77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */,
 				77CE386221FC7ED8006ADABA /* GetChainHeadHashRPC.swift in Sources */,
 				77CE387821FC7ED8006ADABA /* GetBallotsListRPC.swift in Sources */,
 				77CE386921FC7ED8006ADABA /* JSONDictionaryResponseAdapter.swift in Sources */,
