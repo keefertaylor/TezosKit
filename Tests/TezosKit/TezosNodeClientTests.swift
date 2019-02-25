@@ -30,6 +30,7 @@ class TezosNodeClientTests: XCTestCase {
   }
 
   public func testGetAddressBalance() {
+    // TODO: Drop leading zero.
     let testAddressBalance = "0277592"
     fakeURLSession.data = testAddressBalance.data(using: .utf8)
 
