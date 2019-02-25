@@ -291,7 +291,7 @@ public class TezosNodeClient: AbstractClient {
    * Retrieve ballots cast so far during a voting period.
    */
   public func getBallotsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
-    let rpc = GetBallotsListRPC(completion: completion)
+    let rpc = GetBallotsListRPC()
     send(rpc: rpc, completion: completion)
   }
 
