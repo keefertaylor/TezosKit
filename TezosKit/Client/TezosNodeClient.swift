@@ -372,7 +372,7 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (String?, Error?) -> Void
   ) {
     getMetadataForOperation(address: source) { operationMetadata in
-      guard let operationMetadata = OperationMetadata else {
+      guard let operationMetadata = operationMetadata else {
         let error = TezosKitError(kind: .unknown, underlyingError: nil)
         completion(nil, error)
         return
@@ -585,17 +585,17 @@ public class TezosNodeClient: AbstractClient {
          let headHash = headHash,
          let chainID = chainID,
          let protocolHash = protocolHash {
-        let operationMetadata = OperationMetadata(
+        let metadata = OperationMetadata(
           chainID: chainID,
           headHash: headHash,
           protocolHash: protocolHash,
           addressCounter: operationCounter,
           key: addressKey
         )
-        completion(operationMetadata)
+        completion(metadata)
         return
       }
-      return completion(nil)
+      completion(nil)
     }
   }
 }
