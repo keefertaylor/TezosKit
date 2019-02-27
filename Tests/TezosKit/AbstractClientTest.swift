@@ -25,7 +25,7 @@ class AbstractClientTest: XCTestCase {
 
     // RPC endpoint will not resolve to a valid URL.
     let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (_, _) in
+    abstractClient?.send(rpc) { (_, _) in
       if #available(iOS 10, OSX 10.12, *) {
         dispatchPrecondition(condition: .onQueue(self.callbackQueue))
       }
@@ -38,7 +38,7 @@ class AbstractClientTest: XCTestCase {
   public func testCallbackOnCorrectQueue() {
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (_, _) in
+    abstractClient?.send(rpc) { (_, _) in
       if #available(iOS 10, OSX 10.12, *) {
         dispatchPrecondition(condition: .onQueue(self.callbackQueue))
       }
@@ -53,7 +53,7 @@ class AbstractClientTest: XCTestCase {
 
     // RPC endpoint will not resolve to a valid URL.
     let rpc = RPC(endpoint: "/    /\"test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
+    abstractClient?.send(rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
@@ -75,7 +75,7 @@ class AbstractClientTest: XCTestCase {
 
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
+    abstractClient?.send(rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
@@ -98,7 +98,7 @@ class AbstractClientTest: XCTestCase {
 
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
+    abstractClient?.send(rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
@@ -119,7 +119,7 @@ class AbstractClientTest: XCTestCase {
 
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
+    abstractClient?.send(rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
@@ -140,7 +140,7 @@ class AbstractClientTest: XCTestCase {
 
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: IntegerResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
+    abstractClient?.send(rpc) { (result, error) in
       XCTAssertNil(result)
       XCTAssertNotNil(error)
 
@@ -163,7 +163,7 @@ class AbstractClientTest: XCTestCase {
 
     let expectation = XCTestExpectation(description: "Completion is Called")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
-    abstractClient?.send(rpc: rpc) { (result, error) in
+    abstractClient?.send(rpc) { (result, error) in
       XCTAssertNotNil(result)
       XCTAssertEqual(result, expectedString)
       XCTAssertNil(error)
