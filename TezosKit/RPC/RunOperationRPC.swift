@@ -3,7 +3,7 @@
 import Foundation
 
 /// An RPC that will run an operation and return fees.
-public class RunOperationRPC: RPC<String> {
+public class RunOperationRPC: RPC<[String: Any]> {
   /// - Parameter operation: The operation to run.
   /// - Parameter hash: The hash of the branch to run on.
   public init(operation: Operation, metadata: OperationMetadata, sig: String) {
@@ -22,7 +22,7 @@ public class RunOperationRPC: RPC<String> {
     let jsonPayload = JSONUtils.jsonString(for: payload)
     super.init(
       endpoint: endpoint,
-      responseAdapterClass: StringResponseAdapter.self,
+      responseAdapterClass: JSONDictionaryResponseAdapter.self,
       payload: jsonPayload
     )
   }

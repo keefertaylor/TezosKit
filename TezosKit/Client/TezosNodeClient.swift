@@ -337,7 +337,7 @@ public class TezosNodeClient: AbstractClient {
   /// - Parameters
   ///   - operation: The operation to run.
   ///   - completion: A completion block to call.
-  public func estimateFees(_ operation: Operation, from wallet: Wallet, completion: @escaping (String?, Error?) -> Void) {
+  public func estimateFees(_ operation: Operation, from wallet: Wallet, completion: @escaping ([String: Any]?, Error?) -> Void) {
     getMetadataForOperation(address: wallet.address) { metadata in
       guard let metadata = metadata else {
         completion(nil, nil)
