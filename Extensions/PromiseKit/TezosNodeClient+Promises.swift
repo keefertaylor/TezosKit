@@ -75,7 +75,7 @@ extension TezosNodeClient {
       parameters: parameters,
       operationFees: operationFees
     )
-    return forgeSignPreapplyAndInjectOperation(
+    return forgeSignPreapplyAndInject(
       operation: transactionOperation,
       source: source,
       keys: keys
@@ -101,7 +101,7 @@ extension TezosNodeClient {
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
-    return forgeSignPreapplyAndInjectOperation(
+    return forgeSignPreapplyAndInject(
       operation: delegationOperation,
       source: source,
       keys: keys
@@ -120,7 +120,7 @@ extension TezosNodeClient {
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
-    return forgeSignPreapplyAndInjectOperation(
+    return forgeSignPreapplyAndInject(
       operation: undelegateOperatoin,
       source: source,
       keys: keys
@@ -139,7 +139,7 @@ extension TezosNodeClient {
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
-    return forgeSignPreapplyAndInjectOperation(
+    return forgeSignPreapplyAndInject(
       operation: registerDelegateOperation,
       source: delegate,
       keys: keys
@@ -161,7 +161,7 @@ extension TezosNodeClient {
   ) -> Promise<String> {
     let originateAccountOperation =
       OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
-    return forgeSignPreapplyAndInjectOperation(
+    return forgeSignPreapplyAndInject(
       operation: originateAccountOperation,
       source: managerAddress,
       keys: keys
@@ -223,12 +223,12 @@ extension TezosNodeClient {
   ///   - source: The address performing the operation.
   ///   - keys: The keys to use to sign the operation for the address.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  public func forgeSignPreapplyAndInjectOperation(
+  public func forgeSignPreapplyAndInject(
     operation: Operation,
     source: String,
     keys: Keys
   ) -> Promise<String> {
-    return forgeSignPreapplyAndInjectOperations(
+    return forgeSignPreapplyAndInject(
       operations: [operation],
       source: source,
       keys: keys
@@ -244,13 +244,13 @@ extension TezosNodeClient {
   ///   - source: The address performing the operation.
   ///   - keys: The keys to use to sign the operation for the address.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  public func forgeSignPreapplyAndInjectOperations(
+  public func forgeSignPreapplyAndInject(
     operations: [Operation],
     source: String,
     keys: Keys
   ) -> Promise<String> {
     return Promise { seal in
-      forgeSignPreapplyAndInjectOperations(operations: operations, source: source, keys: keys) { result, error in
+      forgeSignPreapplyAndInject(operations, source: source, keys: keys) { result, error in
         seal.resolve(result, error)
       }
     }
