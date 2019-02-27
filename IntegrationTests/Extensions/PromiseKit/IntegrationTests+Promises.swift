@@ -10,10 +10,9 @@ extension TezosNodeIntegrationTests {
   public func testGetAccountBalance_promises() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    nodeClient.getBalance(wallet: TezosNodeIntegrationTests.testWallet).done { balance in
+    nodeClient.getBalance(wallet: TezosNodeIntegrationTests.testWallet).done { result in
       XCTAssertNotNil(result)
-      XCTAssertNil(error)
-      let balance = Double(result!.humanReadableRepresentation)!
+      let balance = Double(result.humanReadableRepresentation)!
       XCTAssertGreaterThan(balance, 0.0, "Balance in account was not greater than 0")
       expectation.fulfill()
     } .catch { _ in
@@ -33,7 +32,7 @@ extension TezosNodeIntegrationTests {
       keys: TezosNodeIntegrationTests.testWallet.keys
     ) .done { hash in
       XCTAssertNotNil(hash)
-      XCTAssert(hash!.hasPrefix("oo"))
+      XCTAssert(hash.hasPrefix("oo"))
       expectation.fulfill()
     } .catch { _ in
       XCTFail()
