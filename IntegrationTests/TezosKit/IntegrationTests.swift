@@ -66,4 +66,18 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
   }
+
+  public func testRunOperation() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let operation = OriginateAccountOperation(wallet: TezosNodeIntegrationTests.testWallet)
+    self.nodeClient.estimateFees(operation, from: TezosNodeIntegrationTests.testWallet) { result, error in
+      print(result)
+      print(error)
+      // TODO: Use consumed gas.
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
+  }
 }

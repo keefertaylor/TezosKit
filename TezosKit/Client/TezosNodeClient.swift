@@ -333,6 +333,53 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
+  /// Estimate fees for an operation.
+  /// - Parameters
+  ///   - operation: The operation to run.
+  ///   - completion: A completion block to call.
+  public func estimateFees(_ operation: Operation, from wallet: Wallet, completion: @escaping (String?, Error?) -> Void) {
+    getMetadataForOperation(address: wallet.address) { metadata in
+      guard let metadata = metadata else {
+        completion(nil, nil)
+        return
+      }
+
+      var mutableOperation = operation.dictionaryRepresentation
+      mutableOperation["counter"] = String(metadata.addressCounter + 1)
+
+      let contents = [ mutableOperation ]
+
+      var operationPayload: [String: Any] = [:]
+      operationPayload["contents"] = contents
+      operationPayload["branch"] = metadata.headHash
+
+      guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
+        let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
+        completion(nil, error)
+        return
+      }
+
+      let forgeRPC = ForgeOperationRPC(
+        chainID: metadata.chainID,
+        headHash: metadata.headHash,
+        payload: jsonPayload
+      )
+      self.send(forgeRPC) { bytes, error  in
+        guard let operationSigningResult = TezosCrypto.signForgedOperation(
+          operation: bytes!,
+          secretKey: wallet.keys.secretKey
+        ) else {
+            let error = TezosKitError(kind: .unknown, underlyingError: nil)
+            completion(nil, error)
+            return
+        }
+
+        let rpc = RunOperationRPC(operation: operation, metadata: metadata, sig: operationSigningResult.edsig)
+        self.send(rpc, completion: completion)
+      }
+    }
+  }
+
   /**
    * Forge, sign, preapply and then inject a single operation.
    *

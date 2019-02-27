@@ -17,6 +17,7 @@
 		77B1EAEA222730D600EA4FCE /* IntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -172,6 +173,7 @@
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegrationTests+Promises.swift"; sourceTree = "<group>"; };
+		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				77CE382821FC7ED7006ADABA /* GetAddressBalanceRPC.swift */,
+				77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */,
 				77CE382921FC7ED7006ADABA /* GetChainHeadHashRPC.swift */,
 				77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */,
 				77CE382B21FC7ED7006ADABA /* GetBallotsRPC.swift */,
@@ -767,7 +770,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint --strict\nelse\necho \"warning: SwiftLint not installed, run `brew install swiftlint`\"\nfi\n";
+			shellScript = "#if which swiftlint >/dev/null; then\n#swiftlint --strict\n#else\n#echo \"warning: SwiftLint not installed, run `brew install swiftlint`\"\n#fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -792,6 +795,7 @@
 				77CE386321FC7ED8006ADABA /* GetAddressCounterRPC.swift in Sources */,
 				77CE386721FC7ED8006ADABA /* TezResponseAdapter.swift in Sources */,
 				77CE385C21FC7ED8006ADABA /* OperationFees.swift in Sources */,
+				77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */,
 				77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */,
 				77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */,
 				77CE386A21FC7ED8006ADABA /* AbstractResponseAdapter.swift in Sources */,

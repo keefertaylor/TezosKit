@@ -23,9 +23,9 @@ public class OriginateAccountOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = Tez(0.001_285)
-    let storageLimit = Tez(0.000_257)
-    let gasLimit = Tez(0.010_000)
+    let fee = Tez(0.0)
+    let storageLimit = Tez(0.06)
+    let gasLimit = Tez(0.4)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
