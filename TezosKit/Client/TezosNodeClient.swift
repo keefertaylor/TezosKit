@@ -528,68 +528,68 @@ public class TezosNodeClient: AbstractClient {
    * together as an OperationData object.
    */
   private func getMetadataForOperation(address: String) -> OperationMetadata? {
-    let fetchersGroup = DispatchGroup()
+      let fetchersGroup = DispatchGroup()
 
-    // Fetch data about the chain being operated on.
-    var chainID: String?
-    var headHash: String?
-    var protocolHash: String?
-    let chainHeadRequestRPC = GetChainHeadRPC()
+      // Fetch data about the chain being operated on.
+      var chainID: String?
+      var headHash: String?
+      var protocolHash: String?
+      let chainHeadRequestRPC = GetChainHeadRPC()
 
-    // Fetch data about the address being operated on.
-    var operationCounter: Int?
-    let getAddressCounterRPC = GetAddressCounterRPC(address: address)
+      // Fetch data about the address being operated on.
+      var operationCounter: Int?
+      let getAddressCounterRPC = GetAddressCounterRPC(address: address)
 
-    // Fetch data about the key.
-    var addressKey: String?
-    let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
+      // Fetch data about the key.
+      var addressKey: String?
+      let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
 
-    // Send RPCs and wait for results
-    fetchersGroup.enter()
-    send(rpc: chainHeadRequestRPC) { json, _ in
-      if let json = json,
-        let fetchedChainID = json["chain_id"] as? String,
-        let fetchedHeadHash = json["hash"] as? String,
-        let fetchedProtocolHash = json["protocol"] as? String {
-        chainID = fetchedChainID
-        headHash = fetchedHeadHash
-        protocolHash = fetchedProtocolHash
+      // Send RPCs and wait for results
+      fetchersGroup.enter()
+      self.send(rpc: chainHeadRequestRPC) { json, _ in
+        if let json = json,
+           let fetchedChainID = json["chain_id"] as? String,
+          let fetchedHeadHash = json["hash"] as? String,
+          let fetchedProtocolHash = json["protocol"] as? String {
+          chainID = fetchedChainID
+          headHash = fetchedHeadHash
+          protocolHash = fetchedProtocolHash
+        }
+        fetchersGroup.leave()
       }
-      fetchersGroup.leave()
-    }
 
-    fetchersGroup.enter()
-    send(rpc: getAddressCounterRPC) { fetchedOperationCounter, _ in
-      if let fetchedOperationCounter = fetchedOperationCounter {
-        operationCounter = fetchedOperationCounter
+      fetchersGroup.enter()
+      self.send(rpc: getAddressCounterRPC) { fetchedOperationCounter, _ in
+        if let fetchedOperationCounter = fetchedOperationCounter {
+          operationCounter = fetchedOperationCounter
+        }
+        fetchersGroup.leave()
       }
-      fetchersGroup.leave()
-    }
 
-    fetchersGroup.enter()
-    send(rpc: getAddressManagerKeyRPC) { fetchedManagerAndKey, _ in
-      if let fetchedManagerAndKey = fetchedManagerAndKey,
-        let fetchedKey = fetchedManagerAndKey["key"] as? String {
-        addressKey = fetchedKey
+      fetchersGroup.enter()
+      self.send(rpc: getAddressManagerKeyRPC) { fetchedManagerAndKey, _ in
+        if let fetchedManagerAndKey = fetchedManagerAndKey,
+          let fetchedKey = fetchedManagerAndKey["key"] as? String {
+          addressKey = fetchedKey
+        }
+        fetchersGroup.leave()
       }
-      fetchersGroup.leave()
-    }
 
-    fetchersGroup.wait()
+      fetchersGroup.wait()
 
-    // Return fetched data as an OperationData if all data was successfully retrieved.
-    if let operationCounter = operationCounter,
-      let headHash = headHash,
-      let chainID = chainID,
-      let protocolHash = protocolHash {
-      return OperationMetadata(
-        chainID: chainID,
-        headHash: headHash,
-        protocolHash: protocolHash,
-        addressCounter: operationCounter,
-        key: addressKey
-      )
+      // Return fetched data as an OperationData if all data was successfully retrieved.
+      if let operationCounter = operationCounter,
+        let headHash = headHash,
+        let chainID = chainID,
+        let protocolHash = protocolHash {
+        return OperationMetadata(
+          chainID: chainID,
+          headHash: headHash,
+          protocolHash: protocolHash,
+          addressCounter: operationCounter,
+          key: addressKey
+        )
+      }
+      return nil
     }
-    return nil
-  }
 }

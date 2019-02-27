@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		772F48A82224894E00DF0F9D /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* IntegrationTests.swift */; };
+		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7774780C222228590010BA4D /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		7774780F222228E50010BA4D /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
+		77B1EAEA222730D600EA4FCE /* IntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -109,6 +112,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		772F48AB2224894E00DF0F9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77CE358D21F7DC76006ADABA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77CE359521F7DC76006ADABA;
+			remoteInfo = TezosKit;
+		};
 		77CE35A121F7DC76006ADABA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77CE358D21F7DC76006ADABA /* Project object */;
@@ -142,10 +152,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		772F48A52224894E00DF0F9D /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		772F48A72224894E00DF0F9D /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
+		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
+		77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -251,6 +265,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		772F48A22224894E00DF0F9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77CE359321F7DC76006ADABA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,6 +297,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		772F48A62224894E00DF0F9D /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				77B1EAE72225CE8F00EA4FCE /* Extensions */,
+				77B1EAE62225CE8400EA4FCE /* TezosKit */,
+			);
+			path = IntegrationTests;
+			sourceTree = "<group>";
+		};
+		77B1EAE62225CE8400EA4FCE /* TezosKit */ = {
+			isa = PBXGroup;
+			children = (
+				772F48A72224894E00DF0F9D /* IntegrationTests.swift */,
+				772F48A92224894E00DF0F9D /* Info.plist */,
+			);
+			path = TezosKit;
+			sourceTree = "<group>";
+		};
+		77B1EAE72225CE8F00EA4FCE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				77B1EAE8222730B500EA4FCE /* PromiseKit */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		77B1EAE8222730B500EA4FCE /* PromiseKit */ = {
+			isa = PBXGroup;
+			children = (
+				77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */,
+			);
+			path = PromiseKit;
+			sourceTree = "<group>";
+		};
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +339,7 @@
 				77F4D26D22220C5200D34B01 /* Extensions */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* Tests */,
+				772F48A62224894E00DF0F9D /* IntegrationTests */,
 				77CE359721F7DC76006ADABA /* Products */,
 				77CE362F21F7EF32006ADABA /* Frameworks */,
 			);
@@ -293,6 +350,7 @@
 			children = (
 				77CE359621F7DC76006ADABA /* TezosKit.framework */,
 				77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */,
+				772F48A52224894E00DF0F9D /* IntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -521,6 +579,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		772F48A42224894E00DF0F9D /* IntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 772F48AF2224894E00DF0F9D /* Build configuration list for PBXNativeTarget "IntegrationTests" */;
+			buildPhases = (
+				772F48A12224894E00DF0F9D /* Sources */,
+				772F48A22224894E00DF0F9D /* Frameworks */,
+				772F48A32224894E00DF0F9D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				772F48AC2224894E00DF0F9D /* PBXTargetDependency */,
+			);
+			name = IntegrationTests;
+			productName = IntegrationTests;
+			productReference = 772F48A52224894E00DF0F9D /* IntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		77CE359521F7DC76006ADABA /* TezosKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77CE35AA21F7DC76006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */;
@@ -571,6 +647,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Keefer Taylor";
 				TargetAttributes = {
+					772F48A42224894E00DF0F9D = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					77CE359521F7DC76006ADABA = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -594,11 +673,19 @@
 			targets = (
 				77CE359521F7DC76006ADABA /* TezosKit */,
 				77CE359E21F7DC76006ADABA /* TezosKitTests */,
+				772F48A42224894E00DF0F9D /* IntegrationTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		772F48A32224894E00DF0F9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77CE359421F7DC76006ADABA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -671,6 +758,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		772F48A12224894E00DF0F9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				772F48A82224894E00DF0F9D /* IntegrationTests.swift in Sources */,
+				77B1EAEA222730D600EA4FCE /* IntegrationTests+Promises.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77CE359221F7DC76006ADABA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -778,6 +874,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		772F48AC2224894E00DF0F9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77CE359521F7DC76006ADABA /* TezosKit */;
+			targetProxy = 772F48AB2224894E00DF0F9D /* PBXContainerItemProxy */;
+		};
 		77CE35A221F7DC76006ADABA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 77CE359521F7DC76006ADABA /* TezosKit */;
@@ -786,6 +887,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		772F48AD2224894E00DF0F9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				INFOPLIST_FILE = IntegrationTests/TezosKit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.IntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		772F48AE2224894E00DF0F9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				INFOPLIST_FILE = IntegrationTests/TezosKit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.IntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		77CE35A821F7DC76006ADABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1017,6 +1154,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		772F48AF2224894E00DF0F9D /* Build configuration list for PBXNativeTarget "IntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				772F48AD2224894E00DF0F9D /* Debug */,
+				772F48AE2224894E00DF0F9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		77CE359021F7DC76006ADABA /* Build configuration list for PBXProject "TezosKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
