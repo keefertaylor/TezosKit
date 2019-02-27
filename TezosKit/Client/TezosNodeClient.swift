@@ -371,64 +371,66 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    guard let operationMetadata = getMetadataForOperation(address: source) else {
-      let error = TezosKitError(kind: .unknown, underlyingError: nil)
-      completion(nil, error)
-      return
-    }
-
-    // Create a mutable copy of operations in case we need to add a reveal operation.
-    var mutableOperations = operations
-
-    // Determine if the address performing the operations has been revealed. If it has not been,
-    // check if any of the operations to perform requires the address to be revealed. If so,
-    // prepend a reveal operation to the operations to perform.
-    if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-      let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
-      mutableOperations.insert(revealOperation, at: 0)
-    }
-
-    // Process all operations to have increasing counters and place them in the contents array.
-    var contents: [[String: Any]] = []
-    var counter = operationMetadata.addressCounter
-    for operation in mutableOperations {
-      counter += 1
-
-      var mutableOperation = operation.dictionaryRepresentation
-      mutableOperation["counter"] = String(counter)
-
-      contents.append(mutableOperation)
-    }
-
-    var operationPayload: [String: Any] = [:]
-    operationPayload["contents"] = contents
-    operationPayload["branch"] = operationMetadata.headHash
-
-    guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
-      let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
-      completion(nil, error)
-      return
-    }
-
-    let forgeRPC = ForgeOperationRPC(
-      chainID: operationMetadata.chainID,
-      headHash: operationMetadata.headHash,
-      payload: jsonPayload
-    )
-    self.send(rpc: forgeRPC) { [weak self] result, error in
-      guard let self = self,
-            let result = result else {
+    getMetadataForOperation(address: source) { operationMetadata in
+      guard let operationMetadata = operationMetadata else {
+        let error = TezosKitError(kind: .unknown, underlyingError: nil)
         completion(nil, error)
         return
       }
-      self.signPreapplyAndInjectOperation(
-        operationPayload: operationPayload,
-        operationMetadata: operationMetadata,
-        forgeResult: result,
-        source: source,
-        keys: keys,
-        completion: completion
+
+      // Create a mutable copy of operations in case we need to add a reveal operation.
+      var mutableOperations = operations
+
+      // Determine if the address performing the operations has been revealed. If it has not been,
+      // check if any of the operations to perform requires the address to be revealed. If so,
+      // prepend a reveal operation to the operations to perform.
+      if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
+        let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
+        mutableOperations.insert(revealOperation, at: 0)
+      }
+
+      // Process all operations to have increasing counters and place them in the contents array.
+      var contents: [[String: Any]] = []
+      var counter = operationMetadata.addressCounter
+      for operation in mutableOperations {
+        counter += 1
+
+        var mutableOperation = operation.dictionaryRepresentation
+        mutableOperation["counter"] = String(counter)
+
+        contents.append(mutableOperation)
+      }
+
+      var operationPayload: [String: Any] = [:]
+      operationPayload["contents"] = contents
+      operationPayload["branch"] = operationMetadata.headHash
+
+      guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
+        let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
+        completion(nil, error)
+        return
+      }
+
+      let forgeRPC = ForgeOperationRPC(
+        chainID: operationMetadata.chainID,
+        headHash: operationMetadata.headHash,
+        payload: jsonPayload
       )
+      self.send(rpc: forgeRPC) { [weak self] result, error in
+        guard let self = self,
+              let result = result else {
+          completion(nil, error)
+          return
+        }
+        self.signPreapplyAndInjectOperation(
+          operationPayload: operationPayload,
+          operationMetadata: operationMetadata,
+          forgeResult: result,
+          source: source,
+          keys: keys,
+          completion: completion
+        )
+      }
     }
   }
 
@@ -527,7 +529,8 @@ public class TezosNodeClient: AbstractClient {
    * This method parallelizes fetches to get chain and address data and returns all required data
    * together as an OperationData object.
    */
-  private func getMetadataForOperation(address: String) -> OperationMetadata? {
+  private func getMetadataForOperation(address: String, completion: @escaping (OperationMetadata?) -> Void) {
+    DispatchQueue.global(qos: .userInitiated).async {
       let fetchersGroup = DispatchGroup()
 
       // Fetch data about the chain being operated on.
@@ -579,17 +582,20 @@ public class TezosNodeClient: AbstractClient {
 
       // Return fetched data as an OperationData if all data was successfully retrieved.
       if let operationCounter = operationCounter,
-        let headHash = headHash,
-        let chainID = chainID,
-        let protocolHash = protocolHash {
-        return OperationMetadata(
+         let headHash = headHash,
+         let chainID = chainID,
+         let protocolHash = protocolHash {
+        let metadata = OperationMetadata(
           chainID: chainID,
           headHash: headHash,
           protocolHash: protocolHash,
           addressCounter: operationCounter,
           key: addressKey
         )
+        completion(metadata)
+        return
       }
-      return nil
+      completion(nil)
     }
+  }
 }
