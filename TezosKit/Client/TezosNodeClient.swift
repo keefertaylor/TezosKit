@@ -65,16 +65,14 @@ import TezosCrypto
  * correctly.
  */
 public class TezosNodeClient: AbstractClient {
-  /** The default node URL to use. */
+  /// The default node URL to use.
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
-  /**
-   * Initialize a new TezosNodeClient.
-   *
-   * - Parameter remoteNodeURL: The path to the remote node, defaults to the default URL
-   * - Parameter urlSession: The URLSession that will manage network requests, defaults to the shared session.
-   * - Parameter callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
-   */
+  /// Initialize a new TezosNodeClient.
+  /// - Parameters:
+  ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
+  ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
+  ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
   public init(
     remoteNodeURL: URL = defaultNodeURL,
     urlSession: URLSession = URLSession.shared,
@@ -88,47 +86,47 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /** Retrieve data about the chain head. */
+  /// Retrieve data about the chain head.
   public func getHead(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let rpc = GetChainHeadRPC()
     send(rpc, completion: completion)
   }
 
-  /** Retrieve the balance of a given wallet. */
+  /// Retrieve the balance of a given wallet.
   public func getBalance(wallet: Wallet, completion: @escaping (Tez?, Error?) -> Void) {
     getBalance(address: wallet.address, completion: completion)
   }
 
-  /** Retrieve the balance of a given address. */
+  /// Retrieve the balance of a given address.
   public func getBalance(address: String, completion: @escaping (Tez?, Error?) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address)
     send(rpc, completion: completion)
   }
 
-  /** Retrieve the delegate of a given wallet. */
+  /// Retrieve the delegate of a given wallet.
   public func getDelegate(wallet: Wallet, completion: @escaping (String?, Error?) -> Void) {
     getDelegate(address: wallet.address, completion: completion)
   }
 
-  /** Retrieve the delegate of a given address. */
+  /// Retrieve the delegate of a given address.
   public func getDelegate(address: String, completion: @escaping (String?, Error?) -> Void) {
     let rpc = GetDelegateRPC(address: address)
     send(rpc, completion: completion)
   }
 
-  /** Retrieve the hash of the block at the head of the chain. */
+  /// Retrieve the hash of the block at the head of the chain.
   public func getHeadHash(completion: @escaping (String?, Error?) -> Void) {
     let rpc = GetChainHeadHashRPC()
     send(rpc, completion: completion)
   }
 
-  /** Retrieve the address counter for the given address. */
+  /// Retrieve the address counter for the given address.
   public func getAddressCounter(address: String, completion: @escaping (Int?, Error?) -> Void) {
     let rpc = GetAddressCounterRPC(address: address)
     send(rpc, completion: completion)
   }
 
-  /** Retrieve the address manager key for the given address. */
+  /// Retrieve the address manager key for the given address.
   public func getAddressManagerKey(address: String, completion: @escaping ([String: Any]?, Error?) -> Void) {
     let rpc = GetAddressManagerKeyRPC(address: address)
     send(rpc, completion: completion)
