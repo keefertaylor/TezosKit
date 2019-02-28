@@ -333,8 +333,17 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
-  private func prepare(operations: [Operation], currentCounter: Int) {
-//    for (
+  private func prepare(operations: [Operation], currentCounter counter: Int) {
+    // Process all operations to have increasing counters and place them in the contents array.
+    var nextCounter = counter + 1
+    var contents: [[String: Any]] = []
+    for operation in operations {
+      var mutableOperation = operation.dictionaryRepresentation
+      mutableOperation["counter"] = String(nextCounter)
+      contents.append(mutableOperation)
+
+      nextCounter += 1
+    }
   }
 
   /// Estimate fees for an operation.

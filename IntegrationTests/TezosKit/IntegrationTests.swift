@@ -23,6 +23,8 @@ import XCTest
 class TezosNodeIntegrationTests: XCTestCase {
   public static let timeout = 10.0
   public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
+
+  // TODO: migrate to test extension
   public static let testWallet =
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
 
@@ -87,4 +89,37 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
   }
+
+  public func testMultipleOperations() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+
+    let ops: [TezosKit.Operation] = [
+      TransactionOperation(
+        amount: Tez("1")!,
+        source: TezosNodeIntegrationTests.testWallet,
+        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
+      ),
+      TransactionOperation(
+        amount: Tez("1")!,
+        source: TezosNodeIntegrationTests.testWallet,
+        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
+      )
+    ]
+
+    nodeClient.forgeSignPreapplyAndInject(
+      ops,
+      source: TezosNodeIntegrationTests.testWallet.address,
+      keys: TezosNodeIntegrationTests.testWallet.keys
+    ) { (hash: String?, error: Error?) in
+      XCTAssertNotNil(hash)
+      XCTAssert(hash!.hasPrefix("oo"))
+      XCTAssertNil(error)
+
+      expectation.fulfill()
+    }
+    wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
+  }
+
+  // TODO: Send multiple operatoins
 }
