@@ -333,6 +333,10 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
+  private func prepare(operations: [Operation], currentCounter: Int) {
+//    for (
+  }
+
   /// Estimate fees for an operation.
   /// - Parameters
   ///   - operation: The operation to run.

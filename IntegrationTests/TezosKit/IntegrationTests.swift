@@ -72,8 +72,15 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     let operation = OriginateAccountOperation(wallet: TezosNodeIntegrationTests.testWallet)
     self.nodeClient.estimateFees(operation, from: TezosNodeIntegrationTests.testWallet) { result, error in
-      print(result)
-      print(error)
+      guard let result = result,
+            let contents = result["contents"] as? [[String: Any]],
+            let metadata = contents[0]["metadata"] as? [String: Any],
+            let operationResult = metadata["operation_result"] as? [String: Any],
+            let consumedGas = operationResult["consumed_gas"] as? String else {
+              XCTFail()
+              return
+      }
+      XCTAssertEqual(consumedGas, "10000")
       // TODO: Use consumed gas.
       expectation.fulfill()
     }
