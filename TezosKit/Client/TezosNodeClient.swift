@@ -349,7 +349,7 @@ public class TezosNodeClient: AbstractClient {
       let forgeablePayload = self.prepare(
         operations: [operation],
         currentCounter: metadata.addressCounter,
-        branch: metadata.headHash
+        branch: metadata.branch
       )
 
       self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: metadata) { [weak self] bytes, error in
@@ -429,7 +429,7 @@ public class TezosNodeClient: AbstractClient {
       let forgeablePayload = self.prepare(
         operations: mutableOperations,
         currentCounter: operationMetadata.addressCounter,
-        branch: operationMetadata.headHash
+        branch: operationMetadata.branch
       )
 
       self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: operationMetadata) { [weak self] result, error in
@@ -608,8 +608,8 @@ public class TezosNodeClient: AbstractClient {
          let protocolHash = protocolHash {
         let metadata = OperationMetadata(
           chainID: chainID,
-          headHash: headHash,
-          protocolHash: protocolHash,
+          branch: headHash,
+          protocol: protocolHash,
           addressCounter: operationCounter,
           key: addressKey
         )

@@ -9,7 +9,7 @@ public class ForgeOperationRPC: RPC<String> {
     forgeablePayload: ForgeablePayload,
     operationMetadata: OperationMetadata
   ) {
-    let endpoint = "/chains/" + operationMetadata.chainID + "/blocks/" + operationMetadata.headHash + "/helpers/forge/operations"
+    let endpoint = "/chains/" + operationMetadata.chainID + "/blocks/" + operationMetadata.branch + "/helpers/forge/operations"
     let payload = JSONUtils.jsonString(for: forgeablePayload.dictionaryRepresentation)
     super.init(
       endpoint: endpoint,

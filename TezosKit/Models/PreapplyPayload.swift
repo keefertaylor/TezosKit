@@ -14,6 +14,6 @@ public class PreapplyPayload {
 
   public init(signedForgeablePayload: SignedForgeablePayload, operationMetadata: OperationMetadata) {
     self.signedForgeablePayload = signedForgeablePayload
-    self.protocol = operationMetadata.protocolHash
+    self.protocol = operationMetadata.`protocol`
   }
 }
