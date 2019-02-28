@@ -335,15 +335,6 @@ public class TezosNodeClient: AbstractClient {
 
   // TODO: Mark private methods
 
-  // TODO: Should this be it's own model object?
-  private func makeOperationPayload(contents: [[String: Any]], branch: String) -> [String: Any] {
-    var operationPayload: [String: Any] = [:]
-    operationPayload["contents"] = contents
-    operationPayload["branch"] = branch
-
-    return operationPayload
-  }
-
   /// Estimate fees for an operation.
   /// - Parameters
   ///   - operation: The operation to run.
@@ -371,18 +362,12 @@ public class TezosNodeClient: AbstractClient {
         payload: jsonPayload
       )
       self.send(forgeRPC) { bytes, error  in
-        guard let operationSigningResult = TezosCrypto.signForgedOperation(
-          operation: bytes!,
-          secretKey: wallet.keys.secretKey
-        ) else {
+        guard let bytes = bytes,
+          let (_, signedForgeablePayload) = self.sign(forgeablePayload: forgeablePayload, forgedPayload: bytes, keys: wallet.keys) else {
             let error = TezosKitError(kind: .unknown, underlyingError: nil)
             completion(nil, error)
             return
         }
-        let signedForgeablePayload = SignedForgeablePayload(
-          forgeablePayload: forgeablePayload,
-          operationSigningResult: operationSigningResult
-        )
         let rpc = RunOperationRPC(signedForgeablePayload: signedForgeablePayload)
         self.send(rpc, completion: completion)
       }
@@ -490,7 +475,7 @@ public class TezosNodeClient: AbstractClient {
           let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.sbytes) else {
       return nil
     }
-    
+
     let signedForgeablePayload = SignedForgeablePayload(
       forgeablePayload: forgeablePayload,
       operationSigningResult: signingResult
