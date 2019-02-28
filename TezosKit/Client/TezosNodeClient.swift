@@ -1,33 +1,32 @@
-// Copyright Keefer Taylor, 2018
+// Copyright Keefer Taylor, 2019
 
 import Foundation
 import TezosCrypto
 
-/**
- * TezosNodeClient is the gateway into the Tezos Network via a Tezos Node.
- *
- * Configuration
- * -------------
- * The client is initialized with a node URL which points to a node who can receive JSON RPC
- * requests from this client. The default not is rpc.tezrpc.me, a public node provided by TezTech.
- *
- * The client can be initialized with a custom URLSession can be provided to manage network requests. By default, the
- * shared URLSession is used.
- *
- * The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the main
- * dispatch queue is used.
- *
- * RPCs
- * -------------
- * TezosNodeClient contains support for GET and POST RPCS and will make requests based on the
- * RPCs provided to it.
- *
- * All supported RPC operations are provided in the Sources/Requests folder of the project. In
- * addition, TezosNodeClient provides convenience methods for constructing and sending all supported
- * operations.
- *
- * Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
- * conforms the the |RPC| protocol and calling:
+/// TezosNodeClient is the gateway into the Tezos Network via a Tezos Node.
+///
+/// Configuration
+/// -------------
+/// The client is initialized with a node URL which points to a node who can receive JSON RPC
+/// requests from this client. The default not is rpc.tezrpc.me, a public node provided by TezTech.
+///
+/// The client can be initialized with a custom URLSession can be provided to manage network requests. By default, the
+/// shared URLSession is used.
+///
+/// The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the main
+/// dispatch queue is used.
+ /*
+/// RPCs
+/// -------------
+/// TezosNodeClient contains support for GET and POST RPCS and will make requests based on the
+/// RPCs provided to it.
+///
+/// All supported RPC operations are provided in the Sources/Requests folder of the project. In
+/// addition, TezosNodeClient provides convenience methods for constructing and sending all supported
+/// operations.
+///
+/// Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
+/// conforms the the |RPC| protocol and calling:
  *      func send<T>(RPC<T>, completion: (T, Error) -> Void)
  *
  * Operations
@@ -58,13 +57,14 @@ import TezosCrypto
  *                                                keys: Keys,
  *                                                completion: @escaping (String?, Error?) -> Void)
  *
- * Some signed operations require an address be revealed in order to complete the operation. For
- * operations supported in TezosKit, the reveal operation will be automatically applied when needed.
- * For clients who create their own custom signed operations, TezosKit will apply the reveal
- * operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
- * correctly.
+/// Some signed operations require an address be revealed in order to complete the operation. For
+/// operations supported in TezosKit, the reveal operation will be automatically applied when needed.
+/// For clients who create their own custom signed operations, TezosKit will apply the reveal
+/// operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
+/// correctly.
  */
 public class TezosNodeClient: AbstractClient {
+
   /// The default node URL to use.
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
@@ -275,33 +275,25 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
-  /**
-   * Retrieve ballots cast so far during a voting period.
-   */
+  /// Retrieve ballots cast so far during a voting period.
   public func getBallotsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetBallotsListRPC()
     send(rpc, completion: completion)
   }
 
-  /**
-   * Retrieve the expected quorum.
-   */
+  /// Retrieve the expected quorum.
   public func getExpectedQuorum(completion: @escaping (Int?, Error?) -> Void) {
     let rpc = GetExpectedQuorumRPC()
     send(rpc, completion: completion)
   }
 
-  /**
-   * Retrieve the current period kind for voting.
-   */
+  /// Retrieve the current period kind for voting.
   public func getCurrentPeriodKind(completion: @escaping (PeriodKind?, Error?) -> Void) {
     let rpc = GetCurrentPeriodKindRPC()
     send(rpc, completion: completion)
   }
 
-  /**
-   * Retrieve the sum of ballots cast so far during a voting period.
-   */
+  /// Retrieve the sum of ballots cast so far during a voting period.
   public func getBallots(completion: @escaping ([String: Any]?, Error?) -> Void) {
     let rpc = GetBallotsRPC()
     send(rpc, completion: completion)
