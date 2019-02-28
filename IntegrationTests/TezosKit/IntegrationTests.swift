@@ -21,28 +21,37 @@ import XCTest
 /// Instructions for adding balance to an alphanet account are available at:
 /// https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet
 
-// TODO: Standardize throttle.
-class TezosNodeIntegrationTests: XCTestCase {
-  public static let timeout = 10.0
-  public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
-
-  // TODO: migrate to test extension
+extension Wallet {
   public static let testWallet =
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
+}
 
+extension URL {
+  public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
+}
+
+extension Double {
+  public static let expectationTimeout = 10.0
+}
+
+class TezosNodeIntegrationTests: XCTestCase {
   public var nodeClient = TezosNodeClient()
 
   public override func setUp() {
     super.setUp()
-    nodeClient = TezosNodeClient(remoteNodeURL: TezosNodeIntegrationTests.nodeURL)
+
+    /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
+    /// propagate. Define a throttle period in seconds to wait between each test.
+    let intertestWaitTime: UInt32 = 15
+    sleep(intertestWaitTime)
+
+    nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
   }
 
   public func testGetAccountBalance() {
-    sleep(60)
-
     let expectation = XCTestExpectation(description: "completion called")
 
-    nodeClient.getBalance(wallet: TezosNodeIntegrationTests.testWallet) { (result, error) in
+    nodeClient.getBalance(wallet: .testWallet) { (result, error) in
       XCTAssertNotNil(result)
       XCTAssertNil(error)
       let balance = Double(result!.humanReadableRepresentation)!
@@ -51,19 +60,17 @@ class TezosNodeIntegrationTests: XCTestCase {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testSend() {
-    sleep(60)
-
     let expectation = XCTestExpectation(description: "completion called")
 
     self.nodeClient.send(
       amount: Tez("1")!,
       to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-      from: TezosNodeIntegrationTests.testWallet.address,
-      keys: TezosNodeIntegrationTests.testWallet.keys
+      from: Wallet.testWallet.address,
+      keys: Wallet.testWallet.keys
     ) { (hash, error) in
       XCTAssertNotNil(hash)
       XCTAssertNil(error)
@@ -71,16 +78,14 @@ class TezosNodeIntegrationTests: XCTestCase {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testRunOperation() {
-    sleep(60)
-
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = OriginateAccountOperation(wallet: TezosNodeIntegrationTests.testWallet)
-    self.nodeClient.estimateFees(operation, from: TezosNodeIntegrationTests.testWallet) { result, error in
+    let operation = OriginateAccountOperation(wallet: .testWallet)
+    self.nodeClient.estimateFees(operation, from: .testWallet) { result, error in
       guard let result = result,
             let contents = result["contents"] as? [[String: Any]],
             let metadata = contents[0]["metadata"] as? [String: Any],
@@ -90,11 +95,10 @@ class TezosNodeIntegrationTests: XCTestCase {
               return
       }
       XCTAssertEqual(consumedGas, "10000")
-      // TODO: Use consumed gas.
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testMultipleOperations() {
@@ -103,29 +107,26 @@ class TezosNodeIntegrationTests: XCTestCase {
     let ops: [TezosKit.Operation] = [
       TransactionOperation(
         amount: Tez("1")!,
-        source: TezosNodeIntegrationTests.testWallet,
+        source: .testWallet,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
       ),
       TransactionOperation(
         amount: Tez("2")!,
-        source: TezosNodeIntegrationTests.testWallet,
+        source: .testWallet,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
       )
     ]
 
     nodeClient.forgeSignPreapplyAndInject(
       ops,
-      source: TezosNodeIntegrationTests.testWallet.address,
-      keys: TezosNodeIntegrationTests.testWallet.keys
+      source: Wallet.testWallet.address,
+      keys: Wallet.testWallet.keys
     ) { (hash: String?, error: Error?) in
       XCTAssertNil(error)
       XCTAssertNotNil(hash)
 
       expectation.fulfill()
     }
-    wait(for: [expectation], timeout: TezosNodeIntegrationTests.timeout)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
-
-  // TODO: Send multiple operatoins
-  // TODO: Promise analogs for new methods.
 }
