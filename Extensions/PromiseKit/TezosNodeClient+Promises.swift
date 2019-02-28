@@ -3,6 +3,7 @@
 import Foundation
 import PromiseKit
 
+/// TODO: Add promise support for analog methods.
 /// Extension to TezosNodeClient which provides PromiseKit functionality.
 extension TezosNodeClient {
   /// Retrieve data about the chain head.

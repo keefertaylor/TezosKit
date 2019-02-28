@@ -410,25 +410,22 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    getMetadataForOperation(address: source) { operationMetadata in
-      guard let operationMetadata = operationMetadata else {
+    getMetadataForOperation(address: source) { [weak self] operationMetadata in
+      guard let self = self,
+            let operationMetadata = operationMetadata else {
         let error = TezosKitError(kind: .unknown, underlyingError: nil)
         completion(nil, error)
         return
       }
 
-      // Create a mutable copy of operations in case we need to add a reveal operation.
-      var mutableOperations = operations
-
       // Determine if the address performing the operations has been revealed. If it has not been,
       // check if any of the operations to perform requires the address to be revealed. If so,
       // prepend a reveal operation to the operations to perform.
+      var mutableOperations = operations
       if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
         let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
         mutableOperations.insert(revealOperation, at: 0)
       }
-
-      // TODO: Refactor contents to be internal to make operation payload.
       let forgeablePayload = self.prepare(
         operations: mutableOperations,
         currentCounter: operationMetadata.addressCounter,
@@ -497,11 +494,16 @@ public class TezosNodeClient: AbstractClient {
       return
     }
 
+    let preapplyPayload = PreapplyPayload(
+      signedForgeablePayload: signedForgeablePayload,
+      operationMetadata: operationMetadata
+    )
+
     var mutableOperationPayload = signedForgeablePayload.dictionaryRepresentation
     mutableOperationPayload["protocol"] = operationMetadata.protocolHash
 
     let operationPayloadArray = [mutableOperationPayload]
-    guard let signedJsonPayload = JSONUtils.jsonString(for: operationPayloadArray) else {
+    guard let signedJsonPayload = JSONUtils.jsonString(for: [preapplyPayload.dictionaryRepresentation]) else {
       let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
       completion(nil, error)
       return
@@ -515,14 +517,12 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Preapply an operation and inject the operation if successful.
-   *
-   * - Parameter payload: A JSON encoded string that will be preapplied.
-   * - Parameter signedBytesForInjection: A JSON encoded string that contains signed bytes for the preapplied operation.
-   * - Parameter operationMetadata: Metadata related to the operation.
-   * - Parameter completion: A completion block that will be called with the results of the operation.
-   */
+  /// Preapply an operation and inject the operation if successful.
+  /// - Parameters:
+  ///   - payload: A JSON encoded string that will be preapplied.
+  ///   - signedBytesForInjection: A JSON encoded string that contains signed bytes for the preapplied operation.
+  ///   - operationMetadata: Metadata related to the operation.
+  ///   - completion: A completion block that will be called with the results of the operation.
   private func preapplyAndInjectRPC(
     payload: String,
     signedBytesForInjection: String,
@@ -546,7 +546,7 @@ public class TezosNodeClient: AbstractClient {
 
   /// Send an injection RPC.
   /// - Parameters:
-  ///   - payload: A JSON compatible string representing the singed operation bytes.
+  ///   - payload: A JSON compatible string representing the signed operation bytes.
   ///   - completion: A completion block that will be called with the results of the operation.
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
     let injectRPC = InjectionRPC(payload: payload)
