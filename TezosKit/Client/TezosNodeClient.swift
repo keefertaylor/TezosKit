@@ -15,7 +15,6 @@ import TezosCrypto
 ///
 /// The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the main
 /// dispatch queue is used.
- /*
 /// RPCs
 /// -------------
 /// TezosNodeClient contains support for GET and POST RPCS and will make requests based on the
@@ -27,42 +26,45 @@ import TezosCrypto
 ///
 /// Clients who extend TezosKit functionality can send arbitrary RPCs by creating an RPC object that
 /// conforms the the |RPC| protocol and calling:
- *      func send<T>(RPC<T>, completion: (T, Error) -> Void)
- *
- * Operations
- * -------------
- * TezosNodeClient also contains support for performing signed operations on the Tezos blockchain. These
- * operations require a multi-step process to perform (forge, sign, pre-apply, inject).
- *
- * All supported signed operations are provided in the Sources/Operations folder of the project. In
- * addition, TezosNodeClient provides convenience methods for constructing and performing all supported
- * signed operations.
- *
- * Operations are sent with a fee and a limit for gas and storage to use to include the transaction
- * on the blockchain. These parameters are encapsulated in an OperationFees object which is optionally passed
- * to operation objects. Operations will fall back to default fees if no custom fees are provided.
- *
- * Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
- * Operation object that conforms to the |Operation| protocol and calling:
- *      func forgeSignPreapplyAndInjectOperation(_ operation: Operation,
- *                                               source: String,
- *                                               keys: Keys,
- *                                               completion: @escaping (String?, Error?) -> Void)
- *
- * Clients can also send multiple signed operations at once by constructing an array of operations.
- * Operations are applied in the order they are given in the array. Clients should pass the array
- * to:
- *      func forgeSignPreapplyAndInjectOperations(_ operations: [Operation],
- *                                                source: String,
- *                                                keys: Keys,
- *                                                completion: @escaping (String?, Error?) -> Void)
- *
+///     func send<T>(RPC<T>, completion: (T, Error) -> Void)
+///
+/// Operations
+/// -------------
+/// TezosNodeClient also contains support for performing signed operations on the Tezos blockchain. These
+/// operations require a multi-step process to perform (forge, sign, pre-apply, inject).
+///
+/// All supported signed operations are provided in the Sources/Operations folder of the project. In
+/// addition, TezosNodeClient provides convenience methods for constructing and performing all supported
+/// signed operations.
+///
+/// Operations are sent with a fee and a limit for gas and storage to use to include the transaction
+/// on the blockchain. These parameters are encapsulated in an OperationFees object which is optionally passed
+/// to operation objects. Operations will fall back to default fees if no custom fees are provided.
+///
+/// Clients who extend TezosKit functionality can send arbitrary signed operations by creating an
+/// Operation object that conforms to the |Operation| protocol and calling:
+///     func forgeSignPreapplyAndInjectOperation(
+///       _ operation: Operation,
+///       source: String,
+///       keys: Keys,
+///       completion: @escaping (String?, Error?) -> Void
+///     )
+///
+/// Clients can also send multiple signed operations at once by constructing an array of operations.
+/// Operations are applied in the order they are given in the array. Clients should pass the array
+/// to:
+///     func forgeSignPreapplyAndInjectOperations(
+///       _ operations: [Operation],
+///       source: String,
+///       keys: Keys,
+///       completion: @escaping (String?, Error?) -> Void
+///     )
+///
 /// Some signed operations require an address be revealed in order to complete the operation. For
 /// operations supported in TezosKit, the reveal operation will be automatically applied when needed.
 /// For clients who create their own custom signed operations, TezosKit will apply the reveal
 /// operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
 /// correctly.
- */
 public class TezosNodeClient: AbstractClient {
 
   /// The default node URL to use.
