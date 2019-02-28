@@ -20,6 +20,8 @@ import XCTest
 ///
 /// Instructions for adding balance to an alphanet account are available at:
 /// https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet
+
+// TODO: Standardize throttle.
 class TezosNodeIntegrationTests: XCTestCase {
   public static let timeout = 10.0
   public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
@@ -36,6 +38,8 @@ class TezosNodeIntegrationTests: XCTestCase {
   }
 
   public func testGetAccountBalance() {
+    sleep(60)
+
     let expectation = XCTestExpectation(description: "completion called")
 
     nodeClient.getBalance(wallet: TezosNodeIntegrationTests.testWallet) { (result, error) in
@@ -51,6 +55,8 @@ class TezosNodeIntegrationTests: XCTestCase {
   }
 
   public func testSend() {
+    sleep(60)
+
     let expectation = XCTestExpectation(description: "completion called")
 
     self.nodeClient.send(
@@ -69,6 +75,8 @@ class TezosNodeIntegrationTests: XCTestCase {
   }
 
   public func testRunOperation() {
+    sleep(60)
+
     let expectation = XCTestExpectation(description: "completion called")
 
     let operation = OriginateAccountOperation(wallet: TezosNodeIntegrationTests.testWallet)

@@ -8,6 +8,8 @@ import XCTest
 /// Please see instructions in header of `IntegrationTests.swift`.
 extension TezosNodeIntegrationTests {
   public func testGetAccountBalance_promises() {
+    sleep(60)
+
     let expectation = XCTestExpectation(description: "completion called")
 
     nodeClient.getBalance(wallet: TezosNodeIntegrationTests.testWallet).done { result in
@@ -23,6 +25,8 @@ extension TezosNodeIntegrationTests {
   }
 
   public func testSend_promises() {
+    sleep(60)
+
     let expectation = XCTestExpectation(description: "completion called")
 
     nodeClient.send(

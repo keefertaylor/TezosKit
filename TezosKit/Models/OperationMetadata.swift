@@ -14,6 +14,7 @@ public struct OperationMetadata {
   public let headHash: String
 
   /** The hash of the protocol being operated on. */
+  // TODO: rename branch?
   public let protocolHash: String
 
   /** The counter for the address being operated on. */

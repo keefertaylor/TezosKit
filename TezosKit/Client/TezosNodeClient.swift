@@ -319,7 +319,7 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
-  private func prepare(operations: [Operation], currentCounter counter: Int) -> [[String: Any]] {
+  private func prepare(operations: [Operation], currentCounter counter: Int, branch: String) -> ForgeablePayload {
     // Process all operations to have increasing counters and place them in the contents array.
     var nextCounter = counter + 1
     var contents: [[String: Any]] = []
@@ -330,8 +330,7 @@ public class TezosNodeClient: AbstractClient {
 
       nextCounter += 1
     }
-
-    return contents
+    return ForgeablePayload(contents: contents, branch: branch)
   }
 
   // TODO: Mark private methods
@@ -355,9 +354,12 @@ public class TezosNodeClient: AbstractClient {
         completion(nil, nil)
         return
       }
-      let contents = self.prepare(operations: [operation], currentCounter: metadata.addressCounter)
-      let operationPayload = self.makeOperationPayload(contents: contents, branch: metadata.headHash)
-      guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
+      let forgeablePayload = self.prepare(
+        operations: [operation],
+        currentCounter: metadata.addressCounter,
+        branch: metadata.headHash
+      )
+      guard let jsonPayload = JSONUtils.jsonString(for: forgeablePayload.dictionaryRepresentation) else {
         let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
         completion(nil, error)
         return
@@ -377,8 +379,11 @@ public class TezosNodeClient: AbstractClient {
             completion(nil, error)
             return
         }
-
-        let rpc = RunOperationRPC(operation: operation, contents: contents, metadata: metadata, sig: operationSigningResult.edsig)
+        let signedForgeablePayload = SignedForgeablePayload(
+          forgeablePayload: forgeablePayload,
+          operationSigningResult: operationSigningResult
+        )
+        let rpc = RunOperationRPC(signedForgeablePayload: signedForgeablePayload)
         self.send(rpc, completion: completion)
       }
     }
@@ -441,10 +446,12 @@ public class TezosNodeClient: AbstractClient {
       }
 
       // TODO: Refactor contents to be internal to make operation payload.
-      let contents = self.prepare(operations: mutableOperations, currentCounter: operationMetadata.addressCounter)
-      let operationPayload = self.makeOperationPayload(contents: contents, branch: metadata.headHash)
-
-      guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
+      let forgeablePayload = self.prepare(
+        operations: mutableOperations,
+        currentCounter: operationMetadata.addressCounter,
+        branch: operationMetadata.headHash
+      )
+      guard let jsonPayload = JSONUtils.jsonString(for: forgeablePayload.dictionaryRepresentation) else {
         let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
         completion(nil, error)
         return
@@ -462,7 +469,7 @@ public class TezosNodeClient: AbstractClient {
           return
         }
         self.signPreapplyAndInjectOperation(
-          operationPayload: operationPayload,
+          operationPayload: forgeablePayload,
           operationMetadata: operationMetadata,
           forgeResult: result,
           source: source,
@@ -484,7 +491,7 @@ public class TezosNodeClient: AbstractClient {
    * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func signPreapplyAndInjectOperation(
-    operationPayload: [String: Any],
+    operationPayload: ForgeablePayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
     source _: String,
@@ -501,7 +508,7 @@ public class TezosNodeClient: AbstractClient {
         return
     }
 
-    var mutableOperationPayload = operationPayload
+    var mutableOperationPayload = operationPayload.dictionaryRepresentation
     mutableOperationPayload["signature"] = operationSigningResult.edsig
     mutableOperationPayload["protocol"] = operationMetadata.protocolHash
 
