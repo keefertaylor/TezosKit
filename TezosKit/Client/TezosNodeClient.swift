@@ -482,12 +482,22 @@ public class TezosNodeClient: AbstractClient {
 
   /// Sign a forged operation.
   private func sign(
+    forgeablePayload: ForgeablePayload,
     forgedPayload: String,
     keys: Keys
-  ) -> OperationSigningResult? {
-    return TezosCrypto.signForgedOperation(operation: forgedPayload, secretKey: keys.secretKey)
-  }
+  ) -> (signedBytes: String, signedForgeablePayload: SignedForgeablePayload)? {
+    guard let signingResult = TezosCrypto.signForgedOperation(operation: forgedPayload, secretKey: keys.secretKey),
+          let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.sbytes) else {
+      return nil
+    }
+    
+    let signedForgeablePayload = SignedForgeablePayload(
+      forgeablePayload: forgeablePayload,
+      operationSigningResult: signingResult
+    )
 
+    return (jsonSignedBytes, signedForgeablePayload)
+  }
 
   /**
    * Sign the result of a forged operation, preapply and inject it if successful.
@@ -507,17 +517,13 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    guard let signingResult = sign(forgedPayload: forgeResult, keys: keys),
-          let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.sbytes) else {
+    guard let (signedBytes, signedForgeablePayload) = sign(forgeablePayload: forgeablePayload, forgedPayload: forgeResult, keys: keys) else {
+      // TODO: Create signing error, create underlying error in a sane way.
       let error = TezosKitError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
       return
     }
 
-    let signedForgeablePayload = SignedForgeablePayload(
-      forgeablePayload: forgeablePayload,
-      operationSigningResult: signingResult
-    )
     var mutableOperationPayload = signedForgeablePayload.dictionaryRepresentation
     mutableOperationPayload["protocol"] = operationMetadata.protocolHash
 
@@ -530,7 +536,7 @@ public class TezosNodeClient: AbstractClient {
 
     preapplyAndInjectRPC(
       payload: signedJsonPayload,
-      signedBytesForInjection: jsonSignedBytes,
+      signedBytesForInjection: signedBytes,
       operationMetadata: operationMetadata,
       completion: completion
     )
