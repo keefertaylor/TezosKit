@@ -340,8 +340,9 @@ public class TezosNodeClient: AbstractClient {
   ///   - operation: The operation to run.
   ///   - completion: A completion block to call.
   public func estimateFees(_ operation: Operation, from wallet: Wallet, completion: @escaping ([String: Any]?, Error?) -> Void) {
-    getMetadataForOperation(address: wallet.address) { metadata in
-      guard let metadata = metadata else {
+    getMetadataForOperation(address: wallet.address) { [weak self] metadata in
+      guard let self = self,
+            let metadata = metadata else {
         completion(nil, nil)
         return
       }
@@ -350,20 +351,13 @@ public class TezosNodeClient: AbstractClient {
         currentCounter: metadata.addressCounter,
         branch: metadata.headHash
       )
-      guard let jsonPayload = JSONUtils.jsonString(for: forgeablePayload.dictionaryRepresentation) else {
-        let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
-        completion(nil, error)
-        return
-      }
-
       let forgeRPC = ForgeOperationRPC(
-        chainID: metadata.chainID,
-        headHash: metadata.headHash,
-        payload: jsonPayload
+        operationMetadata: metadata, forgeablePayload: forgeablePayload
       )
-      self.send(forgeRPC) { bytes, error  in
-        guard let bytes = bytes,
-          let (_, signedForgeablePayload) = self.sign(forgeablePayload: forgeablePayload, forgedPayload: bytes, keys: wallet.keys) else {
+      self.send(forgeRPC) { [weak self] bytes, error  in
+        guard let self = self,
+              let bytes = bytes,
+              let (_, signedForgeablePayload) = self.sign(forgeablePayload: forgeablePayload, forgedPayload: bytes, keys: wallet.keys) else {
             let error = TezosKitError(kind: .unknown, underlyingError: nil)
             completion(nil, error)
             return
@@ -373,6 +367,9 @@ public class TezosNodeClient: AbstractClient {
       }
     }
   }
+
+  /// Forge an operation.
+//  private func forgeOperation(forgeablePayload: ForgeablePayload, )
 
   /**
    * Forge, sign, preapply and then inject a single operation.
@@ -436,16 +433,8 @@ public class TezosNodeClient: AbstractClient {
         currentCounter: operationMetadata.addressCounter,
         branch: operationMetadata.headHash
       )
-      guard let jsonPayload = JSONUtils.jsonString(for: forgeablePayload.dictionaryRepresentation) else {
-        let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
-        completion(nil, error)
-        return
-      }
-
       let forgeRPC = ForgeOperationRPC(
-        chainID: operationMetadata.chainID,
-        headHash: operationMetadata.headHash,
-        payload: jsonPayload
+        operationMetadata: operationMetadata, forgeablePayload: forgeablePayload
       )
       self.send(forgeRPC) { [weak self] result, error in
         guard let self = self,
