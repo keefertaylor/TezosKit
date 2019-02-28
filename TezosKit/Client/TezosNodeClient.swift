@@ -499,18 +499,8 @@ public class TezosNodeClient: AbstractClient {
       operationMetadata: operationMetadata
     )
 
-    var mutableOperationPayload = signedForgeablePayload.dictionaryRepresentation
-    mutableOperationPayload["protocol"] = operationMetadata.protocolHash
-
-    let operationPayloadArray = [mutableOperationPayload]
-    guard let signedJsonPayload = JSONUtils.jsonString(for: [preapplyPayload.dictionaryRepresentation]) else {
-      let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
-      completion(nil, error)
-      return
-    }
-
     preapplyAndInjectRPC(
-      payload: signedJsonPayload,
+      preapplyPayload: preapplyPayload,
       signedBytesForInjection: signedBytes,
       operationMetadata: operationMetadata,
       completion: completion
@@ -524,15 +514,14 @@ public class TezosNodeClient: AbstractClient {
   ///   - operationMetadata: Metadata related to the operation.
   ///   - completion: A completion block that will be called with the results of the operation.
   private func preapplyAndInjectRPC(
-    payload: String,
+    preapplyPayload: PreapplyPayload,
     signedBytesForInjection: String,
     operationMetadata: OperationMetadata,
     completion: @escaping (String?, Error?) -> Void
   ) {
       let preapplyOperationRPC = PreapplyOperationRPC(
-        chainID: operationMetadata.chainID,
-        headHash: operationMetadata.headHash,
-        payload: payload
+        preapplyPayload: preapplyPayload,
+        operationMetadata: operationMetadata
     )
     send(preapplyOperationRPC) { [weak self] result, error in
       guard let self = self,

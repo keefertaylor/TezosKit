@@ -127,4 +127,5 @@ class TezosNodeIntegrationTests: XCTestCase {
   }
 
   // TODO: Send multiple operatoins
+  // TODO: Promise analogs for new methods.
 }
