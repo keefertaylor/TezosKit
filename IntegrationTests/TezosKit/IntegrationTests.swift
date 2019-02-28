@@ -60,7 +60,6 @@ class TezosNodeIntegrationTests: XCTestCase {
       keys: TezosNodeIntegrationTests.testWallet.keys
     ) { (hash, error) in
       XCTAssertNotNil(hash)
-      XCTAssert(hash!.hasPrefix("oo"))
       XCTAssertNil(error)
 
       expectation.fulfill()
@@ -93,7 +92,6 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testMultipleOperations() {
     let expectation = XCTestExpectation(description: "completion called")
 
-
     let ops: [TezosKit.Operation] = [
       TransactionOperation(
         amount: Tez("1")!,
@@ -101,7 +99,7 @@ class TezosNodeIntegrationTests: XCTestCase {
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
       ),
       TransactionOperation(
-        amount: Tez("1")!,
+        amount: Tez("2")!,
         source: TezosNodeIntegrationTests.testWallet,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
       )
@@ -112,9 +110,8 @@ class TezosNodeIntegrationTests: XCTestCase {
       source: TezosNodeIntegrationTests.testWallet.address,
       keys: TezosNodeIntegrationTests.testWallet.keys
     ) { (hash: String?, error: Error?) in
-      XCTAssertNotNil(hash)
-      XCTAssert(hash!.hasPrefix("oo"))
       XCTAssertNil(error)
+      XCTAssertNotNil(hash)
 
       expectation.fulfill()
     }

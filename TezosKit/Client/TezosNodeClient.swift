@@ -325,15 +325,13 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
-  /**
-   * Retrieve a list of delegates with their voting weight, in number of rolls.
-   */
+  /// Retrieve a list of delegates with their voting weight, in number of rolls.
   public func getVotingDelegateRights(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetVotingDelegateRightsRPC()
     send(rpc, completion: completion)
   }
 
-  private func prepare(operations: [Operation], currentCounter counter: Int) {
+  private func prepare(operations: [Operation], currentCounter counter: Int) -> [[String: Any]] {
     // Process all operations to have increasing counters and place them in the contents array.
     var nextCounter = counter + 1
     var contents: [[String: Any]] = []
@@ -344,6 +342,8 @@ public class TezosNodeClient: AbstractClient {
 
       nextCounter += 1
     }
+
+    return contents
   }
 
   /// Estimate fees for an operation.
@@ -360,7 +360,7 @@ public class TezosNodeClient: AbstractClient {
       var mutableOperation = operation.dictionaryRepresentation
       mutableOperation["counter"] = String(metadata.addressCounter + 1)
 
-      let contents = [ mutableOperation ]
+      let contents = self.prepare(operations: [operation], currentCounter: metadata.addressCounter)
 
       var operationPayload: [String: Any] = [:]
       operationPayload["contents"] = contents
@@ -387,7 +387,7 @@ public class TezosNodeClient: AbstractClient {
             return
         }
 
-        let rpc = RunOperationRPC(operation: operation, metadata: metadata, sig: operationSigningResult.edsig)
+        let rpc = RunOperationRPC(operation: operation, contents: contents, metadata: metadata, sig: operationSigningResult.edsig)
         self.send(rpc, completion: completion)
       }
     }
@@ -449,17 +449,7 @@ public class TezosNodeClient: AbstractClient {
         mutableOperations.insert(revealOperation, at: 0)
       }
 
-      // Process all operations to have increasing counters and place them in the contents array.
-      var contents: [[String: Any]] = []
-      var counter = operationMetadata.addressCounter
-      for operation in mutableOperations {
-        counter += 1
-
-        var mutableOperation = operation.dictionaryRepresentation
-        mutableOperation["counter"] = String(counter)
-
-        contents.append(mutableOperation)
-      }
+      let contents = self.prepare(operations: mutableOperations, currentCounter: operationMetadata.addressCounter)
 
       var operationPayload: [String: Any] = [:]
       operationPayload["contents"] = contents

@@ -6,14 +6,11 @@ import Foundation
 public class RunOperationRPC: RPC<[String: Any]> {
   /// - Parameter operation: The operation to run.
   /// - Parameter hash: The hash of the branch to run on.
-  public init(operation: Operation, metadata: OperationMetadata, sig: String) {
+  public init(operation: Operation, contents: [[String: Any]], metadata: OperationMetadata, sig: String) {
     let endpoint = "chains/main/blocks/head/helpers/scripts/run_operation"
     var operationPayload = operation.dictionaryRepresentation
-    operationPayload["counter"] = "30618"
     let payload: [String: Any] = [
-      "contents": [
-        operationPayload
-      ],
+      "contents": contents,
       "branch": metadata.headHash,
     //  "protocol": metadata.protocolHash,
       "signature": sig

@@ -32,7 +32,6 @@ extension TezosNodeIntegrationTests {
       keys: TezosNodeIntegrationTests.testWallet.keys
     ) .done { hash in
       XCTAssertNotNil(hash)
-      XCTAssert(hash.hasPrefix("oo"))
       expectation.fulfill()
     } .catch { _ in
       XCTFail()
