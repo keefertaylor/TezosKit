@@ -309,17 +309,13 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
-  /**
-   * Retrieve a list of proposals with number of supporters.
-   */
+  /// Retrieve a list of proposals with number of supporters.
   public func getProposalsList(completion: @escaping ([[String: Any]]?, Error?) -> Void) {
     let rpc = GetProposalsListRPC()
     send(rpc, completion: completion)
   }
 
-  /**
-   * Retrieve the current proposal under evaluation.
-   */
+  /// Retrieve the current proposal under evaluation.
   public func getProposalUnderEvaluation(completion: @escaping (String?, Error?) -> Void) {
     let rpc = GetProposalUnderEvaluationRPC()
     send(rpc, completion: completion)
@@ -346,6 +342,17 @@ public class TezosNodeClient: AbstractClient {
     return contents
   }
 
+  // TODO: Mark private methods
+
+  // TODO: Should this be it's own model object?
+  private func makeOperationPayload(contents: [[String: Any]], branch: String) -> [String: Any] {
+    var operationPayload: [String: Any] = [:]
+    operationPayload["contents"] = contents
+    operationPayload["branch"] = branch
+
+    return operationPayload
+  }
+
   /// Estimate fees for an operation.
   /// - Parameters
   ///   - operation: The operation to run.
@@ -356,16 +363,8 @@ public class TezosNodeClient: AbstractClient {
         completion(nil, nil)
         return
       }
-
-      var mutableOperation = operation.dictionaryRepresentation
-      mutableOperation["counter"] = String(metadata.addressCounter + 1)
-
       let contents = self.prepare(operations: [operation], currentCounter: metadata.addressCounter)
-
-      var operationPayload: [String: Any] = [:]
-      operationPayload["contents"] = contents
-      operationPayload["branch"] = metadata.headHash
-
+      let operationPayload = self.makeOperationPayload(contents: contents, branch: metadata.headHash)
       guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
         let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
         completion(nil, error)
@@ -449,11 +448,9 @@ public class TezosNodeClient: AbstractClient {
         mutableOperations.insert(revealOperation, at: 0)
       }
 
+      // TODO: Refactor contents to be internal to make operation payload.
       let contents = self.prepare(operations: mutableOperations, currentCounter: operationMetadata.addressCounter)
-
-      var operationPayload: [String: Any] = [:]
-      operationPayload["contents"] = contents
-      operationPayload["branch"] = operationMetadata.headHash
+      let operationPayload = self.makeOperationPayload(contents: contents, branch: metadata.headHash)
 
       guard let jsonPayload = JSONUtils.jsonString(for: operationPayload) else {
         let error = TezosKitError(kind: .unexpectedRequestFormat, underlyingError: nil)
@@ -560,12 +557,10 @@ public class TezosNodeClient: AbstractClient {
     }
   }
 
-  /**
-   * Send an injection RPC.
-   *
-   * - Parameter payload: A JSON compatible string representing the singed operation bytes.
-   * - Parameter completion: A completion block that will be called with the results of the operation.
-   */
+  /// Send an injection RPC.
+  /// - Parameters:
+  ///   - payload: A JSON compatible string representing the singed operation bytes.
+  ///   - completion: A completion block that will be called with the results of the operation.
   private func sendInjectionRPC(payload: String, completion: @escaping (String?, Error?) -> Void) {
     let injectRPC = InjectionRPC(payload: payload)
     send(injectRPC) { txHash, txError in
