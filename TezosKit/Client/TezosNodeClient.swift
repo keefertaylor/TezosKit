@@ -469,7 +469,7 @@ public class TezosNodeClient: AbstractClient {
           return
         }
         self.signPreapplyAndInjectOperation(
-          operationPayload: forgeablePayload,
+          forgeablePayload: forgeablePayload,
           operationMetadata: operationMetadata,
           forgeResult: result,
           source: source,
@@ -479,6 +479,15 @@ public class TezosNodeClient: AbstractClient {
       }
     }
   }
+
+  /// Sign a forged operation.
+  private func sign(
+    forgedPayload: String,
+    keys: Keys
+  ) -> OperationSigningResult? {
+    return TezosCrypto.signForgedOperation(operation: forgedPayload, secretKey: keys.secretKey)
+  }
+
 
   /**
    * Sign the result of a forged operation, preapply and inject it if successful.
@@ -491,25 +500,25 @@ public class TezosNodeClient: AbstractClient {
    * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func signPreapplyAndInjectOperation(
-    operationPayload: ForgeablePayload,
+    forgeablePayload: ForgeablePayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
     source _: String,
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    guard let operationSigningResult = TezosCrypto.signForgedOperation(
-        operation: forgeResult,
-        secretKey: keys.secretKey
-      ),
-      let jsonSignedBytes = JSONUtils.jsonString(for: operationSigningResult.sbytes) else {
+    guard let signingResult = sign(forgedPayload: forgeResult, keys: keys),
+          let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.sbytes) else {
       let error = TezosKitError(kind: .unknown, underlyingError: nil)
       completion(nil, error)
-        return
+      return
     }
 
-    var mutableOperationPayload = operationPayload.dictionaryRepresentation
-    mutableOperationPayload["signature"] = operationSigningResult.edsig
+    let signedForgeablePayload = SignedForgeablePayload(
+      forgeablePayload: forgeablePayload,
+      operationSigningResult: signingResult
+    )
+    var mutableOperationPayload = signedForgeablePayload.dictionaryRepresentation
     mutableOperationPayload["protocol"] = operationMetadata.protocolHash
 
     let operationPayloadArray = [mutableOperationPayload]
