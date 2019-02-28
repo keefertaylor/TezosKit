@@ -351,10 +351,8 @@ public class TezosNodeClient: AbstractClient {
         currentCounter: metadata.addressCounter,
         branch: metadata.headHash
       )
-      let forgeRPC = ForgeOperationRPC(
-        operationMetadata: metadata, forgeablePayload: forgeablePayload
-      )
-      self.send(forgeRPC) { [weak self] bytes, error  in
+
+      self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: metadata) { [weak self] bytes, error in
         guard let self = self,
               let bytes = bytes,
               let (_, signedForgeablePayload) = self.sign(forgeablePayload: forgeablePayload, forgedPayload: bytes, keys: wallet.keys) else {
@@ -369,7 +367,10 @@ public class TezosNodeClient: AbstractClient {
   }
 
   /// Forge an operation.
-//  private func forgeOperation(forgeablePayload: ForgeablePayload, )
+  private func forgeOperation(forgeablePayload: ForgeablePayload, operationMetadata: OperationMetadata, completion: @escaping (String?, Error?) -> Void) {
+    let rpc = ForgeOperationRPC(forgeablePayload: forgeablePayload, operationMetadata: operationMetadata)
+    self.send(rpc, completion: completion)
+  }
 
   /**
    * Forge, sign, preapply and then inject a single operation.
@@ -433,10 +434,8 @@ public class TezosNodeClient: AbstractClient {
         currentCounter: operationMetadata.addressCounter,
         branch: operationMetadata.headHash
       )
-      let forgeRPC = ForgeOperationRPC(
-        operationMetadata: operationMetadata, forgeablePayload: forgeablePayload
-      )
-      self.send(forgeRPC) { [weak self] result, error in
+
+      self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: operationMetadata) { [weak self] result, error in
         guard let self = self,
               let result = result else {
           completion(nil, error)

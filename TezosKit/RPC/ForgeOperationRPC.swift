@@ -6,8 +6,8 @@ import Foundation
 public class ForgeOperationRPC: RPC<String> {
   /// TODO: Document.
   public init(
-    operationMetadata: OperationMetadata,
-    forgeablePayload: ForgeablePayload
+    forgeablePayload: ForgeablePayload,
+    operationMetadata: OperationMetadata
   ) {
     let endpoint = "/chains/" + operationMetadata.chainID + "/blocks/" + operationMetadata.headHash + "/helpers/forge/operations"
     let payload = JSONUtils.jsonString(for: forgeablePayload.dictionaryRepresentation)
