@@ -2,7 +2,7 @@
 
 import Foundation
 
-/// An RPC that will run an operation and return fees.
+/// An RPC that will run an operation.
 public class RunOperationRPC: RPC<[String: Any]> {
   /// - Parameter signedOperationPayload: A payload containing an operation to run.
   public init(signedOperationPayload: SignedOperationPayload) {

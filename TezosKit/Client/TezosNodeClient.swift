@@ -321,7 +321,7 @@ public class TezosNodeClient: AbstractClient {
   }
 
   /// Runs an operation.
-  /// - Parameters
+  /// - Parameters:
   ///   - operation: The operation to run.
   ///   - wallet: The wallet requesting the run.
   ///   - completion: A completion block to call.
