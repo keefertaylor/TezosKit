@@ -4,12 +4,9 @@ import Foundation
 
 /// An RPC which will pre-apply an operation.
 public class PreapplyOperationRPC: RPC<[[String: Any]]> {
-  /**
-   * TODO: Document
-   * - Parameter chainID: The chain ID to operate on.
-   * - Parameter headHash: The hash of the block at the head of chain to operate on.
-   * - Parameter payload: A JSON encoded string representing an operation to preapply with forged bytes.
-   */
+  /// - Parameters:
+  ///   - preapplyPayload: A `PreapplyPayload` to send with the operation.
+  ///   - operationMetadata: Metadata about the operation to be pre-applied.
   public init(
     preapplyPayload: PreapplyPayload,
     operationMetadata: OperationMetadata
