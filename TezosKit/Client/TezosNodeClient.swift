@@ -13,8 +13,9 @@ import TezosCrypto
 /// The client can be initialized with a custom URLSession can be provided to manage network requests. By default, the
 /// shared URLSession is used.
 ///
-/// The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the main
-/// dispatch queue is used.
+/// The client can also be initialized with a custom DispatchQueue that all callbacks are called on. By default, the
+/// main dispatch queue is used.
+///
 /// RPCs
 /// -------------
 /// TezosNodeClient contains support for GET and POST RPCS and will make requests based on the
@@ -324,7 +325,11 @@ public class TezosNodeClient: AbstractClient {
   ///   - operation: The operation to run.
   ///   - wallet: The wallet requesting the run.
   ///   - completion: A completion block to call.
-  public func runOperation(_ operation: Operation, from wallet: Wallet, completion: @escaping ([String: Any]?, Error?) -> Void) {
+  public func runOperation(
+    _ operation: Operation,
+    from wallet: Wallet,
+    completion: @escaping ([String: Any]?, Error?) -> Void
+  ) {
     getMetadataForOperation(address: wallet.address) { [weak self] operationMetadata in
       guard let self = self,
             let metadata = operationMetadata else {
@@ -335,7 +340,11 @@ public class TezosNodeClient: AbstractClient {
       self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: metadata) { [weak self] bytes, error in
         guard let self = self,
               let bytes = bytes,
-              let (_, signedForgeablePayload) = self.sign(forgeablePayload: forgeablePayload, forgedPayload: bytes, keys: wallet.keys) else {
+              let (_, signedForgeablePayload) = self.sign(
+                forgeablePayload: forgeablePayload,
+                forgedPayload: bytes,
+                keys: wallet.keys
+              ) else {
             let error = TezosKitError(kind: .unknown, underlyingError: nil)
             completion(nil, error)
             return
@@ -367,7 +376,10 @@ public class TezosNodeClient: AbstractClient {
   ///   - operations: A list of operations to forge.
   ///   - operationMetadata: Metadata about the operations.
   /// - Returns: A `ForgeablePayload` that can be used to forge the operations.
-  private func createForgeablePayload(operations: [Operation], operationMetadata: OperationMetadata) -> ForgeablePayload {
+  private func createForgeablePayload(
+    operations: [Operation],
+    operationMetadata: OperationMetadata
+  ) -> ForgeablePayload {
     // Process all operations to have increasing counters and place them in the contents array.
     var nextCounter = operationMetadata.addressCounter + 1
     var contents: [[String: Any]] = []
@@ -438,7 +450,10 @@ public class TezosNodeClient: AbstractClient {
       let forgeablePayload =
         self.createForgeablePayload(operations: mutableOperations, operationMetadata: operationMetadata)
 
-      self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: operationMetadata) { [weak self] result, error in
+      self.forgeOperation(
+        forgeablePayload: forgeablePayload,
+        operationMetadata: operationMetadata
+      ) { [weak self] result, error in
         guard let self = self,
               let result = result else {
           completion(nil, error)
@@ -493,7 +508,11 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    guard let (signedBytes, signedForgeablePayload) = sign(forgeablePayload: forgeablePayload, forgedPayload: forgeResult, keys: keys) else {
+    guard let (signedBytes, signedForgeablePayload) = sign(
+      forgeablePayload: forgeablePayload,
+      forgedPayload: forgeResult,
+      keys: keys
+    ) else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
       completion(nil, error)
       return

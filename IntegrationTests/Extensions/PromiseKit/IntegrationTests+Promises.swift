@@ -81,7 +81,7 @@ extension TezosNodeIntegrationTests {
       operations: ops,
       source: Wallet.testWallet.address,
       keys: Wallet.testWallet.keys
-    ) .done { hash in
+    ) .done { _ in
       expectation.fulfill()
     } .catch { _ in
       XCTFail()

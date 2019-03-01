@@ -1,4 +1,4 @@
-// Copyright, Keefer Taylor 2019.
+// Copyright Keefer Taylor, 2019.
 
 import Foundation
 

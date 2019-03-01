@@ -86,6 +86,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     let operation = OriginateAccountOperation(wallet: .testWallet)
     self.nodeClient.runOperation(operation, from: .testWallet) { result, error in
+      XCTAssertNil(error)
       guard let result = result,
             let contents = result["contents"] as? [[String: Any]],
             let metadata = contents[0]["metadata"] as? [String: Any],

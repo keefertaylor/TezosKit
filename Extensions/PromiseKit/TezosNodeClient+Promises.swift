@@ -263,9 +263,9 @@ extension TezosNodeClient {
   ///   - completion: A completion block to call.
   public func runOperation(_ operation: Operation, from wallet: Wallet) -> Promise<[String: Any]> {
     return Promise { seal in
-      runOperation(operation, from: wallet, completion: { result, error in
+      runOperation(operation, from: wallet) { result, error in
         seal.resolve(result, error)
-      })
+      }
     }
   }
 }
