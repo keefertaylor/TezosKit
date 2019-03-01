@@ -494,8 +494,7 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (String?, Error?) -> Void
   ) {
     guard let (signedBytes, signedForgeablePayload) = sign(forgeablePayload: forgeablePayload, forgedPayload: forgeResult, keys: keys) else {
-      // TODO: Create signing error, create underlying error in a sane way.
-      let error = TezosKitError(kind: .unknown, underlyingError: nil)
+      let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
       completion(nil, error)
       return
     }
