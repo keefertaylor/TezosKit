@@ -22,3 +22,7 @@ class PreapplyOperationRPCTest: XCTestCase {
     XCTAssertTrue(rpc.isPOSTRequest)
   }
 }
+
+
+//("Optional("[{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}]")")
+//("Optional("{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}")") -
