@@ -319,39 +319,19 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
-  private func prepare(operations: [Operation], currentCounter counter: Int, branch: String) -> ForgeablePayload {
-    // Process all operations to have increasing counters and place them in the contents array.
-    var nextCounter = counter + 1
-    var contents: [[String: Any]] = []
-    for operation in operations {
-      var mutableOperation = operation.dictionaryRepresentation
-      mutableOperation["counter"] = String(nextCounter)
-      contents.append(mutableOperation)
-
-      nextCounter += 1
-    }
-    return ForgeablePayload(contents: contents, branch: branch)
-  }
-
-  // TODO: Mark private methods
-
-  /// Estimate fees for an operation.
+  /// Runs an operation.
   /// - Parameters
   ///   - operation: The operation to run.
+  ///   - wallet: The wallet requesting the run.
   ///   - completion: A completion block to call.
-  public func estimateFees(_ operation: Operation, from wallet: Wallet, completion: @escaping ([String: Any]?, Error?) -> Void) {
-    getMetadataForOperation(address: wallet.address) { [weak self] metadata in
+  public func runOperation(_ operation: Operation, from wallet: Wallet, completion: @escaping ([String: Any]?, Error?) -> Void) {
+    getMetadataForOperation(address: wallet.address) { [weak self] operationMetadata in
       guard let self = self,
-            let metadata = metadata else {
+            let metadata = operationMetadata else {
         completion(nil, nil)
         return
       }
-      let forgeablePayload = self.prepare(
-        operations: [operation],
-        currentCounter: metadata.addressCounter,
-        branch: metadata.branch
-      )
-
+      let forgeablePayload = self.createForgeablePayload(operations: [operation], operationMetadata: metadata)
       self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: metadata) { [weak self] bytes, error in
         guard let self = self,
               let bytes = bytes,
@@ -366,10 +346,39 @@ public class TezosNodeClient: AbstractClient {
     }
   }
 
-  /// Forge an operation.
-  private func forgeOperation(forgeablePayload: ForgeablePayload, operationMetadata: OperationMetadata, completion: @escaping (String?, Error?) -> Void) {
+  // MARK: - Private Methods
+
+  /// Forges an operation.
+  /// - Parameters:
+  ///   - forgeablePayload: A `ForgeablePayload` to forge to bytes.
+  ///   - operationMetadata: Metadata aboute the operation to apply to the forge request.
+  ///   - completion: A closure called with the string representing the forged bytes or an error.
+  private func forgeOperation(
+    forgeablePayload: ForgeablePayload,
+    operationMetadata: OperationMetadata,
+    completion: @escaping (String?, Error?) -> Void
+  ) {
     let rpc = ForgeOperationRPC(forgeablePayload: forgeablePayload, operationMetadata: operationMetadata)
     self.send(rpc, completion: completion)
+  }
+
+  /// Creates a forgeable payload from operations.
+  /// - Parameters:
+  ///   - operations: A list of operations to forge.
+  ///   - operationMetadata: Metadata about the operations.
+  /// - Returns: A `ForgeablePayload` that can be used to forge the operations.
+  private func createForgeablePayload(operations: [Operation], operationMetadata: OperationMetadata) -> ForgeablePayload {
+    // Process all operations to have increasing counters and place them in the contents array.
+    var nextCounter = operationMetadata.addressCounter + 1
+    var contents: [[String: Any]] = []
+    for operation in operations {
+      var mutableOperation = operation.dictionaryRepresentation
+      mutableOperation["counter"] = String(nextCounter)
+      contents.append(mutableOperation)
+
+      nextCounter += 1
+    }
+    return ForgeablePayload(contents: contents, branch: operationMetadata.branch)
   }
 
   /**
@@ -426,11 +435,8 @@ public class TezosNodeClient: AbstractClient {
         let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
         mutableOperations.insert(revealOperation, at: 0)
       }
-      let forgeablePayload = self.prepare(
-        operations: mutableOperations,
-        currentCounter: operationMetadata.addressCounter,
-        branch: operationMetadata.branch
-      )
+      let forgeablePayload =
+        self.createForgeablePayload(operations: mutableOperations, operationMetadata: operationMetadata)
 
       self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: operationMetadata) { [weak self] result, error in
         guard let self = self,
