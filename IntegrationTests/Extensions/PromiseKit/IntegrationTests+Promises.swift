@@ -40,53 +40,52 @@ extension TezosNodeIntegrationTests {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
-  // TODO: Enable
-//  public func testRunOperation() {
-//    let expectation = XCTestExpectation(description: "completion called")
-//
-//    let operation = OriginateAccountOperation(wallet: TezosNodeIntegrationTests.testWallet)
-//    nodeClient.estimateFees(operation, from: TezosNodeIntegrationTests.testWallet) .done { result in
-//      guard let result = result,
-//        let contents = result["contents"] as? [[String: Any]],
-//        let metadata = contents[0]["metadata"] as? [String: Any],
-//        let operationResult = metadata["operation_result"] as? [String: Any],
-//        let consumedGas = operationResult["consumed_gas"] as? String else {
-//          XCTFail()
-//          return
-//      }
-//      XCTAssertEqual(consumedGas, "10000")
-//      expectation.fulfill()
-//    }
-//
-//    wait(for: [expectation], timeout: TezosNodeIntegrationTests.expectationTimeout)
-//  }
-//
-//  public func testMultipleOperations() {
-//    let expectation = XCTestExpectation(description: "completion called")
-//
-//    let ops: [TezosKit.Operation] = [
-//      TransactionOperation(
-//        amount: Tez("1")!,
-//        source: TezosNodeIntegrationTests.testWallet,
-//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
-//      ),
-//      TransactionOperation(
-//        amount: Tez("2")!,
-//        source: TezosNodeIntegrationTests.testWallet,
-//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
-//      )
-//    ]
-//
-//    nodeClient.forgeSignPreapplyAndInject(
-//      ops,
-//      source: TezosNodeIntegrationTests.testWallet.address,
-//      keys: TezosNodeIntegrationTests.testWallet.keys
-//    ) { (hash: String?, error: Error?) in
-//      XCTAssertNil(error)
-//      XCTAssertNotNil(hash)
-//
-//      expectation.fulfill()
-//    }
-//    wait(for: [expectation], timeout: TezosNodeIntegrationTests.expectationTimeout)
-//  }
+  public func testRunOperation_promises() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let operation = OriginateAccountOperation(wallet: .testWallet)
+    nodeClient.runOperation(operation, from: .testWallet) .done { result in
+      guard let contents = result["contents"] as? [[String: Any]],
+            let metadata = contents[0]["metadata"] as? [String: Any],
+            let operationResult = metadata["operation_result"] as? [String: Any],
+            let consumedGas = operationResult["consumed_gas"] as? String else {
+          XCTFail()
+          return
+      }
+      XCTAssertEqual(consumedGas, "10000")
+      expectation.fulfill()
+    } .catch { _ in
+      XCTFail()
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  public func testMultipleOperations_promises() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let ops: [TezosKit.Operation] = [
+      TransactionOperation(
+        amount: Tez("1")!,
+        source: .testWallet,
+        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
+      ),
+      TransactionOperation(
+        amount: Tez("2")!,
+        source: .testWallet,
+        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
+      )
+    ]
+
+    nodeClient.forgeSignPreapplyAndInject(
+      operations: ops,
+      source: Wallet.testWallet.address,
+      keys: Wallet.testWallet.keys
+    ) .done { hash in
+      expectation.fulfill()
+    } .catch { _ in
+      XCTFail()
+    }
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
 }

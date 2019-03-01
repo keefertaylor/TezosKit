@@ -4,7 +4,9 @@ import Foundation
 
 /// An RPC which will forge an operation.
 public class ForgeOperationRPC: RPC<String> {
-  /// TODO: Document.
+  /// - Parameters:
+  ///   - forgeablePayload: A payload to forge.
+  ///   - operationMetadata: Metadata about the operation.
   public init(
     forgeablePayload: ForgeablePayload,
     operationMetadata: OperationMetadata
