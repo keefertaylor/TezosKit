@@ -489,7 +489,7 @@ public class TezosNodeClient: AbstractClient {
 
     let signedForgeablePayload = SignedOperationPayload(
       operationPayload: operationPayload,
-      operationSigningResult: signingResult
+      signature: signingResult.edsig
     )
 
     return (jsonSignedBytes, signedForgeablePayload)

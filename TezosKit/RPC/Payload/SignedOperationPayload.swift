@@ -20,9 +20,9 @@ public struct SignedOperationPayload {
 
   /// - Parameters:
   ///   - operationPayload: The operation payload.
-  ///   - operationSigningResult: The operation signing result from the signing the given payload.
-  public init(operationPayload: OperationPayload, operationSigningResult: OperationSigningResult) {
+  ///   - signature: The signature for the operation payload.
+  public init(operationPayload: OperationPayload, signature: String) {
     self.operationPayload = operationPayload
-    self.signature = operationSigningResult.edsig
+    self.signature = signature
   }
 }

@@ -22,6 +22,7 @@
 		77B1EAF52228839000EA4FCE /* OperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAF42228839000EA4FCE /* OperationPayload.swift */; };
 		77B1EAF7222885E300EA4FCE /* SignedOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAF6222885E300EA4FCE /* SignedOperationPayload.swift */; };
 		77B1EAF922289B9800EA4FCE /* SignedProtocolOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAF822289B9800EA4FCE /* SignedProtocolOperationPayload.swift */; };
+		77B1EAFC2228C03400EA4FCE /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAFB2228C03400EA4FCE /* TestObjects.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -182,6 +183,7 @@
 		77B1EAF42228839000EA4FCE /* OperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationPayload.swift; sourceTree = "<group>"; };
 		77B1EAF6222885E300EA4FCE /* SignedOperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOperationPayload.swift; sourceTree = "<group>"; };
 		77B1EAF822289B9800EA4FCE /* SignedProtocolOperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedProtocolOperationPayload.swift; sourceTree = "<group>"; };
+		77B1EAFB2228C03400EA4FCE /* TestObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObjects.swift; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		77CE35A321F7DC76006ADABA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				77B1EAFB2228C03400EA4FCE /* TestObjects.swift */,
 				77F4D27422221CDD00D34B01 /* Extensions */,
 				77F4D27322221CCE00D34B01 /* TezosKit */,
 			);
@@ -901,6 +904,7 @@
 				77CE36E821F7F49F006ADABA /* KeysTests.swift in Sources */,
 				77CE370621F7F49F006ADABA /* TezResponseAdapterTest.swift in Sources */,
 				77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */,
+				77B1EAFC2228C03400EA4FCE /* TestObjects.swift in Sources */,
 				77CE36FC21F7F49F006ADABA /* GetProposalsListRPCTest.swift in Sources */,
 				77CE370021F7F49F006ADABA /* GetAddressCounterRPCTest.swift in Sources */,
 				7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */,
