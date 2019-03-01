@@ -336,12 +336,12 @@ public class TezosNodeClient: AbstractClient {
         completion(nil, nil)
         return
       }
-      let forgeablePayload = self.createForgeablePayload(operations: [operation], operationMetadata: metadata)
-      self.forgeOperation(forgeablePayload: forgeablePayload, operationMetadata: metadata) { [weak self] bytes, error in
+      let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
+      self.forgeOperation(operationPayload: operationPayload, operationMetadata: metadata) { [weak self] bytes, error in
         guard let self = self,
               let bytes = bytes,
-              let (_, signedForgeablePayload) = self.sign(
-                forgeablePayload: forgeablePayload,
+              let (_, signedOperationPayload) = self.sign(
+                operationPayload: operationPayload,
                 forgedPayload: bytes,
                 keys: wallet.keys
               ) else {
@@ -349,7 +349,7 @@ public class TezosNodeClient: AbstractClient {
             completion(nil, error)
             return
         }
-        let rpc = RunOperationRPC(signedForgeablePayload: signedForgeablePayload)
+        let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
         self.send(rpc, completion: completion)
       }
     }
@@ -359,27 +359,27 @@ public class TezosNodeClient: AbstractClient {
 
   /// Forges an operation.
   /// - Parameters:
-  ///   - forgeablePayload: A `ForgeablePayload` to forge to bytes.
+  ///   - operationPayload: A payload with an operation to forge to bytes.
   ///   - operationMetadata: Metadata aboute the operation to apply to the forge request.
   ///   - completion: A closure called with the string representing the forged bytes or an error.
   private func forgeOperation(
-    forgeablePayload: ForgePayload,
+    operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    let rpc = ForgeOperationRPC(forgeablePayload: forgeablePayload, operationMetadata: operationMetadata)
+    let rpc = ForgeOperationRPC(operationPayload: operationPayload, operationMetadata: operationMetadata)
     self.send(rpc, completion: completion)
   }
 
-  /// Creates a forgeable payload from operations.
+  /// Creates a operation payload from operations.
   /// - Parameters:
   ///   - operations: A list of operations to forge.
   ///   - operationMetadata: Metadata about the operations.
-  /// - Returns: A `ForgeablePayload` that can be used to forge the operations.
-  private func createForgeablePayload(
+  /// - Returns: A `OperationPayload` that represents the inputs.
+  private func createOperationPayload(
     operations: [Operation],
     operationMetadata: OperationMetadata
-  ) -> ForgePayload {
+  ) -> OperationPayload {
     // Process all operations to have increasing counters and place them in the contents array.
     var nextCounter = operationMetadata.addressCounter + 1
     var contents: [[String: Any]] = []
@@ -390,7 +390,7 @@ public class TezosNodeClient: AbstractClient {
 
       nextCounter += 1
     }
-    return ForgePayload(contents: contents, branch: operationMetadata.branch)
+    return OperationPayload(contents: contents, operationMetadata: operationMetadata)
   }
 
   /**
@@ -447,11 +447,11 @@ public class TezosNodeClient: AbstractClient {
         let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
         mutableOperations.insert(revealOperation, at: 0)
       }
-      let forgeablePayload =
-        self.createForgeablePayload(operations: mutableOperations, operationMetadata: operationMetadata)
+      let operationPayload =
+        self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
 
       self.forgeOperation(
-        forgeablePayload: forgeablePayload,
+        operationPayload: operationPayload,
         operationMetadata: operationMetadata
       ) { [weak self] result, error in
         guard let self = self,
@@ -460,7 +460,7 @@ public class TezosNodeClient: AbstractClient {
           return
         }
         self.signPreapplyAndInjectOperation(
-          forgeablePayload: forgeablePayload,
+          operationPayload: operationPayload,
           operationMetadata: operationMetadata,
           forgeResult: result,
           source: source,
@@ -472,18 +472,23 @@ public class TezosNodeClient: AbstractClient {
   }
 
   /// Sign a forged operation.
+  /// - Parameters:
+  ///   - operationPayload: The operation to sign
+  ///   - forgedPayload: Bytes from forging the given operationPayload.
+  ///   - keys: Keys to sign the operation with.
+  /// - Returns: A tuple containing signed bytes and a signed payload.
   private func sign(
-    forgeablePayload: ForgePayload,
+    operationPayload: OperationPayload,
     forgedPayload: String,
     keys: Keys
-  ) -> (signedBytes: String, signedForgeablePayload: SignedForgeablePayload)? {
+  ) -> (signedBytes: String, signedOperationPayload: SignedOperationPayload)? {
     guard let signingResult = TezosCrypto.signForgedOperation(operation: forgedPayload, secretKey: keys.secretKey),
           let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.sbytes) else {
       return nil
     }
 
-    let signedForgeablePayload = SignedForgeablePayload(
-      forgeablePayload: forgeablePayload,
+    let signedForgeablePayload = SignedOperationPayload(
+      operationPayload: operationPayload,
       operationSigningResult: signingResult
     )
 
@@ -501,15 +506,15 @@ public class TezosNodeClient: AbstractClient {
    * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func signPreapplyAndInjectOperation(
-    forgeablePayload: ForgePayload,
+    operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
     source _: String,
     keys: Keys,
     completion: @escaping (String?, Error?) -> Void
   ) {
-    guard let (signedBytes, signedForgeablePayload) = sign(
-      forgeablePayload: forgeablePayload,
+    guard let (signedBytes, signedOperationPayload) = sign(
+      operationPayload: operationPayload,
       forgedPayload: forgeResult,
       keys: keys
     ) else {
@@ -518,13 +523,13 @@ public class TezosNodeClient: AbstractClient {
       return
     }
 
-    let preapplyPayload = PreapplyPayload(
-      signedForgeablePayload: signedForgeablePayload,
+    let signedProtocolOperationPayload = SignedProtocolOperationPayload(
+      signedOperationPayload: signedOperationPayload,
       operationMetadata: operationMetadata
     )
 
     preapplyAndInjectRPC(
-      preapplyPayload: preapplyPayload,
+      signedProtocolOperationPayload: signedProtocolOperationPayload,
       signedBytesForInjection: signedBytes,
       operationMetadata: operationMetadata,
       completion: completion
@@ -533,18 +538,18 @@ public class TezosNodeClient: AbstractClient {
 
   /// Preapply an operation and inject the operation if successful.
   /// - Parameters:
-  ///   - payload: A JSON encoded string that will be preapplied.
+  ///   - signedProtocolOperationPayload: A payload for preapplication.
   ///   - signedBytesForInjection: A JSON encoded string that contains signed bytes for the preapplied operation.
   ///   - operationMetadata: Metadata related to the operation.
   ///   - completion: A completion block that will be called with the results of the operation.
   private func preapplyAndInjectRPC(
-    preapplyPayload: PreapplyPayload,
+    signedProtocolOperationPayload: SignedProtocolOperationPayload,
     signedBytesForInjection: String,
     operationMetadata: OperationMetadata,
     completion: @escaping (String?, Error?) -> Void
   ) {
       let preapplyOperationRPC = PreapplyOperationRPC(
-        preapplyPayload: preapplyPayload,
+        signedProtocolOperationPayload: signedProtocolOperationPayload,
         operationMetadata: operationMetadata
     )
     send(preapplyOperationRPC) { [weak self] result, error in

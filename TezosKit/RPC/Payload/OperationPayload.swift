@@ -20,10 +20,9 @@ public struct OperationPayload {
 
   /// - Parameters:
   ///   - contents: An array of dictionaries representing operations.
-  /// TODO: operation metadata
-  ///   - branch: The hash of the head of the chain to apply the operation on.
-  public init(contents: [[String: Any]], branch: String) {
+  ///   - operationMetadata: Metadata to include in the operations.
+  public init(contents: [[String: Any]], operationMetadata: OperationMetadata) {
     self.contents = contents
-    self.branch = branch
+    self.branch = operationMetadata.branch
   }
 }

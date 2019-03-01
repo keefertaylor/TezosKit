@@ -3,16 +3,16 @@
 import Foundation
 
 /// An operation payload that is signed and bound to a specific protocol.
-public struct SignedProtocolPayload {
+public struct SignedProtocolOperationPayload {
   /// Retrieve a dictionary representation of the payload.
   public var dictionaryRepresentation: [String: Any] {
-    var payload = signedForgeablePayload.dictionaryRepresentation
+    var payload = signedOperationPayload.dictionaryRepresentation
     payload["protocol"] = `protocol`
     return payload
   }
 
   /// An operation payload and associated signature.
-  private let signedForgeablePayload: SignedOperationPayload
+  private let signedOperationPayload: SignedOperationPayload
 
   /// The hash of the protocol for the payload.
   private let `protocol`: String
