@@ -363,7 +363,7 @@ public class TezosNodeClient: AbstractClient {
   ///   - operationMetadata: Metadata aboute the operation to apply to the forge request.
   ///   - completion: A closure called with the string representing the forged bytes or an error.
   private func forgeOperation(
-    forgeablePayload: ForgeablePayload,
+    forgeablePayload: ForgePayload,
     operationMetadata: OperationMetadata,
     completion: @escaping (String?, Error?) -> Void
   ) {
@@ -379,7 +379,7 @@ public class TezosNodeClient: AbstractClient {
   private func createForgeablePayload(
     operations: [Operation],
     operationMetadata: OperationMetadata
-  ) -> ForgeablePayload {
+  ) -> ForgePayload {
     // Process all operations to have increasing counters and place them in the contents array.
     var nextCounter = operationMetadata.addressCounter + 1
     var contents: [[String: Any]] = []
@@ -390,7 +390,7 @@ public class TezosNodeClient: AbstractClient {
 
       nextCounter += 1
     }
-    return ForgeablePayload(contents: contents, branch: operationMetadata.branch)
+    return ForgePayload(contents: contents, branch: operationMetadata.branch)
   }
 
   /**
@@ -473,7 +473,7 @@ public class TezosNodeClient: AbstractClient {
 
   /// Sign a forged operation.
   private func sign(
-    forgeablePayload: ForgeablePayload,
+    forgeablePayload: ForgePayload,
     forgedPayload: String,
     keys: Keys
   ) -> (signedBytes: String, signedForgeablePayload: SignedForgeablePayload)? {
@@ -501,7 +501,7 @@ public class TezosNodeClient: AbstractClient {
    * - Parameter completion: A completion block that will be called with the results of the operation.
    */
   private func signPreapplyAndInjectOperation(
-    forgeablePayload: ForgeablePayload,
+    forgeablePayload: ForgePayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
     source _: String,

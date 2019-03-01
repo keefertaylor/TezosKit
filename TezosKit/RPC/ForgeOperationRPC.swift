@@ -8,7 +8,7 @@ public class ForgeOperationRPC: RPC<String> {
   ///   - forgeablePayload: A payload to forge.
   ///   - operationMetadata: Metadata about the operation.
   public init(
-    forgeablePayload: ForgeablePayload,
+    forgeablePayload: ForgePayload,
     operationMetadata: OperationMetadata
   ) {
     let endpoint =
