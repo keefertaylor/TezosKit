@@ -13,7 +13,7 @@ public class PreapplyOperationRPC: RPC<[[String: Any]]> {
   ) {
     let endpoint =
       "chains/" + operationMetadata.chainID + "/blocks/" + operationMetadata.branch + "/helpers/preapply/operations"
-    let payload = JSONUtils.jsonString(for: [signedProtocolOperationPayload.dictionaryRepresentation])
+    let payload = JSONUtils.jsonString(for: signedProtocolOperationPayload.dictionaryRepresentation)
     super.init(
       endpoint: endpoint,
       responseAdapterClass: JSONArrayResponseAdapter.self,

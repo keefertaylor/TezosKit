@@ -5,10 +5,10 @@ import Foundation
 /// An operation payload that is signed and bound to a specific protocol.
 public struct SignedProtocolOperationPayload {
   /// Retrieve a dictionary representation of the payload.
-  public var dictionaryRepresentation: [String: Any] {
+  public var dictionaryRepresentation: [[String: Any]] {
     var payload = signedOperationPayload.dictionaryRepresentation
     payload["protocol"] = `protocol`
-    return payload
+    return [payload]
   }
 
   /// An operation payload and associated signature.
