@@ -23,6 +23,5 @@ class PreapplyOperationRPCTest: XCTestCase {
   }
 }
 
-
 //("Optional("[{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}]")")
 //("Optional("{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}")") -
