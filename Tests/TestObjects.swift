@@ -7,13 +7,25 @@ import TezosCrypto
 
 /// Extensions to classes to provide static objects for testing.
 
+extension String {
+  public static let testChainID = "abc"
+  public static let testBranch = "xyz"
+  public static let testProtocol = "alpha"
+  public static let testKey = "123"
+  public static let testSignature = "abc123signature"
+}
+
+extension Int {
+  public static let testAddressCounter = 0
+}
+
 extension OperationMetadata {
   public static let testOperationMetadata = OperationMetadata(
-    chainID: "abc",
-    branch: "xyz",
-    protocol: "alpha",
-    addressCounter: 0,
-    key: "123"
+    chainID: .testChainID,
+    branch: .testBranch,
+    protocol: .testProtocol,
+    addressCounter: .testAddressCounter,
+    key: .testKey
   )
 }
 
@@ -24,7 +36,7 @@ extension OperationPayload {
 extension SignedOperationPayload {
   public static let testSignedOperationPayload = SignedOperationPayload(
     operationPayload: .testOperationPayload,
-    signature: "abc123"
+    signature: .testSignature
   )
 }
 
