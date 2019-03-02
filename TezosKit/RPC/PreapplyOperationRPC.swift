@@ -2,21 +2,18 @@
 
 import Foundation
 
-/**
- * An RPC which will pre-apply an operation.
- */
+/// An RPC which will pre-apply an operation.
 public class PreapplyOperationRPC: RPC<[[String: Any]]> {
-  /**
-   * - Parameter chainID: The chain ID to operate on.
-   * - Parameter headHash: The hash of the block at the head of chain to operate on.
-   * - Parameter payload: A JSON encoded string representing an operation to preapply with forged bytes.
-   */
+  /// - Parameters:
+  ///   - signedProtocolOperationPayload: A payload to send with the operation.
+  ///   - operationMetadata: Metadata about the operation to be pre-applied.
   public init(
-    chainID: String,
-    headHash: String,
-    payload: String
+    signedProtocolOperationPayload: SignedProtocolOperationPayload,
+    operationMetadata: OperationMetadata
   ) {
-    let endpoint = "chains/" + chainID + "/blocks/" + headHash + "/helpers/preapply/operations"
+    let endpoint =
+      "chains/" + operationMetadata.chainID + "/blocks/" + operationMetadata.branch + "/helpers/preapply/operations"
+    let payload = JSONUtils.jsonString(for: signedProtocolOperationPayload.dictionaryRepresentation)
     super.init(
       endpoint: endpoint,
       responseAdapterClass: JSONArrayResponseAdapter.self,

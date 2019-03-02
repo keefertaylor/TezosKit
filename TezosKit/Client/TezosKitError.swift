@@ -15,6 +15,7 @@ public struct TezosKitError: Error {
     case rpcError
     case unexpectedResponse
     case unexpectedRequestFormat
+    case signingError
   }
 
   /** The error code which occurred. */

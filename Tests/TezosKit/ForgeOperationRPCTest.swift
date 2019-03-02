@@ -1,17 +1,19 @@
 // Copyright Keefer Taylor, 2018
 
-import TezosKit
+@testable import TezosKit
 import XCTest
 
 class ForgeOperationRPCTest: XCTestCase {
   public func testForgeOperationRPC() {
-    let chainID = "abc123"
-    let headHash = "xyz"
-    let payload = "payload"
-    let rpc = ForgeOperationRPC(chainID: chainID, headHash: headHash, payload: payload)
+    let rpc = ForgeOperationRPC(operationPayload: .testOperationPayload, operationMetadata: .testOperationMetadata)
 
-    XCTAssertEqual(rpc.endpoint, "/chains/" + chainID + "/blocks/" + headHash + "/helpers/forge/operations")
-    XCTAssertEqual(rpc.payload, payload)
+    let expectedEndpoint =
+      "/chains/" + OperationMetadata.testOperationMetadata.chainID + "/blocks/" +
+        OperationMetadata.testOperationMetadata.branch + "/helpers/forge/operations"
+    let expectedPayload = JSONUtils.jsonString(for: OperationPayload.testOperationPayload.dictionaryRepresentation)
+
+    XCTAssertEqual(rpc.endpoint, expectedEndpoint)
+    XCTAssertEqual(rpc.payload, expectedPayload)
     XCTAssertTrue(rpc.isPOSTRequest)
   }
 }

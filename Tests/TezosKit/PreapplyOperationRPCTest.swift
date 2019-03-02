@@ -5,13 +5,23 @@ import XCTest
 
 class PreapplyOperationRPCTest: XCTestCase {
   public func testPreapplyOperationRPC() {
-    let chainID = "abc123"
-    let headHash = "xyz"
-    let payload = "payload"
-    let rpc = PreapplyOperationRPC(chainID: chainID, headHash: headHash, payload: payload)
+    let rpc = PreapplyOperationRPC(
+      signedProtocolOperationPayload: .testSignedProtocolOperationPayload,
+      operationMetadata: .testOperationMetadata
+    )
 
-    XCTAssertEqual(rpc.endpoint, "chains/" + chainID + "/blocks/" + headHash + "/helpers/preapply/operations")
-    XCTAssertEqual(rpc.payload, payload)
+    let expectedEndpoint =
+      "chains/" + OperationMetadata.testOperationMetadata.chainID + "/blocks/" +
+        OperationMetadata.testOperationMetadata.branch + "/helpers/preapply/operations"
+    let expectedPayloadDictionary =
+      SignedProtocolOperationPayload.testSignedProtocolOperationPayload.dictionaryRepresentation
+    let expectedPayload = JSONUtils.jsonString(for: expectedPayloadDictionary)
+
+    XCTAssertEqual(rpc.endpoint, expectedEndpoint)
+    XCTAssertEqual(rpc.payload, expectedPayload)
     XCTAssertTrue(rpc.isPOSTRequest)
   }
 }
+
+//("Optional("[{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}]")")
+//("Optional("{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}")") -
