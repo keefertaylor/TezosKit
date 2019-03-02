@@ -13,6 +13,8 @@ extension String {
   public static let testProtocol = "alpha"
   public static let testKey = "123"
   public static let testSignature = "abc123signature"
+  public static let testAddress = "tz1abc123xyz"
+  public static let testDestinationAddress = "tz1destination"
 }
 
 extension Int {
@@ -30,7 +32,10 @@ extension OperationMetadata {
 }
 
 extension OperationPayload {
-  public static let testOperationPayload = OperationPayload(contents: [[:]], operationMetadata: .testOperationMetadata)
+  public static let testOperationPayload = OperationPayload(
+    operations: [],
+    operationMetadata: .testOperationMetadata
+  )
 }
 
 extension SignedOperationPayload {
@@ -44,5 +49,16 @@ extension SignedProtocolOperationPayload {
   public static let testSignedProtocolOperationPayload = SignedProtocolOperationPayload(
     signedOperationPayload: .testSignedOperationPayload,
     operationMetadata: .testOperationMetadata
+  )
+}
+
+extension AbstractOperation {
+  public static let testOperation = AbstractOperation(source: .testAddress, kind: .reveal)
+}
+
+extension OperationWithCounter {
+  public static let testOperationWithCounter = OperationWithCounter(
+    operation: AbstractOperation.testOperation,
+    counter: .testAddressCounter
   )
 }

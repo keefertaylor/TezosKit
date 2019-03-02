@@ -382,15 +382,13 @@ public class TezosNodeClient: AbstractClient {
   ) -> OperationPayload {
     // Process all operations to have increasing counters and place them in the contents array.
     var nextCounter = operationMetadata.addressCounter + 1
-    var contents: [[String: Any]] = []
+    var operationsWithCounter: [OperationWithCounter] = []
     for operation in operations {
-      var mutableOperation = operation.dictionaryRepresentation
-      mutableOperation["counter"] = String(nextCounter)
-      contents.append(mutableOperation)
-
+      let operationWithCounter = OperationWithCounter(operation: operation, counter: nextCounter)
+      operationsWithCounter.append(operationWithCounter)
       nextCounter += 1
     }
-    return OperationPayload(contents: contents, operationMetadata: operationMetadata)
+    return OperationPayload(operations: operationsWithCounter, operationMetadata: operationMetadata)
   }
 
   /**
