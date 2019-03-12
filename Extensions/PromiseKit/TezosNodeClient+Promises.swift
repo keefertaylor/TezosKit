@@ -250,8 +250,13 @@ extension TezosNodeClient {
     keys: Keys
   ) -> Promise<String> {
     return Promise { seal in
-      forgeSignPreapplyAndInject(operations, source: source, keys: keys) { result, error in
-        seal.resolve(result, error)
+      forgeSignPreapplyAndInject(operations, source: source, keys: keys) { result in
+        switch result {
+        case .success(let data):
+          seal.fulfill(data)
+        case .failure(let error):
+          seal.reject(error)
+        }
       }
     }
   }
@@ -263,8 +268,13 @@ extension TezosNodeClient {
   /// - Returns: A promise which resolves to the result of running the operation.
   public func runOperation(_ operation: Operation, from wallet: Wallet) -> Promise<[String: Any]> {
     return Promise { seal in
-      runOperation(operation, from: wallet) { result, error in
-        seal.resolve(result, error)
+      runOperation(operation, from: wallet) { result in
+        switch result {
+        case .success(let data):
+            seal.fulfill(data)
+        case .failure(let error):
+            seal.reject(error)
+        }
       }
     }
   }
