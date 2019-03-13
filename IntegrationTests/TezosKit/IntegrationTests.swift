@@ -51,13 +51,15 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testGetAccountBalance() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    nodeClient.getBalance(wallet: .testWallet) { (result, error) in
-      XCTAssertNotNil(result)
-      XCTAssertNil(error)
-      let balance = Double(result!.humanReadableRepresentation)!
-      XCTAssertGreaterThan(balance, 0.0, "Balance in account was not greater than 0")
-
-      expectation.fulfill()
+    nodeClient.getBalance(wallet: .testWallet) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success(let balance):
+        let humanReadableBalance = Double(balance.humanReadableRepresentation)!
+        XCTAssertGreaterThan(humanReadableBalance, 0.0, "Balance in account was not greater than 0")
+        expectation.fulfill()
+      }
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)
@@ -71,11 +73,13 @@ class TezosNodeIntegrationTests: XCTestCase {
       to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
       from: Wallet.testWallet.address,
       keys: Wallet.testWallet.keys
-    ) { (hash, error) in
-      XCTAssertNotNil(hash)
-      XCTAssertNil(error)
-
-      expectation.fulfill()
+    ) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success:
+        expectation.fulfill()
+      }
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)
@@ -85,18 +89,21 @@ class TezosNodeIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
 
     let operation = OriginateAccountOperation(wallet: .testWallet)
-    self.nodeClient.runOperation(operation, from: .testWallet) { result, error in
-      XCTAssertNil(error)
-      guard let result = result,
-            let contents = result["contents"] as? [[String: Any]],
-            let metadata = contents[0]["metadata"] as? [String: Any],
-            let operationResult = metadata["operation_result"] as? [String: Any],
-            let consumedGas = operationResult["consumed_gas"] as? String else {
-              XCTFail()
-              return
+    self.nodeClient.runOperation(operation, from: .testWallet) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success(let data):
+        guard let contents = data["contents"] as? [[String: Any]],
+              let metadata = contents[0]["metadata"] as? [String: Any],
+              let operationResult = metadata["operation_result"] as? [String: Any],
+              let consumedGas = operationResult["consumed_gas"] as? String else {
+          XCTFail()
+          return
+        }
+        XCTAssertEqual(consumedGas, "10000")
+        expectation.fulfill()
       }
-      XCTAssertEqual(consumedGas, "10000")
-      expectation.fulfill()
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)
@@ -122,11 +129,13 @@ class TezosNodeIntegrationTests: XCTestCase {
       ops,
       source: Wallet.testWallet.address,
       keys: Wallet.testWallet.keys
-    ) { (hash: String?, error: Error?) in
-      XCTAssertNil(error)
-      XCTAssertNotNil(hash)
-
-      expectation.fulfill()
+    ) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success:
+        expectation.fulfill()
+      }
     }
     wait(for: [expectation], timeout: .expectationTimeout)
   }
