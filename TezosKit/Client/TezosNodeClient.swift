@@ -323,7 +323,7 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
-  /// Runs an operation.
+  /// Retrieve metadata and runs an operation.
   /// - Parameters:
   ///   - operation: The operation to run.
   ///   - wallet: The wallet requesting the run.
@@ -337,35 +337,40 @@ public class TezosNodeClient: AbstractClient {
       guard let self = self else {
         return
       }
-
-      switch result {
-      case .failure(let error):
-        completion(.failure(error))
+      guard case let .success(metadata) = result else {
+        completion(
+          result.map { _ -> [String: Any] in
+            [:]
+          }
+        )
         return
-      case .success(let metadata):
-        let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
-        self.forgeOperation(operationPayload: operationPayload, operationMetadata: metadata) { [weak self] result in
-          guard let self = self else {
-            return
-          }
+      }
 
-          switch result {
-          case .failure(let error):
-            completion(.failure(error))
-          case .success(let bytes):
-            guard let (_, signedOperationPayload) = self.sign(
-              operationPayload: operationPayload,
-              forgedPayload: bytes,
-              keys: wallet.keys
-            ) else {
-              let error = TezosKitError(kind: .signingError, underlyingError: nil)
-              completion(.failure(error))
-              return
-            }
-            let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-            self.send(rpc, completion: completion)
-          }
+      let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
+      self.forgeOperation(operationPayload: operationPayload, operationMetadata: metadata) { [weak self] result in
+        guard let self = self else {
+          return
         }
+        guard case let .success(bytes) = result else {
+          completion(
+            result.map { _ -> [String: Any] in
+              [:]
+            }
+          )
+          return
+        }
+
+        guard let (_, signedOperationPayload) = self.sign(
+            operationPayload: operationPayload,
+            forgedPayload: bytes,
+            keys: wallet.keys
+        ) else {
+          let error = TezosKitError(kind: .signingError, underlyingError: nil)
+          completion(.failure(error))
+          return
+        }
+        let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
+        self.send(rpc, completion: completion)
       }
     }
   }
