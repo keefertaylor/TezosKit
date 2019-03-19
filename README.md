@@ -8,8 +8,6 @@
 
 TezosKit is a Swift library that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements communication with the blockchain via the JSON API.
 
-[TOC]
-
 Donations help me find time to work on TezosKit. If you find the library useful, please consider donating to support ongoing develoment.
 
 |Currency| Address |
