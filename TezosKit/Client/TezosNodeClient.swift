@@ -339,9 +339,7 @@ public class TezosNodeClient: AbstractClient {
       }
       guard case let .success(metadata) = result else {
         completion(
-          result.map { _ -> [String: Any] in
-            [:]
-          }
+          result.map { _ in [:] }
         )
         return
       }
@@ -353,9 +351,7 @@ public class TezosNodeClient: AbstractClient {
         }
         guard case let .success(bytes) = result else {
           completion(
-            result.map { _ -> [String: Any] in
-              [:]
-            }
+            result.map { _ in [:] }
           )
           return
         }
@@ -453,44 +449,45 @@ public class TezosNodeClient: AbstractClient {
       guard let self = self else {
         return
       }
+      guard case let .success(operationMetadata) = result else {
+        completion(
+          result.map { _ in "" }
+        )
+        return
+      }
 
-      switch result {
-      case .failure(let error):
-        completion(.failure(error))
-      case .success(let operationMetadata):
-        // Determine if the address performing the operations has been revealed. If it has not been,
-        // check if any of the operations to perform requires the address to be revealed. If so,
-        // prepend a reveal operation to the operations to perform.
-        var mutableOperations = operations
-        if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-          let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
-          mutableOperations.insert(revealOperation, at: 0)
+      // Determine if the address performing the operations has been revealed. If it has not been,
+      // check if any of the operations to perform requires the address to be revealed. If so,
+      // prepend a reveal operation to the operations to perform.
+      var mutableOperations = operations
+      if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
+        let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
+        mutableOperations.insert(revealOperation, at: 0)
+      }
+      let operationPayload =
+        self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
+
+      self.forgeOperation(
+        operationPayload: operationPayload,
+        operationMetadata: operationMetadata
+      ) { [weak self] result in
+        guard let self = self else {
+          return
         }
-        let operationPayload =
-          self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
-
-        self.forgeOperation(
+        guard case let .success(forgedBytes) = result else {
+          completion(
+            result.map { _ in "" }
+          )
+          return
+        }
+        self.signPreapplyAndInjectOperation(
           operationPayload: operationPayload,
-          operationMetadata: operationMetadata
-        ) { [weak self] result in
-          guard let self = self else {
-            return
-          }
-
-          switch result {
-          case .failure(let error):
-            completion(.failure(error))
-          case .success(let forgedBytes):
-            self.signPreapplyAndInjectOperation(
-              operationPayload: operationPayload,
-              operationMetadata: operationMetadata,
-              forgeResult: forgedBytes,
-              source: source,
-              keys: keys,
-              completion: completion
-            )
-          }
-        }
+          operationMetadata: operationMetadata,
+          forgeResult: forgedBytes,
+          source: source,
+          keys: keys,
+          completion: completion
+        )
       }
     }
   }
