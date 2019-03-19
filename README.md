@@ -8,6 +8,8 @@
 
 TezosKit is a Swift library that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements communication with the blockchain via the JSON API.
 
+[TOC]
+
 Donations help me find time to work on TezosKit. If you find the library useful, please consider donating to support ongoing develoment.
 
 |Currency| Address |
@@ -59,6 +61,8 @@ github "keefertaylor/TezosKit"
  If you use Carthage to build your dependencies, make sure you have added `Base58Swift.framework`, `BigInt.framework`, `MnemonicKit.framework`,  and `PromiseKit.framework`, `Sodium.framework` and `TezosCrypto.framework`, to the "_Linked Frameworks and Libraries_" section of your target, and have included them in your Carthage framework copying build phase.
 
 ## Getting Started
+
+TezosKit supports `Promise` style RPCs (in the `PromiseKit` variant), or block based callback's with `Result` types. All RPCs support both variants out of the box.
 
 ### Create a Network Client
 
@@ -221,6 +225,18 @@ tezosNodeClient.send(
 }
 ```
 
+### PromiseKit Variants
+
+All RPCs can also be done with Promises. For instance, to retrieve a balance: 
+```
+nodeClient.getBalance(address: "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA").done { result in
+  let balance = Double(result.humanReadableRepresentation)!
+  print("The balance of the contract is \(balance)")
+} .catch { _ in
+  print("Couldn't get balance.")
+}
+```
+
 ## Detailed Documentation
 
 ### Overview
@@ -242,7 +258,7 @@ The `OperationFees` object encapsulates the fee, gas limit and storage limit to 
 
 ## Contributing
 
-I am happy to accept pull requests. 
+Please open PRs or issues against the library. 
 
 ## License
 
