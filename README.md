@@ -38,8 +38,6 @@ TesosKit takes care of complex block chain interactions for you:
 * Addresses are revealed automatically, if needed
 * Sending multiple operations by passing them in an array
 
-TezosKit is heavily inspired by functionality provided by other Tezos SDKs, such as [eztz](https://github.com/TezTech/eztz) or [TezosJ](https://github.com/LMilfont/TezosJ-plainjava).
-
 ## Installation
 
 ### CocoaPods
@@ -60,16 +58,6 @@ github "keefertaylor/TezosKit"
 
  If you use Carthage to build your dependencies, make sure you have added `Base58Swift.framework`, `BigInt.framework`, `MnemonicKit.framework`,  and `PromiseKit.framework`, `Sodium.framework` and `TezosCrypto.framework`, to the "_Linked Frameworks and Libraries_" section of your target, and have included them in your Carthage framework copying build phase.
 
-### LibSodium Errors
-
-If you receive build errors about missing headers for Sodium, you need to install the LibSodium library.
-
-The easiest way to do this is with Homebrew:
-
-```shell
-$ brew update && brew install libsodium
-```
-
 ## Getting Started
 
 ### Create a Network Client
@@ -82,25 +70,31 @@ let tezosNodeClient = TezosNodeClient(remoteNodeURL: publicNodeURL)
 ### Retrieve Data About the Blockchain
 
 ```swift
-tezosNodeClient.getHead() { (result: [String: Any]?, error: Error?) in
-  guard let result = result,
-        let metadata: = result["metadata"] as? [String : Any],
-        let baker = metadata["baker"]  else {
-    return
+tezosNodeClient.getHead() { result in
+  switch result {
+  case .success(let result):
+    guard let metadata: = result["metadata"] as? [String : Any],
+          let baker = metadata["baker"]  else {
+      print("Unexpected format")
+      return
+    }
+    print("Baker of the block at the head of the chain is \(baker)")
+  case .failure(let error):
+    print("Error getting result: \(error)")
   }
-  print("Baker of the block at the head of the chain is \(baker)")
-}
 ```
 
 ### Retrieve Data About a Contract
 
 ```swift
 let address = "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA" // http://tezos.community
-tezosNodeClient.getBalance(address: address) { (balance: Tez?, error: Error?) in
-  guard let balance = balance else {
-    return
+tezosNodeClient.getBalance(address: address) { result in
+  switch result {
+  case .success(let balance):
+    print("Balance of \(address) is \(balance.humanReadableRepresentation)")
+  case .failure(let error):
+    print("Error getting result: \(error)")
   }
-  print("Balance of \(address) is \(balance.humanReadableRepresentation)")
 }
 ```
 
@@ -151,7 +145,10 @@ tezosNodeClient.forgeSignPreapplyAndInjectOperations(
   operations: operations,
   source: myWallet.address,
   keys: myWallet.keys
-) { (txHash, error) in
+) { result in
+  guard case let .success(txHash) = result else {
+    return
+  }
   print("Sent Jim and Bob some XTZ! See: https://tzscan.io/\(txHash!)")
 }
 ```
@@ -166,7 +163,10 @@ tezosNodeClient.delegate(
   from: originatedAccountAddress,
   to: delegateAddress,
   keys: wallet.keys
-) { (txHash, txError) in 
+) { result in
+  guard case let .success(txHash) = result else {
+    return
+  }
   print("Delegate for \(originatedAccountAddress) set to \(delegateAddress).")
   print("See: https://tzscan.io/\(txHash!)")
 }
@@ -176,7 +176,7 @@ tezosNodeClient.delegate(
 
 ```swift
   let contractAddress: String = ...
-  tezosNodeClient.getAddressCode(address: contractAddress) { code: ContractCode, err in
+  tezosNodeClient.getAddressCode(address: contractAddress) { result in
      ...
   }
 ```  
@@ -190,7 +190,10 @@ tezosNodeClient.delegate(
     managerAddress: wallet.address, 
     keys: wallet.keys,
     contractCode: contractCode
-  ) { txHash, txError) in
+  ) { result in
+    guard case let .success(txHash) = result else {
+      return
+    }
     print("Originated a smart contract. See https://tzscan.io/\(txHash!)")
   }
 ```
@@ -210,7 +213,10 @@ tezosNodeClient.send(
   from: wallet.address,  
   keys: wallet.keys, 
   parameters: parameters
-) { txhash, txError in
+) { result in
+  guard case let .success(txHash) = result else {
+    return
+  }
   print("Called a smart contract. See https://tzscan.io/\(txHash!)")
 }
 ```
