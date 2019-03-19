@@ -19,29 +19,29 @@ public class RPCResponseHandler {
     data: Data?,
     error: Error?,
     responseAdapterClass: AbstractResponseAdapter<T>.Type
-  ) -> (result: T?, error: Error?) {
+  ) -> Result<T, TezosKitError> {
     // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
     if let httpResponse = response as? HTTPURLResponse,
         httpResponse.statusCode != 200 {
        let httpError = parseError(from: httpResponse, with: data)
-      return (nil, httpError)
+      return .failure(httpError)
     }
 
     // Check for a generic error on the request. If so, propagate.
     if let error = error {
        let desc = error.localizedDescription
        let rpcError = TezosKitError(kind: .rpcError, underlyingError: desc)
-      return (nil, rpcError)
+      return .failure(rpcError)
     }
 
     // Ensure that data came back.
     guard let data = data,
           let parsedData = parse(data, with: responseAdapterClass) else {
       let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
-      return (nil, tezosKitError)
+      return .failure(tezosKitError)
     }
 
-    return (parsedData, nil)
+    return .success(parsedData)
   }
 
 // MARK: - Helpers
@@ -55,7 +55,7 @@ public class RPCResponseHandler {
   * - Parameter data: Optional data that may have been returned with the response.
   * - Returns: An appropriate error based on the inputs.
   */
-  private func parseError(from httpResponse: HTTPURLResponse, with data: Data?) -> Error? {
+  private func parseError(from httpResponse: HTTPURLResponse, with data: Data?) -> TezosKitError {
     // Decode the server's response to a string in order to bundle it with the error if it is in
     // a readable format.
     var errorMessage = ""
