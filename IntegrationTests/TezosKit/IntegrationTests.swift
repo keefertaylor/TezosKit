@@ -96,7 +96,9 @@ class TezosNodeIntegrationTests: XCTestCase {
       keys: Wallet.testWallet.keys
     ) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        XCTAssertEqual(error.kind, .preapplicationError)
+        XCTAssert(error.underlyingError!.contains("balance_too_low"))
         expectation.fulfill()
       case .success:
         XCTFail()

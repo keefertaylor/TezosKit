@@ -16,13 +16,14 @@ public struct TezosKitError: Error {
     case unexpectedResponse
     case unexpectedRequestFormat
     case signingError
+    case preapplicationError
   }
 
   /** The error code which occurred. */
-  let kind: ErrorKind
+  public let kind: ErrorKind
 
   /** The underlying error returned from a subsystem, if one exists. */
-  let underlyingError: String?
+  public let underlyingError: String?
 }
 
 extension TezosKitError: LocalizedError {

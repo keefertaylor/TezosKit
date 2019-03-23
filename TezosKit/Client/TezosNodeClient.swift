@@ -597,12 +597,12 @@ public class TezosNodeClient: AbstractClient {
                 return ""
               }
               let errorKind = errors.compactMap { error -> String? in
-                guard let kind = error["kind"] as? String else {
+                guard let errorID = error["id"] as? String else {
                   return ""
                 }
-                return kind
+                return errorID
               }
-              return errorKind.isEmpty ? errorKind[0] : ""
+              return errorKind.isEmpty ? "" : errorKind[0]
             }
             return nil
           }
@@ -612,7 +612,7 @@ public class TezosNodeClient: AbstractClient {
         )
 
         guard failures.isEmpty else {
-          completion(.failure(TezosKitError(kind: .unknown, underlyingError: failures[0])))
+          completion(.failure(TezosKitError(kind: .preapplicationError, underlyingError: failures[0])))
           return
         }
 
