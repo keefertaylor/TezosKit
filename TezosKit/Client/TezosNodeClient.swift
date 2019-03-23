@@ -609,34 +609,42 @@ public class TezosNodeClient: AbstractClient {
 
   /// Parse a preapplication RPC response and extract an error if one occurred.
   internal func preapplicationError(from preapplicationResponse: [[String: Any]]) -> TezosKitError? {
-    let failures = preapplicationResponse.compactMap { operation -> String? in
-      guard let contents = operation["contents"] as? [[String: Any]] else {
-        return nil
-      }
+    let contents: [[String: Any]] = preapplicationResponse.compactMap { operation in
+     operation["contents"] as? [[String: Any]]
+    }.flatMap { x in x }
 
-      let failedOperations = contents.compactMap { content -> String? in
-        guard let metadata = content["metadata"] as? [String: Any],
-              let operationResult = metadata["operation_result"] as? [String: Any],
-              let status = operationResult["status"] as? String,
-              status == "failed" else {
-          return nil
-        }
-
-        guard let errors = operationResult["errors"] as? [[String: Any]] else {
-          return ""
-        }
-        let errorIDs = errors.compactMap { error -> String? in
-          guard let errorID = error["id"] as? String else {
-            return ""
-          }
-          return errorID
-        }
-        return errorIDs.isEmpty ? "" : errorIDs[0]
-      }
-      return failedOperations.first
+    let metadatas: [[String: Any]] = contents.compactMap { content in
+      content["metadata"] as? [String: Any]
     }
 
-    return failures.isEmpty ? nil : TezosKitError(kind: .preapplicationError, underlyingError: failures[0])
+    let operationResults: [[String: Any]] = metadatas.compactMap { metadata in
+      metadata["operation_result"] as? [String: Any]
+    }
+
+    let failedOperationResults: [[String: Any]] = operationResults.filter { operationResult in
+      guard let status = operationResult["status"] as? String,
+            status == "failed" else {
+        return false
+      }
+      return true
+    }
+
+    let errors: [[String: Any]] = failedOperationResults.compactMap { failedOperationResult in
+      failedOperationResult["errors"] as? [[String: Any]]
+    }.flatMap { x in x }
+
+    guard !errors.isEmpty else {
+      return nil
+    }
+
+    let firstError: String = errors.reduce("") { prev, next in
+      guard prev.isEmpty,
+            let id = next["id"] as? String else {
+        return prev
+      }
+      return id
+    }
+    return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
   }
 
   /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
