@@ -581,7 +581,41 @@ public class TezosNodeClient: AbstractClient {
       switch result {
       case .failure(let error):
         completion(.failure(error))
-      case .success:
+      case .success(let result):
+        let failures = result.compactMap({ operation -> String? in
+          guard let contents = operation["contents"] as? [[String: Any]] else {
+            return nil
+          }
+          let failedOperations = contents.compactMap({ content -> String? in
+            guard let metadata = content["metadata"] as? [String: Any],
+                  let operationResult = metadata["operation_result"] as? [String: Any],
+                  let status = operationResult["status"] as? String else {
+              return nil
+            }
+            if status == "failed" {
+              guard let errors = operationResult["errors"] as? [[String: Any]] else {
+                return ""
+              }
+              let errorKind = errors.compactMap { error -> String? in
+                guard let kind = error["kind"] as? String else {
+                  return ""
+                }
+                return kind
+              }
+              return errorKind.isEmpty ? errorKind[0] : ""
+            }
+            return nil
+          }
+          )
+          return failedOperations.first
+        }
+        )
+
+        guard failures.isEmpty else {
+          completion(.failure(TezosKitError(kind: .unknown, underlyingError: failures[0])))
+          return
+        }
+
         self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
       }
     }
