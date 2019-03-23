@@ -582,40 +582,10 @@ public class TezosNodeClient: AbstractClient {
       case .failure(let error):
         completion(.failure(error))
       case .success(let result):
-        let failures = result.compactMap({ operation -> String? in
-          guard let contents = operation["contents"] as? [[String: Any]] else {
-            return nil
-          }
-          let failedOperations = contents.compactMap({ content -> String? in
-            guard let metadata = content["metadata"] as? [String: Any],
-                  let operationResult = metadata["operation_result"] as? [String: Any],
-                  let status = operationResult["status"] as? String else {
-              return nil
-            }
-            if status == "failed" {
-              guard let errors = operationResult["errors"] as? [[String: Any]] else {
-                return ""
-              }
-              let errorKind = errors.compactMap { error -> String? in
-                guard let errorID = error["id"] as? String else {
-                  return ""
-                }
-                return errorID
-              }
-              return errorKind.isEmpty ? "" : errorKind[0]
-            }
-            return nil
-          }
-          )
-          return failedOperations.first
-        }
-        )
-
-        guard failures.isEmpty else {
-          completion(.failure(TezosKitError(kind: .preapplicationError, underlyingError: failures[0])))
+        if let preapplicationError = self.preapplicationError(from: result) {
+          completion(.failure(preapplicationError))
           return
         }
-
         self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
       }
     }
@@ -637,12 +607,42 @@ public class TezosNodeClient: AbstractClient {
     }
   }
 
-  /**
-   * Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
-   *
-   * This method parallelizes fetches to get chain and address data and returns all required data
-   * together as an OperationData object.
-   */
+  /// Parse a preapplication RPC response and extract an error if one occurred.
+  internal func preapplicationError(from preapplicationResponse: [[String: Any]]) -> TezosKitError? {
+    let failures = preapplicationResponse.compactMap { operation -> String? in
+      guard let contents = operation["contents"] as? [[String: Any]] else {
+        return nil
+      }
+
+      let failedOperations = contents.compactMap { content -> String? in
+        guard let metadata = content["metadata"] as? [String: Any],
+              let operationResult = metadata["operation_result"] as? [String: Any],
+              let status = operationResult["status"] as? String,
+              status == "failed" else {
+          return nil
+        }
+
+        guard let errors = operationResult["errors"] as? [[String: Any]] else {
+          return ""
+        }
+        let errorIDs = errors.compactMap { error -> String? in
+          guard let errorID = error["id"] as? String else {
+            return ""
+          }
+          return errorID
+        }
+        return errorIDs.isEmpty ? "" : errorIDs[0]
+      }
+      return failedOperations.first
+    }
+
+    return failures.isEmpty ? nil : TezosKitError(kind: .preapplicationError, underlyingError: failures[0])
+  }
+
+  /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
+  ///
+  /// This method parallelizes fetches to get chain and address data and returns all required data together as an
+  /// OperationData object.
   private func getMetadataForOperation(
     address: String,
     completion: @escaping (Result<OperationMetadata, TezosKitError>) -> Void

@@ -61,6 +61,30 @@ extension TezosNodeIntegrationTests {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
+  /// Preapplication should failure because of insufficient balance.
+  public func testPreapplyFailure_promises() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    nodeClient.send(
+      amount: Tez("10000000000000")!,
+      to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+      from: Wallet.testWallet.address,
+      keys: Wallet.testWallet.keys
+    ).done { _ in
+      XCTFail()
+    } .catch { error in
+      guard let tezosKitError = error as? TezosKitError else {
+        XCTFail()
+        return
+      }
+      XCTAssertEqual(tezosKitError.kind, .preapplicationError)
+      XCTAssert(tezosKitError.underlyingError!.contains("balance_too_low"))
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
   public func testMultipleOperations_promises() {
     let expectation = XCTestExpectation(description: "completion called")
 
