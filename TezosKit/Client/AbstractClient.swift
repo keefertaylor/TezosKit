@@ -17,14 +17,12 @@ public class AbstractClient {
   /// The queue that callbacks from requests will be made on.
   private let callbackQueue: DispatchQueue
 
-  /**
-   * Initialize a new AbstractNetworkClient.
-   *
-   * - Parameter remoteNodeURL: The path to the remote node.
-   * - Parameter urlSession: The URLSession that will manage network requests.
-   * - Parameter callbackQueue: A dispatch queue that callbacks will be made on.
-   * - Parameter responseHandler: An object which will handle responses.
-   */
+  /// Initialize a new AbstractNetworkClient.
+  /// - Parameters:
+  ///   - remoteNodeURL: The path to the remote node.
+  ///   - urlSession: The URLSession that will manage network requests.
+  ///   - callbackQueue: A dispatch queue that callbacks will be made on.
+  ///   - Parameter responseHandler: An object which will handle responses.
   public init(
     remoteNodeURL: URL,
     urlSession: URLSession,

@@ -582,7 +582,7 @@ public class TezosNodeClient: AbstractClient {
       case .failure(let error):
         completion(.failure(error))
       case .success(let result):
-        if let preapplicationError = self.preapplicationError(from: result) {
+        if let preapplicationError = TezosNodeClient.preapplicationError(from: result) {
           completion(.failure(preapplicationError))
           return
         }
@@ -608,10 +608,10 @@ public class TezosNodeClient: AbstractClient {
   }
 
   /// Parse a preapplication RPC response and extract an error if one occurred.
-  internal func preapplicationError(from preapplicationResponse: [[String: Any]]) -> TezosKitError? {
+  internal static func preapplicationError(from preapplicationResponse: [[String: Any]]) -> TezosKitError? {
     let contents: [[String: Any]] = preapplicationResponse.compactMap { operation in
      operation["contents"] as? [[String: Any]]
-    }.flatMap { x in x }
+    }.flatMap { $0 }
 
     let metadatas: [[String: Any]] = contents.compactMap { content in
       content["metadata"] as? [String: Any]
@@ -631,7 +631,7 @@ public class TezosNodeClient: AbstractClient {
 
     let errors: [[String: Any]] = failedOperationResults.compactMap { failedOperationResult in
       failedOperationResult["errors"] as? [[String: Any]]
-    }.flatMap { x in x }
+    }.flatMap { $0 }
 
     guard !errors.isEmpty else {
       return nil
