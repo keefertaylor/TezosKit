@@ -62,6 +62,9 @@ public class AbstractClient {
         return
       }
 
+      print(response)
+      print(String(data: data!, encoding: .utf8))
+
       let result = self.responseHandler.handleResponse(
         response: response,
         data: data,

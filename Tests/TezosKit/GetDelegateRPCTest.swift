@@ -13,3 +13,4 @@ class GetDelegateRPCTest: XCTestCase {
     XCTAssertFalse(rpc.isPOSTRequest)
   }
 }
+de

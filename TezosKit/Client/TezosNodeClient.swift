@@ -214,15 +214,14 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Clear the delegate of an originated account.
-   *
-   * - Parameter source: The address which is removing the delegate.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   * - Parameter completion: A completion block which will be called with a string representing the  transaction ID hash
-   *             if the operation was successful.
-   */
+  /// Clear the delegate of an originated account.
+  ///
+  /// - Parameters:
+  ///   - source: The address which is removing the delegate.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
+  ///                 operation was successful.
   public func undelegate(
     from source: String,
     keys: Keys,

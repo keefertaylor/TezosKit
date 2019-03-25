@@ -22,6 +22,22 @@ extension TezosNodeIntegrationTests {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
+  public func testOrigination_promises() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.originateAccount(
+      managerAddress: Wallet.testWallet.address,
+      keys: Wallet.testWallet.keys
+    ).done { hash in
+      XCTAssertNotNil(hash)
+      expectation.fulfill()
+    } .catch { _ in
+      XCTFail()
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
   public func testSend_promises() {
     let expectation = XCTestExpectation(description: "completion called")
 
