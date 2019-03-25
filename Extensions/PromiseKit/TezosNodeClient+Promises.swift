@@ -100,7 +100,7 @@ extension TezosNodeClient {
     keys: Keys,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
+    let delegationOperation = DelegationOperation.delegateOperation(source: source, to: delegate)
     return forgeSignPreapplyAndInject(
       operation: delegationOperation,
       source: source,
@@ -119,7 +119,7 @@ extension TezosNodeClient {
     keys: Keys,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
+    let undelegateOperatoin = DelegationOperation.undelegateOperation(source: source, operationFees: operationFees)
     return forgeSignPreapplyAndInject(
       operation: undelegateOperatoin,
       source: source,

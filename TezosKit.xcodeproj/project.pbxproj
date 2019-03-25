@@ -44,12 +44,10 @@
 		77CE36EB21F7F49F006ADABA /* GetAddressBalanceRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C421F7F49C006ADABA /* GetAddressBalanceRPCTest.swift */; };
 		77CE36EC21F7F49F006ADABA /* GetChainHeadRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C521F7F49C006ADABA /* GetChainHeadRPCTest.swift */; };
 		77CE36ED21F7F49F006ADABA /* JSONArrayResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C621F7F49C006ADABA /* JSONArrayResponseAdapterTest.swift */; };
-		77CE36EE21F7F49F006ADABA /* RegisterDelegateOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C721F7F49C006ADABA /* RegisterDelegateOperationTest.swift */; };
 		77CE36EF21F7F49F006ADABA /* GetDelegateRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C821F7F49D006ADABA /* GetDelegateRPCTest.swift */; };
 		77CE36F021F7F49F006ADABA /* JSONUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C921F7F49D006ADABA /* JSONUtilsTest.swift */; };
 		77CE36F121F7F49F006ADABA /* GetExpectedQuorumRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36CA21F7F49D006ADABA /* GetExpectedQuorumRPCTest.swift */; };
 		77CE36F221F7F49F006ADABA /* JSONDictionaryResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36CB21F7F49D006ADABA /* JSONDictionaryResponseAdapterTest.swift */; };
-		77CE36F321F7F49F006ADABA /* UndelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36CC21F7F49D006ADABA /* UndelegateOperation.swift */; };
 		77CE36F621F7F49F006ADABA /* GetBallotsListRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36CF21F7F49D006ADABA /* GetBallotsListRPCTest.swift */; };
 		77CE36F721F7F49F006ADABA /* WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36D021F7F49D006ADABA /* WalletTests.swift */; };
 		77CE36F821F7F49F006ADABA /* StringResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36D121F7F49D006ADABA /* StringResponseAdapterTest.swift */; };
@@ -74,7 +72,6 @@
 		77CE384921FC7ED8006ADABA /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380921FC7ED7006ADABA /* AbstractOperation.swift */; };
 		77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380A21FC7ED7006ADABA /* RevealOperation.swift */; };
 		77CE384B21FC7ED8006ADABA /* RegisterDelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380B21FC7ED7006ADABA /* RegisterDelegateOperation.swift */; };
-		77CE384C21FC7ED8006ADABA /* UndelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380C21FC7ED7006ADABA /* UndelegateOperation.swift */; };
 		77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */; };
 		77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380E21FC7ED7006ADABA /* OperationKind.swift */; };
 		77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380F21FC7ED7006ADABA /* Operation.swift */; };
@@ -221,12 +218,10 @@
 		77CE36C421F7F49C006ADABA /* GetAddressBalanceRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPCTest.swift; sourceTree = "<group>"; };
 		77CE36C521F7F49C006ADABA /* GetChainHeadRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChainHeadRPCTest.swift; sourceTree = "<group>"; };
 		77CE36C621F7F49C006ADABA /* JSONArrayResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONArrayResponseAdapterTest.swift; sourceTree = "<group>"; };
-		77CE36C721F7F49C006ADABA /* RegisterDelegateOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperationTest.swift; sourceTree = "<group>"; };
 		77CE36C821F7F49D006ADABA /* GetDelegateRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetDelegateRPCTest.swift; sourceTree = "<group>"; };
 		77CE36C921F7F49D006ADABA /* JSONUtilsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilsTest.swift; sourceTree = "<group>"; };
 		77CE36CA21F7F49D006ADABA /* GetExpectedQuorumRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPCTest.swift; sourceTree = "<group>"; };
 		77CE36CB21F7F49D006ADABA /* JSONDictionaryResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDictionaryResponseAdapterTest.swift; sourceTree = "<group>"; };
-		77CE36CC21F7F49D006ADABA /* UndelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UndelegateOperation.swift; sourceTree = "<group>"; };
 		77CE36CF21F7F49D006ADABA /* GetBallotsListRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBallotsListRPCTest.swift; sourceTree = "<group>"; };
 		77CE36D021F7F49D006ADABA /* WalletTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletTests.swift; sourceTree = "<group>"; };
 		77CE36D121F7F49D006ADABA /* StringResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseAdapterTest.swift; sourceTree = "<group>"; };
@@ -248,7 +243,6 @@
 		77CE380921FC7ED7006ADABA /* AbstractOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractOperation.swift; sourceTree = "<group>"; };
 		77CE380A21FC7ED7006ADABA /* RevealOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealOperation.swift; sourceTree = "<group>"; };
 		77CE380B21FC7ED7006ADABA /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperation.swift; sourceTree = "<group>"; };
-		77CE380C21FC7ED7006ADABA /* UndelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UndelegateOperation.swift; sourceTree = "<group>"; };
 		77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperation.swift; sourceTree = "<group>"; };
 		77CE380E21FC7ED7006ADABA /* OperationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationKind.swift; sourceTree = "<group>"; };
 		77CE380F21FC7ED7006ADABA /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -455,7 +449,6 @@
 				77CE380921FC7ED7006ADABA /* AbstractOperation.swift */,
 				77CE380A21FC7ED7006ADABA /* RevealOperation.swift */,
 				77CE380B21FC7ED7006ADABA /* RegisterDelegateOperation.swift */,
-				77CE380C21FC7ED7006ADABA /* UndelegateOperation.swift */,
 				77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */,
 				77CE380E21FC7ED7006ADABA /* OperationKind.swift */,
 				77CE380F21FC7ED7006ADABA /* Operation.swift */,
@@ -605,7 +598,6 @@
 				77CE36C021F7F49C006ADABA /* OriginateAccountOperation.swift */,
 				77CE36D821F7F49E006ADABA /* PeriodKindResponseAdapterTest.swift */,
 				77CE36DB21F7F49E006ADABA /* PreapplyOperationRPCTest.swift */,
-				77CE36C721F7F49C006ADABA /* RegisterDelegateOperationTest.swift */,
 				77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */,
 				77CE36D121F7F49D006ADABA /* StringResponseAdapterTest.swift */,
 				77CE36D321F7F49D006ADABA /* TezosKitErrorCodesTest.swift */,
@@ -613,7 +605,6 @@
 				77CE36DF21F7F49E006ADABA /* TezResponseAdapterTest.swift */,
 				77CE36BD21F7F49C006ADABA /* TezTest.swift */,
 				77CE36BF21F7F49C006ADABA /* TransactionOperationTest.swift */,
-				77CE36CC21F7F49D006ADABA /* UndelegateOperation.swift */,
 				77CE36D021F7F49D006ADABA /* WalletTests.swift */,
 				77CE35A621F7DC76006ADABA /* Info.plist */,
 			);
@@ -885,7 +876,6 @@
 				77CE387721FC7ED8006ADABA /* GetVotingDelegateRightsRPC.swift in Sources */,
 				77B1EAF922289B9800EA4FCE /* SignedProtocolOperationPayload.swift in Sources */,
 				77CE386121FC7ED8006ADABA /* GetAddressBalanceRPC.swift in Sources */,
-				77CE384C21FC7ED8006ADABA /* UndelegateOperation.swift in Sources */,
 				77CE386421FC7ED8006ADABA /* GetBallotsRPC.swift in Sources */,
 				77CE387C21FC7ED8006ADABA /* TezosNodeClient.swift in Sources */,
 				77CE385E21FC7ED8006ADABA /* Wallet.swift in Sources */,
@@ -927,7 +917,6 @@
 				77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */,
 				77CE36FF21F7F49F006ADABA /* PeriodKindResponseAdapterTest.swift in Sources */,
 				77B1EB08222A179F00EA4FCE /* OperationWithCounterTest.swift in Sources */,
-				77CE36EE21F7F49F006ADABA /* RegisterDelegateOperationTest.swift in Sources */,
 				77CE36E921F7F49F006ADABA /* AbstractOperationTest.swift in Sources */,
 				77CE36F121F7F49F006ADABA /* GetExpectedQuorumRPCTest.swift in Sources */,
 				77CE36E421F7F49F006ADABA /* TezTest.swift in Sources */,
@@ -948,7 +937,6 @@
 				77CE36FC21F7F49F006ADABA /* GetProposalsListRPCTest.swift in Sources */,
 				77CE370021F7F49F006ADABA /* GetAddressCounterRPCTest.swift in Sources */,
 				7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */,
-				77CE36F321F7F49F006ADABA /* UndelegateOperation.swift in Sources */,
 				77CE370121F7F49F006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */,
 				77CE36F021F7F49F006ADABA /* JSONUtilsTest.swift in Sources */,
 				77CE36EB21F7F49F006ADABA /* GetAddressBalanceRPCTest.swift in Sources */,

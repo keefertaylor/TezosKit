@@ -4,6 +4,7 @@ import TezosKit
 import XCTest
 
 // swiftlint:disable cyclomatic_complexity
+// swiftlint:disable identifier_name
 
 /// Integration tests to run against a live node running locally.
 ///
@@ -148,7 +149,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     wait(for: [delegateToBakerExpectation], timeout: .expectationTimeout)
     sleep(blockTime)
 
-    // Validate the delegate cleared
+    // Validate the delegate set correctly
     let checkDelegateSetToBakerExpectation = XCTestExpectation(description: "delegated to baker")
     self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
       switch result {
@@ -160,6 +161,32 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [checkDelegateSetToBakerExpectation], timeout: .expectationTimeout)
+
+    // Clear the delegate
+    let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
+    self.nodeClient.undelegate(from: Wallet.originatedAddress, keys: Wallet.testWallet.keys) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success:
+        clearDelegateAfterDelegationExpectation.fulfill()
+      }
+    }
+    wait(for: [clearDelegateAfterDelegationExpectation], timeout: .expectationTimeout)
+    sleep(blockTime)
+
+    // Validate the delegate cleared successfully
+    let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
+    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+      switch result {
+      case .failure:
+        // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
+        checkDelegateClearedAfterDelegationExpectation.fulfill()
+      case .success:
+        XCTFail()
+      }
+    }
+    wait(for: [checkDelegateClearedAfterDelegationExpectation], timeout: .expectationTimeout)
 
   }
 
