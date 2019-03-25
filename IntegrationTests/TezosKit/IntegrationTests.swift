@@ -38,6 +38,11 @@ extension Double {
   public static let expectationTimeout = 10.0
 }
 
+extension UInt32 {
+  // Time between blocks to wait for an operation to get included.
+  public static let blockTime: UInt32 = 120
+}
+
 class TezosNodeIntegrationTests: XCTestCase {
   public var nodeClient = TezosNodeClient()
 
@@ -71,9 +76,6 @@ class TezosNodeIntegrationTests: XCTestCase {
   }
 
   public func testDelegation() {
-    // Time between blocks to wait for an operation to get included.
-    let blockTime: UInt32 = 120
-
     // Clear any existing delegate.
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
     self.nodeClient.undelegate(from: Wallet.originatedAddress, keys: Wallet.testWallet.keys) { result in
@@ -85,7 +87,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [undelegateExpectation], timeout: .expectationTimeout)
-    sleep(blockTime)
+    sleep(.blockTime)
 
     // Validate the delegate cleared
     let checkDelegateClearedExpectation = XCTestExpectation(description: "check delegate cleared")
@@ -104,7 +106,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     let baker = Wallet()!
     let sendExpectation = XCTestExpectation(description: "sent xtz")
     self.nodeClient.send(
-      amount: Tez(10),
+      amount: Tez(1),
       to: baker.address,
       from: Wallet.testWallet.address,
       keys: Wallet.testWallet.keys
@@ -117,7 +119,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [sendExpectation], timeout: .expectationTimeout)
-    sleep(blockTime)
+    sleep(.blockTime)
 
     // Register the new account as a baker.
     let registerBakerExpectation = XCTestExpectation(description: "register baker")
@@ -130,7 +132,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [registerBakerExpectation], timeout: .expectationTimeout)
-    sleep(blockTime)
+    sleep(.blockTime)
 
     // Delegate to the new baker.
     let delegateToBakerExpectation = XCTestExpectation(description: "delegated")
@@ -147,7 +149,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [delegateToBakerExpectation], timeout: .expectationTimeout)
-    sleep(blockTime)
+    sleep(.blockTime)
 
     // Validate the delegate set correctly
     let checkDelegateSetToBakerExpectation = XCTestExpectation(description: "delegated to baker")
@@ -173,7 +175,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [clearDelegateAfterDelegationExpectation], timeout: .expectationTimeout)
-    sleep(blockTime)
+    sleep(.blockTime)
 
     // Validate the delegate cleared successfully
     let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
