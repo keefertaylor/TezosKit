@@ -138,7 +138,10 @@ extension TezosNodeClient {
     keys: Keys,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
+    let registerDelegateOperation = DelegationOperation.registerDelegateOperation(
+      source: delegate,
+      operationFees: operationFees
+    )
     return forgeSignPreapplyAndInject(
       operation: registerDelegateOperation,
       source: delegate,

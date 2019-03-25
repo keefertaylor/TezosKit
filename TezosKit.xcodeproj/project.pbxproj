@@ -71,7 +71,6 @@
 		77CE384821FC7ED8006ADABA /* DelegationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380821FC7ED7006ADABA /* DelegationOperation.swift */; };
 		77CE384921FC7ED8006ADABA /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380921FC7ED7006ADABA /* AbstractOperation.swift */; };
 		77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380A21FC7ED7006ADABA /* RevealOperation.swift */; };
-		77CE384B21FC7ED8006ADABA /* RegisterDelegateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380B21FC7ED7006ADABA /* RegisterDelegateOperation.swift */; };
 		77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */; };
 		77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380E21FC7ED7006ADABA /* OperationKind.swift */; };
 		77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380F21FC7ED7006ADABA /* Operation.swift */; };
@@ -242,7 +241,6 @@
 		77CE380821FC7ED7006ADABA /* DelegationOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationOperation.swift; sourceTree = "<group>"; };
 		77CE380921FC7ED7006ADABA /* AbstractOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractOperation.swift; sourceTree = "<group>"; };
 		77CE380A21FC7ED7006ADABA /* RevealOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealOperation.swift; sourceTree = "<group>"; };
-		77CE380B21FC7ED7006ADABA /* RegisterDelegateOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterDelegateOperation.swift; sourceTree = "<group>"; };
 		77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperation.swift; sourceTree = "<group>"; };
 		77CE380E21FC7ED7006ADABA /* OperationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationKind.swift; sourceTree = "<group>"; };
 		77CE380F21FC7ED7006ADABA /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
@@ -448,7 +446,6 @@
 				77CE380821FC7ED7006ADABA /* DelegationOperation.swift */,
 				77CE380921FC7ED7006ADABA /* AbstractOperation.swift */,
 				77CE380A21FC7ED7006ADABA /* RevealOperation.swift */,
-				77CE380B21FC7ED7006ADABA /* RegisterDelegateOperation.swift */,
 				77CE380D21FC7ED7006ADABA /* TransactionOperation.swift */,
 				77CE380E21FC7ED7006ADABA /* OperationKind.swift */,
 				77CE380F21FC7ED7006ADABA /* Operation.swift */,
@@ -848,7 +845,6 @@
 				77B1EAF52228839000EA4FCE /* OperationPayload.swift in Sources */,
 				77CE386A21FC7ED8006ADABA /* AbstractResponseAdapter.swift in Sources */,
 				77CE387021FC7ED8006ADABA /* GetChainHeadRPC.swift in Sources */,
-				77CE384B21FC7ED8006ADABA /* RegisterDelegateOperation.swift in Sources */,
 				77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */,
 				77CE386F21FC7ED8006ADABA /* JSONArrayResponseAdapter.swift in Sources */,
 				77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */,

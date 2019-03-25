@@ -253,7 +253,10 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
+    let registerDelegateOperation = DelegationOperation.registerDelegateOperation(
+      source: delegate,
+      operationFees: operationFees
+    )
     forgeSignPreapplyAndInject(
       registerDelegateOperation,
       source: delegate,
