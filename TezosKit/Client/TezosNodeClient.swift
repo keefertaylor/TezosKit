@@ -67,6 +67,21 @@ import TezosCrypto
 /// operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
 /// correctly.
 public class TezosNodeClient: AbstractClient {
+  /// JSON keys and values used in the Tezos Node.
+  private enum JSON {
+    public enum Keys {
+      public static let contents = "contents"
+      public static let metadata = "metadata"
+      public static let operationResult = "operation_result"
+      public static let status = "status"
+      public static let errors = "errors"
+      public static let id = "id"
+    }
+
+    public enum Values {
+      public static let failed = "failed"
+    }
+  }
 
   /// The default node URL to use.
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
@@ -271,11 +286,8 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Returns the code associated with the address as a NSDictionary.
-   *
-   * - Parameter address: The address of the contract to load.
-   */
+  /// Returns the code associated with the address as a NSDictionary.
+  /// - Parameter address: The address of the contract to load.
   public func getAddressCode(address: String, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
     let rpc = GetAddressCodeRPC(address: address)
     send(rpc, completion: completion)
@@ -581,7 +593,11 @@ public class TezosNodeClient: AbstractClient {
       switch result {
       case .failure(let error):
         completion(.failure(error))
-      case .success:
+      case .success(let result):
+        if let preapplicationError = TezosNodeClient.preapplicationError(from: result) {
+          completion(.failure(preapplicationError))
+          return
+        }
         self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
       }
     }
@@ -603,12 +619,50 @@ public class TezosNodeClient: AbstractClient {
     }
   }
 
-  /**
-   * Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
-   *
-   * This method parallelizes fetches to get chain and address data and returns all required data
-   * together as an OperationData object.
-   */
+  /// Parse a preapplication RPC response and extract an error if one occurred.
+  internal static func preapplicationError(from preapplicationResponse: [[String: Any]]) -> TezosKitError? {
+    let contents: [[String: Any]] = preapplicationResponse.compactMap { operation in
+     operation[JSON.Keys.contents] as? [[String: Any]]
+    }.flatMap { $0 }
+
+    let metadatas: [[String: Any]] = contents.compactMap { content in
+      content[JSON.Keys.metadata] as? [String: Any]
+    }
+
+    let operationResults: [[String: Any]] = metadatas.compactMap { metadata in
+      metadata[JSON.Keys.operationResult] as? [String: Any]
+    }
+
+    let failedOperationResults: [[String: Any]] = operationResults.filter { operationResult in
+      guard let status = operationResult[JSON.Keys.status] as? String,
+            status == JSON.Values.failed else {
+        return false
+      }
+      return true
+    }
+
+    let errors: [[String: Any]] = failedOperationResults.compactMap { failedOperationResult in
+      failedOperationResult[JSON.Keys.errors] as? [[String: Any]]
+    }.flatMap { $0 }
+
+    guard !errors.isEmpty else {
+      return nil
+    }
+
+    let firstError: String = errors.reduce("") { prev, next in
+      guard prev.isEmpty,
+            let id = next[JSON.Keys.id] as? String else {
+        return prev
+      }
+      return id
+    }
+    return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
+  }
+
+  /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
+  ///
+  /// This method parallelizes fetches to get chain and address data and returns all required data together as an
+  /// OperationData object.
   private func getMetadataForOperation(
     address: String,
     completion: @escaping (Result<OperationMetadata, TezosKitError>) -> Void

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		772F48A82224894E00DF0F9D /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* IntegrationTests.swift */; };
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
+		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7774780C222228590010BA4D /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
@@ -180,6 +181,7 @@
 		772F48A52224894E00DF0F9D /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		772F48A72224894E00DF0F9D /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -569,6 +571,7 @@
 		77F4D27322221CCE00D34B01 /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
+				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
 				77F4D267221CD44100D34B01 /* AbstractClientTest.swift */,
 				77B1EB07222A179F00EA4FCE /* OperationWithCounterTest.swift */,
 				77B1EAFF222A082B00EA4FCE /* OperationPayloadTest.swift */,
@@ -937,6 +940,7 @@
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
 				77CE36E821F7F49F006ADABA /* KeysTests.swift in Sources */,
 				77B1EB04222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift in Sources */,
+				77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */,
 				77CE370621F7F49F006ADABA /* TezResponseAdapterTest.swift in Sources */,
 				77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */,
 				77B1EAFC2228C03400EA4FCE /* TestObjects.swift in Sources */,

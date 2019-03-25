@@ -85,6 +85,29 @@ class TezosNodeIntegrationTests: XCTestCase {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
+  /// Preapplication should failure because of insufficient balance.
+  public func testPreapplyFailure() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.send(
+      amount: Tez("10000000000000")!,
+      to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+      from: Wallet.testWallet.address,
+      keys: Wallet.testWallet.keys
+    ) { result in
+      switch result {
+      case .failure(let error):
+        XCTAssertEqual(error.kind, .preapplicationError)
+        XCTAssert(error.underlyingError!.contains("balance_too_low"))
+        expectation.fulfill()
+      case .success:
+        XCTFail()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
   public func testRunOperation() {
     let expectation = XCTestExpectation(description: "completion called")
 

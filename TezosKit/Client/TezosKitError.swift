@@ -2,13 +2,8 @@
 
 import Foundation
 
-/**
- * A struct representing an error that occured in the Tezos Client.
- */
 public struct TezosKitError: Error {
-  /**
-   * Enumeration representing possible kinds of errors.
-   */
+  /// Enumeration representing possible kinds of errors.
   public enum ErrorKind: String {
     case unknown
     case invalidURL
@@ -16,13 +11,14 @@ public struct TezosKitError: Error {
     case unexpectedResponse
     case unexpectedRequestFormat
     case signingError
+    case preapplicationError
   }
 
-  /** The error code which occurred. */
-  let kind: ErrorKind
+  /// The error code which occurred.
+  public let kind: ErrorKind
 
-  /** The underlying error returned from a subsystem, if one exists. */
-  let underlyingError: String?
+  /// The underlying error returned from a subsystem, if one exists.
+  public let underlyingError: String?
 }
 
 extension TezosKitError: LocalizedError {
