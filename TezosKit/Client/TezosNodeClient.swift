@@ -205,7 +205,11 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let delegationOperation = DelegationOperation(source: source, to: delegate, operationFees: operationFees)
+    let delegationOperation = DelegationOperation.delegateOperation(
+      source: source,
+      to: delegate,
+      operationFees: operationFees
+    )
     forgeSignPreapplyAndInject(
       delegationOperation,
       source: source,
@@ -214,22 +218,21 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Clear the delegate of an originated account.
-   *
-   * - Parameter source: The address which is removing the delegate.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   * - Parameter completion: A completion block which will be called with a string representing the  transaction ID hash
-   *             if the operation was successful.
-   */
+  /// Clear the delegate of an originated account.
+  ///
+  /// - Parameters:
+  ///   - source: The address which is removing the delegate.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
+  ///                 operation was successful.
   public func undelegate(
     from source: String,
     keys: Keys,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let undelegateOperatoin = UndelegateOperation(source: source, operationFees: operationFees)
+    let undelegateOperatoin = DelegationOperation.undelegateOperation(source: source, operationFees: operationFees)
     forgeSignPreapplyAndInject(
       undelegateOperatoin,
       source: source,
@@ -250,7 +253,10 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let registerDelegateOperation = RegisterDelegateOperation(delegate: delegate, operationFees: operationFees)
+    let registerDelegateOperation = DelegationOperation.registerDelegateOperation(
+      source: delegate,
+      operationFees: operationFees
+    )
     forgeSignPreapplyAndInject(
       registerDelegateOperation,
       source: delegate,
@@ -259,16 +265,14 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Originate a new account from the given account.
-   *
-   * - Parameter managerAddress: The address which will manage the new account.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter contractCode: Optional code to associate with the originated contract.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   * - Parameter completion: A completion block which will be called with a string representing the transaction ID hash
-   *             if the operation was successful.
-   */
+  /// Originate a new account from the given account.
+  /// - Parameters:
+  ///   - managerAddress: The address which will manage the new account.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - contractCode: Optional code to associate with the originated contract.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
+  ///                 operation was successful.
   public func originateAccount(
     managerAddress: String,
     keys: Keys,
