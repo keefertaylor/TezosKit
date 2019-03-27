@@ -388,6 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				77B69EA3224C38C700DB4319 /* ConseilClient.swift */,
+				77B69EAC224C424800DB4319 /* Transaction.swift */,
 				77B69EA6224C392300DB4319 /* ConseilPlatform.swift */,
 				77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */,
 				77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */,
@@ -906,6 +907,7 @@
 				77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */,
 				77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */,
 				77CE387D21FC7ED8006ADABA /* TezosKitError.swift in Sources */,
+				77B69EAD224C424800DB4319 /* Transaction.swift in Sources */,
 				77CE384821FC7ED8006ADABA /* DelegationOperation.swift in Sources */,
 				77CE387621FC7ED8006ADABA /* GetCurrentPeriodKindRPC.swift in Sources */,
 				77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */,
