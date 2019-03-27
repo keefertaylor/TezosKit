@@ -11,7 +11,7 @@ public class InjectionRPC: RPC<String> {
     let endpoint = "/injection/operation"
     super.init(
       endpoint: endpoint,
-      headers: RPC.Headers.contentTypeJSON()
+      headers: [Header.contentTypeApplicationJSON],
       responseAdapterClass: StringResponseAdapter.self,
       payload: payload
     )

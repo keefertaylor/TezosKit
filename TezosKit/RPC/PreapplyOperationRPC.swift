@@ -16,7 +16,7 @@ public class PreapplyOperationRPC: RPC<[[String: Any]]> {
     let payload = JSONUtils.jsonString(for: signedProtocolOperationPayload.dictionaryRepresentation)
     super.init(
       endpoint: endpoint,
-      headers: RPC.Headers.contentTypeJSON()
+      headers: [Header.contentTypeApplicationJSON],
       responseAdapterClass: JSONArrayResponseAdapter.self,
       payload: payload
     )

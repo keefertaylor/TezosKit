@@ -10,7 +10,7 @@ public class RunOperationRPC: RPC<[String: Any]> {
     let jsonPayload = JSONUtils.jsonString(for: signedOperationPayload.dictionaryRepresentation)
     super.init(
       endpoint: endpoint,
-      headers: RPC.Headers.contentTypeJSON()
+      headers: [Header.contentTypeApplicationJSON],
       responseAdapterClass: JSONDictionaryResponseAdapter.self,
       payload: jsonPayload
     )

@@ -2,6 +2,14 @@
 
 import Foundation
 
+/// An encapsulation of headers to use in an RPC.
+public struct Header {
+  public static let contentTypeApplicationJSON = Header(field: "Content-Type", value: "application/json")
+
+  public let field: String
+  public let value: String
+}
+
 ///An abstract RPC class that defines a request and response handler.
 ///
 /// RPCs have a generic type associated with them, which is the expected type of the decoded bytes received from the
@@ -13,15 +21,8 @@ import Foundation
 ///
 /// Concrete subclasses should construct an endpoint and payload and inform this class by calling `super.init`.
 public class RPC<T> {
-  /// Re-useable headers.
-  public enum Headers {
-    public static func contentTypeJSON() -> [String: String ]{
-      return ["Content-Type": "application/json"]
-    }
-  }
-
   public let endpoint: String
-  public let headers: [[String: String]]?
+  public let headers: [Header]
   public let payload: String?
   public let responseAdapterClass: AbstractResponseAdapter<T>.Type
   public var isPOSTRequest: Bool {
@@ -38,13 +39,13 @@ public class RPC<T> {
   ///
   /// - Parameters:
   ///   - endpoint: The endpoint to which the request is being made.
-  ///   - headers: An optional dictionary of headers to use.
+  ///   - headers: A dictionary of headers to use, default is empty headers.
   ///   - responseAdapterClass: The class of the response adapter which will take bytes received from the request and
   ///     transform them into a specific type.
   ///   - payload: A payload that should be sent with a POST request.
   public init(
     endpoint: String,
-    headers: [[String : String]]? = nil,
+    headers: [Header] = [],
     responseAdapterClass: AbstractResponseAdapter<T>.Type,
     payload: String? = nil
   ) {
