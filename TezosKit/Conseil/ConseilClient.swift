@@ -2,8 +2,10 @@
 
 /// Conseil Client is a WIP.
 /// Remaining Work:
-/// - Promises
-/// - Extensions
+/// - Support for query parameters
+/// - First class respoonse objects
+/// - Promises Extension
+/// - Integration Tests
 /// - Updating documentation
 
 /// A client for a Conseil Server.
@@ -14,22 +16,29 @@ public class ConseilClient: AbstractClient {
   /// The network that this client will query.
   private let network: ConseilNetwork
 
+  /// The API key for the remote Conseil service.
+  private let apiKey: String
+
   /// Initialize a new client for a Conseil Service.
   /// - Parameters:
-  ///   - remoteNodeURL: The path to the remote node.
+  ///   - remoteNodeURL: The path to the remote Conseil service.
+  ///   - apiKey: The API key for the remote Conseil service.
   ///   - platform: The platform to query, defaults to tezos.
   ///   - network: The network to query, defaults to mainnet.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
   public init(
     remoteNodeURL: URL,
-    urlSession: URLSession = URLSession.shared,
-    callbackQueue: DispatchQueue = DispatchQueue.main,
+    apiKey: String,
     platform: ConseilPlatform = .tezos,
-    network: ConseilNetwork = .mainnet
-    ) {
+    network: ConseilNetwork = .mainnet,
+    urlSession: URLSession = URLSession.shared,
+    callbackQueue: DispatchQueue = DispatchQueue.main
+  ) {
     self.platform = platform
     self.network = network
+    self.apiKey = apiKey
+
     super.init(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
@@ -39,83 +48,22 @@ public class ConseilClient: AbstractClient {
   }
 
   /// Retrieve transactions from an account.
-  public func operations(for account: String, completion: (Result<[[String: Any]]> -> Void)) {
-    let rpc = ConseilTransactionQuery(platform: platform, network: network))
-    send(rpc, completion)
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of transactions to return, defaults to 100.
+  ///   - completion: A completion callback.
+  public func transactionsSent(
+    from account: String,
+    limit: Int = 100,
+    completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
+  ) {
+    let rpc = ConseilFetchSentTransactionRPC(
+      account: account,
+      limit: limit,
+      apiKey: apiKey,
+      platform: platform,
+      network: network
+    )
+    send(rpc, completion: completion)
   }
 }
-
-private enum Params {
-  public static let fields = "fields"
-  public enum Fields {
-    public static let amount = "amount"
-    public static let destination = "destination"
-    public static let fee = "fee"
-    public static let kind = "kind"
-    public static let source = "source"
-    public static let timestamp = "timestamp"
-  }
-
-  public static let predicates = "predicates"
-  public enum Predicate {
-    public static let field = "field"
-    public static let operation = "operation"
-    public static let set = "set"
-  }
-
-  public static let orderBy = "orderBy"
-  public static let limit = "limit"
-
-}
-
-private enum Query {
-  public static let fields = "fields"
-  public static let predicates = "predicates"
-  public static let orderBy = "orderBy"
-  public static let limit = "limit"
-}
-
-
-
-
-private enum Kind {
-  public let transaction = "transaction"
-}
-
-private enum Operation {
-  public let equal = "eq"
-}
-
-private enum OrderBy {
-  public static let field = "field"
-  public static let direction = "direction"
-}
-
-public class ConseilTransactionQuery {
-  public init(source: String, limit: Int, platform: ConseilPlatform, network: ConseilNetwork) {
-    let url = "/v2/data/" + platform.rawValue + "/" + network.rawValue + "/operations"
-
-    // TODO: refactor these to be an enum.
-    let fields = [ "timestamp", "source", "destination", "amount", "fee"]
-
-    let predicateDict = [
-      "field": "kind",
-      "set": [ "transaction" ],
-      "operation": "eq"
-    ]
-
-    let predicates = []
-    let payloadDict = {
-      "fields": fields
-      "predicates": predicates
-    }
-
-
-    // TODO: Refactor to a dictionary.
-    let payload = "{\"fields\": [\"timestamp\", \"source\", \"destination\", \"amount\", \"fee\"],\"predicates\": [{\"field\": \"kind\", \"set\": [\"transaction\"], \"operation\": \"eq\"}, {\"field\": \"source\", \"set\": [\"%s\"], \"operation\": \"eq\"}],\"orderBy\": [{\"field\": \"timestamp\", \"direction\": \"desc\"}],\"limit\": 100}"
-  }
-}
-
-/// TODOs:
-/// - Promises Extension
-/// - Integration Tests
