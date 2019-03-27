@@ -4,8 +4,10 @@ A brief overview of the various subfolders.
 ## Client
 Contains logic and error handling for the gateway to interact with the Tezos network.
 
-## Cryptography
-Contains logic related to signing and key generation.
+
+## Conseil
+
+Contains logic and error handling related to Conseil
 
 ## Models
 Contains model objects for use in TezosKit.
