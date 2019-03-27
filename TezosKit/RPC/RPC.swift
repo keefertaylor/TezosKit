@@ -13,8 +13,15 @@ import Foundation
 ///
 /// Concrete subclasses should construct an endpoint and payload and inform this class by calling `super.init`.
 public class RPC<T> {
+  /// Re-useable headers.
+  public enum Headers {
+    public static func contentTypeJSON() -> [String: String ]{
+      return ["Content-Type": "application/json"]
+    }
+  }
+
   public let endpoint: String
-  public let headers: [String: String]?
+  public let headers: [[String: String]]?
   public let payload: String?
   public let responseAdapterClass: AbstractResponseAdapter<T>.Type
   public var isPOSTRequest: Bool {
@@ -37,7 +44,7 @@ public class RPC<T> {
   ///   - payload: A payload that should be sent with a POST request.
   public init(
     endpoint: String,
-    headers: [String : String]? = nil,
+    headers: [[String : String]]? = nil,
     responseAdapterClass: AbstractResponseAdapter<T>.Type,
     payload: String? = nil
   ) {

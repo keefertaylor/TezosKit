@@ -16,6 +16,7 @@ public class ForgeOperationRPC: RPC<String> {
     let payload = JSONUtils.jsonString(for: operationPayload.dictionaryRepresentation)
     super.init(
       endpoint: endpoint,
+      headers: RPC.Headers.contentTypeJSON()
       responseAdapterClass: StringResponseAdapter.self,
       payload: payload
     )
