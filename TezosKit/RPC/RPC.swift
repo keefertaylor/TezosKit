@@ -2,14 +2,6 @@
 
 import Foundation
 
-/// An encapsulation of headers to use in an RPC.
-public struct Header {
-  public static let contentTypeApplicationJSON = Header(field: "Content-Type", value: "application/json")
-
-  public let field: String
-  public let value: String
-}
-
 ///An abstract RPC class that defines a request and response handler.
 ///
 /// RPCs have a generic type associated with them, which is the expected type of the decoded bytes received from the

@@ -18,6 +18,7 @@
 		7794E972224B0A95000D9F1E /* ConseilNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E971224B0A95000D9F1E /* ConseilNetwork.swift */; };
 		7794E974224B0ACD000D9F1E /* ConseilClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E973224B0ACD000D9F1E /* ConseilClient.swift */; };
 		7794E976224B0AE6000D9F1E /* ConseilTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E975224B0AE6000D9F1E /* ConseilTransactionRequest.swift */; };
+		7794E978224C1A43000D9F1E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E977224C1A43000D9F1E /* Header.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAEA222730D600EA4FCE /* IntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
@@ -189,6 +190,7 @@
 		7794E971224B0A95000D9F1E /* ConseilNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConseilNetwork.swift; path = ../../../../../Documents/ConseilNetwork.swift; sourceTree = "<group>"; };
 		7794E973224B0ACD000D9F1E /* ConseilClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConseilClient.swift; path = ../../../../../Documents/ConseilClient.swift; sourceTree = "<group>"; };
 		7794E975224B0AE6000D9F1E /* ConseilTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConseilTransactionRequest.swift; path = ../../../../../Documents/ConseilTransactionRequest.swift; sourceTree = "<group>"; };
+		7794E977224C1A43000D9F1E /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 			children = (
 				77B1EAFA2228B7F300EA4FCE /* Payload */,
 				77CE382821FC7ED7006ADABA /* GetAddressBalanceRPC.swift */,
+				7794E977224C1A43000D9F1E /* Header.swift */,
 				77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */,
 				77CE382921FC7ED7006ADABA /* GetChainHeadHashRPC.swift */,
 				77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */,
@@ -911,6 +914,7 @@
 				77B1EB06222A102500EA4FCE /* OperationWithCounter.swift in Sources */,
 				77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */,
 				77CE387321FC7ED8006ADABA /* GetAddressManagerKeyRPC.swift in Sources */,
+				7794E978224C1A43000D9F1E /* Header.swift in Sources */,
 				77B1EAF322275A4A00EA4FCE /* GasLimitPolicy.swift in Sources */,
 				77CE384921FC7ED8006ADABA /* AbstractOperation.swift in Sources */,
 				77CE387221FC7ED8006ADABA /* InjectOperationRPC.swift in Sources */,
