@@ -1,4 +1,4 @@
-osx_image: xcode10
+osx_image: xcode10.2
 language: swift
 cache:	
   directories:	
@@ -18,7 +18,7 @@ after_deploy:
 - pod trunk push --skip-import-validation --skip-tests --allow-warnings
 script:
 - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone
-  XS,OS=12.0' ONLY_ACTIVE_ARCH=YES | xcpretty
+  XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
 after_success:
 - slather
 - bash <(curl -s https://codecov.io/bash)
