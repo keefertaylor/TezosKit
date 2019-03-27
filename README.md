@@ -19,9 +19,7 @@ Donations help me find time to work on TezosKit. If you find the library useful,
 
 ## Functionality
 
-TezosKit supports querying both a Tezos node and a Conseil server.
-
-TezosKit provides first class support for the following Node RPCs:
+TezosKit provides first class support for the following RPCs:
 * Getting account balances
 * Getting data about the chain head
 * Getting account delegates 
@@ -33,9 +31,6 @@ TezosKit provides first class support for the following Node RPCs:
 * Originating accounts
 * Examining upgrade votes
 * Deploying / Examining / Calling smart contracts
-
-TezosKit also provides support for the following Conseil RPCs:
-* Retrieving account transactions
 
 The library is extensible allowing client code to easily create additional RPCs and signed operations, as required. 
 
@@ -238,14 +233,6 @@ nodeClient.getBalance(address: "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA").done { re
 } .catch { _ in
   print("Couldn't get balance.")
 }
-```
-
-### Conseil Queries
-
-Interact with a Conseil service using a `ConseilClient`:
-
-```swift
-TODO(keefertaylor): Write this
 ```
 
 ## Detailed Documentation

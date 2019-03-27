@@ -32,7 +32,6 @@ extension Wallet {
 
 extension URL {
   public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
-  public static let conseilURL = URL(string: "https://conseil-dev.cryptonomic-infra.tech:443")!
 }
 
 extension Double {
@@ -46,33 +45,16 @@ extension UInt32 {
 
 class TezosNodeIntegrationTests: XCTestCase {
   public var nodeClient = TezosNodeClient()
-  public var conseilClient = ConseilClient(remoteNodeURL: .conseilURL, network: .alphanet)
 
   public override func setUp() {
     super.setUp()
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 0
+    let intertestWaitTime: UInt32 = 30
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
-  }
-
-  public func testConseilTransaction() {
-    let expectation = XCTestExpectation(description: "completion called")
-    conseilClient.operations(for: Wallet.testWallet.address) { result in
-      switch result {
-      case .success(let data):
-        print(data)
-        expectation.fulfill()
-      case .failure(let error):
-        print(error)
-        XCTFail()
-      }
-    }
-
-    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testOrigination() {

@@ -52,14 +52,12 @@ public class AbstractClient {
       let payload = rpc.payload,
       let payloadData = payload.data(using: .utf8) {
       urlRequest.httpMethod = "POST"
-      urlRequest.setValue("hooman", forHTTPHeaderField: "apiKey")
       urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
     }
 
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
-      print(response)
       guard let self = self else {
         return
       }
