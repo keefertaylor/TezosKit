@@ -35,6 +35,8 @@
 		77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EA6224C392300DB4319 /* ConseilPlatform.swift */; };
 		77B69EA9224C39AC00DB4319 /* ConseilNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */; };
 		77B69EAB224C3A5300DB4319 /* GetSentTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */; };
+		77B69EAD224C424800DB4319 /* ConseilTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAC224C424800DB4319 /* ConseilTransaction.swift */; };
+		77B69EAF224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAE224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -205,6 +207,8 @@
 		77B69EA6224C392300DB4319 /* ConseilPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilPlatform.swift; sourceTree = "<group>"; };
 		77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilNetwork.swift; sourceTree = "<group>"; };
 		77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSentTransactionsRPC.swift; sourceTree = "<group>"; };
+		77B69EAC224C424800DB4319 /* ConseilTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilTransaction.swift; sourceTree = "<group>"; };
+		77B69EAE224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilTransactionResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -388,10 +392,11 @@
 			isa = PBXGroup;
 			children = (
 				77B69EA3224C38C700DB4319 /* ConseilClient.swift */,
-				77B69EAC224C424800DB4319 /* Transaction.swift */,
+				77B69EAC224C424800DB4319 /* ConseilTransaction.swift */,
 				77B69EA6224C392300DB4319 /* ConseilPlatform.swift */,
 				77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */,
 				77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */,
+				77B69EAE224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift */,
 			);
 			path = Conseil;
 			sourceTree = "<group>";
@@ -907,8 +912,9 @@
 				77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */,
 				77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */,
 				77CE387D21FC7ED8006ADABA /* TezosKitError.swift in Sources */,
-				77B69EAD224C424800DB4319 /* Transaction.swift in Sources */,
+				77B69EAD224C424800DB4319 /* ConseilTransaction.swift in Sources */,
 				77CE384821FC7ED8006ADABA /* DelegationOperation.swift in Sources */,
+				77B69EAF224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift in Sources */,
 				77CE387621FC7ED8006ADABA /* GetCurrentPeriodKindRPC.swift in Sources */,
 				77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */,
 				77B1EB06222A102500EA4FCE /* OperationWithCounter.swift in Sources */,
