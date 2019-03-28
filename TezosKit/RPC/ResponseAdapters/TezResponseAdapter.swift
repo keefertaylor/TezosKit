@@ -2,9 +2,7 @@
 
 import Foundation
 
-/**
- * Parse a given response as a string representing an amount of Tez.
- */
+/// Parse a given response as a string representing an amount of Tez.
 public class TezResponseAdapter: AbstractResponseAdapter<Tez> {
   public override class func parse(input: Data) -> Tez? {
     guard let balanceString = StringResponseAdapter.parse(input: input) else {

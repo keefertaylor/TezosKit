@@ -3,7 +3,7 @@
 // swiftlint:disable line_length
 
 /// An RPC which fetches sent transactions from an account.
-public class ConseilFetchSentTransactionRPC: RPC<[[String: Any]]> {
+public class ConseilFetchSentTransactionRPC: RPC<[ConseilTransaction]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
@@ -16,12 +16,12 @@ public class ConseilFetchSentTransactionRPC: RPC<[[String: Any]]> {
       Header.contentTypeApplicationJSON,
       Header(field: "apiKey", value: apiKey)
     ]
-    let payload = "{\"fields\": [\"timestamp\", \"source\", \"destination\", \"amount\", \"fee\"],\"predicates\": [{\"field\": \"kind\",\"set\": [\"transaction\"],\"operation\": \"eq\",\"inverse\": false}, {\"field\": \"source\",\"set\": [\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\"],\"operation\": \"eq\",\"inverse\": false}],\"orderBy\": [{\"field\": \"timestamp\",\"direction\": \"desc\"}],\"limit\": 100}"
+    let payload = "{\"fields\": [\"timestamp\", \"source\", \"destination\", \"amount\", \"fee\"],\"predicates\": [{\"field\": \"kind\",\"set\": [\"transaction\"],\"operation\": \"eq\",\"inverse\": false}, {\"field\": \"source\",\"set\": [\"\(account)\"],\"operation\": \"eq\",\"inverse\": false}],\"orderBy\": [{\"field\": \"timestamp\",\"direction\": \"desc\"}],\"limit\": \(limit)}"
 
     super.init(
       endpoint: endpoint,
       headers: headers,
-      responseAdapterClass: JSONArrayResponseAdapter.self,
+      responseAdapterClass: ConseilTransactionResponseAdapter.self,
       payload: payload
     )
   }
