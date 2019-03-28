@@ -37,14 +37,14 @@ public struct Tez {
   ///
   /// - Warning: Balances are accurate up to |decimalDigitCount| decimal places. Additional precision is dropped.
   public init(_ balance: Double) {
-    let integerValue = Int(balance)
+    let integerValue = BigInt(balance)
 
     // Convert decimalDigitCount significant digits of decimals into integers to avoid having to
     // deal with decimals.
     let multiplierDoubleValue = (pow(10, decimalDigitCount) as NSDecimalNumber).doubleValue
-    let multiplierIntValue = BigInt(pow(10, decimalDigitCount) as NSDecimalNumber).intValue)
+    let multiplierIntValue = (pow(10, decimalDigitCount) as NSDecimalNumber).intValue
     let significantDecimalDigitsAsInteger = BigInt(balance * multiplierDoubleValue)
-    let significantIntegerDigitsAsInteger = BigInt(integerValue * multiplierIntValue)
+    let significantIntegerDigitsAsInteger = BigInt(integerValue * BigInt(multiplierIntValue))
     let decimalValue = significantDecimalDigitsAsInteger - significantIntegerDigitsAsInteger
 
     integerAmount = String(integerValue)

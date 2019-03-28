@@ -55,7 +55,7 @@ public class ConseilClient: AbstractClient {
   public func transactionsSent(
     from account: String,
     limit: Int = 100,
-    completion: @escaping (Result<[ConseilTransaction], TezosKitError>) -> Void
+    completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
     let rpc = ConseilFetchSentTransactionRPC(
       account: account,

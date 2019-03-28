@@ -35,8 +35,9 @@
 		77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EA6224C392300DB4319 /* ConseilPlatform.swift */; };
 		77B69EA9224C39AC00DB4319 /* ConseilNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */; };
 		77B69EAB224C3A5300DB4319 /* FetchSentTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAA224C3A5300DB4319 /* FetchSentTransactionsRPC.swift */; };
-		77B69EAD224C424800DB4319 /* ConseilTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAC224C424800DB4319 /* ConseilTransaction.swift */; };
-		77B69EAF224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAE224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift */; };
+		77B69EAD224C424800DB4319 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAC224C424800DB4319 /* Transaction.swift */; };
+		77B69EAF224C435B00DB4319 /* TransactionsResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAE224C435B00DB4319 /* TransactionsResponseAdapter.swift */; };
+		77B69EB3224C5F4F00DB4319 /* TransactionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EB2224C5F4F00DB4319 /* TransactionTest.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -207,8 +208,9 @@
 		77B69EA6224C392300DB4319 /* ConseilPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilPlatform.swift; sourceTree = "<group>"; };
 		77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilNetwork.swift; sourceTree = "<group>"; };
 		77B69EAA224C3A5300DB4319 /* FetchSentTransactionsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSentTransactionsRPC.swift; sourceTree = "<group>"; };
-		77B69EAC224C424800DB4319 /* ConseilTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilTransaction.swift; sourceTree = "<group>"; };
-		77B69EAE224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilTransactionResponseAdapter.swift; sourceTree = "<group>"; };
+		77B69EAC224C424800DB4319 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		77B69EAE224C435B00DB4319 /* TransactionsResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsResponseAdapter.swift; sourceTree = "<group>"; };
+		77B69EB2224C5F4F00DB4319 /* TransactionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTest.swift; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -392,11 +394,11 @@
 			isa = PBXGroup;
 			children = (
 				77B69EA3224C38C700DB4319 /* ConseilClient.swift */,
-				77B69EAC224C424800DB4319 /* ConseilTransaction.swift */,
+				77B69EAC224C424800DB4319 /* Transaction.swift */,
 				77B69EA6224C392300DB4319 /* ConseilPlatform.swift */,
 				77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */,
 				77B69EAA224C3A5300DB4319 /* FetchSentTransactionsRPC.swift */,
-				77B69EAE224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift */,
+				77B69EAE224C435B00DB4319 /* TransactionsResponseAdapter.swift */,
 			);
 			path = Conseil;
 			sourceTree = "<group>";
@@ -591,6 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				77B69EB2224C5F4F00DB4319 /* TransactionTest.swift */,
 				77F4D267221CD44100D34B01 /* AbstractClientTest.swift */,
 				77B1EB07222A179F00EA4FCE /* OperationWithCounterTest.swift */,
 				77B1EAFF222A082B00EA4FCE /* OperationPayloadTest.swift */,
@@ -912,9 +915,9 @@
 				77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */,
 				77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */,
 				77CE387D21FC7ED8006ADABA /* TezosKitError.swift in Sources */,
-				77B69EAD224C424800DB4319 /* ConseilTransaction.swift in Sources */,
+				77B69EAD224C424800DB4319 /* Transaction.swift in Sources */,
 				77CE384821FC7ED8006ADABA /* DelegationOperation.swift in Sources */,
-				77B69EAF224C435B00DB4319 /* ConseilTransactionResponseAdapter.swift in Sources */,
+				77B69EAF224C435B00DB4319 /* TransactionsResponseAdapter.swift in Sources */,
 				77CE387621FC7ED8006ADABA /* GetCurrentPeriodKindRPC.swift in Sources */,
 				77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */,
 				77B1EB06222A102500EA4FCE /* OperationWithCounter.swift in Sources */,
@@ -939,6 +942,7 @@
 				77CE36EA21F7F49F006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				77CE36EC21F7F49F006ADABA /* GetChainHeadRPCTest.swift in Sources */,
 				77CE370221F7F49F006ADABA /* PreapplyOperationRPCTest.swift in Sources */,
+				77B69EB3224C5F4F00DB4319 /* TransactionTest.swift in Sources */,
 				77CE36F921F7F49F006ADABA /* GetAddressManagerKeyRPCTest.swift in Sources */,
 				77CE36F621F7F49F006ADABA /* GetBallotsListRPCTest.swift in Sources */,
 				77CE36E321F7F49F006ADABA /* GetChainHeadHashRPCTest.swift in Sources */,
