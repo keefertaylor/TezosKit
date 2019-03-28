@@ -1,5 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
+import BigInt
 import Foundation
 
 /// A model class representing a positive floating point amounty of Tez.
@@ -44,14 +45,14 @@ public struct Tez {
    * is dropped.
    */
   public init(_ balance: Double) {
-    let integerValue = Int(balance)
+    let integerValue = BigInt(balance)
 
     // Convert decimalDigitCount significant digits of decimals into integers to avoid having to
     // deal with decimals.
     let multiplierDoubleValue = (pow(10, decimalDigitCount) as NSDecimalNumber).doubleValue
     let multiplierIntValue = (pow(10, decimalDigitCount) as NSDecimalNumber).intValue
-    let significantDecimalDigitsAsInteger = Int(balance * multiplierDoubleValue)
-    let significantIntegerDigitsAsInteger = integerValue * multiplierIntValue
+    let significantDecimalDigitsAsInteger = BigInt(balance * multiplierDoubleValue)
+    let significantIntegerDigitsAsInteger = BigInt(integerValue * BigInt(multiplierIntValue))
     let decimalValue = significantDecimalDigitsAsInteger - significantIntegerDigitsAsInteger
 
     integerAmount = String(integerValue)
