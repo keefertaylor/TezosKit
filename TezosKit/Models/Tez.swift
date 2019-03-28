@@ -11,39 +11,28 @@ public struct Tez {
   /// The number of decimal places available in Tezos values.
   private let decimalDigitCount = 6
 
-  /**
-   * A string representing the integer amount of the balance.
-   * For instance, a balance of 123.456 would be represented in this field as "123".
-   */
+  /// A string representing the integer amount of the balance.
+  /// For instance, a balance of 123.456 would be represented in this field as "123".
   private let integerAmount: String
 
-  /**
-   * A string representing the decimal amount of the balance.
-   * For instance, a balance of 123.456 would be represented in this field as "456".
-   */
+  /// A string representing the decimal amount of the balance.
+  /// For instance, a balance of 123.456 would be represented in this field as "456".
   private let decimalAmount: String
 
-  /**
-   * A human readable representation of the given balance.
-   */
+  /// A human readable representation of the given balance.
   public var humanReadableRepresentation: String {
     return integerAmount + "." + decimalAmount
   }
 
-  /**
-   * A representation of the given balance for use in RPC requests.
-   */
+  /// A representation of the given balance for use in RPC requests.
   public var rpcRepresentation: String {
     // Trim any leading zeroes by converting to an Int.
     return (integerAmount + decimalAmount).replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
   }
 
-  /**
-   * Initialize a new balance from a given decimal number.
-   *
-   * - Warning: Balances are accurate up to |decimalDigitCount| decimal places. Additional precision
-   * is dropped.
-   */
+  /// Initialize a new balance from a given decimal number.
+  ///
+  /// - Warning: Balances are accurate up to |decimalDigitCount| decimal places. Additional precision is dropped.
   public init(_ balance: Double) {
     let integerValue = BigInt(balance)
 
@@ -67,9 +56,7 @@ public struct Tez {
     decimalAmount = paddedDecimalAmount
   }
 
-  /**
-   * Initialize a new balance from an RPC representation of a balance.
-   */
+  /// Initialize a new balance from an RPC representation of a balance.
   public init?(_ balance: String) {
     // Make sure the given string only contains digits.
     guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: balance)) else {
