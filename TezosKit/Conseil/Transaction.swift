@@ -3,7 +3,15 @@
 import Foundation
 
 /// A transaction retrieved from Conseil.
-public struct ConseilTransaction {
+public struct Transaction {
+  public enum JSONKeys {
+    public static let source = "source"
+    public static let destination = "destination"
+    public static let amount = "amount"
+    public static let fee = "fee"
+    public static let timestamp = "timestamp"
+  }
+
   public let source: String
   public let destination: String
   public let amount: Tez
@@ -11,11 +19,11 @@ public struct ConseilTransaction {
   public let timestamp: TimeInterval
 
   public init?(_ json: [String: Any]) {
-    guard let source = json["source"] as? String,
-          let destination = json["destination"] as? String,
-          let amount = json["amount"] as? Double,
-          let fee = json["fee"] as? Double,
-          let timestamp = json["timestamp"] as? TimeInterval else {
+    guard let source = json[Transaction.JSONKeys.source] as? String,
+          let destination = json[Transaction.JSONKeys.destination] as? String,
+          let amount = json[Transaction.JSONKeys.amount] as? Double,
+          let fee = json[Transaction.JSONKeys.fee] as? Double,
+          let timestamp = json[Transaction.JSONKeys.timestamp] as? TimeInterval else {
             return nil
     }
     self.init(source: source, destination: destination, amount: Tez(amount), fee: Tez(fee), timestamp: timestamp)

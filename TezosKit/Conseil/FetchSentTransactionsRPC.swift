@@ -3,7 +3,7 @@
 // swiftlint:disable line_length
 
 /// An RPC which fetches sent transactions from an account.
-public class ConseilFetchSentTransactionRPC: RPC<[ConseilTransaction]> {
+public class ConseilFetchSentTransactionRPC: RPC<[Transaction]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
@@ -21,7 +21,7 @@ public class ConseilFetchSentTransactionRPC: RPC<[ConseilTransaction]> {
     super.init(
       endpoint: endpoint,
       headers: headers,
-      responseAdapterClass: ConseilTransactionResponseAdapter.self,
+      responseAdapterClass: TransactionsResponseAdapter.self,
       payload: payload
     )
   }
