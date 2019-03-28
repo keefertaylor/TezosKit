@@ -31,6 +31,10 @@
 		77B1EB04222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EB03222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift */; };
 		77B1EB06222A102500EA4FCE /* OperationWithCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EB05222A102500EA4FCE /* OperationWithCounter.swift */; };
 		77B1EB08222A179F00EA4FCE /* OperationWithCounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EB07222A179F00EA4FCE /* OperationWithCounterTest.swift */; };
+		77B69EA4224C38C700DB4319 /* ConseilClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EA3224C38C700DB4319 /* ConseilClient.swift */; };
+		77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EA6224C392300DB4319 /* ConseilPlatform.swift */; };
+		77B69EA9224C39AC00DB4319 /* ConseilNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */; };
+		77B69EAB224C3A5300DB4319 /* GetSentTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -197,6 +201,10 @@
 		77B1EB03222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedProtocolOperationPayload.swift; sourceTree = "<group>"; };
 		77B1EB05222A102500EA4FCE /* OperationWithCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationWithCounter.swift; sourceTree = "<group>"; };
 		77B1EB07222A179F00EA4FCE /* OperationWithCounterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationWithCounterTest.swift; sourceTree = "<group>"; };
+		77B69EA3224C38C700DB4319 /* ConseilClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClient.swift; sourceTree = "<group>"; };
+		77B69EA6224C392300DB4319 /* ConseilPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilPlatform.swift; sourceTree = "<group>"; };
+		77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilNetwork.swift; sourceTree = "<group>"; };
+		77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSentTransactionsRPC.swift; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -376,6 +384,17 @@
 			path = Payload;
 			sourceTree = "<group>";
 		};
+		77B69EA5224C38CD00DB4319 /* Conseil */ = {
+			isa = PBXGroup;
+			children = (
+				77B69EA3224C38C700DB4319 /* ConseilClient.swift */,
+				77B69EA6224C392300DB4319 /* ConseilPlatform.swift */,
+				77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */,
+				77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */,
+			);
+			path = Conseil;
+			sourceTree = "<group>";
+		};
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +450,7 @@
 			children = (
 				77CE388021FC7EED006ADABA /* Info.plist */,
 				77CE387F21FC7EED006ADABA /* TezosKit.h */,
+				77B69EA5224C38CD00DB4319 /* Conseil */,
 				77DEB6E322373AFD00E4733D /* Core */,
 				77CE384421FC7ED8006ADABA /* Client */,
 				77CE380621FC7ED7006ADABA /* Operation */,
@@ -834,6 +854,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77B69EA4224C38C700DB4319 /* ConseilClient.swift in Sources */,
 				77CE386B21FC7ED8006ADABA /* IntegerResponseAdapter.swift in Sources */,
 				77CE385B21FC7ED8006ADABA /* OperationMetadata.swift in Sources */,
 				77CE387A21FC7ED8006ADABA /* PreapplyOperationRPC.swift in Sources */,
@@ -851,10 +872,13 @@
 				77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */,
 				77CE386F21FC7ED8006ADABA /* JSONArrayResponseAdapter.swift in Sources */,
 				77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */,
+				77B69EA9224C39AC00DB4319 /* ConseilNetwork.swift in Sources */,
 				77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */,
 				77CE386521FC7ED8006ADABA /* GetAddressCodeRPC.swift in Sources */,
+				77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */,
 				7794E97B224C2518000D9F1E /* Header.swift in Sources */,
 				77CE385921FC7ED8006ADABA /* Tez.swift in Sources */,
+				77B69EAB224C3A5300DB4319 /* GetSentTransactionsRPC.swift in Sources */,
 				77CE385F21FC7ED8006ADABA /* ContractCode.swift in Sources */,
 				77CE386821FC7ED8006ADABA /* ResponseAdapter.swift in Sources */,
 				77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */,
