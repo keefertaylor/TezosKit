@@ -210,7 +210,7 @@
 		77B69EA6224C392300DB4319 /* ConseilPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilPlatform.swift; sourceTree = "<group>"; };
 		77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilNetwork.swift; sourceTree = "<group>"; };
 		77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSentTransactionsRPC.swift; sourceTree = "<group>"; };
-		77B69EAC224C424800DB4319 /* ConseilTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 		77B69EAC224C424800DB4319 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		77B69EAC224C424800DB4319 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		77B69EAE224C435B00DB4319 /* TransactionsResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsResponseAdapter.swift; sourceTree = "<group>"; };
 		77B69EB2224C5F4F00DB4319 /* TransactionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTest.swift; sourceTree = "<group>"; };
 		77B69EB4224C641500DB4319 /* TransactionsResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsResponseAdapterTest.swift; sourceTree = "<group>"; };

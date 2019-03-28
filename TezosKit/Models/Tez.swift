@@ -1,6 +1,5 @@
 // Copyright Keefer Taylor, 2018
 
-
 import BigInt
 import Foundation
 
