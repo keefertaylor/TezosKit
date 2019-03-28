@@ -48,11 +48,6 @@ final class TransactionTest: XCTestCase {
   }
 
   func testInValidTransaction_badInput() {
-    let source = "tz1abc"
-    let destination = "tz1xyz"
-    let amount = Tez(10.0)
-    let timestamp: TimeInterval = 1_234_567
-
     let jsonDict: [String: Any] = [
       "publicKey": "edpk123xyz",
       "kind": "reveal"
