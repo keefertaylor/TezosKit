@@ -16,7 +16,9 @@ public class ConseilFetchSentTransactionRPC: RPC<[[String: Any]]> {
       Header.contentTypeApplicationJSON,
       Header(field: "apiKey", value: apiKey)
     ]
-    let payload = "{\"fields\": [\"timestamp\", \"source\", \"destination\", \"amount\", \"fee\"],\"predicates\": [{\"field\": \"kind\",\"set\": [\"transaction\"],\"operation\": \"eq\",\"inverse\": false}, {\"field\": \"source\",\"set\": [\"\(account)\"],\"operation\": \"eq\",\"inverse\": false}],\"orderBy\": [{\"field\": \"timestamp\",\"direction\": \"desc\"}],\"limit\": \(limit)}"
+    let payload = """
+      {"fields": [],"predicates": [{"field": "kind","set": ["transaction"],"operation": "eq","inverse": false}, {"field": "source","set": ["\(account)"],"operation": "eq","inverse": false}],"orderBy": [{"field": "timestamp","direction": "desc"}],"limit": \(limit)}
+    """
 
     super.init(
       endpoint: endpoint,
