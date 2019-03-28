@@ -10,8 +10,16 @@ public class GetSentTransactionsRPC: RPC<[[String: Any]]> {
   ///   - apiKey: The API key to send in the request headers.
   ///   - platform: The platform to query.
   ///   - network: The network to query.
-  public init(account: String, limit: Int, apiKey: String, platform: ConseilPlatform, network: ConseilNetwork) {
-    let endpoint = "/v2/data/" + platform.rawValue + "/" + network.rawValue + "/operations"
+  public init?(account: String, limit: Int, apiKey: String, platform: ConseilPlatform, network: ConseilNetwork) {
+    guard let escapedPlatform = platform.rawValue.addingPercentEncoding(
+                withAllowedCharacters: CharacterSet.urlQueryAllowed
+          ),
+          let escapedNetwork = network.rawValue.addingPercentEncoding(
+                withAllowedCharacters: CharacterSet.urlQueryAllowed
+      ) else {
+        return nil
+    }
+    let endpoint = "/v2/data/\(escapedPlatform)/\(escapedNetwork)/operations"
     let headers = [
       Header.contentTypeApplicationJSON,
       Header(field: "apiKey", value: apiKey)

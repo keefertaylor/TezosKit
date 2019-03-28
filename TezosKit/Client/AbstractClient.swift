@@ -15,7 +15,7 @@ public class AbstractClient {
   private let responseHandler: RPCResponseHandler
 
   /// The queue that callbacks from requests will be made on.
-  private let callbackQueue: DispatchQueue
+  internal let callbackQueue: DispatchQueue
 
   /// Initialize a new AbstractNetworkClient.
   /// - Parameters:

@@ -57,13 +57,18 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
-    let rpc = ConseilFetchSentTransactionRPC(
+    guard let rpc = GetSentTransactionsRPC(
       account: account,
       limit: limit,
       apiKey: apiKey,
       platform: platform,
       network: network
-    )
+    ) else {
+      self.callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
+      }
+      return
+    }
     send(rpc, completion: completion)
   }
 }
