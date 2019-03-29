@@ -1,7 +1,5 @@
 // Copyright Keefer Taylor, 2019.
 
-// swiftlint:disable line_length
-
 /// An RPC which fetches sent transactions from an account.
 public class GetSentTransactionsRPC: RPC<[Transaction]> {
   /// - Parameters:
@@ -25,38 +23,12 @@ public class GetSentTransactionsRPC: RPC<[Transaction]> {
       Header(field: "apiKey", value: apiKey)
     ]
 
-    let payload: [String: Any] = [
-      "fields": [],
-      "predicates": [
-        [
-          "field": "kind",
-          "set": [
-            "transaction"
-          ],
-          "operation": "eq",
-          "inverse": false
-        ],
-        [
-          "field": "source",
-          "set": [
-            "\(account)"
-          ],
-          "operation": "eq",
-          "inverse": false
-        ]
-      ],
-      "orderBy": [
-        [
-          "field": "timestamp",
-          "direction": "desc"
-        ]
-      ],
-      "limit": "\(limit)"
+    let predicates: [ConseilPredicate] = [
+      ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
+      ConseilQuery.Predicates.predicateWith(field: "source", set: [account])
     ]
-
-//    let payload = """
-//      {"fields": [],"predicates": [{"field": "kind","set": ["transaction"],"operation": "eq","inverse": false}, {"field": "source","set": ["\(account)"],"operation": "eq","inverse": false}],"orderBy": [{"field": "timestamp","direction": "desc"}],"limit": \(limit)}
-//    """
+    let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
+    let payload: [String: Any] = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
 
     super.init(
       endpoint: endpoint,
