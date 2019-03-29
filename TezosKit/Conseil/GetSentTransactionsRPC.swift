@@ -3,7 +3,7 @@
 // swiftlint:disable line_length
 
 /// An RPC which fetches sent transactions from an account.
-public class GetSentTransactionsRPC: RPC<[[String: Any]]> {
+public class GetSentTransactionsRPC: RPC<[Transaction]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
@@ -31,7 +31,7 @@ public class GetSentTransactionsRPC: RPC<[[String: Any]]> {
     super.init(
       endpoint: endpoint,
       headers: headers,
-      responseAdapterClass: JSONArrayResponseAdapter.self,
+      responseAdapterClass: TransactionsResponseAdapter.self,
       payload: payload
     )
   }
