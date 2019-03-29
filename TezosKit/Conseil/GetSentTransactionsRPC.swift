@@ -24,15 +24,45 @@ public class GetSentTransactionsRPC: RPC<[Transaction]> {
       Header.contentTypeApplicationJSON,
       Header(field: "apiKey", value: apiKey)
     ]
-    let payload = """
-      {"fields": [],"predicates": [{"field": "kind","set": ["transaction"],"operation": "eq","inverse": false}, {"field": "source","set": ["\(account)"],"operation": "eq","inverse": false}],"orderBy": [{"field": "timestamp","direction": "desc"}],"limit": \(limit)}
-    """
+
+    let payload: [String: Any] = [
+      "fields": [],
+      "predicates": [
+        [
+          "field": "kind",
+          "set": [
+            "transaction"
+          ],
+          "operation": "eq",
+          "inverse": false
+        ],
+        [
+          "field": "source",
+          "set": [
+            "\(account)"
+          ],
+          "operation": "eq",
+          "inverse": false
+        ]
+      ],
+      "orderBy": [
+        [
+          "field": "timestamp",
+          "direction": "desc"
+        ]
+      ],
+      "limit": "\(limit)"
+    ]
+
+//    let payload = """
+//      {"fields": [],"predicates": [{"field": "kind","set": ["transaction"],"operation": "eq","inverse": false}, {"field": "source","set": ["\(account)"],"operation": "eq","inverse": false}],"orderBy": [{"field": "timestamp","direction": "desc"}],"limit": \(limit)}
+//    """
 
     super.init(
       endpoint: endpoint,
       headers: headers,
       responseAdapterClass: TransactionsResponseAdapter.self,
-      payload: payload
+      payload: JSONUtils.jsonString(for: payload)
     )
   }
 }
