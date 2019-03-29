@@ -20,6 +20,7 @@ public class ConseilClient: AbstractClient {
   private let apiKey: String
 
   /// Initialize a new client for a Conseil Service.
+  ///
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote Conseil service.
   ///   - apiKey: The API key for the remote Conseil service.
@@ -47,7 +48,58 @@ public class ConseilClient: AbstractClient {
     )
   }
 
+  /// Retrieve sent and received transactions from an account.
+  ///
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of transactions to return, defaults to 100.
+  ///   - completion: A completion callback.
+  public func transactions(
+    from account: String,
+    limit: Int = 100,
+    completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
+  ) {
+    let transactionsDispatchGroup = DispatchGroup()
+
+    // Fetch sent transactions.
+    transactionsDispatchGroup.enter()
+    var receivedResult: Result<[Transaction], TezosKitError>? = nil
+    self.transactionsReceived(from: account, limit: limit) { result in
+      receivedResult = result
+      transactionsDispatchGroup.enter()
+    }
+
+    // Fetch received transactions.
+    transactionsDispatchGroup.enter()
+    var sentResult: Result<[Transaction], TezosKitError>? = nil
+    self.transactionsReceived(from: account, limit: limit) { result in
+      sentResult = result
+      transactionsDispatchGroup.enter()
+    }
+
+    transactionsDispatchGroup.wait()
+
+    /// If:
+    /// - Any input is nil, return error
+    /// - Both are successful, return a result with the concatenation
+    /// - If one is failed, return the failed error
+    /// - If both failed, return an error from a.
+    func combineResults<T>(a: Result<Array<T>, TezosKitError>?, b: Result<Array<T>, TezosKitError>?) -> Result<Array<T>, TezosKitError> {
+      guard let a = a,
+            let b = b else {
+          return .failure(TezosKitError(kind: .unknown))
+      }
+
+      return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<Array<T>, TezosKitError> in
+        if case .failure(_) = nextPartial {
+          return nextPartial
+        }
+        return nextPartial
+      }
+    }
+  }
   /// Retrieve transactions received from an account.
+  ///
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of transactions to return, defaults to 100.
@@ -73,6 +125,7 @@ public class ConseilClient: AbstractClient {
   }
 
   /// Retrieve transactions sent from an account.
+  ///
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of transactions to return, defaults to 100.
@@ -97,3 +150,39 @@ public class ConseilClient: AbstractClient {
     send(rpc, completion: completion)
   }
 }
+
+//extension Array where Element == Result<Any, TezosKitError> {
+//  public func reduce<T>(
+//    initialResult: Result<T, TezosKitError>,
+//    fn: (Result<T, TezosKitError>, Result<T, TezosKitError>) -> Result<T, TezosKitError>
+//    ) -> Result<T, TezosKitError> {
+//
+//    workingResult: Result<T, TezosKitError>, nextPartial: Result<T, TezosKitError>) {
+//    if case .failure(_) = workingResult {
+//      return workingResult
+//    }
+////
+//    guard case let .success(metadata) = result else {
+//      completion(
+//        result.map { _ in [:] }
+//      )
+//      return
+//    }
+//
+//    guard case let
+//
+//
+//    // If the result is already an error, ditch out and go with that.
+//    switch workingResult {
+//    case .success(let data):
+//      switch nextPartial {
+//      case .success(let nextData):
+//
+//      }
+//
+//
+//    case .failure:
+//      return workingResult
+////    }
+//  }
+//}
