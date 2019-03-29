@@ -15,7 +15,7 @@ import XCTest
 /// - Insufficient balance in account.
 /// - Adverse network conditions.
 ///
-/// Before running the tests, you should make sure that there's sufficient XTZ (~1XTZ) in the test account, which is:
+/// Before running the tests, you should make sure that there's sufficient XTZ (~100XTZ) in the test account, which is:
 /// https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 ///
 /// You can check the balance of the account at:
@@ -51,10 +51,28 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
+    let intertestWaitTime: UInt32 = 0
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
+  }
+
+  public func testConseil() {
+    let apiKey = "hooman"
+    let remoteNodeURL = URL(string: "https://conseil-dev.cryptonomic-infra.tech:443")!
+    let conseilClient = ConseilClient(remoteNodeURL: remoteNodeURL, apiKey: apiKey, network: .alphanet)
+
+    let expectation = XCTestExpectation(description: "completion called")
+    conseilClient.transactionsSent(from: Wallet.testWallet.address) { result in
+      switch result {
+      case .success(let result):
+        print(result)
+        expectation.fulfill()
+      case .failure:
+        XCTFail()
+      }
+    }
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testOrigination() {
