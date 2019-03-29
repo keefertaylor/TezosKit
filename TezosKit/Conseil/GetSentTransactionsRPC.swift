@@ -23,11 +23,11 @@ public class GetSentTransactionsRPC: RPC<[Transaction]> {
       Header(field: "apiKey", value: apiKey)
     ]
 
-    let predicates: [ConseilPredicate] = [
+    let predicates = [
       ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
       ConseilQuery.Predicates.predicateWith(field: "source", set: [account])
     ]
-    let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
+    let orderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
     let payload: [String: Any] = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
 
     super.init(

@@ -21,7 +21,7 @@ public enum ConseilQuery: String {
     public static func predicateWith(
       field: String,
       set: [String],
-      operation: ConseilQuery.Predicates.Operation = ConseilQuery.Predicates.Operation.equal,
+      operation: ConseilQuery.Predicates.Operation = .equal,
       inverse: Bool = false
     ) -> ConseilPredicate {
       return [
@@ -44,7 +44,7 @@ public enum ConseilQuery: String {
 
     public static func orderBy(
       field: String,
-      direction: ConseilQuery.OrderBy.Direction = ConseilQuery.OrderBy.Direction.descending
+      direction: ConseilQuery.OrderBy.Direction = .descending
     ) -> ConseilOrderBy {
       return [
         ConseilQuery.OrderBy.field.rawValue: field,
