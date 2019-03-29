@@ -70,6 +70,5 @@ public class ConseilClient: AbstractClient {
       return
     }
     send(rpc, completion: completion)
-//    send(rpc, completion: completion)
   }
 }

@@ -57,24 +57,6 @@ class TezosNodeIntegrationTests: XCTestCase {
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
   }
 
-  public func testConseil() {
-    let apiKey = "hooman"
-    let remoteNodeURL = URL(string: "https://conseil-dev.cryptonomic-infra.tech:443")!
-    let conseilClient = ConseilClient(remoteNodeURL: remoteNodeURL, apiKey: apiKey, network: .alphanet)
-
-    let expectation = XCTestExpectation(description: "completion called")
-    conseilClient.transactionsSent(from: Wallet.testWallet.address) { result in
-      switch result {
-      case .success(let result):
-        print(result)
-        expectation.fulfill()
-      case .failure:
-        XCTFail()
-      }
-    }
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
-
   public func testOrigination() {
     let expectation = XCTestExpectation(description: "completion called")
 
