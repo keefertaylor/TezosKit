@@ -14,8 +14,8 @@ final class TransactionTest: XCTestCase {
     let jsonDict: [String: Any] = [
       Transaction.JSONKeys.source: source,
       Transaction.JSONKeys.destination: destination,
-      Transaction.JSONKeys.amount: Double(amount.humanReadableRepresentation)!,
-      Transaction.JSONKeys.fee: Double(fee.humanReadableRepresentation)!,
+      Transaction.JSONKeys.amount: Int(amount.rpcRepresentation)!,
+      Transaction.JSONKeys.fee: Int(fee.rpcRepresentation)!,
       Transaction.JSONKeys.timestamp: timestamp
     ]
 

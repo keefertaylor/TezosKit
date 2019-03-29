@@ -14,15 +14,15 @@ class TransactionsResponseAdapterTest: XCTestCase {
     let validTransaction: [String: Any] = [
       Transaction.JSONKeys.source: source,
       Transaction.JSONKeys.destination: destination,
-      Transaction.JSONKeys.amount: Double(amount.humanReadableRepresentation)!,
-      Transaction.JSONKeys.fee: Double(fee.humanReadableRepresentation)!,
+      Transaction.JSONKeys.amount: Double(amount.rpcRepresentation)!,
+      Transaction.JSONKeys.fee: Double(fee.rpcRepresentation)!,
       Transaction.JSONKeys.timestamp: timestamp
     ]
 
     let transactionWithMissingField: [String: Any] = [
       Transaction.JSONKeys.source: source,
       Transaction.JSONKeys.destination: destination,
-      Transaction.JSONKeys.amount: Double(amount.humanReadableRepresentation)!,
+      Transaction.JSONKeys.amount: Double(amount.rpcRepresentation)!,
       Transaction.JSONKeys.timestamp: timestamp
     ]
 

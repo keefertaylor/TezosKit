@@ -21,12 +21,22 @@ public struct Transaction {
   public init?(_ json: [String: Any]) {
     guard let source = json[Transaction.JSONKeys.source] as? String,
           let destination = json[Transaction.JSONKeys.destination] as? String,
-          let amount = json[Transaction.JSONKeys.amount] as? Double,
-          let fee = json[Transaction.JSONKeys.fee] as? Double,
+          let rawAmount = json[Transaction.JSONKeys.amount] as? Int,
+          let rawFee = json[Transaction.JSONKeys.fee] as? Int,
+          let fee = Tez(String(describing: rawFee)),
+          let amount = Tez(String(describing: rawAmount)),
           let timestamp = json[Transaction.JSONKeys.timestamp] as? TimeInterval else {
             return nil
     }
-    self.init(source: source, destination: destination, amount: Tez(amount), fee: Tez(fee), timestamp: timestamp)
+
+    self.init(
+      source: source,
+      destination:
+      destination,
+      amount: amount,
+      fee: fee,
+      timestamp: timestamp
+    )
   }
 
   public init(source: String, destination: String, amount: Tez, fee: Tez, timestamp: TimeInterval) {
