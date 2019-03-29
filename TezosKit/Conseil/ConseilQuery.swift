@@ -33,7 +33,7 @@ public enum ConseilQuery: String {
     }
   }
 
-  case orderBy
+  case orderBy = "orderby"
   public enum OrderBy: String {
     case field
     case direction
