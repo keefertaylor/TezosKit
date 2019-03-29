@@ -8,6 +8,8 @@
 /// - Integration Tests
 /// - Updating documentation
 
+// swiftlint:disable todo
+
 /// A client for a Conseil Server.
 public class ConseilClient: AbstractClient {
   /// The platfom that this client will query.
@@ -91,11 +93,27 @@ public class ConseilClient: AbstractClient {
       }
 
       return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<Array<T>, TezosKitError> in
-        if case .failure(_) = nextPartial {
+        // If there is a failure, keep returning a failure.
+        guard case let .success(accumulatedArray) = nextPartial else {
+          return accumulated
+        }
+
+        switch nextPartial {
+        case .success(let nextPartialArray):
+          return .success(accumulatedArray + nextPartialArray)
+        case .failure:
           return nextPartial
         }
-        return nextPartial
       }
+    }
+
+    let combinedResult = combineResults(a: receivedResult, b: sentResult)
+    switch (combinedResult) {
+    case .success(let combined):
+      // TODO: correctly thread
+      completion(.success(combined.sorted { $0.timestamp < $1.timestamp }))
+    case .failure:
+      completion(combinedResult)
     }
   }
   /// Retrieve transactions received from an account.
