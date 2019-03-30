@@ -36,3 +36,9 @@ extension TezosKitError: LocalizedError {
     }
   }
 }
+
+extension TezosKitError: Equatable {
+  public static func == (lhs: TezosKitError, rhs: TezosKitError) -> Bool {
+    return lhs.kind == rhs.kind && lhs.underlyingError == rhs.underlyingError
+  }
+}

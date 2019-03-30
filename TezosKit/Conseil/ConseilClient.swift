@@ -78,36 +78,12 @@ public class ConseilClient: AbstractClient {
       sentResult = result
       transactionsDispatchGroup.enter()
     }
-
     transactionsDispatchGroup.wait()
 
-    /// If:
-    /// - Any input is nil, return error
-    /// - Both are successful, return a result with the concatenation
-    /// - If one is failed, return the failed error
-    /// - If both failed, return an error from a.
-    func combineResults<T>(a: Result<Array<T>, TezosKitError>?, b: Result<Array<T>, TezosKitError>?) -> Result<Array<T>, TezosKitError> {
-      guard let a = a,
-            let b = b else {
-          return .failure(TezosKitError(kind: .unknown))
-      }
-
-      return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<Array<T>, TezosKitError> in
-        // If there is a failure, keep returning a failure.
-        guard case let .success(accumulatedArray) = nextPartial else {
-          return accumulated
-        }
-
-        switch nextPartial {
-        case .success(let nextPartialArray):
-          return .success(accumulatedArray + nextPartialArray)
-        case .failure:
-          return nextPartial
-        }
-      }
+    guard let combinedResult = ConseilClient.combine(receivedResult, sentResult) else {
+      completion(.failure(TezosKitError(kind: .unknown)))
+      return
     }
-
-    let combinedResult = combineResults(a: receivedResult, b: sentResult)
     switch (combinedResult) {
     case .success(let combined):
       // TODO: correctly thread
@@ -126,7 +102,7 @@ public class ConseilClient: AbstractClient {
     from account: String,
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
-    ) {
+  ) {
     guard let rpc = GetReceivedTransactionsRPC(
       account: account,
       limit: limit,
@@ -166,6 +142,40 @@ public class ConseilClient: AbstractClient {
       return
     }
     send(rpc, completion: completion)
+  }
+
+  // MARK: - Private Methods
+
+  /// If:
+  /// - Any input is nil, return error
+  /// - Both are successful, return a result with the concatenation
+  /// - If one is failed, return the failed error
+  /// - If both failed, return an error from a.
+  internal static func combine<T>(
+    _ a: Result<Array<T>, TezosKitError>?,
+    _ b: Result<Array<T>, TezosKitError>?
+  ) -> Result<Array<T>, TezosKitError>? {
+    guard let a = a,
+          let b = b else {
+        return nil
+    }
+    return combineResults(a, b)
+  }
+
+  internal static func combineResults<T>(_ a: Result<Array<T>, TezosKitError>, _ b: Result<Array<T>, TezosKitError>) -> Result<Array<T>, TezosKitError> {
+    return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<Array<T>, TezosKitError> in
+      // If there is a failure, keep returning a failure.
+      guard case let .success(accumulatedArray) = accumulated else {
+        return accumulated
+      }
+
+      switch nextPartial {
+      case .success(let nextPartialArray):
+        return .success(accumulatedArray + nextPartialArray)
+      case .failure:
+        return nextPartial
+      }
+    }
   }
 }
 
