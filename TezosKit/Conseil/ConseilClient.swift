@@ -61,6 +61,7 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
+    DispatchQueue.global(qos: .userInitiated).async {
     let transactionsDispatchGroup = DispatchGroup()
 
     // Fetch sent transactions.
@@ -68,20 +69,20 @@ public class ConseilClient: AbstractClient {
     var receivedResult: Result<[Transaction], TezosKitError>? = nil
     self.transactionsReceived(from: account, limit: limit) { result in
       receivedResult = result
-      transactionsDispatchGroup.enter()
+      transactionsDispatchGroup.leave()
     }
 
     // Fetch received transactions.
     transactionsDispatchGroup.enter()
     var sentResult: Result<[Transaction], TezosKitError>? = nil
-    self.transactionsReceived(from: account, limit: limit) { result in
+    self.transactionsSent(from: account, limit: limit) { result in
       sentResult = result
-      transactionsDispatchGroup.enter()
+      transactionsDispatchGroup.leave()
     }
     transactionsDispatchGroup.wait()
 
     guard let combinedResult = ConseilClient.combine(receivedResult, sentResult) else {
-      callbackQueue.async {
+      self.callbackQueue.async {
         completion(.failure(TezosKitError(kind: .unknown)))
       }
       return
@@ -91,13 +92,14 @@ public class ConseilClient: AbstractClient {
       // Sort the combined results and trim down to the limit.
       let sorted = combined.sorted { $0.timestamp < $1.timestamp }
       let trimmed = Array(sorted.prefix(limit))
-      callbackQueue.async {
+      self.callbackQueue.async {
         completion(.success(trimmed))
       }
     case .failure:
-      callbackQueue.async {
+      self.callbackQueue.async {
         completion(combinedResult)
       }
+    }
     }
   }
   /// Retrieve transactions received from an account.
