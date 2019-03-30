@@ -81,15 +81,23 @@ public class ConseilClient: AbstractClient {
     transactionsDispatchGroup.wait()
 
     guard let combinedResult = ConseilClient.combine(receivedResult, sentResult) else {
-      completion(.failure(TezosKitError(kind: .unknown)))
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .unknown)))
+      }
       return
     }
     switch (combinedResult) {
     case .success(let combined):
-      // TODO: correctly thread
-      completion(.success(combined.sorted { $0.timestamp < $1.timestamp }))
+      // Sort the combined results and trim down to the limit.
+      let sorted = combined.sorted { $0.timestamp < $1.timestamp }
+      let trimmed = Array(sorted.prefix(limit))
+      callbackQueue.async {
+        completion(.success(trimmed))
+      }
     case .failure:
-      completion(combinedResult)
+      callbackQueue.async {
+        completion(combinedResult)
+      }
     }
   }
   /// Retrieve transactions received from an account.
