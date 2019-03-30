@@ -2,13 +2,9 @@
 
 /// Conseil Client is a WIP.
 /// Remaining Work:
-/// - Support for query parameters
-/// - First class respoonse objects
 /// - Promises Extension
 /// - Integration Tests
 /// - Updating documentation
-
-// swiftlint:disable todo
 
 /// A client for a Conseil Server.
 public class ConseilClient: AbstractClient {
@@ -156,11 +152,9 @@ public class ConseilClient: AbstractClient {
 
   // MARK: - Private Methods
 
-  /// If:
-  /// - Any input is nil, return error
-  /// - Both are successful, return a result with the concatenation
-  /// - If one is failed, return the failed error
-  /// - If both failed, return an error from a.
+  /// Combine the result of two optional results.
+  ///
+  /// Returns nil if either optional is nil, otherwise, returns the result of combining.
   internal static func combine<T>(
     _ a: Result<Array<T>, TezosKitError>?,
     _ b: Result<Array<T>, TezosKitError>?
@@ -172,7 +166,13 @@ public class ConseilClient: AbstractClient {
     return combineResults(a, b)
   }
 
-  internal static func combineResults<T>(_ a: Result<Array<T>, TezosKitError>, _ b: Result<Array<T>, TezosKitError>) -> Result<Array<T>, TezosKitError> {
+  /// Combine two array results.
+  ///
+  /// If any result is .failure, then that failure is returned. If both results are failures, return failureA.
+  internal static func combineResults<T>(
+    _ a: Result<Array<T>, TezosKitError>,
+    _ b: Result<Array<T>, TezosKitError>
+  ) -> Result<Array<T>, TezosKitError> {
     return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<Array<T>, TezosKitError> in
       // If there is a failure, keep returning a failure.
       guard case let .success(accumulatedArray) = accumulated else {
@@ -188,39 +188,3 @@ public class ConseilClient: AbstractClient {
     }
   }
 }
-
-//extension Array where Element == Result<Any, TezosKitError> {
-//  public func reduce<T>(
-//    initialResult: Result<T, TezosKitError>,
-//    fn: (Result<T, TezosKitError>, Result<T, TezosKitError>) -> Result<T, TezosKitError>
-//    ) -> Result<T, TezosKitError> {
-//
-//    workingResult: Result<T, TezosKitError>, nextPartial: Result<T, TezosKitError>) {
-//    if case .failure(_) = workingResult {
-//      return workingResult
-//    }
-////
-//    guard case let .success(metadata) = result else {
-//      completion(
-//        result.map { _ in [:] }
-//      )
-//      return
-//    }
-//
-//    guard case let
-//
-//
-//    // If the result is already an error, ditch out and go with that.
-//    switch workingResult {
-//    case .success(let data):
-//      switch nextPartial {
-//      case .success(let nextData):
-//
-//      }
-//
-//
-//    case .failure:
-//      return workingResult
-////    }
-//  }
-//}

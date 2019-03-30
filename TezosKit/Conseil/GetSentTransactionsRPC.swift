@@ -9,12 +9,12 @@ public class GetSentTransactionsRPC: ConseilQueryRPC<[Transaction]> {
   ///   - platform: The platform to query.
   ///   - network: The network to query.
   public init?(account: String, limit: Int, apiKey: String, platform: ConseilPlatform, network: ConseilNetwork) {
-    let predicates: [ConseilPredicate] = [
+    let predicates = [
       ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
       ConseilQuery.Predicates.predicateWith(field: "source", set: [account])
     ]
-    let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
-    let query: [String: Any] = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
+    let orderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
+    let query = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
 
     super.init(
       query: query,
