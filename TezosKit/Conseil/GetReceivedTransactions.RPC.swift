@@ -1,7 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
-/// An RPC which fetches sent transactions from an account.
-public class GetSentTransactionsRPC: ConseilQueryRPC<[Transaction]> {
+/// An RPC which fetches received transactions for an account.
+public class GetReceivedTransactionsRPC: ConseilQueryRPC<[Transaction]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
@@ -9,12 +9,12 @@ public class GetSentTransactionsRPC: ConseilQueryRPC<[Transaction]> {
   ///   - platform: The platform to query.
   ///   - network: The network to query.
   public init?(account: String, limit: Int, apiKey: String, platform: ConseilPlatform, network: ConseilNetwork) {
-    let predicates = [
+    let predicates: [ConseilPredicate] = [
       ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
-      ConseilQuery.Predicates.predicateWith(field: "source", set: [account])
+      ConseilQuery.Predicates.predicateWith(field: "destination", set: [account])
     ]
-    let orderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
-    let query = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
+    let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
+    let query: [String: Any] = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
 
     super.init(
       query: query,
