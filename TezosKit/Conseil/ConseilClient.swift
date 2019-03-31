@@ -47,7 +47,7 @@ public class ConseilClient: AbstractClient {
     )
   }
 
-  /// Retrieve originated accounts from an account.
+  /// Retrieve originated accounts.
   ///
   /// - Parameters:
   ///   - account: The account to query.
