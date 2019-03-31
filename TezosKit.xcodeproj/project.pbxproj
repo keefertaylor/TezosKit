@@ -43,6 +43,7 @@
 		77B69EB9224E5C6500DB4319 /* ConseilQueryRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EB8224E5C6500DB4319 /* ConseilQueryRPC.swift */; };
 		77B69EBB224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EBA224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift */; };
 		77B69EC322510C6500DB4319 /* ConseilEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EC222510C6500DB4319 /* ConseilEntity.swift */; };
+		77B69EC522510D5400DB4319 /* ConseilEntityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EC422510D5400DB4319 /* ConseilEntityTest.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -221,6 +222,7 @@
 		77B69EB8224E5C6500DB4319 /* ConseilQueryRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQueryRPC.swift; sourceTree = "<group>"; };
 		77B69EBA224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReceivedTransactions.RPC.swift; sourceTree = "<group>"; };
 		77B69EC222510C6500DB4319 /* ConseilEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilEntity.swift; sourceTree = "<group>"; };
+		77B69EC422510D5400DB4319 /* ConseilEntityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilEntityTest.swift; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				77B69EC422510D5400DB4319 /* ConseilEntityTest.swift */,
 				77B69EB4224C641500DB4319 /* TransactionsResponseAdapterTest.swift */,
 				77B69EB2224C5F4F00DB4319 /* TransactionTest.swift */,
 				77F4D267221CD44100D34B01 /* AbstractClientTest.swift */,
@@ -979,6 +982,7 @@
 				77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */,
 				77B1EAFE2228C54E00EA4FCE /* RunOperationRPCTest.swift in Sources */,
 				77CE36F721F7F49F006ADABA /* WalletTests.swift in Sources */,
+				77B69EC522510D5400DB4319 /* ConseilEntityTest.swift in Sources */,
 				77F4D268221CD44100D34B01 /* AbstractClientTest.swift in Sources */,
 				77CE36E721F7F49F006ADABA /* OriginateAccountOperation.swift in Sources */,
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
