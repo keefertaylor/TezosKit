@@ -15,7 +15,7 @@ public class AbstractClient {
   private let responseHandler: RPCResponseHandler
 
   /// The queue that callbacks from requests will be made on.
-  private let callbackQueue: DispatchQueue
+  internal let callbackQueue: DispatchQueue
 
   /// Initialize a new AbstractNetworkClient.
   /// - Parameters:
@@ -52,9 +52,12 @@ public class AbstractClient {
       let payload = rpc.payload,
       let payloadData = payload.data(using: .utf8) {
       urlRequest.httpMethod = "POST"
-      urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
+    }
+
+    for header in rpc.headers {
+      urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
 
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
