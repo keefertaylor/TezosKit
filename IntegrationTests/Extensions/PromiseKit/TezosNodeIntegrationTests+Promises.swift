@@ -7,7 +7,7 @@ import XCTest
 // swiftlint:disable identifier_name
 
 /// Integration tests for the Promises Extension.
-/// Please see instructions in header of `IntegrationTests.swift`.
+/// Please see instructions in header of `TezosNodeIntegrationTests.swift`.
 extension TezosNodeIntegrationTests {
   public func testGetAccountBalance_promises() {
     let expectation = XCTestExpectation(description: "completion called")
