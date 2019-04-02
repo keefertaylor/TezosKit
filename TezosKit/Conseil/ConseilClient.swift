@@ -46,12 +46,32 @@ public class ConseilClient: AbstractClient {
     )
   }
 
-  /// Retrieve sent and received transactions from an account.
+  /// Retrieve originated accounts.
   ///
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of transactions to return, defaults to 100.
   ///   - completion: A completion callback.
+  public func originatedAccounts(
+    from account: String,
+    limit: Int = 100,
+    completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
+  ) {
+    guard let rpc = GetOriginatedAccounts(
+      account: account,
+      limit: limit,
+      apiKey: apiKey,
+      platform: platform,
+      network: network
+      ) else {
+        self.callbackQueue.async {
+          completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
+        }
+        return
+    }
+    send(rpc, completion: completion)
+  }
+
   public func transactions(
     from account: String,
     limit: Int = 100,
@@ -98,6 +118,7 @@ public class ConseilClient: AbstractClient {
     }
     }
   }
+
   /// Retrieve transactions received from an account.
   ///
   /// - Parameters:
