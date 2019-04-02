@@ -10,15 +10,6 @@
 
 /// A client for a Conseil Server.
 public class ConseilClient: AbstractClient {
-  /// The platfom that this client will query.
-  private let platform: ConseilPlatform
-
-  /// The network that this client will query.
-  private let network: ConseilNetwork
-
-  /// The API key for the remote Conseil service.
-  private let apiKey: String
-
   /// Initialize a new client for a Conseil Service.
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote Conseil service.
@@ -35,13 +26,16 @@ public class ConseilClient: AbstractClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    self.platform = platform
-    self.network = network
-    self.apiKey = apiKey
+    let remoteNodeWithPlatformAndNetwork =
+      remoteNodeURL.appendingPathComponent(platform.rawValue).appendingPathComponent(network.rawValue)
+    let headers = [
+      Header(field: "apiKey", value: apiKey)
+    ]
 
     super.init(
-      remoteNodeURL: remoteNodeURL,
+      remoteNodeURL: remoteNodeWithPlatformAndNetwork,
       urlSession: urlSession,
+      headers: headers,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
@@ -59,11 +53,8 @@ public class ConseilClient: AbstractClient {
     ) {
     guard let rpc = GetReceivedTransactionsRPC(
       account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-      ) else {
+      limit: limit
+    ) else {
         self.callbackQueue.async {
           completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
         }
@@ -84,10 +75,7 @@ public class ConseilClient: AbstractClient {
   ) {
     guard let rpc = GetSentTransactionsRPC(
       account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
+      limit: limit
     ) else {
       self.callbackQueue.async {
         completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
