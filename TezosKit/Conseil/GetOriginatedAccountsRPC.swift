@@ -17,7 +17,7 @@ public class GetOriginatedAccounts: ConseilQueryRPC<[[String: Any]]> {
 
     super.init(
       query: query,
-      path: "accounts",
+      entity: .account,
       apiKey: apiKey,
       platform: platform,
       network: network,
