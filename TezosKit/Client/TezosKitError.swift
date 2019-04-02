@@ -19,6 +19,11 @@ public struct TezosKitError: Error {
 
   /// The underlying error returned from a subsystem, if one exists.
   public let underlyingError: String?
+
+  public init(kind: ErrorKind, underlyingError: String? = nil) {
+    self.kind = kind
+    self.underlyingError = underlyingError
+  }
 }
 
 extension TezosKitError: LocalizedError {
@@ -29,5 +34,11 @@ extension TezosKitError: LocalizedError {
     } else {
       return errorKindDesc
     }
+  }
+}
+
+extension TezosKitError: Equatable {
+  public static func == (lhs: TezosKitError, rhs: TezosKitError) -> Bool {
+    return lhs.kind == rhs.kind && lhs.underlyingError == rhs.underlyingError
   }
 }
