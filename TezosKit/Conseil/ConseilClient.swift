@@ -45,18 +45,7 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetOriginatedAccounts(
-      account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-      ) else {
-        self.callbackQueue.async {
-          completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-        }
-        return
-    }
+    let rpc = GetOriginatedAccounts(account: account, limit: limit)
     send(rpc, completion: completion)
   }
 
@@ -118,11 +107,7 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
-<<<<<<< HEAD
     let rpc = GetReceivedTransactionsRPC(
-=======
-    guard let rpc = GetReceivedTransactionsRPC(
->>>>>>> master
       account: account,
       limit: limit
     )
