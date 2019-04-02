@@ -1,13 +1,5 @@
 // Copyright Keefer Taylor, 2019
 
-/// Conseil Client is a WIP.
-/// Remaining Work:
-/// - Support for query parameters
-/// - First class respoonse objects
-/// - Promises Extension
-/// - Integration Tests
-/// - Updating documentation
-
 /// A client for a Conseil Server.
 public class ConseilClient: AbstractClient {
   /// Initialize a new client for a Conseil Service.
@@ -50,16 +42,11 @@ public class ConseilClient: AbstractClient {
     from account: String,
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
-    ) {
-    guard let rpc = GetReceivedTransactionsRPC(
+  ) {
+    let rpc = GetReceivedTransactionsRPC(
       account: account,
       limit: limit
-    ) else {
-        self.callbackQueue.async {
-          completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-        }
-        return
-    }
+    )
     send(rpc, completion: completion)
   }
 
@@ -73,15 +60,10 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetSentTransactionsRPC(
+    let rpc = GetSentTransactionsRPC(
       account: account,
       limit: limit
-    ) else {
-      self.callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-      }
-      return
-    }
+    )
     send(rpc, completion: completion)
   }
 }

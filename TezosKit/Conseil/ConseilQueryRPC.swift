@@ -9,7 +9,7 @@ public class ConseilQueryRPC<T>: RPC<T> {
   ///   - path: The path to query.
   ///   - responseAdapterClass: The class of the response adapter which will take bytes received from the request and
   ///     transform them into a specific type.
-  public init?(
+  public init(
     query: [String: Any],
     path: String,
     responseAdapterClass: AbstractResponseAdapter<T>.Type

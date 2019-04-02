@@ -5,7 +5,7 @@ public class GetSentTransactionsRPC: ConseilQueryRPC<[Transaction]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
-  public init?(account: String, limit: Int) {
+  public init(account: String, limit: Int) {
     let predicates = [
       ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
       ConseilQuery.Predicates.predicateWith(field: "source", set: [account])
