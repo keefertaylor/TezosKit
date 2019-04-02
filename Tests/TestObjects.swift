@@ -62,3 +62,13 @@ extension OperationWithCounter {
     counter: .testAddressCounter
   )
 }
+
+extension Transaction {
+  public static let testTransaction = Transaction(
+    source: "tz1MXFrtZoaXckE41bjUCSjAjAap3AFDSr3N",
+    destination: "tz1W1en9UpMCH4ZJL8wQCh8JDKCZARyVx2co",
+    amount: Tez(1.0),
+    fee: Tez(2.0),
+    timestamp: 1234567
+  )
+}

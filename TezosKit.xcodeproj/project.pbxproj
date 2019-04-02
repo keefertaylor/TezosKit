@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		772F48A82224894E00DF0F9D /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* IntegrationTests.swift */; };
+		772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
@@ -16,7 +16,7 @@
 		7774780F222228E50010BA4D /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7794E97B224C2518000D9F1E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E97A224C2518000D9F1E /* Header.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
-		77B1EAEA222730D600EA4FCE /* IntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */; };
+		77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */; };
@@ -44,6 +44,9 @@
 		77B69EBB224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EBA224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift */; };
 		77B69ECB22510FE200DB4319 /* ConseilPlatformTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECA22510FE200DB4319 /* ConseilPlatformTest.swift */; };
 		77B69ECD2251104300DB4319 /* ConseilNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECC2251104300DB4319 /* ConseilNetworkTest.swift */; };
+		77B69ECF2251127D00DB4319 /* ConseilIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECE2251127D00DB4319 /* ConseilIntegrationTests.swift */; };
+		77B69EC1224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EC0224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift */; };
+		77B69EBF224E92C900DB4319 /* ConseilClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EBE224E92C900DB4319 /* ConseilClientTests.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -189,7 +192,7 @@
 
 /* Begin PBXFileReference section */
 		772F48A52224894E00DF0F9D /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		772F48A72224894E00DF0F9D /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
+		772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeIntegrationTests.swift; sourceTree = "<group>"; };
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
@@ -197,7 +200,7 @@
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7794E97A224C2518000D9F1E /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
-		77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegrationTests+Promises.swift"; sourceTree = "<group>"; };
+		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
 		77B1EAF222275A4A00EA4FCE /* GasLimitPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasLimitPolicy.swift; sourceTree = "<group>"; };
 		77B1EAF42228839000EA4FCE /* OperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationPayload.swift; sourceTree = "<group>"; };
@@ -223,6 +226,9 @@
 		77B69EBA224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReceivedTransactions.RPC.swift; sourceTree = "<group>"; };
 		77B69ECA22510FE200DB4319 /* ConseilPlatformTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilPlatformTest.swift; sourceTree = "<group>"; };
 		77B69ECC2251104300DB4319 /* ConseilNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilNetworkTest.swift; sourceTree = "<group>"; };
+		77B69ECE2251127D00DB4319 /* ConseilIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilIntegrationTests.swift; sourceTree = "<group>"; };
+		77B69EC0224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedAccountsRPC.swift; sourceTree = "<group>"; };
+		77B69EBE224E92C900DB4319 /* ConseilClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientTests.swift; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -370,7 +376,8 @@
 		77B1EAE62225CE8400EA4FCE /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
-				772F48A72224894E00DF0F9D /* IntegrationTests.swift */,
+				772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */,
+				77B69ECE2251127D00DB4319 /* ConseilIntegrationTests.swift */,
 				772F48A92224894E00DF0F9D /* Info.plist */,
 			);
 			path = TezosKit;
@@ -387,7 +394,7 @@
 		77B1EAE8222730B500EA4FCE /* PromiseKit */ = {
 			isa = PBXGroup;
 			children = (
-				77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */,
+				77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */,
 			);
 			path = PromiseKit;
 			sourceTree = "<group>";
@@ -411,6 +418,7 @@
 				77B69EA6224C392300DB4319 /* ConseilPlatform.swift */,
 				77B69EA8224C39AC00DB4319 /* ConseilNetwork.swift */,
 				77B69EAA224C3A5300DB4319 /* GetSentTransactionsRPC.swift */,
+				77B69EC0224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift */,
 				77B69EBA224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift */,
 				77B69EAE224C435B00DB4319 /* TransactionsResponseAdapter.swift */,
 				77B69EB8224E5C6500DB4319 /* ConseilQueryRPC.swift */,
@@ -611,6 +619,7 @@
 				77B69EB4224C641500DB4319 /* TransactionsResponseAdapterTest.swift */,
 				77B69ECC2251104300DB4319 /* ConseilNetworkTest.swift */,
 				77B69ECA22510FE200DB4319 /* ConseilPlatformTest.swift */,
+				77B69EBE224E92C900DB4319 /* ConseilClientTests.swift */,
 				77B69EB2224C5F4F00DB4319 /* TransactionTest.swift */,
 				77F4D267221CD44100D34B01 /* AbstractClientTest.swift */,
 				77B1EB07222A179F00EA4FCE /* OperationWithCounterTest.swift */,
@@ -849,7 +858,7 @@
 		};
 		77CE388421FCB8CD006ADABA /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -861,7 +870,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint --strict\nelse\necho \"warning: SwiftLint not installed, run `brew install swiftlint`\"\nfi\n";
 		};
@@ -872,8 +881,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				772F48A82224894E00DF0F9D /* IntegrationTests.swift in Sources */,
-				77B1EAEA222730D600EA4FCE /* IntegrationTests+Promises.swift in Sources */,
+				772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */,
+				77B69ECF2251127D00DB4319 /* ConseilIntegrationTests.swift in Sources */,
+				77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,6 +928,7 @@
 				77CE387421FC7ED8006ADABA /* GetAddressDelegateRPC.swift in Sources */,
 				77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */,
 				77F4D266221CCE4B00D34B01 /* AbstractClient.swift in Sources */,
+				77B69EC1224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift in Sources */,
 				77CE386C21FC7ED8006ADABA /* ContractCodeResponseAdapter.swift in Sources */,
 				77B1EAF7222885E300EA4FCE /* SignedOperationPayload.swift in Sources */,
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
@@ -968,6 +979,7 @@
 				77CE36F921F7F49F006ADABA /* GetAddressManagerKeyRPCTest.swift in Sources */,
 				77CE36F621F7F49F006ADABA /* GetBallotsListRPCTest.swift in Sources */,
 				77B69ECB22510FE200DB4319 /* ConseilPlatformTest.swift in Sources */,
+				77B69EBF224E92C900DB4319 /* ConseilClientTests.swift in Sources */,
 				77CE36E321F7F49F006ADABA /* GetChainHeadHashRPCTest.swift in Sources */,
 				77CE36FA21F7F49F006ADABA /* TezosKitErrorCodesTest.swift in Sources */,
 				77CE370321F7F49F006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */,
