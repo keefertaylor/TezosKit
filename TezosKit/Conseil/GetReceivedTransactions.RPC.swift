@@ -15,7 +15,7 @@ public class GetReceivedTransactionsRPC: ConseilQueryRPC<[Transaction]> {
 
     super.init(
       query: query,
-      path: "operations",
+      entity: .operation,
       responseAdapterClass: TransactionsResponseAdapter.self
     )
   }

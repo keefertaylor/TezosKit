@@ -6,15 +6,15 @@ import Foundation
 public class ConseilQueryRPC<T>: RPC<T> {
   /// - Parameters:
   ///   - query: A query to send to Conseil
-  ///   - path: The path to query.
+  ///   - entity: The entity to query.
   ///   - responseAdapterClass: The class of the response adapter which will take bytes received from the request and
   ///     transform them into a specific type.
   public init(
     query: [String: Any],
-    path: String,
+    entity: ConseilEntity,
     responseAdapterClass: AbstractResponseAdapter<T>.Type
   ) {
-    let endpoint = "/\(path)"
+    let endpoint = "\(entity.rawValue)"
     let headers = [
       Header.contentTypeApplicationJSON
     ]
