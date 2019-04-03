@@ -19,14 +19,18 @@ public class ConseilClient: AbstractClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    let remoteNodeWithPlatformAndNetwork =
-      remoteNodeURL.appendingPathComponent(platform.rawValue).appendingPathComponent(network.rawValue)
+    var nodeBaseURL = remoteNodeURL
+    nodeBaseURL.appendPathComponent("v2")
+    nodeBaseURL.appendPathComponent("data")
+    nodeBaseURL.appendPathComponent(platform.rawValue)
+    nodeBaseURL.appendPathComponent(network.rawValue)
+
     let headers = [
       Header(field: "apiKey", value: apiKey)
     ]
 
     super.init(
-      remoteNodeURL: remoteNodeWithPlatformAndNetwork,
+      remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
       headers: headers,
       callbackQueue: callbackQueue,
