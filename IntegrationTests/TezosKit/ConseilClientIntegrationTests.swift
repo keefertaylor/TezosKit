@@ -19,7 +19,7 @@ import XCTest
 let apiKey = "your_api_key_here"
 let remoteNodeURL = URL(string: "your conseil url here")!
 
-class ConseilIntegrationTests: XCTestCase {
+class ConseilClientIntegrationTests: XCTestCase {
   public lazy var conseilClient: ConseilClient = {
     return ConseilClient(remoteNodeURL: remoteNodeURL, apiKey:apiKey, platform: .tezos, network: .alphanet)
   }()

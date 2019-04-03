@@ -6,7 +6,6 @@ import XCTest
 
 // swiftlint:disable identifier_name
 
-// TODO: File name
 /// Integration tests for the Promises Extension.
 /// Please see instructions in header of `TezosNodeIntegrationTests.swift`.
 extension TezosNodeIntegrationTests {

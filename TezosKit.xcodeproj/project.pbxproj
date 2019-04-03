@@ -42,15 +42,15 @@
 		77B69EB7224E3F3A00DB4319 /* ConseilQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EB6224E3F3A00DB4319 /* ConseilQuery.swift */; };
 		77B69EB9224E5C6500DB4319 /* ConseilQueryRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EB8224E5C6500DB4319 /* ConseilQueryRPC.swift */; };
 		77B69EBB224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EBA224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift */; };
-		77B69ED1225348B400DB4319 /* ConseilClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ED0225348B400DB4319 /* ConseilClient+Promises.swift */; };
-		77B69ED522534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ED422534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift */; };
-		77B69ECB22510FE200DB4319 /* ConseilPlatformTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECA22510FE200DB4319 /* ConseilPlatformTest.swift */; };
-		77B69ECD2251104300DB4319 /* ConseilNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECC2251104300DB4319 /* ConseilNetworkTest.swift */; };
+		77B69EBF224E92C900DB4319 /* ConseilClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EBE224E92C900DB4319 /* ConseilClientTests.swift */; };
+		77B69EC1224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EC0224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift */; };
 		77B69EC322510C6500DB4319 /* ConseilEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EC222510C6500DB4319 /* ConseilEntity.swift */; };
 		77B69EC522510D5400DB4319 /* ConseilEntityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EC422510D5400DB4319 /* ConseilEntityTest.swift */; };
-		77B69ECF2251127D00DB4319 /* ConseilIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECE2251127D00DB4319 /* ConseilIntegrationTests.swift */; };
-		77B69EC1224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EC0224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift */; };
-		77B69EBF224E92C900DB4319 /* ConseilClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69EBE224E92C900DB4319 /* ConseilClientTests.swift */; };
+		77B69ECB22510FE200DB4319 /* ConseilPlatformTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECA22510FE200DB4319 /* ConseilPlatformTest.swift */; };
+		77B69ECD2251104300DB4319 /* ConseilNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECC2251104300DB4319 /* ConseilNetworkTest.swift */; };
+		77B69ECF2251127D00DB4319 /* ConseilClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ECE2251127D00DB4319 /* ConseilClientIntegrationTests.swift */; };
+		77B69ED1225348B400DB4319 /* ConseilClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ED0225348B400DB4319 /* ConseilClient+Promises.swift */; };
+		77B69ED522534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B69ED422534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift */; };
 		77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36B921F7F49C006ADABA /* IntegerResponseAdapterTest.swift */; };
 		77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */; };
 		77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BB21F7F49C006ADABA /* ForgeOperationRPCTest.swift */; };
@@ -228,15 +228,15 @@
 		77B69EB6224E3F3A00DB4319 /* ConseilQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQuery.swift; sourceTree = "<group>"; };
 		77B69EB8224E5C6500DB4319 /* ConseilQueryRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQueryRPC.swift; sourceTree = "<group>"; };
 		77B69EBA224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReceivedTransactions.RPC.swift; sourceTree = "<group>"; };
-		77B69ED0225348B400DB4319 /* ConseilClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConseilClient+Promises.swift"; sourceTree = "<group>"; };
-		77B69ED422534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConseilClientIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
-		77B69ECA22510FE200DB4319 /* ConseilPlatformTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilPlatformTest.swift; sourceTree = "<group>"; };
-		77B69ECC2251104300DB4319 /* ConseilNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilNetworkTest.swift; sourceTree = "<group>"; };
+		77B69EBE224E92C900DB4319 /* ConseilClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientTests.swift; sourceTree = "<group>"; };
+		77B69EC0224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedAccountsRPC.swift; sourceTree = "<group>"; };
 		77B69EC222510C6500DB4319 /* ConseilEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilEntity.swift; sourceTree = "<group>"; };
 		77B69EC422510D5400DB4319 /* ConseilEntityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilEntityTest.swift; sourceTree = "<group>"; };
-		77B69ECE2251127D00DB4319 /* ConseilIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilIntegrationTests.swift; sourceTree = "<group>"; };
-		77B69EC0224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedAccountsRPC.swift; sourceTree = "<group>"; };
-		77B69EBE224E92C900DB4319 /* ConseilClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientTests.swift; sourceTree = "<group>"; };
+		77B69ECA22510FE200DB4319 /* ConseilPlatformTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilPlatformTest.swift; sourceTree = "<group>"; };
+		77B69ECC2251104300DB4319 /* ConseilNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilNetworkTest.swift; sourceTree = "<group>"; };
+		77B69ECE2251127D00DB4319 /* ConseilClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientIntegrationTests.swift; sourceTree = "<group>"; };
+		77B69ED0225348B400DB4319 /* ConseilClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConseilClient+Promises.swift"; sourceTree = "<group>"; };
+		77B69ED422534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConseilClientIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77CE359621F7DC76006ADABA /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CE35A621F7DC76006ADABA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -385,7 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */,
-				77B69ECE2251127D00DB4319 /* ConseilIntegrationTests.swift */,
+				77B69ECE2251127D00DB4319 /* ConseilClientIntegrationTests.swift */,
 				772F48A92224894E00DF0F9D /* Info.plist */,
 			);
 			path = TezosKit;
@@ -402,7 +402,6 @@
 		77B1EAE8222730B500EA4FCE /* PromiseKit */ = {
 			isa = PBXGroup;
 			children = (
-				77B1EAE9222730D600EA4FCE /* IntegrationTests+Promises.swift */,
 				77B69ED422534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift */,
 				77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */,
 			);
@@ -894,11 +893,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				772F48A82224894E00DF0F9D /* IntegrationTests.swift in Sources */,
-				77B1EAEA222730D600EA4FCE /* IntegrationTests+Promises.swift in Sources */,
+				772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */,
+				77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */,
 				77B69ED522534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift in Sources */,
 				772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */,
-				77B69ECF2251127D00DB4319 /* ConseilIntegrationTests.swift in Sources */,
+				77B69ECF2251127D00DB4319 /* ConseilClientIntegrationTests.swift in Sources */,
 				77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
