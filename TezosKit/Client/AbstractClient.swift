@@ -11,6 +11,9 @@ public class AbstractClient {
   /// A URL pointing to a remote node that will handle requests made by this client.
   private let remoteNodeURL: URL
 
+  /// Headers which will be added to every request.
+  private let headers: [Header]
+
   /// A response handler for RPCs.
   private let responseHandler: RPCResponseHandler
 
@@ -21,31 +24,26 @@ public class AbstractClient {
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node.
   ///   - urlSession: The URLSession that will manage network requests.
+  ///   - headers: Headers which will be added to every request.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on.
-  ///   - Parameter responseHandler: An object which will handle responses.
+  ///   - responseHandler: An object which will handle responses.
   public init(
     remoteNodeURL: URL,
     urlSession: URLSession,
+    headers: [Header] = [],
     callbackQueue: DispatchQueue,
     responseHandler: RPCResponseHandler
   ) {
     self.remoteNodeURL = remoteNodeURL
     self.urlSession = urlSession
+    self.headers = headers
     self.callbackQueue = callbackQueue
     self.responseHandler = responseHandler
   }
 
   /// Send an RPC as a GET or POST request.
   public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
-    guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: remoteNodeURL) else {
-      let errorMessage = "Invalid URL: \(remoteNodeURL)\(rpc.endpoint)"
-      let error = TezosKitError(kind: .invalidURL, underlyingError: errorMessage)
-      callbackQueue.async {
-        completion(.failure(error))
-      }
-      return
-    }
-
+    let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
     if rpc.isPOSTRequest,
@@ -56,6 +54,12 @@ public class AbstractClient {
       urlRequest.httpBody = payloadData
     }
 
+    // Add headers from client.
+    for header in headers {
+      urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
+    }
+
+    // Add headers from RPC.
     for header in rpc.headers {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
