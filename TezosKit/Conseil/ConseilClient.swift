@@ -1,22 +1,7 @@
 // Copyright Keefer Taylor, 2019
 
-/// Conseil Client is a WIP.
-/// Remaining Work:
-/// - Promises Extension
-/// - Integration Tests
-/// - Updating documentation
-
 /// A client for a Conseil Server.
 public class ConseilClient: AbstractClient {
-  /// The platfom that this client will query.
-  private let platform: ConseilPlatform
-
-  /// The network that this client will query.
-  private let network: ConseilNetwork
-
-  /// The API key for the remote Conseil service.
-  private let apiKey: String
-
   /// Initialize a new client for a Conseil Service.
   ///
   /// - Parameters:
@@ -34,13 +19,20 @@ public class ConseilClient: AbstractClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    self.platform = platform
-    self.network = network
-    self.apiKey = apiKey
+    var nodeBaseURL = remoteNodeURL
+    nodeBaseURL.appendPathComponent("v2")
+    nodeBaseURL.appendPathComponent("data")
+    nodeBaseURL.appendPathComponent(platform.rawValue)
+    nodeBaseURL.appendPathComponent(network.rawValue)
+
+    let headers = [
+      Header(field: "apiKey", value: apiKey)
+    ]
 
     super.init(
-      remoteNodeURL: remoteNodeURL,
+      remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
+      headers: headers,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
@@ -57,18 +49,7 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetOriginatedAccounts(
-      account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-      ) else {
-        self.callbackQueue.async {
-          completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-        }
-        return
-    }
+    let rpc = GetOriginatedAccounts(account: account, limit: limit)
     send(rpc, completion: completion)
   }
 
@@ -130,18 +111,10 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetReceivedTransactionsRPC(
+    let rpc = GetReceivedTransactionsRPC(
       account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-      ) else {
-        self.callbackQueue.async {
-          completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-        }
-        return
-    }
+      limit: limit
+    )
     send(rpc, completion: completion)
   }
 
@@ -156,18 +129,10 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetSentTransactionsRPC(
+    let rpc = GetSentTransactionsRPC(
       account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-    ) else {
-      self.callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-      }
-      return
-    }
+      limit: limit
+    )
     send(rpc, completion: completion)
   }
 
