@@ -9,6 +9,7 @@ final class ConseilEntityTest: XCTestCase {
       guard let escapedEntity =
         entity.rawValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
           XCTFail()
+          return
       }
       XCTAssertEqual(entity.rawValue, escapedEntity)
     }
