@@ -1,7 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
-/// An RPC which fetches received transactions for an account.
-public class GetReceivedTransactionsRPC: ConseilQueryRPC<[Transaction]> {
+/// An RPC which fetches originated accounts for an account.
+public class GetOriginatedAccounts: ConseilQueryRPC<[[String: Any]]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
@@ -10,19 +10,18 @@ public class GetReceivedTransactionsRPC: ConseilQueryRPC<[Transaction]> {
   ///   - network: The network to query.
   public init?(account: String, limit: Int, apiKey: String, platform: ConseilPlatform, network: ConseilNetwork) {
     let predicates: [ConseilPredicate] = [
-      ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
-      ConseilQuery.Predicates.predicateWith(field: "destination", set: [account])
+      ConseilQuery.Predicates.predicateWith(field: "manager", set: [account])
     ]
-    let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
+    let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "block_level")
     let query: [String: Any] = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
 
     super.init(
       query: query,
-      entity: .operation,
+      entity: .account,
       apiKey: apiKey,
       platform: platform,
       network: network,
-      responseAdapterClass: TransactionsResponseAdapter.self
+      responseAdapterClass: JSONArrayResponseAdapter.self
     )
   }
 }

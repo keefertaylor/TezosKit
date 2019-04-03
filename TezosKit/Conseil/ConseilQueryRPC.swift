@@ -6,7 +6,7 @@ import Foundation
 public class ConseilQueryRPC<T>: RPC<T> {
   /// - Parameters:
   ///   - query: A query to send to Conseil
-  ///   - path: The path to query.
+  ///   - entity: The entity to query.
   ///   - apiKey: The API key to send in the request headers.
   ///   - platform: The platform to query.
   ///   - network: The network to query.
@@ -14,7 +14,7 @@ public class ConseilQueryRPC<T>: RPC<T> {
   ///     transform them into a specific type.
   public init?(
     query: [String: Any],
-    path: String,
+    entity: ConseilEntity,
     apiKey: String,
     platform: ConseilPlatform,
     network: ConseilNetwork,
@@ -28,7 +28,7 @@ public class ConseilQueryRPC<T>: RPC<T> {
       ) else {
         return nil
     }
-    let endpoint = "/v2/data/\(escapedPlatform)/\(escapedNetwork)/\(path)"
+    let endpoint = "/v2/data/\(escapedPlatform)/\(escapedNetwork)/\(entity.rawValue)"
     let headers = [
       Header.contentTypeApplicationJSON,
       Header(field: "apiKey", value: apiKey)
