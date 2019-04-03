@@ -44,15 +44,6 @@ public class AbstractClient {
   /// Send an RPC as a GET or POST request.
   public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
-//    guard let remoteNodeEndpoint = URL(string: rpc.endpoint, relativeTo: remoteNodeURL) else {
-//      let errorMessage = "Invalid URL: \(remoteNodeURL)\(rpc.endpoint)"
-//      let error = TezosKitError(kind: .invalidURL, underlyingError: errorMessage)
-//      callbackQueue.async {
-//        completion(.failure(error))
-//      }
-//      return
-//    }
-
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
     if rpc.isPOSTRequest,
