@@ -53,6 +53,12 @@ public class ConseilClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
+  /// Retrieve transactions both sent and received from an account.
+  ///
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of transactions to return, defaults to 100.
+  ///   - completion: A completion callback.
   public func transactions(
     from account: String,
     limit: Int = 100,
