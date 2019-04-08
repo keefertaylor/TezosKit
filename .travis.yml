@@ -23,7 +23,7 @@ after_success:
 - slather
 - bash <(curl -s https://codecov.io/bash)
 after_failure:
-- cat /var/folders/nz/vv4_9tw56nv9k3tkvyszvwg80000gn/T/carthage-xcodebuild.gu9Y5X.log
+- cat /var/folders/17/5mc7816d3mndxjqgplq6057w0000gn/T/*.log
 deploy:
   provider: releases
   api_key:
