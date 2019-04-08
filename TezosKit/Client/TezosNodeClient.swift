@@ -423,14 +423,13 @@ public class TezosNodeClient: AbstractClient {
     return OperationPayload(operations: operationsWithCounter, operationMetadata: operationMetadata)
   }
 
-  /**
-   * Forge, sign, preapply and then inject a single operation.
-   *
-   * - Parameter operation: The operation which will be used to forge the operation.
-   * - Parameter source: The address performing the operation.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter completion: A completion block that will be called with the results of the operation.
-   */
+  /// Forge, sign, preapply and then inject a single operation.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation which will be used to forge the operation.
+  ///   - source: The address performing the operation.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operation: Operation,
     source: String,
@@ -557,7 +556,7 @@ public class TezosNodeClient: AbstractClient {
     ) else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
       completion(.failure(error))
-      return
+      return 
     }
 
     let signedProtocolOperationPayload = SignedProtocolOperationPayload(
