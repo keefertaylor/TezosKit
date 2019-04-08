@@ -20,7 +20,25 @@ Users of TezosKit can create and inject custom operations. Creating a custom ope
 
 ### Creating an Operation
 
-*** TODO *** Write about how to create a custom operation. Consider whether centralizing `requiresReveal` is conducive to what you'd like to do. Does this mean you can drop off `Abstract operation`?
+TezosKit can inject any operation which conforms to the `Operation` protocol. Users can wire up custom operations. In most cases, you'll want to subclass `AbstractOperation` to get baseline functionality.
+
+The `Operation` protocol requires three properties to be implemented: 
+* `requiresReveal`: If `true` then TezosKit will automatically add a reveal operation any time this operation is applied to an unrevealed account.
+* `defaultFees`: An `OperationFees` object which represents the default fees for the operation. 
+* `dictionaryRepresentation`: A representation of the dictionary in a `Dictionary`.
+
+Note that `dictionaryRepresentation` contains only the values represented by the operation. Values like `signature` and `branch` are not required. For instance, a `dictionaryRepresentation` of a `TransactionOperation` looks like:
+```swift
+[
+  "source": "tz1...",
+  "destination": "tz1...",
+  "amount": "123",
+  "kind": "transaction",
+  "fee": "1",
+  "gas_limit": "1",
+  "storage_limit": "1"
+]
+```
 
 ### Injecting an Operation
 
@@ -32,7 +50,7 @@ let tezosNodeClient = TezosNodeClient(...)
 let customOperation = MyCustomOperation(...)
 
 tezosNodeClient.forgeSignPreapplyAndInject(
-  customOperation
+  customOperation,
   source: wallet.address,
   keys: wallet.keys
 ) { result in 
@@ -41,4 +59,22 @@ tezosNodeClient.forgeSignPreapplyAndInject(
 
 ```
 
-Like all `TezosNodeClient` methods, injection is supported with closure based callbacks or with Promises.
+Or if you'd like to inject multiple operations, pass them as an array. Operations are processed in the order they are inserted into the array:
+
+```swift
+let wallet = Wallet(...)
+let tezosNodeClient = TezosNodeClient(...)
+let transactionOperation = TransactionOperation(...)
+let customOperation = MyCustomOperation(...)
+
+tezosNodeClient.forgeSignPreapplyAndInject(
+  [customOperation, transactionOperation],
+  source: wallet.address,
+  keys: wallet.keys
+) { result in 
+  // Handle result hash
+}
+
+```
+
+Like all `TezosNodeClient` methods, injection of single and multiple operations is supported with closure based callbacks or with Promises.

@@ -1,18 +1,12 @@
-- Complex interactions
--- Preappplication
--- Multiple operations
--- Reveals 
-
-- Where is forging done
 # Tezos Node Client
 ## Introduction
-A [Tezos Node]() is the main entry point to the Tezos Network. The `TezosNodeClient` class in TezosKit allows client applications to interact with the node via the JSON RPC API. 
+A Tezos Node is the main entry point to the Tezos Network. The `TezosNodeClient` class in TezosKit allows client applications to interact with the node via the JSON RPC API. 
 
 The `TezosNodeClient` API provides affordances to examine the state of the Tezos blockchain as well as to inject operations into the chain.
 
 Conseil functionality supports both `Result` style completion blocks or a promises API ([via PromiseKit](https://github.com/mxcl/PromiseKit))
 ## Getting Started
-The TezosNodeClient supports a wide set of functionality, which is includes:
+The TezosNodeClient supports a wide set of functionality, which includes:
 * Getting account balances
 * Getting data about the chain head
 * Getting account delegates 
@@ -36,10 +30,9 @@ Every account on the Tezos Blockchain is represented by a `Wallet` object.  By d
 - Address: The wallet's address on the blockchain. This is either a tz1, tz2, tz3 or KT1 address
 - Keys: A set of keys which manage the Accounts address.
 
-In the case of generating a wallet, the Mnemonic field will also be generated. 
-*** TODO *** Check this
-
 Keys are decoupled from a wallets address because originated accounts are managed by the same set of keys as the implicit account which manages it.
+
+In the case of generating a wallet, the Mnemonic field will also be generated. 
 
 #### Creating a Wallet
 Wallets are generated with a mnemonic and a passphrase.
@@ -91,128 +84,203 @@ TezosKit does not yet support wallets that utilize the secure enclave to sign tr
 
 ### Making Calls to the Network
 
-Using the primitives provided by the Wallet, the network
+Using the primitives provided by the Wallet and the TezosClientNode, TezosKit can make many calls to the network to determine the state of the blockchain.
 
+#### Retrieve Data About the Blockchain
 
-
-### Get Originated Accounts
-Simply make a call to get originated accounts. 
-
-`Result` and completion blocks:
 ```swift
-let conseilClent = ...
-let address = "tz1iZEKy4LaAjnTmn2RuGDf2iqdAQKnRi8kY"
-conseilClient.originatedAccounts(from: address) { result in
+tezosNodeClient.getHead() { result in
   switch result {
-    case .success(let originatedAccounts):
-      print("Originated Accounts:")
-      print(result)
-    case .failure(let error):
-      print("Error fetching originated accounts: \(error)")
+  case .success(let result):
+    guard let metadata: = result["metadata"] as? [String : Any],
+          let baker = metadata["baker"]  else {
+      print("Unexpected format")
+      return
+    }
+    print("Baker of the block at the head of the chain is \(baker)")
+  case .failure(let error):
+    print("Error getting result: \(error)")
+  }
+```
+
+#### Retrieve Data About a Contract
+
+```swift
+let address = "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA" // http://tezos.community
+tezosNodeClient.getBalance(address: address) { result in
+  switch result {
+  case .success(let balance):
+    print("Balance of \(address) is \(balance.humanReadableRepresentation)")
+  case .failure(let error):
+    print("Error getting result: \(error)")
   }
 }
 ```
 
-Or using Promises:
+#### Send a Transaction
+
 ```swift
-let conseilClent = ...
-let address = "tz1iZEKy4LaAjnTmn2RuGDf2iqdAQKnRi8kY"
-conseilClient.originatedAccounts(from: address).done { result in
-  print("Originated Accounts:")
-  print(result)
-} .catch { error in
-  print("Error fetching originated accounts: \(error)")
+let wallet = Wallet()
+let sendAmount = Tez(1.0)!
+let recipientAddress = ...
+tezosNodeClient.send(
+  amount: sendAmount,
+  to recipientAddress: recipientAddress,
+  from address: wallet.address,
+  secretKey: wallet.secretKey
+) { (txHash, txError) in 
+  print("Transaction sent. See: https://tzscan.io/\(txHash!)")
 }
 ```
 
-### Get Transactions for an Accounts
-Use the same style as originated accounts, above.
+#### Send Multiple Transactions at Once
 
-`Result` and completion blocks:
+Here's an example of how you can send multiple transactions at once. You 
+can easily send Jim and Bob some XTZ in one call:
+
 ```swift
-let conseilClent = ...
-let address = "tz1iZEKy4LaAjnTmn2RuGDf2iqdAQKnRi8kY"
-conseilClient.transactions(from: address) { result in
-  ...
-}
-```
+let myWallet: Wallet = ...
+let jimsAddress: String = tz1...
+let bobsAddress: String = tz1...
 
-Or using Promises:
-```swift
-let conseilClent = ...
-let address = "tz1iZEKy4LaAjnTmn2RuGDf2iqdAQKnRi8kY"
-conseilClient.transactoins(from: address).done { result in
-  ...
-} .catch { error in
-  print("Error fetching transactions: \(error)")
-}
-```
+let amountToSend = Tez("2")!
 
-## Advanced Usage
-Conseil provides advanced functionality that lets users complex queries that TezosKit may not serve out of the box. If you need to write a more advanced custom query, read on.
+let sendToJimOperation = TransactionOperation(amount: amountToSend,
+                                              source: myWallet,
+                                              destination: jimsAddress)
+let sendToBobOperation = TransactionOperation(amount: amountToSend,
+                                              source: myWallet,
+                                              destination: bobsAddress)
 
-This documentation deals with specifics to TezosKit. If you want to know what is possible to query with Conseil, please read [the Conseil Query API documentation](https://github.com/Cryptonomic/Conseil/blob/master/doc/Query.md).
-### Custom RPC API
-`ConseilClient` will dutifully send along any RPC that subclasses `ConseilQueryRPC`. You can subclass this object to create custom queries:
-```swift
-public class CustomQueryRPC: ConseilQueryRPC {
-  public init(...) {
-    super.init(...)
+let operations = [ sendToJimOperation, sendToBobOperation ]
+tezosNodeClient.forgeSignPreapplyAndInjectOperations(
+  operations: operations,
+  source: myWallet.address,
+  keys: myWallet.keys
+) { result in
+  guard case let .success(txHash) = result else {
+    return
   }
+  print("Sent Jim and Bob some XTZ! See: https://tzscan.io/\(txHash!)")
 }
 ```
 
-And send queries to the ConseilClient, with either completion callbacks or promises
+#### Set a Delegate
+
 ```swift
-let conseilClent = ConseilClient(...)
-let customQueryRPC = CustomQueryRPC(...)
+let wallet = ...
+let originatedAccountAddress = <Some Account Managed By Wallet>
+let delegateAddress = ...
+tezosNodeClient.delegate(
+  from: originatedAccountAddress,
+  to: delegateAddress,
+  keys: wallet.keys
+) { result in
+  guard case let .success(txHash) = result else {
+    return
+  }
+  print("Delegate for \(originatedAccountAddress) set to \(delegateAddress).")
+  print("See: https://tzscan.io/\(txHash!)")
+}
 
-// Either send with completion callbacks
-conseilClient.send(customQueryRPC) { result in ... }
-
-// Or with promises
-conseilClient.send(customQueryRPC).done { result in ... }
 ```
-### Conseil Query Language
-Internally, your custom Query will need to build a dictionary that represents a JSON object that will make the query to Conseil. 
+#### Fetch the code of a Smart Contract
 
-TezosKit provides helper classes to build these queries. Specifically, you can use `ConseilQuery` to get access to constants you need and helper funtions. ConseilQuery also provides public typealiases to make working with queries easier.
-
-Here's how you could build a query that gets up to 100 transactions that are sent from addressA to addressB:
 ```swift
-let accountA = "tz1iZEKy4LaAjnTmn2RuGDf2iqdAQKnRi8kY"
-let accountB = "tz1NWfe5f11NTExNuHu8BmGgjDWT9bSsdL5R"
+  let contractAddress: String = ...
+  tezosNodeClient.getAddressCode(address: contractAddress) { result in
+     ...
+  }
+```  
 
-/// Three predicates: 
-/// (1) kind of transaction is an operation 
-/// (2) source account is accountA
-/// (3) destination account is accountB
-///
-/// Note: ConseilPredicate is simply a typealias for [String: Any].
-let predicates: [ConseilPredicate] = [
-  ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
-  ConseilQuery.Predicates.predicateWith(field: "source", set: [accountA])
-  ConseilQuery.Predicates.predicateWith(field: "destination", set: [accountB])
-]
+#### Deploy a Smart Contract 
 
-/// Ordered by timestamp.
-/// Note: Like ConseilPredicate, ConseilOrderBy is simply a typealias for [String: Any]
-let orderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
-
-/// Bind up to a query.
-/// Note: As above, ConseilQuery is also just a typealias for [String: Any]
-let query = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: 100)
+```swift
+  let wallet: Wallet = ...
+  let code: ContractCode = ...
+  tezosNodeClient.originateAccount(
+    managerAddress: wallet.address, 
+    keys: wallet.keys,
+    contractCode: contractCode
+  ) { result in
+    guard case let .success(txHash) = result else {
+      return
+    }
+    print("Originated a smart contract. See https://tzscan.io/\(txHash!)")
+  }
 ```
 
-### API Endpoints
-Lastly, Conseil needs to know what entity it is querying. For instance, for originated accounts, the `accounts` entity is queried. For sent transactions, the `operations` entity is queried.
+#### Call a Smart Contract
 
-This entity is provided in the initializer of ConseilQueryRPC. Possible values are defined in the ConseilQuery enum.
+Assuming a smart contract takes a single string as an argument:
 
-### Response Parsing
-Like all RPCs in TezosKit, responses are parsed using a class that inherits from `AbstractResponseAdapter`. Response adapters will be called by TezosKit to parse the raw data returned from the RPC to the given type. 
+```swift
+let txAmount: Tez = ...
+let wallet: Wallet = ...
+let contractAddr: String = ...
+let parameters = ["string": "argument_to_smart_contract"]   
+tezosNodeClient.send(
+  amount: txAmount, 
+  to: contractAddr, 
+  from: wallet.address,  
+  keys: wallet.keys, 
+  parameters: parameters
+) { result in
+  guard case let .success(txHash) = result else {
+    return
+  }
+  print("Called a smart contract. See https://tzscan.io/\(txHash!)")
+}
+```
 
-For more information, see the [ResponseAdapter API Section of the TezosKit docs](https://github.com/keefertaylor/tezoskit/docs/tezoskit.md).
+### PromiseKit Variants
 
-## Testing
-TezosKit provides integration tests for `ConseilClient` to ensure that features are always working. To run the tests yourself, simply configure the `ConseilURL` and `API Key` in `ConseilIntegrationTests.swift` and run the tests.
+All RPCs can also be done with Promises. For instance, to retrieve a balance: 
+```
+nodeClient.getBalance(address: "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA").done { result in
+  let balance = Double(result.humanReadableRepresentation)!
+  print("The balance of the contract is \(balance)")
+} .catch { _ in
+  print("Couldn't get balance.")
+}
+```
+
+### Multiple Operations
+
+Operations can be batched and applied in a single injection. Simply place the operations in an array and pass them to the `TezosNodeClient`.
+
+```swift
+let wallet = Wallet(...)
+let nodeClient = TezosNodeClient(...)
+let txOp = TransactionOperation(...)
+let delegationOp = DelegationOperation(...)
+
+let operationArray = [ txOp, delegationOp ]
+
+nodeClient.forgeSignPreapplyAndInject(
+  operationArray,
+  source: wallet.address,
+  keys: wallet.keys,
+) { result in 
+  // result is a hash representing the injected operations.
+}
+```
+
+## Preapplication
+
+All calls that inject an operation will run a preapply operation to ensure operation validity. A future update will make this functionality optional.
+
+## Reveals
+
+The Tezos blockchain requires a reveal operation to be performed before an operation will be accepted. TezosKit automatically adds a reveal operation when required. 
+
+## Forging
+
+All forging in TezosKit is done remotely. A future update will support local forging. 
+
+## Custom RPC API
+`TezosNodeClient` will dutifully send along any RPC that subclasses `RPC`. You can subclass this object to create custom queries. Read more about this in the [Networking documentation](Networking.md).
+
+## Custom Operations API
+`TezosNodeClient` can inject any operation which conforms to the `Operation` protocol. Read more about this in the [Operations documentation](Operations.md).
+
