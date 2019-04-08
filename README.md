@@ -1,20 +1,3 @@
-- Complex interactions
--- Preappplication
--- Multiple operations
--- Reveals 
-
-- Other libraries
--- TezosCrypto
-
-- Future Work
--- Fee estimation
--- Forging
--- Smarg Contract calls
-
-- Advanced Options
--- Local forging
--- Fee Estimation
-
 # TezosKit 
 
 [![Build Status](https://travis-ci.org/keefertaylor/TezosKit.svg?branch=master)](https://travis-ci.org/keefertaylor/TezosKit)
@@ -23,9 +6,12 @@
 [![Version](https://img.shields.io/cocoapods/v/TezosKit.svg?style=flat)](http://cocoapods.org/pods/TezosKit)
 [![License](https://img.shields.io/cocoapods/l/TezosKit.svg?style=flat)](http://cocoapods.org/pods/TezosKit)
 
-TezosKit is a swift SDK that is compatible with the [Tezos Blockchain](https://tezos.com).
+TezosKit is a swift SDK that is compatible with the [Tezos Blockchain](https://tezos.com). TezosKit implements complex interaction with the blockchain, including:
+* Performing preapplication for operations
+* Automatically revealing accounts as needed
+* Batching multiple operations
 
-TezosKit provides native functionality to interact with a [Tezos node]() or [Conseil](), an indexing service. TezosKit supports interaction with the chain via both closure based callbacks and Promises ([PromiseKit]()) functionality.
+TezosKit provides native functionality to interact with a [Tezos node](docs/TezosNode.md) or [Conseil](docs/conseil.md), an indexing service. TezosKit supports interaction with the chain via both closure based callbacks and Promises ([PromiseKit](https://github.com/mxcl/PromiseKit)) functionality.
 
 TezosKit is compatible with both CocoaPods and Carthage. See the installation section below for specific instructions.
  
@@ -70,7 +56,7 @@ tezosNodeClient.getBalance(address: "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA").done
 }
 ```
 
-Learn more about interacting with a Tezos Node in the [Tezos Node Documentation]().
+Learn more about interacting with a Tezos Node in the [Tezos Node Documentation](docs/TezosNode.md).
 
 ### Interacting with Conseil
 The `ConseilClient` class supports interacting with a Conseil service. Interaction can be done with closure callbacks or Promises.
@@ -99,9 +85,9 @@ conseilClient.originatedAccounts(from: address).done { result in
 }
 ```
 
-Learn more about interacting with a Conseil Service in the [Conseil Documentation]().
+Learn more about interacting with a Conseil Service in the [Conseil Documentation](docs/conseil.md).
 ## Advanced Usage
-TezosKit is highly extensible for the needs of any individual project. Projects can customize RPCs and operations that are sent to the node. You can learn more about customizing TezosKit's behavior in the [Advanced Usage Documentation]().
+TezosKit is highly extensible for the needs of any individual project. Projects can customize RPCs and operations that are sent to the node. You can learn more about customizing TezosKit's behavior in the [Advanced Usage Documentation](docs/AdvancedFunctionality.md).
 ## Installation
 You may use either Carthage or Cocoapods to depend on TezosKit.
 ### CocoaPods
@@ -116,11 +102,11 @@ TezosKit to your `Cartfile`:
 github "keefertaylor/TezosKit"
 ```
 If you use Carthage to build your dependencies, make sure you have added `Base58Swift.framework`, `BigInt.framework`, `MnemonicKit.framework`,  and `PromiseKit.framework`, `Sodium.framework` and `TezosCrypto.framework`, to the "_Linked Frameworks and Libraries_" section of your target, and have included them in your Carthage framework copying build phase.
- 
-***TODO: Make sure Carthage deps are up to date*** 
 ## Bugs / Contributions
-If you enounter bugs or missing features in TezosKit, please feel free to open a GitHub issue.
+If you enounter bugs or missing features in TezosKit, please feel free to open a GitHub issue. You may want to check if the work you are suggesting is planned in [future work](docs/FutureWork.md).
 
 Contributions and bug fixes are appreciated. Please open a PR for any missing or erroneous functionality for which you can contribute a fix. 
 ## License
 TezosKit is licensed under the permissive MIT licence. 
+## See Also
+* [TezosCrypto](https://github.com/keefertaylor/TezosCrypto): A swift implementation of Tezos Cryptography

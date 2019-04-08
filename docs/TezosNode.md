@@ -1,3 +1,9 @@
+- Complex interactions
+-- Preappplication
+-- Multiple operations
+-- Reveals 
+
+- Where is forging done
 # Tezos Node Client
 ## Introduction
 A [Tezos Node]() is the main entry point to the Tezos Network. The `TezosNodeClient` class in TezosKit allows client applications to interact with the node via the JSON RPC API. 
@@ -83,8 +89,9 @@ TezosKit does not yet support hierarchical derivation for wallets. This function
 #### Secure Enclave Wallets
 TezosKit does not yet support wallets that utilize the secure enclave to sign transactions. This functionality will be delivered in a future update.
 
-### Examining the Network
+### Making Calls to the Network
 
+Using the primitives provided by the Wallet, the network
 
 
 
