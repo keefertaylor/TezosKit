@@ -1,7 +1,7 @@
 # Fees
 Fees are an advanced topic which most users of TezosKit will not need to know about.
 
-Every `Operation` contains an `OperationFees` struct which represents a set of fees (fee, gas, storage that will be applied when it is injected into the network. 
+Every `Operation` contains an `OperationFees` struct which represents a set of fees (fee, gas limit, storage limit) that will be applied when it is injected into the network. 
 
 All calls on `TezosNodeClient` that injects an operation on the network provide an opportunity to provide a custom fee structure. If no fee structure is provided, the default fees are used for the operation.
 

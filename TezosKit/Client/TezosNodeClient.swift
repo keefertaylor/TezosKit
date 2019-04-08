@@ -444,16 +444,15 @@ public class TezosNodeClient: AbstractClient {
     )
   }
 
-  /**
-   * Forge, sign, preapply and then inject a set of operations.
-   *
-   * Operations are processed in the order they are placed in the operation array.
-   *
-   * - Parameter operations: The operations which will be forged.
-   * - Parameter source: The address performing the operation.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter completion: A completion block that will be called with the results of the operation.
-   */
+  /// Forge, sign, preapply and then inject a set of operations.
+  ///
+  /// Operations are processed in the order they are placed in the operation array.
+  ///
+  /// - Parameters:
+  ///   - operations: The operations which will be forged.
+  ///   - source: The address performing the operation.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operations: [Operation],
     source: String,

@@ -35,7 +35,7 @@ let wallet = Wallet(mnemonic: mnemonic)!
 ### Interacting with the Tezos Node
 The `TezosNodeClient` class supports interacting with a Tezos Node. Interaction can be done with closure callbacks or Promises.
 
-```
+```swift
 let tezosNodeClient = TezosClient()
 
 // Closure completion handler
