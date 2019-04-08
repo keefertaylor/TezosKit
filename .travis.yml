@@ -10,9 +10,9 @@ before_install:
 - gem install cocoapods
 - brew update
 - brew outdated carthage || brew upgrade carthage
-- travis_wait 120 carthage bootstrap --platform iOS --no-use-binaries
+- travis_wait 120 carthage bootstrap --platform iOS --no-use-binaries --verbose
 before_deploy:
-- carthage build --no-skip-current --platform iOS --cache-builds
+- carthage build --no-skip-current --platform iOS --cache-builds --verbose
 - carthage archive $FRAMEWORK_NAME
 after_deploy:
 - pod trunk push --skip-import-validation --skip-tests --allow-warnings
