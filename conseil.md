@@ -2,7 +2,7 @@
 ## Introduction
 [Conseil](https://github.com/cryptonomic/conseil) is a query API for the Tezos blockchain by Cryptonomic. TezosKit provides integration with Conseil to build more advanced queries.
 
-Conseil functionality supports both `Result` style completion blocks or a promises API ([via PromiseKit](https://github.com/mxcl/PromiseKit))
+Conseil functionality supports both `Result` style completion blocks or a promises API ([via PromiseKit](https://github.com/mxcl/PromiseKit)).
 ## Getting Started
 ### Conseil Client
 Create a `ConseilClient` that will connect to a remote Conseil service.
@@ -129,7 +129,7 @@ This entity is provided in the initializer of ConseilQueryRPC. Possible values a
 ### Response Parsing
 Like all RPCs in TezosKit, responses are parsed using a class that inherits from `AbstractResponseAdapter`. Response adapters will be called by TezosKit to parse the raw data returned from the RPC to the given type. 
 
-For more information, see the [ResponseAdapter API Section of the TezosKit docs](https://github.com/keefertaylor/tezoskit/docs/tezoskit.md).
+For more information, see the [ResponseAdapter API Section of the TezosKit docs](https://github.com/keefertaylor/tezoskit/docs/TezosNode.md).
 
 ## Testing
 TezosKit provides integration tests for `ConseilClient` to ensure that features are always working. To run the tests yourself, simply configure the `ConseilURL` and `API Key` in `ConseilIntegrationTests.swift` and run the tests.
