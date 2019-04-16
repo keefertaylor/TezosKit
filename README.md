@@ -11,7 +11,7 @@ TezosKit is a swift SDK that is compatible with the [Tezos Blockchain](https://t
 * Automatically revealing accounts as needed
 * Batching multiple operations
 
-TezosKit provides native functionality to interact with a [Tezos node](docs/TezosNode.md) or [Conseil](docs/conseil.md), an indexing service. TezosKit supports interaction with the chain via both closure based callbacks and Promises ([PromiseKit](https://github.com/mxcl/PromiseKit)) functionality.
+TezosKit provides native functionality to interact with a [Tezos node](docs/TezosNode.md) or [Conseil](docs/Conseil.md), an indexing service. TezosKit supports interaction with the chain via both closure based callbacks and Promises ([PromiseKit](https://github.com/mxcl/PromiseKit)) functionality.
 
 TezosKit is compatible with both CocoaPods and Carthage. See the installation section below for specific instructions.
  
@@ -85,7 +85,7 @@ conseilClient.originatedAccounts(from: address).done { result in
 }
 ```
 
-Learn more about interacting with a Conseil Service in the [Conseil Documentation](docs/conseil.md).
+Learn more about interacting with a Conseil Service in the [Conseil Documentation](docs/Conseil.md).
 ## Advanced Usage
 TezosKit is highly extensible for the needs of any individual project. Projects can customize RPCs and operations that are sent to the node. You can learn more about customizing TezosKit's behavior in the [Advanced Usage Documentation](docs/AdvancedFunctionality.md).
 ## Installation
