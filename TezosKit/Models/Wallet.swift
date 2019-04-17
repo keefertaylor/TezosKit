@@ -43,7 +43,8 @@ public struct Wallet {
       return nil
     }
 
-    self.init(publicKey: publicKey, secretKey: secretKey, address: address, mnemonic: mnemonic)
+    let keys = Keys(publicKey: publicKey, secretKey: secretKey)
+    self.init(address: address, keys: keys, mnemonic: mnemonic)
   }
 
   /// Create a wallet with a given secret key.
@@ -54,12 +55,19 @@ public struct Wallet {
       let address = TezosCrypto.extractPublicKeyHash(secretKey: secretKey) else {
       return nil
     }
-    self.init(publicKey: publicKey, secretKey: secretKey, address: address, mnemonic: nil)
+    let keys = Keys(publicKey: publicKey, secretKey: secretKey)
+    self.init(address: address, keys: keys)
   }
 
-  /// Private initializer to create the wallet with the given inputs.
-  private init(publicKey: String, secretKey: String, address: String, mnemonic: String?) {
-    keys = Keys(publicKey: publicKey, secretKey: secretKey)
+  /// Create a wallet with the given address and keys.
+  ///
+  /// This initializer is particularly useful for creating KT1 wallets.
+  ///
+  /// - Parameters:
+  ///   - address: The address of the originated account.
+  ///   - keys: The keys of managing account.
+  private init(address: String, keys: Keys, mnemonic: String? = nil) {
+    self.keys = keys
     self.address = address
     self.mnemonic = mnemonic
   }
