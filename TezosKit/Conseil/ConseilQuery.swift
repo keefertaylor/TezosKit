@@ -34,13 +34,12 @@ public enum ConseilQuery: String {
       set: [String] = [],
       inverse: Bool = false
     ) -> ConseilPredicate {
-      var predicate: [String: Any] = [
+      return [
         ConseilQuery.Predicates.field.rawValue: field,
         ConseilQuery.Predicates.operation.rawValue: operation.rawValue,
         ConseilQuery.Predicates.inverse.rawValue: inverse,
         ConseilQuery.Predicates.set.rawValue: set
       ]
-      return predicate
     }
   }
 
