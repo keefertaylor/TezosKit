@@ -28,6 +28,9 @@ extension Wallet {
   public static let testWallet =
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
   public static let originatedAddress = "KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka"
+
+  // An address which has originated contracts on it.
+  public static let contractOwningAddress = "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt"
 }
 
 extension URL {
@@ -305,5 +308,41 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  func testContractOrigination() {
+    // Fix this before committing.
+    let target = "KT1KoQPss6Rj3Sv4Y8eaQqnEXZkJDiK5Etfq"
+
+    var contractCode: ContractCode? = nil
+    let codeFetchedExpecation = XCTestExpectation(description: "code retrievec")
+    nodeClient.getAddressCode(address: target) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success(let code):
+        contractCode = code
+        codeFetchedExpecation.fulfill()
+      }
+    }
+    wait(for: [codeFetchedExpecation], timeout: .expectationTimeout)
+
+
+    let expectation = XCTestExpectation(description: "completion called")
+
+    nodeClient.originateAccount(
+      managerAddress: Wallet.testWallet.address,
+      keys: Wallet.testWallet.keys,
+      contractCode: contractCode
+    ) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success:
+        expectation.fulfill()
+      }
+    }
+    wait(for: [expectation], timeout: .expectationTimeout)
+
   }
 }

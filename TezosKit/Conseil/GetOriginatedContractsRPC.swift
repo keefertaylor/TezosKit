@@ -1,7 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
-/// An RPC which fetches originated accounts for an account.
-public class GetOriginatedAccountsRPC: ConseilQueryRPC<[[String: Any]]> {
+/// An RPC which fetches originated contracts for an account.
+public class GetOriginatedContractsRPC: ConseilQueryRPC<[[String: Any]]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
@@ -11,7 +11,7 @@ public class GetOriginatedAccountsRPC: ConseilQueryRPC<[[String: Any]]> {
       ConseilQuery.Predicates.predicateWith(
         field: "script",
         operation: ConseilQuery.Predicates.Operation.isNull,
-        inverse: false
+        inverse: true
       )
     ]
     let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "block_level")

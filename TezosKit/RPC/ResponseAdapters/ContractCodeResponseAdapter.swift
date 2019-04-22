@@ -2,9 +2,7 @@
 
 import Foundation
 
-/**
- * Parse a given response as code and storage for a contract.
- */
+/// Parse a given response as code and storage for a contract.
 public class ContractCodeResponseAdapter: AbstractResponseAdapter<ContractCode> {
   public override class func parse(input: Data) -> ContractCode? {
     guard let parsedDictionary = JSONDictionaryResponseAdapter.parse(input: input),

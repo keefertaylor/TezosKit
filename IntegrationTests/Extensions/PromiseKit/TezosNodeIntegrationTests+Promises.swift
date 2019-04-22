@@ -9,6 +9,11 @@ import XCTest
 /// Integration tests for the Promises Extension.
 /// Please see instructions in header of `TezosNodeIntegrationTests.swift`.
 extension TezosNodeIntegrationTests {
+  func testSecretKey() {
+    let secretKey = Wallet.testWallet.keys.secretKey
+    print(secretKey)
+  }
+
   public func testGetAccountBalance_promises() {
     let expectation = XCTestExpectation(description: "promise fulfilled")
 

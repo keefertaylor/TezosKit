@@ -42,14 +42,29 @@ public class ConseilClient: AbstractClient {
   ///
   /// - Parameters:
   ///   - account: The account to query.
-  ///   - limit: The number of transactions to return, defaults to 100.
+  ///   - limit: The number of accounts to return, defaults to 100.
   ///   - completion: A completion callback.
   public func originatedAccounts(
     from account: String,
     limit: Int = 100,
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
-    let rpc = GetOriginatedAccounts(account: account, limit: limit)
+    let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
+    send(rpc, completion: completion)
+  }
+
+  /// Retrieve originated contracts.
+  ///
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of contracts to return, defaults to 100.
+  ///   - completion: A completion callback.
+  public func originatedContracts(
+    from account: String,
+    limit: Int = 100,
+    completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
+  ) {
+    let rpc = GetOriginatedContractsRPC(account: account, limit: limit)
     send(rpc, completion: completion)
   }
 

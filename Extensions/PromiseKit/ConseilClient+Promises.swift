@@ -8,13 +8,27 @@ public extension ConseilClient {
   ///
   /// - Parameters:
   ///   - account: The account to query.
-  ///   - limit: The number of transactions to return, defaults to 100.
+  ///   - limit: The number of accounts to return, defaults to 100.
   ///   - completion: A completion callback.
   func originatedAccounts(
     from account: String,
     limit: Int = 100
   ) -> Promise<[[String: Any]]> {
-    let rpc = GetOriginatedAccounts(account: account, limit: limit)
+    let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
+    return send(rpc)
+  }
+
+  /// Retrieve originated contracts.
+  ///
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of contracts to return, defaults to 100.
+  ///   - completion: A completion callback.
+  func originatedContracts(
+    from account: String,
+    limit: Int = 100
+    ) -> Promise<[[String: Any]]> {
+    let rpc = GetOriginatedContractsRPC(account: account, limit: limit)
     return send(rpc)
   }
 

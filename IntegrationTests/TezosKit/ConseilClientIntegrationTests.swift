@@ -80,4 +80,19 @@ class ConseilClientIntegrationTests: XCTestCase {
     }
     wait(for: [expectation], timeout: .expectationTimeout)
   }
+
+  public func testConseilOriginatedContracts() {
+    let expectation = XCTestExpectation(description: "completion called")
+    conseilClient.originatedContracts(from: Wallet.contractOwningAddress) { result in
+      switch result {
+      case .success(let results):
+        XCTAssert(results.count > 1)
+        expectation.fulfill()
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      }
+    }
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
 }
