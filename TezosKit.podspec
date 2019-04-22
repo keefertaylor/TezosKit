@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
       ss.dependency "BigInt"
       ss.dependency "MnemonicKit"
       ss.dependency "TezosCrypto"
-      ss.dependency "Sodium"
+      ss.dependency "Sodium", "~> 0.7.0"
   end
   
   s.subspec 'TezosKitPromises' do |ss|
