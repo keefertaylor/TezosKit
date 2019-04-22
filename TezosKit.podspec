@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TezosKit"
-  s.version      = "2.1.0"
+  s.version      = "3.0.1"
   s.summary      = "TezosKit provides a Swift based toolchain for interacting with the Tezos blockchain"
   s.description  = <<-DESC
   TezosKit provides utilities for interacting with the Tezos Blockchain over an RPC API.
@@ -9,11 +9,11 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/keefertaylor/TezosKit"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Keefer Taylor" => "keefer@keefertaylor.com" }
-  s.source       = { :git => "https://github.com/keefertaylor/TezosKit.git", :tag => "2.1.0" }
+  s.source       = { :git => "https://github.com/keefertaylor/TezosKit.git", :tag => "3.0.1" }
   s.source_files  = "TezosKit/**/*.swift"
   s.swift_version = "4.2"
   s.ios.deployment_target = "8.0"
-  s.osx.deployment_target = "10.10"
+  s.osx.deployment_target = "10.11"
   s.default_subspecs = 'TezosKitCore', 'TezosKitPromises'
   
   s.subspec 'TezosKitCore' do |ss|
@@ -21,12 +21,12 @@ Pod::Spec.new do |s|
       ss.frameworks = 'Foundation'
     
       ss.ios.deployment_target = '8.0'
-      ss.osx.deployment_target = '10.10'
+      ss.osx.deployment_target = '10.11'
       
-      ss.dependency "BigInt", "~> 3.1"		
+      ss.dependency "BigInt"
       ss.dependency "MnemonicKit"
       ss.dependency "TezosCrypto"
-      ss.dependency "Sodium", "~> 0.7.0"
+      ss.dependency "Sodium", "~> 0.8.0"
   end
   
   s.subspec 'TezosKitPromises' do |ss|
@@ -34,10 +34,11 @@ Pod::Spec.new do |s|
       ss.frameworks = 'Foundation'
     
       ss.ios.deployment_target = '8.0'
-      ss.osx.deployment_target = '10.10'
+      ss.osx.deployment_target = '10.11'
       
       ss.dependency 'TezosKit/TezosKitCore'      
       ss.dependency "PromiseKit"
+      ss.dependency "Sodium", "~> 0.8.0"      
   end
 
   s.test_spec "Tests" do |test_spec|

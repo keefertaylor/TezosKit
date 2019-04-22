@@ -5,10 +5,7 @@ public class GetReceivedTransactionsRPC: ConseilQueryRPC<[Transaction]> {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of items to return.
-  ///   - apiKey: The API key to send in the request headers.
-  ///   - platform: The platform to query.
-  ///   - network: The network to query.
-  public init?(account: String, limit: Int, apiKey: String, platform: ConseilPlatform, network: ConseilNetwork) {
+  public init(account: String, limit: Int) {
     let predicates: [ConseilPredicate] = [
       ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction"]),
       ConseilQuery.Predicates.predicateWith(field: "destination", set: [account])
@@ -19,9 +16,6 @@ public class GetReceivedTransactionsRPC: ConseilQueryRPC<[Transaction]> {
     super.init(
       query: query,
       entity: .operation,
-      apiKey: apiKey,
-      platform: platform,
-      network: network,
       responseAdapterClass: TransactionsResponseAdapter.self
     )
   }

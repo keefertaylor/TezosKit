@@ -10,7 +10,7 @@ import XCTest
 /// Please see instructions in header of `TezosNodeIntegrationTests.swift`.
 extension TezosNodeIntegrationTests {
   public func testGetAccountBalance_promises() {
-    let expectation = XCTestExpectation(description: "completion called")
+    let expectation = XCTestExpectation(description: "promise fulfilled")
 
     nodeClient.getBalance(wallet: .testWallet).done { result in
       XCTAssertNotNil(result)
@@ -25,7 +25,7 @@ extension TezosNodeIntegrationTests {
   }
 
   public func testOrigination_promises() {
-    let expectation = XCTestExpectation(description: "completion called")
+    let expectation = XCTestExpectation(description: "promise fulfilled")
 
     self.nodeClient.originateAccount(
       managerAddress: Wallet.testWallet.address,
@@ -197,7 +197,7 @@ extension TezosNodeIntegrationTests {
   }
 
   public func testMultipleOperations_promises() {
-    let expectation = XCTestExpectation(description: "completion called")
+    let expectation = XCTestExpectation(description: "promise fulfilled")
 
     let ops: [TezosKit.Operation] = [
       TransactionOperation(

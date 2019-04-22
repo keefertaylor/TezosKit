@@ -1,22 +1,7 @@
 // Copyright Keefer Taylor, 2019
 
-/// Conseil Client is a WIP.
-/// Remaining Work:
-/// - Promises Extension
-/// - Integration Tests
-/// - Updating documentation
-
 /// A client for a Conseil Server.
 public class ConseilClient: AbstractClient {
-  /// The platfom that this client will query.
-  private let platform: ConseilPlatform
-
-  /// The network that this client will query.
-  private let network: ConseilNetwork
-
-  /// The API key for the remote Conseil service.
-  private let apiKey: String
-
   /// Initialize a new client for a Conseil Service.
   ///
   /// - Parameters:
@@ -34,13 +19,20 @@ public class ConseilClient: AbstractClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    self.platform = platform
-    self.network = network
-    self.apiKey = apiKey
+    var nodeBaseURL = remoteNodeURL
+    nodeBaseURL.appendPathComponent("v2")
+    nodeBaseURL.appendPathComponent("data")
+    nodeBaseURL.appendPathComponent(platform.rawValue)
+    nodeBaseURL.appendPathComponent(network.rawValue)
+
+    let headers = [
+      Header(field: "apiKey", value: apiKey)
+    ]
 
     super.init(
-      remoteNodeURL: remoteNodeURL,
+      remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
+      headers: headers,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
@@ -50,28 +42,38 @@ public class ConseilClient: AbstractClient {
   ///
   /// - Parameters:
   ///   - account: The account to query.
-  ///   - limit: The number of transactions to return, defaults to 100.
+  ///   - limit: The number of accounts to return, defaults to 100.
   ///   - completion: A completion callback.
   public func originatedAccounts(
     from account: String,
     limit: Int = 100,
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetOriginatedAccounts(
-      account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-      ) else {
-        self.callbackQueue.async {
-          completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-        }
-        return
-    }
+    let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
     send(rpc, completion: completion)
   }
 
+  /// Retrieve originated contracts.
+  ///
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of contracts to return, defaults to 100.
+  ///   - completion: A completion callback.
+  public func originatedContracts(
+    from account: String,
+    limit: Int = 100,
+    completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
+  ) {
+    let rpc = GetOriginatedContractsRPC(account: account, limit: limit)
+    send(rpc, completion: completion)
+  }
+
+  /// Retrieve transactions both sent and received from an account.
+  ///
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of transactions to return, defaults to 100.
+  ///   - completion: A completion callback.
   public func transactions(
     from account: String,
     limit: Int = 100,
@@ -82,7 +84,7 @@ public class ConseilClient: AbstractClient {
 
     // Fetch sent transactions.
     transactionsDispatchGroup.enter()
-    var receivedResult: Result<[Transaction], TezosKitError>? = nil
+    var receivedResult: Result<[Transaction], TezosKitError>?
     self.transactionsReceived(from: account, limit: limit) { result in
       receivedResult = result
       transactionsDispatchGroup.leave()
@@ -90,7 +92,7 @@ public class ConseilClient: AbstractClient {
 
     // Fetch received transactions.
     transactionsDispatchGroup.enter()
-    var sentResult: Result<[Transaction], TezosKitError>? = nil
+    var sentResult: Result<[Transaction], TezosKitError>?
     self.transactionsSent(from: account, limit: limit) { result in
       sentResult = result
       transactionsDispatchGroup.leave()
@@ -103,7 +105,7 @@ public class ConseilClient: AbstractClient {
       }
       return
     }
-    switch (combinedResult) {
+    switch combinedResult {
     case .success(let combined):
       // Sort the combined results and trim down to the limit.
       let sorted = combined.sorted { $0.timestamp < $1.timestamp }
@@ -130,18 +132,10 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetReceivedTransactionsRPC(
+    let rpc = GetReceivedTransactionsRPC(
       account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-      ) else {
-        self.callbackQueue.async {
-          completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-        }
-        return
-    }
+      limit: limit
+    )
     send(rpc, completion: completion)
   }
 
@@ -156,18 +150,10 @@ public class ConseilClient: AbstractClient {
     limit: Int = 100,
     completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
   ) {
-    guard let rpc = GetSentTransactionsRPC(
+    let rpc = GetSentTransactionsRPC(
       account: account,
-      limit: limit,
-      apiKey: apiKey,
-      platform: platform,
-      network: network
-    ) else {
-      self.callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .invalidURL, underlyingError: nil)))
-      }
-      return
-    }
+      limit: limit
+    )
     send(rpc, completion: completion)
   }
 
@@ -177,9 +163,9 @@ public class ConseilClient: AbstractClient {
   ///
   /// Returns nil if either optional is nil, otherwise, returns the result of combining.
   internal static func combine<T>(
-    _ a: Result<Array<T>, TezosKitError>?,
-    _ b: Result<Array<T>, TezosKitError>?
-  ) -> Result<Array<T>, TezosKitError>? {
+    _ a: Result<[T], TezosKitError>?,
+    _ b: Result<[T], TezosKitError>?
+  ) -> Result<[T], TezosKitError>? {
     guard let a = a,
           let b = b else {
         return nil
@@ -191,10 +177,10 @@ public class ConseilClient: AbstractClient {
   ///
   /// If any result is .failure, then that failure is returned. If both results are failures, return failureA.
   internal static func combineResults<T>(
-    _ a: Result<Array<T>, TezosKitError>,
-    _ b: Result<Array<T>, TezosKitError>
-  ) -> Result<Array<T>, TezosKitError> {
-    return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<Array<T>, TezosKitError> in
+    _ a: Result<[T], TezosKitError>,
+    _ b: Result<[T], TezosKitError>
+  ) -> Result<[T], TezosKitError> {
+    return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<[T], TezosKitError> in
       // If there is a failure, keep returning a failure.
       guard case let .success(accumulatedArray) = accumulated else {
         return accumulated
