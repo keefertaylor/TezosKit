@@ -28,6 +28,9 @@ extension Wallet {
   public static let testWallet =
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
   public static let originatedAddress = "KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka"
+
+  // An address which has originated contracts on it.
+  public static let contractOwningAddress = "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt"
 }
 
 extension URL {
