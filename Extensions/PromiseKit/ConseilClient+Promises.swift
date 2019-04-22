@@ -27,7 +27,7 @@ public extension ConseilClient {
   func originatedContracts(
     from account: String,
     limit: Int = 100
-    ) -> Promise<[[String: Any]]> {
+  ) -> Promise<[[String: Any]]> {
     let rpc = GetOriginatedContractsRPC(account: account, limit: limit)
     return send(rpc)
   }

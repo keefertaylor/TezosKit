@@ -309,40 +309,4 @@ class TezosNodeIntegrationTests: XCTestCase {
     }
     wait(for: [expectation], timeout: .expectationTimeout)
   }
-
-  func testContractOrigination() {
-    // Fix this before committing.
-    let target = "KT1KoQPss6Rj3Sv4Y8eaQqnEXZkJDiK5Etfq"
-
-    var contractCode: ContractCode? = nil
-    let codeFetchedExpecation = XCTestExpectation(description: "code retrievec")
-    nodeClient.getAddressCode(address: target) { result in
-      switch result {
-      case .failure:
-        XCTFail()
-      case .success(let code):
-        contractCode = code
-        codeFetchedExpecation.fulfill()
-      }
-    }
-    wait(for: [codeFetchedExpecation], timeout: .expectationTimeout)
-
-
-    let expectation = XCTestExpectation(description: "completion called")
-
-    nodeClient.originateAccount(
-      managerAddress: Wallet.testWallet.address,
-      keys: Wallet.testWallet.keys,
-      contractCode: contractCode
-    ) { result in
-      switch result {
-      case .failure:
-        XCTFail()
-      case .success:
-        expectation.fulfill()
-      }
-    }
-    wait(for: [expectation], timeout: .expectationTimeout)
-
-  }
 }

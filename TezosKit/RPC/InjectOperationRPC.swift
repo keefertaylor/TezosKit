@@ -8,8 +8,6 @@ public class InjectionRPC: RPC<String> {
   public init(
     payload: String
   ) {
-    print("PAYLOAD")
-    print(payload)
     let endpoint = "/injection/operation"
     super.init(
       endpoint: endpoint,
