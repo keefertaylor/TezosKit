@@ -23,10 +23,10 @@ Pod::Spec.new do |s|
       ss.ios.deployment_target = '8.0'
       ss.osx.deployment_target = '10.10'
       
-      ss.dependency "BigInt", "~> 3.1"		
+      ss.dependency "BigInt"
       ss.dependency "MnemonicKit"
       ss.dependency "TezosCrypto"
-      ss.dependency "Sodium", "~> 0.7.0"
+      ss.dependency "Sodium"
   end
   
   s.subspec 'TezosKitPromises' do |ss|
