@@ -11,9 +11,9 @@ class TransactionsResponseAdapterTest: XCTestCase {
     let fee = Tez(1)
     let timestamp: TimeInterval = 1_234_567
     let blockHash = "BMc3kxPnn95TxYKVPehmYWXuaoKBneoPKeDk4sz7usFp7Aumnez"
-    let blockLevel = 323100
+    let blockLevel = 323_100
     let operationGroupHash = "opMiJzXJV8nKWy7VTLh2yxFL8yUGDpVkvnbA5hUwj9dSnpMEEMa"
-    let operationID = 1511646
+    let operationID = 1_511_646
 
     let validTransaction: [String: Any] = [
       Transaction.JSONKeys.source: source,

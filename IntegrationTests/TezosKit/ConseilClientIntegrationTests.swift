@@ -21,7 +21,7 @@ let remoteNodeURL = URL(string: "your conseil url here")!
 
 class ConseilClientIntegrationTests: XCTestCase {
   public lazy var conseilClient: ConseilClient = {
-    return ConseilClient(remoteNodeURL: remoteNodeURL, apiKey:apiKey, platform: .tezos, network: .alphanet)
+    return ConseilClient(remoteNodeURL: remoteNodeURL, apiKey: apiKey, platform: .tezos, network: .alphanet)
   }()
 
   public func testConseilSent() {

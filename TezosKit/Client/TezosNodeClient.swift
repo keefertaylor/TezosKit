@@ -555,7 +555,7 @@ public class TezosNodeClient: AbstractClient {
     ) else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
       completion(.failure(error))
-      return 
+      return
     }
 
     let signedProtocolOperationPayload = SignedProtocolOperationPayload(

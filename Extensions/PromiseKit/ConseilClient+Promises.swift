@@ -1,9 +1,9 @@
-// Copyright Keefer Taylor 2019
+// Copyright Keefer Taylor, 2019
 
 import PromiseKit
 
 /// Extension for ConseilClient which provides a Promise/PromiseKit based API.
-public extension ConseilClient {
+extension ConseilClient {
   /// Retrieve originated accounts.
   ///
   /// - Parameters:

@@ -84,7 +84,7 @@ public class ConseilClient: AbstractClient {
 
     // Fetch sent transactions.
     transactionsDispatchGroup.enter()
-    var receivedResult: Result<[Transaction], TezosKitError>? = nil
+    var receivedResult: Result<[Transaction], TezosKitError>?
     self.transactionsReceived(from: account, limit: limit) { result in
       receivedResult = result
       transactionsDispatchGroup.leave()
@@ -92,7 +92,7 @@ public class ConseilClient: AbstractClient {
 
     // Fetch received transactions.
     transactionsDispatchGroup.enter()
-    var sentResult: Result<[Transaction], TezosKitError>? = nil
+    var sentResult: Result<[Transaction], TezosKitError>?
     self.transactionsSent(from: account, limit: limit) { result in
       sentResult = result
       transactionsDispatchGroup.leave()
@@ -105,7 +105,7 @@ public class ConseilClient: AbstractClient {
       }
       return
     }
-    switch (combinedResult) {
+    switch combinedResult {
     case .success(let combined):
       // Sort the combined results and trim down to the limit.
       let sorted = combined.sorted { $0.timestamp < $1.timestamp }
@@ -163,9 +163,9 @@ public class ConseilClient: AbstractClient {
   ///
   /// Returns nil if either optional is nil, otherwise, returns the result of combining.
   internal static func combine<T>(
-    _ a: Result<Array<T>, TezosKitError>?,
-    _ b: Result<Array<T>, TezosKitError>?
-  ) -> Result<Array<T>, TezosKitError>? {
+    _ a: Result<[T], TezosKitError>?,
+    _ b: Result<[T], TezosKitError>?
+  ) -> Result<[T], TezosKitError>? {
     guard let a = a,
           let b = b else {
         return nil
@@ -177,10 +177,10 @@ public class ConseilClient: AbstractClient {
   ///
   /// If any result is .failure, then that failure is returned. If both results are failures, return failureA.
   internal static func combineResults<T>(
-    _ a: Result<Array<T>, TezosKitError>,
-    _ b: Result<Array<T>, TezosKitError>
-  ) -> Result<Array<T>, TezosKitError> {
-    return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<Array<T>, TezosKitError> in
+    _ a: Result<[T], TezosKitError>,
+    _ b: Result<[T], TezosKitError>
+  ) -> Result<[T], TezosKitError> {
+    return [a, b].reduce(.success([])) { accumulated, nextPartial -> Result<[T], TezosKitError> in
       // If there is a failure, keep returning a failure.
       guard case let .success(accumulatedArray) = accumulated else {
         return accumulated

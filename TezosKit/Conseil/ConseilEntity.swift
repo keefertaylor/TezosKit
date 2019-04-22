@@ -10,6 +10,6 @@ public enum ConseilEntity: String, CaseIterable {
   case block = "blocks"
   case fee = "fees"
   case operation = "operations"
-  case operation_group = "operation_groups"
+  case operationGroup = "operation_groups"
   case proposal = "proposals"
 }

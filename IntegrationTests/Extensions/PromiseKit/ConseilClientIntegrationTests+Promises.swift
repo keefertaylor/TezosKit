@@ -43,7 +43,7 @@ extension ConseilClientIntegrationTests {
       XCTAssertNotNil(result)
       XCTAssert(result.count > 1)
       expectation.fulfill()
-      } .catch { _ in
+    } .catch { _ in
         XCTFail()
     }
 
@@ -56,7 +56,7 @@ extension ConseilClientIntegrationTests {
       XCTAssertNotNil(result)
       XCTAssert(result.count > 1)
       expectation.fulfill()
-      } .catch { _ in
+    } .catch { _ in
         XCTFail()
     }
 
@@ -69,7 +69,7 @@ extension ConseilClientIntegrationTests {
       XCTAssertNotNil(result)
       XCTAssert(result.count > 1)
       expectation.fulfill()
-      } .catch { _ in
+    } .catch { _ in
         XCTFail()
     }
 
