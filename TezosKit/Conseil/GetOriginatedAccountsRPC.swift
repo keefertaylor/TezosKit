@@ -7,7 +7,12 @@ public class GetOriginatedAccounts: ConseilQueryRPC<[[String: Any]]> {
   ///   - limit: The number of items to return.
   public init(account: String, limit: Int) {
     let predicates: [ConseilPredicate] = [
-      ConseilQuery.Predicates.predicateWith(field: "manager", set: [account])
+      ConseilQuery.Predicates.predicateWith(field: "manager", set: [account]),
+      ConseilQuery.Predicates.predicateWith(
+        field: "script",
+        operation: ConseilQuery.Predicates.Operation.isNull,
+        inverse: false
+      )
     ]
     let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "block_level")
     let query: [String: Any] = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)

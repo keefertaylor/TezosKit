@@ -14,24 +14,36 @@ public enum ConseilQuery: String {
     case field
     case operation
     public enum Operation: String {
+      case after = "after"
+      case before
+      case between
+      case endsWith
       case equal = "eq"
+      case greaterThan = "gt"
+      case `in` = "in"
+      case isNull = "isnull"
+      case lessThan = "lt"
+      case like
+      case startsWith
     }
     case inverse
 
     public static func predicateWith(
       field: String,
-      set: [String],
       operation: ConseilQuery.Predicates.Operation = .equal,
+      set: [String] = [],
       inverse: Bool = false
     ) -> ConseilPredicate {
       return [
         ConseilQuery.Predicates.field.rawValue: field,
-        ConseilQuery.Predicates.set.rawValue: set,
         ConseilQuery.Predicates.operation.rawValue: operation.rawValue,
-        ConseilQuery.Predicates.inverse.rawValue: inverse
+        ConseilQuery.Predicates.inverse.rawValue: inverse,
+        ConseilQuery.Predicates.set.rawValue: set
       ]
     }
   }
+
+  case aggregation
 
   case orderBy = "orderby"
   public enum OrderBy: String {

@@ -28,7 +28,8 @@ class ConseilClientIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
     conseilClient.transactionsSent(from: Wallet.testWallet.address) { result in
       switch result {
-      case .success:
+      case .success(let results):
+        XCTAssert(results.count > 1)
         expectation.fulfill()
       case .failure:
         XCTFail()
@@ -41,7 +42,8 @@ class ConseilClientIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
     conseilClient.transactionsReceived(from: Wallet.testWallet.address) { result in
       switch result {
-      case .success:
+      case .success(let results):
+        XCTAssert(results.count > 1)
         expectation.fulfill()
       case .failure:
         XCTFail()
@@ -54,7 +56,8 @@ class ConseilClientIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
     conseilClient.transactions(from: Wallet.testWallet.address) { result in
       switch result {
-      case .success:
+      case .success(let results):
+        XCTAssert(results.count > 1)
         expectation.fulfill()
       case .failure:
         XCTFail()
@@ -67,9 +70,11 @@ class ConseilClientIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
     conseilClient.originatedAccounts(from: Wallet.testWallet.address) { result in
       switch result {
-      case .success:
+      case .success(let results):
+        XCTAssert(results.count > 1)
         expectation.fulfill()
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       }
     }

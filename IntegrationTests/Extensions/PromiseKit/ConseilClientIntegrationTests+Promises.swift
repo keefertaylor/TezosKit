@@ -13,6 +13,7 @@ extension ConseilClientIntegrationTests {
 
     conseilClient.transactionsReceived(from: Wallet.testWallet.address).done { result in
       XCTAssertNotNil(result)
+      XCTAssert(result.count > 1)
       expectation.fulfill()
     } .catch { _ in
       XCTFail()
@@ -26,6 +27,7 @@ extension ConseilClientIntegrationTests {
 
     conseilClient.transactionsSent(from: Wallet.testWallet.address).done { result in
       XCTAssertNotNil(result)
+      XCTAssert(result.count > 1)
       expectation.fulfill()
     } .catch { _ in
       XCTFail()
@@ -39,6 +41,7 @@ extension ConseilClientIntegrationTests {
 
     conseilClient.transactions(from: Wallet.testWallet.address).done { result in
       XCTAssertNotNil(result)
+      XCTAssert(result.count > 1)
       expectation.fulfill()
       } .catch { _ in
         XCTFail()
@@ -51,6 +54,7 @@ extension ConseilClientIntegrationTests {
     let expectation = XCTestExpectation(description: "promise fulfilled")
     conseilClient.originatedAccounts(from: Wallet.testWallet.address).done { result in
       XCTAssertNotNil(result)
+      XCTAssert(result.count > 1)
       expectation.fulfill()
       } .catch { _ in
         XCTFail()
