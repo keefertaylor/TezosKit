@@ -10,9 +10,9 @@ before_install:
 - gem install cocoapods
 - brew update
 - brew outdated carthage || brew upgrade carthage
-- carthage bootstrap --platform iOS --cache-builds
+- travis_wait 120 carthage bootstrap --platform iOS --no-use-binaries --verbose
 before_deploy:
-- carthage build --no-skip-current --platform iOS --cache-builds
+- carthage build --no-skip-current --platform iOS --cache-builds --verbose
 - carthage archive $FRAMEWORK_NAME
 after_deploy:
 - pod trunk push --skip-import-validation --skip-tests --allow-warnings
@@ -23,7 +23,7 @@ after_success:
 - slather
 - bash <(curl -s https://codecov.io/bash)
 after_failure:
-- cat /var/folders/nz/vv4_9tw56nv9k3tkvyszvwg80000gn/T/carthage-xcodebuild.gu9Y5X.log
+- cat /var/folders/17/5mc7816d3mndxjqgplq6057w0000gn/T/*.log
 deploy:
   provider: releases
   api_key:

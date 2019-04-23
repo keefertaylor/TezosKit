@@ -105,4 +105,15 @@ class TezTest: XCTestCase {
     XCTAssertEqual(threeFiftyAsString, threeFiftyAsDecimal)
     XCTAssertNotEqual(threeFiftyAsDecimal, fourAsDecimal)
   }
+
+  public func testVeryLargeAmout() {
+    guard let oneQuadrillionAsString = Tez("1000000000000000000000") else {
+      XCTFail()
+      return
+    }
+
+    let oneQuadrillionAsDecimal = Tez(1_000_000_000_000_000)
+
+    XCTAssertEqual(oneQuadrillionAsString, oneQuadrillionAsDecimal)
+  }
 }
