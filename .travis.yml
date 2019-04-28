@@ -12,10 +12,10 @@ before_install:
 - brew outdated carthage || brew upgrade carthage
 - travis_wait 120 carthage bootstrap --platform iOS --no-use-binaries --verbose
 before_deploy:
-- carthage build --no-skip-current --platform iOS --cache-builds --verbose
+- travis_wait 120 carthage build --no-skip-current --platform iOS --cache-builds
 - carthage archive $FRAMEWORK_NAME
 after_deploy:
-- pod trunk push --skip-import-validation --skip-tests --allow-warnings
+- travis_wait 120 pod trunk push --skip-import-validation --skip-tests --allow-warnings
 script:
 - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone
   XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
