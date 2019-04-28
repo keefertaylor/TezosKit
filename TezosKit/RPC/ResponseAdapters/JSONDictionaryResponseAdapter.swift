@@ -2,9 +2,7 @@
 
 import Foundation
 
-/**
- * Parse the given data as a JSON encoded string representing a dictionary.
- */
+/// Parse the given data as a JSON encoded string representing a dictionary.
 public class JSONDictionaryResponseAdapter: AbstractResponseAdapter<[String: Any]> {
   public override class func parse(input: Data) -> [String: Any]? {
     do {

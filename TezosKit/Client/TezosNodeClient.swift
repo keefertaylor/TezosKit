@@ -530,16 +530,15 @@ public class TezosNodeClient: AbstractClient {
     return (jsonSignedBytes, signedForgeablePayload)
   }
 
-  /**
-   * Sign the result of a forged operation, preapply and inject it if successful.
-   *
-   * - Parameter operationPayload: The operation payload which was used to forge the operation.
-   * - Parameter operationMetadata: Metadata related to the operation.
-   * - Parameter forgeResult: The result of forging the operation payload.
-   * - Parameter source: The address performing the operation.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter completion: A completion block that will be called with the results of the operation.
-   */
+  /// Sign the result of a forged operation, preapply and inject it if successful.
+  ///
+  /// - Parameters:
+  ///   - operationPayload: The operation payload which was used to forge the operation.
+  ///   - operationMetadata: Metadata related to the operation.
+  ///   - forgeResult: The result of forging the operation payload.
+  ///   - source: The address performing the operation.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - completion: A completion block that will be called with the results of the operation.
   private func signPreapplyAndInjectOperation(
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,

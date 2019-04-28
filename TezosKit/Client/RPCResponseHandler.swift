@@ -2,18 +2,16 @@
 
 import Foundation
 
-/**
- * A response handler handles responses that are received when network requests are completed.
- */
+/// A response handler handles responses that are received when network requests are completed.
 public class RPCResponseHandler {
-  /**
-   * Handle a response from the network.
-   * - Parameter response: The URLResponse associated with the request, if it exists.
-   * - Parameter data: Raw data returned from the network, if it exists.
-   * - Parameter error: An error in the request, if one occurred.
-   * - Parameter responseAdapterClass: A response adapter class that will adapt the raw data to a first class object.
-   * - Returns: A tuple containing the result of the parsing operation if successful, otherwise an error.
-   */
+  /// Handle a response from the network.
+  ///
+  /// - Parameters:
+  ///   - response: The URLResponse associated with the request, if it exists.
+  ///   - data: Raw data returned from the network, if it exists.
+  ///   - error: An error in the request, if one occurred.
+  ///   - responseAdapterClass: A response adapter class that will adapt the raw data to a first class object.
+  /// - Returns: A tuple containing the result of the parsing operation if successful, otherwise an error.
   public func handleResponse<T>(
     response: URLResponse?,
     data: Data?,
@@ -46,15 +44,14 @@ public class RPCResponseHandler {
 
 // MARK: - Helpers
 
- /**
-  * Parse an error from a given HTTPURLResponse.
-  *
-  * - Note: This method assumes that the HTTPResponse contained an error.
-  *
-  * - Parameter httpResponse: The HTTPURLResponse to parse.
-  * - Parameter data: Optional data that may have been returned with the response.
-  * - Returns: An appropriate error based on the inputs.
-  */
+  /// Parse an error from a given HTTPURLResponse.
+  ///
+  /// - Note: This method assumes that the HTTPResponse contained an error.
+  ///
+  /// - Parameters:
+  ///   - httpResponse: The HTTPURLResponse to parse.
+  ///   -data: Optional data that may have been returned with the response.
+  ///  - Returns: An appropriate error based on the inputs.
   private func parseError(from httpResponse: HTTPURLResponse, with data: Data?) -> TezosKitError {
     // Decode the server's response to a string in order to bundle it with the error if it is in
     // a readable format.
@@ -71,14 +68,12 @@ public class RPCResponseHandler {
     return error
   }
 
-  /**
-   * Parse an error kind from a given HTTPURLResponse.
-   *
-   * - Note: This method assumes that the HTTPResponse contained an error.
-   *
-   * - Parameter httpResponse: The HTTPURLResponse to parse.
-   * - Returns: An appropriate error kind based on the response.
-   */
+  /// Parse an error kind from a given HTTPURLResponse.
+  ///
+  /// - Note: This method assumes that the HTTPResponse contained an error.
+  ///
+  /// - Parameter httpResponse: The HTTPURLResponse to parse.
+  /// - Returns: An appropriate error kind based on the response.
   private func parseErrorKind(from httpResponse: HTTPURLResponse) -> TezosKitError.ErrorKind {
     // Default to unknown error and try to give a more specific error code if it can be narrowed
     // down based on HTTP response code.
@@ -93,12 +88,12 @@ public class RPCResponseHandler {
     return errorKind
   }
 
-  /**
-   * Parse the given data to an object with the given response adapter.
-   * - Parameter data: Data to parse.
-   * - Paramater responseAdapterClass: A response adapter class to use for parsing the data.
-   * - Returns: The parsed type if the data was was valid, otherwise nil.
-   */
+  ///  Parse the given data to an object with the given response adapter.
+  ///
+  /// - Parameters:
+  ///   - data: Data to parse.
+  ///   -responseAdapterClass: A response adapter class to use for parsing the data.
+  /// - Returns: The parsed type if the data was was valid, otherwise nil.
   private func parse<T>(_ data: Data, with responseAdapterClass: AbstractResponseAdapter<T>.Type) -> T? {
     guard let result = responseAdapterClass.parse(input: data) else {
       return nil

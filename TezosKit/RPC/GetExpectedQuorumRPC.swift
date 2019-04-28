@@ -2,9 +2,7 @@
 
 import Foundation
 
-/**
- * An RPC which will retrieve the expected quorum.
- */
+/// An RPC which will retrieve the expected quorum.
 public class GetExpectedQuorumRPC: RPC<Int> {
   public init() {
     let endpoint = "chains/main/blocks/head/votes/current_quorum"

@@ -2,7 +2,7 @@
 
 import Foundation
 
-/** An operation to transact XTZ between addresses. */
+/// An operation to transact XTZ between addresses.
 public class TransactionOperation: AbstractOperation {
   private let amount: Tez
   private let destination: String
@@ -26,14 +26,12 @@ public class TransactionOperation: AbstractOperation {
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
-  /**
-   * - Parameter amount: The amount of XTZ to transact.
-   * - Parameter source: The wallet that is sending the XTZ.
-   * - Parameter to: The address that is receiving the XTZ.
-   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
-   *             contract.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   */
+  /// - Parameters:
+  ///   - amount: The amount of XTZ to transact.
+  ///   - source: The wallet that is sending the XTZ.
+  ///   - to: The address that is receiving the XTZ.
+  ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public convenience init(
     amount: Tez,
     source: Wallet,
@@ -44,14 +42,12 @@ public class TransactionOperation: AbstractOperation {
     self.init(amount: amount, source: source.address, destination: destination, operationFees: operationFees)
   }
 
-  /**
-   * - Parameter amount: The amount of XTZ to transact.
-   * - Parameter from: The address that is sending the XTZ.
-   * - Parameter to: The address that is receiving the XTZ.
-   * - Parameter parameters: Optional parameters to include in the transaction if the call is being made to a smart
-   *             contract.
-   * - Parameter operationFees: OperationFees for the transaction. If nil, default fees are used.
-   */
+  /// - Parameters:
+  ///   - amount: The amount of XTZ to transact.
+  ///   - from: The address that is sending the XTZ.
+  ///   - to: The address that is receiving the XTZ.
+  ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public init(
     amount: Tez,
     source: String,
