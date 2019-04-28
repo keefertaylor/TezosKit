@@ -6,7 +6,7 @@ import XCTest
 class RevealOperationTest: XCTestCase {
   public func testDictionaryRepresentation() {
     let source = "tz1abc"
-    let publicKey = "edpkXYZ"
+    let publicKey = FakePublicKey(base58CheckRepresentation: "edpkXYZ")
 
     let operation = RevealOperation(from: source, publicKey: publicKey)
     let dictionary = operation.dictionaryRepresentation
@@ -15,7 +15,7 @@ class RevealOperationTest: XCTestCase {
     XCTAssertEqual(dictionary["source"] as? String, source)
 
     XCTAssertNotNil(dictionary["public_key"])
-    XCTAssertEqual(dictionary["public_key"] as? String, publicKey)
+    XCTAssertEqual(dictionary["public_key"] as? String, publicKey.base58CheckRepresentation)
   }
 
   public func testDictionaryRepresentationFromWallet() {
@@ -31,6 +31,6 @@ class RevealOperationTest: XCTestCase {
     XCTAssertEqual(dictionary["source"] as? String, wallet.address)
 
     XCTAssertNotNil(dictionary["public_key"])
-    XCTAssertEqual(dictionary["public_key"] as? String, wallet.keys.publicKey)
+    XCTAssertEqual(dictionary["public_key"] as? String, wallet.keys.publicKey.base58CheckRepresentation)
   }
 }

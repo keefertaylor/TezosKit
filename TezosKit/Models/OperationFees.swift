@@ -2,9 +2,7 @@
 
 import Foundation
 
-/**
- * An object encapsulating the payment for an operation on the blockchain.
- */
+/// An object encapsulating the payment for an operation on the blockchain.
 public struct OperationFees {
   public let fee: Tez
   public let gasLimit: Tez

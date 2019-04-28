@@ -3,7 +3,7 @@
 import PromiseKit
 
 /// Extension for ConseilClient which provides a Promise/PromiseKit based API.
-extension ConseilClient {
+public extension ConseilClient {
   /// Retrieve originated accounts.
   ///
   /// - Parameters:

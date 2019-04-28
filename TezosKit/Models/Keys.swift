@@ -1,18 +1,30 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
+import TezosCrypto
 
-/** A structure representing public and private keys for a wallet in the Tezos ecosystem. */
+public protocol PublicKey {
+  var base58CheckRepresentation: String { get }
+}
+public protocol SecretKey {
+  var base58CheckRepresentation: String { get }
+}
+
+/// A structure representing public and private keys for a wallet in the Tezos ecosystem.
 public struct Keys {
-  /** A base58check encoded public key for the wallet, prefixed with "edpk". */
-  public let publicKey: String
-
-  /** A base58check encoded secret key for the wallet, prefixed with "edsk". */
-  public let secretKey: String
+  public let publicKey: PublicKey
+  public let secretKey: SecretKey
 }
 
 extension Keys: Equatable {
   public static func == (lhs: Keys, rhs: Keys) -> Bool {
-    return lhs.publicKey == rhs.publicKey && lhs.secretKey == rhs.secretKey
+    return lhs.publicKey.base58CheckRepresentation == rhs.publicKey.base58CheckRepresentation &&
+      lhs.secretKey.base58CheckRepresentation == rhs.secretKey.base58CheckRepresentation
   }
+}
+
+extension TezosCrypto.PublicKey: PublicKey {
+}
+
+extension TezosCrypto.SecretKey: SecretKey {
 }

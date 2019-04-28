@@ -517,29 +517,29 @@ public class TezosNodeClient: AbstractClient {
     forgedPayload: String,
     keys: Keys
   ) -> (signedBytes: String, signedOperationPayload: SignedOperationPayload)? {
-    guard let signingResult = TezosCrypto.signForgedOperation(operation: forgedPayload, secretKey: keys.secretKey),
-          let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.sbytes) else {
+    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
+      let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
+      let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {
       return nil
     }
 
     let signedForgeablePayload = SignedOperationPayload(
       operationPayload: operationPayload,
-      signature: signingResult.edsig
+      signature: signingResult.base58Representation
     )
 
     return (jsonSignedBytes, signedForgeablePayload)
   }
 
-  /**
-   * Sign the result of a forged operation, preapply and inject it if successful.
-   *
-   * - Parameter operationPayload: The operation payload which was used to forge the operation.
-   * - Parameter operationMetadata: Metadata related to the operation.
-   * - Parameter forgeResult: The result of forging the operation payload.
-   * - Parameter source: The address performing the operation.
-   * - Parameter keys: The keys to use to sign the operation for the address.
-   * - Parameter completion: A completion block that will be called with the results of the operation.
-   */
+  /// Sign the result of a forged operation, preapply and inject it if successful.
+  ///
+  /// - Parameters:
+  ///   - operationPayload: The operation payload which was used to forge the operation.
+  ///   - operationMetadata: Metadata related to the operation.
+  ///   - forgeResult: The result of forging the operation payload.
+  ///   - source: The address performing the operation.
+  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - completion: A completion block that will be called with the results of the operation.
   private func signPreapplyAndInjectOperation(
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,

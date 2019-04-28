@@ -2,13 +2,9 @@
 
 import Foundation
 
-/**
- * A RPC which will retrieve the counter for an address.
- */
+/// A RPC which will retrieve the counter for an address.
 public class GetAddressCounterRPC: RPC<Int> {
-  /**
-   * - Parameter address: The address to retrieve info about.
-   */
+  /// - Parameter address: The address to retrieve info about.
   public init(address: String) {
     let endpoint = "/chains/main/blocks/head/context/contracts/" + address + "/counter"
     super.init(endpoint: endpoint, responseAdapterClass: IntegerResponseAdapter.self)

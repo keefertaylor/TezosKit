@@ -39,8 +39,8 @@ class WalletTests: XCTestCase {
 
     XCTAssertNotNil(wallet.mnemonic)
     XCTAssertEqual(wallet.mnemonic!, mnemonic)
-    XCTAssertEqual(wallet.keys.publicKey, expectedPublicKeyNoPassphrase)
-    XCTAssertEqual(wallet.keys.secretKey, expectedSecretKeyNoPassphrase)
+    XCTAssertEqual(wallet.keys.publicKey.base58CheckRepresentation, expectedPublicKeyNoPassphrase)
+    XCTAssertEqual(wallet.keys.secretKey.base58CheckRepresentation, expectedSecretKeyNoPassphrase)
     XCTAssertEqual(wallet.address, expectedPublicKeyHashNoPassphrase)
   }
 
@@ -53,8 +53,8 @@ class WalletTests: XCTestCase {
     // A wallet with an empty passphrase should be the same as a wallet with no passphrase.
     XCTAssertNotNil(wallet.mnemonic)
     XCTAssertEqual(wallet.mnemonic!, mnemonic)
-    XCTAssertEqual(wallet.keys.publicKey, expectedPublicKeyNoPassphrase)
-    XCTAssertEqual(wallet.keys.secretKey, expectedSecretKeyNoPassphrase)
+    XCTAssertEqual(wallet.keys.publicKey.base58CheckRepresentation, expectedPublicKeyNoPassphrase)
+    XCTAssertEqual(wallet.keys.secretKey.base58CheckRepresentation, expectedSecretKeyNoPassphrase)
     XCTAssertEqual(wallet.address, expectedPublicKeyHashNoPassphrase)
   }
 
@@ -67,8 +67,8 @@ class WalletTests: XCTestCase {
     // A wallet with an empty passphrase should be the same as a wallet with no passphrase.
     XCTAssertNotNil(wallet.mnemonic)
     XCTAssertEqual(wallet.mnemonic!, mnemonic)
-    XCTAssertEqual(wallet.keys.publicKey, expectedPublicKeyPassphrase)
-    XCTAssertEqual(wallet.keys.secretKey, expectedSecretKeyPassphrase)
+    XCTAssertEqual(wallet.keys.publicKey.base58CheckRepresentation, expectedPublicKeyPassphrase)
+    XCTAssertEqual(wallet.keys.secretKey.base58CheckRepresentation, expectedSecretKeyPassphrase)
     XCTAssertEqual(wallet.address, expectedPublicKeyHashPassphrase)
   }
 
@@ -80,8 +80,8 @@ class WalletTests: XCTestCase {
 
     XCTAssertNil(wallet.mnemonic)
     XCTAssertEqual(wallet.address, expectedPublicKeyHashNoPassphrase)
-    XCTAssertEqual(wallet.keys.publicKey, expectedPublicKeyNoPassphrase)
-    XCTAssertEqual(wallet.keys.secretKey, expectedSecretKeyNoPassphrase)
+    XCTAssertEqual(wallet.keys.publicKey.base58CheckRepresentation, expectedPublicKeyNoPassphrase)
+    XCTAssertEqual(wallet.keys.secretKey.base58CheckRepresentation, expectedSecretKeyNoPassphrase)
   }
 
   public func testGenerateWalletFromInvalidSecretKey() {
