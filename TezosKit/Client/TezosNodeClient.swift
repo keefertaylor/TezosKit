@@ -517,14 +517,15 @@ public class TezosNodeClient: AbstractClient {
     forgedPayload: String,
     keys: Keys
   ) -> (signedBytes: String, signedOperationPayload: SignedOperationPayload)? {
-    guard let signingResult = TezosCrypto.signForgedOperation(operation: forgedPayload, secretKey: keys.secretKey),
-          let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.sbytes) else {
+    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
+      let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
+      let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {
       return nil
     }
 
     let signedForgeablePayload = SignedOperationPayload(
       operationPayload: operationPayload,
-      signature: signingResult.edsig
+      signature: signingResult.base58Representation
     )
 
     return (jsonSignedBytes, signedForgeablePayload)

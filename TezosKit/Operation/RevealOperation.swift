@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
+import TezosCrypto
 
 /// An operation to reveal an address.
 ///
@@ -28,7 +29,11 @@ public class RevealOperation: AbstractOperation {
   ///   - wallet: The wallet that will be revealed.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public convenience init(from wallet: Wallet, operationFees: OperationFees? = nil) {
-    self.init(from: wallet.address, publicKey: wallet.keys.publicKey, operationFees: operationFees)
+    self.init(
+      from: wallet.address,
+      publicKey: wallet.keys.publicKey,
+      operationFees: operationFees
+    )
   }
 
   /// Initialize a new reveal operation.
@@ -37,8 +42,8 @@ public class RevealOperation: AbstractOperation {
   ///   - address: The address to reveal.
   ///   - publicKey: The public key of the address to reveal.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public init(from address: String, publicKey: String, operationFees: OperationFees? = nil) {
-    self.publicKey = publicKey
+  public init(from address: String, publicKey: PublicKey, operationFees: OperationFees? = nil) {
+    self.publicKey = publicKey.base58CheckRepresentation
     super.init(source: address, kind: .reveal, operationFees: operationFees)
   }
 }

@@ -15,6 +15,7 @@
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7774780C222228590010BA4D /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		7774780F222228E50010BA4D /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7776493B227616B200451DD5 /* FakeObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7776493A227616B200451DD5 /* FakeObjects.swift */; };
 		7794E97B224C2518000D9F1E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E97A224C2518000D9F1E /* Header.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */; };
@@ -202,6 +203,7 @@
 		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
+		7776493A227616B200451DD5 /* FakeObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeObjects.swift; sourceTree = "<group>"; };
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7794E97A224C2518000D9F1E /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				77B1EAFB2228C03400EA4FCE /* TestObjects.swift */,
+				7776493A227616B200451DD5 /* FakeObjects.swift */,
 				77F4D27422221CDD00D34B01 /* Extensions */,
 				77F4D27322221CCE00D34B01 /* TezosKit */,
 			);
@@ -1006,6 +1009,7 @@
 				77CE36F721F7F49F006ADABA /* WalletTests.swift in Sources */,
 				77B69EC522510D5400DB4319 /* ConseilEntityTest.swift in Sources */,
 				77F4D268221CD44100D34B01 /* AbstractClientTest.swift in Sources */,
+				7776493B227616B200451DD5 /* FakeObjects.swift in Sources */,
 				77CE36E721F7F49F006ADABA /* OriginateAccountOperation.swift in Sources */,
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
 				77CE36E821F7F49F006ADABA /* KeysTests.swift in Sources */,
