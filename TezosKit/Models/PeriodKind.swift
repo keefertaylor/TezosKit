@@ -2,7 +2,7 @@
 
 import Foundation
 
-/** An enum representing the current period for protocol upgrades. */
+/// An enum representing the current period for protocol upgrades.
 public enum PeriodKind: String {
   case proposal
   case testingVote = "testing_vote"
