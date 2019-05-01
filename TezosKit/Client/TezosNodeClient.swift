@@ -476,7 +476,7 @@ public class TezosNodeClient: AbstractClient {
       operationPrompt: "Confirm payment",
       publicKeyAccessControl: publicAccessControl,
       privateKeyAccessControl: privateAccessControl,
-      token: .keychain
+      token: .secureEnclave
     )
     let manager = EllipticCurveKeyPair.Manager(config: config)
     let keys = try! manager.keys()
@@ -564,16 +564,35 @@ public class TezosNodeClient: AbstractClient {
     }
 
 //    let result = try! EllipticCurveKeyPair.Helper.sign(Data(hashedBytes), privateKey: keys.private, hash: .sha512)
-    let result = try! EllipticCurveKeyPair.Helper.signUsingSha256(Data(hashedBytes), privateKey: keys.private)
+      let result = try! EllipticCurveKeyPair.Helper.signUsingSha256(Data(hashedBytes), privateKey: keys.private)
 
-//      .sign(Data(hashedBytes), hash: .sha384)
-    let jsonSignedBytes = "\"" + forgedPayload + sodium.utils.bin2hex(Array(result))! + "\""
+
+    //let result = try! EllipticCurveKeyPair.Helper.sign(Data(hashedBytes), privateKey: keys.private)
+
+//    let result = try! EllipticCurveKeyPair.Helper.sign(Data(hashedBytes), hash: .sha384)
+    let rawSig = sodium.utils.bin2hex(Array(result))!
+    let jsonSignedBytes = "\"" + forgedPayload + rawSig + "\""
     let edsig = Base58.encode(message: Array(result), prefix: [54, 240, 44, 52])
 
+    print ("RAW SIG: " + rawSig)
+    var binSig = ""
+    for b in Array(result) {
+      binSig += ", " + String(b)
+    }
+    print ("BIN SIG: " + binSig)
     print ("Forged: " + forgedPayload)
     print ("Edsig: " + edsig)
     print ("HEX: " + sodium.utils.bin2hex(Array(result))!)
     print ("JSON: " +  jsonSignedBytes)
+
+    // PKS1
+    // 304502202184d933d64cab1bfdc43f3ecfc3afb8ec1081d56b3837a3d65cd8f9d6c9adaf022100c2d0a3d54d857040a572d11cf7072ec45de
+    // 2058f52cbdb9449cce3b80be09434
+    // 48, 69, 2, 32, 33, 132, 217, 51, 214, 76, 171, 27, 253, 196, 63, 62, 207, 195, 175, 184, 236, 16, 129, 213, 107,
+    // 56, 55, 163, 214, 92, 216, 249, 214, 201, 173, 175, 2, 33, 0, 194, 208, 163, 213, 77, 133, 112, 64, 165, 114,
+    // 209, 28, 247, 7, 46, 196, 93, 226, 5, 143, 82, 203, 219, 148, 73, 204, 227, 184, 11, 224, 148, 52
+
+    
 //    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
 //      let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
 //      let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {

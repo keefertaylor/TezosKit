@@ -16,7 +16,17 @@
 		7756A89C2279200800608A9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7756A89A2279200800608A9E /* Main.storyboard */; };
 		7756A89E2279200A00608A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7756A89D2279200A00608A9E /* Assets.xcassets */; };
 		7756A8A12279200A00608A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7756A89F2279200A00608A9E /* LaunchScreen.storyboard */; };
-		7756A8A62279201400608A9E /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
+		7756A8BA227A505900608A9E /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
+		7756A8BB227A505900608A9E /* TezosKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7756A8BF227A50AD00608A9E /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8B2227A4FC900608A9E /* TezosCrypto.framework */; };
+		7756A8C0227A50AD00608A9E /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8AE227A4FC900608A9E /* Sodium.framework */; };
+		7756A8C1227A50AD00608A9E /* Base58Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8AB227A4FC900608A9E /* Base58Swift.framework */; };
+		7756A8C2227A50AD00608A9E /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8B1227A4FC900608A9E /* BigInt.framework */; };
+		7756A8C3227A50AD00608A9E /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8AC227A4FC900608A9E /* SipHash.framework */; };
+		7756A8C4227A50AD00608A9E /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8AD227A4FC900608A9E /* PromiseKit.framework */; };
+		7756A8C5227A50AD00608A9E /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8AF227A4FC900608A9E /* MnemonicKit.framework */; };
+		7756A8C6227A50AD00608A9E /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A8B0227A4FC900608A9E /* CryptoSwift.framework */; };
+		7756A8C9227A647500608A9E /* Asn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8C8227A647500608A9E /* Asn.swift */; };
 		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -160,6 +170,13 @@
 			remoteGlobalIDString = 77CE359521F7DC76006ADABA;
 			remoteInfo = TezosKit;
 		};
+		7756A8BC227A505900608A9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77CE358D21F7DC76006ADABA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77CE359521F7DC76006ADABA;
+			remoteInfo = TezosKit;
+		};
 		77CE35A121F7DC76006ADABA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77CE358D21F7DC76006ADABA /* Project object */;
@@ -170,6 +187,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7756A8BE227A505900608A9E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7756A8BB227A505900608A9E /* TezosKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7774780D222228CA0010BA4D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,6 +244,15 @@
 		7756A8A02279200A00608A9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7756A8A22279200A00608A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7756A8A72279201E00608A9E /* Enclave.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Enclave.entitlements; sourceTree = "<group>"; };
+		7756A8AB227A4FC900608A9E /* Base58Swift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base58Swift.framework; path = Carthage/Build/iOS/Base58Swift.framework; sourceTree = "<group>"; };
+		7756A8AC227A4FC900608A9E /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SipHash.framework; path = Carthage/Build/iOS/SipHash.framework; sourceTree = "<group>"; };
+		7756A8AD227A4FC900608A9E /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
+		7756A8AE227A4FC900608A9E /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sodium.framework; path = Carthage/Build/iOS/Sodium.framework; sourceTree = "<group>"; };
+		7756A8AF227A4FC900608A9E /* MnemonicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MnemonicKit.framework; path = Carthage/Build/iOS/MnemonicKit.framework; sourceTree = "<group>"; };
+		7756A8B0227A4FC900608A9E /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
+		7756A8B1227A4FC900608A9E /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BigInt.framework; path = Carthage/Build/iOS/BigInt.framework; sourceTree = "<group>"; };
+		7756A8B2227A4FC900608A9E /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
+		7756A8C8227A647500608A9E /* Asn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asn.swift; sourceTree = "<group>"; };
 		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
@@ -370,7 +407,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7756A8A62279201400608A9E /* TezosKit.framework in Frameworks */,
+				7756A8BF227A50AD00608A9E /* TezosCrypto.framework in Frameworks */,
+				7756A8C0227A50AD00608A9E /* Sodium.framework in Frameworks */,
+				7756A8C1227A50AD00608A9E /* Base58Swift.framework in Frameworks */,
+				7756A8C2227A50AD00608A9E /* BigInt.framework in Frameworks */,
+				7756A8C3227A50AD00608A9E /* SipHash.framework in Frameworks */,
+				7756A8C4227A50AD00608A9E /* PromiseKit.framework in Frameworks */,
+				7756A8C5227A50AD00608A9E /* MnemonicKit.framework in Frameworks */,
+				7756A8C6227A50AD00608A9E /* CryptoSwift.framework in Frameworks */,
+				7756A8BA227A505900608A9E /* TezosKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +525,16 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				7756A8AB227A4FC900608A9E /* Base58Swift.framework */,
+				7756A8B1227A4FC900608A9E /* BigInt.framework */,
+				7756A8B0227A4FC900608A9E /* CryptoSwift.framework */,
+				7756A8AF227A4FC900608A9E /* MnemonicKit.framework */,
+				7756A8AD227A4FC900608A9E /* PromiseKit.framework */,
+				7756A8AC227A4FC900608A9E /* SipHash.framework */,
+				7756A8AE227A4FC900608A9E /* Sodium.framework */,
+				7756A8B2227A4FC900608A9E /* TezosCrypto.framework */,
 				7756A88E22790E0600608A9E /* Nist.swift */,
+				7756A8C8227A647500608A9E /* Asn.swift */,
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
 				77F4D26D22220C5200D34B01 /* Extensions */,
@@ -771,10 +825,13 @@
 				7756A8902279200800608A9E /* Sources */,
 				7756A8912279200800608A9E /* Frameworks */,
 				7756A8922279200800608A9E /* Resources */,
+				7756A8BE227A505900608A9E /* Embed Frameworks */,
+				7756A8C7227A50B400608A9E /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7756A8BD227A505900608A9E /* PBXTargetDependency */,
 			);
 			name = Enclave;
 			productName = Enclave;
@@ -908,6 +965,39 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7756A8C7227A50B400608A9E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/BigInt.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SipHash.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Base58Swift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TezosCrypto.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Sodium.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/MnemonicKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SipHash.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BigInt.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Base58Swift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TezosCrypto.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sodium.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MnemonicKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PromiseKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
 		77CE362E21F7EEE2006ADABA /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1053,6 +1143,7 @@
 				77CE387621FC7ED8006ADABA /* GetCurrentPeriodKindRPC.swift in Sources */,
 				77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */,
 				77B69EB9224E5C6500DB4319 /* ConseilQueryRPC.swift in Sources */,
+				7756A8C9227A647500608A9E /* Asn.swift in Sources */,
 				77B1EB06222A102500EA4FCE /* OperationWithCounter.swift in Sources */,
 				77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */,
 				77CE387321FC7ED8006ADABA /* GetAddressManagerKeyRPC.swift in Sources */,
@@ -1128,6 +1219,11 @@
 			target = 77CE359521F7DC76006ADABA /* TezosKit */;
 			targetProxy = 772F48AB2224894E00DF0F9D /* PBXContainerItemProxy */;
 		};
+		7756A8BD227A505900608A9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77CE359521F7DC76006ADABA /* TezosKit */;
+			targetProxy = 7756A8BC227A505900608A9E /* PBXContainerItemProxy */;
+		};
 		77CE35A221F7DC76006ADABA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 77CE359521F7DC76006ADABA /* TezosKit */;
@@ -1202,10 +1298,15 @@
 		7756A8A42279200A00608A9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Enclave/Enclave.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Enclave/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1222,10 +1323,15 @@
 		7756A8A52279200A00608A9E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Enclave/Enclave.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Enclave/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (

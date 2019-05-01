@@ -16,12 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var nc: TezosNodeClient?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    let nodeURL = URL(string: "http://127.0.0.1:8732")!
+    let nodeURL =  URL(string: "http://alphanet-node.tzscan.io:80")! // URL(string: "http://127.0.0.1:8732")!
     nc = TezosNodeClient(remoteNodeURL: nodeURL)
 
     let wallet = Wallet()!
     nc!.send(
-      amount: Tez("1")!, to: "tz1NpWrAyDL9k2Lmnyxcgr9xuJakbBxdq7FB", from: "tz3PzgskmUVrXYCR4U83khwy2Ar9BHFD9A2h", keys: wallet.keys) { result in
+      amount: Tez("1")!, to: "tz1NpWrAyDL9k2Lmnyxcgr9xuJakbBxdq7FB", from: "tz3fq2juip9PQfxnQ5JTdwzEscdkVpWi2rTs", keys: wallet.keys) { result in
       print(result)
     }
 

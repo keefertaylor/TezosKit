@@ -144,7 +144,7 @@ public enum EllipticCurveKeyPair {
 
     @available(iOS 10, *)
     public func sign(_ digest: Data, hash: Hash, context: LAContext? = nil) throws -> Data {
-      return try Helper.sign(digest, privateKey: privateKey(context: context), hash: hash)
+      return try Helper.sign(digest, privateKey: privateKey(context: context))
     }
 
     @available(OSX, unavailable)
@@ -242,10 +242,19 @@ public enum EllipticCurveKeyPair {
     }
 
     @available(iOS 10.0, *)
-    public static func sign(_ digest: Data, privateKey: PrivateKey, hash: Hash) throws -> Data {
+    public static func sign(_ digest: Data, privateKey: PrivateKey) throws -> Data {
       Helper.logToConsoleIfExecutingOnMainThread()
       var error : Unmanaged<CFError>?
-      let result = SecKeyCreateSignature(privateKey.underlying, hash.signatureMessage, digest as CFData, &error)
+      let result = SecKeyCreateSignature(
+        privateKey.underlying,
+        SecKeyAlgorithm.ecdsaSignatureDigestX962SHA512,
+//        SecKeyAlgorithm.ecdsaSignatureMessageX962SHA1,
+//      SecKeyAlgorithm.ecdsaSignatureDigestX962,
+//      SecKeyAlgorithm.ecdsaSignatureMessageX962SHA256,
+        //       .ecdsaSignatureRFC4754,
+        digest as CFData,
+        &error
+      )
       guard let signature = result else {
         throw Error.fromError(error?.takeRetainedValue(), message: "Could not create signature.")
       }
@@ -267,7 +276,9 @@ public enum EllipticCurveKeyPair {
 
       let signErr = SecKeyRawSign(
         privateKey.underlying,
-        .sigRaw,
+        .PKCS1,
+//        .PKCS1SHA1,
+//        .sigRaw,
         &digestToSignBytes,
         digestToSignBytes.count,
         &signatureBytes,
@@ -277,8 +288,20 @@ public enum EllipticCurveKeyPair {
         throw Error.osStatus(message: "Could not create signature.", osStatus: signErr)
       }
 
-      let signature = Data(bytes: &signatureBytes, count: signatureLength)
-      return signature
+      var signature = Data(bytes: &signatureBytes, count: signatureLength)
+//      let decoder = try! ASN1.DER.Decoder.parse(&signature)
+      let result = ASN1DERDecoder.decode(data: signature)!
+      return result.reduce(Data(), { (sum, next) -> Data in
+
+        let filter = SimpleScanner(data: next.data)
+        if filter.scan(distance: 1)?.firstByte == 0x0 {
+          return sum + filter.scanToEnd()!
+        } else {
+          return sum + next.data
+        }
+      })
+//      return result.data
+      //      return signature
       #else
       throw Error.inconcistency(message: "Should be unreachable.")
       #endif
