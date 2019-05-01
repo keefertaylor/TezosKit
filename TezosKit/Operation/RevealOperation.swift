@@ -31,7 +31,7 @@ public class RevealOperation: AbstractOperation {
   public convenience init(from wallet: Wallet, operationFees: OperationFees? = nil) {
     self.init(
       from: wallet.address,
-      publicKey: wallet.keys.publicKey,
+      publicKey: wallet.keys.publicKey.base58CheckRepresentation,
       operationFees: operationFees
     )
   }
@@ -42,8 +42,8 @@ public class RevealOperation: AbstractOperation {
   ///   - address: The address to reveal.
   ///   - publicKey: The public key of the address to reveal.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public init(from address: String, publicKey: PublicKey, operationFees: OperationFees? = nil) {
-    self.publicKey = publicKey.base58CheckRepresentation
+  public init(from address: String, publicKey: String, operationFees: OperationFees? = nil) {
+    self.publicKey = publicKey
     super.init(source: address, kind: .reveal, operationFees: operationFees)
   }
 }

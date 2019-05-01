@@ -1,6 +1,8 @@
 // Copyright Keefer Taylor, 2019
 
+import Base58Swift
 import Foundation
+import Sodium
 import TezosCrypto
 
 /// TezosNodeClient is the gateway into the Tezos Network via a Tezos Node.
@@ -349,42 +351,42 @@ public class TezosNodeClient: AbstractClient {
     from wallet: Wallet,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
-    getMetadataForOperation(address: wallet.address) { [weak self] result in
-      guard let self = self else {
-        return
-      }
-      guard case let .success(metadata) = result else {
-        completion(
-          result.map { _ in [:] }
-        )
-        return
-      }
-
-      let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
-      self.forgeOperation(operationPayload: operationPayload, operationMetadata: metadata) { [weak self] result in
-        guard let self = self else {
-          return
-        }
-        guard case let .success(bytes) = result else {
-          completion(
-            result.map { _ in [:] }
-          )
-          return
-        }
-
-        guard let (_, signedOperationPayload) = self.sign(
-            operationPayload: operationPayload,
-            forgedPayload: bytes,
-            keys: wallet.keys
-        ) else {
-          let error = TezosKitError(kind: .signingError, underlyingError: nil)
-          completion(.failure(error))
-          return
-        }
-        let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-        self.send(rpc, completion: completion)
-      }
-    }
+//    getMetadataForOperation(address: wallet.address) { [weak self] result in
+//      guard let self = self else {
+//        return
+//      }
+//      guard case let .success(metadata) = result else {
+//        completion(
+//          result.map { _ in [:] }
+//        )
+//        return
+//      }
+//
+//      let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
+//      self.forgeOperation(operationPayload: operationPayload, operationMetadata: metadata) { [weak self] result in
+//        guard let self = self else {
+//          return
+//        }
+//        guard case let .success(bytes) = result else {
+//          completion(
+//            result.map { _ in [:] }
+//          )
+//          return
+//        }
+//
+//        guard let (_, signedOperationPayload) = self.sign(
+//            operationPayload: operationPayload,
+//            forgedPayload: bytes,
+//            keys: wallet.keys
+//        ) else {
+//          let error = TezosKitError(kind: .signingError, underlyingError: nil)
+//          completion(.failure(error))
+//          return
+//        }
+//        let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
+//        self.send(rpc, completion: completion)
+//      }
+//    }
   }
 
   // MARK: - Private Methods
@@ -459,6 +461,37 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
+    // Hijack the inputs.
+    let publicAccessControl = EllipticCurveKeyPair.AccessControl(
+      protection: kSecAttrAccessibleAlwaysThisDeviceOnly,
+      flags: []
+    )
+    let privateAccessControl = EllipticCurveKeyPair.AccessControl(
+      protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
+      flags: [.userPresence, .privateKeyUsage]
+    )
+    let config = EllipticCurveKeyPair.Config(
+      publicLabel: "payment.sign.public",
+      privateLabel: "payment.sign.private",
+      operationPrompt: "Confirm payment",
+      publicKeyAccessControl: publicAccessControl,
+      privateKeyAccessControl: privateAccessControl,
+      token: .keychain
+    )
+    let manager = EllipticCurveKeyPair.Manager(config: config)
+    let keys = try! manager.keys()
+    let pkraw = try! keys.public.data().raw
+    let sodium = Sodium()
+    let x = [2] + Array(Array(pkraw)[1...32])
+
+    print("RAW: " + sodium.utils.bin2hex(Array(pkraw))!)
+    let pkb58 = Base58.encode(message: Array(x), prefix: [3, 178, 139, 127])
+    print("Oh hey, \(pkb58)")
+    let hash = sodium.genericHash.hash(message: Array(x), outputLength: 20)!
+    let source = Base58.encode(message: hash, prefix: [6, 161, 164])
+    print("Oh hai! \(source)")
+//    let source = 
+
     getMetadataForOperation(address: source) { [weak self] result in
       guard let self = self else {
         return
@@ -475,11 +508,14 @@ public class TezosNodeClient: AbstractClient {
       // prepend a reveal operation to the operations to perform.
       var mutableOperations = operations
       if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-        let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
-        mutableOperations.insert(revealOperation, at: 0)
+        let revealOperation = RevealOperation(from: source, publicKey: pkb58)
+//        mutableOperations = [ revealOperation ]
+                mutableOperations.insert(revealOperation, at: 0)
       }
       let operationPayload =
         self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
+
+      print(operationPayload.dictionaryRepresentation)
 
       self.forgeOperation(
         operationPayload: operationPayload,
@@ -500,6 +536,7 @@ public class TezosNodeClient: AbstractClient {
           forgeResult: forgedBytes,
           source: source,
           keys: keys,
+          manager: manager,
           completion: completion
         )
       }
@@ -515,17 +552,37 @@ public class TezosNodeClient: AbstractClient {
   private func sign(
     operationPayload: OperationPayload,
     forgedPayload: String,
-    keys: Keys
+    manager: EllipticCurveKeyPair.Manager,
+    keys: (public: EllipticCurveKeyPair.PublicKey, private: EllipticCurveKeyPair.PrivateKey)
   ) -> (signedBytes: String, signedOperationPayload: SignedOperationPayload)? {
-    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
-      let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
-      let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {
-      return nil
+    let sodium = Sodium()
+    let bytes = sodium.utils.hex2bin(forgedPayload)!
+    let watermarkedOperation = Prefix.Watermark.operation + bytes
+
+    guard let hashedBytes = Sodium.shared.genericHash.hash(message: watermarkedOperation, outputLength: 32) else {
+        return nil
     }
+
+//    let result = try! EllipticCurveKeyPair.Helper.sign(Data(hashedBytes), privateKey: keys.private, hash: .sha512)
+    let result = try! EllipticCurveKeyPair.Helper.signUsingSha256(Data(hashedBytes), privateKey: keys.private)
+
+//      .sign(Data(hashedBytes), hash: .sha384)
+    let jsonSignedBytes = "\"" + forgedPayload + sodium.utils.bin2hex(Array(result))! + "\""
+    let edsig = Base58.encode(message: Array(result), prefix: [54, 240, 44, 52])
+
+    print ("Forged: " + forgedPayload)
+    print ("Edsig: " + edsig)
+    print ("HEX: " + sodium.utils.bin2hex(Array(result))!)
+    print ("JSON: " +  jsonSignedBytes)
+//    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
+//      let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
+//      let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {
+//      return nil
+//    }
 
     let signedForgeablePayload = SignedOperationPayload(
       operationPayload: operationPayload,
-      signature: signingResult.base58Representation
+      signature: edsig
     )
 
     return (jsonSignedBytes, signedForgeablePayload)
@@ -545,12 +602,14 @@ public class TezosNodeClient: AbstractClient {
     operationMetadata: OperationMetadata,
     forgeResult: String,
     source _: String,
-    keys: Keys,
+    keys: (public: EllipticCurveKeyPair.PublicKey, private: EllipticCurveKeyPair.PrivateKey),
+    manager: EllipticCurveKeyPair.Manager,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard let (signedBytes, signedOperationPayload) = sign(
       operationPayload: operationPayload,
       forgedPayload: forgeResult,
+      manager: manager,
       keys: keys
     ) else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
@@ -604,6 +663,22 @@ public class TezosNodeClient: AbstractClient {
       }
     }
   }
+
+  // 62b0d3fb880ffddc96e0df66486ceea07035852736cf982cd8196ce54f3790e5070002283749841e2f4d39722c3829ef78cc9633a2d166
+  // 62b0d3fb880ffddc96e0df66486ceea07035852736cf982cd8196ce54f3790e5070002283749841e2f4d39722c3829ef78cc9633a2d166
+
+  // f509ecbc02904e0002020516c474dcb05022b9b2038abf1d8736f25b29d35fdbe580938555253e01dbd1080002283749841e2f4d39722c3
+  // f509ecbc02904e0002020516c474dcb05022b9b2038abf1d8736f25b29d35fdbe580938555253e01dbd1080002283749841e2f4d39722c3
+
+  // 829ef78cc9633a2d166f809edbc02f44e810201000022e40a5dcaabbaee69165d8a5025b123ef62c8f300
+  // 829ef78cc9633a2d166f809edbc02f44e810201000022e40a5dcaabbaee69165d8a5025b123ef62c8f300
+
+
+ // c4719de93e9a470d23467a7540d52fe447bf5bcd2f53ed04821ee7c0c88bfac881f0f4d79fdf23b74dc61c7563ee26ad6750e9c4c6321b
+ // c4719de93e9a470d23467a7540d52fe447bf5bcd2f53ed04821ee7c0c88bfac881f0f4d79fdf23b74dc61c7563ee26ad6750e9c4c6321b
+ // 4e90cf30e99e6b7596
+ // 4e90cf30e99e6b7596
+
 
   /// Send an injection RPC.
   /// - Parameters:

@@ -10,6 +10,13 @@
 		772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		7741B95D226DF5860005B398 /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */; };
+		7756A88F22790E0600608A9E /* Nist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A88E22790E0600608A9E /* Nist.swift */; };
+		7756A8972279200800608A9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8962279200800608A9E /* AppDelegate.swift */; };
+		7756A8992279200800608A9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8982279200800608A9E /* ViewController.swift */; };
+		7756A89C2279200800608A9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7756A89A2279200800608A9E /* Main.storyboard */; };
+		7756A89E2279200A00608A9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7756A89D2279200A00608A9E /* Assets.xcassets */; };
+		7756A8A12279200A00608A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7756A89F2279200A00608A9E /* LaunchScreen.storyboard */; };
+		7756A8A62279201400608A9E /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -200,6 +207,15 @@
 		772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeIntegrationTests.swift; sourceTree = "<group>"; };
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedContractsRPC.swift; sourceTree = "<group>"; };
+		7756A88E22790E0600608A9E /* Nist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nist.swift; sourceTree = "<group>"; };
+		7756A8942279200800608A9E /* Enclave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enclave.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7756A8962279200800608A9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7756A8982279200800608A9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7756A89B2279200800608A9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7756A89D2279200A00608A9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7756A8A02279200A00608A9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7756A8A22279200A00608A9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7756A8A72279201E00608A9E /* Enclave.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Enclave.entitlements; sourceTree = "<group>"; };
 		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
@@ -350,6 +366,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7756A8912279200800608A9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7756A8A62279201400608A9E /* TezosKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77CE359321F7DC76006ADABA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +405,20 @@
 				77B1EAE62225CE8400EA4FCE /* TezosKit */,
 			);
 			path = IntegrationTests;
+			sourceTree = "<group>";
+		};
+		7756A8952279200800608A9E /* Enclave */ = {
+			isa = PBXGroup;
+			children = (
+				7756A8A72279201E00608A9E /* Enclave.entitlements */,
+				7756A8962279200800608A9E /* AppDelegate.swift */,
+				7756A8982279200800608A9E /* ViewController.swift */,
+				7756A89A2279200800608A9E /* Main.storyboard */,
+				7756A89D2279200A00608A9E /* Assets.xcassets */,
+				7756A89F2279200A00608A9E /* LaunchScreen.storyboard */,
+				7756A8A22279200A00608A9E /* Info.plist */,
+			);
+			path = Enclave;
 			sourceTree = "<group>";
 		};
 		77B1EAE62225CE8400EA4FCE /* TezosKit */ = {
@@ -442,12 +480,14 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				7756A88E22790E0600608A9E /* Nist.swift */,
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
 				77F4D26D22220C5200D34B01 /* Extensions */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* Tests */,
 				772F48A62224894E00DF0F9D /* IntegrationTests */,
+				7756A8952279200800608A9E /* Enclave */,
 				77CE359721F7DC76006ADABA /* Products */,
 				77CE362F21F7EF32006ADABA /* Frameworks */,
 			);
@@ -459,6 +499,7 @@
 				77CE359621F7DC76006ADABA /* TezosKit.framework */,
 				77CE359F21F7DC76006ADABA /* TezosKitTests.xctest */,
 				772F48A52224894E00DF0F9D /* IntegrationTests.xctest */,
+				7756A8942279200800608A9E /* Enclave.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -723,6 +764,23 @@
 			productReference = 772F48A52224894E00DF0F9D /* IntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		7756A8932279200800608A9E /* Enclave */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7756A8A32279200A00608A9E /* Build configuration list for PBXNativeTarget "Enclave" */;
+			buildPhases = (
+				7756A8902279200800608A9E /* Sources */,
+				7756A8912279200800608A9E /* Frameworks */,
+				7756A8922279200800608A9E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Enclave;
+			productName = Enclave;
+			productReference = 7756A8942279200800608A9E /* Enclave.app */;
+			productType = "com.apple.product-type.application";
+		};
 		77CE359521F7DC76006ADABA /* TezosKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77CE35AA21F7DC76006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */;
@@ -769,13 +827,21 @@
 		77CE358D21F7DC76006ADABA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Keefer Taylor";
 				TargetAttributes = {
 					772F48A42224894E00DF0F9D = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+					};
+					7756A8932279200800608A9E = {
+						CreatedOnToolsVersion = 10.2;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					77CE359521F7DC76006ADABA = {
 						CreatedOnToolsVersion = 10.1;
@@ -802,6 +868,7 @@
 				77CE359521F7DC76006ADABA /* TezosKit */,
 				77CE359E21F7DC76006ADABA /* TezosKitTests */,
 				772F48A42224894E00DF0F9D /* IntegrationTests */,
+				7756A8932279200800608A9E /* Enclave */,
 			);
 		};
 /* End PBXProject section */
@@ -811,6 +878,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7756A8922279200800608A9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7756A8A12279200A00608A9E /* LaunchScreen.storyboard in Resources */,
+				7756A89E2279200A00608A9E /* Assets.xcassets in Resources */,
+				7756A89C2279200800608A9E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,6 +976,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7756A8902279200800608A9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7756A8992279200800608A9E /* ViewController.swift in Sources */,
+				7756A8972279200800608A9E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77CE359221F7DC76006ADABA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -926,6 +1012,7 @@
 				77B69EA9224C39AC00DB4319 /* ConseilNetwork.swift in Sources */,
 				77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */,
 				77CE386521FC7ED8006ADABA /* GetAddressCodeRPC.swift in Sources */,
+				7756A88F22790E0600608A9E /* Nist.swift in Sources */,
 				77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */,
 				7794E97B224C2518000D9F1E /* Header.swift in Sources */,
 				77CE385921FC7ED8006ADABA /* Tez.swift in Sources */,
@@ -1048,6 +1135,25 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		7756A89A2279200800608A9E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7756A89B2279200800608A9E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7756A89F2279200A00608A9E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7756A8A02279200A00608A9E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		772F48AD2224894E00DF0F9D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1087,6 +1193,46 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.IntegrationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7756A8A42279200A00608A9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Enclave/Enclave.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				INFOPLIST_FILE = Enclave/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.Enclave;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7756A8A52279200A00608A9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Enclave/Enclave.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
+				INFOPLIST_FILE = Enclave/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.Enclave;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1329,6 +1475,15 @@
 			buildConfigurations = (
 				772F48AD2224894E00DF0F9D /* Debug */,
 				772F48AE2224894E00DF0F9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7756A8A32279200A00608A9E /* Build configuration list for PBXNativeTarget "Enclave" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7756A8A42279200A00608A9E /* Debug */,
+				7756A8A52279200A00608A9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

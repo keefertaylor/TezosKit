@@ -1,3 +1,5 @@
+github "Sajjon/EllipticCurveKit" "1.0.0"
+github "agens-no/EllipticCurveKeyPair" "1.0.2"
 github "attaswift/BigInt" "v3.1.0"
 github "attaswift/SipHash" "v1.2.2"
 github "jedisct1/swift-sodium" "0.8.0"
