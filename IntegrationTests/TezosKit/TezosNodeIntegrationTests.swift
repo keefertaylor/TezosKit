@@ -54,10 +54,10 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
+    let intertestWaitTime: UInt32 = 0
     sleep(intertestWaitTime)
 
-    nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
+    //nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
   }
 
   public func testOrigination() {

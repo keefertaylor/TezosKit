@@ -10,7 +10,7 @@ public class OriginateAccountOperation: AbstractOperation {
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["balance"] = "0"
-    operation["managerPubkey"] = managerPublicKeyHash
+    operation["manager_pubkey"] = managerPublicKeyHash
 
     if let contractCode = self.contractCode {
       operation["script"] = [
