@@ -16,8 +16,8 @@ import XCTest
 /// *** Configuration must be done before theses tests can be run. Please configure: ***
 /// - Conseil URL
 /// - Conseil API Key
-let apiKey = "hooman"
-let remoteNodeURL = URL(string: "https://conseil-dev.cryptonomic-infra.tech:443")!
+let apiKey = ""
+let remoteNodeURL = URL(string: "")!
 
 class ConseilClientIntegrationTests: XCTestCase {
   public lazy var conseilClient: ConseilClient = {
