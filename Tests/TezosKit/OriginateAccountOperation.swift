@@ -9,8 +9,8 @@ class OriginateAccountOperationTest: XCTestCase {
     let operation = OriginateAccountOperation(address: address)
     let dictionary = operation.dictionaryRepresentation
 
-    XCTAssertNotNil(dictionary["managerPubkey"])
-    XCTAssertEqual(dictionary["managerPubkey"] as? String, address)
+    XCTAssertNotNil(dictionary["manager_pub_key"])
+    XCTAssertEqual(dictionary["manager_pub_key"] as? String, address)
 
     XCTAssertNotNil(dictionary["balance"])
     XCTAssertEqual(dictionary["balance"] as? String, "0")
@@ -25,8 +25,8 @@ class OriginateAccountOperationTest: XCTestCase {
     let operation = OriginateAccountOperation(wallet: wallet)
     let dictionary = operation.dictionaryRepresentation
 
-    XCTAssertNotNil(dictionary["managerPubkey"])
-    XCTAssertEqual(dictionary["managerPubkey"] as? String, wallet.address)
+    XCTAssertNotNil(dictionary["manager_pub_key"])
+    XCTAssertEqual(dictionary["manager_pub_key"] as? String, wallet.address)
 
     XCTAssertNotNil(dictionary["balance"])
     XCTAssertEqual(dictionary["balance"] as? String, "0")
