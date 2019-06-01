@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		7741B95D226DF5860005B398 /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */; };
+		774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
+		774C9B2122A2A0F400CEB509 /* TezosNodeIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */; };
 		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -18,7 +19,6 @@
 		7776493B227616B200451DD5 /* FakeObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7776493A227616B200451DD5 /* FakeObjects.swift */; };
 		7794E97B224C2518000D9F1E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E97A224C2518000D9F1E /* Header.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
-		77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */; };
@@ -770,7 +770,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Keefer Taylor";
 				TargetAttributes = {
 					772F48A42224894E00DF0F9D = {
@@ -783,6 +783,7 @@
 					};
 					77CE359E21F7DC76006ADABA = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -890,12 +891,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */,
-				77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */,
+				774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */,
+				774C9B2122A2A0F400CEB509 /* TezosNodeIntegrationTests+Promises.swift in Sources */,
 				77B69ED522534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift in Sources */,
-				772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */,
 				77B69ECF2251127D00DB4319 /* ConseilClientIntegrationTests.swift in Sources */,
-				77B1EAEA222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,7 +1292,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1316,7 +1315,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.keefertaylor.TezosKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
