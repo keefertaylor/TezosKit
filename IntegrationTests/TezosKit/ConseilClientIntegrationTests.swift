@@ -16,8 +16,8 @@ import XCTest
 /// *** Configuration must be done before theses tests can be run. Please configure: ***
 /// - Conseil URL
 /// - Conseil API Key
-let apiKey = ""
-let remoteNodeURL = URL(string: "")!
+let apiKey = "KEY_GOES_HERE"
+let remoteNodeURL = URL(string: "URL_FOR_CONSEIL_SERVER_GOES_HERE")!
 
 class ConseilClientIntegrationTests: XCTestCase {
   public lazy var conseilClient: ConseilClient = {

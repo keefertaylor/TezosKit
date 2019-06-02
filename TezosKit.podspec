@@ -12,16 +12,16 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/keefertaylor/TezosKit.git", :tag => "3.2.0" }
   s.source_files  = "TezosKit/**/*.swift"
   s.swift_version = "4.2"
-  s.ios.deployment_target = "8.0"
-  s.osx.deployment_target = "10.11"
+  s.ios.deployment_target = "10.0"
+  s.osx.deployment_target = "10.14"
   s.default_subspecs = 'TezosKitCore', 'TezosKitPromises'
   
   s.subspec 'TezosKitCore' do |ss|
       ss.source_files = "TezosKit/**/*.swift"
       ss.frameworks = 'Foundation'
     
-      ss.ios.deployment_target = '8.0'
-      ss.osx.deployment_target = '10.11'
+      ss.ios.deployment_target = '10.0'
+      ss.osx.deployment_target = '10.14'
       
       ss.dependency "BigInt"
       ss.dependency "MnemonicKit"
@@ -33,8 +33,8 @@ Pod::Spec.new do |s|
       ss.source_files = "Extensions/PromiseKit/*.swift"
       ss.frameworks = 'Foundation'
     
-      ss.ios.deployment_target = '8.0'
-      ss.osx.deployment_target = '10.11'
+      ss.ios.deployment_target = '10.0'
+      ss.osx.deployment_target = '10.14'
       
       ss.dependency 'TezosKit/TezosKitCore'      
       ss.dependency "PromiseKit"
