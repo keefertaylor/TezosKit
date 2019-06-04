@@ -1,6 +1,15 @@
 # Fees for Athens Protocol (Protocol 004)
 
-Fees for operations in the Athens protocol. All fees are in mutez.
+Fees for operations in the Athens protocol. All fees are in mutez. These fees are minimums and should be generated with:
+```fees >= (minimal_fees + minimal_nanotez_per_byte * size + minimal_nanotez_per_gas_unit * gas)```
+
+For details, see: https://tezos.stackexchange.com/questions/436/how-does-tezos-client-compute-a-transaction-fee
+
+
+**Reveals**
+- storage_limit: 0
+- gas_limit: 10000
+- fee: 1270
 
 **Delegations**
 - storage_limit: 0 
