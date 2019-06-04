@@ -5,7 +5,6 @@ Fees for operations in the Athens protocol. All fees are in mutez. These fees ar
 
 For details, see: https://tezos.stackexchange.com/questions/436/how-does-tezos-client-compute-a-transaction-fee
 
-
 **Reveals**
 - storage_limit: 0
 - gas_limit: 10000
@@ -29,6 +28,11 @@ For details, see: https://tezos.stackexchange.com/questions/436/how-does-tezos-c
 - fee: 1285
 
 * An additional 257000 mutez is burned from the source account.
+
+**Emptying an Implicit Account**
+- gas_limit: 10600
+- storage_limit: 0
+- fee: 1313
 
 **All other transfers**
 - storage_limit: 0
