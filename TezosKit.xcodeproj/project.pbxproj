@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		7741B95D226DF5860005B398 /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */; };
+		7741FC7022B804E800AC8879 /* Forger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741FC6F22B804E800AC8879 /* Forger.swift */; };
+		7741FC7422B8062300AC8879 /* ForgerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741FC7322B8062200AC8879 /* ForgerTests.swift */; };
 		774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
 		774C9B2122A2A0F400CEB509 /* TezosNodeIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */; };
 		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
@@ -200,6 +202,8 @@
 		772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeIntegrationTests.swift; sourceTree = "<group>"; };
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedContractsRPC.swift; sourceTree = "<group>"; };
+		7741FC6F22B804E800AC8879 /* Forger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forger.swift; sourceTree = "<group>"; };
+		7741FC7322B8062200AC8879 /* ForgerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgerTests.swift; sourceTree = "<group>"; };
 		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
@@ -383,6 +387,14 @@
 			path = IntegrationTests;
 			sourceTree = "<group>";
 		};
+		7741FC6E22B804C700AC8879 /* Micheline */ = {
+			isa = PBXGroup;
+			children = (
+				7741FC6F22B804E800AC8879 /* Forger.swift */,
+			);
+			path = Micheline;
+			sourceTree = "<group>";
+		};
 		77B1EAE62225CE8400EA4FCE /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +457,7 @@
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
 				77F4D26D22220C5200D34B01 /* Extensions */,
+				7741FC6E22B804C700AC8879 /* Micheline */,
 				77CE380521FC7ED7006ADABA /* TezosKit */,
 				77CE35A321F7DC76006ADABA /* Tests */,
 				772F48A62224894E00DF0F9D /* IntegrationTests */,
@@ -468,6 +481,7 @@
 			children = (
 				77B1EAFB2228C03400EA4FCE /* TestObjects.swift */,
 				7776493A227616B200451DD5 /* FakeObjects.swift */,
+				7741FC7322B8062200AC8879 /* ForgerTests.swift */,
 				77F4D27422221CDD00D34B01 /* Extensions */,
 				77F4D27322221CCE00D34B01 /* TezosKit */,
 			);
@@ -914,6 +928,7 @@
 				77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */,
 				77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */,
 				77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */,
+				7741FC7022B804E800AC8879 /* Forger.swift in Sources */,
 				77B1EAF52228839000EA4FCE /* OperationPayload.swift in Sources */,
 				77CE386A21FC7ED8006ADABA /* AbstractResponseAdapter.swift in Sources */,
 				77CE387021FC7ED8006ADABA /* GetChainHeadRPC.swift in Sources */,
@@ -998,6 +1013,7 @@
 				77CE370321F7F49F006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */,
 				77CE36FE21F7F49F006ADABA /* GetBallotsRPCTest.swift in Sources */,
 				77CE36F221F7F49F006ADABA /* JSONDictionaryResponseAdapterTest.swift in Sources */,
+				7741FC7422B8062300AC8879 /* ForgerTests.swift in Sources */,
 				77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */,
 				77CE36FF21F7F49F006ADABA /* PeriodKindResponseAdapterTest.swift in Sources */,
 				77B1EB08222A179F00EA4FCE /* OperationWithCounterTest.swift in Sources */,
