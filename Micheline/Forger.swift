@@ -39,7 +39,42 @@ public enum Forger {
     guard signedInt != 0 else {
       return "00"
     }
-    return nil
+
+    var n = abs(signedInt)
+    let binary = String(signedInt, radix: 2, uppercase: false)
+    // Drop any negative signs.
+    let trimmedBinary = signedInt < 0 ? String(binary.dropFirst(1)) : binary
+
+    var result: [UInt8] = []
+    for let i in stride(from: 0, to: trimmedBinary.count, by: 7) {
+      var byte: UInt8 = 0
+      let end = i + 8 > trimmedBinary.count ? trimmedBinary.count : i + 8
+      let next = trimmedBinary.substring(from: i, to: end)
+      let nextByte = UInt8(next, radix: 2)!
+      if i == 0 {
+        byte = nextByte & 0x3f
+        n = n >> 6
+      } else {
+        byte = nextByte & 0x7f
+        n = n >> 7
+      }
+
+      if signedInt < 0 && i == 0 {
+        byte = byte | 0x40 // Set sign flag
+      }
+
+      if (i + 7 < trimmedBinary.count) {
+        byte = byte | 0x80 // Set next byte flag
+      }
+      result.append(byte)
+    }
+
+    if trimmedBinary.count % 7 == 0 {
+      result[result.count - 1] = result[result.count - 1] | 0x80
+      result.append(1)
+    }
+
+    return Sodium.shared.utils.bin2hex(result)
   }
 
   /// Encode a unsigned int to hex
@@ -87,5 +122,13 @@ extension Base58 {
     }
     let suffix = Array(decoded.suffix(from: offset))
     return Sodium.shared.utils.bin2hex(suffix)
+  }
+}
+
+public extension String {
+  public func substring(from: Int, to: Int) -> String {
+    let start = index(startIndex, offsetBy: from)
+    let end = index(start, offsetBy: to - from)
+    return String(self[start ..< end])
   }
 }
