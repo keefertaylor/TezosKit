@@ -2,7 +2,7 @@
 
 import Foundation
 
-/// An enum listing available protocol versions supported by TezosKit.
+/// Protocols supported by TezosKit.
 public enum TezosProtocol {
   case athens // Protocol version 4
 }

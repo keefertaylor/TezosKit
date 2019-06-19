@@ -4,11 +4,12 @@ import Foundation
 
 /// Provides default fees for operations.
 public class DefaultFeeProvider {
-  /// Provide default fees for the given protocol.
+  /// Returns default fees for the given protocol and operation.
   ///
   /// - Parameters:
   ///   - operationKind: The type of operation to request default fees for.
   ///   - tezosProtocol: The protocol to request default fees for. Default is Athens / Proto4.
+  /// - Returns: Default fees for the requested inputs.
   public static func fees(
     for operationKind: OperationKind,
     in tezosProtocol: TezosProtocol = .athens
@@ -23,25 +24,29 @@ public class DefaultFeeProvider {
   private static func feesInAthens(for operationKind: OperationKind) -> OperationFees {
     switch operationKind {
     case .delegation:
-      let fee = Tez(0.001_257)
-      let storageLimit = Tez.zeroBalance
-      let gasLimit = Tez(0.010_000)
-      return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
+      return OperationFees(
+        fee: Tez(0.001_257),
+        gasLimit: Tez(0.010_000),
+        storageLimit: Tez.zeroBalance
+      )
     case .origination:
-      let fee = Tez(0.001_265)
-      let storageLimit = Tez(0.000_257)
-      let gasLimit = Tez(0.010_000)
-      return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
+      return OperationFees(
+        fee: Tez(0.001_265),
+        gasLimit: Tez(0.010_000),
+        storageLimit: Tez(0.000_257)
+      )
     case .reveal:
-      let fee = Tez(0.001_268)
-      let storageLimit = Tez.zeroBalance
-      let gasLimit = Tez(0.010_000)
-      return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
+      return OperationFees(
+        fee: Tez(0.001_268),
+        gasLimit: Tez(0.010_000),
+        storageLimit: Tez.zeroBalance
+      )
     case .transaction:
-      let fee = Tez(0.001_284)
-      let storageLimit = Tez(0.000_257)
-      let gasLimit = Tez(0.010_200)
-      return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
+      return OperationFees(
+        fee: Tez(0.001_284),
+        gasLimit: Tez(0.010_200),
+        storageLimit: Tez(0.000_257)
+      )
     }
   }
 }

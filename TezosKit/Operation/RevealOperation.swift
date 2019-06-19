@@ -16,19 +16,6 @@ public class RevealOperation: AbstractOperation {
     return operation
   }
 
-  /// Initialize a new reveal operation for the given wallet.
-  ///
-  /// - Parameters:
-  ///   - wallet: The wallet that will be revealed.
-  ///   - operationFees: OperationFees for the transaction.
-  public convenience init(from wallet: Wallet, operationFees: OperationFees) {
-    self.init(
-      from: wallet.address,
-      publicKey: wallet.keys.publicKey,
-      operationFees: operationFees
-    )
-  }
-
   /// Initialize a new reveal operation.
   ///
   /// - Parameters:
