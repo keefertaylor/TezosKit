@@ -13,7 +13,7 @@ public class AbstractOperation: Operation {
     switch kind {
     case .delegation, .transaction, .origination:
       return true
-    case .activateAccount, .reveal:
+    case .reveal:
       return false
     }
   }
