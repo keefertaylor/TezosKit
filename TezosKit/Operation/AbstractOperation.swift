@@ -7,13 +7,13 @@ import Foundation
 public class AbstractOperation: Operation {
   public let source: String
   public let kind: OperationKind
-  public let operationFees: OperationFees?
+  public let operationFees: OperationFees
 
   public var requiresReveal: Bool {
     switch kind {
     case .delegation, .transaction, .origination:
       return true
-    case .activateAccount, .reveal:
+    case .reveal:
       return false
     }
   }
@@ -23,7 +23,7 @@ public class AbstractOperation: Operation {
     operation["kind"] = kind.rawValue
     operation["source"] = source
 
-    let operationFee = self.operationFees ?? self.defaultFees
+    let operationFee = self.operationFees
     operation["storage_limit"] = operationFee.storageLimit.rpcRepresentation
     operation["gas_limit"] = operationFee.gasLimit.rpcRepresentation
     operation["fee"] = operationFee.fee.rpcRepresentation
@@ -31,15 +31,7 @@ public class AbstractOperation: Operation {
     return operation
   }
 
-  public var defaultFees: OperationFees {
-    return OperationFees(
-      fee: Tez.zeroBalance,
-      gasLimit: Tez.zeroBalance,
-      storageLimit: Tez.zeroBalance
-    )
-  }
-
-  public init(source: String, kind: OperationKind, operationFees: OperationFees? = nil) {
+  public init(source: String, kind: OperationKind, operationFees: OperationFees) {
     self.source = source
     self.kind = kind
     self.operationFees = operationFees

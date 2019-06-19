@@ -19,41 +19,18 @@ public class TransactionOperation: AbstractOperation {
     return operation
   }
 
-  public override var defaultFees: OperationFees {
-    let fee = Tez(0.001_284)
-    let storageLimit = Tez(0.000_257)
-    let gasLimit = Tez(0.010_200)
-    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
-  }
-
-  /// - Parameters:
-  ///   - amount: The amount of XTZ to transact.
-  ///   - source: The wallet that is sending the XTZ.
-  ///   - to: The address that is receiving the XTZ.
-  ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public convenience init(
-    amount: Tez,
-    source: Wallet,
-    destination: String,
-    parameters _: [String: Any]? = nil,
-    operationFees: OperationFees? = nil
-  ) {
-    self.init(amount: amount, source: source.address, destination: destination, operationFees: operationFees)
-  }
-
   /// - Parameters:
   ///   - amount: The amount of XTZ to transact.
   ///   - from: The address that is sending the XTZ.
   ///   - to: The address that is receiving the XTZ.
   ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - operationFees: OperationFees for the transaction.
   public init(
     amount: Tez,
     source: String,
     destination: String,
     parameters: [String: Any]? = nil,
-    operationFees: OperationFees? = nil
+    operationFees: OperationFees
   ) {
     self.amount = amount
     self.destination = destination

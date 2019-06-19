@@ -46,6 +46,10 @@ extension UInt32 {
   public static let blockTime: UInt32 = 120
 }
 
+extension OperationFactory {
+  public static let defaultFactory = OperationFactory()
+}
+
 class TezosNodeIntegrationTests: XCTestCase {
   public var nodeClient = TezosNodeClient()
 
@@ -258,7 +262,7 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testRunOperation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = OriginateAccountOperation(wallet: .testWallet)
+    let operation = OperationFactory.defaultFactory.originateOperation(address: Wallet.testWallet.address)
     self.nodeClient.runOperation(operation, from: .testWallet) { result in
       switch result {
       case .failure:
@@ -283,14 +287,14 @@ class TezosNodeIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
 
     let ops: [TezosKit.Operation] = [
-      TransactionOperation(
+      OperationFactory.defaultFactory.transactionOperation(
         amount: Tez("1")!,
-        source: .testWallet,
+        source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
       ),
-      TransactionOperation(
+      OperationFactory.defaultFactory.transactionOperation(
         amount: Tez("2")!,
-        source: .testWallet,
+        source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
       )
     ]

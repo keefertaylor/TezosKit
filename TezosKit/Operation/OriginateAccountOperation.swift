@@ -3,7 +3,7 @@
 import Foundation
 
 /// An operation that originates a new KT1 account.
-public class OriginateAccountOperation: AbstractOperation {
+public class OriginationOperation: AbstractOperation {
   private let managerPublicKeyHash: String
   private let contractCode: ContractCode?
 
@@ -22,30 +22,13 @@ public class OriginateAccountOperation: AbstractOperation {
     return operation
   }
 
-  public override var defaultFees: OperationFees {
-    let fee = Tez(0.001_265)
-    let storageLimit = Tez(0.000_257)
-    let gasLimit = Tez(0.010_000)
-    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
-  }
-
-  /// Create a new origination operation that will occur from the given wallet's address.
-  ///
-  /// - Parameters:
-  ///   - wallet: The wallet which will originate the new account.
-  ///   - contractCode: Optional code to associate with the originated contract.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public convenience init(wallet: Wallet, contractCode: ContractCode? = nil, operationFees: OperationFees? = nil) {
-    self.init(address: wallet.address, contractCode: contractCode, operationFees: operationFees)
-  }
-
   /// Create a new origination operation that will occur from the given address.
   ///
   /// - Parameters:
   ///   - wallet: The wallet which will originate the new account.
   ///   - contractCode: Optional code to associate with the originated contract.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public init(address: String, contractCode: ContractCode? = nil, operationFees: OperationFees? = nil) {
+  ///   - operationFees: OperationFees for the transaction.
+  public init(address: String, contractCode: ContractCode? = nil, operationFees: OperationFees) {
     managerPublicKeyHash = address
     self.contractCode = contractCode
 

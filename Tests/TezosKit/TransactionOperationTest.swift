@@ -10,7 +10,11 @@ class TransactionOperationTest: XCTestCase {
   public func testTransation() {
     let source = "tz1abc"
 
-    let operation = TransactionOperation(amount: balance, source: source, destination: destination)
+    let operation = OperationFactory.testFactory.transactionOperation(
+      amount: balance,
+      source: source,
+      destination: destination
+    )
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
@@ -29,7 +33,11 @@ class TransactionOperationTest: XCTestCase {
       return
     }
 
-    let operation = TransactionOperation(amount: balance, source: wallet, destination: destination)
+    let operation = OperationFactory.testFactory.transactionOperation(
+      amount: balance,
+      source: wallet.address,
+      destination: destination
+    )
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])

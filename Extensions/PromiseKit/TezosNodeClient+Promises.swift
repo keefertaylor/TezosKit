@@ -68,7 +68,7 @@ extension TezosNodeClient {
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let transactionOperation = TransactionOperation(
+    let transactionOperation = operationFactory.transactionOperation(
       amount: amount,
       source: source,
       destination: recipientAddress,
@@ -100,7 +100,11 @@ extension TezosNodeClient {
     keys: Keys,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let delegationOperation = DelegationOperation.delegateOperation(source: source, to: delegate)
+    let delegationOperation = operationFactory.delegateOperation(
+      source: source,
+      to: delegate,
+      operationFees: operationFees
+    )
     return forgeSignPreapplyAndInject(
       operation: delegationOperation,
       source: source,
@@ -119,7 +123,10 @@ extension TezosNodeClient {
     keys: Keys,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let undelegateOperatoin = DelegationOperation.undelegateOperation(source: source, operationFees: operationFees)
+    let undelegateOperatoin = operationFactory.undelegateOperation(
+      source: source,
+      operationFees: operationFees
+    )
     return forgeSignPreapplyAndInject(
       operation: undelegateOperatoin,
       source: source,
@@ -138,7 +145,7 @@ extension TezosNodeClient {
     keys: Keys,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let registerDelegateOperation = DelegationOperation.registerDelegateOperation(
+    let registerDelegateOperation = operationFactory.registerDelegateOperation(
       source: delegate,
       operationFees: operationFees
     )
@@ -163,7 +170,7 @@ extension TezosNodeClient {
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let originateAccountOperation =
-      OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
+      operationFactory.originateOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
     return forgeSignPreapplyAndInject(
       operation: originateAccountOperation,
       source: managerAddress,

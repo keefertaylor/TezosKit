@@ -5,10 +5,18 @@ import XCTest
 
 class AbstractOperationTest: XCTestCase {
   public func testRequiresReveal() {
-    let abstractOperationRequiringReveal = AbstractOperation(source: "tz1abc", kind: .delegation)
+    let abstractOperationRequiringReveal = AbstractOperation(
+      source: "tz1abc",
+      kind: .delegation,
+      operationFees: OperationFees.testFees
+    )
     XCTAssertTrue(abstractOperationRequiringReveal.requiresReveal)
 
-    let abstractOperationNotRequiringReveal = AbstractOperation(source: "tz1abc", kind: .reveal)
+    let abstractOperationNotRequiringReveal = AbstractOperation(
+      source: "tz1abc",
+      kind: .reveal,
+      operationFees: OperationFees.testFees
+    )
     XCTAssertFalse(abstractOperationNotRequiringReveal.requiresReveal)
   }
 
