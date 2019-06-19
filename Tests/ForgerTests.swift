@@ -45,6 +45,9 @@ class ForgerTests: XCTestCase {
     XCTAssertEqual(Forger.forge(signedInt: 610913435200), "80f9b9d4c723")
   }
 
+  // Expected: 11 110101 11010011 00001110
+  // Actual  : 11 101010 10111101 00000101
+
   func testBranch() {
     XCTAssertEqual(
       Forger.forge(branch: "BLNB68pLiAgXiJHXNUK7CDKRnCx1TqzaNGsRXsASg38wNueb8bx"),

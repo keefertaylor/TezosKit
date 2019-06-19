@@ -46,10 +46,12 @@ public enum Forger {
     let trimmedBinary = signedInt < 0 ? String(binary.dropFirst(1)) : binary
 
     var result: [UInt8] = []
-    for let i in stride(from: 0, to: trimmedBinary.count, by: 7) {
+    for i in stride(from: 0, to: trimmedBinary.count, by: 7) {
       var byte: UInt8 = 0
       let end = i + 8 > trimmedBinary.count ? trimmedBinary.count : i + 8
-      let next = trimmedBinary.substring(from: i, to: end)
+      var next = trimmedBinary.substring(from: i, to: end)
+      next = String(repeating: "0", count: 8 - next.count) + next
+      print("Oh hey, I got \(next) which is \(next.count) chars")
       let nextByte = UInt8(next, radix: 2)!
       if i == 0 {
         byte = nextByte & 0x3f
@@ -74,7 +76,15 @@ public enum Forger {
       result.append(1)
     }
 
-    return Sodium.shared.utils.bin2hex(result)
+    var resultHex = ""
+    for r in result {
+      var hex = Sodium.shared.utils.bin2hex([r])!
+      hex = "0" + hex
+      hex = String(hex.suffix(2))
+      print("hex") 
+      resultHex = resultHex + hex
+    }
+    return resultHex
   }
 
   /// Encode a unsigned int to hex
