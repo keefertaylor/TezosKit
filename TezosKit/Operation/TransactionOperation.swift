@@ -20,9 +20,9 @@ public class TransactionOperation: AbstractOperation {
   }
 
   public override var defaultFees: OperationFees {
-    let fee = Tez(0.001_272)
+    let fee = Tez(0.001_284)
     let storageLimit = Tez(0.000_257)
-    let gasLimit = Tez(0.010_100)
+    let gasLimit = Tez(0.010_200)
     return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
   }
 
