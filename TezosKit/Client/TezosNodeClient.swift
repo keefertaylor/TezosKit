@@ -86,16 +86,22 @@ public class TezosNodeClient: AbstractClient {
   /// The default node URL to use.
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
+  /// An factory which produces operations.
+  public let operationFactory: OperationFactory
+
   /// Initialize a new TezosNodeClient.
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
+  ///   - tezosProtocol: The protocol version to use, defaults to athens.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
   public init(
     remoteNodeURL: URL = defaultNodeURL,
+    tezosProtocol: TezosProtocol = .athens,
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
+    operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
     super.init(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
@@ -171,7 +177,7 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let transactionOperation = TransactionOperation(
+    let transactionOperation = operationFactory.transactionOperation(
       amount: amount,
       source: source,
       destination: recipientAddress,
@@ -205,7 +211,7 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let delegationOperation = DelegationOperation.delegateOperation(
+    let delegationOperation = operationFactory.delegateOperation(
       source: source,
       to: delegate,
       operationFees: operationFees
@@ -232,7 +238,7 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let undelegateOperatoin = DelegationOperation.undelegateOperation(source: source, operationFees: operationFees)
+    let undelegateOperatoin = operationFactory.undelegateOperation(source: source, operationFees: operationFees)
     forgeSignPreapplyAndInject(
       undelegateOperatoin,
       source: source,
@@ -253,7 +259,7 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let registerDelegateOperation = DelegationOperation.registerDelegateOperation(
+    let registerDelegateOperation = operationFactory.registerDelegateOperation(
       source: delegate,
       operationFees: operationFees
     )
@@ -280,8 +286,11 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let originateAccountOperation =
-      OriginateAccountOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
+    let originateAccountOperation = operationFactory.originateOperation(
+      address: managerAddress,
+      contractCode: contractCode,
+      operationFees: operationFees
+    )
     forgeSignPreapplyAndInject(
       originateAccountOperation,
       source: managerAddress,
@@ -475,7 +484,7 @@ public class TezosNodeClient: AbstractClient {
       // prepend a reveal operation to the operations to perform.
       var mutableOperations = operations
       if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-        let revealOperation = RevealOperation(from: source, publicKey: keys.publicKey)
+        let revealOperation = self.operationFactory.revealOperation(from: source, publicKey: keys.publicKey)
         mutableOperations.insert(revealOperation, at: 0)
       }
       let operationPayload =
