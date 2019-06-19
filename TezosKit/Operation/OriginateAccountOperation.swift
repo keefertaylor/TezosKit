@@ -3,8 +3,7 @@
 import Foundation
 
 /// An operation that originates a new KT1 account.
-/// TODO: Rebase to `OriginateOperation`
-public class OriginateAccountOperation: AbstractOperation {
+public class OriginationOperation: AbstractOperation {
   private let managerPublicKeyHash: String
   private let contractCode: ContractCode?
 

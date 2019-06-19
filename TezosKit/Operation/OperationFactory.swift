@@ -45,7 +45,7 @@ public class OperationFactory {
     operationFees: OperationFees? = nil
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .reveal, in: tezosProtocol)
-    return OriginateAccountOperation(address: address, contractCode: contractCode, operationFees: operationFees)
+    return OriginationOperation(address: address, contractCode: contractCode, operationFees: operationFees)
   }
 
   /// Create a delegation operation which will register the given address as a delegate.

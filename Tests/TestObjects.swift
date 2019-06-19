@@ -53,7 +53,11 @@ extension SignedProtocolOperationPayload {
 }
 
 extension AbstractOperation {
-  public static let testOperation = AbstractOperation(source: .testAddress, kind: .reveal)
+  public static let testOperation = AbstractOperation(
+    source: .testAddress,
+    kind: .reveal,
+    operationFees: OperationFees.testFees
+  )
 }
 
 extension OperationWithCounter {
@@ -75,5 +79,17 @@ extension Transaction {
     operationGroupHash: "opMiJzXJV8nKWy7VTLh2yxFL8yUGDpVkvnbA5hUwj9dSnpMEEMa",
     operationID: 1_511_646,
     parameters: nil
+  )
+}
+
+extension OperationFactory {
+  public static let testFactory = OperationFactory()
+}
+
+extension OperationFees {
+  public static let testFees = OperationFees(
+    fee: Tez.zeroBalance,
+    gasLimit: Tez.zeroBalance,
+    storageLimit: Tez.zeroBalance
   )
 }
