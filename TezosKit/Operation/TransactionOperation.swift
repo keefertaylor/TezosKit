@@ -32,6 +32,7 @@ public class TransactionOperation: AbstractOperation {
   ///   - to: The address that is receiving the XTZ.
   ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  /// TODO: Deprecate and remove.
   public convenience init(
     amount: Tez,
     source: Wallet,

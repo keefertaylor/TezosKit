@@ -19,6 +19,7 @@
 		7776493B227616B200451DD5 /* FakeObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7776493A227616B200451DD5 /* FakeObjects.swift */; };
 		779427A722BABB2700559A03 /* DefaultFeeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427A622BABB2700559A03 /* DefaultFeeProvider.swift */; };
 		779427A922BABB8E00559A03 /* TezosProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427A822BABB8E00559A03 /* TezosProtocol.swift */; };
+		779427AB22BABE5900559A03 /* OperationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427AA22BABE5900559A03 /* OperationFactory.swift */; };
 		7794E97B224C2518000D9F1E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E97A224C2518000D9F1E /* Header.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
@@ -209,6 +210,7 @@
 		7791E60F21FE862600957650 /* TezosKitExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitExample.playground; path = Examples/TezosKitExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		779427A622BABB2700559A03 /* DefaultFeeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFeeProvider.swift; sourceTree = "<group>"; };
 		779427A822BABB8E00559A03 /* TezosProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosProtocol.swift; sourceTree = "<group>"; };
+		779427AA22BABE5900559A03 /* OperationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFactory.swift; sourceTree = "<group>"; };
 		7794E97A224C2518000D9F1E /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				77CE380F21FC7ED7006ADABA /* Operation.swift */,
 				77B1EB05222A102500EA4FCE /* OperationWithCounter.swift */,
 				779427A622BABB2700559A03 /* DefaultFeeProvider.swift */,
+				779427AA22BABE5900559A03 /* OperationFactory.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 				77CE386721FC7ED8006ADABA /* TezResponseAdapter.swift in Sources */,
 				77CE385C21FC7ED8006ADABA /* OperationFees.swift in Sources */,
 				77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */,
+				779427AB22BABE5900559A03 /* OperationFactory.swift in Sources */,
 				77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */,
 				77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */,
 				77B1EAF52228839000EA4FCE /* OperationPayload.swift in Sources */,

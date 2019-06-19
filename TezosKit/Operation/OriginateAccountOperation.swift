@@ -3,6 +3,7 @@
 import Foundation
 
 /// An operation that originates a new KT1 account.
+/// TODO: Rebase to `OriginateOperation`
 public class OriginateAccountOperation: AbstractOperation {
   private let managerPublicKeyHash: String
   private let contractCode: ContractCode?
@@ -35,6 +36,7 @@ public class OriginateAccountOperation: AbstractOperation {
   ///   - wallet: The wallet which will originate the new account.
   ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  /// TODO: Deprecate and remove.
   public convenience init(wallet: Wallet, contractCode: ContractCode? = nil, operationFees: OperationFees? = nil) {
     self.init(address: wallet.address, contractCode: contractCode, operationFees: operationFees)
   }
