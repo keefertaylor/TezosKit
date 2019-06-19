@@ -3,7 +3,7 @@
 import TezosKit
 import XCTest
 
-class OriginationOperation: XCTestCase {
+class OriginationOperationTest: XCTestCase {
   public func testDictionaryRepresentation() {
     let address = "tz1abc123"
     let operation = OperationFactory.testFactory.originateOperation(address: address)
