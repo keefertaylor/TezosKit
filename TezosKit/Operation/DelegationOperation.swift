@@ -17,13 +17,6 @@ public class DelegationOperation: AbstractOperation {
     return operation
   }
 
-  public override var defaultFees: OperationFees {
-    let fee = Tez(0.001_257)
-    let storageLimit = Tez.zeroBalance
-    let gasLimit = Tez(0.010_000)
-    return OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
-  }
-
   /// Create a delegation operation.
   ///
   /// If delegate and source are the same, then the source will be registered as a delegate.
@@ -33,8 +26,8 @@ public class DelegationOperation: AbstractOperation {
   /// - Parameters:
   ///   - source: The address that will delegate funds.
   ///   - delegate: The address to delegate to.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  internal init(source: String, delegate: String?, operationFees: OperationFees?  = nil) {
+  ///   - operationFees: OperationFees for the transaction.
+  internal init(source: String, delegate: String?, operationFees: OperationFees) {
     self.delegate = delegate
     super.init(source: source, kind: .delegation, operationFees: operationFees)
   }
@@ -42,10 +35,10 @@ public class DelegationOperation: AbstractOperation {
   /// Register the given address as a delegate.
   /// - Parameters:
   ///   - source: The address that will register as a delegate.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - operationFees: OperationFees for the transaction.
   public static func registerDelegateOperation(
     source: String,
-    operationFees: OperationFees?  = nil
+    operationFees: OperationFees
   ) -> DelegationOperation {
     return  DelegationOperation(source: source, delegate: source, operationFees: operationFees)
   }
@@ -54,11 +47,11 @@ public class DelegationOperation: AbstractOperation {
   /// - Parameters:
   ///   - source: The address that will delegate funds.
   ///   - delegate: The address to delegate to.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - operationFees: OperationFees for the transaction.
   public static func delegateOperation(
     source: String,
     to delegate: String,
-    operationFees: OperationFees? = nil
+    operationFees: OperationFees
   ) -> DelegationOperation {
     return  DelegationOperation(source: source, delegate: delegate, operationFees: operationFees)
   }
@@ -66,8 +59,8 @@ public class DelegationOperation: AbstractOperation {
   /// Clear the delegate from the given address.
   /// - Parameters:
   ///   - source: The address that will have its delegate cleared.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public static func undelegateOperation(source: String, operationFees: OperationFees? = nil) -> DelegationOperation {
+  ///   - operationFees: OperationFees for the transaction.
+  public static func undelegateOperation(source: String, operationFees: OperationFees) -> DelegationOperation {
     return DelegationOperation(source: source, delegate: nil, operationFees: operationFees)
   }
 }
