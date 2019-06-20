@@ -7,10 +7,10 @@ public enum ForgingPolicy {
   /// Always forge operations remotely on the node.
   case remote
 
-  /// TODO: Enable local, localWithRemoteFallBack.
   /// Always forge locally. Fail if the operation cannot be forged locally.
-  // case local
+  case local
 
+  /// TODO: Enable localWithRemoteFallBack.
   /// Attempt to forge locally but fallback to remote forging if local forging is not possible.
   // case localWithRemoteFallBack.
 }

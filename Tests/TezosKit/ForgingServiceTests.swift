@@ -4,7 +4,7 @@ import TezosKit
 import XCTest
 
 class ForgingServiceTests: XCTestCase {
-  func testForgingServiceCallsRemoteForge() {
+  func testForgingServiceWithRemotePolicy() {
     let testForgeResult = "test_forge_result"
     let forgingServiceDelegate = FakeForgingServiceDelegate() {
       return .success(testForgeResult)
@@ -21,6 +21,23 @@ class ForgingServiceTests: XCTestCase {
         XCTAssertEqual(forgingServiceForgeResult, testForgeResult)
       case .failure:
         XCTFail()
+      }
+      forgeCompletionExpectation.fulfill()
+    }
+
+    wait(for: [forgeCompletionExpectation], timeout: .expectationTimeout)
+  }
+
+  func testForgingServiceWithLocalPolicy() {
+    let forgingService = ForgingService(forgingPolicy: .local)
+
+    let forgeCompletionExpectation = XCTestExpectation(description: "Forge completion called.")
+    forgingService.forge(operationPayload: .testOperationPayload, operationMetadata: .testOperationMetadata) { result in
+      switch result {
+      case .success:
+        XCTFail()
+      case .failure(let error):
+        XCTAssertEqual(error.kind, .localForgingNotSupportedForOperation)
       }
       forgeCompletionExpectation.fulfill()
     }

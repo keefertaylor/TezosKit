@@ -7,8 +7,9 @@ public struct TezosKitError: Error {
   public enum ErrorKind: String {
     case internalError
     case invalidURL
-    case rpcError
+    case localForgingNotSupportedForOperation
     case preapplicationError
+    case rpcError
     case signingError
     case unexpectedRequestFormat
     case unexpectedResponse
