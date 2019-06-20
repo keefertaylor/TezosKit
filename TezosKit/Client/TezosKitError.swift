@@ -5,13 +5,14 @@ import Foundation
 public struct TezosKitError: Error {
   /// Enumeration representing possible kinds of errors.
   public enum ErrorKind: String {
-    case unknown
+    case internalError
     case invalidURL
     case rpcError
-    case unexpectedResponse
-    case unexpectedRequestFormat
-    case signingError
     case preapplicationError
+    case signingError
+    case unexpectedRequestFormat
+    case unexpectedResponse
+    case unknown
   }
 
   /// The error code which occurred.
