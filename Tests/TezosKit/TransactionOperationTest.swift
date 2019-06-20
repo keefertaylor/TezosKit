@@ -26,27 +26,4 @@ class TransactionOperationTest: XCTestCase {
     XCTAssertNotNil(dictionary["amount"])
     XCTAssertEqual(dictionary["amount"] as? String, balance.rpcRepresentation)
   }
-
-  public func testTransationFromWallet() {
-    guard let wallet = Wallet() else {
-      XCTFail()
-      return
-    }
-
-    let operation = OperationFactory.testFactory.transactionOperation(
-      amount: balance,
-      source: wallet.address,
-      destination: destination
-    )
-    let dictionary = operation.dictionaryRepresentation
-
-    XCTAssertNotNil(dictionary["source"])
-    XCTAssertEqual(dictionary["source"] as? String, wallet.address)
-
-    XCTAssertNotNil(dictionary["destination"])
-    XCTAssertEqual(dictionary["destination"] as? String, destination)
-
-    XCTAssertNotNil(dictionary["amount"])
-    XCTAssertEqual(dictionary["amount"] as? String, balance.rpcRepresentation)
-  }
 }

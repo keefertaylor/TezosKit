@@ -23,10 +23,9 @@ public class AbstractOperation: Operation {
     operation["kind"] = kind.rawValue
     operation["source"] = source
 
-    let operationFee = self.operationFees
-    operation["storage_limit"] = operationFee.storageLimit.rpcRepresentation
-    operation["gas_limit"] = operationFee.gasLimit.rpcRepresentation
-    operation["fee"] = operationFee.fee.rpcRepresentation
+    operation["storage_limit"] = operationFees.storageLimit.rpcRepresentation
+    operation["gas_limit"] = operationFees.gasLimit.rpcRepresentation
+    operation["fee"] = operationFees.fee.rpcRepresentation
 
     return operation
   }

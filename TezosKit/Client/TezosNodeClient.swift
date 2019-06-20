@@ -86,7 +86,7 @@ public class TezosNodeClient: AbstractClient {
   /// The default node URL to use.
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
-  /// An factory which produces operations.
+  /// A factory which produces operations.
   public let operationFactory: OperationFactory
 
   /// A service which forges operations.
@@ -295,13 +295,13 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let originateAccountOperation = operationFactory.originateOperation(
+    let originationOperation = operationFactory.originateOperation(
       address: managerAddress,
       contractCode: contractCode,
       operationFees: operationFees
     )
     forgeSignPreapplyAndInject(
-      originateAccountOperation,
+      originationOperation,
       source: managerAddress,
       keys: keys,
       completion: completion

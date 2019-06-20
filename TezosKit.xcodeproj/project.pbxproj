@@ -66,7 +66,7 @@
 		77CE36E421F7F49F006ADABA /* TezTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BD21F7F49C006ADABA /* TezTest.swift */; };
 		77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BE21F7F49C006ADABA /* RPCTest.swift */; };
 		77CE36E621F7F49F006ADABA /* TransactionOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BF21F7F49C006ADABA /* TransactionOperationTest.swift */; };
-		77CE36E721F7F49F006ADABA /* OriginateAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C021F7F49C006ADABA /* OriginateAccountOperation.swift */; };
+		77CE36E721F7F49F006ADABA /* OriginationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C021F7F49C006ADABA /* OriginationOperationTest.swift */; };
 		77CE36E821F7F49F006ADABA /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C121F7F49C006ADABA /* KeysTests.swift */; };
 		77CE36E921F7F49F006ADABA /* AbstractOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C221F7F49C006ADABA /* AbstractOperationTest.swift */; };
 		77CE36EA21F7F49F006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C321F7F49C006ADABA /* GetCurrentPeriodKindRPCTest.swift */; };
@@ -96,7 +96,7 @@
 		77CE370721FBE67C006ADABA /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B321F7F3C0006ADABA /* Sodium.framework */; };
 		77CE370821FBE67C006ADABA /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE363021F7EF32006ADABA /* BigInt.framework */; };
 		77CE370A21FBE67C006ADABA /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE36B721F7F3D6006ADABA /* MnemonicKit.framework */; };
-		77CE384721FC7ED8006ADABA /* OriginateAccountOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380721FC7ED7006ADABA /* OriginateAccountOperation.swift */; };
+		77CE384721FC7ED8006ADABA /* OriginationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380721FC7ED7006ADABA /* OriginationOperation.swift */; };
 		77CE384821FC7ED8006ADABA /* DelegationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380821FC7ED7006ADABA /* DelegationOperation.swift */; };
 		77CE384921FC7ED8006ADABA /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380921FC7ED7006ADABA /* AbstractOperation.swift */; };
 		77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE380A21FC7ED7006ADABA /* RevealOperation.swift */; };
@@ -267,7 +267,7 @@
 		77CE36BD21F7F49C006ADABA /* TezTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezTest.swift; sourceTree = "<group>"; };
 		77CE36BE21F7F49C006ADABA /* RPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCTest.swift; sourceTree = "<group>"; };
 		77CE36BF21F7F49C006ADABA /* TransactionOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperationTest.swift; sourceTree = "<group>"; };
-		77CE36C021F7F49C006ADABA /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
+		77CE36C021F7F49C006ADABA /* OriginationOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginationOperationTest.swift; sourceTree = "<group>"; };
 		77CE36C121F7F49C006ADABA /* KeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
 		77CE36C221F7F49C006ADABA /* AbstractOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractOperationTest.swift; sourceTree = "<group>"; };
 		77CE36C321F7F49C006ADABA /* GetCurrentPeriodKindRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCurrentPeriodKindRPCTest.swift; sourceTree = "<group>"; };
@@ -294,7 +294,7 @@
 		77CE36DC21F7F49E006ADABA /* GetProposalUnderEvaluationRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPCTest.swift; sourceTree = "<group>"; };
 		77CE36DE21F7F49E006ADABA /* DelegationOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationOperationTest.swift; sourceTree = "<group>"; };
 		77CE36DF21F7F49E006ADABA /* TezResponseAdapterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezResponseAdapterTest.swift; sourceTree = "<group>"; };
-		77CE380721FC7ED7006ADABA /* OriginateAccountOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginateAccountOperation.swift; sourceTree = "<group>"; };
+		77CE380721FC7ED7006ADABA /* OriginationOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginationOperation.swift; sourceTree = "<group>"; };
 		77CE380821FC7ED7006ADABA /* DelegationOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationOperation.swift; sourceTree = "<group>"; };
 		77CE380921FC7ED7006ADABA /* AbstractOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractOperation.swift; sourceTree = "<group>"; };
 		77CE380A21FC7ED7006ADABA /* RevealOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealOperation.swift; sourceTree = "<group>"; };
@@ -520,9 +520,9 @@
 		77CE380621FC7ED7006ADABA /* Operation */ = {
 			isa = PBXGroup;
 			children = (
-				77CE380721FC7ED7006ADABA /* OriginateAccountOperation.swift */,
 				779427B022BB24C800559A03 /* ForgingPolicy.swift */,
 				779427B222BB257F00559A03 /* ForgingService.swift */,
+				77CE380721FC7ED7006ADABA /* OriginationOperation.swift */,
 				77CE380821FC7ED7006ADABA /* DelegationOperation.swift */,
 				77CE380921FC7ED7006ADABA /* AbstractOperation.swift */,
 				77CE380A21FC7ED7006ADABA /* RevealOperation.swift */,
@@ -676,7 +676,7 @@
 				77CE36C921F7F49D006ADABA /* JSONUtilsTest.swift */,
 				77CE36C121F7F49C006ADABA /* KeysTests.swift */,
 				77CE36D421F7F49E006ADABA /* MnemonicUtilsTest.swift */,
-				77CE36C021F7F49C006ADABA /* OriginateAccountOperation.swift */,
+				77CE36C021F7F49C006ADABA /* OriginationOperationTest.swift */,
 				77CE36D821F7F49E006ADABA /* PeriodKindResponseAdapterTest.swift */,
 				77CE36DB21F7F49E006ADABA /* PreapplyOperationRPCTest.swift */,
 				77CE36BA21F7F49C006ADABA /* RevealOperationTest.swift */,
@@ -966,7 +966,7 @@
 				77B1EAF7222885E300EA4FCE /* SignedOperationPayload.swift in Sources */,
 				77B69ED1225348B400DB4319 /* ConseilClient+Promises.swift in Sources */,
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
-				77CE384721FC7ED8006ADABA /* OriginateAccountOperation.swift in Sources */,
+				77CE384721FC7ED8006ADABA /* OriginationOperation.swift in Sources */,
 				77F4D26F22220C9600D34B01 /* AbstractClient+Promises.swift in Sources */,
 				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
@@ -1035,7 +1035,7 @@
 				77B69EC522510D5400DB4319 /* ConseilEntityTest.swift in Sources */,
 				77F4D268221CD44100D34B01 /* AbstractClientTest.swift in Sources */,
 				7776493B227616B200451DD5 /* FakeObjects.swift in Sources */,
-				77CE36E721F7F49F006ADABA /* OriginateAccountOperation.swift in Sources */,
+				77CE36E721F7F49F006ADABA /* OriginationOperationTest.swift in Sources */,
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
 				77CE36E821F7F49F006ADABA /* KeysTests.swift in Sources */,
 				77B1EB04222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift in Sources */,
