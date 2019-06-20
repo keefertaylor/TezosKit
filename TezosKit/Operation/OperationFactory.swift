@@ -44,7 +44,7 @@ public class OperationFactory {
     contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil
   ) -> Operation {
-    let operationFees = operationFees ?? defaultFeeProvider.fees(for: .reveal, in: tezosProtocol)
+    let operationFees = operationFees ?? defaultFeeProvider.fees(for: .origination, in: tezosProtocol)
     return OriginationOperation(address: address, contractCode: contractCode, operationFees: operationFees)
   }
 

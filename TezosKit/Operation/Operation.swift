@@ -8,6 +8,9 @@ public protocol Operation {
   /// Whether the given operation requires the account to be revealed.
   var requiresReveal: Bool { get }
 
+  /// Fees associated with the operation.
+  var operationFees: OperationFees { get }
+
   /// Retrieve a dictionary representing the operation.
   var dictionaryRepresentation: [String: Any] { get }
 }
