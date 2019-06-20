@@ -15,6 +15,7 @@ extension String {
   public static let testSignature = "abc123signature"
   public static let testAddress = "tz1abc123xyz"
   public static let testDestinationAddress = "tz1destination"
+  public static let testForgeResult = "test_forge_result"
 }
 
 extension Int {

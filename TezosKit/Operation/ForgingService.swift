@@ -47,6 +47,15 @@ public class ForgingService {
       remoteForge(operationPayload: operationPayload, operationMetadata: operationMetadata, completion: completion)
     case .local:
       completion(localForge(operationPayload: operationPayload, operationMetadata: operationMetadata))
+    case .localWithRemoteFallBack:
+      // If a local forge is successful, return the data synchronously. Otherwise, perform a remote forge.
+      let localForgeResult = localForge(operationPayload: operationPayload, operationMetadata: operationMetadata)
+      switch localForgeResult {
+      case .success:
+        completion(localForgeResult)
+      case .failure:
+        remoteForge(operationPayload: operationPayload, operationMetadata: operationMetadata, completion: completion)
+      }
     }
   }
 

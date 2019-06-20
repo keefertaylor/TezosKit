@@ -5,9 +5,8 @@ import XCTest
 
 class ForgingServiceTests: XCTestCase {
   func testForgingServiceWithRemotePolicy() {
-    let testForgeResult = "test_forge_result"
     let forgingServiceDelegate = FakeForgingServiceDelegate() {
-      return .success(testForgeResult)
+      return .success(.testForgeResult)
     }
 
     let forgingService = ForgingService(forgingPolicy: .remote)
@@ -18,7 +17,7 @@ class ForgingServiceTests: XCTestCase {
     forgingService.forge(operationPayload: .testOperationPayload, operationMetadata: .testOperationMetadata) { result in
       switch result {
       case .success(let forgingServiceForgeResult):
-        XCTAssertEqual(forgingServiceForgeResult, testForgeResult)
+        XCTAssertEqual(forgingServiceForgeResult, .testForgeResult)
       case .failure:
         XCTFail()
       }
@@ -38,6 +37,29 @@ class ForgingServiceTests: XCTestCase {
         XCTFail()
       case .failure(let error):
         XCTAssertEqual(error.kind, .localForgingNotSupportedForOperation)
+      }
+      forgeCompletionExpectation.fulfill()
+    }
+
+    wait(for: [forgeCompletionExpectation], timeout: .expectationTimeout)
+  }
+
+  func testForgingServiceWithLocalWithRemoteFallbackPolicyAndUnforgeableOperation() {
+    let forgingServiceDelegate = FakeForgingServiceDelegate() {
+      return .success(.testForgeResult)
+    }
+
+    let forgingService = ForgingService(forgingPolicy: .localWithRemoteFallBack)
+    forgingService.delegate = forgingServiceDelegate
+
+    let forgeCompletionExpectation = XCTestExpectation(description: "Forge completion called.")
+
+    forgingService.forge(operationPayload: .testOperationPayload, operationMetadata: .testOperationMetadata) { result in
+      switch result {
+      case .success(let forgingServiceForgeResult):
+        XCTAssertEqual(forgingServiceForgeResult, .testForgeResult)
+      case .failure:
+        XCTFail()
       }
       forgeCompletionExpectation.fulfill()
     }
