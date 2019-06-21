@@ -93,3 +93,7 @@ extension OperationFees {
     storageLimit: Tez.zeroBalance
   )
 }
+
+extension TimeInterval {
+  public static let expectationTimeout = 0.1
+}

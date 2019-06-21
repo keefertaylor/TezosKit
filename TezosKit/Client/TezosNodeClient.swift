@@ -89,25 +89,34 @@ public class TezosNodeClient: AbstractClient {
   /// A factory which produces operations.
   public let operationFactory: OperationFactory
 
+  /// A service which forges operations.
+  public let forgingService: ForgingService
+
   /// Initialize a new TezosNodeClient.
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
   ///   - tezosProtocol: The protocol version to use, defaults to athens.
+  ///   - forgingPolicy: The policy to apply when forging operations. Default is remote.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
   public init(
     remoteNodeURL: URL = defaultNodeURL,
     tezosProtocol: TezosProtocol = .athens,
+    forgingPolicy: ForgingPolicy = .remote,
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
+    forgingService = ForgingService(forgingPolicy: forgingPolicy)
+
     super.init(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
+
+    forgingService.delegate = self
   }
 
   /// Retrieve data about the chain head.
@@ -490,7 +499,7 @@ public class TezosNodeClient: AbstractClient {
       let operationPayload =
         self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
 
-      self.forgeOperation(
+      self.forgingService.forge(
         operationPayload: operationPayload,
         operationMetadata: operationMetadata
       ) { [weak self] result in
@@ -756,5 +765,20 @@ public class TezosNodeClient: AbstractClient {
       }
       completion(.failure(TezosKitError(kind: .unknown, underlyingError: "Couldn't fetch metadata")))
     }
+  }
+}
+
+extension TezosNodeClient: ForgingServiceDelegate {
+  public func forgingService(
+    _ forgingService: ForgingService,
+    requestedRemoteForgeForPayload operationPayload: OperationPayload,
+    withMetadata operationMetadata: OperationMetadata,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    self.forgeOperation(
+      operationPayload: operationPayload,
+      operationMetadata: operationMetadata,
+      completion: completion
+    )
   }
 }
