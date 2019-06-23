@@ -1,13 +1,14 @@
 // Copyright Keefer Taylor, 2019
 
 import Foundation
+import TezosCrypto
 import TezosKit
 
-public struct FakePublicKey: PublicKey {
+public struct FakePublicKey: TezosKit.PublicKey {
   public let base58CheckRepresentation: String
 }
 
-public struct FakeSecretKey: SecretKey {
+public struct FakeSecretKey: TezosKit.SecretKey {
   public let base58CheckRepresentation: String
 }
 
@@ -26,5 +27,18 @@ public class FakeForgingServiceDelegate: ForgingServiceDelegate {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     completion(self.completion())
+  }
+}
+
+/// A fake signer.
+public class FakeSigner: Signer {
+  let signature: [UInt8]
+
+  public init(signature: [UInt8]) {
+    self.signature = signature
+  }
+
+  public func sign(_ payload: String) -> SigningResult? {
+    return SigningResult(bytes: signature, hashedBytes: signature, signature: signature)
   }
 }

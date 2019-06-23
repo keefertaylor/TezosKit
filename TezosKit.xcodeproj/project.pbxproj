@@ -20,10 +20,13 @@
 		779427A722BABB2700559A03 /* DefaultFeeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427A622BABB2700559A03 /* DefaultFeeProvider.swift */; };
 		779427A922BABB8E00559A03 /* TezosProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427A822BABB8E00559A03 /* TezosProtocol.swift */; };
 		779427AB22BABE5900559A03 /* OperationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427AA22BABE5900559A03 /* OperationFactory.swift */; };
+		779427AF22BB1D6700559A03 /* OperationFactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427AE22BB1D6700559A03 /* OperationFactoryTest.swift */; };
 		779427B122BB24C800559A03 /* ForgingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427B022BB24C800559A03 /* ForgingPolicy.swift */; };
 		779427B322BB257F00559A03 /* ForgingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427B222BB257F00559A03 /* ForgingService.swift */; };
 		779427B522BB2B3200559A03 /* ForgingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427B422BB2B3200559A03 /* ForgingServiceTests.swift */; };
-		779427AF22BB1D6700559A03 /* OperationFactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427AE22BB1D6700559A03 /* OperationFactoryTest.swift */; };
+		779427B922C013D700559A03 /* SigningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427B822C013D700559A03 /* SigningService.swift */; };
+		779427BD22C0163300559A03 /* SigningServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427BC22C0163300559A03 /* SigningServiceTests.swift */; };
+		779427BF22C02AA900559A03 /* TezosCrypto.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 779427BE22C02AA800559A03 /* TezosCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7794E97B224C2518000D9F1E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E97A224C2518000D9F1E /* Header.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
@@ -176,6 +179,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				779427BF22C02AA900559A03 /* TezosCrypto.framework in CopyFiles */,
 				7774780F222228E50010BA4D /* PromiseKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,10 +219,13 @@
 		779427A622BABB2700559A03 /* DefaultFeeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFeeProvider.swift; sourceTree = "<group>"; };
 		779427A822BABB8E00559A03 /* TezosProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosProtocol.swift; sourceTree = "<group>"; };
 		779427AA22BABE5900559A03 /* OperationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFactory.swift; sourceTree = "<group>"; };
+		779427AE22BB1D6700559A03 /* OperationFactoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFactoryTest.swift; sourceTree = "<group>"; };
 		779427B022BB24C800559A03 /* ForgingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgingPolicy.swift; sourceTree = "<group>"; };
 		779427B222BB257F00559A03 /* ForgingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgingService.swift; sourceTree = "<group>"; };
 		779427B422BB2B3200559A03 /* ForgingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgingServiceTests.swift; sourceTree = "<group>"; };
-		779427AE22BB1D6700559A03 /* OperationFactoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFactoryTest.swift; sourceTree = "<group>"; };
+		779427B822C013D700559A03 /* SigningService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningService.swift; sourceTree = "<group>"; };
+		779427BC22C0163300559A03 /* SigningServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningServiceTests.swift; sourceTree = "<group>"; };
+		779427BE22C02AA800559A03 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
 		7794E97A224C2518000D9F1E /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
@@ -456,6 +463,7 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				779427BE22C02AA800559A03 /* TezosCrypto.framework */,
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
 				77F4D26D22220C5200D34B01 /* Extensions */,
@@ -523,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				779427B022BB24C800559A03 /* ForgingPolicy.swift */,
+				779427B822C013D700559A03 /* SigningService.swift */,
 				779427B222BB257F00559A03 /* ForgingService.swift */,
 				77CE380721FC7ED7006ADABA /* OriginationOperation.swift */,
 				77CE380821FC7ED7006ADABA /* DelegationOperation.swift */,
@@ -641,6 +650,7 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				779427BC22C0163300559A03 /* SigningServiceTests.swift */,
 				779427B422BB2B3200559A03 /* ForgingServiceTests.swift */,
 				779427AE22BB1D6700559A03 /* OperationFactoryTest.swift */,
 				77B69EC422510D5400DB4319 /* ConseilEntityTest.swift */,
@@ -945,6 +955,7 @@
 				779427A922BABB8E00559A03 /* TezosProtocol.swift in Sources */,
 				77CE386F21FC7ED8006ADABA /* JSONArrayResponseAdapter.swift in Sources */,
 				77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */,
+				779427B922C013D700559A03 /* SigningService.swift in Sources */,
 				77B69EBB224E5F0E00DB4319 /* GetReceivedTransactions.RPC.swift in Sources */,
 				77B69EA9224C39AC00DB4319 /* ConseilNetwork.swift in Sources */,
 				77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */,
@@ -1010,6 +1021,7 @@
 				77B1EB00222A082B00EA4FCE /* OperationPayloadTest.swift in Sources */,
 				77CE36E621F7F49F006ADABA /* TransactionOperationTest.swift in Sources */,
 				77F4D264221CB53900D34B01 /* RPCResponseHandlerTest.swift in Sources */,
+				779427BD22C0163300559A03 /* SigningServiceTests.swift in Sources */,
 				77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */,
 				77CE36EA21F7F49F006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				77CE36EC21F7F49F006ADABA /* GetChainHeadRPCTest.swift in Sources */,
@@ -1038,7 +1050,7 @@
 				77B69EC522510D5400DB4319 /* ConseilEntityTest.swift in Sources */,
 				77F4D268221CD44100D34B01 /* AbstractClientTest.swift in Sources */,
 				7776493B227616B200451DD5 /* FakeObjects.swift in Sources */,
-				77CE36E721F7F49F006ADABA /* OriginateAccountOperation.swift in Sources */,
+				77CE36E721F7F49F006ADABA /* OriginationOperationTest.swift in Sources */,
 				779427AF22BB1D6700559A03 /* OperationFactoryTest.swift in Sources */,
 				77CE36E721F7F49F006ADABA /* OriginationOperationTest.swift in Sources */,
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
