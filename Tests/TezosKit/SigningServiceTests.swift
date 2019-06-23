@@ -3,10 +3,6 @@
 import XCTest
 import TezosKit
 
-// TODO: Network client should be underlying
-// TODO: Derivatives of signing result should just be raw?
-// TODO: This fake stuff should really be provided by TezosCrypto.
-
 class SigningServiceTests: XCTestCase {
   func testSign() {
     let mockTransaction = "abc123"
