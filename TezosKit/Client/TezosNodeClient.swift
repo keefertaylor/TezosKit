@@ -357,6 +357,8 @@ public class TezosNodeClient: AbstractClient {
     send(rpc, completion: completion)
   }
 
+  public static let operation: [UInt8] = [9, 245, 205, 134, 18] // edsig
+
   /// Retrieve metadata and runs an operation.
   /// - Parameters:
   ///   - operation: The operation to run.
@@ -392,16 +394,17 @@ public class TezosNodeClient: AbstractClient {
 
         guard
           let secretKey = wallet.keys.secretKey as? TezosCrypto.SecretKey,
-          let signingResult = SigningService.sign(bytes, with: secretKey)
+          let signature = SigningService.sign(bytes, with: secretKey),
+          let signedOperationPayload = SignedOperationPayload(
+            operationPayload: operationPayload,
+            signature: signature
+          )
         else {
           let error = TezosKitError(kind: .signingError, underlyingError: nil)
           completion(.failure(error))
           return
         }
-        let signedOperationPayload = SignedOperationPayload(
-          operationPayload: operationPayload,
-          signature: signingResult.base58Representation
-        )
+
         let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
         self.send(rpc, completion: completion)
       }
@@ -546,17 +549,18 @@ public class TezosNodeClient: AbstractClient {
   ) {
     guard
       let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
-      let signingResult = SigningService.sign(forgeResult, with: secretKey),
-      let signedBytesForInjection = JSONUtils.jsonString(for: signingResult.injectableHexBytes)
+      let signature = SigningService.sign(forgeResult, with: secretKey),
+      let signatureHex = TezosCryptoUtils.binToHex(signature),
+      let signedBytesForInjection = JSONUtils.jsonString(for: forgeResult + signatureHex),
+      let signedOperationPayload = SignedOperationPayload(
+        operationPayload: operationPayload,
+        signature: signature
+      )
     else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
       completion(.failure(error))
       return
     }
-    let signedOperationPayload = SignedOperationPayload(
-      operationPayload: operationPayload,
-      signature: signingResult.base58Representation
-    )
 
     let signedProtocolOperationPayload = SignedProtocolOperationPayload(
       signedOperationPayload: signedOperationPayload,
