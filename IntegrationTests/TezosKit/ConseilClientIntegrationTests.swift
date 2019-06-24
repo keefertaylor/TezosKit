@@ -17,7 +17,7 @@ import XCTest
 /// - Conseil URL
 /// - Conseil API Key
 let apiKey = "KEY_GOES_HERE"
-let remoteNodeURL = URL(string: "URL_FOR_CONSEIL_SERVER_GOES_HERE")!
+let remoteNodeURL = URL(string: "CONSEIL_CLIENT_URL_GOES_HERE")!
 
 class ConseilClientIntegrationTests: XCTestCase {
   public lazy var conseilClient: ConseilClient = {

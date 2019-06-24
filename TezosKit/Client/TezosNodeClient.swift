@@ -390,15 +390,18 @@ public class TezosNodeClient: AbstractClient {
           return
         }
 
-        guard let (_, signedOperationPayload) = self.sign(
-            operationPayload: operationPayload,
-            forgedPayload: bytes,
-            keys: wallet.keys
-        ) else {
+        guard
+          let secretKey = wallet.keys.secretKey as? TezosCrypto.SecretKey,
+          let signingResult = SigningService.sign(bytes, with: secretKey)
+        else {
           let error = TezosKitError(kind: .signingError, underlyingError: nil)
           completion(.failure(error))
           return
         }
+        let signedOperationPayload = SignedOperationPayload(
+          operationPayload: operationPayload,
+          signature: signingResult.base58Representation
+        )
         let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
         self.send(rpc, completion: completion)
       }
@@ -524,31 +527,6 @@ public class TezosNodeClient: AbstractClient {
     }
   }
 
-  /// Sign a forged operation.
-  /// - Parameters:
-  ///   - operationPayload: The operation to sign
-  ///   - forgedPayload: Bytes from forging the given operationPayload.
-  ///   - keys: Keys to sign the operation with.
-  /// - Returns: A tuple containing signed bytes and a signed payload.
-  private func sign(
-    operationPayload: OperationPayload,
-    forgedPayload: String,
-    keys: Keys
-  ) -> (signedBytes: String, signedOperationPayload: SignedOperationPayload)? {
-    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
-      let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
-      let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {
-      return nil
-    }
-
-    let signedForgeablePayload = SignedOperationPayload(
-      operationPayload: operationPayload,
-      signature: signingResult.base58Representation
-    )
-
-    return (jsonSignedBytes, signedForgeablePayload)
-  }
-
   /// Sign the result of a forged operation, preapply and inject it if successful.
   ///
   /// - Parameters:
@@ -566,15 +544,19 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard let (signedBytes, signedOperationPayload) = sign(
-      operationPayload: operationPayload,
-      forgedPayload: forgeResult,
-      keys: keys
-    ) else {
+    guard
+      let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
+      let signingResult = SigningService.sign(forgeResult, with: secretKey),
+      let signedBytesForInjection = JSONUtils.jsonString(for: signingResult.injectableHexBytes)
+    else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
       completion(.failure(error))
       return
     }
+    let signedOperationPayload = SignedOperationPayload(
+      operationPayload: operationPayload,
+      signature: signingResult.base58Representation
+    )
 
     let signedProtocolOperationPayload = SignedProtocolOperationPayload(
       signedOperationPayload: signedOperationPayload,
@@ -583,7 +565,7 @@ public class TezosNodeClient: AbstractClient {
 
     preapplyAndInjectRPC(
       signedProtocolOperationPayload: signedProtocolOperationPayload,
-      signedBytesForInjection: signedBytes,
+      signedBytesForInjection: signedBytesForInjection,
       operationMetadata: operationMetadata,
       completion: completion
     )
