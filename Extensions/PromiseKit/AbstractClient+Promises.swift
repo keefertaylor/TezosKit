@@ -4,8 +4,7 @@ import Foundation
 import PromiseKit
 
 /// Extension of AbstractClient which provides Promise based functionality.
-extension AbstractClient {
-
+extension NetworkClient {
   /// Send an RPC and return the result as a promise.
   /// - Parameters:
   ///   - rpc: The RPC to send.

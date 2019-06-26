@@ -8,7 +8,7 @@ extension TezosNodeClient {
   /// Retrieve data about the chain head.
   public func getHead() -> Promise<[String: Any]> {
     let rpc = GetChainHeadRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the balance of a given wallet.
@@ -19,7 +19,7 @@ extension TezosNodeClient {
   /// Retrieve the balance of a given address.
   public func getBalance(address: String) -> Promise<Tez> {
     let rpc = GetAddressBalanceRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the delegate of a given wallet.
@@ -30,25 +30,25 @@ extension TezosNodeClient {
   /// Retrieve the delegate of a given address.
   public func getDelegate(address: String) -> Promise<String> {
     let rpc = GetDelegateRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the hash of the block at the head of the chain.
   public func getHeadHash() -> Promise<String> {
     let rpc = GetChainHeadHashRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the address counter for the given address.
   public func getAddressCounter(address: String) -> Promise<Int> {
     let rpc = GetAddressCounterRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the address manager key for the given address.
   public func getAddressManagerKey(address: String) -> Promise<[String: Any]> {
     let rpc = GetAddressManagerKeyRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Transact Tezos between accounts.
@@ -182,49 +182,49 @@ extension TezosNodeClient {
   /// - Parameter address: The address of the contract to load.
   public func getAddressCode(address: String) -> Promise<ContractCode> {
     let rpc = GetAddressCodeRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve ballots cast so far during a voting period.
   public func getBallotsList() -> Promise<[[String: Any]]> {
     let rpc = GetBallotsListRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   ///Retrieve the expected quorum.
   public func getExpectedQuorum() -> Promise<Int> {
     let rpc = GetExpectedQuorumRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the current period kind for voting.
   public func getCurrentPeriodKind() -> Promise<PeriodKind> {
     let rpc = GetCurrentPeriodKindRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the sum of ballots cast so far during a voting period.
   public func getBallots() -> Promise<[String: Any]> {
     let rpc = GetBallotsRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve a list of proposals with number of supporters.
   public func getProposalsList() -> Promise<[[String: Any]]> {
     let rpc = GetProposalsListRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the current proposal under evaluation.
   public func getProposalUnderEvaluation() -> Promise<String> {
     let rpc = GetProposalUnderEvaluationRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve a list of delegates with their voting weight, in number of rolls.
   public func getVotingDelegateRights() -> Promise<[[String: Any]]> {
     let rpc = GetVotingDelegateRightsRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Forge, sign, preapply and then inject a single operation.

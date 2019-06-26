@@ -1,7 +1,7 @@
 // Copyright Keefer Taylor, 2019
 
 /// A client for a Conseil Server.
-public class ConseilClient: AbstractClient {
+public class ConseilClient: NetworkClient {
   /// Initialize a new client for a Conseil Service.
   ///
   /// - Parameters:
