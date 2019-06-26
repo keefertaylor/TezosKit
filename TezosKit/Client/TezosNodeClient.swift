@@ -405,7 +405,7 @@ public class TezosNodeClient {
         }
 
         let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-        self.send(rpc, completion: completion)
+        self.networkClient.send(rpc, completion: completion)
       }
     }
   }

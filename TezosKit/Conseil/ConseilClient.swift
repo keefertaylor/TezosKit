@@ -35,6 +35,7 @@ public class ConseilClient {
       Header(field: "apiKey", value: apiKey)
     ]
 
+    self.callbackQueue = callbackQueue
     networkClient = NetworkClient(
       remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
