@@ -10,7 +10,7 @@ import TezosCrypto
 public struct Wallet {
   /// Keys for the wallet.
   public let publicKey: PublicKey
-  private let secretKey: SecretKey
+  internal let secretKey: SecretKey
 
   /// A base58check encoded public key hash for the wallet, prefixed with "tz1" which represents an address in the Tezos
   /// ecosystem.
@@ -78,7 +78,8 @@ public struct Wallet {
 
 extension Wallet: Equatable {
   public static func == (lhs: Wallet, rhs: Wallet) -> Bool {
-    return lhs.publicKey == rhs.publicKey && lhs.secretKey == rhs.secretKey
+    return lhs.publicKey.base58CheckRepresentation == rhs.publicKey.base58CheckRepresentation &&
+      lhs.secretKey == rhs.secretKey
   }
 }
 
