@@ -22,6 +22,14 @@ extension Int {
   public static let testAddressCounter = 0
 }
 
+extension FakePublicKey {
+  public static let testPublicKey = FakePublicKey(base58CheckRepresentation: "public_key_base_58")
+}
+
+extension Array where Element == UInt8 {
+  public static let testSignature: [UInt8] = [1, 2, 3]
+}
+
 extension OperationMetadata {
   public static let testOperationMetadata = OperationMetadata(
     chainID: .testChainID,
@@ -43,7 +51,7 @@ extension SignedOperationPayload {
   public static let testSignedOperationPayload = SignedOperationPayload(
     operationPayload: .testOperationPayload,
     signature: .testSignature
-  )
+  )!
 }
 
 extension SignedProtocolOperationPayload {

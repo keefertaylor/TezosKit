@@ -12,6 +12,9 @@
 		774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
 		774C9B2122A2A0F400CEB509 /* TezosNodeIntegrationTests+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */; };
 		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
+		7767AE3322C3EBFC0043C52C /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767AE3222C3EBFC0043C52C /* PublicKey.swift */; };
+		7767AE3522C3F05D0043C52C /* CodingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767AE3422C3F05D0043C52C /* CodingUtil.swift */; };
+		7767AE3722C3F0CF0043C52C /* CodingUtilTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767AE3622C3F0CF0043C52C /* CodingUtilTest.swift */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7774780C222228590010BA4D /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
@@ -71,7 +74,6 @@
 		77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BE21F7F49C006ADABA /* RPCTest.swift */; };
 		77CE36E621F7F49F006ADABA /* TransactionOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36BF21F7F49C006ADABA /* TransactionOperationTest.swift */; };
 		77CE36E721F7F49F006ADABA /* OriginationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C021F7F49C006ADABA /* OriginationOperationTest.swift */; };
-		77CE36E821F7F49F006ADABA /* KeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C121F7F49C006ADABA /* KeysTests.swift */; };
 		77CE36E921F7F49F006ADABA /* AbstractOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C221F7F49C006ADABA /* AbstractOperationTest.swift */; };
 		77CE36EA21F7F49F006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C321F7F49C006ADABA /* GetCurrentPeriodKindRPCTest.swift */; };
 		77CE36EB21F7F49F006ADABA /* GetAddressBalanceRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE36C421F7F49C006ADABA /* GetAddressBalanceRPCTest.swift */; };
@@ -110,7 +112,6 @@
 		77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381C21FC7ED7006ADABA /* JSONUtils.swift */; };
 		77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */; };
 		77CE385921FC7ED8006ADABA /* Tez.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381F21FC7ED7006ADABA /* Tez.swift */; };
-		77CE385A21FC7ED8006ADABA /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382021FC7ED7006ADABA /* Keys.swift */; };
 		77CE385B21FC7ED8006ADABA /* OperationMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382121FC7ED7006ADABA /* OperationMetadata.swift */; };
 		77CE385C21FC7ED8006ADABA /* OperationFees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382221FC7ED7006ADABA /* OperationFees.swift */; };
 		77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382321FC7ED7006ADABA /* PeriodKind.swift */; };
@@ -212,6 +213,9 @@
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedContractsRPC.swift; sourceTree = "<group>"; };
 		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
+		7767AE3222C3EBFC0043C52C /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
+		7767AE3422C3F05D0043C52C /* CodingUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUtil.swift; sourceTree = "<group>"; };
+		7767AE3622C3F0CF0043C52C /* CodingUtilTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUtilTest.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		7776493A227616B200451DD5 /* FakeObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeObjects.swift; sourceTree = "<group>"; };
@@ -277,7 +281,6 @@
 		77CE36BE21F7F49C006ADABA /* RPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCTest.swift; sourceTree = "<group>"; };
 		77CE36BF21F7F49C006ADABA /* TransactionOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionOperationTest.swift; sourceTree = "<group>"; };
 		77CE36C021F7F49C006ADABA /* OriginationOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginationOperationTest.swift; sourceTree = "<group>"; };
-		77CE36C121F7F49C006ADABA /* KeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeysTests.swift; sourceTree = "<group>"; };
 		77CE36C221F7F49C006ADABA /* AbstractOperationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractOperationTest.swift; sourceTree = "<group>"; };
 		77CE36C321F7F49C006ADABA /* GetCurrentPeriodKindRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCurrentPeriodKindRPCTest.swift; sourceTree = "<group>"; };
 		77CE36C421F7F49C006ADABA /* GetAddressBalanceRPCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPCTest.swift; sourceTree = "<group>"; };
@@ -313,7 +316,6 @@
 		77CE381C21FC7ED7006ADABA /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MnemonicUtil.swift; sourceTree = "<group>"; };
 		77CE381F21FC7ED7006ADABA /* Tez.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tez.swift; sourceTree = "<group>"; };
-		77CE382021FC7ED7006ADABA /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		77CE382121FC7ED7006ADABA /* OperationMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationMetadata.swift; sourceTree = "<group>"; };
 		77CE382221FC7ED7006ADABA /* OperationFees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationFees.swift; sourceTree = "<group>"; };
 		77CE382321FC7ED7006ADABA /* PeriodKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 			children = (
 				77CE381C21FC7ED7006ADABA /* JSONUtils.swift */,
 				77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */,
+				7767AE3422C3F05D0043C52C /* CodingUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -560,9 +563,9 @@
 			isa = PBXGroup;
 			children = (
 				77CE381F21FC7ED7006ADABA /* Tez.swift */,
+				7767AE3222C3EBFC0043C52C /* PublicKey.swift */,
 				779427A822BABB8E00559A03 /* TezosProtocol.swift */,
 				77B1EAF222275A4A00EA4FCE /* GasLimitPolicy.swift */,
-				77CE382021FC7ED7006ADABA /* Keys.swift */,
 				77CE382121FC7ED7006ADABA /* OperationMetadata.swift */,
 				77CE382221FC7ED7006ADABA /* OperationFees.swift */,
 				77CE382321FC7ED7006ADABA /* PeriodKind.swift */,
@@ -687,7 +690,6 @@
 				77CE36C621F7F49C006ADABA /* JSONArrayResponseAdapterTest.swift */,
 				77CE36CB21F7F49D006ADABA /* JSONDictionaryResponseAdapterTest.swift */,
 				77CE36C921F7F49D006ADABA /* JSONUtilsTest.swift */,
-				77CE36C121F7F49C006ADABA /* KeysTests.swift */,
 				77CE36D421F7F49E006ADABA /* MnemonicUtilsTest.swift */,
 				77CE36C021F7F49C006ADABA /* OriginationOperationTest.swift */,
 				77CE36D821F7F49E006ADABA /* PeriodKindResponseAdapterTest.swift */,
@@ -700,6 +702,7 @@
 				77CE36BD21F7F49C006ADABA /* TezTest.swift */,
 				77CE36BF21F7F49C006ADABA /* TransactionOperationTest.swift */,
 				77CE36D021F7F49D006ADABA /* WalletTests.swift */,
+				7767AE3622C3F0CF0043C52C /* CodingUtilTest.swift */,
 				77CE35A621F7DC76006ADABA /* Info.plist */,
 			);
 			path = TezosKit;
@@ -960,6 +963,7 @@
 				77B69EA9224C39AC00DB4319 /* ConseilNetwork.swift in Sources */,
 				77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */,
 				77CE386521FC7ED8006ADABA /* GetAddressCodeRPC.swift in Sources */,
+				7767AE3522C3F05D0043C52C /* CodingUtil.swift in Sources */,
 				77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */,
 				7794E97B224C2518000D9F1E /* Header.swift in Sources */,
 				77CE385921FC7ED8006ADABA /* Tez.swift in Sources */,
@@ -971,9 +975,9 @@
 				77B69EC322510C6500DB4319 /* ConseilEntity.swift in Sources */,
 				77CE387821FC7ED8006ADABA /* GetBallotsListRPC.swift in Sources */,
 				77CE386921FC7ED8006ADABA /* JSONDictionaryResponseAdapter.swift in Sources */,
-				77CE385A21FC7ED8006ADABA /* Keys.swift in Sources */,
 				77CE387421FC7ED8006ADABA /* GetAddressDelegateRPC.swift in Sources */,
 				77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */,
+				7767AE3322C3EBFC0043C52C /* PublicKey.swift in Sources */,
 				77F4D266221CCE4B00D34B01 /* AbstractClient.swift in Sources */,
 				77B69EC1224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift in Sources */,
 				77CE386C21FC7ED8006ADABA /* ContractCodeResponseAdapter.swift in Sources */,
@@ -1054,7 +1058,6 @@
 				779427AF22BB1D6700559A03 /* OperationFactoryTest.swift in Sources */,
 				77CE36E721F7F49F006ADABA /* OriginationOperationTest.swift in Sources */,
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
-				77CE36E821F7F49F006ADABA /* KeysTests.swift in Sources */,
 				77B1EB04222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift in Sources */,
 				77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */,
 				77CE370621F7F49F006ADABA /* TezResponseAdapterTest.swift in Sources */,
@@ -1062,6 +1065,7 @@
 				77B1EAFC2228C03400EA4FCE /* TestObjects.swift in Sources */,
 				77B1EB02222A09AE00EA4FCE /* SignedOperationPayload.swift in Sources */,
 				77CE36FC21F7F49F006ADABA /* GetProposalsListRPCTest.swift in Sources */,
+				7767AE3722C3F0CF0043C52C /* CodingUtilTest.swift in Sources */,
 				77CE370021F7F49F006ADABA /* GetAddressCounterRPCTest.swift in Sources */,
 				7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */,
 				77CE370121F7F49F006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */,
