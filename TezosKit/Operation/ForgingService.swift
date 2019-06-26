@@ -17,7 +17,7 @@ public protocol ForgingServiceDelegate: class {
     withMetadata operationMetadata: OperationMetadata,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   )
-}
+}j
 
 /// A service which manages forging of operations, in accordance with a ForgingPolicy.
 public class ForgingService {
