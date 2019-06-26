@@ -1,19 +1,19 @@
 // Copyright Keefer Taylor, 2019.
 
-import XCTest
 import TezosKit
+import XCTest
 
 class SigningServiceTests: XCTestCase {
   func testSign() {
     let mockTransaction = "abc123"
     let expectedSignature: [UInt8] = [1, 2, 3, 4]
 
-    let fakeSigner = FakeSigner(signature: expectedSignature)
+    let fakeSigner = FakeSigner(signature: expectedSignature, publicKey: FakePublicKey.testPublicKey)
 
-    guard let signingResult = SigningService.sign(mockTransaction, with: fakeSigner) else {
+    guard let signature = SigningService.sign(mockTransaction, with: fakeSigner) else {
       XCTFail()
       return
     }
-    XCTAssertEqual(signingResult.signature, expectedSignature)
+    XCTAssertEqual(signature, expectedSignature)
   }
 }

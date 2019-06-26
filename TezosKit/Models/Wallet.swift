@@ -9,7 +9,8 @@ import TezosCrypto
 /// providing an mnemonic and optional passphrase.
 public struct Wallet {
   /// Keys for the wallet.
-  public let keys: Keys
+  public let publicKey: PublicKey
+  internal let secretKey: SecretKey
 
   /// A base58check encoded public key hash for the wallet, prefixed with "tz1" which represents an address in the Tezos
   /// ecosystem.
@@ -42,8 +43,7 @@ public struct Wallet {
 
     let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
     let address = publicKey.publicKeyHash
-    let keys = Keys(publicKey: publicKey, secretKey: secretKey)
-    self.init(address: address, keys: keys, mnemonic: mnemonic)
+    self.init(address: address, publicKey: publicKey, secretKey: secretKey, mnemonic: mnemonic)
   }
 
   /// Create a wallet with a given secret key.
@@ -56,8 +56,7 @@ public struct Wallet {
 
     let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
     let address = publicKey.publicKeyHash
-    let keys = Keys(publicKey: publicKey, secretKey: secretKey)
-    self.init(address: address, keys: keys)
+    self.init(address: address, publicKey: publicKey, secretKey: secretKey)
   }
 
   /// Create a wallet with the given address and keys.
@@ -66,9 +65,12 @@ public struct Wallet {
   ///
   /// - Parameters:
   ///   - address: The address of the originated account.
-  ///   - keys: The keys of managing account.
-  private init(address: String, keys: Keys, mnemonic: String? = nil) {
-    self.keys = keys
+  ///   - publicKey: The public key.
+  ///   - secretKey: The secret key.
+  ///   - mnemonic: An optional mnemonic used to generate the wallet.
+  private init(address: String,  publicKey: PublicKey, secretKey: SecretKey, mnemonic: String? = nil) {
+    self.secretKey = secretKey
+    self.publicKey = publicKey
     self.address = address
     self.mnemonic = mnemonic
   }
@@ -76,6 +78,13 @@ public struct Wallet {
 
 extension Wallet: Equatable {
   public static func == (lhs: Wallet, rhs: Wallet) -> Bool {
-    return lhs.keys == rhs.keys
+    return lhs.publicKey.base58CheckRepresentation == rhs.publicKey.base58CheckRepresentation &&
+      lhs.secretKey == rhs.secretKey
+  }
+}
+
+extension Wallet: Signer {
+  public func sign(_ hex: String) -> [UInt8]? {
+    return secretKey.sign(hex: hex)
   }
 }
