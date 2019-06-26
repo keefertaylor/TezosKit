@@ -140,7 +140,7 @@ public class TezosNodeClient {
 
   /// Retrieve the delegate of a given wallet.
   public func getDelegate(wallet: Wallet, completion: @escaping (Result<String, TezosKitError>) -> Void) {
-    networkClient.getDelegate(address: wallet.address, completion: completion)
+    getDelegate(address: wallet.address, completion: completion)
   }
 
   /// Retrieve the delegate of a given address.
@@ -589,7 +589,7 @@ public class TezosNodeClient {
         signedProtocolOperationPayload: signedProtocolOperationPayload,
         operationMetadata: operationMetadata
     )
-    send(preapplyOperationRPC) { [weak self] result in
+    networkClient.send(preapplyOperationRPC) { [weak self] result in
       guard let self = self else {
         return
       }
@@ -613,7 +613,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   private func sendInjectionRPC(payload: String, completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let injectRPC = InjectionRPC(payload: payload)
-    send(injectRPC) { result in
+    networkClient.send(injectRPC) { result in
       switch result {
       case .failure(let txError):
         completion(.failure(txError))
@@ -690,7 +690,7 @@ public class TezosNodeClient {
 
       // Send RPCs and wait for results
       fetchersGroup.enter()
-      self.send(chainHeadRequestRPC) { result in
+      self.networkClient.send(chainHeadRequestRPC) { result in
         switch result {
         case .failure:
           break
@@ -707,7 +707,7 @@ public class TezosNodeClient {
       }
 
       fetchersGroup.enter()
-      self.send(getAddressCounterRPC) { result in
+      self.networkClient.send(getAddressCounterRPC) { result in
         switch result {
         case .failure:
           break
@@ -718,7 +718,7 @@ public class TezosNodeClient {
       }
 
       fetchersGroup.enter()
-      self.send(getAddressManagerKeyRPC) { result in
+      self.networkClient.send(getAddressManagerKeyRPC) { result in
         switch result {
         case .failure:
           break

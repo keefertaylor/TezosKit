@@ -149,7 +149,7 @@
 		77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D2532218866E00D34B01 /* TezosCrypto.framework */; };
 		77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */; };
 		77F4D264221CB53900D34B01 /* RPCResponseHandlerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D263221CB53900D34B01 /* RPCResponseHandlerTest.swift */; };
-		77F4D266221CCE4B00D34B01 /* AbstractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D265221CCE4B00D34B01 /* AbstractClient.swift */; };
+		77F4D266221CCE4B00D34B01 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D265221CCE4B00D34B01 /* NetworkClient.swift */; };
 		77F4D268221CD44100D34B01 /* AbstractClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D267221CD44100D34B01 /* AbstractClientTest.swift */; };
 		77F4D26C221F899800D34B01 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77F4D26F22220C9600D34B01 /* AbstractClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */; };
@@ -353,7 +353,7 @@
 		77F4D2532218866E00D34B01 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
 		77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandler.swift; sourceTree = "<group>"; };
 		77F4D263221CB53900D34B01 /* RPCResponseHandlerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandlerTest.swift; sourceTree = "<group>"; };
-		77F4D265221CCE4B00D34B01 /* AbstractClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractClient.swift; sourceTree = "<group>"; };
+		77F4D265221CCE4B00D34B01 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		77F4D267221CD44100D34B01 /* AbstractClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractClientTest.swift; sourceTree = "<group>"; };
 		77F4D26B221F899800D34B01 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClient+Promises.swift"; sourceTree = "<group>"; };
@@ -621,7 +621,7 @@
 			isa = PBXGroup;
 			children = (
 				77CE384521FC7ED8006ADABA /* TezosNodeClient.swift */,
-				77F4D265221CCE4B00D34B01 /* AbstractClient.swift */,
+				77F4D265221CCE4B00D34B01 /* NetworkClient.swift */,
 				77F4D25522189A5000D34B01 /* RPCResponseHandler.swift */,
 				77CE384621FC7ED8006ADABA /* TezosKitError.swift */,
 			);
@@ -974,7 +974,7 @@
 				77CE385A21FC7ED8006ADABA /* Keys.swift in Sources */,
 				77CE387421FC7ED8006ADABA /* GetAddressDelegateRPC.swift in Sources */,
 				77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */,
-				77F4D266221CCE4B00D34B01 /* AbstractClient.swift in Sources */,
+				77F4D266221CCE4B00D34B01 /* NetworkClient.swift in Sources */,
 				77B69EC1224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift in Sources */,
 				77CE386C21FC7ED8006ADABA /* ContractCodeResponseAdapter.swift in Sources */,
 				77B1EAF7222885E300EA4FCE /* SignedOperationPayload.swift in Sources */,
