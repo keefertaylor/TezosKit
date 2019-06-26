@@ -5,7 +5,7 @@ import Foundation
 import TezosCrypto
 import Sodium
 
-/// An object which can sign transactions.
+/// An opaque object which implements public key cryptography functions.
 public protocol Signer {
   func sign(_ hex: String) -> [UInt8]?
   var publicKey: PublicKey { get }

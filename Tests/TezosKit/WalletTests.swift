@@ -21,7 +21,7 @@ class WalletTests: XCTestCase {
   let expectedPublicKeyHashPassphrase = "tz1ZfhME1B2kmagqEJ9P7PE8joM3TbVQ5r4v"
 
   // Wallet generation with no parameters should never fail.
-  public func testGenerateWallet() {
+  func testGenerateWallet() {
     let wallet = Wallet()
     XCTAssertNotNil(wallet)
     XCTAssertNotNil(wallet?.mnemonic)
@@ -31,7 +31,7 @@ class WalletTests: XCTestCase {
     XCTAssertNotNil(walletWithPassphrase?.mnemonic)
   }
 
-  public func testGenerateWalletMnemonicNoPassphrase() {
+  func testGenerateWalletMnemonicNoPassphrase() {
     guard let wallet = Wallet(mnemonic: mnemonic) else {
       XCTFail()
       return
@@ -44,7 +44,7 @@ class WalletTests: XCTestCase {
     XCTAssertEqual(wallet.address, expectedPublicKeyHashNoPassphrase)
   }
 
-  public func testGenerateWalletMnemonicEmptyPassphrase() {
+  func testGenerateWalletMnemonicEmptyPassphrase() {
     guard let wallet = Wallet(mnemonic: mnemonic, passphrase: "") else {
       XCTFail()
       return
@@ -58,7 +58,7 @@ class WalletTests: XCTestCase {
     XCTAssertEqual(wallet.address, expectedPublicKeyHashNoPassphrase)
   }
 
-  public func testGenerateWalletMnemonicWithPassphrase() {
+  func testGenerateWalletMnemonicWithPassphrase() {
     guard let wallet = Wallet(mnemonic: mnemonic, passphrase: passphrase) else {
       XCTFail()
       return
@@ -72,7 +72,7 @@ class WalletTests: XCTestCase {
     XCTAssertEqual(wallet.address, expectedPublicKeyHashPassphrase)
   }
 
-  public func testGenerateWalletFromSecretKey() {
+  func testGenerateWalletFromSecretKey() {
     guard let wallet = Wallet(secretKey: expectedSecretKeyNoPassphrase) else {
       XCTFail()
       return
@@ -84,12 +84,12 @@ class WalletTests: XCTestCase {
     XCTAssertEqual(wallet.secretKey.base58CheckRepresentation, expectedSecretKeyNoPassphrase)
   }
 
-  public func testGenerateWalletFromInvalidSecretKey() {
+  func testGenerateWalletFromInvalidSecretKey() {
     let wallet = Wallet(secretKey: "thisIsNotAValidKey")
     XCTAssertNil(wallet)
   }
 
-  public func testEqualityFromMnemonicAndPassphrase() {
+  func testEqualityFromMnemonicAndPassphrase() {
     // Wallet 1 and wallet 2
     guard let wallet1 = Wallet(mnemonic: mnemonic, passphrase: passphrase),
       let wallet2 = Wallet(mnemonic: mnemonic, passphrase: passphrase) else {
@@ -120,7 +120,7 @@ class WalletTests: XCTestCase {
     XCTAssertNotEqual(wallet1, wallet5)
   }
 
-  public func testEqualityFromSecretKeys() {
+  func testEqualityFromSecretKeys() {
     // Test equality on wallets generated from a secret key.
     let secretKey1 =
       "edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp"
@@ -135,5 +135,25 @@ class WalletTests: XCTestCase {
     // Wallets 1 and 2 were generated from the same secret key, wallet 3 was not.
     XCTAssertEqual(wallet1, wallet2)
     XCTAssertNotEqual(wallet1, wallet3)
+  }
+
+  func testSign() {
+    let hexToSign = "deadbeef"
+    guard
+      let wallet = Wallet(mnemonic: mnemonic),
+      let signature = wallet.sign(hexToSign)
+    else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertEqual(
+      signature,
+      [
+        208, 47, 19, 208, 168, 253, 44, 130, 231, 240, 15, 213, 223, 59, 178, 60, 130, 146, 175, 120, 119, 21, 237, 130,
+        115, 88, 31, 213, 202, 126, 150, 205, 13, 237, 56, 251, 254, 240, 202, 228, 141, 180, 235, 175, 184, 189, 172,
+        121, 43, 25, 235, 97, 235, 140, 144, 168, 32, 75, 190, 101, 126, 99, 117, 13
+      ]
+    )
   }
 }
