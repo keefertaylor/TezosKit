@@ -36,7 +36,7 @@ public class ConseilClient {
     ]
 
     self.callbackQueue = callbackQueue
-    networkClient = NetworkClient(
+    networkClient = NetworkClientImpl(
       remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
       headers: headers,

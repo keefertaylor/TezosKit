@@ -111,7 +111,7 @@ public class TezosNodeClient {
   ) {
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
     forgingService = ForgingService(forgingPolicy: forgingPolicy)
-    networkClient = NetworkClient(
+    networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
