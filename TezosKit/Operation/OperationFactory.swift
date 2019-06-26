@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
 import Foundation
+import TezosCrypto
 
 /// A factory which can produce operations.
 public class OperationFactory {

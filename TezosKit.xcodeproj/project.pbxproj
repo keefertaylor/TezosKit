@@ -110,7 +110,6 @@
 		77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381C21FC7ED7006ADABA /* JSONUtils.swift */; };
 		77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */; };
 		77CE385921FC7ED8006ADABA /* Tez.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE381F21FC7ED7006ADABA /* Tez.swift */; };
-		77CE385A21FC7ED8006ADABA /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382021FC7ED7006ADABA /* Keys.swift */; };
 		77CE385B21FC7ED8006ADABA /* OperationMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382121FC7ED7006ADABA /* OperationMetadata.swift */; };
 		77CE385C21FC7ED8006ADABA /* OperationFees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382221FC7ED7006ADABA /* OperationFees.swift */; };
 		77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382321FC7ED7006ADABA /* PeriodKind.swift */; };
@@ -313,7 +312,6 @@
 		77CE381C21FC7ED7006ADABA /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		77CE381D21FC7ED7006ADABA /* MnemonicUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MnemonicUtil.swift; sourceTree = "<group>"; };
 		77CE381F21FC7ED7006ADABA /* Tez.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tez.swift; sourceTree = "<group>"; };
-		77CE382021FC7ED7006ADABA /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		77CE382121FC7ED7006ADABA /* OperationMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationMetadata.swift; sourceTree = "<group>"; };
 		77CE382221FC7ED7006ADABA /* OperationFees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationFees.swift; sourceTree = "<group>"; };
 		77CE382321FC7ED7006ADABA /* PeriodKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
@@ -562,7 +560,6 @@
 				77CE381F21FC7ED7006ADABA /* Tez.swift */,
 				779427A822BABB8E00559A03 /* TezosProtocol.swift */,
 				77B1EAF222275A4A00EA4FCE /* GasLimitPolicy.swift */,
-				77CE382021FC7ED7006ADABA /* Keys.swift */,
 				77CE382121FC7ED7006ADABA /* OperationMetadata.swift */,
 				77CE382221FC7ED7006ADABA /* OperationFees.swift */,
 				77CE382321FC7ED7006ADABA /* PeriodKind.swift */,
@@ -971,7 +968,6 @@
 				77B69EC322510C6500DB4319 /* ConseilEntity.swift in Sources */,
 				77CE387821FC7ED8006ADABA /* GetBallotsListRPC.swift in Sources */,
 				77CE386921FC7ED8006ADABA /* JSONDictionaryResponseAdapter.swift in Sources */,
-				77CE385A21FC7ED8006ADABA /* Keys.swift in Sources */,
 				77CE387421FC7ED8006ADABA /* GetAddressDelegateRPC.swift in Sources */,
 				77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */,
 				77F4D266221CCE4B00D34B01 /* AbstractClient.swift in Sources */,
