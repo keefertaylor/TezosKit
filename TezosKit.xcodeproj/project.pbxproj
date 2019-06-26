@@ -758,13 +758,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77CE35AA21F7DC76006ADABA /* Build configuration list for PBXNativeTarget "TezosKit" */;
 			buildPhases = (
+				77CE388421FCB8CD006ADABA /* SwiftLint */,
 				77CE359121F7DC76006ADABA /* Headers */,
 				77CE359221F7DC76006ADABA /* Sources */,
 				77CE359321F7DC76006ADABA /* Frameworks */,
 				77CE359421F7DC76006ADABA /* Resources */,
 				77CE362D21F7EED8006ADABA /* Copy Files */,
 				77CE362E21F7EEE2006ADABA /* Carthage */,
-				77CE388421FCB8CD006ADABA /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -899,7 +899,7 @@
 		};
 		77CE388421FCB8CD006ADABA /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -911,7 +911,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint --strict\nelse\necho \"warning: SwiftLint not installed, run `brew install swiftlint`\"\nfi\n";
 		};

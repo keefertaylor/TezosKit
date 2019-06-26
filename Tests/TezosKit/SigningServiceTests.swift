@@ -1,7 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
-import XCTest
 import TezosKit
+import XCTest
 
 class SigningServiceTests: XCTestCase {
   func testSign() {

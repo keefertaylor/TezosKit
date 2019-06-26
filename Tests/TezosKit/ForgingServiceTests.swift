@@ -5,7 +5,7 @@ import XCTest
 
 class ForgingServiceTests: XCTestCase {
   func testForgingServiceWithRemotePolicy() {
-    let forgingServiceDelegate = FakeForgingServiceDelegate() {
+    let forgingServiceDelegate = FakeForgingServiceDelegate {
       return .success(.testForgeResult)
     }
 
@@ -45,7 +45,7 @@ class ForgingServiceTests: XCTestCase {
   }
 
   func testForgingServiceWithLocalWithRemoteFallbackPolicyAndUnforgeableOperation() {
-    let forgingServiceDelegate = FakeForgingServiceDelegate() {
+    let forgingServiceDelegate = FakeForgingServiceDelegate {
       return .success(.testForgeResult)
     }
 
