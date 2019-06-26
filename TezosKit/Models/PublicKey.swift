@@ -3,28 +3,11 @@
 import Foundation
 import TezosCrypto
 
+/// Opaque representation of a public key in TezosKit.
 public protocol PublicKey {
   var base58CheckRepresentation: String { get }
 }
-//public protocol SecretKey {
-//  var base58CheckRepresentation: String { get }
-//}
-//
-///// A structure representing public and private keys for a wallet in the Tezos ecosystem.
-//public struct Keys {
-//  public let publicKey: PublicKey
-//  public let secretKey: SecretKey
-//}
-//
-//extension Keys: Equatable {
-//  public static func == (lhs: Keys, rhs: Keys) -> Bool {
-//    return lhs.publicKey.base58CheckRepresentation == rhs.publicKey.base58CheckRepresentation &&
-//      lhs.secretKey.base58CheckRepresentation == rhs.secretKey.base58CheckRepresentation
-//  }
-//}
 
+/// Provide conformance of TezosCrypto.PublicKey to TezosKit.PublicKey.
 extension TezosCrypto.PublicKey: PublicKey {
 }
-//
-//extension TezosCrypto.SecretKey: SecretKey {
-//}
