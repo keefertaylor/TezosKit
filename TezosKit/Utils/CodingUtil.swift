@@ -5,11 +5,11 @@ import TezosCrypto
 
 /// Wrapper for cryptography utils.
 public enum CodingUtil {
-  public func binToHex(_ bin: [UInt8]) -> String? {
+  public static func binToHex(_ bin: [UInt8]) -> String? {
     return TezosCryptoUtils.binToHex(bin)
   }
 
-  public func hexToBin(_ hex: String) -> [UInt8]? {
+  public static func hexToBin(_ hex: String) -> [UInt8]? {
     return TezosCryptoUtils.hexToBin(hex)
   }
 }
