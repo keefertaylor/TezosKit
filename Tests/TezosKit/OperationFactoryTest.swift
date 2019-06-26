@@ -21,8 +21,7 @@ class OperationFactoryTest: XCTestCase {
   }
 
   func testOriginationOperationWithDefaultFees() {
-    // TODO: Rebase to origination operation.
-    let originationOperation = operationFactory.originateOperation(address: "tz1abc")
+    let originationOperation = operationFactory.originationOperation(address: "tz1abc")
 
     let defaultFees = DefaultFeeProvider.fees(for: .origination)
     XCTAssertEqual(originationOperation.operationFees.fee, defaultFees.fee)

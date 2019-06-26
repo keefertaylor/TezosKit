@@ -39,7 +39,7 @@ public class OperationFactory {
   ///   - address: The address which will originate the new account.
   ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public func originateOperation(
+  public func originationOperation(
     address: String,
     contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil
