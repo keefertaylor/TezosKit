@@ -295,7 +295,7 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let originationOperation = operationFactory.originateOperation(
+    let originationOperation = operationFactory.originationOperation(
       address: managerAddress,
       contractCode: contractCode,
       operationFees: operationFees

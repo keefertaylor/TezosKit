@@ -169,10 +169,10 @@ extension TezosNodeClient {
     contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let originateAccountOperation =
-      operationFactory.originateOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
+    let originationOperation =
+      operationFactory.originationOperation(address: managerAddress, contractCode: contractCode, operationFees: operationFees)
     return forgeSignPreapplyAndInject(
-      operation: originateAccountOperation,
+      operation: originationOperation,
       source: managerAddress,
       signer: signer
     )
