@@ -93,7 +93,7 @@ final class ConseilClientTests: XCTestCase {
     let conseilClient = ConseilClient(networkClient: fakeNetworkClient)
 
     let expectation = XCTestExpectation(description: "completion called")
-    conseilClient.originatedAccounts(from: Wallet.testWallet.address) { result in
+    conseilClient.originatedContracts(from: Wallet.testWallet.address) { result in
       switch result {
       case .success(let results):
         XCTAssert(results.count > 1)
