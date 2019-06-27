@@ -262,7 +262,7 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testRunOperation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = OperationFactory.testOperationFactory.originateOperation(address: Wallet.testWallet.address)
+    let operation = OperationFactory.testOperationFactory.originationOperation(address: Wallet.testWallet.address)
     self.nodeClient.runOperation(operation, from: .testWallet) { result in
       switch result {
       case .failure:
