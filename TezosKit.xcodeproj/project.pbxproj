@@ -15,6 +15,7 @@
 		7767AE3322C3EBFC0043C52C /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767AE3222C3EBFC0043C52C /* PublicKey.swift */; };
 		7767AE3522C3F05D0043C52C /* CodingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767AE3422C3F05D0043C52C /* CodingUtil.swift */; };
 		7767AE3722C3F0CF0043C52C /* CodingUtilTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767AE3622C3F0CF0043C52C /* CodingUtilTest.swift */; };
+		7767AE3D22C572300043C52C /* OperationMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767AE3C22C572300043C52C /* OperationMetadataProvider.swift */; };
 		7774780522221DE50010BA4D /* NetworkClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* NetworkClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7774780C222228590010BA4D /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
@@ -215,6 +216,7 @@
 		7767AE3222C3EBFC0043C52C /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		7767AE3422C3F05D0043C52C /* CodingUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUtil.swift; sourceTree = "<group>"; };
 		7767AE3622C3F0CF0043C52C /* CodingUtilTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUtilTest.swift; sourceTree = "<group>"; };
+		7767AE3C22C572300043C52C /* OperationMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMetadataProvider.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* NetworkClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		7776493A227616B200451DD5 /* FakeObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeObjects.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				779427B022BB24C800559A03 /* ForgingPolicy.swift */,
+				7767AE3C22C572300043C52C /* OperationMetadataProvider.swift */,
 				779427B822C013D700559A03 /* SigningService.swift */,
 				779427B222BB257F00559A03 /* ForgingService.swift */,
 				77CE380721FC7ED7006ADABA /* OriginationOperation.swift */,
@@ -963,6 +966,7 @@
 				77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */,
 				77CE386521FC7ED8006ADABA /* GetAddressCodeRPC.swift in Sources */,
 				7767AE3522C3F05D0043C52C /* CodingUtil.swift in Sources */,
+				7767AE3D22C572300043C52C /* OperationMetadataProvider.swift in Sources */,
 				77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */,
 				7794E97B224C2518000D9F1E /* Header.swift in Sources */,
 				77CE385921FC7ED8006ADABA /* Tez.swift in Sources */,
