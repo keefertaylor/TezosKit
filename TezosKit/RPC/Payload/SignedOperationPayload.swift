@@ -9,20 +9,23 @@ public struct SignedOperationPayload {
   private let operationPayload: OperationPayload
 
   /// The signature for the operation payload.
-  private let signature: String
+  private let base58Signature: String
 
   /// Retrieve a dictionary representation of the payload.
   public var dictionaryRepresentation: [String: Any] {
     var payload = operationPayload.dictionaryRepresentation
-    payload["signature"] = signature
+    payload["signature"] = base58Signature
     return payload
   }
 
   /// - Parameters:
   ///   - operationPayload: The operation payload.
   ///   - signature: The signature for the operation payload.
-  public init(operationPayload: OperationPayload, signature: String) {
+  public init?(operationPayload: OperationPayload, signature: [UInt8]) {
     self.operationPayload = operationPayload
-    self.signature = signature
+    guard let base58Signature = TezosCryptoUtils.base58(signature: signature) else {
+      return nil
+    }
+    self.base58Signature = base58Signature
   }
 }

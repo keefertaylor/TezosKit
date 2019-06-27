@@ -8,7 +8,7 @@ extension TezosNodeClient {
   /// Retrieve data about the chain head.
   public func getHead() -> Promise<[String: Any]> {
     let rpc = GetChainHeadRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the balance of a given wallet.
@@ -19,7 +19,7 @@ extension TezosNodeClient {
   /// Retrieve the balance of a given address.
   public func getBalance(address: String) -> Promise<Tez> {
     let rpc = GetAddressBalanceRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the delegate of a given wallet.
@@ -30,25 +30,25 @@ extension TezosNodeClient {
   /// Retrieve the delegate of a given address.
   public func getDelegate(address: String) -> Promise<String> {
     let rpc = GetDelegateRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the hash of the block at the head of the chain.
   public func getHeadHash() -> Promise<String> {
     let rpc = GetChainHeadHashRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the address counter for the given address.
   public func getAddressCounter(address: String) -> Promise<Int> {
     let rpc = GetAddressCounterRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the address manager key for the given address.
   public func getAddressManagerKey(address: String) -> Promise<[String: Any]> {
     let rpc = GetAddressManagerKeyRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Transact Tezos between accounts.
@@ -56,7 +56,7 @@ extension TezosNodeClient {
   ///   - amount: The amount of Tez to send.
   ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
@@ -64,7 +64,7 @@ extension TezosNodeClient {
     amount: Tez,
     to recipientAddress: String,
     from source: String,
-    keys: Keys,
+    signer: Signer,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
@@ -78,7 +78,7 @@ extension TezosNodeClient {
     return forgeSignPreapplyAndInject(
       operation: transactionOperation,
       source: source,
-      keys: keys
+      signer: signer
     )
   }
 
@@ -91,13 +91,13 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - source: The address which will delegate.
   ///   - delegate: The address which will receive the delegation.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func delegate(
     from source: String,
     to delegate: String,
-    keys: Keys,
+    signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let delegationOperation = operationFactory.delegateOperation(
@@ -108,19 +108,19 @@ extension TezosNodeClient {
     return forgeSignPreapplyAndInject(
       operation: delegationOperation,
       source: source,
-      keys: keys
+      signer: signer
     )
   }
 
   /// Clear the delegate of an originated account.
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func undelegate(
     from source: String,
-    keys: Keys,
+    signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let undelegateOperatoin = operationFactory.undelegateOperation(
@@ -130,19 +130,19 @@ extension TezosNodeClient {
     return forgeSignPreapplyAndInject(
       operation: undelegateOperatoin,
       source: source,
-      keys: keys
+      signer: signer
     )
   }
 
   /// Register an address as a delegate.
   /// - Parameters:
   ///   - delegate: The address registering as a delegate.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func registerDelegate(
     delegate: String,
-    keys: Keys,
+    signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let registerDelegateOperation = operationFactory.registerDelegateOperation(
@@ -152,32 +152,32 @@ extension TezosNodeClient {
     return forgeSignPreapplyAndInject(
       operation: registerDelegateOperation,
       source: delegate,
-      keys: keys
+      signer: signer
     )
   }
 
   /// Originate a new account from the given account.
   /// - Parameters:
   ///   - managerAddress: The address which will manage the new account.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func originateAccount(
     managerAddress: String,
-    keys: Keys,
+    signer: Signer,
     contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
-    let originateAccountOperation = operationFactory.originateOperation(
+    let originationOperation = operationFactory.originationOperation(
       address: managerAddress,
       contractCode: contractCode,
       operationFees: operationFees
     )
     return forgeSignPreapplyAndInject(
-      operation: originateAccountOperation,
+      operation: originationOperation,
       source: managerAddress,
-      keys: keys
+      signer: signer
     )
   }
 
@@ -185,66 +185,66 @@ extension TezosNodeClient {
   /// - Parameter address: The address of the contract to load.
   public func getAddressCode(address: String) -> Promise<ContractCode> {
     let rpc = GetAddressCodeRPC(address: address)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve ballots cast so far during a voting period.
   public func getBallotsList() -> Promise<[[String: Any]]> {
     let rpc = GetBallotsListRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   ///Retrieve the expected quorum.
   public func getExpectedQuorum() -> Promise<Int> {
     let rpc = GetExpectedQuorumRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the current period kind for voting.
   public func getCurrentPeriodKind() -> Promise<PeriodKind> {
     let rpc = GetCurrentPeriodKindRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the sum of ballots cast so far during a voting period.
   public func getBallots() -> Promise<[String: Any]> {
     let rpc = GetBallotsRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve a list of proposals with number of supporters.
   public func getProposalsList() -> Promise<[[String: Any]]> {
     let rpc = GetProposalsListRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve the current proposal under evaluation.
   public func getProposalUnderEvaluation() -> Promise<String> {
     let rpc = GetProposalUnderEvaluationRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve a list of delegates with their voting weight, in number of rolls.
   public func getVotingDelegateRights() -> Promise<[[String: Any]]> {
     let rpc = GetVotingDelegateRightsRPC()
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Forge, sign, preapply and then inject a single operation.
   /// - Parameters:
   ///   - operation: The operation which will be forged.
   ///   - source: The address performing the operation.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func forgeSignPreapplyAndInject(
     operation: Operation,
     source: String,
-    keys: Keys
+    signer: Signer
   ) -> Promise<String> {
     return forgeSignPreapplyAndInject(
       operations: [operation],
       source: source,
-      keys: keys
+      signer: signer
     )
   }
 
@@ -255,15 +255,15 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - operations: An array of operations that will be forged.
   ///   - source: The address performing the operation.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func forgeSignPreapplyAndInject(
     operations: [Operation],
     source: String,
-    keys: Keys
+    signer: Signer
   ) -> Promise<String> {
     return Promise { seal in
-      forgeSignPreapplyAndInject(operations, source: source, keys: keys) { result in
+      forgeSignPreapplyAndInject(operations, source: source, signer: signer) { result in
         switch result {
         case .success(let data):
           seal.fulfill(data)

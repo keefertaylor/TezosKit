@@ -2,8 +2,14 @@
 
 import Foundation
 
-/// An abstract network client that can send RPC requests.
-public class AbstractClient {
+/// An opaque network client which implements requests.
+public protocol NetworkClient {
+  /// Send an RPC.
+  func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void)
+}
+
+/// A standard implementation of the network client.
+public class NetworkClientImpl: NetworkClient {
 
   /// The URL session that will be used to manage URL requests.
   private let urlSession: URLSession
@@ -41,7 +47,6 @@ public class AbstractClient {
     self.responseHandler = responseHandler
   }
 
-  /// Send an RPC as a GET or POST request.
   public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)

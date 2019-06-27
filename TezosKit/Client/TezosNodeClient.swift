@@ -66,7 +66,7 @@ import TezosCrypto
 /// For clients who create their own custom signed operations, TezosKit will apply the reveal
 /// operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
 /// correctly.
-public class TezosNodeClient: AbstractClient {
+public class TezosNodeClient {
   /// JSON keys and values used in the Tezos Node.
   private enum JSON {
     public enum Keys {
@@ -92,6 +92,9 @@ public class TezosNodeClient: AbstractClient {
   /// A service which forges operations.
   public let forgingService: ForgingService
 
+  /// The network client.
+  public let networkClient: NetworkClient
+
   /// Initialize a new TezosNodeClient.
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
@@ -108,8 +111,7 @@ public class TezosNodeClient: AbstractClient {
   ) {
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
     forgingService = ForgingService(forgingPolicy: forgingPolicy)
-
-    super.init(
+    networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
@@ -122,7 +124,7 @@ public class TezosNodeClient: AbstractClient {
   /// Retrieve data about the chain head.
   public func getHead(completion: @escaping (Result<[String: Any], TezosKitError>) -> Void) {
     let rpc = GetChainHeadRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the balance of a given wallet.
@@ -133,7 +135,7 @@ public class TezosNodeClient: AbstractClient {
   /// Retrieve the balance of a given address.
   public func getBalance(address: String, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the delegate of a given wallet.
@@ -144,19 +146,19 @@ public class TezosNodeClient: AbstractClient {
   /// Retrieve the delegate of a given address.
   public func getDelegate(address: String, completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetDelegateRPC(address: address)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the hash of the block at the head of the chain.
   public func getHeadHash(completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetChainHeadHashRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the address counter for the given address.
   public func getAddressCounter(address: String, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let rpc = GetAddressCounterRPC(address: address)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the address manager key for the given address.
@@ -165,7 +167,7 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
     let rpc = GetAddressManagerKeyRPC(address: address)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Transact Tezos between accounts.
@@ -173,7 +175,7 @@ public class TezosNodeClient: AbstractClient {
   ///   - amount: The amount of Tez to send.
   ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
@@ -181,7 +183,7 @@ public class TezosNodeClient: AbstractClient {
     amount: Tez,
     to recipientAddress: String,
     from source: String,
-    keys: Keys,
+    signer: Signer,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -196,7 +198,7 @@ public class TezosNodeClient: AbstractClient {
     forgeSignPreapplyAndInject(
       transactionOperation,
       source: source,
-      keys: keys,
+      signer: signer,
       completion: completion
     )
   }
@@ -210,13 +212,13 @@ public class TezosNodeClient: AbstractClient {
   /// - Parameters:
   ///   - source: The address which will delegate.
   ///   - delegate: The address which will receive the delegation.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func delegate(
     from source: String,
     to delegate: String,
-    keys: Keys,
+    signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -228,7 +230,7 @@ public class TezosNodeClient: AbstractClient {
     forgeSignPreapplyAndInject(
       delegationOperation,
       source: source,
-      keys: keys,
+      signer: signer,
       completion: completion
     )
   }
@@ -237,13 +239,13 @@ public class TezosNodeClient: AbstractClient {
   ///
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
   public func undelegate(
     from source: String,
-    keys: Keys,
+    signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -251,7 +253,7 @@ public class TezosNodeClient: AbstractClient {
     forgeSignPreapplyAndInject(
       undelegateOperatoin,
       source: source,
-      keys: keys,
+      signer: signer,
       completion: completion
     )
   }
@@ -259,12 +261,12 @@ public class TezosNodeClient: AbstractClient {
   /// Register an address as a delegate.
   /// - Parameters:
   ///   - delegate: The address registering as a delegate.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func registerDelegate(
     delegate: String,
-    keys: Keys,
+    signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -275,7 +277,7 @@ public class TezosNodeClient: AbstractClient {
     forgeSignPreapplyAndInject(
       registerDelegateOperation,
       source: delegate,
-      keys: keys,
+      signer: signer,
       completion: completion
     )
   }
@@ -283,19 +285,19 @@ public class TezosNodeClient: AbstractClient {
   /// Originate a new account from the given account.
   /// - Parameters:
   ///   - managerAddress: The address which will manage the new account.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
   public func originateAccount(
     managerAddress: String,
-    keys: Keys,
+    signer: Signer,
     contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let originationOperation = operationFactory.originateOperation(
+    let originationOperation = operationFactory.originationOperation(
       address: managerAddress,
       contractCode: contractCode,
       operationFees: operationFees
@@ -303,7 +305,7 @@ public class TezosNodeClient: AbstractClient {
     forgeSignPreapplyAndInject(
       originationOperation,
       source: managerAddress,
-      keys: keys,
+      signer: signer,
       completion: completion
     )
   }
@@ -312,49 +314,49 @@ public class TezosNodeClient: AbstractClient {
   /// - Parameter address: The address of the contract to load.
   public func getAddressCode(address: String, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
     let rpc = GetAddressCodeRPC(address: address)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve ballots cast so far during a voting period.
   public func getBallotsList(completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void) {
     let rpc = GetBallotsListRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the expected quorum.
   public func getExpectedQuorum(completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let rpc = GetExpectedQuorumRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the current period kind for voting.
   public func getCurrentPeriodKind(completion: @escaping (Result<PeriodKind, TezosKitError>) -> Void) {
     let rpc = GetCurrentPeriodKindRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the sum of ballots cast so far during a voting period.
   public func getBallots(completion: @escaping (Result<[String: Any], TezosKitError>) -> Void) {
     let rpc = GetBallotsRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve a list of proposals with number of supporters.
   public func getProposalsList(completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void) {
     let rpc = GetProposalsListRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the current proposal under evaluation.
   public func getProposalUnderEvaluation(completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetProposalUnderEvaluationRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve a list of delegates with their voting weight, in number of rolls.
   public func getVotingDelegateRights(completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void) {
     let rpc = GetVotingDelegateRightsRPC()
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve metadata and runs an operation.
@@ -391,19 +393,19 @@ public class TezosNodeClient: AbstractClient {
         }
 
         guard
-          let secretKey = wallet.keys.secretKey as? TezosCrypto.SecretKey,
-          let signingResult = SigningService.sign(bytes, with: secretKey)
+          let signature = SigningService.sign(bytes, with: wallet),
+          let signedOperationPayload = SignedOperationPayload(
+            operationPayload: operationPayload,
+            signature: signature
+          )
         else {
           let error = TezosKitError(kind: .signingError, underlyingError: nil)
           completion(.failure(error))
           return
         }
-        let signedOperationPayload = SignedOperationPayload(
-          operationPayload: operationPayload,
-          signature: signingResult.base58Representation
-        )
+
         let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-        self.send(rpc, completion: completion)
+        self.networkClient.send(rpc, completion: completion)
       }
     }
   }
@@ -421,7 +423,7 @@ public class TezosNodeClient: AbstractClient {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let rpc = ForgeOperationRPC(operationPayload: operationPayload, operationMetadata: operationMetadata)
-    self.send(rpc, completion: completion)
+    self.networkClient.send(rpc, completion: completion)
   }
 
   /// Creates a operation payload from operations.
@@ -449,18 +451,18 @@ public class TezosNodeClient: AbstractClient {
   /// - Parameters:
   ///   - operation: The operation which will be used to forge the operation.
   ///   - source: The address performing the operation.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operation: Operation,
     source: String,
-    keys: Keys,
+    signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     forgeSignPreapplyAndInject(
       [operation],
       source: source,
-      keys: keys,
+      signer: signer,
       completion: completion
     )
   }
@@ -472,12 +474,12 @@ public class TezosNodeClient: AbstractClient {
   /// - Parameters:
   ///   - operations: The operations which will be forged.
   ///   - source: The address performing the operation.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operations: [Operation],
     source: String,
-    keys: Keys,
+    signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     getMetadataForOperation(address: source) { [weak self] result in
@@ -496,7 +498,7 @@ public class TezosNodeClient: AbstractClient {
       // prepend a reveal operation to the operations to perform.
       var mutableOperations = operations
       if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-        let revealOperation = self.operationFactory.revealOperation(from: source, publicKey: keys.publicKey)
+        let revealOperation = self.operationFactory.revealOperation(from: source, publicKey: signer.publicKey)
         mutableOperations.insert(revealOperation, at: 0)
       }
       let operationPayload =
@@ -520,7 +522,7 @@ public class TezosNodeClient: AbstractClient {
           operationMetadata: operationMetadata,
           forgeResult: forgedBytes,
           source: source,
-          keys: keys,
+          signer: signer,
           completion: completion
         )
       }
@@ -534,29 +536,29 @@ public class TezosNodeClient: AbstractClient {
   ///   - operationMetadata: Metadata related to the operation.
   ///   - forgeResult: The result of forging the operation payload.
   ///   - source: The address performing the operation.
-  ///   - keys: The keys to use to sign the operation for the address.
+  ///   - signer: The object which will sign the operation.
   ///   - completion: A completion block that will be called with the results of the operation.
   private func signPreapplyAndInjectOperation(
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
-    source _: String,
-    keys: Keys,
+    source: String,
+    signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
-      let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
-      let signingResult = SigningService.sign(forgeResult, with: secretKey),
-      let signedBytesForInjection = JSONUtils.jsonString(for: signingResult.injectableHexBytes)
+      let signature = SigningService.sign(forgeResult, with: signer),
+      let signatureHex = TezosCryptoUtils.binToHex(signature),
+      let signedBytesForInjection = JSONUtils.jsonString(for: forgeResult + signatureHex),
+      let signedOperationPayload = SignedOperationPayload(
+        operationPayload: operationPayload,
+        signature: signature
+      )
     else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
       completion(.failure(error))
       return
     }
-    let signedOperationPayload = SignedOperationPayload(
-      operationPayload: operationPayload,
-      signature: signingResult.base58Representation
-    )
 
     let signedProtocolOperationPayload = SignedProtocolOperationPayload(
       signedOperationPayload: signedOperationPayload,
@@ -587,7 +589,7 @@ public class TezosNodeClient: AbstractClient {
         signedProtocolOperationPayload: signedProtocolOperationPayload,
         operationMetadata: operationMetadata
     )
-    send(preapplyOperationRPC) { [weak self] result in
+    networkClient.send(preapplyOperationRPC) { [weak self] result in
       guard let self = self else {
         return
       }
@@ -611,7 +613,7 @@ public class TezosNodeClient: AbstractClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   private func sendInjectionRPC(payload: String, completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let injectRPC = InjectionRPC(payload: payload)
-    send(injectRPC) { result in
+    networkClient.send(injectRPC) { result in
       switch result {
       case .failure(let txError):
         completion(.failure(txError))
@@ -688,7 +690,7 @@ public class TezosNodeClient: AbstractClient {
 
       // Send RPCs and wait for results
       fetchersGroup.enter()
-      self.send(chainHeadRequestRPC) { result in
+      self.networkClient.send(chainHeadRequestRPC) { result in
         switch result {
         case .failure:
           break
@@ -705,7 +707,7 @@ public class TezosNodeClient: AbstractClient {
       }
 
       fetchersGroup.enter()
-      self.send(getAddressCounterRPC) { result in
+      self.networkClient.send(getAddressCounterRPC) { result in
         switch result {
         case .failure:
           break
@@ -716,7 +718,7 @@ public class TezosNodeClient: AbstractClient {
       }
 
       fetchersGroup.enter()
-      self.send(getAddressManagerKeyRPC) { result in
+      self.networkClient.send(getAddressManagerKeyRPC) { result in
         switch result {
         case .failure:
           break

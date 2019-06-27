@@ -1,14 +1,9 @@
 // Copyright Keefer Taylor, 2019
 
 import Foundation
-import TezosCrypto
-import TezosKit
+@testable import TezosKit
 
 public struct FakePublicKey: TezosKit.PublicKey {
-  public let base58CheckRepresentation: String
-}
-
-public struct FakeSecretKey: TezosKit.SecretKey {
   public let base58CheckRepresentation: String
 }
 
@@ -32,13 +27,99 @@ public class FakeForgingServiceDelegate: ForgingServiceDelegate {
 
 /// A fake signer.
 public class FakeSigner: Signer {
-  let signature: [UInt8]
+  private let signature: [UInt8]
+  public let publicKey: PublicKey
 
-  public init(signature: [UInt8]) {
+  public init(signature: [UInt8], publicKey: PublicKey) {
     self.signature = signature
+    self.publicKey = publicKey
   }
 
-  public func sign(_ payload: String) -> SigningResult? {
-    return SigningResult(bytes: signature, hashedBytes: signature, signature: signature)
+  public func sign(_ payload: String) -> [UInt8]? {
+    return signature
+  }
+}
+
+/// A fake URLSession that will return data tasks which will call completion handlers with the given parameters.
+public class FakeURLSession: URLSession {
+  public var urlResponse: URLResponse?
+  public var data: Data?
+  public var error: Error?
+
+  public override func dataTask(
+    with request: URLRequest,
+    completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> URLSessionDataTask {
+    return FakeURLSessionDataTask(
+      urlResponse: urlResponse,
+      data: data,
+      error: error,
+      completionHandler: completionHandler
+    )
+  }
+}
+
+/// A fake data task that will immediately call completion.
+public class FakeURLSessionDataTask: URLSessionDataTask {
+  private let urlResponse: URLResponse?
+  private let data: Data?
+  private let fakedError: Error?
+  private let completionHandler: (Data?, URLResponse?, Error?) -> Void
+
+  public init(
+    urlResponse: URLResponse?,
+    data: Data?,
+    error: Error?,
+    completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) {
+    self.urlResponse = urlResponse
+    self.data = data
+    self.fakedError = error
+    self.completionHandler = completionHandler
+  }
+
+  public override func resume() {
+    completionHandler(data, urlResponse, fakedError)
+  }
+}
+
+/// A fake network client which has default responses for given paths.
+public class FakeNetworkClient: NetworkClient {
+  public let endpointToResponseMap: [String: String]
+  public let responseHandler: RPCResponseHandler
+
+  /// Initialize a new fake network client.
+  ///
+  /// - Parameter endpointToResponseMap: A map of string endpoints to plain-text UTF-8 encoded responses.
+  public init(endpointToResponseMap: [String: String]) {
+    self.endpointToResponseMap = endpointToResponseMap
+    self.responseHandler = RPCResponseHandler()
+  }
+
+  public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
+    var statusCode = 400
+    var responseData: Data? = nil
+
+    // Add response data and fix HTTP status code if there was a response for that endpoint.
+    if let response = endpointToResponseMap[rpc.endpoint] {
+      statusCode = 200
+      responseData = response.data(using: .utf8)
+    }
+
+    let urlResponse = HTTPURLResponse(
+      url: URL(string: "http://keefertaylor.com")!,
+      statusCode: statusCode,
+      httpVersion: nil,
+      headerFields: nil
+    )
+
+    let result = self.responseHandler.handleResponse(
+      response: urlResponse,
+      data: responseData,
+      error: nil,
+      responseAdapterClass: rpc.responseAdapterClass
+    )
+
+    completion(result)
   }
 }

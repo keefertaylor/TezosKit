@@ -1,22 +1,19 @@
 // Copyright Keefer Taylor, 2019.
 
+import Base58Swift
 import Foundation
 import TezosCrypto
+import Sodium
 
-/// An object which can sign transactions.
+/// An opaque object which implements public key cryptography functions.
 public protocol Signer {
-  func sign(_ hex: String) -> SigningResult?
+  func sign(_ hex: String) -> [UInt8]?
+  var publicKey: PublicKey { get }
 }
 
 /// Manages signing of transactions.
 public enum SigningService {
-  public static func sign(_ hex: String, with signer: Signer) -> SigningResult? {
+  public static func sign(_ hex: String, with signer: Signer) -> [UInt8]? {
     return signer.sign(hex)
-  }
-}
-
-extension TezosCrypto.SecretKey: Signer {
-  public func sign(_ hex: String) -> SigningResult? {
-    return TezosCryptoUtils.sign(hex: hex, secretKey: self)
   }
 }

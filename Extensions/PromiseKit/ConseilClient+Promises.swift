@@ -15,7 +15,7 @@ extension ConseilClient {
     limit: Int = 100
   ) -> Promise<[[String: Any]]> {
     let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve originated contracts.
@@ -29,7 +29,7 @@ extension ConseilClient {
     limit: Int = 100
   ) -> Promise<[[String: Any]]> {
     let rpc = GetOriginatedContractsRPC(account: account, limit: limit)
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve transactions both sent and received from an account.
@@ -66,7 +66,7 @@ extension ConseilClient {
       account: account,
       limit: limit
     )
-    return self.send(rpc)
+    return networkClient.send(rpc)
   }
 
   /// Retrieve transactions sent from an account.
@@ -81,6 +81,6 @@ extension ConseilClient {
       account: account,
       limit: limit
     )
-    return send(rpc)
+    return networkClient.send(rpc)
   }
 }
