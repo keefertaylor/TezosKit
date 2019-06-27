@@ -1,7 +1,13 @@
 // Copyright Keefer Taylor, 2019
 
 /// A client for a Conseil Server.
-public class ConseilClient: AbstractClient {
+public class ConseilClient {
+  /// The network client.
+  public let networkClient: NetworkClient
+
+  /// The callback queue that all callbacks will be made on.
+  public let callbackQueue: DispatchQueue
+
   /// Initialize a new client for a Conseil Service.
   ///
   /// - Parameters:
@@ -29,7 +35,8 @@ public class ConseilClient: AbstractClient {
       Header(field: "apiKey", value: apiKey)
     ]
 
-    super.init(
+    self.callbackQueue = callbackQueue
+    networkClient = NetworkClient(
       remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
       headers: headers,
@@ -50,7 +57,7 @@ public class ConseilClient: AbstractClient {
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
     let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve originated contracts.
@@ -65,7 +72,7 @@ public class ConseilClient: AbstractClient {
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
     let rpc = GetOriginatedContractsRPC(account: account, limit: limit)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve transactions both sent and received from an account.
@@ -136,7 +143,7 @@ public class ConseilClient: AbstractClient {
       account: account,
       limit: limit
     )
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve transactions sent from an account.
@@ -154,7 +161,7 @@ public class ConseilClient: AbstractClient {
       account: account,
       limit: limit
     )
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   // MARK: - Private Methods

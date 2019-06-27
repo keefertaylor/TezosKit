@@ -2,8 +2,8 @@
 
 import Foundation
 
-/// An abstract network client that can send RPC requests.
-public class AbstractClient {
+/// A network client that can send RPC requests.
+public class NetworkClient {
 
   /// The URL session that will be used to manage URL requests.
   private let urlSession: URLSession
