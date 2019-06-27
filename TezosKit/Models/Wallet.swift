@@ -68,7 +68,7 @@ public struct Wallet {
   ///   - publicKey: The public key.
   ///   - secretKey: The secret key.
   ///   - mnemonic: An optional mnemonic used to generate the wallet.
-  private init(address: String,  publicKey: PublicKey, secretKey: SecretKey, mnemonic: String? = nil) {
+  private init(address: String, publicKey: PublicKey, secretKey: SecretKey, mnemonic: String? = nil) {
     self.secretKey = secretKey
     self.publicKey = publicKey
     self.address = address

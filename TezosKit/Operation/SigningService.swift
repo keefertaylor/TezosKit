@@ -3,7 +3,6 @@
 import Base58Swift
 import Foundation
 import TezosCrypto
-import Sodium
 
 /// An opaque object which implements public key cryptography functions.
 public protocol Signer {

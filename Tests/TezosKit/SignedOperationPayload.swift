@@ -1,7 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
-import TezosKit
 import TezosCrypto
+import TezosKit
 import XCTest
 
 class SignedOperationPayloadTest: XCTestCase {
