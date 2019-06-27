@@ -10,7 +10,7 @@ public class ForgingService {
   /// A network client that can send requests.
   private let networkClient: NetworkClient
 
-  /// - Parameter
+  /// - Parameters:
   ///   - forgingPolicy: The forging policy to apply to all operations.
   ///   - networkClient: A network client that can communicate with a Tezos Node.
   public init(forgingPolicy: ForgingPolicy, networkClient: NetworkClient) {
