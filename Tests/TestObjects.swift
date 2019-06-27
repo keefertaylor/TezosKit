@@ -97,9 +97,9 @@ extension OperationFactory {
 
 extension OperationFees {
   public static let testFees = OperationFees(
-    fee: Tez.zeroBalance,
-    gasLimit: Tez.zeroBalance,
-    storageLimit: Tez.zeroBalance
+    fee: Tez(1.0),
+    gasLimit: Tez(2.0),
+    storageLimit: Tez(3.0)
   )
 }
 

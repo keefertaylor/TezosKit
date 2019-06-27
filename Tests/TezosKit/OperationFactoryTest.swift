@@ -6,7 +6,7 @@ import XCTest
 class OperationFactoryTest: XCTestCase {
   private let operationFactory = OperationFactory()
 
-  // TODO: Add tests for custom fees.
+  // MARK: - Default Fees
 
   func testRevealOperationWithDefaultFees() {
     let revealOperation = operationFactory.revealOperation(
@@ -67,5 +67,71 @@ class OperationFactoryTest: XCTestCase {
     XCTAssertEqual(clearDelegateOperation.operationFees.fee, defaultFees.fee)
     XCTAssertEqual(clearDelegateOperation.operationFees.gasLimit, defaultFees.gasLimit)
     XCTAssertEqual(clearDelegateOperation.operationFees.storageLimit, defaultFees.storageLimit)
+  }
+
+  // MARK: - Custom Fees
+
+  func testRevealOperationWithCustomFees() {
+    let revealOperation = operationFactory.revealOperation(
+      from: "tz1abc",
+      publicKey: FakePublicKey(base58CheckRepresentation: "xyz"),
+      operationFees: .testFees
+    )
+
+    XCTAssertEqual(revealOperation.operationFees.fee, OperationFees.testFees.fee)
+    XCTAssertEqual(revealOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
+    XCTAssertEqual(revealOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
+  }
+
+  func testOriginationOperationWithCustomFees() {
+    let originationOperation = operationFactory.originationOperation(address: "tz1abc", operationFees: .testFees)
+
+    XCTAssertEqual(originationOperation.operationFees.fee, OperationFees.testFees.fee)
+    XCTAssertEqual(originationOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
+    XCTAssertEqual(originationOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
+  }
+
+  func testTransactionOperationWithCustomFees() {
+    let transactionOperation = operationFactory.transactionOperation(
+      amount: Tez(1.0),
+      source: "tz1abc",
+      destination: "tz2xyz",
+      operationFees: .testFees
+    )
+
+    XCTAssertEqual(transactionOperation.operationFees.fee, OperationFees.testFees.fee)
+    XCTAssertEqual(transactionOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
+    XCTAssertEqual(transactionOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
+  }
+
+  func testDelegationOperationWithCustomFees() {
+    let delegationOperation = operationFactory.delegateOperation(
+      source: "tz1abc",
+      to: "tz2xyz",
+      operationFees: .testFees
+    )
+
+    XCTAssertEqual(delegationOperation.operationFees.fee, OperationFees.testFees.fee)
+    XCTAssertEqual(delegationOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
+    XCTAssertEqual(delegationOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
+  }
+
+  func testRegisterDelegateOperationWithCustomFees() {
+    let registerDelegateOperation = operationFactory.registerDelegateOperation(
+      source: "tz1abc",
+      operationFees: .testFees
+    )
+
+    XCTAssertEqual(registerDelegateOperation.operationFees.fee, OperationFees.testFees.fee)
+    XCTAssertEqual(registerDelegateOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
+    XCTAssertEqual(registerDelegateOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
+  }
+
+  func testUndelegateOperationWithCustomFees() {
+    let clearDelegateOperation = operationFactory.undelegateOperation(source: "tz1abc", operationFees: .testFees)
+
+    XCTAssertEqual(clearDelegateOperation.operationFees.fee, OperationFees.testFees.fee)
+    XCTAssertEqual(clearDelegateOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
+    XCTAssertEqual(clearDelegateOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
   }
 }
