@@ -96,6 +96,7 @@ public class TezosNodeClient {
   public let networkClient: NetworkClient
 
   /// Initialize a new TezosNodeClient.
+  ///
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
   ///   - tezosProtocol: The protocol version to use, defaults to athens.
@@ -110,7 +111,6 @@ public class TezosNodeClient {
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
-    forgingService = ForgingService(forgingPolicy: forgingPolicy)
     networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,

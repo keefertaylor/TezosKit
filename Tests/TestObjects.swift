@@ -111,3 +111,12 @@ extension Wallet {
   public static let testWallet =
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
 }
+
+extension FakeNetworkClient {
+  private static let tezosNodeClientEndpointToResponseMap = [
+    "/chains/abc/blocks/xyz/helpers/forge/operations": JSONUtils.jsonString(for: .testForgeResult)!
+  ]
+
+  public static let tezosNodeNetworkClient =
+    FakeNetworkClient(endpointToResponseMap: tezosNodeClientEndpointToResponseMap)
+}
