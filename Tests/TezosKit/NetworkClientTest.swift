@@ -12,7 +12,7 @@ class NetworkClientTest: XCTestCase {
   public override func setUp() {
     super.setUp()
 
-    networkClient = NetworkClient(
+    networkClient = NetworkClientImpl(
       remoteNodeURL: URL(string: "http://github.com/keefertaylor/TezosKit")!,
       urlSession: fakeURLSession,
       callbackQueue: callbackQueue,

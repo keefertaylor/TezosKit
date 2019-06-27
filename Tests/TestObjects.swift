@@ -106,3 +106,8 @@ extension OperationFees {
 extension TimeInterval {
   public static let expectationTimeout = 0.1
 }
+
+extension Wallet {
+  public static let testWallet =
+    Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
+}
