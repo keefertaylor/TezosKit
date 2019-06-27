@@ -5,15 +5,9 @@ import XCTest
 
 class ForgingServiceTests: XCTestCase {
   func testForgingServiceWithRemotePolicy() {
-    let forgingServiceDelegate = FakeForgingServiceDelegate {
-      return .success(.testForgeResult)
-    }
-
-    let forgingService = ForgingService(forgingPolicy: .remote)
-    forgingService.delegate = forgingServiceDelegate
+    let forgingService = ForgingService(forgingPolicy: .remote, networkClient: FakeNetworkClient.tezosNodeNetworkClient)
 
     let forgeCompletionExpectation = XCTestExpectation(description: "Forge completion called.")
-
     forgingService.forge(operationPayload: .testOperationPayload, operationMetadata: .testOperationMetadata) { result in
       switch result {
       case .success(let forgingServiceForgeResult):
@@ -28,7 +22,7 @@ class ForgingServiceTests: XCTestCase {
   }
 
   func testForgingServiceWithLocalPolicy() {
-    let forgingService = ForgingService(forgingPolicy: .local)
+    let forgingService = ForgingService(forgingPolicy: .local, networkClient: FakeNetworkClient.tezosNodeNetworkClient)
 
     let forgeCompletionExpectation = XCTestExpectation(description: "Forge completion called.")
     forgingService.forge(operationPayload: .testOperationPayload, operationMetadata: .testOperationMetadata) { result in
@@ -45,12 +39,10 @@ class ForgingServiceTests: XCTestCase {
   }
 
   func testForgingServiceWithLocalWithRemoteFallbackPolicyAndUnforgeableOperation() {
-    let forgingServiceDelegate = FakeForgingServiceDelegate {
-      return .success(.testForgeResult)
-    }
-
-    let forgingService = ForgingService(forgingPolicy: .localWithRemoteFallBack)
-    forgingService.delegate = forgingServiceDelegate
+    let forgingService = ForgingService(
+      forgingPolicy: .localWithRemoteFallBack,
+      networkClient: FakeNetworkClient.tezosNodeNetworkClient
+    )
 
     let forgeCompletionExpectation = XCTestExpectation(description: "Forge completion called.")
 
