@@ -3,11 +3,18 @@
 import Foundation
 
 public class OperationMetadataProvider {
+  /// Identifier for the internal dispatch queue..
+  private static let queueIdentifier = "com.keefertaylor.TezosKit.OperationMetadataProvider"
+
   /// Network client to communicate with the node.
   private let networkClient: NetworkClient
 
+  /// Internal Queue to use in order to perform asynchronous work.
+  private let metadataProviderQueue: DispatchQueue
+
   public init(networkClient: NetworkClient) {
     self.networkClient = networkClient
+    metadataProviderQueue = DispatchQueue(label: OperationMetadataProvider.queueIdentifier)
   }
 
   /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
@@ -21,8 +28,7 @@ public class OperationMetadataProvider {
     // Dispatch group acts as a barrier for all metadata fetches.
     let metadataFetchGroup = DispatchGroup()
 
-    /// TODO: Better threading - use a specialized thread.
-    DispatchQueue.global(qos: .userInitiated).async {
+    metadataProviderQueue.async {
       metadataFetchGroup.enter()
       var addressKey: String?
       self.managerKey(for: address) { fetchedAddressKey in
