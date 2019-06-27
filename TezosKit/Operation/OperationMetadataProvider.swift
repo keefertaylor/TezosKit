@@ -27,12 +27,14 @@ public class OperationMetadataProvider {
       var addressKey: String?
       self.managerKey(for: address) { fetchedAddressKey in
         addressKey = fetchedAddressKey
+        metadataFetchGroup.leave()
       }
 
       metadataFetchGroup.enter()
       var operationCounter: Int?
       self.operationCounter(for: address) { fetchedCounter in
         operationCounter = fetchedCounter
+        metadataFetchGroup.leave()
       }
 
       metadataFetchGroup.enter()
@@ -43,6 +45,7 @@ public class OperationMetadataProvider {
         chainID = addressInfo?.chainID
         headHash = addressInfo?.headHash
         protocolHash = addressInfo?.protocolHash
+        metadataFetchGroup.leave()
       }
 
       metadataFetchGroup.wait()

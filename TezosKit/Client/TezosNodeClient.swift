@@ -99,6 +99,7 @@ public class TezosNodeClient {
   public let operationMetadataProvider: OperationMetadataProvider
 
   /// Initialize a new TezosNodeClient.
+  ///
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
   ///   - tezosProtocol: The protocol version to use, defaults to athens.
@@ -113,7 +114,6 @@ public class TezosNodeClient {
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
-    forgingService = ForgingService(forgingPolicy: forgingPolicy)
     networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
@@ -121,8 +121,7 @@ public class TezosNodeClient {
       responseHandler: RPCResponseHandler()
     )
     operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
-
-    forgingService.delegate = self
+    forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
   }
 
   /// Retrieve data about the chain head.
@@ -385,7 +384,10 @@ public class TezosNodeClient {
       }
 
       let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
-      self.forgeOperation(operationPayload: operationPayload, operationMetadata: metadata) { [weak self] result in
+      self.forgingService.forge(
+        operationPayload: operationPayload,
+        operationMetadata: metadata
+      ) { [weak self] result in
         guard let self = self else {
           return
         }
@@ -415,20 +417,6 @@ public class TezosNodeClient {
   }
 
   // MARK: - Private Methods
-
-  /// Forges an operation.
-  /// - Parameters:
-  ///   - operationPayload: A payload with an operation to forge to bytes.
-  ///   - operationMetadata: Metadata aboute the operation to apply to the forge request.
-  ///   - completion: A closure called with the string representing the forged bytes or an error.
-  private func forgeOperation(
-    operationPayload: OperationPayload,
-    operationMetadata: OperationMetadata,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    let rpc = ForgeOperationRPC(operationPayload: operationPayload, operationMetadata: operationMetadata)
-    self.networkClient.send(rpc, completion: completion)
-  }
 
   /// Creates a operation payload from operations.
   /// - Parameters:
@@ -665,20 +653,5 @@ public class TezosNodeClient {
       return id
     }
     return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
-  }
-}
-
-extension TezosNodeClient: ForgingServiceDelegate {
-  public func forgingService(
-    _ forgingService: ForgingService,
-    requestedRemoteForgeForPayload operationPayload: OperationPayload,
-    withMetadata operationMetadata: OperationMetadata,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    self.forgeOperation(
-      operationPayload: operationPayload,
-      operationMetadata: operationMetadata,
-      completion: completion
-    )
   }
 }
