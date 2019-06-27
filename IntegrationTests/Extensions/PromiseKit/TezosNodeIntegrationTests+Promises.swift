@@ -154,7 +154,7 @@ extension TezosNodeIntegrationTests {
   public func testRunOperation_promises() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = OperationFactory.testOperationFactory.originateOperation(address: Wallet.testWallet.address)
+    let operation = OperationFactory.testOperationFactory.originationOperation(address: Wallet.testWallet.address)
     nodeClient.runOperation(operation, from: .testWallet) .done { result in
       guard let contents = result["contents"] as? [[String: Any]],
             let metadata = contents[0]["metadata"] as? [String: Any],
