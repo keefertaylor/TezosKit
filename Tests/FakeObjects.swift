@@ -98,7 +98,7 @@ public class FakeNetworkClient: NetworkClient {
 
   public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
     var statusCode = 400
-    var responseData: Data? = nil
+    var responseData: Data?
 
     // Add response data and fix HTTP status code if there was a response for that endpoint.
     if let response = endpointToResponseMap[rpc.endpoint] {

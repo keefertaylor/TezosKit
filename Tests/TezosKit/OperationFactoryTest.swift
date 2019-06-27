@@ -68,5 +68,4 @@ class OperationFactoryTest: XCTestCase {
     XCTAssertEqual(clearDelegateOperation.operationFees.gasLimit, defaultFees.gasLimit)
     XCTAssertEqual(clearDelegateOperation.operationFees.storageLimit, defaultFees.storageLimit)
   }
-
 }
