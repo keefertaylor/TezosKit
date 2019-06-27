@@ -26,7 +26,6 @@ Pod::Spec.new do |s|
       ss.dependency "BigInt"
       ss.dependency "MnemonicKit"
       ss.dependency "TezosCrypto"
-      ss.dependency "Sodium", "~> 0.8.0"
   end
   
   s.subspec 'TezosKitPromises' do |ss|
@@ -38,7 +37,6 @@ Pod::Spec.new do |s|
       
       ss.dependency 'TezosKit/TezosKitCore'      
       ss.dependency "PromiseKit"
-      ss.dependency "Sodium", "~> 0.8.0"      
   end
 
   s.test_spec "Tests" do |test_spec|
