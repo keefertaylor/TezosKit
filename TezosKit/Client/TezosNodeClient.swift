@@ -110,7 +110,8 @@ public class TezosNodeClient {
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
-    networkClient = NetworkClient(
+    forgingService = ForgingService(forgingPolicy: forgingPolicy)
+    networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
