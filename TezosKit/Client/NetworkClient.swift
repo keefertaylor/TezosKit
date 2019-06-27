@@ -69,6 +69,11 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
 
+    print("Endpoint: \(remoteNodeEndpoint)")
+    print("Payload: \(rpc.payload)")
+    print("headers :")
+    print(headers)
+    print(rpc.headers)
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
         return
@@ -84,6 +89,7 @@ public class NetworkClientImpl: NetworkClient {
         completion(result)
       }
     }
+//    print(request)
     request.resume()
   }
 }

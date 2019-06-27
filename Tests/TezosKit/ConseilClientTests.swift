@@ -5,6 +5,22 @@ import XCTest
 @testable import TezosKit
 
 final class ConseilClientTests: XCTestCase {
+  let conseilClient = ConseilClient(networkClient: FakeNetworkClient.conseilClient)
+
+  func testSent() {
+    let expectation = XCTestExpectation(description: "completion called")
+    conseilClient.transactionsSent(from: Wallet.testWallet.address) { result in
+      switch result {
+      case .success(let results):
+        XCTAssert(results.count > 1)
+        expectation.fulfill()
+      case .failure:
+        XCTFail()
+      }
+    }
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
   func testCombineResults_bothNil() {
     let a: Result<[Transaction], TezosKitError>? = nil
     let b: Result<[Transaction], TezosKitError>? = nil

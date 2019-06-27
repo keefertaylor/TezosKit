@@ -17,7 +17,7 @@ public class ConseilClient {
   ///   - network: The network to query, defaults to mainnet.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
-  public init(
+  public convenience init(
     remoteNodeURL: URL,
     apiKey: String,
     platform: ConseilPlatform = .tezos,
@@ -35,14 +35,33 @@ public class ConseilClient {
       Header(field: "apiKey", value: apiKey)
     ]
 
-    self.callbackQueue = callbackQueue
-    networkClient = NetworkClientImpl(
+    let networkClient = NetworkClientImpl(
       remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
       headers: headers,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
+
+    self.init(
+      callbackQueue: callbackQueue,
+      networkClient: networkClient
+    )
+  }
+
+  /// Initialize a new client for a Conseil Service.
+  ///
+  /// This initializer allows a network client to be injected for testing.
+  ///
+  /// - Parameters:
+  ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
+  ///   - networkClient: A networkClient to use.
+  internal init(
+    callbackQueue: DispatchQueue = DispatchQueue.main,
+    networkClient: NetworkClient
+  ) {
+    self.networkClient = networkClient
+    self.callbackQueue = callbackQueue
   }
 
   /// Retrieve originated accounts.
