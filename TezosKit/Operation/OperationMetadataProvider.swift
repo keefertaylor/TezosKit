@@ -3,7 +3,17 @@
 import Foundation
 
 public class OperationMetadataProvider {
-  /// Identifier for the internal dispatch queue..
+  /// JSON keys and values used in fetching metadata.
+  private enum JSON {
+    public enum Keys {
+      public static let hash = "hash"
+      public static let key = "key"
+      public static let `protocol` = "protocol"
+      public static let chainID = "chain_id"
+    }
+  }
+
+  /// Identifier for the internal dispatch queue.
   private static let queueIdentifier = "com.keefertaylor.TezosKit.OperationMetadataProvider"
 
   /// Network client to communicate with the node.
@@ -54,6 +64,7 @@ public class OperationMetadataProvider {
         metadataFetchGroup.leave()
       }
 
+      // Wait for all required data to be fetched.
       metadataFetchGroup.wait()
 
       // Return fetched data as an OperationData if all data was successfully retrieved.
@@ -79,7 +90,6 @@ public class OperationMetadataProvider {
   ///
   /// - Warning: This method is not thread safe.
   /// TODO: Can we just use constants here?
-  /// TODO: Can we be more scucinct with specific RPCs.
   private func chainInfo(
     for address: String,
     completion: @escaping (((chainID: String, headHash: String, protocolHash: String))?) -> Void
@@ -91,9 +101,9 @@ public class OperationMetadataProvider {
         break
       case .success(let json):
         guard
-          let chainID = json["chain_id"] as? String,
-          let headHash = json["hash"] as? String,
-          let protocolHash = json["protocol"] as? String
+          let chainID = json[OperationMetadataProvider.JSON.Keys.chainID] as? String,
+          let headHash = json[OperationMetadataProvider.JSON.Keys.hash] as? String,
+          let protocolHash = json[OperationMetadataProvider.JSON.Keys.protocol] as? String
         else {
           break
         }
@@ -132,7 +142,7 @@ public class OperationMetadataProvider {
         break
       case .success(let fetchedManagerAndKey):
         // TODO: Use enum constants
-        guard let fetchedKey = fetchedManagerAndKey["key"] as? String else {
+        guard let fetchedKey = fetchedManagerAndKey[OperationMetadataProvider.JSON.Keys.key] as? String else {
           break
         }
         completion(fetchedKey)
