@@ -152,7 +152,7 @@
 		77F4D266221CCE4B00D34B01 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D265221CCE4B00D34B01 /* NetworkClient.swift */; };
 		77F4D268221CD44100D34B01 /* NetworkClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D267221CD44100D34B01 /* NetworkClientTest.swift */; };
 		77F4D26C221F899800D34B01 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
-		77F4D26F22220C9600D34B01 /* AbstractClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */; };
+		77F4D26F22220C9600D34B01 /* NetworkClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D26E22220C9600D34B01 /* NetworkClient+Promises.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,7 +357,7 @@
 		77F4D265221CCE4B00D34B01 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		77F4D267221CD44100D34B01 /* NetworkClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientTest.swift; sourceTree = "<group>"; };
 		77F4D26B221F899800D34B01 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
-		77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClient+Promises.swift"; sourceTree = "<group>"; };
+		77F4D26E22220C9600D34B01 /* NetworkClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkClient+Promises.swift"; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -641,7 +641,7 @@
 		77F4D2702222151B00D34B01 /* PromiseKit */ = {
 			isa = PBXGroup;
 			children = (
-				77F4D26E22220C9600D34B01 /* AbstractClient+Promises.swift */,
+				77F4D26E22220C9600D34B01 /* NetworkClient+Promises.swift */,
 				77B69ED0225348B400DB4319 /* ConseilClient+Promises.swift */,
 				77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */,
 			);
@@ -984,7 +984,7 @@
 				77B69ED1225348B400DB4319 /* ConseilClient+Promises.swift in Sources */,
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
 				77CE384721FC7ED8006ADABA /* OriginationOperation.swift in Sources */,
-				77F4D26F22220C9600D34B01 /* AbstractClient+Promises.swift in Sources */,
+				77F4D26F22220C9600D34B01 /* NetworkClient+Promises.swift in Sources */,
 				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,
