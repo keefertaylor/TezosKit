@@ -9,7 +9,6 @@ public class OperationMetadataProvider {
       public static let hash = "hash"
       public static let key = "key"
       public static let `protocol` = "protocol"
-      public static let chainID = "chain_id"
     }
   }
 
@@ -54,13 +53,11 @@ public class OperationMetadataProvider {
       }
 
       metadataFetchGroup.enter()
-      var chainID: String?
       var headHash: String?
       var protocolHash: String?
       self.chainInfo(for: address) { addressInfo in
-        chainID = addressInfo?.chainID
         headHash = addressInfo?.headHash
-        protocolHash = addressInfo?.protocolHash
+        protocolHash = addressInfo?.protocol
         metadataFetchGroup.leave()
       }
 
@@ -70,10 +67,10 @@ public class OperationMetadataProvider {
       // Return fetched data as an OperationData if all data was successfully retrieved.
       if let operationCounter = operationCounter,
         let headHash = headHash,
-        let chainID = chainID,
         let protocolHash = protocolHash {
+        /// TODO: Factor out 'main'.
         let metadata = OperationMetadata(
-          chainID: chainID,
+          chainID: "main",
           branch: headHash,
           protocol: protocolHash,
           addressCounter: operationCounter,
@@ -92,7 +89,7 @@ public class OperationMetadataProvider {
   /// TODO: Can we just use constants here?
   private func chainInfo(
     for address: String,
-    completion: @escaping (((chainID: String, headHash: String, protocolHash: String))?) -> Void
+    completion: @escaping (((headHash: String, protocol: String))?) -> Void
   ) {
     let chainHeadRequestRPC = GetChainHeadRPC()
     networkClient.send(chainHeadRequestRPC) { result in
@@ -101,19 +98,17 @@ public class OperationMetadataProvider {
         break
       case .success(let json):
         guard
-          let chainID = json[OperationMetadataProvider.JSON.Keys.chainID] as? String,
           let headHash = json[OperationMetadataProvider.JSON.Keys.hash] as? String,
-          let protocolHash = json[OperationMetadataProvider.JSON.Keys.protocol] as? String
+          let `protocol` = json[OperationMetadataProvider.JSON.Keys.protocol] as? String
         else {
           break
         }
-        completion((chainID: chainID, headHash: headHash, protocolHash: protocolHash))
+        completion((headHash: headHash, protocol: `protocol`))
         return
       }
       completion(nil)
     }
   }
-
 
   /// Retrieve the address counter for the given address.
   ///
@@ -141,7 +136,6 @@ public class OperationMetadataProvider {
       case .failure:
         break
       case .success(let fetchedManagerAndKey):
-        // TODO: Use enum constants
         guard let fetchedKey = fetchedManagerAndKey[OperationMetadataProvider.JSON.Keys.key] as? String else {
           break
         }
