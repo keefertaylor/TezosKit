@@ -8,7 +8,6 @@ final class OperationMetadataProviderTests: XCTestCase {
     let operationMetadataProvider = OperationMetadataProvider(networkClient: FakeNetworkClient.tezosNodeNetworkClient)
 
     let completionCalledExpection = XCTestExpectation()
-
     operationMetadataProvider.metadata(for: .testAddress) { result in
       switch result {
       case .success(let metadata):
@@ -20,6 +19,64 @@ final class OperationMetadataProviderTests: XCTestCase {
         XCTFail()
       }
       completionCalledExpection.fulfill()
+    }
+
+    wait(for: [completionCalledExpection], timeout: .expectationTimeout)
+  }
+
+  func testOperationMetadataWithInvalidCounter() {
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy()
+    let endpoint = "/chains/main/blocks/head/context/contracts/" + .testAddress + "/counter"
+    networkClient.endpointToResponseMap[endpoint] = "nonsense"
+    let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
+
+    let completionCalledExpection = XCTestExpectation()
+    operationMetadataProvider.metadata(for: .testAddress) { result in
+      switch result {
+      case .success:
+        XCTFail()
+      case .failure:
+        completionCalledExpection.fulfill()
+      }
+    }
+
+    wait(for: [completionCalledExpection], timeout: .expectationTimeout)
+  }
+
+  func testOperationMetadataWithInvalidManagerKey() {
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy()
+    let endpoint = "/chains/main/blocks/head/context/contracts/" + .testAddress + "/manager_key"
+    networkClient.endpointToResponseMap[endpoint] = "nonsense"
+    let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
+
+    let completionCalledExpection = XCTestExpectation()
+    operationMetadataProvider.metadata(for: .testAddress) { result in
+      switch result {
+      case .success(let metadata):
+        XCTAssertEqual(metadata.key, nil)
+      case .failure:
+        XCTFail()
+      }
+      completionCalledExpection.fulfill()
+    }
+
+    wait(for: [completionCalledExpection], timeout: .expectationTimeout)
+  }
+
+  func testOperationMetadataWithInvalidHead() {
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy()
+    let endpoint = "/chains/main/blocks/head"
+    networkClient.endpointToResponseMap[endpoint] = "nonsense"
+    let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
+
+    let completionCalledExpection = XCTestExpectation()
+    operationMetadataProvider.metadata(for: .testAddress) { result in
+      switch result {
+      case .success:
+        XCTFail()
+      case .failure:
+        completionCalledExpection.fulfill()
+      }
     }
 
     wait(for: [completionCalledExpection], timeout: .expectationTimeout)

@@ -125,7 +125,7 @@ extension FakeNetworkClient {
     "/chains/main/blocks/xyz/helpers/forge/operations": JSONUtils.jsonString(for: .testForgeResult)!,
     "/chains/main/blocks/head/context/contracts/" + .testAddress + "/counter": JSONUtils.jsonString(for: Int.testAddressCounter)!,
     "/chains/main/blocks/head/context/contracts/" + .testAddress + "/manager_key": JSONUtils.jsonString(for: .managerKeyResponse)!,
-    "chains/main/blocks/head": JSONUtils.jsonString(for: .headResponse)!
+    "/chains/main/blocks/head": JSONUtils.jsonString(for: .headResponse)!
   ]
 
   public static let tezosNodeNetworkClient =
