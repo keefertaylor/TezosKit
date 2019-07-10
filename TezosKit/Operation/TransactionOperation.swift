@@ -5,7 +5,7 @@ import Foundation
 /// An operation to transact XTZ between addresses.
 public class TransactionOperation: AbstractOperation {
   private let amount: Tez
-  private let destination: String
+  private let destination: Address
   private let parameters: [String: Any]?
 
   public override var dictionaryRepresentation: [String: Any] {
@@ -27,8 +27,8 @@ public class TransactionOperation: AbstractOperation {
   ///   - operationFees: OperationFees for the transaction.
   public init(
     amount: Tez,
-    source: String,
-    destination: String,
+    source: Address,
+    destination: Address,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees
   ) {

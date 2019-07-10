@@ -6,7 +6,7 @@ import Foundation
 public class DelegationOperation: AbstractOperation {
   // swiftlint:disable weak_delegate
   /// The address that will be set as the delegate.
-  public let delegate: String?
+  public let delegate: Address?
   // swiftlint:enable weak_delegate
 
   public override var dictionaryRepresentation: [String: Any] {
@@ -27,7 +27,7 @@ public class DelegationOperation: AbstractOperation {
   ///   - source: The address that will delegate funds.
   ///   - delegate: The address to delegate to.
   ///   - operationFees: OperationFees for the transaction.
-  internal init(source: String, delegate: String?, operationFees: OperationFees) {
+  internal init(source: Address, delegate: Address?, operationFees: OperationFees) {
     self.delegate = delegate
     super.init(source: source, kind: .delegation, operationFees: operationFees)
   }
@@ -37,7 +37,7 @@ public class DelegationOperation: AbstractOperation {
   ///   - source: The address that will register as a delegate.
   ///   - operationFees: OperationFees for the transaction.
   public static func registerDelegateOperation(
-    source: String,
+    source: Address,
     operationFees: OperationFees
   ) -> DelegationOperation {
     return  DelegationOperation(source: source, delegate: source, operationFees: operationFees)
@@ -49,8 +49,8 @@ public class DelegationOperation: AbstractOperation {
   ///   - delegate: The address to delegate to.
   ///   - operationFees: OperationFees for the transaction.
   public static func delegateOperation(
-    source: String,
-    to delegate: String,
+    source: Address,
+    to delegate: Address,
     operationFees: OperationFees
   ) -> DelegationOperation {
     return  DelegationOperation(source: source, delegate: delegate, operationFees: operationFees)
@@ -60,7 +60,7 @@ public class DelegationOperation: AbstractOperation {
   /// - Parameters:
   ///   - source: The address that will have its delegate cleared.
   ///   - operationFees: OperationFees for the transaction.
-  public static func undelegateOperation(source: String, operationFees: OperationFees) -> DelegationOperation {
+  public static func undelegateOperation(source: Address, operationFees: OperationFees) -> DelegationOperation {
     return DelegationOperation(source: source, delegate: nil, operationFees: operationFees)
   }
 }

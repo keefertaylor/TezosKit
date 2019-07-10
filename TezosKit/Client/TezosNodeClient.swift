@@ -46,7 +46,7 @@ import TezosCrypto
 /// Operation object that conforms to the |Operation| protocol and calling:
 ///     func forgeSignPreapplyAndInjectOperation(
 ///       _ operation: Operation,
-///       source: String,
+///       source: Address,
 ///       keys: Keys,
 ///       completion: @escaping (String?, Error?) -> Void
 ///     )
@@ -56,7 +56,7 @@ import TezosCrypto
 /// to:
 ///     func forgeSignPreapplyAndInjectOperations(
 ///       _ operations: [Operation],
-///       source: String,
+///       source: Address,
 ///       keys: Keys,
 ///       completion: @escaping (String?, Error?) -> Void
 ///     )
@@ -181,7 +181,7 @@ public class TezosNodeClient {
   public func send(
     amount: Tez,
     to recipientAddress: String,
-    from source: String,
+    from source: Address,
     signer: Signer,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil,
@@ -215,8 +215,8 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func delegate(
-    from source: String,
-    to delegate: String,
+    from source: Address,
+    to delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -243,7 +243,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
   public func undelegate(
-    from source: String,
+    from source: Address,
     signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -264,7 +264,7 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func registerDelegate(
-    delegate: String,
+    delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -429,7 +429,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operation: Operation,
-    source: String,
+    source: Address,
     signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -452,7 +452,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operations: [Operation],
-    source: String,
+    source: Address,
     signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -511,7 +511,7 @@ public class TezosNodeClient {
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
-    source: String,
+    source: Address,
     signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -721,8 +721,8 @@ public class TezosNodeClient {
   }
 }
 
-/// TODO: Move to OperationPayload as a proper initalizer.
-/// TODO: Test.
+/// TODONOT: Move to OperationPayload as a proper initalizer.
+/// TODONOT: Test.
 extension OperationPayload {
   /// Creates a operation payload from a list of operations.
   ///
@@ -737,7 +737,7 @@ extension OperationPayload {
     operations: [Operation],
     operationFactory: OperationFactory,
     operationMetadata: OperationMetadata,
-    source: String,
+    source: Address,
     signer: Signer
   ) {
     // Determine if the address performing the operations has been revealed. If it has not been, check if any of the

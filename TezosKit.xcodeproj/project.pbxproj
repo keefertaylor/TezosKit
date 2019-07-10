@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7719265822D66C7C00E63DE4 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7719265722D66C7C00E63DE4 /* Address.swift */; };
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		7741B95D226DF5860005B398 /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */; };
 		774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
@@ -207,6 +208,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7719265722D66C7C00E63DE4 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		772F48A52224894E00DF0F9D /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeIntegrationTests.swift; sourceTree = "<group>"; };
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				77CE381F21FC7ED7006ADABA /* Tez.swift */,
+				7719265722D66C7C00E63DE4 /* Address.swift */,
 				7767AE3222C3EBFC0043C52C /* PublicKey.swift */,
 				779427A822BABB8E00559A03 /* TezosProtocol.swift */,
 				77B1EAF222275A4A00EA4FCE /* GasLimitPolicy.swift */,
@@ -955,6 +958,7 @@
 				77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */,
 				77B69EB7224E3F3A00DB4319 /* ConseilQuery.swift in Sources */,
 				779427A922BABB8E00559A03 /* TezosProtocol.swift in Sources */,
+				7719265822D66C7C00E63DE4 /* Address.swift in Sources */,
 				77CE386F21FC7ED8006ADABA /* JSONArrayResponseAdapter.swift in Sources */,
 				77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */,
 				779427B922C013D700559A03 /* SigningService.swift in Sources */,

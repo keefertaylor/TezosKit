@@ -63,7 +63,7 @@ extension TezosNodeClient {
   public func send(
     amount: Tez,
     to recipientAddress: String,
-    from source: String,
+    from source: Address,
     signer: Signer,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil
@@ -95,8 +95,8 @@ extension TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func delegate(
-    from source: String,
-    to delegate: String,
+    from source: Address,
+    to delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
@@ -119,7 +119,7 @@ extension TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func undelegate(
-    from source: String,
+    from source: Address,
     signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
@@ -141,7 +141,7 @@ extension TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func registerDelegate(
-    delegate: String,
+    delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
@@ -238,7 +238,7 @@ extension TezosNodeClient {
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func forgeSignPreapplyAndInject(
     operation: Operation,
-    source: String,
+    source: Address,
     signer: Signer
   ) -> Promise<String> {
     return forgeSignPreapplyAndInject(
@@ -259,7 +259,7 @@ extension TezosNodeClient {
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func forgeSignPreapplyAndInject(
     operations: [Operation],
-    source: String,
+    source: Address,
     signer: Signer
   ) -> Promise<String> {
     return Promise { seal in

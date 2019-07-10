@@ -5,7 +5,7 @@ import Foundation
 /// An abstract super class representing an operation to perform on the blockchain. Common parameters across operations
 /// and default parameter values are provided by the abstract class's implementation.
 public class AbstractOperation: Operation {
-  public let source: String
+  public let source: Address
   public let kind: OperationKind
   public let operationFees: OperationFees
 
@@ -30,7 +30,7 @@ public class AbstractOperation: Operation {
     return operation
   }
 
-  public init(source: String, kind: OperationKind, operationFees: OperationFees) {
+  public init(source: Address, kind: OperationKind, operationFees: OperationFees) {
     self.source = source
     self.kind = kind
     self.operationFees = operationFees
