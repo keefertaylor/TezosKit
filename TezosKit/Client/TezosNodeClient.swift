@@ -372,17 +372,23 @@ public class TezosNodeClient {
       guard let self = self else {
         return
       }
-      guard case let .success(metadata) = result else {
+      guard case let .success(operationMetadata) = result else {
         completion(
           result.map { _ in [:] }
         )
         return
       }
 
-      let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
+      let operationPayload = OperationPayload(
+        operations: [operation],
+        operationFactory: self.operationFactory,
+        operationMetadata: operationMetadata,
+        source: wallet.address,
+        signer: wallet
+      )
       self.forgingService.forge(
         operationPayload: operationPayload,
-        operationMetadata: metadata
+        operationMetadata: operationMetadata
       ) { [weak self] result in
         guard let self = self else {
           return
@@ -413,26 +419,6 @@ public class TezosNodeClient {
   }
 
   // MARK: - Private Methods
-
-  /// Creates a operation payload from operations.
-  /// - Parameters:
-  ///   - operations: A list of operations to forge.
-  ///   - operationMetadata: Metadata about the operations.
-  /// - Returns: A `OperationPayload` that represents the inputs.
-  private func createOperationPayload(
-    operations: [Operation],
-    operationMetadata: OperationMetadata
-  ) -> OperationPayload {
-    // Process all operations to have increasing counters and place them in the contents array.
-    var nextCounter = operationMetadata.addressCounter + 1
-    var operationsWithCounter: [OperationWithCounter] = []
-    for operation in operations {
-      let operationWithCounter = OperationWithCounter(operation: operation, counter: nextCounter)
-      operationsWithCounter.append(operationWithCounter)
-      nextCounter += 1
-    }
-    return OperationPayload(operations: operationsWithCounter, operationMetadata: operationMetadata)
-  }
 
   /// Forge, sign, preapply and then inject a single operation.
   ///
@@ -480,18 +466,13 @@ public class TezosNodeClient {
         )
         return
       }
-
-      // Determine if the address performing the operations has been revealed. If it has not been,
-      // check if any of the operations to perform requires the address to be revealed. If so,
-      // prepend a reveal operation to the operations to perform.
-      var mutableOperations = operations
-      if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-        let revealOperation = self.operationFactory.revealOperation(from: source, publicKey: signer.publicKey)
-        mutableOperations.insert(revealOperation, at: 0)
-      }
-      let operationPayload =
-        self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
-
+      let operationPayload = OperationPayload(
+        operations: operations,
+        operationFactory: self.operationFactory,
+        operationMetadata: operationMetadata,
+        source: source,
+        signer: signer
+      )
       self.forgingService.forge(
         operationPayload: operationPayload,
         operationMetadata: operationMetadata
@@ -737,5 +718,46 @@ public class TezosNodeClient {
       }
       completion(.failure(TezosKitError(kind: .unknown, underlyingError: "Couldn't fetch metadata")))
     }
+  }
+}
+
+/// TODO: Move to OperationPayload as a proper initalizer.
+/// TODO: Test.
+extension OperationPayload {
+  /// Creates a operation payload from a list of operations.
+  ///
+  /// This initializer will automatically add reveal operations and set address counters properly.
+  ///
+  /// - Parameters:
+  ///   - operations: A list of operations to forge.
+  ///   - operationMetadata: Metadata about the operations.
+  ///   - source: The address executing the operations.
+  ///   - signer: The object which will provide the public key.
+  fileprivate init(
+    operations: [Operation],
+    operationFactory: OperationFactory,
+    operationMetadata: OperationMetadata,
+    source: String,
+    signer: Signer
+  ) {
+    // Determine if the address performing the operations has been revealed. If it has not been, check if any of the
+    // operations to perform requires the address to be revealed. If so, prepend a reveal operation to the operations to
+    // perform.
+    var mutableOperations = operations
+    if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
+      let revealOperation = operationFactory.revealOperation(from: source, publicKey: signer.publicKey)
+      mutableOperations.insert(revealOperation, at: 0)
+    }
+
+    // Process all operations to have increasing counters and place them in the contents array.
+    var nextCounter = operationMetadata.addressCounter + 1
+    var operationsWithCounter: [OperationWithCounter] = []
+    for operation in operations {
+      let operationWithCounter = OperationWithCounter(operation: operation, counter: nextCounter)
+      operationsWithCounter.append(operationWithCounter)
+      nextCounter += 1
+    }
+
+    self.init(operations: operationsWithCounter, operationMetadata: operationMetadata)
   }
 }
