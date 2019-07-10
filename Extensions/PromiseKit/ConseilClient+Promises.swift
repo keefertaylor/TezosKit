@@ -10,7 +10,7 @@ extension ConseilClient {
   ///   - account: The account to query.
   ///   - limit: The number of accounts to return, defaults to 100.
   ///   - completion: A completion callback.
-  func originatedAccounts(
+  public func originatedAccounts(
     from account: String,
     limit: Int = 100
   ) -> Promise<[[String: Any]]> {
@@ -24,7 +24,7 @@ extension ConseilClient {
   ///   - account: The account to query.
   ///   - limit: The number of contracts to return, defaults to 100.
   ///   - completion: A completion callback.
-  func originatedContracts(
+  public func originatedContracts(
     from account: String,
     limit: Int = 100
   ) -> Promise<[[String: Any]]> {
@@ -38,7 +38,7 @@ extension ConseilClient {
   ///   - account: The account to query.
   ///   - limit: The number of transactions to return, defaults to 100.
   ///   - completion: A completion callback.
-  func transactions(
+  public func transactions(
     from account: String,
     limit: Int = 100
   ) -> Promise<[Transaction]> {
@@ -58,7 +58,7 @@ extension ConseilClient {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of transactions to return, defaults to 100.
-  func transactionsReceived(
+  public func transactionsReceived(
     from account: String,
     limit: Int = 100
   ) -> Promise<[Transaction]> {
@@ -73,7 +73,7 @@ extension ConseilClient {
   /// - Parameters:
   ///   - account: The account to query.
   ///   - limit: The number of transactions to return, defaults to 100.
-  func transactionsSent(
+  public func transactionsSent(
     from account: String,
     limit: Int = 100
   ) -> Promise<[Transaction]> {
