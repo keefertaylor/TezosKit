@@ -112,7 +112,7 @@ extension Wallet {
 
 extension FakeNetworkClient {
   private static let tezosNodeClientEndpointToResponseMap = [
-    "/chains/abc/blocks/xyz/helpers/forge/operations": JSONUtils.jsonString(for: .testForgeResult)!
+    "/chains/main/blocks/xyz/helpers/forge/operations": JSONUtils.jsonString(for: .testForgeResult)!
   ]
 
   public static let tezosNodeNetworkClient =
