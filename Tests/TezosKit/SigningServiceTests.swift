@@ -8,9 +8,10 @@ class SigningServiceTests: XCTestCase {
     let mockTransaction = "abc123"
     let expectedSignature: [UInt8] = [1, 2, 3, 4]
 
-    let fakeSigner = FakeSigner(signature: expectedSignature, publicKey: FakePublicKey.testPublicKey)
+    let fakeSignatureProvider =
+      FakeSignatureProvider(signature: expectedSignature, publicKey: FakePublicKey.testPublicKey)
 
-    guard let signature = SigningService.sign(mockTransaction, with: fakeSigner) else {
+    guard let signature = SigningService.sign(mockTransaction, with: fakeSignatureProvider) else {
       XCTFail()
       return
     }
