@@ -8,7 +8,6 @@ import TezosCrypto
 /// Extensions to classes to provide static objects for testing.
 
 extension String {
-  public static let testChainID = "abc"
   public static let testBranch = "xyz"
   public static let testProtocol = "alpha"
   public static let testKey = "123"
@@ -32,7 +31,6 @@ extension Array where Element == UInt8 {
 
 extension OperationMetadata {
   public static let testOperationMetadata = OperationMetadata(
-    chainID: .testChainID,
     branch: .testBranch,
     protocol: .testProtocol,
     addressCounter: .testAddressCounter,

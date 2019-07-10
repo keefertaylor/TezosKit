@@ -70,7 +70,6 @@ public class OperationMetadataProvider {
         let protocolHash = protocolHash {
         /// TODO: Factor out 'main'.
         let metadata = OperationMetadata(
-          chainID: "main",
           branch: headHash,
           protocol: protocolHash,
           addressCounter: operationCounter,
@@ -125,10 +124,9 @@ public class OperationMetadataProvider {
     }
   }
 
-  /// Retrieve the publicKey for the given address.
+  /// Retrieve the base58check encoded public key for the given address.
   ///
   /// - Warning: This method is not thread safe.
-  /// TODO: This can be factored out, entirely.
   private func managerKey(for address: String, completion: @escaping (String?) -> Void) {
     let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
     networkClient.send(getAddressManagerKeyRPC) { result in
