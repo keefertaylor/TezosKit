@@ -10,11 +10,11 @@ import TezosCrypto
 extension String {
   public static let testBranch = "xyz"
   public static let testProtocol = "alpha"
-  public static let testKey = "123"
   public static let testSignature = "abc123signature"
   public static let testAddress = "tz1abc123xyz"
   public static let testDestinationAddress = "tz1destination"
   public static let testForgeResult = "test_forge_result"
+  public static let testPublicKey = "edpk_test"
 }
 
 extension Int {
@@ -34,7 +34,7 @@ extension OperationMetadata {
     branch: .testBranch,
     protocol: .testProtocol,
     addressCounter: .testAddressCounter,
-    key: .testKey
+    key: .testPublicKey
   )
 }
 
@@ -110,9 +110,22 @@ extension Wallet {
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
 }
 
+extension Dictionary where Key == String, Value == String {
+  public static let managerKeyResponse: [String: String] = [
+    OperationMetadataProvider.JSON.Keys.key: .testPublicKey
+  ]
+  public static let headResponse: [String: String]  = [
+    OperationMetadataProvider.JSON.Keys.protocol: .testProtocol,
+    OperationMetadataProvider.JSON.Keys.hash: .testBranch
+  ]
+}
+
 extension FakeNetworkClient {
   private static let tezosNodeClientEndpointToResponseMap = [
-    "/chains/main/blocks/xyz/helpers/forge/operations": JSONUtils.jsonString(for: .testForgeResult)!
+    "/chains/main/blocks/xyz/helpers/forge/operations": JSONUtils.jsonString(for: .testForgeResult)!,
+    "/chains/main/blocks/head/context/contracts/" + .testAddress + "/counter": JSONUtils.jsonString(for: Int.testAddressCounter)!,
+    "/chains/main/blocks/head/context/contracts/" + .testAddress + "/manager_key": JSONUtils.jsonString(for: .managerKeyResponse)!,
+    "chains/main/blocks/head": JSONUtils.jsonString(for: .headResponse)!
   ]
 
   public static let tezosNodeNetworkClient =

@@ -3,8 +3,8 @@
 import TezosKit
 import XCTest
 
-class JSONUtilsTest: XCTestCase {
-  public func testJSONForString() {
+final class JSONUtilsTest: XCTestCase {
+  func testJSONForString() {
     let inputs = [
       "A regular string", // Regular string
       "\"A quoted string\"" // String with escape sequences
@@ -22,7 +22,7 @@ class JSONUtilsTest: XCTestCase {
     }
   }
 
-  public func testJSONForDictionary() {
+  func testJSONForDictionary() {
     let inputs: [[String: Any]] = [
       ["key1": "val1", "key2": "val2"], // Normal
       ["key1": "\"quotedVal1\"", "\"quotedKey2\"": "val2"], // Quoted Strings
@@ -47,7 +47,7 @@ class JSONUtilsTest: XCTestCase {
     }
   }
 
-  public func testJSONForArray() {
+  func testJSONForArray() {
     let inputs: [[[String: Any]]] = [
       [["key1": "val1", "key2": "val2"]], // Normal
       // Multiple elements
@@ -78,5 +78,17 @@ class JSONUtilsTest: XCTestCase {
 
       XCTAssertEqual(result, expectedOutputs[i])
     }
+  }
+
+  func testJSONForInt() {
+    let input = Int.testAddressCounter
+    let expectedOutput = "\"" + String(input) + "\""
+
+    guard let result = JSONUtils.jsonString(for: input) else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertEqual(result, expectedOutput)
   }
 }

@@ -4,7 +4,7 @@ import Foundation
 
 public class OperationMetadataProvider {
   /// JSON keys and values used in fetching metadata.
-  private enum JSON {
+  internal enum JSON {
     public enum Keys {
       public static let hash = "hash"
       public static let key = "key"
@@ -68,7 +68,6 @@ public class OperationMetadataProvider {
       if let operationCounter = operationCounter,
         let headHash = headHash,
         let protocolHash = protocolHash {
-        /// TODO: Factor out 'main'.
         let metadata = OperationMetadata(
           branch: headHash,
           protocol: protocolHash,
@@ -85,7 +84,6 @@ public class OperationMetadataProvider {
   /// Retrieve chain info counter for the given address.
   ///
   /// - Warning: This method is not thread safe.
-  /// TODO: Can we just use constants here?
   private func chainInfo(
     for address: String,
     completion: @escaping (((headHash: String, protocol: String))?) -> Void
