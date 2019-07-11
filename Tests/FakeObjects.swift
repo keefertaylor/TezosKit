@@ -104,9 +104,10 @@ public class FakeNetworkClient: NetworkClient {
 
     completion(result)
   }
+}
 
-  // TODO: make this part of a protocol.
-  public func copy() -> FakeNetworkClient {
+extension FakeNetworkClient: NSCopying {
+  public func copy(with zone: NSZone? = nil) -> Any {
     return FakeNetworkClient(endpointToResponseMap: self.endpointToResponseMap)
   }
 }

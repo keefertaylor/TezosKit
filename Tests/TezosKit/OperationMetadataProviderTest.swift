@@ -25,7 +25,7 @@ final class OperationMetadataProviderTests: XCTestCase {
   }
 
   func testOperationMetadataWithInvalidCounter() {
-    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy()
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
     let endpoint = "/chains/main/blocks/head/context/contracts/" + .testAddress + "/counter"
     networkClient.endpointToResponseMap[endpoint] = "nonsense"
     let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
@@ -43,8 +43,8 @@ final class OperationMetadataProviderTests: XCTestCase {
     wait(for: [completionCalledExpection], timeout: .expectationTimeout)
   }
 
-  func testOperationMetadataWithInvalidManagerKey() {
-    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy()
+  func testOperationMetadataWithMissingManagerKey() {
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
     let endpoint = "/chains/main/blocks/head/context/contracts/" + .testAddress + "/manager_key"
     networkClient.endpointToResponseMap[endpoint] = "nonsense"
     let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
@@ -64,7 +64,7 @@ final class OperationMetadataProviderTests: XCTestCase {
   }
 
   func testOperationMetadataWithInvalidHead() {
-    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy()
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
     let endpoint = "/chains/main/blocks/head"
     networkClient.endpointToResponseMap[endpoint] = "nonsense"
     let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
