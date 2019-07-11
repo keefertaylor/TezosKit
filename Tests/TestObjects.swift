@@ -120,6 +120,8 @@ extension Dictionary where Key == String, Value == String {
   ]
 }
 
+// swiftlint:disable line_length
+
 extension FakeNetworkClient {
   private static let tezosNodeClientEndpointToResponseMap = [
     "/chains/main/blocks/xyz/helpers/forge/operations": JSONUtils.jsonString(for: .testForgeResult)!,
@@ -131,3 +133,5 @@ extension FakeNetworkClient {
   public static let tezosNodeNetworkClient =
     FakeNetworkClient(endpointToResponseMap: tezosNodeClientEndpointToResponseMap)
 }
+
+// swiftlint:enable line_length

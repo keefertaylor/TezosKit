@@ -114,10 +114,10 @@ public class OperationMetadataProvider {
     let getAddressCounterRPC = GetAddressCounterRPC(address: address)
     self.networkClient.send(getAddressCounterRPC) { result in
       switch result {
-        case .failure:
-          completion(nil)
-        case .success(let fetchedOperationCounter):
-          completion(fetchedOperationCounter)
+      case .failure:
+        completion(nil)
+      case .success(let fetchedOperationCounter):
+        completion(fetchedOperationCounter)
       }
     }
   }

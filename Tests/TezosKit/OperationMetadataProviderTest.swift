@@ -24,6 +24,8 @@ final class OperationMetadataProviderTests: XCTestCase {
     wait(for: [completionCalledExpection], timeout: .expectationTimeout)
   }
 
+  // swiftlint:disable force_cast
+
   func testOperationMetadataWithInvalidCounter() {
     let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
     let endpoint = "/chains/main/blocks/head/context/contracts/" + .testAddress + "/counter"
@@ -81,4 +83,7 @@ final class OperationMetadataProviderTests: XCTestCase {
 
     wait(for: [completionCalledExpection], timeout: .expectationTimeout)
   }
+
+  // swiftlint:enable force_cast
+
 }
