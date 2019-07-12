@@ -19,6 +19,11 @@ public enum JSONUtils {
     return jsonString(forUntypedObject: dictionary)
   }
 
+  /// Return a JSON encoded string representation of a given integer.
+  public static func jsonString(for int: Int) -> String? {
+    return jsonString(for: String(int))
+  }
+
   /// Private untyped helper that returns a JSON encoded representation of the given object.
   ///
   /// - Note: The only supported objects are Arrays and Dictionaries.

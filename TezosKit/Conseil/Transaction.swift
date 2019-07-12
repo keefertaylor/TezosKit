@@ -17,8 +17,8 @@ public struct Transaction {
     public static let parameters = "parameters"
   }
 
-  public let source: String
-  public let destination: String
+  public let source: Address
+  public let destination: Address
   public let amount: Tez
   public let fee: Tez
   public let timestamp: TimeInterval
@@ -59,8 +59,8 @@ public struct Transaction {
   }
 
   public init(
-    source: String,
-    destination: String,
+    source: Address,
+    destination: Address,
     amount: Tez,
     fee: Tez,
     timestamp: TimeInterval,

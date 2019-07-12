@@ -8,8 +8,7 @@ class ForgeOperationRPCTest: XCTestCase {
     let rpc = ForgeOperationRPC(operationPayload: .testOperationPayload, operationMetadata: .testOperationMetadata)
 
     let expectedEndpoint =
-      "/chains/" + OperationMetadata.testOperationMetadata.chainID + "/blocks/" +
-        OperationMetadata.testOperationMetadata.branch + "/helpers/forge/operations"
+      "/chains/main/blocks/" + OperationMetadata.testOperationMetadata.branch + "/helpers/forge/operations"
     let expectedPayload = JSONUtils.jsonString(for: OperationPayload.testOperationPayload.dictionaryRepresentation)
 
     XCTAssertEqual(rpc.endpoint, expectedEndpoint)

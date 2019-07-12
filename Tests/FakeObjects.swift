@@ -67,7 +67,7 @@ public class FakeURLSessionDataTask: URLSessionDataTask {
 
 /// A fake network client which has default responses for given paths.
 public class FakeNetworkClient: NetworkClient {
-  public let endpointToResponseMap: [String: String]
+  public var endpointToResponseMap: [String: String]
   public let responseHandler: RPCResponseHandler
 
   /// Initialize a new fake network client.
@@ -103,5 +103,11 @@ public class FakeNetworkClient: NetworkClient {
     )
 
     completion(result)
+  }
+}
+
+extension FakeNetworkClient: NSCopying {
+  public func copy(with zone: NSZone? = nil) -> Any {
+    return FakeNetworkClient(endpointToResponseMap: self.endpointToResponseMap)
   }
 }

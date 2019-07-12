@@ -5,10 +5,10 @@ import Foundation
 /// An operation which wraps an operation with an address counter for that operation.
 public struct OperationWithCounter {
   /// The internal operation.
-  private let operation: Operation
+  internal let operation: Operation
 
   /// The address counter for the internal operation.
-  private let counter: Int
+  internal let counter: Int
 
   public var dictionaryRepresentation: [String: Any] {
     var operationDict = operation.dictionaryRepresentation

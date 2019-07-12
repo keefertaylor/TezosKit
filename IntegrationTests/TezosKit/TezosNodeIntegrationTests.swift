@@ -87,7 +87,8 @@ class TezosNodeIntegrationTests: XCTestCase {
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
     self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       case .success:
         undelegateExpectation.fulfill()
@@ -100,7 +101,8 @@ class TezosNodeIntegrationTests: XCTestCase {
     let checkDelegateClearedExpectation = XCTestExpectation(description: "check delegate cleared")
     self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
         checkDelegateClearedExpectation.fulfill()
       case .success:
@@ -119,7 +121,8 @@ class TezosNodeIntegrationTests: XCTestCase {
       signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       case .success:
         sendExpectation.fulfill()
@@ -132,7 +135,8 @@ class TezosNodeIntegrationTests: XCTestCase {
     let registerBakerExpectation = XCTestExpectation(description: "register baker")
     self.nodeClient.registerDelegate(delegate: baker.address, signatureProvider: baker) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       case .success:
         registerBakerExpectation.fulfill()
@@ -149,7 +153,8 @@ class TezosNodeIntegrationTests: XCTestCase {
       signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       case .success:
         delegateToBakerExpectation.fulfill()
@@ -162,7 +167,8 @@ class TezosNodeIntegrationTests: XCTestCase {
     let checkDelegateSetToBakerExpectation = XCTestExpectation(description: "delegated to baker")
     self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       case .success(let delegate):
         XCTAssertEqual(delegate, baker.address)
@@ -175,7 +181,8 @@ class TezosNodeIntegrationTests: XCTestCase {
     let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
     self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       case .success:
         clearDelegateAfterDelegationExpectation.fulfill()
@@ -188,7 +195,8 @@ class TezosNodeIntegrationTests: XCTestCase {
     let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
     self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
         checkDelegateClearedAfterDelegationExpectation.fulfill()
       case .success:

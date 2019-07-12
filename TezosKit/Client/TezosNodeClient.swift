@@ -46,7 +46,7 @@ import TezosCrypto
 /// Operation object that conforms to the |Operation| protocol and calling:
 ///     func forgeSignPreapplyAndInjectOperation(
 ///       _ operation: Operation,
-///       source: String,
+///       source: Address,
 ///       keys: Keys,
 ///       completion: @escaping (String?, Error?) -> Void
 ///     )
@@ -56,7 +56,7 @@ import TezosCrypto
 /// to:
 ///     func forgeSignPreapplyAndInjectOperations(
 ///       _ operations: [Operation],
-///       source: String,
+///       source: Address,
 ///       keys: Keys,
 ///       completion: @escaping (String?, Error?) -> Void
 ///     )
@@ -95,6 +95,9 @@ public class TezosNodeClient {
   /// The network client.
   public let networkClient: NetworkClient
 
+  /// The operation metadata provider.
+  public let operationMetadataProvider: OperationMetadataProvider
+
   /// Initialize a new TezosNodeClient.
   ///
   /// - Parameters:
@@ -117,6 +120,7 @@ public class TezosNodeClient {
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
+    operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
   }
 
@@ -132,7 +136,7 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the balance of a given address.
-  public func getBalance(address: String, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
+  public func getBalance(address: Address, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -143,7 +147,7 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the delegate of a given address.
-  public func getDelegate(address: String, completion: @escaping (Result<String, TezosKitError>) -> Void) {
+  public func getDelegate(address: Address, completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetDelegateRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -155,14 +159,14 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the address counter for the given address.
-  public func getAddressCounter(address: String, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
+  public func getAddressCounter(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let rpc = GetAddressCounterRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the address manager key for the given address.
   public func getAddressManagerKey(
-    address: String,
+    address: Address,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
     let rpc = GetAddressManagerKeyRPC(address: address)
@@ -181,7 +185,7 @@ public class TezosNodeClient {
   public func send(
     amount: Tez,
     to recipientAddress: String,
-    from source: String,
+    from source: Address,
     signatureProvider: SignatureProvider,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil,
@@ -215,8 +219,8 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func delegate(
-    from source: String,
-    to delegate: String,
+    from source: Address,
+    to delegate: Address,
     signatureProvider: SignatureProvider,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -243,7 +247,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
   public func undelegate(
-    from source: String,
+    from source: Address,
     signatureProvider: SignatureProvider,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -264,7 +268,7 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func registerDelegate(
-    delegate: String,
+    delegate: Address,
     signatureProvider: SignatureProvider,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -311,7 +315,7 @@ public class TezosNodeClient {
 
   /// Returns the code associated with the address as a NSDictionary.
   /// - Parameter address: The address of the contract to load.
-  public func getAddressCode(address: String, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
+  public func getAddressCode(address: Address, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
     let rpc = GetAddressCodeRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -368,21 +372,27 @@ public class TezosNodeClient {
     from wallet: Wallet,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
-    getMetadataForOperation(address: wallet.address) { [weak self] result in
+    operationMetadataProvider.metadata(for: wallet.address) { [weak self] result in
       guard let self = self else {
         return
       }
-      guard case let .success(metadata) = result else {
+      guard case let .success(operationMetadata) = result else {
         completion(
           result.map { _ in [:] }
         )
         return
       }
 
-      let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
+      let operationPayload = OperationPayload(
+        operations: [operation],
+        operationFactory: self.operationFactory,
+        operationMetadata: operationMetadata,
+        source: wallet.address,
+        signatureProvider: wallet
+      )
       self.forgingService.forge(
         operationPayload: operationPayload,
-        operationMetadata: metadata
+        operationMetadata: operationMetadata
       ) { [weak self] result in
         guard let self = self else {
           return
@@ -414,26 +424,6 @@ public class TezosNodeClient {
 
   // MARK: - Private Methods
 
-  /// Creates a operation payload from operations.
-  /// - Parameters:
-  ///   - operations: A list of operations to forge.
-  ///   - operationMetadata: Metadata about the operations.
-  /// - Returns: A `OperationPayload` that represents the inputs.
-  private func createOperationPayload(
-    operations: [Operation],
-    operationMetadata: OperationMetadata
-  ) -> OperationPayload {
-    // Process all operations to have increasing counters and place them in the contents array.
-    var nextCounter = operationMetadata.addressCounter + 1
-    var operationsWithCounter: [OperationWithCounter] = []
-    for operation in operations {
-      let operationWithCounter = OperationWithCounter(operation: operation, counter: nextCounter)
-      operationsWithCounter.append(operationWithCounter)
-      nextCounter += 1
-    }
-    return OperationPayload(operations: operationsWithCounter, operationMetadata: operationMetadata)
-  }
-
   /// Forge, sign, preapply and then inject a single operation.
   ///
   /// - Parameters:
@@ -443,7 +433,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operation: Operation,
-    source: String,
+    source: Address,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -466,11 +456,11 @@ public class TezosNodeClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operations: [Operation],
-    source: String,
+    source: Address,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    getMetadataForOperation(address: source) { [weak self] result in
+    operationMetadataProvider.metadata(for: source) { [weak self] result in
       guard let self = self else {
         return
       }
@@ -481,18 +471,13 @@ public class TezosNodeClient {
         return
       }
 
-      // Determine if the address performing the operations has been revealed. If it has not been,
-      // check if any of the operations to perform requires the address to be revealed. If so,
-      // prepend a reveal operation to the operations to perform.
-      var mutableOperations = operations
-      if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-        let revealOperation =
-          self.operationFactory.revealOperation(from: source, publicKey: signatureProvider.publicKey)
-        mutableOperations.insert(revealOperation, at: 0)
-      }
-      let operationPayload =
-        self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
-
+      let operationPayload = OperationPayload(
+        operations: operations,
+        operationFactory: self.operationFactory,
+        operationMetadata: operationMetadata,
+        source: source,
+        signatureProvider: signatureProvider
+      )
       self.forgingService.forge(
         operationPayload: operationPayload,
         operationMetadata: operationMetadata
@@ -531,7 +516,7 @@ public class TezosNodeClient {
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
-    source: String,
+    source: Address,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -650,93 +635,5 @@ public class TezosNodeClient {
       return id
     }
     return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
-  }
-
-  /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
-  ///
-  /// This method parallelizes fetches to get chain and address data and returns all required data together as an
-  /// OperationData object.
-  private func getMetadataForOperation(
-    address: String,
-    completion: @escaping (Result<OperationMetadata, TezosKitError>) -> Void
-  ) {
-    DispatchQueue.global(qos: .userInitiated).async {
-      let fetchersGroup = DispatchGroup()
-
-      // Fetch data about the chain being operated on.
-      var chainID: String?
-      var headHash: String?
-      var protocolHash: String?
-      let chainHeadRequestRPC = GetChainHeadRPC()
-
-      // Fetch data about the address being operated on.
-      var operationCounter: Int?
-      let getAddressCounterRPC = GetAddressCounterRPC(address: address)
-
-      // Fetch data about the key.
-      var addressKey: String?
-      let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
-
-      // Send RPCs and wait for results
-      fetchersGroup.enter()
-      self.networkClient.send(chainHeadRequestRPC) { result in
-        switch result {
-        case .failure:
-          break
-        case .success(let json):
-          if let fetchedChainID = json["chain_id"] as? String,
-             let fetchedHeadHash = json["hash"] as? String,
-             let fetchedProtocolHash = json["protocol"] as? String {
-            chainID = fetchedChainID
-            headHash = fetchedHeadHash
-            protocolHash = fetchedProtocolHash
-          }
-        }
-        fetchersGroup.leave()
-      }
-
-      fetchersGroup.enter()
-      self.networkClient.send(getAddressCounterRPC) { result in
-        switch result {
-        case .failure:
-          break
-        case .success(let fetchedOperationCounter):
-          operationCounter = fetchedOperationCounter
-        }
-        fetchersGroup.leave()
-      }
-
-      fetchersGroup.enter()
-      self.networkClient.send(getAddressManagerKeyRPC) { result in
-        switch result {
-        case .failure:
-          break
-        case .success(let fetchedManagerAndKey):
-          if let fetchedKey = fetchedManagerAndKey["key"] as? String {
-            addressKey = fetchedKey
-          }
-        }
-        fetchersGroup.leave()
-      }
-
-      fetchersGroup.wait()
-
-      // Return fetched data as an OperationData if all data was successfully retrieved.
-      if let operationCounter = operationCounter,
-         let headHash = headHash,
-         let chainID = chainID,
-         let protocolHash = protocolHash {
-        let metadata = OperationMetadata(
-          chainID: chainID,
-          branch: headHash,
-          protocol: protocolHash,
-          addressCounter: operationCounter,
-          key: addressKey
-        )
-        completion(.success(metadata))
-        return
-      }
-      completion(.failure(TezosKitError(kind: .unknown, underlyingError: "Couldn't fetch metadata")))
-    }
   }
 }

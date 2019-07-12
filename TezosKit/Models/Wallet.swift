@@ -14,7 +14,7 @@ public struct Wallet {
 
   /// A base58check encoded public key hash for the wallet, prefixed with "tz1" which represents an address in the Tezos
   /// ecosystem.
-  public let address: String
+  public let address: Address
 
   /// If this wallet was gnerated from a mnemonic, a space delimited string of english mnemonic words
   /// used to generate the wallet with the BIP39 specification, otherwise nil.
@@ -68,7 +68,7 @@ public struct Wallet {
   ///   - publicKey: The public key.
   ///   - secretKey: The secret key.
   ///   - mnemonic: An optional mnemonic used to generate the wallet.
-  private init(address: String, publicKey: PublicKey, secretKey: SecretKey, mnemonic: String? = nil) {
+  private init(address: Address, publicKey: PublicKey, secretKey: SecretKey, mnemonic: String? = nil) {
     self.secretKey = secretKey
     self.publicKey = publicKey
     self.address = address
