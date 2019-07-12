@@ -17,7 +17,7 @@ extension NetworkClientTest {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testCallbackOnCorrectQueue_promises() {
@@ -30,7 +30,7 @@ extension NetworkClientTest {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testBadEndpointCompletesWithURL_promises() {
@@ -45,7 +45,7 @@ extension NetworkClientTest {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testBadHTTPResponseCompletesWithError_promises() {
@@ -67,7 +67,7 @@ extension NetworkClientTest {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testErrorCompletesWithError_promises() {
@@ -90,7 +90,7 @@ extension NetworkClientTest {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testNilDataCompletesWithError_promises() {
@@ -111,7 +111,7 @@ extension NetworkClientTest {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testInocrrectDataCompletesWithError_promises() {
@@ -132,7 +132,7 @@ extension NetworkClientTest {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 
   public func testRequestCompletesWithResultAndNoError_promises() {
@@ -156,6 +156,6 @@ extension NetworkClientTest {
       XCTFail()
     }
 
-    wait(for: [expectation], timeout: 10)
+    wait(for: [expectation], timeout: .expectationTimeout)
   }
 }

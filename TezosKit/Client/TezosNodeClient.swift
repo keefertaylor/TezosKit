@@ -95,6 +95,9 @@ public class TezosNodeClient {
   /// The network client.
   public let networkClient: NetworkClient
 
+  /// The operation metadata provider.
+  public let operationMetadataProvider: OperationMetadataProvider
+
   /// Initialize a new TezosNodeClient.
   ///
   /// - Parameters:
@@ -117,6 +120,7 @@ public class TezosNodeClient {
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
+    operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
   }
 
@@ -368,7 +372,7 @@ public class TezosNodeClient {
     from wallet: Wallet,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
-    getMetadataForOperation(address: wallet.address) { [weak self] result in
+    operationMetadataProvider.metadata(for: wallet.address) { [weak self] result in
       guard let self = self else {
         return
       }
@@ -456,7 +460,7 @@ public class TezosNodeClient {
     signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    getMetadataForOperation(address: source) { [weak self] result in
+    operationMetadataProvider.metadata(for: source) { [weak self] result in
       guard let self = self else {
         return
       }
@@ -630,94 +634,6 @@ public class TezosNodeClient {
       return id
     }
     return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
-  }
-
-  /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
-  ///
-  /// This method parallelizes fetches to get chain and address data and returns all required data together as an
-  /// OperationData object.
-  private func getMetadataForOperation(
-    address: String,
-    completion: @escaping (Result<OperationMetadata, TezosKitError>) -> Void
-  ) {
-    DispatchQueue.global(qos: .userInitiated).async {
-      let fetchersGroup = DispatchGroup()
-
-      // Fetch data about the chain being operated on.
-      var chainID: String?
-      var headHash: String?
-      var protocolHash: String?
-      let chainHeadRequestRPC = GetChainHeadRPC()
-
-      // Fetch data about the address being operated on.
-      var operationCounter: Int?
-      let getAddressCounterRPC = GetAddressCounterRPC(address: address)
-
-      // Fetch data about the key.
-      var addressKey: String?
-      let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
-
-      // Send RPCs and wait for results
-      fetchersGroup.enter()
-      self.networkClient.send(chainHeadRequestRPC) { result in
-        switch result {
-        case .failure:
-          break
-        case .success(let json):
-          if let fetchedChainID = json["chain_id"] as? String,
-             let fetchedHeadHash = json["hash"] as? String,
-             let fetchedProtocolHash = json["protocol"] as? String {
-            chainID = fetchedChainID
-            headHash = fetchedHeadHash
-            protocolHash = fetchedProtocolHash
-          }
-        }
-        fetchersGroup.leave()
-      }
-
-      fetchersGroup.enter()
-      self.networkClient.send(getAddressCounterRPC) { result in
-        switch result {
-        case .failure:
-          break
-        case .success(let fetchedOperationCounter):
-          operationCounter = fetchedOperationCounter
-        }
-        fetchersGroup.leave()
-      }
-
-      fetchersGroup.enter()
-      self.networkClient.send(getAddressManagerKeyRPC) { result in
-        switch result {
-        case .failure:
-          break
-        case .success(let fetchedManagerAndKey):
-          if let fetchedKey = fetchedManagerAndKey["key"] as? String {
-            addressKey = fetchedKey
-          }
-        }
-        fetchersGroup.leave()
-      }
-
-      fetchersGroup.wait()
-
-      // Return fetched data as an OperationData if all data was successfully retrieved.
-      if let operationCounter = operationCounter,
-         let headHash = headHash,
-         let chainID = chainID,
-         let protocolHash = protocolHash {
-        let metadata = OperationMetadata(
-          chainID: chainID,
-          branch: headHash,
-          protocol: protocolHash,
-          addressCounter: operationCounter,
-          key: addressKey
-        )
-        completion(.success(metadata))
-        return
-      }
-      completion(.failure(TezosKitError(kind: .unknown, underlyingError: "Couldn't fetch metadata")))
-    }
   }
 }
 
