@@ -5,7 +5,7 @@ import XCTest
 
 final class OperationPayloadTest: XCTestCase {
   let operationFactory = OperationFactory()
-  let signer = FakeSigner(signature: .testSignature, publicKey: FakePublicKey.testPublicKey)
+  let signatureProvider = FakeSignatureProvider(signature: .testSignature, publicKey: FakePublicKey.testPublicKey)
   let operationMetadataWithRevealedKey = OperationMetadata(
     branch: .testBranch,
     protocol: .testProtocol,
@@ -30,7 +30,7 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory: operationFactory,
       operationMetadata: operationMetadataWithRevealedKey,
       source: .testAddress,
-      signer: signer
+      signatureProvider: signatureProvider
     )
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
@@ -52,7 +52,7 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory: operationFactory,
       operationMetadata: operationMetadataWithRevealedKey,
       source: .testAddress,
-      signer: signer
+      signatureProvider: signatureProvider
     )
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
@@ -74,7 +74,7 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory: operationFactory,
       operationMetadata: operationMetadataWithUnrevealedKey,
       source: .testAddress,
-      signer: signer
+      signatureProvider: signatureProvider
     )
 
     // Expected a reveal operation.
@@ -89,7 +89,7 @@ final class OperationPayloadTest: XCTestCase {
   /// Test an operation not requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealNotRequired() {
     let operations = [
-      operationFactory.revealOperation(from: .testAddress, publicKey: signer.publicKey)
+      operationFactory.revealOperation(from: .testAddress, publicKey: signatureProvider.publicKey)
     ]
 
     let operationPayload = OperationPayload(
@@ -97,7 +97,7 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory: operationFactory,
       operationMetadata: operationMetadataWithUnrevealedKey,
       source: .testAddress,
-      signer: signer
+      signatureProvider: signatureProvider
     )
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)

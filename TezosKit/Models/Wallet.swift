@@ -83,7 +83,7 @@ extension Wallet: Equatable {
   }
 }
 
-extension Wallet: Signer {
+extension Wallet: SignatureProvider {
   public func sign(_ hex: String) -> [UInt8]? {
     return secretKey.sign(hex: hex)
   }
