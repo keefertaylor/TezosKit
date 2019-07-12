@@ -1,5 +1,6 @@
 // Copyright Keefer Taylor, 2019
 
+import Base58Swift
 import Foundation
 import TezosCrypto
 
@@ -404,8 +405,10 @@ public class TezosNodeClient {
           return
         }
 
+        let bunkSig =
+          "edsigtXomBKi5CTRf5cjATJWSyaRvhfYNHqSUGrn4SdbYRcGwQrUGjzEfQDTuqHhuA8b2d8NarZjz8TRf65WkpQmo423BtomS8Q"
         guard
-          let signature = SigningService.sign(bytes, with: wallet),
+          let signature = Base58.base58CheckDecodeWithPrefix(string: bunkSig, prefix: Prefix.Sign.signature),
           let signedOperationPayload = SignedOperationPayload(
             operationPayload: operationPayload,
             signature: signature
