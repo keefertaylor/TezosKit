@@ -273,7 +273,8 @@ class TezosNodeIntegrationTests: XCTestCase {
     let operation = OperationFactory.testOperationFactory.originationOperation(address: Wallet.testWallet.address)
     self.nodeClient.runOperation(operation, from: .testWallet) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       case .success(let data):
         guard let contents = data["contents"] as? [[String: Any]],
