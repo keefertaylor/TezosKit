@@ -46,7 +46,7 @@ import TezosCrypto
 /// Operation object that conforms to the |Operation| protocol and calling:
 ///     func forgeSignPreapplyAndInjectOperation(
 ///       _ operation: Operation,
-///       source: String,
+///       source: Address,
 ///       keys: Keys,
 ///       completion: @escaping (String?, Error?) -> Void
 ///     )
@@ -56,7 +56,7 @@ import TezosCrypto
 /// to:
 ///     func forgeSignPreapplyAndInjectOperations(
 ///       _ operations: [Operation],
-///       source: String,
+///       source: Address,
 ///       keys: Keys,
 ///       completion: @escaping (String?, Error?) -> Void
 ///     )
@@ -136,7 +136,7 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the balance of a given address.
-  public func getBalance(address: String, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
+  public func getBalance(address: Address, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -147,7 +147,7 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the delegate of a given address.
-  public func getDelegate(address: String, completion: @escaping (Result<String, TezosKitError>) -> Void) {
+  public func getDelegate(address: Address, completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetDelegateRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -159,14 +159,14 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the address counter for the given address.
-  public func getAddressCounter(address: String, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
+  public func getAddressCounter(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let rpc = GetAddressCounterRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the address manager key for the given address.
   public func getAddressManagerKey(
-    address: String,
+    address: Address,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
     let rpc = GetAddressManagerKeyRPC(address: address)
@@ -185,7 +185,7 @@ public class TezosNodeClient {
   public func send(
     amount: Tez,
     to recipientAddress: String,
-    from source: String,
+    from source: Address,
     signer: Signer,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil,
@@ -219,8 +219,8 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func delegate(
-    from source: String,
-    to delegate: String,
+    from source: Address,
+    to delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -247,7 +247,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
   public func undelegate(
-    from source: String,
+    from source: Address,
     signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -268,7 +268,7 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func registerDelegate(
-    delegate: String,
+    delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -315,7 +315,7 @@ public class TezosNodeClient {
 
   /// Returns the code associated with the address as a NSDictionary.
   /// - Parameter address: The address of the contract to load.
-  public func getAddressCode(address: String, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
+  public func getAddressCode(address: Address, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
     let rpc = GetAddressCodeRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -376,17 +376,23 @@ public class TezosNodeClient {
       guard let self = self else {
         return
       }
-      guard case let .success(metadata) = result else {
+      guard case let .success(operationMetadata) = result else {
         completion(
           result.map { _ in [:] }
         )
         return
       }
 
-      let operationPayload = self.createOperationPayload(operations: [operation], operationMetadata: metadata)
+      let operationPayload = OperationPayload(
+        operations: [operation],
+        operationFactory: self.operationFactory,
+        operationMetadata: operationMetadata,
+        source: wallet.address,
+        signer: wallet
+      )
       self.forgingService.forge(
         operationPayload: operationPayload,
-        operationMetadata: metadata
+        operationMetadata: operationMetadata
       ) { [weak self] result in
         guard let self = self else {
           return
@@ -418,26 +424,6 @@ public class TezosNodeClient {
 
   // MARK: - Private Methods
 
-  /// Creates a operation payload from operations.
-  /// - Parameters:
-  ///   - operations: A list of operations to forge.
-  ///   - operationMetadata: Metadata about the operations.
-  /// - Returns: A `OperationPayload` that represents the inputs.
-  private func createOperationPayload(
-    operations: [Operation],
-    operationMetadata: OperationMetadata
-  ) -> OperationPayload {
-    // Process all operations to have increasing counters and place them in the contents array.
-    var nextCounter = operationMetadata.addressCounter + 1
-    var operationsWithCounter: [OperationWithCounter] = []
-    for operation in operations {
-      let operationWithCounter = OperationWithCounter(operation: operation, counter: nextCounter)
-      operationsWithCounter.append(operationWithCounter)
-      nextCounter += 1
-    }
-    return OperationPayload(operations: operationsWithCounter, operationMetadata: operationMetadata)
-  }
-
   /// Forge, sign, preapply and then inject a single operation.
   ///
   /// - Parameters:
@@ -447,7 +433,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operation: Operation,
-    source: String,
+    source: Address,
     signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -470,7 +456,7 @@ public class TezosNodeClient {
   ///   - completion: A completion block that will be called with the results of the operation.
   public func forgeSignPreapplyAndInject(
     _ operations: [Operation],
-    source: String,
+    source: Address,
     signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -484,18 +470,13 @@ public class TezosNodeClient {
         )
         return
       }
-
-      // Determine if the address performing the operations has been revealed. If it has not been,
-      // check if any of the operations to perform requires the address to be revealed. If so,
-      // prepend a reveal operation to the operations to perform.
-      var mutableOperations = operations
-      if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-        let revealOperation = self.operationFactory.revealOperation(from: source, publicKey: signer.publicKey)
-        mutableOperations.insert(revealOperation, at: 0)
-      }
-      let operationPayload =
-        self.createOperationPayload(operations: mutableOperations, operationMetadata: operationMetadata)
-
+      let operationPayload = OperationPayload(
+        operations: operations,
+        operationFactory: self.operationFactory,
+        operationMetadata: operationMetadata,
+        source: source,
+        signer: signer
+      )
       self.forgingService.forge(
         operationPayload: operationPayload,
         operationMetadata: operationMetadata
@@ -534,7 +515,7 @@ public class TezosNodeClient {
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,
     forgeResult: String,
-    source: String,
+    source: Address,
     signer: Signer,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {

@@ -28,7 +28,7 @@ public class OriginationOperation: AbstractOperation {
   ///   - wallet: The wallet which will originate the new account.
   ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction.
-  public init(address: String, contractCode: ContractCode? = nil, operationFees: OperationFees) {
+  public init(address: Address, contractCode: ContractCode? = nil, operationFees: OperationFees) {
     managerPublicKeyHash = address
     self.contractCode = contractCode
 

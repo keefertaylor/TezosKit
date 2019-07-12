@@ -17,7 +17,7 @@ extension TezosNodeClient {
   }
 
   /// Retrieve the balance of a given address.
-  public func getBalance(address: String) -> Promise<Tez> {
+  public func getBalance(address: Address) -> Promise<Tez> {
     let rpc = GetAddressBalanceRPC(address: address)
     return networkClient.send(rpc)
   }
@@ -28,7 +28,7 @@ extension TezosNodeClient {
   }
 
   /// Retrieve the delegate of a given address.
-  public func getDelegate(address: String) -> Promise<String> {
+  public func getDelegate(address: Address) -> Promise<String> {
     let rpc = GetDelegateRPC(address: address)
     return networkClient.send(rpc)
   }
@@ -40,13 +40,13 @@ extension TezosNodeClient {
   }
 
   /// Retrieve the address counter for the given address.
-  public func getAddressCounter(address: String) -> Promise<Int> {
+  public func getAddressCounter(address: Address) -> Promise<Int> {
     let rpc = GetAddressCounterRPC(address: address)
     return networkClient.send(rpc)
   }
 
   /// Retrieve the address manager key for the given address.
-  public func getAddressManagerKey(address: String) -> Promise<[String: Any]> {
+  public func getAddressManagerKey(address: Address) -> Promise<[String: Any]> {
     let rpc = GetAddressManagerKeyRPC(address: address)
     return networkClient.send(rpc)
   }
@@ -63,7 +63,7 @@ extension TezosNodeClient {
   public func send(
     amount: Tez,
     to recipientAddress: String,
-    from source: String,
+    from source: Address,
     signer: Signer,
     parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil
@@ -95,8 +95,8 @@ extension TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func delegate(
-    from source: String,
-    to delegate: String,
+    from source: Address,
+    to delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
@@ -119,7 +119,7 @@ extension TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func undelegate(
-    from source: String,
+    from source: Address,
     signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
@@ -141,7 +141,7 @@ extension TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func registerDelegate(
-    delegate: String,
+    delegate: Address,
     signer: Signer,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
@@ -183,7 +183,7 @@ extension TezosNodeClient {
 
   /// Returns the code associated with the address as a NSDictionary.
   /// - Parameter address: The address of the contract to load.
-  public func getAddressCode(address: String) -> Promise<ContractCode> {
+  public func getAddressCode(address: Address) -> Promise<ContractCode> {
     let rpc = GetAddressCodeRPC(address: address)
     return networkClient.send(rpc)
   }
@@ -238,7 +238,7 @@ extension TezosNodeClient {
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func forgeSignPreapplyAndInject(
     operation: Operation,
-    source: String,
+    source: Address,
     signer: Signer
   ) -> Promise<String> {
     return forgeSignPreapplyAndInject(
@@ -259,7 +259,7 @@ extension TezosNodeClient {
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func forgeSignPreapplyAndInject(
     operations: [Operation],
-    source: String,
+    source: Address,
     signer: Signer
   ) -> Promise<String> {
     return Promise { seal in

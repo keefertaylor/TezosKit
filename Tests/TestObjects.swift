@@ -38,10 +38,17 @@ extension OperationMetadata {
   )
 }
 
+extension FakeSigner {
+  public static let testSigner = FakeSigner(signature: .testSignature, publicKey: FakePublicKey.testPublicKey)
+}
+
 extension OperationPayload {
   public static let testOperationPayload = OperationPayload(
     operations: [],
-    operationMetadata: .testOperationMetadata
+    operationFactory: OperationFactory(),
+    operationMetadata: .testOperationMetadata,
+    source: .testAddress,
+    signer: FakeSigner.testSigner
   )
 }
 
