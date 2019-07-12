@@ -99,6 +99,9 @@ public class TezosNodeClient {
   /// The operation metadata provider.
   public let operationMetadataProvider: OperationMetadataProvider
 
+  /// A constant for the length of the signature.
+  private static let signatureLength = 64
+
   /// Initialize a new TezosNodeClient.
   ///
   /// - Parameters:
@@ -391,37 +394,22 @@ public class TezosNodeClient {
         source: wallet.address,
         signer: wallet
       )
-      self.forgingService.forge(
-        operationPayload: operationPayload,
-        operationMetadata: operationMetadata
-      ) { [weak self] result in
-        guard let self = self else {
-          return
-        }
-        guard case let .success(bytes) = result else {
-          completion(
-            result.map { _ in [:] }
-          )
-          return
-        }
 
-        let bunkSig =
-          "edsigtXomBKi5CTRf5cjATJWSyaRvhfYNHqSUGrn4SdbYRcGwQrUGjzEfQDTuqHhuA8b2d8NarZjz8TRf65WkpQmo423BtomS8Q"
-        guard
-          let signature = Base58.base58CheckDecodeWithPrefix(string: bunkSig, prefix: Prefix.Sign.signature),
-          let signedOperationPayload = SignedOperationPayload(
-            operationPayload: operationPayload,
-            signature: signature
-          )
-        else {
-          let error = TezosKitError(kind: .signingError, underlyingError: nil)
-          completion(.failure(error))
-          return
-        }
-
-        let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-        self.networkClient.send(rpc, completion: completion)
+      // Operation simulations do not need a valid signature.
+      let signature = [UInt8].init(repeating: 0, count: TezosNodeClient.signatureLength)
+      guard
+        let signedOperationPayload = SignedOperationPayload(
+          operationPayload: operationPayload,
+          signature: signature
+        )
+      else {
+        let error = TezosKitError(kind: .signingError, underlyingError: nil)
+        completion(.failure(error))
+        return
       }
+
+      let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
+      self.networkClient.send(rpc, completion: completion)
     }
   }
 
