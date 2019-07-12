@@ -11,7 +11,7 @@ class PreapplyOperationRPCTest: XCTestCase {
     )
 
     let expectedEndpoint =
-      "chains/main/blocks/" + OperationMetadata.testOperationMetadata.branch + "/helpers/preapply/operations"
+      "/chains/main/blocks/" + OperationMetadata.testOperationMetadata.branch + "/helpers/preapply/operations"
     let expectedPayloadDictionary =
       SignedProtocolOperationPayload.testSignedProtocolOperationPayload.dictionaryRepresentation
     let expectedPayload = JSONUtils.jsonString(for: expectedPayloadDictionary)

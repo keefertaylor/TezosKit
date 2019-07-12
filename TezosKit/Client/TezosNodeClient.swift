@@ -67,22 +67,6 @@ import TezosCrypto
 /// operation correctly as long as the |requiresReveal| bit on the custom Operation object is set
 /// correctly.
 public class TezosNodeClient {
-  /// JSON keys and values used in the Tezos Node.
-  private enum JSON {
-    public enum Keys {
-      public static let contents = "contents"
-      public static let metadata = "metadata"
-      public static let operationResult = "operation_result"
-      public static let status = "status"
-      public static let errors = "errors"
-      public static let id = "id"
-    }
-
-    public enum Values {
-      public static let failed = "failed"
-    }
-  }
-
   /// The default node URL to use.
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
@@ -97,6 +81,9 @@ public class TezosNodeClient {
 
   /// The operation metadata provider.
   public let operationMetadataProvider: OperationMetadataProvider
+
+  /// A service that preapplies operations.
+  public let preapplicationService: PreapplicationService
 
   /// Initialize a new TezosNodeClient.
   ///
@@ -122,6 +109,7 @@ public class TezosNodeClient {
     )
     operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
+    preapplicationService = PreapplicationService(networkClient: networkClient)
   }
 
   /// Retrieve data about the chain head.
@@ -538,45 +526,16 @@ public class TezosNodeClient {
       operationMetadata: operationMetadata
     )
 
-    preapplyAndInjectRPC(
+    preapplicationService.preapply(
       signedProtocolOperationPayload: signedProtocolOperationPayload,
       signedBytesForInjection: signedBytesForInjection,
-      operationMetadata: operationMetadata,
-      completion: completion
-    )
-  }
-
-  /// Preapply an operation and inject the operation if successful.
-  /// - Parameters:
-  ///   - signedProtocolOperationPayload: A payload for preapplication.
-  ///   - signedBytesForInjection: A JSON encoded string that contains signed bytes for the preapplied operation.
-  ///   - operationMetadata: Metadata related to the operation.
-  ///   - completion: A completion block that will be called with the results of the operation.
-  private func preapplyAndInjectRPC(
-    signedProtocolOperationPayload: SignedProtocolOperationPayload,
-    signedBytesForInjection: String,
-    operationMetadata: OperationMetadata,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-      let preapplyOperationRPC = PreapplyOperationRPC(
-        signedProtocolOperationPayload: signedProtocolOperationPayload,
-        operationMetadata: operationMetadata
-    )
-    networkClient.send(preapplyOperationRPC) { [weak self] result in
-      guard let self = self else {
+      operationMetadata: operationMetadata
+    ) { result in
+      if let error = result {
+        completion(.failure(error))
         return
       }
-
-      switch result {
-      case .failure(let error):
-        completion(.failure(error))
-      case .success(let result):
-        if let preapplicationError = TezosNodeClient.preapplicationError(from: result) {
-          completion(.failure(preapplicationError))
-          return
-        }
-        self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
-      }
+      self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
     }
   }
 
@@ -594,45 +553,5 @@ public class TezosNodeClient {
         completion(.success(txHash))
       }
     }
-  }
-
-  /// Parse a preapplication RPC response and extract an error if one occurred.
-  internal static func preapplicationError(from preapplicationResponse: [[String: Any]]) -> TezosKitError? {
-    let contents: [[String: Any]] = preapplicationResponse.compactMap { operation in
-     operation[JSON.Keys.contents] as? [[String: Any]]
-    }.flatMap { $0 }
-
-    let metadatas: [[String: Any]] = contents.compactMap { content in
-      content[JSON.Keys.metadata] as? [String: Any]
-    }
-
-    let operationResults: [[String: Any]] = metadatas.compactMap { metadata in
-      metadata[JSON.Keys.operationResult] as? [String: Any]
-    }
-
-    let failedOperationResults: [[String: Any]] = operationResults.filter { operationResult in
-      guard let status = operationResult[JSON.Keys.status] as? String,
-            status == JSON.Values.failed else {
-        return false
-      }
-      return true
-    }
-
-    let errors: [[String: Any]] = failedOperationResults.compactMap { failedOperationResult in
-      failedOperationResult[JSON.Keys.errors] as? [[String: Any]]
-    }.flatMap { $0 }
-
-    guard !errors.isEmpty else {
-      return nil
-    }
-
-    let firstError: String = errors.reduce("") { prev, next in
-      guard prev.isEmpty,
-            let id = next[JSON.Keys.id] as? String else {
-        return prev
-      }
-      return id
-    }
-    return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
   }
 }
