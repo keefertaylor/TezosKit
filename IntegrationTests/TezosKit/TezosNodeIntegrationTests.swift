@@ -69,7 +69,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     self.nodeClient.originateAccount(
       managerAddress: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
       case .failure:
@@ -85,7 +85,7 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testDelegation() {
     // Clear any existing delegate.
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
-    self.nodeClient.undelegate(from: Wallet.originatedAddress, signer: Wallet.testWallet) { result in
+    self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -118,7 +118,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       amount: Tez(1),
       to: baker.address,
       from: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
       case .failure(let error):
@@ -133,7 +133,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Register the new account as a baker.
     let registerBakerExpectation = XCTestExpectation(description: "register baker")
-    self.nodeClient.registerDelegate(delegate: baker.address, signer: baker) { result in
+    self.nodeClient.registerDelegate(delegate: baker.address, signatureProvider: baker) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -150,7 +150,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     self.nodeClient.delegate(
       from: Wallet.originatedAddress,
       to: baker.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
       case .failure(let error):
@@ -179,7 +179,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Clear the delegate
     let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
-    self.nodeClient.undelegate(from: Wallet.originatedAddress, signer: Wallet.testWallet) { result in
+    self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -231,7 +231,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       amount: Tez("10000000")!,
       to: "tz1NBAfG9MpKxxWpaAXa52Y9XYh6Wdv77xG7",
       from: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
       case .failure:
@@ -252,7 +252,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       amount: Tez("10000000000000")!,
       to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
       from: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
       case .failure(let error):
@@ -310,7 +310,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     nodeClient.forgeSignPreapplyAndInject(
       ops,
       source: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
       case .failure:

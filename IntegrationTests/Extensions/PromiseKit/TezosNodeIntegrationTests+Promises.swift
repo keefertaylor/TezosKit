@@ -29,7 +29,7 @@ extension TezosNodeIntegrationTests {
 
     self.nodeClient.originateAccount(
       managerAddress: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ).done { hash in
       XCTAssertNotNil(hash)
       expectation.fulfill()
@@ -43,7 +43,7 @@ extension TezosNodeIntegrationTests {
   public func testDelegation_promises() {
     // Clear any existing delegate.
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
-    self.nodeClient.undelegate(from: Wallet.originatedAddress, signer: Wallet.testWallet).done { _ in
+    self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet).done { _ in
       undelegateExpectation.fulfill()
     } .catch { _ in
         XCTFail()
@@ -68,7 +68,7 @@ extension TezosNodeIntegrationTests {
       amount: Tez(1),
       to: baker.address,
       from: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ).done { _ in
       sendExpectation.fulfill()
     } .catch { _ in
@@ -79,7 +79,7 @@ extension TezosNodeIntegrationTests {
 
     // Register the new account as a baker.
     let registerBakerExpectation = XCTestExpectation(description: "register baker")
-    self.nodeClient.registerDelegate(delegate: baker.address, signer: baker).done { _ in
+    self.nodeClient.registerDelegate(delegate: baker.address, signatureProvider: baker).done { _ in
       registerBakerExpectation.fulfill()
     } .catch { _ in
       XCTFail()
@@ -92,7 +92,7 @@ extension TezosNodeIntegrationTests {
     self.nodeClient.delegate(
       from: Wallet.originatedAddress,
       to: baker.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ).done { _ in
       delegateToBakerExpectation.fulfill()
     } .catch { _ in
@@ -113,7 +113,7 @@ extension TezosNodeIntegrationTests {
 
     // Clear the delegate
     let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
-    self.nodeClient.undelegate(from: Wallet.originatedAddress, signer: Wallet.testWallet).done { _ in
+    self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet).done { _ in
       clearDelegateAfterDelegationExpectation.fulfill()
     } .catch { _ in
       XCTFail()
@@ -140,7 +140,7 @@ extension TezosNodeIntegrationTests {
       amount: Tez("1")!,
       to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
       from: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) .done { hash in
       XCTAssertNotNil(hash)
       expectation.fulfill()
@@ -180,7 +180,7 @@ extension TezosNodeIntegrationTests {
       amount: Tez("10000000000000")!,
       to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
       from: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ).done { _ in
       XCTFail()
     } .catch { error in
@@ -215,7 +215,7 @@ extension TezosNodeIntegrationTests {
     nodeClient.forgeSignPreapplyAndInject(
       operations: ops,
       source: Wallet.testWallet.address,
-      signer: Wallet.testWallet
+      signatureProvider: Wallet.testWallet
     ) .done { _ in
       expectation.fulfill()
     } .catch { _ in
