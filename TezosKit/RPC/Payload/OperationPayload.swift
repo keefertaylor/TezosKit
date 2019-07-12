@@ -28,6 +28,7 @@ public struct OperationPayload {
   ///
   /// - Parameters:
   ///   - operations: A list of operations to forge.
+  ///   - operationFactory: An operation factory which can produce a reveal operation.
   ///   - operationMetadata: Metadata about the operations.
   ///   - source: The address executing the operations.
   ///   - signer: The object which will provide the public key.
