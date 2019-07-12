@@ -85,5 +85,4 @@ final class OperationMetadataProviderTests: XCTestCase {
   }
 
   // swiftlint:enable force_cast
-
 }

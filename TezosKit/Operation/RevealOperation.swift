@@ -22,7 +22,7 @@ public class RevealOperation: AbstractOperation {
   ///   - address: The address to reveal.
   ///   - publicKey: The public key of the address to reveal.
   ///   - operationFees: OperationFees for the transaction.
-  public init(from address: String, publicKey: PublicKey, operationFees: OperationFees) {
+  public init(from address: Address, publicKey: PublicKey, operationFees: OperationFees) {
     self.publicKey = publicKey.base58CheckRepresentation
     super.init(source: address, kind: .reveal, operationFees: operationFees)
   }

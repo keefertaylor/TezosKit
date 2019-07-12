@@ -136,7 +136,7 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the balance of a given address.
-  public func getBalance(address: String, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
+  public func getBalance(address: Address, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -147,7 +147,7 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the delegate of a given address.
-  public func getDelegate(address: String, completion: @escaping (Result<String, TezosKitError>) -> Void) {
+  public func getDelegate(address: Address, completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetDelegateRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -159,14 +159,14 @@ public class TezosNodeClient {
   }
 
   /// Retrieve the address counter for the given address.
-  public func getAddressCounter(address: String, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
+  public func getAddressCounter(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let rpc = GetAddressCounterRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve the address manager key for the given address.
   public func getAddressManagerKey(
-    address: String,
+    address: Address,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
     let rpc = GetAddressManagerKeyRPC(address: address)
@@ -315,7 +315,7 @@ public class TezosNodeClient {
 
   /// Returns the code associated with the address as a NSDictionary.
   /// - Parameter address: The address of the contract to load.
-  public func getAddressCode(address: String, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
+  public func getAddressCode(address: Address, completion: @escaping (Result<ContractCode, TezosKitError>) -> Void) {
     let rpc = GetAddressCodeRPC(address: address)
     networkClient.send(rpc, completion: completion)
   }
@@ -634,46 +634,5 @@ public class TezosNodeClient {
       return id
     }
     return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
-  }
-}
-
-/// TODONOT: Move to OperationPayload as a proper initalizer.
-/// TODONOT: Test.
-extension OperationPayload {
-  /// Creates a operation payload from a list of operations.
-  ///
-  /// This initializer will automatically add reveal operations and set address counters properly.
-  ///
-  /// - Parameters:
-  ///   - operations: A list of operations to forge.
-  ///   - operationMetadata: Metadata about the operations.
-  ///   - source: The address executing the operations.
-  ///   - signer: The object which will provide the public key.
-  fileprivate init(
-    operations: [Operation],
-    operationFactory: OperationFactory,
-    operationMetadata: OperationMetadata,
-    source: Address,
-    signer: Signer
-  ) {
-    // Determine if the address performing the operations has been revealed. If it has not been, check if any of the
-    // operations to perform requires the address to be revealed. If so, prepend a reveal operation to the operations to
-    // perform.
-    var mutableOperations = operations
-    if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-      let revealOperation = operationFactory.revealOperation(from: source, publicKey: signer.publicKey)
-      mutableOperations.insert(revealOperation, at: 0)
-    }
-
-    // Process all operations to have increasing counters and place them in the contents array.
-    var nextCounter = operationMetadata.addressCounter + 1
-    var operationsWithCounter: [OperationWithCounter] = []
-    for operation in operations {
-      let operationWithCounter = OperationWithCounter(operation: operation, counter: nextCounter)
-      operationsWithCounter.append(operationWithCounter)
-      nextCounter += 1
-    }
-
-    self.init(operations: operationsWithCounter, operationMetadata: operationMetadata)
   }
 }

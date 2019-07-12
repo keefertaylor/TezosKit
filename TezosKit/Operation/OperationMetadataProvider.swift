@@ -31,7 +31,7 @@ public class OperationMetadataProvider {
   /// This method parallelizes fetches to get chain and address data and returns all required data together as an
   /// OperationData object.
   public func metadata(
-    for address: String,
+    for address: Address,
     completion: @escaping (Result<OperationMetadata, TezosKitError>) -> Void
   ) {
     // Dispatch group acts as a barrier for all metadata fetches.
@@ -85,7 +85,7 @@ public class OperationMetadataProvider {
   ///
   /// - Warning: This method is not thread safe.
   private func chainInfo(
-    for address: String,
+    for address: Address,
     completion: @escaping (((headHash: String, protocol: String))?) -> Void
   ) {
     let chainHeadRequestRPC = GetChainHeadRPC()
@@ -110,7 +110,7 @@ public class OperationMetadataProvider {
   /// Retrieve the address counter for the given address.
   ///
   /// - Warning: This method is not thread safe.
-  private func operationCounter(for address: String, completion: @escaping (Int?) -> Void) {
+  private func operationCounter(for address: Address, completion: @escaping (Int?) -> Void) {
     let getAddressCounterRPC = GetAddressCounterRPC(address: address)
     self.networkClient.send(getAddressCounterRPC) { result in
       switch result {
@@ -125,7 +125,7 @@ public class OperationMetadataProvider {
   /// Retrieve the base58check encoded public key for the given address.
   ///
   /// - Warning: This method is not thread safe.
-  private func managerKey(for address: String, completion: @escaping (String?) -> Void) {
+  private func managerKey(for address: Address, completion: @escaping (String?) -> Void) {
     let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
     networkClient.send(getAddressManagerKeyRPC) { result in
       switch result {

@@ -26,7 +26,7 @@ public class OperationFactory {
   ///   - publicKey: The public key of the address to reveal.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public func revealOperation(
-    from address: String,
+    from address: Address,
     publicKey: PublicKey,
     operationFees: OperationFees? = nil
   ) -> Operation {
@@ -41,7 +41,7 @@ public class OperationFactory {
   ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public func originationOperation(
-    address: String,
+    address: Address,
     contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil
   ) -> Operation {
