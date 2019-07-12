@@ -5,10 +5,10 @@ import Foundation
 /// A payload that can be forged into operation bytes.
 public struct OperationPayload {
   /// An array of dictionaries representing operations.
-  private let operations: [OperationWithCounter]
+  internal let operations: [OperationWithCounter]
 
   /// The hash of the head of the chain to apply the operation on.
-  private let branch: String
+  internal let branch: String
 
   /// Retrieve a dictionary representation of the payload.
   public var dictionaryRepresentation: [String: Any] {
@@ -22,7 +22,6 @@ public struct OperationPayload {
     ]
   }
 
-  /// TODONOT: Test.
   /// Creates a operation payload from a list of operations.
   ///
   /// This initializer will automatically add reveal operations and set address counters properly.
@@ -51,7 +50,7 @@ public struct OperationPayload {
     // Process all operations to have increasing counters and place them in the contents array.
     var nextCounter = operationMetadata.addressCounter + 1
     var operationsWithCounter: [OperationWithCounter] = []
-    for operation in operations {
+    for operation in mutableOperations {
       let operationWithCounter = OperationWithCounter(operation: operation, counter: nextCounter)
       operationsWithCounter.append(operationWithCounter)
       nextCounter += 1
