@@ -11,8 +11,7 @@ public class PreapplyOperationRPC: RPC<[[String: Any]]> {
     signedProtocolOperationPayload: SignedProtocolOperationPayload,
     operationMetadata: OperationMetadata
   ) {
-    let endpoint =
-      "chains/main/blocks/" + operationMetadata.branch + "/helpers/preapply/operations"
+    let endpoint = "/chains/main/blocks/" + operationMetadata.branch + "/helpers/preapply/operations"
     let payload = JSONUtils.jsonString(for: signedProtocolOperationPayload.dictionaryRepresentation)
     super.init(
       endpoint: endpoint,
