@@ -11,6 +11,8 @@
 		7719265822D66C7C00E63DE4 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7719265722D66C7C00E63DE4 /* Address.swift */; };
 		7719265A22D92F5E00E63DE4 /* PreapplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7719265922D92F5E00E63DE4 /* PreapplicationService.swift */; };
 		7719265C22D93B8200E63DE4 /* PreapplicationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7719265B22D93B8200E63DE4 /* PreapplicationServiceTest.swift */; };
+		7719265E22DA1A5800E63DE4 /* SimulationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7719265D22DA1A5800E63DE4 /* SimulationService.swift */; };
+		7719266022DA1E1500E63DE4 /* SimulationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7719265F22DA1E1500E63DE4 /* SimulationServiceTest.swift */; };
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		7741B95D226DF5860005B398 /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */; };
 		774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
@@ -216,6 +218,8 @@
 		7719265722D66C7C00E63DE4 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		7719265922D92F5E00E63DE4 /* PreapplicationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreapplicationService.swift; sourceTree = "<group>"; };
 		7719265B22D93B8200E63DE4 /* PreapplicationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreapplicationServiceTest.swift; sourceTree = "<group>"; };
+		7719265D22DA1A5800E63DE4 /* SimulationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationService.swift; sourceTree = "<group>"; };
+		7719265F22DA1E1500E63DE4 /* SimulationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationServiceTest.swift; sourceTree = "<group>"; };
 		772F48A52224894E00DF0F9D /* IntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeIntegrationTests.swift; sourceTree = "<group>"; };
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -542,6 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				779427B022BB24C800559A03 /* ForgingPolicy.swift */,
+				7719265D22DA1A5800E63DE4 /* SimulationService.swift */,
 				7719265922D92F5E00E63DE4 /* PreapplicationService.swift */,
 				7767AE3C22C572300043C52C /* OperationMetadataProvider.swift */,
 				779427B822C013D700559A03 /* SigningService.swift */,
@@ -665,6 +670,7 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				7719265F22DA1E1500E63DE4 /* SimulationServiceTest.swift */,
 				7719265B22D93B8200E63DE4 /* PreapplicationServiceTest.swift */,
 				7719265322D63FFC00E63DE4 /* OperationMetadataProviderTest.swift */,
 				779427BC22C0163300559A03 /* SigningServiceTests.swift */,
@@ -955,6 +961,7 @@
 				77CE385B21FC7ED8006ADABA /* OperationMetadata.swift in Sources */,
 				77CE387A21FC7ED8006ADABA /* PreapplyOperationRPC.swift in Sources */,
 				77CE387121FC7ED8006ADABA /* RPC.swift in Sources */,
+				7719265E22DA1A5800E63DE4 /* SimulationService.swift in Sources */,
 				77CE386321FC7ED8006ADABA /* GetAddressCounterRPC.swift in Sources */,
 				7741B95D226DF5860005B398 /* GetOriginatedContractsRPC.swift in Sources */,
 				77CE386721FC7ED8006ADABA /* TezResponseAdapter.swift in Sources */,
@@ -1072,6 +1079,7 @@
 				77F4D268221CD44100D34B01 /* NetworkClientTest.swift in Sources */,
 				7776493B227616B200451DD5 /* FakeObjects.swift in Sources */,
 				779427AF22BB1D6700559A03 /* OperationFactoryTest.swift in Sources */,
+				7719266022DA1E1500E63DE4 /* SimulationServiceTest.swift in Sources */,
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
 				7719265422D63FFC00E63DE4 /* OperationMetadataProviderTest.swift in Sources */,
 				77B1EB04222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift in Sources */,
