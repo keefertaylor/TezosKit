@@ -73,7 +73,6 @@ public class NetworkClientImpl: NetworkClient {
       guard let self = self else {
         return
       }
-      print(String(data: data!, encoding: .utf8))
 
       let result = self.responseHandler.handleResponse(
         response: response,
