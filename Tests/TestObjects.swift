@@ -121,6 +121,11 @@ extension Wallet {
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
 }
 
+extension OperationMetadataProvider {
+  public static let testOperationMetadataProvider =
+    OperationMetadataProvider(networkClient: FakeNetworkClient.tezosNodeNetworkClient)
+}
+
 extension Dictionary where Key == String, Value == String {
   public static let managerKeyResponse: [String: String] = [
     OperationMetadataProvider.JSON.Keys.key: .testPublicKey
@@ -139,7 +144,8 @@ extension FakeNetworkClient {
     "/chains/main/blocks/head/context/contracts/" + .testAddress + "/counter": JSONUtils.jsonString(for: Int.testAddressCounter)!,
     "/chains/main/blocks/head/context/contracts/" + .testAddress + "/manager_key": JSONUtils.jsonString(for: .managerKeyResponse)!,
     "/chains/main/blocks/head": JSONUtils.jsonString(for: .headResponse)!,
-    "/chains/main/blocks/" + .testBranch + "/helpers/preapply/operations": "[{\"contents\":[{\"kind\":\"transaction\",\"source\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"fee\":\"1272\",\"counter\":\"30801\",\"gas_limit\":\"10100\",\"storage_limit\":\"257\",\"amount\":\"1\",\"destination\":\"tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5\",\"metadata\":{\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1272\"},{\"kind\":\"freezer\",\"category\":\"fees\",\"delegate\":\"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",\"level\":125,\"change\":\"1272\"}],\"operation_result\":{\"status\":\"applied\",\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1\"},{\"kind\":\"contract\",\"contract\":\"tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5\",\"change\":\"1\"}],\"consumed_gas\":\"10100\"}}}],\"signature\":\"edsigtpsh2VpWyZTZ46q9j54VfsWZLZuxL7UGEhfgCNx6SXwaWu4gMHx59bRdogbSmDCCpXeQeighgpHk5x32k3rtFu8w5EZyEr\"}]\n"
+    "/chains/main/blocks/" + .testBranch + "/helpers/preapply/operations": "[{\"contents\":[{\"kind\":\"transaction\",\"source\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"fee\":\"1272\",\"counter\":\"30801\",\"gas_limit\":\"10100\",\"storage_limit\":\"257\",\"amount\":\"1\",\"destination\":\"tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5\",\"metadata\":{\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1272\"},{\"kind\":\"freezer\",\"category\":\"fees\",\"delegate\":\"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",\"level\":125,\"change\":\"1272\"}],\"operation_result\":{\"status\":\"applied\",\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1\"},{\"kind\":\"contract\",\"contract\":\"tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5\",\"change\":\"1\"}],\"consumed_gas\":\"10100\"}}}],\"signature\":\"edsigtpsh2VpWyZTZ46q9j54VfsWZLZuxL7UGEhfgCNx6SXwaWu4gMHx59bRdogbSmDCCpXeQeighgpHk5x32k3rtFu8w5EZyEr\"}]\n",
+    "/chains/main/blocks/head/helpers/scripts/run_operation": "{\"contents\":[{\"kind\":\"origination\",\"source\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"fee\":\"1265\",\"counter\":\"31038\",\"gas_limit\":\"10000\",\"storage_limit\":\"257\",\"manager_pubkey\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"balance\":\"0\",\"metadata\":{\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1265\"},{\"kind\":\"freezer\",\"category\":\"fees\",\"delegate\":\"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",\"cycle\":247,\"change\":\"1265\"}],\"operation_result\":{\"status\":\"applied\",\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-257000\"}],\"originated_contracts\":[\"KT1RAHAXehUNusndqZpcxM8SfCjLi83utZsR\"],\"consumed_gas\":\"10000\"}}}]}\n"
   ]
 
   public static let tezosNodeNetworkClient =

@@ -86,8 +86,8 @@ public class TezosNodeClient {
   /// A service that preapplies operations.
   public let preapplicationService: PreapplicationService
 
-  /// A constant for the length of the signature.
-  private static let signatureLength = 64
+  /// A service which simulates operations.
+  public let simulationService: SimulationService
 
   /// Initialize a new TezosNodeClient.
   ///
@@ -114,6 +114,11 @@ public class TezosNodeClient {
     operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
+    simulationService = SimulationService(
+      networkClient: networkClient,
+      operationFactory: operationFactory,
+      operationMetadataProvider: operationMetadataProvider
+    )
   }
 
   /// Retrieve data about the chain head.
@@ -355,6 +360,7 @@ public class TezosNodeClient {
   }
 
   /// Retrieve metadata and runs an operation.
+  ///
   /// - Parameters:
   ///   - operation: The operation to run.
   ///   - wallet: The wallet requesting the run.
@@ -364,41 +370,7 @@ public class TezosNodeClient {
     from wallet: Wallet,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
-    operationMetadataProvider.metadata(for: wallet.address) { [weak self] result in
-      guard let self = self else {
-        return
-      }
-      guard case let .success(operationMetadata) = result else {
-        completion(
-          result.map { _ in [:] }
-        )
-        return
-      }
-
-      let operationPayload = OperationPayload(
-        operations: [operation],
-        operationFactory: self.operationFactory,
-        operationMetadata: operationMetadata,
-        source: wallet.address,
-        signatureProvider: wallet
-      )
-
-      // Operation simulations do not need a valid signature.
-      let signature = [UInt8].init(repeating: 0, count: TezosNodeClient.signatureLength)
-      guard
-        let signedOperationPayload = SignedOperationPayload(
-          operationPayload: operationPayload,
-          signature: signature
-        )
-      else {
-        let error = TezosKitError(kind: .signingError, underlyingError: nil)
-        completion(.failure(error))
-        return
-      }
-
-      let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-      self.networkClient.send(rpc, completion: completion)
-    }
+    simulationService.simulate(operation, from: wallet.address, signatureProvider: wallet, completion: completion)
   }
 
   // MARK: - Private Methods
