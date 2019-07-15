@@ -89,6 +89,9 @@ public class TezosNodeClient {
   /// A service which simulates operations.
   public let simulationService: SimulationService
 
+  /// An injection service which injects operations.
+  public let injectionService: InjectionService
+
   /// Initialize a new TezosNodeClient.
   ///
   /// - Parameters:
@@ -119,6 +122,7 @@ public class TezosNodeClient {
       operationFactory: operationFactory,
       operationMetadataProvider: operationMetadataProvider
     )
+    injectionService = InjectionService(networkClient: networkClient)
   }
 
   /// Retrieve data about the chain head.
@@ -499,23 +503,7 @@ public class TezosNodeClient {
         completion(.failure(error))
         return
       }
-      self.sendInjectionRPC(payload: signedBytesForInjection, completion: completion)
-    }
-  }
-
-  /// Send an injection RPC.
-  /// - Parameters:
-  ///   - payload: A JSON compatible string representing the signed operation bytes.
-  ///   - completion: A completion block that will be called with the results of the operation.
-  private func sendInjectionRPC(payload: String, completion: @escaping (Result<String, TezosKitError>) -> Void) {
-    let injectRPC = InjectionRPC(payload: payload)
-    networkClient.send(injectRPC) { result in
-      switch result {
-      case .failure(let txError):
-        completion(.failure(txError))
-      case .success(let txHash):
-        completion(.success(txHash))
-      }
+      self.injectionService.inject(payload: signedBytesForInjection, completion: completion)
     }
   }
 }
