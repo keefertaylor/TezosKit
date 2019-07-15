@@ -21,4 +21,28 @@ final class InjectionServiceTest: XCTestCase {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
+
+  // swiftlint:disable force_cast
+
+  func testInjectionServiceBadResponse() {
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
+    networkClient.endpointToResponseMap["/injection/operation"] = "123"
+    let injectionService = InjectionService(networkClient: networkClient)
+    let hex = String.testSignedBytesForInjection
+
+    let expectation = XCTestExpectation(description: "injection completion called")
+    injectionService.inject(payload: hex) { result in
+      switch result {
+      case .success:
+        XCTFail()
+      case .failure:
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  // swiftlint:enable force_cast
+
 }
