@@ -26,7 +26,7 @@ final class InjectionServiceTest: XCTestCase {
 
   func testInjectionServiceBadResponse() {
     let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
-    networkClient.endpointToResponseMap["/injection/operation"] = "123"
+    networkClient.endpointToResponseMap["/injection/operation"] = nil
     let injectionService = InjectionService(networkClient: networkClient)
     let hex = String.testSignedBytesForInjection
 
