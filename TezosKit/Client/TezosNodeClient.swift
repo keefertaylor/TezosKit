@@ -188,7 +188,7 @@ public class TezosNodeClient {
     to recipientAddress: String,
     from source: Address,
     signatureProvider: SignatureProvider,
-    parameters: [String: Any]? = nil,
+    parameters: [Micheline]? = nil,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {

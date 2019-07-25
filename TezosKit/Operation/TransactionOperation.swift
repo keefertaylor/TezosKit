@@ -6,14 +6,19 @@ import Foundation
 public class TransactionOperation: AbstractOperation {
   private let amount: Tez
   private let destination: Address
-  private let parameters: [String: Any]?
+  private let micheline: [Micheline]?
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
     operation["amount"] = amount.rpcRepresentation
     operation["destination"] = destination
-    if let parameters = self.parameters {
-      operation["parameters"] = parameters
+    if let micheline = self.micheline {
+      let dict: [[String: String]] = micheline.map { $0.json }
+      guard let json = JSONUtils.jsonString(for: dict) else {
+        print("Flagrant error")
+        return ["WRONG": "WRONG"]
+      }
+      operation["parameters"] = json
     }
 
     return operation
@@ -29,12 +34,12 @@ public class TransactionOperation: AbstractOperation {
     amount: Tez,
     source: Address,
     destination: Address,
-    parameters: [String: Any]? = nil,
+    parameters: [Micheline]? = nil,
     operationFees: OperationFees
   ) {
     self.amount = amount
     self.destination = destination
-    self.parameters = parameters
+    self.micheline = parameters
 
     super.init(source: source, kind: .transaction, operationFees: operationFees)
   }

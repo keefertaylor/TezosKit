@@ -99,7 +99,7 @@ public class OperationFactory {
     amount: Tez,
     source: Address,
     destination: Address,
-    parameters: [String: Any]? = nil,
+    parameters: [Micheline]? = nil,
     operationFees: OperationFees? = nil
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .transaction, in: tezosProtocol)
