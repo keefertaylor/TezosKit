@@ -7,7 +7,6 @@ final class MichelineTests: XCTestCase {
   static let michelineUnit = MichelineUnitParam()
   static let expectedMichelineUnitEncoding = "{\"prim\":\"unit\"}"
 
-  // TODO: Use test objects?
   static let michelineString = MichelineStringParam(string: "tezoskit")
   static let expectedMichelineStringEncoding = "{\"string\":\"tezoskit\"}"
 
@@ -87,11 +86,19 @@ final class MichelineTests: XCTestCase {
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineFalseEncoding))
   }
 
-  func testEncodeBytesToJSON() {
+  func testEncodeHexBytesToJSON() {
     let micheline = MichelineTests.michelineBytes
     let encoded = JSONUtils.jsonString(for: micheline.json)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineBytesEncoding))
   }
+
+  func testEncodeBinaryBytesToJSON() {
+    let bytes = CodingUtil.hexToBin("deadbeef")!
+    let micheline = MichelineBytesParam(bytes: bytes)!
+    let encoded = JSONUtils.jsonString(for: micheline.json)
+    XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineBytesEncoding))
+  }
+
 
   func testEncodeSomeToJSON() {
     let micheline = MichelineTests.michelineSome

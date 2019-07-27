@@ -4,7 +4,7 @@ import Foundation
 
 /// A representation of a none param in Micheline.
 public struct MichelineNoneParam: MichelineParam {
-  public let json: [String: Any] = [ "prim": "none" ]
+  public let json: [String: Any] = [ Micheline.primitive: Micheline.none ]
 
   public init() {}
 }

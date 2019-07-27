@@ -7,6 +7,6 @@ public struct MichelineStringParam: MichelineParam {
   public let json: [String: Any]
 
   public init(string: String) {
-    self.json = ["string": string]
+    self.json = [Micheline.string: string]
   }
 }

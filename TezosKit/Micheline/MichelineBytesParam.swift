@@ -3,11 +3,17 @@
 import Foundation
 
 /// A representation of a bytes parameter in micheline.
-// TODO: Consider alternative constructors.
 public struct MichelineBytesParam: MichelineParam {
   public let json: [String: Any]
 
+  public init?(bytes: [UInt8]) {
+    guard let hex = CodingUtil.binToHex(bytes) else {
+      return nil
+    }
+    self.init(hex: hex)
+  }
+
   public init(hex: Hex) {
-    json = [ "bytes": hex ]
+    json = [ Micheline.bytes: hex ]
   }
 }

@@ -6,12 +6,11 @@ import Foundation
 public struct MichelineRightParam: MichelineParam {
   public let json: [String: Any]
 
-  // TODO: Refactor JSON.
   public init(arg: MichelineParam) {
     let argArray = [ arg.json ]
     self.json = [
-      "prim": "right",
-      "args": argArray
+      Micheline.primitive: Micheline.right,
+      Micheline.args: argArray
     ]
   }
 }

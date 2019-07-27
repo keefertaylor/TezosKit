@@ -9,8 +9,8 @@ public struct MichelinePairParam: MichelineParam {
   public init(left: MichelineParam, right: MichelineParam) {
     let argArray = [ left.json, right.json ]
     self.json = [
-      "prim": "pair",
-      "args": argArray
+      Micheline.primitive: Micheline.pair,
+      Micheline.args: argArray
     ]
   }
 }

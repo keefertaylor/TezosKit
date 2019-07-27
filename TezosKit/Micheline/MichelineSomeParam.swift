@@ -8,8 +8,8 @@ public struct MichelineSomeParam: MichelineParam {
 
   public init(some: MichelineParam) {
     json = [
-      "prim": "some",
-      "args": [
+      Micheline.primitive: Micheline.some,
+      Micheline.args: [
         some.json
       ]
     ]

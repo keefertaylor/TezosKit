@@ -7,7 +7,7 @@ public struct MichelineBoolParam: MichelineParam {
   public let json: [String: Any]
 
   public init(bool: Bool) {
-    let stringRep = bool ? "true" : "false"
-    json = [ "prim": stringRep ]
+    let stringRep = bool ? Micheline.true : Micheline.false
+    json = [ Micheline.primitive: stringRep ]
   }
 }

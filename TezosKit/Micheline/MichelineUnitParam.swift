@@ -5,7 +5,7 @@ import Foundation
 /// A representation of an unit parameter in micheline.
 public struct MichelineUnitParam: MichelineParam {
   public let json: [String: Any] = [
-    "prim": "unit"
+    Micheline.primitive: Micheline.unit
   ]
 
   public init() {}
