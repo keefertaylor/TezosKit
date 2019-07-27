@@ -65,7 +65,7 @@ extension TezosNodeClient {
     to recipientAddress: String,
     from source: Address,
     signatureProvider: SignatureProvider,
-    parameters: [Micheline]? = nil,
+    parameters: [MichelineParam]? = nil,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let transactionOperation = operationFactory.transactionOperation(
