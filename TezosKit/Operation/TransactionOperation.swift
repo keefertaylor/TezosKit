@@ -13,7 +13,7 @@ public class TransactionOperation: AbstractOperation {
     operation["amount"] = amount.rpcRepresentation
     operation["destination"] = destination
     if let micheline = self.micheline {
-      let dict: [[String: String]] = micheline.map { $0.json }
+      let dict: [[String: Any]] = micheline.map { $0.json }
       guard let json = JSONUtils.jsonString(for: dict) else {
         print("Flagrant error")
         return ["WRONG": "WRONG"]

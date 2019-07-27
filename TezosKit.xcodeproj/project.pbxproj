@@ -164,6 +164,7 @@
 		77F4D268221CD44100D34B01 /* NetworkClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D267221CD44100D34B01 /* NetworkClientTest.swift */; };
 		77F4D26C221F899800D34B01 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77F4D26F22220C9600D34B01 /* NetworkClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D26E22220C9600D34B01 /* NetworkClient+Promises.swift */; };
+		77FE786422EBE53200B85B9D /* MichelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE786322EBE53200B85B9D /* MichelineTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -380,6 +381,7 @@
 		77F4D267221CD44100D34B01 /* NetworkClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientTest.swift; sourceTree = "<group>"; };
 		77F4D26B221F899800D34B01 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		77F4D26E22220C9600D34B01 /* NetworkClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkClient+Promises.swift"; sourceTree = "<group>"; };
+		77FE786322EBE53200B85B9D /* MichelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MichelineTests.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -689,6 +691,7 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				77FE786322EBE53200B85B9D /* MichelineTests.swift */,
 				7719266522DCD9B900E63DE4 /* InjectionServiceTest.swift */,
 				7719265F22DA1E1500E63DE4 /* SimulationServiceTest.swift */,
 				7719265B22D93B8200E63DE4 /* PreapplicationServiceTest.swift */,
@@ -956,7 +959,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint --strict\nelse\necho \"warning: SwiftLint not installed, run `brew install swiftlint`\"\nfi\n";
+			shellScript = "#if which swiftlint >/dev/null; then\n#swiftlint --strict\n#else\n#echo \"warning: SwiftLint not installed, run `brew install swiftlint`\"\n#fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1096,6 +1099,7 @@
 				77CE36F121F7F49F006ADABA /* GetExpectedQuorumRPCTest.swift in Sources */,
 				77CE36E421F7F49F006ADABA /* TezTest.swift in Sources */,
 				77CE36EF21F7F49F006ADABA /* GetDelegateRPCTest.swift in Sources */,
+				77FE786422EBE53200B85B9D /* MichelineTests.swift in Sources */,
 				77CE36E221F7F49F006ADABA /* ForgeOperationRPCTest.swift in Sources */,
 				77B1EAFE2228C54E00EA4FCE /* RunOperationRPCTest.swift in Sources */,
 				77CE36F721F7F49F006ADABA /* WalletTests.swift in Sources */,
