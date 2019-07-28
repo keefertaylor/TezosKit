@@ -4,10 +4,10 @@ import Foundation
 
 /// A representation of a boolean parameter in micheline.
 public struct MichelineBoolParam: MichelineParam {
-  public let json: [String: Any]
+  public let networkRepresentation: [String: Any]
 
   public init(bool: Bool) {
-    let stringRep = bool ? Micheline.true : Micheline.false
-    json = [ Micheline.primitive: stringRep ]
+    let stringRep = bool ? MichelineConstants.true : MichelineConstants.false
+    self.networkRepresentation = [ MichelineConstants.primitive: stringRep ]
   }
 }

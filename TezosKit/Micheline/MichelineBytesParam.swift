@@ -4,7 +4,7 @@ import Foundation
 
 /// A representation of a bytes parameter in micheline.
 public struct MichelineBytesParam: MichelineParam {
-  public let json: [String: Any]
+  public let networkRepresentation: [String: Any]
 
   public init?(bytes: [UInt8]) {
     guard let hex = CodingUtil.binToHex(bytes) else {
@@ -14,6 +14,6 @@ public struct MichelineBytesParam: MichelineParam {
   }
 
   public init(hex: Hex) {
-    json = [ Micheline.bytes: hex ]
+    self.networkRepresentation = [ MichelineConstants.bytes: hex ]
   }
 }

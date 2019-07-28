@@ -57,7 +57,6 @@ extension TezosNodeClient {
   ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func send(
@@ -65,14 +64,12 @@ extension TezosNodeClient {
     to recipientAddress: String,
     from source: Address,
     signatureProvider: SignatureProvider,
-    parameters: [MichelineParam]? = nil,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let transactionOperation = operationFactory.transactionOperation(
       amount: amount,
       source: source,
       destination: recipientAddress,
-      parameters: parameters,
       operationFees: operationFees
     )
     return forgeSignPreapplyAndInject(

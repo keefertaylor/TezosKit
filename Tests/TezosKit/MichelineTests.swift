@@ -1,6 +1,6 @@
 // Copyright Keefer Taylor, 2019
 
-import TezosKit
+@testable import TezosKit
 import XCTest
 
 final class MichelineTests: XCTestCase {
@@ -39,77 +39,88 @@ final class MichelineTests: XCTestCase {
 
   func testEncodeUnitToJSON() {
     let micheline = MichelineTests.michelineUnit
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineUnitEncoding))
   }
 
-
   func testEncodeStringToJSON() {
     let micheline = MichelineTests.michelineString
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineStringEncoding))
   }
 
   func testEncodeIntToJSON() {
     let micheline = MichelineTests.michelineInt
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineIntEncoding))
   }
 
   func testEncodePairToJSON() {
     let micheline = MichelineTests.michelinePair
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelinePairEncoding))
   }
 
   func testEncodeLeftToJSON() {
     let micheline = MichelineTests.michelineLeft
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineLeftEncoding))
   }
 
   func testEncodeRightToJSON() {
     let micheline = MichelineTests.michelineRight
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineRightEncoding))
   }
 
   func testEncodeTrueToJSON() {
     let micheline = MichelineTests.michelineTrue
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineTrueEncoding))
   }
 
   func testEncodeFalseToJSON() {
     let micheline = MichelineTests.michelineFalse
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineFalseEncoding))
   }
 
   func testEncodeHexBytesToJSON() {
     let micheline = MichelineTests.michelineBytes
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineBytesEncoding))
   }
 
   func testEncodeBinaryBytesToJSON() {
     let bytes = CodingUtil.hexToBin("deadbeef")!
     let micheline = MichelineBytesParam(bytes: bytes)!
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineBytesEncoding))
   }
 
-
   func testEncodeSomeToJSON() {
     let micheline = MichelineTests.michelineSome
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineSomeEncoding))
   }
 
   func testEncodeNoneToJSON() {
     let micheline = MichelineTests.michelineNone
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(MichelineTests.expectedMichelineNoneEncoding))
+  }
+
+  func testCustomParameter() {
+    let jsonDict: [String: Any] = [
+      MichelineConstants.primitive: MichelineConstants.left,
+      MichelineConstants.args: [ MichelineTests.michelineInt.networkRepresentation ],
+      "annots": [ "@TezosKitAnnotation" ]
+    ]
+    let expected = "{\"prim\":\"left\",\"args\":[\(MichelineTests.expectedMichelineIntEncoding)],\"annots\":[\"@TezosKitAnnotation\"]}"
+    let micheline = CustomMichelineParam(networkRepresentation: jsonDict)
+
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
+    XCTAssertEqual(encoded, fixExpected(expected))
   }
 
   func testDexterInvocation() {
@@ -128,7 +139,7 @@ final class MichelineTests: XCTestCase {
           )
         )
       )
-    let encoded = JSONUtils.jsonString(for: micheline.json)
+    let encoded = JSONUtils.jsonString(for: micheline.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(expected))
   }
 

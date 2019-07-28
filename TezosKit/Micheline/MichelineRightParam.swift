@@ -4,13 +4,13 @@ import Foundation
 
 // A representation of a right parameter in micheline.
 public struct MichelineRightParam: MichelineParam {
-  public let json: [String: Any]
+  public let networkRepresentation: [String: Any]
 
   public init(arg: MichelineParam) {
-    let argArray = [ arg.json ]
-    self.json = [
-      Micheline.primitive: Micheline.right,
-      Micheline.args: argArray
+    let argArray = [ arg.networkRepresentation ]
+    self.networkRepresentation = [
+      MichelineConstants.primitive: MichelineConstants.right,
+      MichelineConstants.args: argArray
     ]
   }
 }

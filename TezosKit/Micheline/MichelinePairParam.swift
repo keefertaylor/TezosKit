@@ -4,13 +4,13 @@ import Foundation
 
 // A representation of a pair parameter in micheline.
 public struct MichelinePairParam: MichelineParam {
-  public let json: [String: Any]
+  public let networkRepresentation: [String: Any]
 
   public init(left: MichelineParam, right: MichelineParam) {
-    let argArray = [ left.json, right.json ]
-    self.json = [
-      Micheline.primitive: Micheline.pair,
-      Micheline.args: argArray
+    let argArray = [ left.networkRepresentation, right.networkRepresentation ]
+    self.networkRepresentation = [
+      MichelineConstants.primitive: MichelineConstants.pair,
+      MichelineConstants.args: argArray
     ]
   }
 }

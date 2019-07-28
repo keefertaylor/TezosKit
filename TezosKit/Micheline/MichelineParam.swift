@@ -2,12 +2,8 @@
 
 import Foundation
 
-// Things to do:
-// - Remove contract deploy code (or write an integration test)
-// - Support annotations (or document that TezosKit doesn't)
-
 /// String constants used in Micheline param JSON encoding.
-internal enum Micheline {
+internal enum MichelineConstants {
   public static let args = "args"
   public static let bytes = "bytes"
   public static let `false` = "false"
@@ -27,5 +23,5 @@ internal enum Micheline {
 ///
 /// - SeeAlso: https://tezos.gitlab.io/master/whitedoc/michelson.html
 public protocol MichelineParam {
-  var json: [String: Any] { get }
+  var networkRepresentation: [String: Any] { get }
 }

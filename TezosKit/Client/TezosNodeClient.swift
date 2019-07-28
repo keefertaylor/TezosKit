@@ -180,7 +180,6 @@ public class TezosNodeClient {
   ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func send(
@@ -188,7 +187,6 @@ public class TezosNodeClient {
     to recipientAddress: String,
     from source: Address,
     signatureProvider: SignatureProvider,
-    parameters: [MichelineParam]? = nil,
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -196,11 +194,35 @@ public class TezosNodeClient {
       amount: amount,
       source: source,
       destination: recipientAddress,
-      parameters: parameters,
       operationFees: operationFees
     )
     forgeSignPreapplyAndInject(
       transactionOperation,
+      source: source,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
+  }
+
+  /// Call a smart contract.
+  /// TODO: Promises
+  public func call(
+    contract: Address,
+    amount: Tez,
+    parameter: MichelineParam?,
+    source: Address,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void) {
+    let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      parameter: parameter,
+      source: source,
+      destination: contract,
+      operationFees: operationFees
+    )
+    forgeSignPreapplyAndInject(
+      smartContractInvocationOperation,
       source: source,
       signatureProvider: signatureProvider,
       completion: completion

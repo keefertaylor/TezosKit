@@ -4,9 +4,9 @@ import Foundation
 
 /// A representation of a string parameter in micheline.
 public struct MichelineStringParam: MichelineParam {
-  public let json: [String: Any]
+  public let networkRepresentation: [String: Any]
 
   public init(string: String) {
-    self.json = [Micheline.string: string]
+    self.networkRepresentation = [MichelineConstants.string: string]
   }
 }

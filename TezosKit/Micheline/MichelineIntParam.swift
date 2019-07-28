@@ -4,9 +4,9 @@ import Foundation
 
 /// A representation of an integer parameter in micheline.
 public struct MichelineIntParam: MichelineParam {
-  public let json: [String: Any]
+  public let networkRepresentation: [String: Any]
 
   public init(int: Int) {
-    self.json = [Micheline.int: "\(int)"]
+    self.networkRepresentation = [MichelineConstants.int: "\(int)"]
   }
 }
