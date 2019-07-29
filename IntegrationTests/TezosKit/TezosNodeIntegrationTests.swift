@@ -19,13 +19,13 @@ import XCTest
 /// https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 ///
 /// You can check the balance of the account at:
-/// https://tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
+/// https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 ///
 /// Instructions for adding balance to an alphanet account are available at:
 /// https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet
 ///
 /// These tests also utilize a Dexter Exchange contract, located at:
-/// TODO
+/// https://alphanet.tzscan.io/KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434
 /// For more information about Dexter, see:
 /// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
@@ -56,6 +56,10 @@ extension UInt32 {
 
 extension OperationFactory {
   public static let testOperationFactory = OperationFactory()
+}
+
+extension String {
+  public static let testExpirationTimestamp = "2020-06-29T18:00:21Z"
 }
 
 class TezosNodeIntegrationTests: XCTestCase {
@@ -340,17 +344,17 @@ class TezosNodeIntegrationTests: XCTestCase {
           left: IntMichelsonParameter(int: 1),
           right: PairMichelsonParameter(
             left: IntMichelsonParameter(int: 100),
-            right: StringMichelsonParameter(string: "2020-06-29T18:00:21Z")
+            right: StringMichelsonParameter(string: .testExpirationTimestamp)
           )
         )
       )
     )
 
     self.nodeClient.call(
+      contract: Wallet.dexterExchangeContract,
       amount: Tez("1")!,
       parameter: parameter,
-      to: Wallet.dexterExchangeContract.address,
-      from: Wallet.testWallet.address,
+      source: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet
     ) { result in
       switch result {
@@ -362,6 +366,5 @@ class TezosNodeIntegrationTests: XCTestCase {
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)
-
   }
 }
