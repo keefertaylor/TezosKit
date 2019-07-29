@@ -400,6 +400,7 @@ public class TezosNodeClient {
   ///   - address: The address of a smart contract with a big map.
   ///   - key: The key in the big map to look up.
   ///   - type: The michelson type of the key.
+  ///   - completion: A completion block to call.
   public func getBigMapValue(
     address: Address,
     key: MichelsonParameter,

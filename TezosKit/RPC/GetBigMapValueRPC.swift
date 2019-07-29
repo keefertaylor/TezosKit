@@ -24,9 +24,16 @@ public class GetBigMapValueRPC: RPC<[String: Any]> {
       ]
     )
 
-    let headers = Header(field: "content-type", value: "application/json")
+    let headers = [
+      Header.contentTypeApplicationJSON
+    ]
 
-    super.init(endpoint: endpoint, responseAdapterClass: JSONDictionaryResponseAdapter.self, payload: payload)
+    super.init(
+      endpoint: endpoint,
+      headers: headers,
+      responseAdapterClass: JSONDictionaryResponseAdapter.self,
+      payload: payload
+    )
   }
 
   private static func typeDict(for type: MichelsonComparable) -> [String: String] {

@@ -47,12 +47,6 @@ public class NetworkClientImpl: NetworkClient {
     self.responseHandler = responseHandler
   }
 
-  // chains/main/blocks/head/context/contracts/KT1Md4zkfCvkdqgxAC9tyRYpRUBKmD1owEi2/big_map_get
-  // chains/main/blocks/head/context/contracts/KT1Md4zkfCvkdqgxAC9tyRYpRUBKmD1owEi2/big_map_get
-
-  // {"key":{"string":"KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434"},"type":{"prim":"address"}}
-  // {"key":{"string":"KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434"},"type":{"prim":"address"}}
-
   public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
@@ -79,9 +73,6 @@ public class NetworkClientImpl: NetworkClient {
       guard let self = self else {
         return
       }
-      print(data)
-      print(response)
-      print(error)
 
       let result = self.responseHandler.handleResponse(
         response: response,
@@ -93,7 +84,6 @@ public class NetworkClientImpl: NetworkClient {
         completion(result)
       }
     }
-    print(request)
     request.resume()
   }
 }
