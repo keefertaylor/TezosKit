@@ -425,6 +425,19 @@ public class TezosNodeClient {
     simulationService.simulate(operation, from: wallet.address, signatureProvider: wallet, completion: completion)
   }
 
+  /// Retrieve the storage of a smart contract.
+  ///
+  /// - Parameters:
+  ///   - address: The address of the smart contract to inspect.
+  ///   - completion: A completion block which will be called with the storage.
+  public func getContractStorage(
+    address: Address,
+    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+  ) {
+    let rpc = GetContractStorageRPC(address: address)
+    networkClient.send(rpc, completion: completion)
+  }
+
   // MARK: - Private Methods
 
   /// Forge, sign, preapply and then inject a single operation.

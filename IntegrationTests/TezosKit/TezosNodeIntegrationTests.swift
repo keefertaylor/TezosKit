@@ -75,7 +75,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
+    let intertestWaitTime: UInt32 = 0
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -394,6 +394,36 @@ class TezosNodeIntegrationTests: XCTestCase {
             return
         }
         XCTAssert(value > 0)
+        expectation.fulfill()
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  func testGetContractStorage() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.getContractStorage(address: Wallet.tokenContract) { result in
+      switch result {
+      case .success(let result):
+        guard
+          let args = result["args"] as? [Any],
+          let args2 = args[1] as? [String: Any],
+          let args3 = args2["args"] as? [Any],
+          let args4 = args3[1] as? [String: Any],
+          let args5 = args4["args"] as? [Any],
+          let args6 = args5[1] as? [String: Any],
+          let ticker = args6["string"] as? String
+        else {
+          XCTFail()
+          return
+        }
+
+        XCTAssertEqual(ticker, "TGD")
         expectation.fulfill()
       case .failure(let error):
         print(error)
