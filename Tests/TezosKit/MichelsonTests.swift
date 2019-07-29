@@ -3,6 +3,10 @@
 @testable import TezosKit
 import XCTest
 
+// swiftlint:disable force_cast
+// swiftlint:disable force_try
+// swiftlint:disable line_length
+
 final class MichelsonTests: XCTestCase {
   static let michelsonUnit = UnitMichelsonParameter()
   static let expectedMichelsonUnitEncoding = "{\"prim\":\"unit\"}"
@@ -14,7 +18,8 @@ final class MichelsonTests: XCTestCase {
   static let expectedMichelsonIntEncoding = "{\"int\":\"42\"}"
 
   static let michelsonPair = PairMichelsonParameter(left: michelsonString, right: michelsonInt)
-  static let expectedMichelsonPairEncoding = "{\"prim\":\"Pair\",\"args\":[\(expectedMichelsonStringEncoding),\(expectedMichelsonIntEncoding)]}"
+  static let expectedMichelsonPairEncoding =
+    "{\"prim\":\"Pair\",\"args\":[\(expectedMichelsonStringEncoding),\(expectedMichelsonIntEncoding)]}"
 
   static let michelsonLeft = LeftMichelsonParameter(arg: michelsonString)
   static let expectedMichelsonLeftEncoding = "{\"prim\":\"Left\",\"args\":[\(expectedMichelsonStringEncoding)]}"
@@ -170,7 +175,7 @@ final class MichelsonTests: XCTestCase {
         )
       )
     )
-    let expected = "{ \"prim\": \"Right\", \"args\": [ { \"prim\": \"Left\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"int\": \"1\" },{ \"string\": \"2020-06-29T18:00:21Z\" } ] } ] } ] }"
+    let expected = "{\"prim\":\"Right\",\"args\":[{\"prim\":\"Left\",\"args\":[{\"prim\":\"Pair\",\"args\":[{\"int\":\"1\"},{\"string\":\"2020-06-29T18:00:21Z\"}]}]}]}"
 
     let json = JSONUtils.jsonString(for: param.networkRepresentation)
     XCTAssertEqual(json, fixExpected(expected))
@@ -202,7 +207,7 @@ final class MichelsonTests: XCTestCase {
       arg: RightMichelsonParameter(
         arg: PairMichelsonParameter(
           left: PairMichelsonParameter(
-            left:IntMichelsonParameter(int: 100),
+            left: IntMichelsonParameter(int: 100),
             right: IntMichelsonParameter(int: 1)
           ),
           right: PairMichelsonParameter(

@@ -205,7 +205,15 @@ public class TezosNodeClient {
   }
 
   /// Call a smart contract.
-  /// TODO: Promises
+  ///
+  /// - Parameters:
+  ///   - contract: The smart contract to invoke.
+  ///   - amount: The amount of Tez to transfer with the invocation.
+  ///   - parameter: An optional parameter to send to the smart contract.
+  ///   - source: The address invoking the contract.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block called with an optional transaction hash and error.
   public func call(
     contract: Address,
     amount: Tez,
@@ -213,7 +221,8 @@ public class TezosNodeClient {
     source: Address,
     signatureProvider: SignatureProvider,
     operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void) {
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
     let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
       amount: amount,
       parameter: parameter,

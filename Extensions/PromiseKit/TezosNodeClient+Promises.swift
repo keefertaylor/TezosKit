@@ -79,6 +79,38 @@ extension TezosNodeClient {
     )
   }
 
+  /// Call a smart contract.
+  ///
+  /// - Parameters:
+  ///   - contract: The smart contract to invoke.
+  ///   - amount: The amount of Tez to transfer with the invocation.
+  ///   - parameter: An optional parameter to send to the smart contract.
+  ///   - source: The address invoking the contract.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  /// - Returns: A promise which resolves to a string representing the transaction hash.
+  public func call(
+    contract: Address,
+    amount: Tez,
+    parameter: MichelsonParameter?,
+    source: Address,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil
+  ) -> Promise<String> {
+    let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      parameter: parameter,
+      source: source,
+      destination: contract,
+      operationFees: operationFees
+    )
+    return forgeSignPreapplyAndInject(
+      operation: smartContractInvocationOperation,
+      source: source,
+      signatureProvider: signatureProvider
+    )
+  }
+
   /// Delegate the balance of an originated account.
   ///
   /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant

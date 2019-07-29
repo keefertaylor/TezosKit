@@ -6,9 +6,11 @@ import Foundation
 public class LeftMichelsonParameter: CustomMichelsonParameter {
   public init(arg: MichelsonParameter) {
     let argArray = [ arg.networkRepresentation ]
-    super.init(networkRepresentation: [
-      MichelineConstants.primitive: MichelineConstants.left,
-      MichelineConstants.args: argArray
-    ])
+    super.init(
+      networkRepresentation: [
+        MichelineConstants.primitive: MichelineConstants.left,
+        MichelineConstants.args: argArray
+      ]
+    )
   }
 }
