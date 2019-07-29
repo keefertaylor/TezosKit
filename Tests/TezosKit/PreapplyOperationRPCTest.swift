@@ -3,8 +3,8 @@
 import TezosKit
 import XCTest
 
-class PreapplyOperationRPCTest: XCTestCase {
-  public func testPreapplyOperationRPC() {
+final class PreapplyOperationRPCTest: XCTestCase {
+  func testPreapplyOperationRPC() {
     let rpc = PreapplyOperationRPC(
       signedProtocolOperationPayload: .testSignedProtocolOperationPayload,
       operationMetadata: .testOperationMetadata
@@ -21,6 +21,3 @@ class PreapplyOperationRPCTest: XCTestCase {
     XCTAssertTrue(rpc.isPOSTRequest)
   }
 }
-
-//("Optional("[{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}]")")
-//("Optional("{\"branch\":\"xyz\",\"contents\":[{}],\"protocol\":\"alpha\",\"signature\":\"abc123\"}")") -
