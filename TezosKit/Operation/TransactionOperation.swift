@@ -13,7 +13,7 @@ public class TransactionOperation: AbstractOperation {
     operation["amount"] = amount.rpcRepresentation
     operation["destination"] = destination
     if let parameter = self.parameter {
-        operation["parameter"] = parameter.networkRepresentation
+        operation["parameters"] = parameter.networkRepresentation
     }
     return operation
   }

@@ -19,7 +19,7 @@ import XCTest
 /// https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 ///
 /// You can check the balance of the account at:
-/// https://tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
+/// https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 ///
 /// Instructions for adding balance to an alphanet account are available at:
 /// https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet
@@ -27,6 +27,7 @@ import XCTest
 /// These tests also utilize a token and Dexter Exchange contract, located at:
 /// https://alphanet.tzscan.io/KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434
 /// https://alphanet.tzscan.io/KT1Md4zkfCvkdqgxAC9tyRYpRUBKmD1owEi2
+///
 /// For more information about Dexter, see:
 /// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
@@ -351,7 +352,7 @@ class TezosNodeIntegrationTests: XCTestCase {
             right: StringMichelsonParameter(string: .testExpirationTimestamp)
           )
         )
-    )
+      )
 
     self.nodeClient.call(
       contract: Wallet.dexterExchangeContract,
