@@ -48,7 +48,7 @@ class TransactionOperationTest: XCTestCase {
     XCTAssertNotNil(dictionary["amount"])
     XCTAssertEqual(dictionary["amount"] as? String, balance.rpcRepresentation)
 
-    let serializedParameter = JSONUtils.jsonString(for: dictionary["parameter"] as! [String: Any])
+    let serializedParameter = JSONUtils.jsonString(for: dictionary["parameters"] as! [String: Any])
     let serializedExpected = JSONUtils.jsonString(for: parameter.networkRepresentation)
 
     XCTAssertEqual(serializedParameter, serializedExpected)

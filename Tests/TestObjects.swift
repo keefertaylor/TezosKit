@@ -107,8 +107,8 @@ extension OperationFactory {
 extension OperationFees {
   public static let testFees = OperationFees(
     fee: Tez(1.0),
-    gasLimit: Tez(2.0),
-    storageLimit: Tez(3.0)
+    gasLimit: 200,
+    storageLimit: 300
   )
 }
 

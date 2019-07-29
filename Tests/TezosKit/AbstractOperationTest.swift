@@ -24,8 +24,8 @@ class AbstractOperationTest: XCTestCase {
     let source = "tz1abc"
     let kind: OperationKind = .delegation
     let fee = Tez(1)
-    let gasLimit = Tez(2)
-    let storageLimit = Tez(3)
+    let gasLimit = 200
+    let storageLimit = 300
     let operationFees = OperationFees(fee: fee, gasLimit: gasLimit, storageLimit: storageLimit)
 
     let abstractOperation = AbstractOperation(source: source, kind: kind, operationFees: operationFees)
@@ -41,9 +41,9 @@ class AbstractOperationTest: XCTestCase {
     XCTAssertEqual(dictionary["fee"] as? String, fee.rpcRepresentation)
 
     XCTAssertNotNil(dictionary["gas_limit"])
-    XCTAssertEqual(dictionary["gas_limit"] as? String, gasLimit.rpcRepresentation)
+    XCTAssertEqual(dictionary["gas_limit"] as? String, String(gasLimit))
 
     XCTAssertNotNil(dictionary["storage_limit"])
-    XCTAssertEqual(dictionary["storage_limit"] as? String, storageLimit.rpcRepresentation)
+    XCTAssertEqual(dictionary["storage_limit"] as? String, String(storageLimit))
   }
 }

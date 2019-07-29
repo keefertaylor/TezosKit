@@ -338,7 +338,7 @@ class TezosNodeIntegrationTests: XCTestCase {
   func testSmartContractInvocation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operationFees = OperationFees(fee: Tez(1), gasLimit: Tez("733732")!, storageLimit: Tez.zeroBalance)
+    let operationFees = OperationFees(fee: Tez(1), gasLimit: 733_732, storageLimit: 0)
     let parameter =
       RightMichelsonParameter(
         arg: LeftMichelsonParameter(

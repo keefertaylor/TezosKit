@@ -26,26 +26,26 @@ public class DefaultFeeProvider {
     case .delegation:
       return OperationFees(
         fee: Tez(0.001_257),
-        gasLimit: Tez(0.010_000),
-        storageLimit: Tez.zeroBalance
+        gasLimit: 10_000,
+        storageLimit: 0
       )
     case .origination:
       return OperationFees(
         fee: Tez(0.001_265),
-        gasLimit: Tez(0.010_000),
-        storageLimit: Tez(0.000_257)
+        gasLimit: 10_000,
+        storageLimit: 257
       )
     case .reveal:
       return OperationFees(
         fee: Tez(0.001_268),
-        gasLimit: Tez(0.010_000),
-        storageLimit: Tez.zeroBalance
+        gasLimit: 10_000,
+        storageLimit: 0
       )
     case .transaction:
       return OperationFees(
         fee: Tez(0.001_284),
-        gasLimit: Tez(0.010_200),
-        storageLimit: Tez(0.000_257)
+        gasLimit: 10_200,
+        storageLimit: 257
       )
     }
   }
