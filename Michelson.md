@@ -15,7 +15,10 @@ public func call(
   signatureProvider: SignatureProvider,
   operationFees: OperationFees? = nil,
   completion: @escaping (Result<String, TezosKitError>) -> Void)
+)
 ```
+
+An equivalent API is provided in the `PromiseKit` extension.
 
 ### Michelson Parameters
 

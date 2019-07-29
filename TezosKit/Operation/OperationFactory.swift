@@ -109,6 +109,15 @@ public class OperationFactory {
     )
   }
 
+  /// Create a new smart contract invocation operation.
+  ///
+  /// - Parameters:
+  ///   - contract: The smart contract to invoke.
+  ///   - amount: The amount of Tez to transfer with the invocation.
+  ///   - parameter: An optional parameter to send to the smart contract.
+  ///   - source: The address invoking the contract.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public func smartContractInvocationOperation(
     amount: Tez,
     parameter: MichelsonParameter?,
