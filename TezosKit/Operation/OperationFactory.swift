@@ -111,7 +111,7 @@ public class OperationFactory {
 
   public func smartContractInvocationOperation(
     amount: Tez,
-    parameter: MichelineParam?,
+    parameter: MichelsonParameter?,
     source: Address,
     destination: Address,
     operationFees: OperationFees?

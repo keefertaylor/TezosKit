@@ -6,7 +6,7 @@ import Foundation
 public class TransactionOperation: AbstractOperation {
   private let amount: Tez
   private let destination: Address
-  private let parameter: MichelineParam?
+  private let parameter: MichelsonParameter?
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
@@ -26,7 +26,7 @@ public class TransactionOperation: AbstractOperation {
   ///   - operationFees: OperationFees for the transaction.
   public init(
     amount: Tez,
-    parameter: MichelineParam? = nil,
+    parameter: MichelsonParameter? = nil,
     source: Address,
     destination: Address,
     operationFees: OperationFees

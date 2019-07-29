@@ -2,13 +2,11 @@
 
 import Foundation
 
-/// A custom micheline paramater.
+/// A custom Michelson paramater.
 ///
-/// This parameter can be used to create micheline parameters which TezosKit doesn't support.
-// TODO: Should this be a super class?
+/// This abstract base class can be used to create Michelson parameters which TezosKit doesn't support.
 // TODO: Codable
-// TODO: Naming
-public struct CustomMichelineParam: MichelineParam {
+public class CustomMichelsonParameter: MichelsonParameter {
   public let networkRepresentation: [String : Any]
 
   /// - Parameter networkRepresentation: A dictionary representation of the parameter which can be encoded to JSON.

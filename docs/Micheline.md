@@ -16,6 +16,8 @@ All available parameters conform to the `MichelineParameter` protocol. Available
 - Some
 - None
 
+TODO: Example
+
 # Custom Parameters
 
 If a parameter is not supported, the `CustomMichelineParam` struct can be used to create a custom parameter type. Simply pass the swift dictionary representation of the parameter's JSON. For instance, to encode: 

@@ -209,7 +209,7 @@ public class TezosNodeClient {
   public func call(
     contract: Address,
     amount: Tez,
-    parameter: MichelineParam?,
+    parameter: MichelsonParameter?,
     source: Address,
     signatureProvider: SignatureProvider,
     operationFees: OperationFees? = nil,

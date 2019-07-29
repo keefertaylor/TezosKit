@@ -19,7 +19,7 @@ internal enum MichelineConstants {
   public static let unit = "unit"
 }
 
-/// An abstract representation of a Micheline param.
+/// An abstract representation of a Michelson param.
 ///
 /// - SeeAlso: https://tezos.gitlab.io/master/whitedoc/michelson.html
 public protocol MichelsonParameter {
