@@ -5,18 +5,18 @@ import Foundation
 /// String constants used in Micheline param JSON encoding.
 internal enum MichelineConstants {
   public static let args = "args"
+  public static let primitive = "prim"
   public static let bytes = "bytes"
-  public static let `false` = "false"
   public static let int = "int"
   public static let left = "Left"
-  public static let none = "none"
+  public static let `false` = "False"
+  public static let none = "None"
   public static let pair = "Pair"
-  public static let primitive = "prim"
   public static let right = "Right"
-  public static let some = "some"
+  public static let some = "Some"
   public static let string = "string"
-  public static let `true` = "true"
-  public static let unit = "unit"
+  public static let `true` = "True"
+  public static let unit = "Unit"
 }
 
 /// An abstract representation of a Michelson param.

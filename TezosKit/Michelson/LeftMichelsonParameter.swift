@@ -2,13 +2,13 @@
 
 import Foundation
 
-// A representation of a right parameter in Michelson.
-public class RightMichelsonParameter: CustomMichelsonParameter {
+/// A representation of a left parameter in Michelson.
+public class LeftMichelsonParameter: AbstractMichelsonParameter {
   public init(arg: MichelsonParameter) {
     let argArray = [ arg.networkRepresentation ]
     super.init(
       networkRepresentation: [
-        MichelineConstants.primitive: MichelineConstants.right,
+        MichelineConstants.primitive: MichelineConstants.left,
         MichelineConstants.args: argArray
       ]
     )
