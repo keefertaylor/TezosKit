@@ -5,7 +5,6 @@ import Foundation
 /// A custom Michelson paramater.
 ///
 /// This abstract base class can be used to create Michelson parameters which TezosKit doesn't support.
-// TODO: Codable
 public class CustomMichelsonParameter: MichelsonParameter {
   public let networkRepresentation: [String : Any]
 

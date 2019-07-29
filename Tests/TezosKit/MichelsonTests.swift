@@ -198,7 +198,6 @@ final class MichelsonTests: XCTestCase {
   }
 
   func testRemoveLiquidity() {
-    // 'Left (Right (Pair (Pair 100 1) (Pair 1 "2020-06-29T18:00:21Z")))'
     let param = LeftMichelsonParameter(
       arg: RightMichelsonParameter(
         arg: PairMichelsonParameter(
