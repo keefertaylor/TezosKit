@@ -7,7 +7,7 @@ import XCTest
 
 final class MichelsonTests: XCTestCase {
   static let michelsonUnit = UnitMichelsonParameter()
-  static let expectedMichelsonUnitEncoding = "{\"prim\":\"unit\"}"
+  static let expectedMichelsonUnitEncoding = "{\"prim\":\"Unit\"}"
 
   static let michelsonString = StringMichelsonParameter(string: "tezoskit")
   static let expectedMichelsonStringEncoding = "{\"string\":\"tezoskit\"}"
@@ -26,19 +26,19 @@ final class MichelsonTests: XCTestCase {
   static let expectedMichelsonRightEncoding = "{\"prim\":\"Right\",\"args\":[\(expectedMichelsonIntEncoding)]}"
 
   static let michelsonTrue = BoolMichelsonParameter(bool: true)
-  static let expectedMichelsonTrueEncoding = "{\"prim\":\"true\"}"
+  static let expectedMichelsonTrueEncoding = "{\"prim\":\"True\"}"
 
   static let michelsonFalse = BoolMichelsonParameter(bool: false)
-  static let expectedMichelsonFalseEncoding = "{\"prim\":\"false\"}"
+  static let expectedMichelsonFalseEncoding = "{\"prim\":\"False\"}"
 
   static let michelsonBytes = BytesMichelsonParameter(hex: "deadbeef")
   static let expectedMichelsonBytesEncoding = "{\"bytes\":\"deadbeef\"}"
 
   static let michelsonSome = SomeMichelsonParameter(some: michelsonInt)
-  static let expectedMichelsonSomeEncoding = "{\"prim\":\"some\",\"args\":[\(expectedMichelsonIntEncoding)]}"
+  static let expectedMichelsonSomeEncoding = "{\"prim\":\"Some\",\"args\":[\(expectedMichelsonIntEncoding)]}"
 
   static let michelsonNone = NoneMichelsonParameter()
-  static let expectedMichelsonNoneEncoding = "{\"prim\":\"none\"}"
+  static let expectedMichelsonNoneEncoding = "{\"prim\":\"None\"}"
 
   func testEncodeUnitToJSON() {
     let michelson = MichelsonTests.michelsonUnit
@@ -120,7 +120,7 @@ final class MichelsonTests: XCTestCase {
       "annots": [ "@TezosKitAnnotation" ]
     ]
     let expected = "{\"prim\":\"Left\",\"args\":[\(MichelsonTests.expectedMichelsonIntEncoding)],\"annots\":[\"@TezosKitAnnotation\"]}"
-    let michelson = CustomMichelsonParameter(networkRepresentation: jsonDict)
+    let michelson = AbstractMichelsonParameter(networkRepresentation: jsonDict)
 
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString(expected))

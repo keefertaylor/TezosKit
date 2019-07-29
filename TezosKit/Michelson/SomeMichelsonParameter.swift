@@ -3,7 +3,7 @@
 import Foundation
 
 // A representation of a some parameter in Michelson.
-public class SomeMichelsonParameter: CustomMichelsonParameter {
+public class SomeMichelsonParameter: AbstractMichelsonParameter {
   public init(some: MichelsonParameter) {
     super.init(
       networkRepresentation: [

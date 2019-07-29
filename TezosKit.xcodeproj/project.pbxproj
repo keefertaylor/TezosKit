@@ -175,11 +175,11 @@
 		77FE787422EC330800B85B9D /* BytesMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787322EC330800B85B9D /* BytesMichelsonParameter.swift */; };
 		77FE787622EC333B00B85B9D /* UnitMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787522EC333B00B85B9D /* UnitMichelsonParameter.swift */; };
 		77FE787822EC336700B85B9D /* NoneMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787722EC336700B85B9D /* NoneMichelsonParameter.swift */; };
-		77FE787A22EE10C100B85B9D /* CustomMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787922EE10C100B85B9D /* CustomMichelsonParameter.swift */; };
 		77FE787E22EE8DA200B85B9D /* GetBigMapValueRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787D22EE8DA200B85B9D /* GetBigMapValueRPC.swift */; };
 		77FE788022EE907900B85B9D /* MichelsonComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787F22EE907900B85B9D /* MichelsonComparable.swift */; };
 		77FE788222EE913300B85B9D /* GetBigMapValueRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788122EE913300B85B9D /* GetBigMapValueRPCTest.swift */; };
 		77FE788422EEA29300B85B9D /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788322EEA29300B85B9D /* TestHelpers.swift */; };
+		77FE787A22EE10C100B85B9D /* AbstractMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787922EE10C100B85B9D /* AbstractMichelsonParameter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -407,11 +407,11 @@
 		77FE787322EC330800B85B9D /* BytesMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BytesMichelsonParameter.swift; sourceTree = "<group>"; };
 		77FE787522EC333B00B85B9D /* UnitMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMichelsonParameter.swift; sourceTree = "<group>"; };
 		77FE787722EC336700B85B9D /* NoneMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneMichelsonParameter.swift; sourceTree = "<group>"; };
-		77FE787922EE10C100B85B9D /* CustomMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMichelsonParameter.swift; sourceTree = "<group>"; };
 		77FE787D22EE8DA200B85B9D /* GetBigMapValueRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueRPC.swift; sourceTree = "<group>"; };
 		77FE787F22EE907900B85B9D /* MichelsonComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MichelsonComparable.swift; sourceTree = "<group>"; };
 		77FE788122EE913300B85B9D /* GetBigMapValueRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueRPCTest.swift; sourceTree = "<group>"; };
 		77FE788322EEA29300B85B9D /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		77FE787922EE10C100B85B9D /* AbstractMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractMichelsonParameter.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -474,7 +474,7 @@
 				77FE787122EC32DD00B85B9D /* RightMichelsonParameter.swift */,
 				77FE787322EC330800B85B9D /* BytesMichelsonParameter.swift */,
 				77FE787522EC333B00B85B9D /* UnitMichelsonParameter.swift */,
-				77FE787922EE10C100B85B9D /* CustomMichelsonParameter.swift */,
+				77FE787922EE10C100B85B9D /* AbstractMichelsonParameter.swift */,
 			);
 			path = Michelson;
 			sourceTree = "<group>";
@@ -1119,7 +1119,7 @@
 				77B1EAF322275A4A00EA4FCE /* GasLimitPolicy.swift in Sources */,
 				77CE384921FC7ED8006ADABA /* AbstractOperation.swift in Sources */,
 				77CE387221FC7ED8006ADABA /* InjectOperationRPC.swift in Sources */,
-				77FE787A22EE10C100B85B9D /* CustomMichelsonParameter.swift in Sources */,
+				77FE787A22EE10C100B85B9D /* AbstractMichelsonParameter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

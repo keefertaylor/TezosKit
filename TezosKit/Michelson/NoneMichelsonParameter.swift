@@ -3,7 +3,7 @@
 import Foundation
 
 /// A representation of a none param in Michelson.
-public class NoneMichelsonParameter: CustomMichelsonParameter {
+public class NoneMichelsonParameter: AbstractMichelsonParameter {
   public init() {
     super.init(networkRepresentation: [ MichelineConstants.primitive: MichelineConstants.none ])
   }

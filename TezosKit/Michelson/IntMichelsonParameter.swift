@@ -3,7 +3,7 @@
 import Foundation
 
 /// A representation of an integer parameter in Michelson.
-public class IntMichelsonParameter: CustomMichelsonParameter {
+public class IntMichelsonParameter: AbstractMichelsonParameter {
   public init(int: Int) {
     super.init(networkRepresentation: [MichelineConstants.int: "\(int)"])
   }

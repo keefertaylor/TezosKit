@@ -9,8 +9,8 @@ Michelson primitives are provided to allow invocation of smart contracts. Simply
 ```swift
 public func call(
   contract: Address,
-  amount: Tez,
-  parameter: MichelsonParameter?,
+  amount: Tez = Tez.ZeroBalance,
+  parameter: MichelsonParameter? = nil,
   source: Address,
   signatureProvider: SignatureProvider,
   operationFees: OperationFees? = nil,
@@ -59,7 +59,7 @@ Annotations do not have first class support in TezosKit. Please file an issue if
 
 ### Custom Parameters
 
-If a parameter type is not supported, TezosKit provides an abstract class to allow implementation. Simply instantiate a `CustomMichelsonParameter`. Since all Michelson parameters are encoded to JSON when interacting over the network, `CustomMichelsonParameter` simply takes a swift dictionary that will be encoded to JSON. In fact, every other Michelson parameter in TezosKit inherits from this class to implement parameter types.
+If a parameter type is not supported, TezosKit provides an abstract class to allow implementation. Simply instantiate a `AbstractMichelsonParameter`. Since all Michelson parameters are encoded to JSON when interacting over the network, `AbstractMichelsonParameter` simply takes a swift dictionary that will be encoded to JSON. In fact, every other Michelson parameter in TezosKit inherits from this class to implement parameter types.
 
 For instance, to encode the parameter of type:
 ```javascript
@@ -84,7 +84,7 @@ let jsonDict: [String: Any] = [
   "annots": annotsArray
 ]
 
-let michelineParam = CustomMichelineParam(networkRepresentation: jsonDict)
+let michelineParam = AbstractMichelineParam(networkRepresentation: jsonDict)
 ```
 
 You can find the JSON specicification for Micheline here: https://tezos.gitlab.io/master/whitedoc/michelson.html#json-syntax.
