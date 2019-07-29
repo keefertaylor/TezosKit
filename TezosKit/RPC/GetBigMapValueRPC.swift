@@ -24,6 +24,8 @@ public class GetBigMapValueRPC: RPC<[String: Any]> {
       ]
     )
 
+    // The TezosNodeClient returns a HTTP 415 error if this header is not included with the payload. This behavior is
+    // unique to this RPC. Adding this header to other RPCs causes them to fail with HTTP 415. ¯\_(ツ)_/¯
     let headers = [
       Header.contentTypeApplicationJSON
     ]
