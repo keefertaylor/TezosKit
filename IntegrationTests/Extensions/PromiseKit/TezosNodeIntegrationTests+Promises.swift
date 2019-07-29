@@ -227,24 +227,24 @@ extension TezosNodeIntegrationTests {
   func testSmartContractInvocation_promises() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let parameter = LeftMichelsonParameter(
-      arg: LeftMichelsonParameter(
-        arg: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: 1),
-          right: PairMichelsonParameter(
-            left: IntMichelsonParameter(int: 100),
+    let operationFees = OperationFees(fee: Tez(1), gasLimit: Tez("733732")!, storageLimit: Tez.zeroBalance)
+    let parameter =
+      RightMichelsonParameter(
+        arg: LeftMichelsonParameter(
+          arg: PairMichelsonParameter(
+            left: IntMichelsonParameter(int: 1),
             right: StringMichelsonParameter(string: .testExpirationTimestamp)
           )
         )
-      )
     )
 
     self.nodeClient.call(
       contract: Wallet.dexterExchangeContract,
-      amount: Tez("1")!,
+      amount: Tez(1.0),
       parameter: parameter,
       source: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet
+      signatureProvider: Wallet.testWallet,
+      operationFees: operationFees
     ) .done { _ in
       expectation.fulfill()
     } .catch { _ in
