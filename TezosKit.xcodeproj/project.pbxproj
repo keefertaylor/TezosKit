@@ -126,19 +126,16 @@
 		77CE385C21FC7ED8006ADABA /* OperationFees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382221FC7ED7006ADABA /* OperationFees.swift */; };
 		77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382321FC7ED7006ADABA /* PeriodKind.swift */; };
 		77CE385E21FC7ED8006ADABA /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382421FC7ED7006ADABA /* Wallet.swift */; };
-		77CE385F21FC7ED8006ADABA /* ContractCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382521FC7ED7006ADABA /* ContractCode.swift */; };
 		77CE386121FC7ED8006ADABA /* GetAddressBalanceRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382821FC7ED7006ADABA /* GetAddressBalanceRPC.swift */; };
 		77CE386221FC7ED8006ADABA /* GetChainHeadHashRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382921FC7ED7006ADABA /* GetChainHeadHashRPC.swift */; };
 		77CE386321FC7ED8006ADABA /* GetAddressCounterRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */; };
 		77CE386421FC7ED8006ADABA /* GetBallotsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382B21FC7ED7006ADABA /* GetBallotsRPC.swift */; };
-		77CE386521FC7ED8006ADABA /* GetAddressCodeRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382C21FC7ED7006ADABA /* GetAddressCodeRPC.swift */; };
 		77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382D21FC7ED7006ADABA /* GetProposalsListRPC.swift */; };
 		77CE386721FC7ED8006ADABA /* TezResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE382F21FC7ED7006ADABA /* TezResponseAdapter.swift */; };
 		77CE386821FC7ED8006ADABA /* ResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383021FC7ED7006ADABA /* ResponseAdapter.swift */; };
 		77CE386921FC7ED8006ADABA /* JSONDictionaryResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383121FC7ED7006ADABA /* JSONDictionaryResponseAdapter.swift */; };
 		77CE386A21FC7ED8006ADABA /* AbstractResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383221FC7ED7006ADABA /* AbstractResponseAdapter.swift */; };
 		77CE386B21FC7ED8006ADABA /* IntegerResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383321FC7ED7006ADABA /* IntegerResponseAdapter.swift */; };
-		77CE386C21FC7ED8006ADABA /* ContractCodeResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383421FC7ED7006ADABA /* ContractCodeResponseAdapter.swift */; };
 		77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383521FC7ED7006ADABA /* PeriodKindResponseAdapter.swift */; };
 		77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383621FC7ED7006ADABA /* StringResponseAdapter.swift */; };
 		77CE386F21FC7ED8006ADABA /* JSONArrayResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CE383721FC7ED7006ADABA /* JSONArrayResponseAdapter.swift */; };
@@ -353,19 +350,16 @@
 		77CE382221FC7ED7006ADABA /* OperationFees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationFees.swift; sourceTree = "<group>"; };
 		77CE382321FC7ED7006ADABA /* PeriodKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodKind.swift; sourceTree = "<group>"; };
 		77CE382421FC7ED7006ADABA /* Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
-		77CE382521FC7ED7006ADABA /* ContractCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractCode.swift; sourceTree = "<group>"; };
 		77CE382821FC7ED7006ADABA /* GetAddressBalanceRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressBalanceRPC.swift; sourceTree = "<group>"; };
 		77CE382921FC7ED7006ADABA /* GetChainHeadHashRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPC.swift; sourceTree = "<group>"; };
 		77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressCounterRPC.swift; sourceTree = "<group>"; };
 		77CE382B21FC7ED7006ADABA /* GetBallotsRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetBallotsRPC.swift; sourceTree = "<group>"; };
-		77CE382C21FC7ED7006ADABA /* GetAddressCodeRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAddressCodeRPC.swift; sourceTree = "<group>"; };
 		77CE382D21FC7ED7006ADABA /* GetProposalsListRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetProposalsListRPC.swift; sourceTree = "<group>"; };
 		77CE382F21FC7ED7006ADABA /* TezResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TezResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE383021FC7ED7006ADABA /* ResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE383121FC7ED7006ADABA /* JSONDictionaryResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDictionaryResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE383221FC7ED7006ADABA /* AbstractResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE383321FC7ED7006ADABA /* IntegerResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerResponseAdapter.swift; sourceTree = "<group>"; };
-		77CE383421FC7ED7006ADABA /* ContractCodeResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractCodeResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE383521FC7ED7006ADABA /* PeriodKindResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodKindResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE383621FC7ED7006ADABA /* StringResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringResponseAdapter.swift; sourceTree = "<group>"; };
 		77CE383721FC7ED7006ADABA /* JSONArrayResponseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONArrayResponseAdapter.swift; sourceTree = "<group>"; };
@@ -641,7 +635,6 @@
 				77CE382221FC7ED7006ADABA /* OperationFees.swift */,
 				77CE382321FC7ED7006ADABA /* PeriodKind.swift */,
 				77CE382421FC7ED7006ADABA /* Wallet.swift */,
-				77CE382521FC7ED7006ADABA /* ContractCode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -656,7 +649,6 @@
 				7794E97A224C2518000D9F1E /* Header.swift */,
 				77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */,
 				77CE382B21FC7ED7006ADABA /* GetBallotsRPC.swift */,
-				77CE382C21FC7ED7006ADABA /* GetAddressCodeRPC.swift */,
 				77CE382D21FC7ED7006ADABA /* GetProposalsListRPC.swift */,
 				77CE382E21FC7ED7006ADABA /* ResponseAdapters */,
 				77CE383821FC7ED7006ADABA /* GetChainHeadRPC.swift */,
@@ -683,7 +675,6 @@
 				77CE383121FC7ED7006ADABA /* JSONDictionaryResponseAdapter.swift */,
 				77CE383221FC7ED7006ADABA /* AbstractResponseAdapter.swift */,
 				77CE383321FC7ED7006ADABA /* IntegerResponseAdapter.swift */,
-				77CE383421FC7ED7006ADABA /* ContractCodeResponseAdapter.swift */,
 				77CE383521FC7ED7006ADABA /* PeriodKindResponseAdapter.swift */,
 				77CE383621FC7ED7006ADABA /* StringResponseAdapter.swift */,
 				77CE383721FC7ED7006ADABA /* JSONArrayResponseAdapter.swift */,
@@ -1049,7 +1040,6 @@
 				77CE386D21FC7ED8006ADABA /* PeriodKindResponseAdapter.swift in Sources */,
 				77FE786E22EC327D00B85B9D /* PairMichelsonParameter.swift in Sources */,
 				7730B1D922E95B4500148990 /* MichelsonParameter.swift in Sources */,
-				77CE386521FC7ED8006ADABA /* GetAddressCodeRPC.swift in Sources */,
 				7767AE3522C3F05D0043C52C /* CodingUtil.swift in Sources */,
 				7767AE3D22C572300043C52C /* OperationMetadataProvider.swift in Sources */,
 				77B69EA7224C392300DB4319 /* ConseilPlatform.swift in Sources */,
@@ -1057,7 +1047,6 @@
 				77CE385921FC7ED8006ADABA /* Tez.swift in Sources */,
 				77B69EAB224C3A5300DB4319 /* GetSentTransactionsRPC.swift in Sources */,
 				77FE786A22EC320900B85B9D /* BoolMichelsonParameter.swift in Sources */,
-				77CE385F21FC7ED8006ADABA /* ContractCode.swift in Sources */,
 				77CE386821FC7ED8006ADABA /* ResponseAdapter.swift in Sources */,
 				77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */,
 				77CE386221FC7ED8006ADABA /* GetChainHeadHashRPC.swift in Sources */,
@@ -1069,7 +1058,6 @@
 				77F4D266221CCE4B00D34B01 /* NetworkClient.swift in Sources */,
 				7767AE3322C3EBFC0043C52C /* PublicKey.swift in Sources */,
 				77B69EC1224F2A2800DB4319 /* GetOriginatedAccountsRPC.swift in Sources */,
-				77CE386C21FC7ED8006ADABA /* ContractCodeResponseAdapter.swift in Sources */,
 				77B1EAF7222885E300EA4FCE /* SignedOperationPayload.swift in Sources */,
 				77B69ED1225348B400DB4319 /* ConseilClient+Promises.swift in Sources */,
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
