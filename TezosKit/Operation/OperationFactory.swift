@@ -93,13 +93,11 @@ public class OperationFactory {
   ///   - amount: The amount of XTZ to transact.
   ///   - from: The address that is sending the XTZ.
   ///   - to: The address that is receiving the XTZ.
-  ///   - parameters: Optional parameters to include in the transaction if the call is being made to a smart contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public func transactionOperation(
     amount: Tez,
     source: Address,
     destination: Address,
-    parameters: [String: Any]? = nil,
     operationFees: OperationFees? = nil
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .transaction, in: tezosProtocol)
@@ -107,7 +105,32 @@ public class OperationFactory {
       amount: amount,
       source: source,
       destination: destination,
-      parameters: parameters,
+      operationFees: operationFees
+    )
+  }
+
+  /// Create a new smart contract invocation operation.
+  ///
+  /// - Parameters:
+  ///   - contract: The smart contract to invoke.
+  ///   - amount: The amount of Tez to transfer with the invocation.
+  ///   - parameter: An optional parameter to send to the smart contract.
+  ///   - source: The address invoking the contract.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  public func smartContractInvocationOperation(
+    amount: Tez,
+    parameter: MichelsonParameter?,
+    source: Address,
+    destination: Address,
+    operationFees: OperationFees?
+  ) -> Operation {
+    let operationFees = operationFees ?? defaultFeeProvider.fees(for: .transaction, in: tezosProtocol)
+    return TransactionOperation(
+      amount: amount,
+      parameter: parameter,
+      source: source,
+      destination: destination,
       operationFees: operationFees
     )
   }
