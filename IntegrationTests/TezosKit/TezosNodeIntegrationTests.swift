@@ -1,6 +1,6 @@
 // Copyright Keefer Taylor, 2019.
 
-import TezosKit
+@testable import TezosKit
 import XCTest
 
 // swiftlint:disable cyclomatic_complexity
@@ -19,10 +19,15 @@ import XCTest
 /// https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 ///
 /// You can check the balance of the account at:
-/// https://tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
+/// https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 ///
 /// Instructions for adding balance to an alphanet account are available at:
 /// https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet
+///
+/// These tests also utilize a Dexter Exchange contract, located at:
+/// https://alphanet.tzscan.io/KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434
+/// For more information about Dexter, see:
+/// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
 extension Wallet {
   public static let testWallet =
@@ -31,6 +36,9 @@ extension Wallet {
 
   // An address which has originated contracts on it.
   public static let contractOwningAddress = "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt"
+
+  // An address of a Dexter Exchange Contract
+  public static let dexterExchangeContract = "KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434"
 }
 
 extension URL {
@@ -48,6 +56,10 @@ extension UInt32 {
 
 extension OperationFactory {
   public static let testOperationFactory = OperationFactory()
+}
+
+extension String {
+  public static let testExpirationTimestamp = "2020-06-29T18:00:21Z"
 }
 
 class TezosNodeIntegrationTests: XCTestCase {
@@ -320,6 +332,39 @@ class TezosNodeIntegrationTests: XCTestCase {
         expectation.fulfill()
       }
     }
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  func testSmartContractInvocation() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let operationFees = OperationFees(fee: Tez(1), gasLimit: Tez("733732")!, storageLimit: Tez.zeroBalance)
+    let parameter =
+      RightMichelsonParameter(
+        arg: LeftMichelsonParameter(
+          arg: PairMichelsonParameter(
+            left: IntMichelsonParameter(int: 1),
+            right: StringMichelsonParameter(string: .testExpirationTimestamp)
+          )
+        )
+      )
+
+    self.nodeClient.call(
+      contract: Wallet.dexterExchangeContract,
+      amount: Tez(1.0),
+      parameter: parameter,
+      source: Wallet.testWallet.address,
+      signatureProvider: Wallet.testWallet,
+      operationFees: operationFees
+    ) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success:
+        expectation.fulfill()
+      }
+    }
+
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 }
