@@ -28,7 +28,7 @@ public class OperationFactory {
   public func revealOperation(
     from address: Address,
     publicKey: PublicKey,
-    operationFees: OperationFees? = nil
+    operationFees: OperationFees?
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .reveal, in: tezosProtocol)
     return RevealOperation(from: address, publicKey: publicKey, operationFees: operationFees)
@@ -42,8 +42,8 @@ public class OperationFactory {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public func originationOperation(
     address: Address,
-    contractCode: ContractCode? = nil,
-    operationFees: OperationFees? = nil
+    contractCode: ContractCode?,
+    operationFees: OperationFees?
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .origination, in: tezosProtocol)
     return OriginationOperation(address: address, contractCode: contractCode, operationFees: operationFees)
@@ -56,7 +56,7 @@ public class OperationFactory {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public func registerDelegateOperation(
     source: Address,
-    operationFees: OperationFees?  = nil
+    operationFees: OperationFees?
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .delegation, in: tezosProtocol)
     return DelegationOperation(source: source, delegate: source, operationFees: operationFees)
@@ -71,7 +71,7 @@ public class OperationFactory {
   public func delegateOperation(
     source: Address,
     to delegate: Address,
-    operationFees: OperationFees? = nil
+    operationFees: OperationFees?
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .delegation, in: tezosProtocol)
     return DelegationOperation(source: source, delegate: delegate, operationFees: operationFees)
@@ -82,7 +82,7 @@ public class OperationFactory {
   /// - Parameters:
   ///   - source: The address that will have its delegate cleared.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  public func undelegateOperation(source: Address, operationFees: OperationFees? = nil) -> Operation {
+  public func undelegateOperation(source: Address, operationFees: OperationFees?) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .delegation, in: tezosProtocol)
     return DelegationOperation(source: source, delegate: nil, operationFees: operationFees)
   }
@@ -98,7 +98,7 @@ public class OperationFactory {
     amount: Tez,
     source: Address,
     destination: Address,
-    operationFees: OperationFees? = nil
+    operationFees: OperationFees?
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .transaction, in: tezosProtocol)
     return TransactionOperation(

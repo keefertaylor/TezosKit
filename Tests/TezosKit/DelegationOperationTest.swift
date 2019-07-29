@@ -8,7 +8,7 @@ class DelegationOperationTest: XCTestCase {
     let source = "tz1abc"
     let delegate = "tz1def"
 
-    let operation = OperationFactory.testFactory.delegateOperation(source: source, to: delegate)
+    let operation = OperationFactory.testFactory.delegateOperation(source: source, to: delegate, operationFees: nil)
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
@@ -21,7 +21,7 @@ class DelegationOperationTest: XCTestCase {
   public func testDictionaryRepresentation_undelegate() {
     let source = "tz1abc"
 
-    let operation = OperationFactory.testFactory.undelegateOperation(source: source)
+    let operation = OperationFactory.testFactory.undelegateOperation(source: source, operationFees: nil)
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
@@ -33,7 +33,7 @@ class DelegationOperationTest: XCTestCase {
   public func testDictionaryRepresentation_registerDelegate() {
     let source = "tz1abc"
 
-    let operation = OperationFactory.testFactory.registerDelegateOperation(source: source)
+    let operation = OperationFactory.testFactory.registerDelegateOperation(source: source, operationFees: nil)
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])

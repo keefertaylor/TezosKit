@@ -44,7 +44,11 @@ public struct OperationPayload {
     // perform.
     var mutableOperations = operations
     if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-      let revealOperation = operationFactory.revealOperation(from: source, publicKey: signatureProvider.publicKey)
+      let revealOperation = operationFactory.revealOperation(
+        from: source,
+        publicKey: signatureProvider.publicKey,
+        operationFees: nil
+      )
       mutableOperations.insert(revealOperation, at: 0)
     }
 
