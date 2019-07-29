@@ -3,7 +3,7 @@
 import Foundation
 
 // A representation of a right parameter in Michelson.
-public class RightMichelsonParameter: CustomMichelsonParameter {
+public class RightMichelsonParameter: AbstractMichelsonParameter {
   public init(arg: MichelsonParameter) {
     let argArray = [ arg.networkRepresentation ]
     super.init(

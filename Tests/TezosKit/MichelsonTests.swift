@@ -122,7 +122,7 @@ final class MichelsonTests: XCTestCase {
       "annots": [ "@TezosKitAnnotation" ]
     ]
     let expected = "{\"prim\":\"Left\",\"args\":[\(MichelsonTests.expectedMichelsonIntEncoding)],\"annots\":[\"@TezosKitAnnotation\"]}"
-    let michelson = CustomMichelsonParameter(networkRepresentation: jsonDict)
+    let michelson = AbstractMichelsonParameter(networkRepresentation: jsonDict)
 
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, fixExpected(expected))

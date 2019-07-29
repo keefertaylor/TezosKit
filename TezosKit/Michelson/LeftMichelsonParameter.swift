@@ -3,7 +3,7 @@
 import Foundation
 
 /// A representation of a left parameter in Michelson.
-public class LeftMichelsonParameter: CustomMichelsonParameter {
+public class LeftMichelsonParameter: AbstractMichelsonParameter {
   public init(arg: MichelsonParameter) {
     let argArray = [ arg.networkRepresentation ]
     super.init(
