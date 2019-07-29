@@ -394,6 +394,23 @@ public class TezosNodeClient {
     networkClient.send(rpc, completion: completion)
   }
 
+  /// Inspect the value of a big map in a smart contract.
+  ///
+  /// - Parameters:
+  ///   - address: The address of a smart contract with a big map.
+  ///   - key: The key in the big map to look up.
+  ///   - type: The michelson type of the key.
+  /// TODONOT: Promises
+  public func getBigMapValue(
+    address: Address,
+    key: MichelsonParameter,
+    type: MichelsonComparable,
+    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+  ) {
+    let rpc = GetBigMapValueRPC(address: address, key: key, type: type)
+    networkClient.send(rpc)
+  }
+
   /// Retrieve metadata and runs an operation.
   ///
   /// - Parameters:

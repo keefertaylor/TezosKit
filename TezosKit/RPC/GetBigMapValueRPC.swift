@@ -2,7 +2,7 @@
 
 import Foundation
 
-internal enum GetBigMapValueJSONConstants {
+private enum GetBigMapValueJSONConstants {
   public static let key = "key"
   public static let prim = "prim"
   public static let type = "type"
@@ -11,7 +11,7 @@ internal enum GetBigMapValueJSONConstants {
 /// An RPC that will retrieve the value of a big map for the given key.
 public class GetBigMapValueRPC: RPC<String> {
   /// - Parameters:
-  ///   - address: The address to retrieve info about.
+  ///   - address: The address of a smart contract with a big map.
   ///   - key: The key in the big map to look up.
   ///   - type: The michelson type of the key.
   public init(address: Address, key: MichelsonParameter, type: MichelsonComparable) {
