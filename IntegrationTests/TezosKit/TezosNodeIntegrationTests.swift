@@ -23,6 +23,11 @@ import XCTest
 ///
 /// Instructions for adding balance to an alphanet account are available at:
 /// https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet
+///
+/// These tests also utilize a Dexter Exchange contract, located at:
+/// TODO
+/// For more information about Dexter, see:
+/// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
 extension Wallet {
   public static let testWallet =
@@ -31,6 +36,9 @@ extension Wallet {
 
   // An address which has originated contracts on it.
   public static let contractOwningAddress = "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt"
+
+  // An address of a Dexter Exchange Contract
+  public static let dexterExchangeContract = "KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434"
 }
 
 extension URL {
@@ -321,5 +329,39 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  func testSmartContractInvocation() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let parameter = LeftMichelsonParameter(
+      arg: LeftMichelsonParameter(
+        arg: PairMichelsonParameter(
+          left: IntMichelsonParameter(int: 1),
+          right: PairMichelsonParameter(
+            left: IntMichelsonParameter(int: 100),
+            right: StringMichelsonParameter(string: "2020-06-29T18:00:21Z")
+          )
+        )
+      )
+    )
+
+    self.nodeClient.call(
+      amount: Tez("1")!,
+      parameter: parameter,
+      to: Wallet.dexterExchangeContract.address,
+      from: Wallet.testWallet.address,
+      signatureProvider: Wallet.testWallet
+    ) { result in
+      switch result {
+      case .failure:
+        XCTFail()
+      case .success:
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+
   }
 }
