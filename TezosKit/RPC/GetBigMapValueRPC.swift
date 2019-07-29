@@ -9,7 +9,7 @@ private enum GetBigMapValueJSONConstants {
 }
 
 /// An RPC that will retrieve the value of a big map for the given key.
-public class GetBigMapValueRPC: RPC<String> {
+public class GetBigMapValueRPC: RPC<[String: Any]> {
   /// - Parameters:
   ///   - address: The address of a smart contract with a big map.
   ///   - key: The key in the big map to look up.
@@ -24,7 +24,9 @@ public class GetBigMapValueRPC: RPC<String> {
       ]
     )
 
-    super.init(endpoint: endpoint, responseAdapterClass: StringResponseAdapter.self, payload: payload)
+    let headers = Header(field: "content-type", value: "application/json")
+
+    super.init(endpoint: endpoint, responseAdapterClass: JSONDictionaryResponseAdapter.self, payload: payload)
   }
 
   private static func typeDict(for type: MichelsonComparable) -> [String: String] {

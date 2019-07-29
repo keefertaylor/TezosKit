@@ -277,6 +277,21 @@ extension TezosNodeClient {
     )
   }
 
+  /// Inspect the value of a big map in a smart contract.
+  ///
+  /// - Parameters:
+  ///   - address: The address of a smart contract with a big map.
+  ///   - key: The key in the big map to look up.
+  ///   - type: The michelson type of the key.
+  public func getBigMapValue(
+    address: Address,
+    key: MichelsonParameter,
+    type: MichelsonComparable
+  ) -> Promise<[String: Any]> {
+    let rpc = GetBigMapValueRPC(address: address, key: key, type: type)
+    return networkClient.send(rpc)
+  }
+
   /// Forge, sign, preapply and then inject a single operation.
   ///
   /// Operations are processed in the order they are placed in the operation array.
