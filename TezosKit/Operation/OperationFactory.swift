@@ -38,15 +38,13 @@ public class OperationFactory {
   ///
   /// - Parameters:
   ///   - address: The address which will originate the new account.
-  ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   public func originationOperation(
     address: Address,
-    contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil
   ) -> Operation {
     let operationFees = operationFees ?? defaultFeeProvider.fees(for: .origination, in: tezosProtocol)
-    return OriginationOperation(address: address, contractCode: contractCode, operationFees: operationFees)
+    return OriginationOperation(address: address, operationFees: operationFees)
   }
 
   /// Create a delegation operation which will register the given address as a delegate.

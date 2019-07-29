@@ -189,18 +189,15 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - managerAddress: The address which will manage the new account.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - contractCode: Optional code to associate with the originated contract.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func originateAccount(
     managerAddress: String,
     signatureProvider: SignatureProvider,
-    contractCode: ContractCode? = nil,
     operationFees: OperationFees? = nil
   ) -> Promise<String> {
     let originationOperation = operationFactory.originationOperation(
       address: managerAddress,
-      contractCode: contractCode,
       operationFees: operationFees
     )
     return forgeSignPreapplyAndInject(
@@ -208,13 +205,6 @@ extension TezosNodeClient {
       source: managerAddress,
       signatureProvider: signatureProvider
     )
-  }
-
-  /// Returns the code associated with the address as a NSDictionary.
-  /// - Parameter address: The address of the contract to load.
-  public func getAddressCode(address: Address) -> Promise<ContractCode> {
-    let rpc = GetAddressCodeRPC(address: address)
-    return networkClient.send(rpc)
   }
 
   /// Retrieve ballots cast so far during a voting period.
