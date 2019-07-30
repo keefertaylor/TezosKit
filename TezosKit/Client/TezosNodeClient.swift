@@ -384,6 +384,23 @@ public class TezosNodeClient {
     networkClient.send(rpc, completion: completion)
   }
 
+  /// Inspect the value of a big map in a smart contract.
+  ///
+  /// - Parameters:
+  ///   - address: The address of a smart contract with a big map.
+  ///   - key: The key in the big map to look up.
+  ///   - type: The michelson type of the key.
+  ///   - completion: A completion block to call.
+  public func getBigMapValue(
+    address: Address,
+    key: MichelsonParameter,
+    type: MichelsonComparable,
+    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+  ) {
+    let rpc = GetBigMapValueRPC(address: address, key: key, type: type)
+    networkClient.send(rpc, completion: completion)
+  }
+
   /// Retrieve metadata and runs an operation.
   ///
   /// - Parameters:
@@ -396,6 +413,19 @@ public class TezosNodeClient {
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
     simulationService.simulate(operation, from: wallet.address, signatureProvider: wallet, completion: completion)
+  }
+
+  /// Retrieve the storage of a smart contract.
+  ///
+  /// - Parameters:
+  ///   - address: The address of the smart contract to inspect.
+  ///   - completion: A completion block which will be called with the storage.
+  public func getContractStorage(
+    address: Address,
+    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+  ) {
+    let rpc = GetContractStorageRPC(address: address)
+    networkClient.send(rpc, completion: completion)
   }
 
   // MARK: - Private Methods

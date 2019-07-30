@@ -24,8 +24,10 @@ import XCTest
 /// Instructions for adding balance to an alphanet account are available at:
 /// https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet
 ///
-/// These tests also utilize a Dexter Exchange contract, located at:
+/// These tests also utilize a token and Dexter Exchange contract, located at:
 /// https://alphanet.tzscan.io/KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434
+/// https://alphanet.tzscan.io/KT1Md4zkfCvkdqgxAC9tyRYpRUBKmD1owEi2
+///
 /// For more information about Dexter, see:
 /// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
@@ -39,6 +41,9 @@ extension Wallet {
 
   // An address of a Dexter Exchange Contract
   public static let dexterExchangeContract = "KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434"
+
+  // An address of a token contract
+  public static let tokenContract = "KT1Md4zkfCvkdqgxAC9tyRYpRUBKmD1owEi2"
 }
 
 extension URL {
@@ -70,7 +75,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
+    let intertestWaitTime: UInt32 = 0
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -362,6 +367,67 @@ class TezosNodeIntegrationTests: XCTestCase {
         XCTFail()
       case .success:
         expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  func testGetBigMapValue() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let parameter = StringMichelsonParameter(string: Wallet.testWallet.address)
+    self.nodeClient.getBigMapValue(
+      address: Wallet.tokenContract,
+      key: parameter,
+      type: .address
+    ) { result in
+      switch result {
+      case .success(let result):
+        guard
+          let args = result["args"] as? [Any],
+          let firstArg = args[0] as? [String: Any],
+          let valueString = firstArg["int"] as? String,
+          let value = Int(valueString)
+          else {
+            XCTFail()
+            return
+        }
+        XCTAssert(value > 0)
+        expectation.fulfill()
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  func testGetContractStorage() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.getContractStorage(address: Wallet.tokenContract) { result in
+      switch result {
+      case .success(let result):
+        guard
+          let args = result["args"] as? [Any],
+          let args2 = args[1] as? [String: Any],
+          let args3 = args2["args"] as? [Any],
+          let args4 = args3[1] as? [String: Any],
+          let args5 = args4["args"] as? [Any],
+          let args6 = args5[1] as? [String: Any],
+          let ticker = args6["string"] as? String
+        else {
+          XCTFail()
+          return
+        }
+
+        XCTAssertEqual(ticker, "TGD")
+        expectation.fulfill()
+      case .failure(let error):
+        print(error)
+        XCTFail()
       }
     }
 

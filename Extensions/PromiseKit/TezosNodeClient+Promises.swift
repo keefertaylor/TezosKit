@@ -249,6 +249,17 @@ extension TezosNodeClient {
     return networkClient.send(rpc)
   }
 
+  /// Retrieve the storage of a smart contract.
+  ///
+  /// - Parameter address: The address of the smart contract to inspect.
+  /// - Returns: A promise that resolves with the storage of the contract.
+  public func getContractStorage(
+    address: Address
+  ) -> Promise<[String: Any]> {
+    let rpc = GetContractStorageRPC(address: address)
+    return networkClient.send(rpc)
+  }
+
   /// Forge, sign, preapply and then inject a single operation.
   /// - Parameters:
   ///   - operation: The operation which will be forged.
@@ -265,6 +276,21 @@ extension TezosNodeClient {
       source: source,
       signatureProvider: signatureProvider
     )
+  }
+
+  /// Inspect the value of a big map in a smart contract.
+  ///
+  /// - Parameters:
+  ///   - address: The address of a smart contract with a big map.
+  ///   - key: The key in the big map to look up.
+  ///   - type: The michelson type of the key.
+  public func getBigMapValue(
+    address: Address,
+    key: MichelsonParameter,
+    type: MichelsonComparable
+  ) -> Promise<[String: Any]> {
+    let rpc = GetBigMapValueRPC(address: address, key: key, type: type)
+    return networkClient.send(rpc)
   }
 
   /// Forge, sign, preapply and then inject a single operation.

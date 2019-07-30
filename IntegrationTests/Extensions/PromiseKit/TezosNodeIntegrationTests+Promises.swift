@@ -253,4 +253,57 @@ extension TezosNodeIntegrationTests {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
+
+  func testGetBigMapValue_promises() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let parameter = StringMichelsonParameter(string: Wallet.testWallet.address)
+    self.nodeClient.getBigMapValue(
+      address: Wallet.tokenContract,
+      key: parameter,
+      type: .address
+    ) .done { result in
+      guard
+        let args = result["args"] as? [Any],
+        let firstArg = args[0] as? [String: Any],
+        let valueString = firstArg["int"] as? String,
+        let value = Int(valueString)
+      else {
+        XCTFail()
+        return
+      }
+      XCTAssert(value > 0)
+      expectation.fulfill()
+    } .catch { _ in
+      XCTFail()
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  func testGetContractStorage_promises() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.getContractStorage(address: Wallet.tokenContract) .done { result in
+      guard
+        let args = result["args"] as? [Any],
+        let args2 = args[1] as? [String: Any],
+        let args3 = args2["args"] as? [Any],
+        let args4 = args3[1] as? [String: Any],
+        let args5 = args4["args"] as? [Any],
+        let args6 = args5[1] as? [String: Any],
+        let ticker = args6["string"] as? String
+      else {
+        XCTFail()
+        return
+      }
+
+      XCTAssertEqual(ticker, "TGD")
+      expectation.fulfill()
+    } .catch { _ in
+      XCTFail()
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
 }

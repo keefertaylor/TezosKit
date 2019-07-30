@@ -3,8 +3,6 @@
 @testable import TezosKit
 import XCTest
 
-// swiftlint:disable force_cast
-// swiftlint:disable force_try
 // swiftlint:disable line_length
 
 final class MichelsonTests: XCTestCase {
@@ -45,74 +43,74 @@ final class MichelsonTests: XCTestCase {
   func testEncodeUnitToJSON() {
     let michelson = MichelsonTests.michelsonUnit
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonUnitEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonUnitEncoding))
   }
 
   func testEncodeStringToJSON() {
     let michelson = MichelsonTests.michelsonString
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonStringEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonStringEncoding))
   }
 
   func testEncodeIntToJSON() {
     let michelson = MichelsonTests.michelsonInt
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonIntEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonIntEncoding))
   }
 
   func testEncodePairToJSON() {
     let michelson = MichelsonTests.michelsonPair
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonPairEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonPairEncoding))
   }
 
   func testEncodeLeftToJSON() {
     let michelson = MichelsonTests.michelsonLeft
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonLeftEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonLeftEncoding))
   }
 
   func testEncodeRightToJSON() {
     let michelson = MichelsonTests.michelsonRight
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonRightEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonRightEncoding))
   }
 
   func testEncodeTrueToJSON() {
     let michelson = MichelsonTests.michelsonTrue
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonTrueEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonTrueEncoding))
   }
 
   func testEncodeFalseToJSON() {
     let michelson = MichelsonTests.michelsonFalse
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonFalseEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonFalseEncoding))
   }
 
   func testEncodeHexBytesToJSON() {
     let michelson = MichelsonTests.michelsonBytes
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonBytesEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonBytesEncoding))
   }
 
   func testEncodeBinaryBytesToJSON() {
     let bytes = CodingUtil.hexToBin("deadbeef")!
     let michelson = BytesMichelsonParameter(bytes: bytes)!
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonBytesEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonBytesEncoding))
   }
 
   func testEncodeSomeToJSON() {
     let michelson = MichelsonTests.michelsonSome
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonSomeEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonSomeEncoding))
   }
 
   func testEncodeNoneToJSON() {
     let michelson = MichelsonTests.michelsonNone
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(MichelsonTests.expectedMichelsonNoneEncoding))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonNoneEncoding))
   }
 
   func testCustomParameter() {
@@ -125,7 +123,7 @@ final class MichelsonTests: XCTestCase {
     let michelson = AbstractMichelsonParameter(networkRepresentation: jsonDict)
 
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
-    XCTAssertEqual(encoded, fixExpected(expected))
+    XCTAssertEqual(encoded, Helpers.orderJSONString(expected))
   }
 
   // MARK: - Dexter / Token Contract
@@ -143,7 +141,7 @@ final class MichelsonTests: XCTestCase {
 
     let expected = "{ \"prim\": \"Left\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"string\": \"tz1XarY7qEahQBipuuNZ4vPw9MN6Ldyxv8G3\" }, { \"prim\": \"Pair\", \"args\": [ { \"string\": \"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\" }, { \"int\": \"10\" } ] } ] } ] }"
     let json = JSONUtils.jsonString(for: param.networkRepresentation)
-    XCTAssertEqual(json, fixExpected(expected))
+    XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
 
   // MARK: - Dexter / Exchange
@@ -163,7 +161,7 @@ final class MichelsonTests: XCTestCase {
     let expected = "{ \"prim\": \"Left\", \"args\": [ { \"prim\": \"Left\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"int\": \"1\" }, { \"prim\": \"Pair\", \"args\": [ { \"int\": \"100\" }, { \"string\": \"2020-06-29T18:00:21Z\" } ] } ] } ] } ] }"
 
     let json = JSONUtils.jsonString(for: param.networkRepresentation)
-    XCTAssertEqual(json, fixExpected(expected))
+    XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
 
   func testBuyTokens() {
@@ -178,7 +176,7 @@ final class MichelsonTests: XCTestCase {
     let expected = "{\"prim\":\"Right\",\"args\":[{\"prim\":\"Left\",\"args\":[{\"prim\":\"Pair\",\"args\":[{\"int\":\"1\"},{\"string\":\"2020-06-29T18:00:21Z\"}]}]}]}"
 
     let json = JSONUtils.jsonString(for: param.networkRepresentation)
-    XCTAssertEqual(json, fixExpected(expected))
+    XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
 
   func testBuyTez() {
@@ -199,7 +197,7 @@ final class MichelsonTests: XCTestCase {
     let expected = "{ \"prim\": \"Right\", \"args\": [ { \"prim\": \"Right\", \"args\": [ { \"prim\": \"Left\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"int\": \"10\" }, { \"prim\": \"Pair\", \"args\":[ { \"int\": \"1\" }, { \"string\": \"2020-06-29T18:00:21Z\" } ] } ] } ] } ] } ] }"
 
     let json = JSONUtils.jsonString(for: param.networkRepresentation)
-    XCTAssertEqual(json, fixExpected(expected))
+    XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
 
   func testRemoveLiquidity() {
@@ -220,19 +218,6 @@ final class MichelsonTests: XCTestCase {
     let expected = "{ \"prim\": \"Left\", \"args\": [ { \"prim\": \"Right\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"int\": \"100\" }, { \"int\": \"1\" } ] }, { \"prim\": \"Pair\", \"args\": [ { \"int\": \"1\" }, { \"string\": \"2020-06-29T18:00:21Z\" } ] } ] } ] } ] }"
 
     let json = JSONUtils.jsonString(for: param.networkRepresentation)
-    XCTAssertEqual(json, fixExpected(expected))
-  }
-
-  // MARK: - Helpers
-
-  /// Fix the expected input to the expected output of Swift's JSON serializer.
-  ///
-  /// Expected output is taken from the human readable version of the JSON serialization format. Swift outputs JSON
-  /// keys either (1) non-deterministically or (2) ordered by key. This function re-orders the expected outputs of a
-  /// input JSON string by key so that asserts can work properly.
-  func fixExpected(_ expected: String) -> String {
-    let data = expected.data(using: .utf8)!
-    let dictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-    return JSONUtils.jsonString(for: dictionary)!
+    XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
 }

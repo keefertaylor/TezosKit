@@ -173,6 +173,12 @@
 		77FE787622EC333B00B85B9D /* UnitMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787522EC333B00B85B9D /* UnitMichelsonParameter.swift */; };
 		77FE787822EC336700B85B9D /* NoneMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787722EC336700B85B9D /* NoneMichelsonParameter.swift */; };
 		77FE787A22EE10C100B85B9D /* AbstractMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787922EE10C100B85B9D /* AbstractMichelsonParameter.swift */; };
+		77FE787E22EE8DA200B85B9D /* GetBigMapValueRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787D22EE8DA200B85B9D /* GetBigMapValueRPC.swift */; };
+		77FE788022EE907900B85B9D /* MichelsonComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE787F22EE907900B85B9D /* MichelsonComparable.swift */; };
+		77FE788222EE913300B85B9D /* GetBigMapValueRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788122EE913300B85B9D /* GetBigMapValueRPCTest.swift */; };
+		77FE788422EEA29300B85B9D /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788322EEA29300B85B9D /* TestHelpers.swift */; };
+		77FE788622EEE3C800B85B9D /* GetContractStorageRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788522EEE3C800B85B9D /* GetContractStorageRPC.swift */; };
+		77FE788822EEE42500B85B9D /* GetContractStorageRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788722EEE42500B85B9D /* GetContractStorageRPCTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,6 +404,12 @@
 		77FE787522EC333B00B85B9D /* UnitMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMichelsonParameter.swift; sourceTree = "<group>"; };
 		77FE787722EC336700B85B9D /* NoneMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneMichelsonParameter.swift; sourceTree = "<group>"; };
 		77FE787922EE10C100B85B9D /* AbstractMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractMichelsonParameter.swift; sourceTree = "<group>"; };
+		77FE787D22EE8DA200B85B9D /* GetBigMapValueRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueRPC.swift; sourceTree = "<group>"; };
+		77FE787F22EE907900B85B9D /* MichelsonComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MichelsonComparable.swift; sourceTree = "<group>"; };
+		77FE788122EE913300B85B9D /* GetBigMapValueRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueRPCTest.swift; sourceTree = "<group>"; };
+		77FE788322EEA29300B85B9D /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		77FE788522EEE3C800B85B9D /* GetContractStorageRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetContractStorageRPC.swift; sourceTree = "<group>"; };
+		77FE788722EEE42500B85B9D /* GetContractStorageRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetContractStorageRPCTest.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -449,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				7730B1D822E95B4500148990 /* MichelsonParameter.swift */,
+				77FE787F22EE907900B85B9D /* MichelsonComparable.swift */,
 				77FE787722EC336700B85B9D /* NoneMichelsonParameter.swift */,
 				77FE786922EC320900B85B9D /* BoolMichelsonParameter.swift */,
 				77FE786522EC31B400B85B9D /* StringMichelsonParameter.swift */,
@@ -550,6 +563,7 @@
 			children = (
 				77B1EAFB2228C03400EA4FCE /* TestObjects.swift */,
 				7776493A227616B200451DD5 /* FakeObjects.swift */,
+				77FE788322EEA29300B85B9D /* TestHelpers.swift */,
 				77F4D27422221CDD00D34B01 /* Extensions */,
 				77F4D27322221CCE00D34B01 /* TezosKit */,
 			);
@@ -643,14 +657,16 @@
 			isa = PBXGroup;
 			children = (
 				77B1EAFA2228B7F300EA4FCE /* Payload */,
+				77CE382E21FC7ED7006ADABA /* ResponseAdapters */,
 				77CE382821FC7ED7006ADABA /* GetAddressBalanceRPC.swift */,
+				77FE788522EEE3C800B85B9D /* GetContractStorageRPC.swift */,
+				77FE787D22EE8DA200B85B9D /* GetBigMapValueRPC.swift */,
 				77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */,
 				77CE382921FC7ED7006ADABA /* GetChainHeadHashRPC.swift */,
 				7794E97A224C2518000D9F1E /* Header.swift */,
 				77CE382A21FC7ED7006ADABA /* GetAddressCounterRPC.swift */,
 				77CE382B21FC7ED7006ADABA /* GetBallotsRPC.swift */,
 				77CE382D21FC7ED7006ADABA /* GetProposalsListRPC.swift */,
-				77CE382E21FC7ED7006ADABA /* ResponseAdapters */,
 				77CE383821FC7ED7006ADABA /* GetChainHeadRPC.swift */,
 				77CE383921FC7ED8006ADABA /* RPC.swift */,
 				77CE383A21FC7ED8006ADABA /* InjectOperationRPC.swift */,
@@ -715,6 +731,8 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				77FE788722EEE42500B85B9D /* GetContractStorageRPCTest.swift */,
+				77FE788122EE913300B85B9D /* GetBigMapValueRPCTest.swift */,
 				77FE786322EBE53200B85B9D /* MichelsonTests.swift */,
 				7719266522DCD9B900E63DE4 /* InjectionServiceTest.swift */,
 				7719265F22DA1E1500E63DE4 /* SimulationServiceTest.swift */,
@@ -1030,6 +1048,7 @@
 				77B69EB7224E3F3A00DB4319 /* ConseilQuery.swift in Sources */,
 				779427A922BABB8E00559A03 /* TezosProtocol.swift in Sources */,
 				7719265822D66C7C00E63DE4 /* Address.swift in Sources */,
+				77FE788622EEE3C800B85B9D /* GetContractStorageRPC.swift in Sources */,
 				77CE386F21FC7ED8006ADABA /* JSONArrayResponseAdapter.swift in Sources */,
 				77CE384E21FC7ED8006ADABA /* OperationKind.swift in Sources */,
 				779427B922C013D700559A03 /* SigningService.swift in Sources */,
@@ -1051,6 +1070,7 @@
 				77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */,
 				77CE386221FC7ED8006ADABA /* GetChainHeadHashRPC.swift in Sources */,
 				77B69EC322510C6500DB4319 /* ConseilEntity.swift in Sources */,
+				77FE788022EE907900B85B9D /* MichelsonComparable.swift in Sources */,
 				77CE387821FC7ED8006ADABA /* GetBallotsListRPC.swift in Sources */,
 				77CE386921FC7ED8006ADABA /* JSONDictionaryResponseAdapter.swift in Sources */,
 				77CE387421FC7ED8006ADABA /* GetAddressDelegateRPC.swift in Sources */,
@@ -1066,6 +1086,7 @@
 				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,
+				77FE787E22EE8DA200B85B9D /* GetBigMapValueRPC.swift in Sources */,
 				7719266422DCD82700E63DE4 /* Hex.swift in Sources */,
 				77FE786622EC31B400B85B9D /* StringMichelsonParameter.swift in Sources */,
 				77CE387721FC7ED8006ADABA /* GetVotingDelegateRightsRPC.swift in Sources */,
@@ -1121,6 +1142,7 @@
 				77CE36E321F7F49F006ADABA /* GetChainHeadHashRPCTest.swift in Sources */,
 				77CE36FA21F7F49F006ADABA /* TezosKitErrorCodesTest.swift in Sources */,
 				77CE370321F7F49F006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */,
+				77FE788222EE913300B85B9D /* GetBigMapValueRPCTest.swift in Sources */,
 				77CE36FE21F7F49F006ADABA /* GetBallotsRPCTest.swift in Sources */,
 				77CE36F221F7F49F006ADABA /* JSONDictionaryResponseAdapterTest.swift in Sources */,
 				77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */,
@@ -1143,6 +1165,7 @@
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
 				7719265422D63FFC00E63DE4 /* OperationMetadataProviderTest.swift in Sources */,
 				77B1EB04222A0A6700EA4FCE /* SignedProtocolOperationPayload.swift in Sources */,
+				77FE788422EEA29300B85B9D /* TestHelpers.swift in Sources */,
 				77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */,
 				7719265C22D93B8200E63DE4 /* PreapplicationServiceTest.swift in Sources */,
 				77CE370621F7F49F006ADABA /* TezResponseAdapterTest.swift in Sources */,
@@ -1156,6 +1179,7 @@
 				77CE370121F7F49F006ADABA /* GetVotingDelegateRightsRPCTest.swift in Sources */,
 				77CE36F021F7F49F006ADABA /* JSONUtilsTest.swift in Sources */,
 				77CE36EB21F7F49F006ADABA /* GetAddressBalanceRPCTest.swift in Sources */,
+				77FE788822EEE42500B85B9D /* GetContractStorageRPCTest.swift in Sources */,
 				77B69EB5224C641500DB4319 /* TransactionsResponseAdapterTest.swift in Sources */,
 				77CE36FD21F7F49F006ADABA /* InjectOperationRPCTest.swift in Sources */,
 				77CE36ED21F7F49F006ADABA /* JSONArrayResponseAdapterTest.swift in Sources */,
