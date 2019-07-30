@@ -4,7 +4,10 @@ import Foundation
 
 /// A representation of a none param in Michelson.
 public class NoneMichelsonParameter: AbstractMichelsonParameter {
-  public init() {
-    super.init(networkRepresentation: [ MichelineConstants.primitive: MichelineConstants.none ])
+  public init(annotations: [MichelsonAnnotation]? = nil) {
+    super.init(
+      networkRepresentation: [ MichelineConstants.primitive: MichelineConstants.none ],
+      annotations: annotations
+    )
   }
 }

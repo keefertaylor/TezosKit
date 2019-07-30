@@ -4,7 +4,10 @@ import Foundation
 
 /// A representation of an unit parameter in Michelson.
 public class UnitMichelsonParameter: AbstractMichelsonParameter {
-  public init() {
-    super.init(networkRepresentation: [ MichelineConstants.primitive: MichelineConstants.unit ])
+  public init(annotations: [MichelsonAnnotation]? = nil) {
+    super.init(
+      networkRepresentation: [ MichelineConstants.primitive: MichelineConstants.unit ],
+      annotations: annotations
+    )
   }
 }

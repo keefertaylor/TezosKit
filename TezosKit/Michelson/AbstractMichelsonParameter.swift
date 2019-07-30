@@ -9,7 +9,13 @@ public class AbstractMichelsonParameter: MichelsonParameter {
   public let networkRepresentation: [String: Any]
 
   /// - Parameter networkRepresentation: A dictionary representation of the parameter which can be encoded to JSON.
-  public init(networkRepresentation: [String: Any]) {
-    self.networkRepresentation = networkRepresentation
+  /// - Parameter annotations: Optional annotations
+  public init(networkRepresentation: [String: Any], annotations: [MichelsonAnnotation]? = nil) {
+    var annotationAugmentedDictionary = networkRepresentation
+    if let annotations = annotations {
+      annotationAugmentedDictionary[MichelineConstants.annotations] = annotations.map { $0.value }
+    }
+
+    self.networkRepresentation = annotationAugmentedDictionary
   }
 }
