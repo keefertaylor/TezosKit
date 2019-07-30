@@ -179,6 +179,8 @@
 		77FE788422EEA29300B85B9D /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788322EEA29300B85B9D /* TestHelpers.swift */; };
 		77FE788622EEE3C800B85B9D /* GetContractStorageRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788522EEE3C800B85B9D /* GetContractStorageRPC.swift */; };
 		77FE788822EEE42500B85B9D /* GetContractStorageRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788722EEE42500B85B9D /* GetContractStorageRPCTest.swift */; };
+		77FE788A22EFF92E00B85B9D /* MichelsonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788922EFF92E00B85B9D /* MichelsonAnnotation.swift */; };
+		77FE788C22EFFA7100B85B9D /* MichelsonAnnotationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FE788B22EFFA7100B85B9D /* MichelsonAnnotationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -410,6 +412,8 @@
 		77FE788322EEA29300B85B9D /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		77FE788522EEE3C800B85B9D /* GetContractStorageRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetContractStorageRPC.swift; sourceTree = "<group>"; };
 		77FE788722EEE42500B85B9D /* GetContractStorageRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetContractStorageRPCTest.swift; sourceTree = "<group>"; };
+		77FE788922EFF92E00B85B9D /* MichelsonAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MichelsonAnnotation.swift; sourceTree = "<group>"; };
+		77FE788B22EFFA7100B85B9D /* MichelsonAnnotationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MichelsonAnnotationTests.swift; sourceTree = "<group>"; };
 		C2BFF006F7695B932864C46D /* Pods_TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -461,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				7730B1D822E95B4500148990 /* MichelsonParameter.swift */,
+				77FE788922EFF92E00B85B9D /* MichelsonAnnotation.swift */,
 				77FE787F22EE907900B85B9D /* MichelsonComparable.swift */,
 				77FE787722EC336700B85B9D /* NoneMichelsonParameter.swift */,
 				77FE786922EC320900B85B9D /* BoolMichelsonParameter.swift */,
@@ -731,6 +736,7 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				77FE788B22EFFA7100B85B9D /* MichelsonAnnotationTests.swift */,
 				77FE788722EEE42500B85B9D /* GetContractStorageRPCTest.swift */,
 				77FE788122EE913300B85B9D /* GetBigMapValueRPCTest.swift */,
 				77FE786322EBE53200B85B9D /* MichelsonTests.swift */,
@@ -1096,6 +1102,7 @@
 				77CE387C21FC7ED8006ADABA /* TezosNodeClient.swift in Sources */,
 				77CE385E21FC7ED8006ADABA /* Wallet.swift in Sources */,
 				77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */,
+				77FE788A22EFF92E00B85B9D /* MichelsonAnnotation.swift in Sources */,
 				77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */,
 				7719265A22D92F5E00E63DE4 /* PreapplicationService.swift in Sources */,
 				77CE387D21FC7ED8006ADABA /* TezosKitError.swift in Sources */,
@@ -1141,6 +1148,7 @@
 				77B69EBF224E92C900DB4319 /* ConseilClientTests.swift in Sources */,
 				77CE36E321F7F49F006ADABA /* GetChainHeadHashRPCTest.swift in Sources */,
 				77CE36FA21F7F49F006ADABA /* TezosKitErrorCodesTest.swift in Sources */,
+				77FE788C22EFFA7100B85B9D /* MichelsonAnnotationTests.swift in Sources */,
 				77CE370321F7F49F006ADABA /* GetProposalUnderEvaluationRPCTest.swift in Sources */,
 				77FE788222EE913300B85B9D /* GetBigMapValueRPCTest.swift in Sources */,
 				77CE36FE21F7F49F006ADABA /* GetBallotsRPCTest.swift in Sources */,
