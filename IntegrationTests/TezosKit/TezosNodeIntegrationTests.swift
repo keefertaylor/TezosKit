@@ -75,7 +75,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 0
+    let intertestWaitTime: UInt32 = 30
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -287,7 +287,10 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testRunOperation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = OperationFactory.testOperationFactory.originationOperation(address: Wallet.testWallet.address)
+    let operation = OperationFactory.testOperationFactory.originationOperation(
+      address: Wallet.testWallet.address,
+      operationFees: nil
+    )
     self.nodeClient.runOperation(operation, from: .testWallet) { result in
       switch result {
       case .failure(let error):
@@ -316,12 +319,14 @@ class TezosNodeIntegrationTests: XCTestCase {
       OperationFactory.testOperationFactory.transactionOperation(
         amount: Tez("1")!,
         source: Wallet.testWallet.address,
-        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
+        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+        operationFees: nil
       ),
       OperationFactory.testOperationFactory.transactionOperation(
         amount: Tez("2")!,
         source: Wallet.testWallet.address,
-        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5"
+        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+        operationFees: nil
       )
     ]
 

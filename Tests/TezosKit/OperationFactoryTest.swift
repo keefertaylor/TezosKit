@@ -24,7 +24,6 @@ class OperationFactoryTest: XCTestCase {
   func testOriginationOperationWithDefaultFees() {
     let originationOperation = operationFactory.originationOperation(
       address: "tz1abc",
-      contractCode: nil,
       operationFees: nil
     )
 
@@ -92,7 +91,6 @@ class OperationFactoryTest: XCTestCase {
   func testOriginationOperationWithCustomFees() {
     let originationOperation = operationFactory.originationOperation(
       address: "tz1abc",
-      contractCode: nil,
       operationFees: .testFees
     )
 
