@@ -126,6 +126,25 @@ final class MichelsonTests: XCTestCase {
     XCTAssertEqual(encoded, Helpers.orderJSONString(expected))
   }
 
+  func testAnnotation() {
+    guard let annotation = MichelsonAnnotation(annotation: "@tezoskit") else {
+      XCTFail()
+      return
+    }
+    let michelson = PairMichelsonParameter(
+      left: MichelsonTests.michelsonInt,
+      right: MichelsonTests.michelsonString,
+      annotations: [ annotation ]
+    )
+
+    let expected = "{\"prim\": \"Pair\", \"args\": [ \(MichelsonTests.expectedMichelsonIntEncoding), \(MichelsonTests.expectedMichelsonStringEncoding) ], \"annots\": [\"\(annotation.value)\"] }"
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(expected))
+  }
+
+// ("Optional("                           {\"args\":[{\"int\":\"42\"},{\"string\":\"tezoskit\"}],\"prim\":\"Pair\"}")") is not equal to
+// ("Optional("{\"annots\":[\"@tezoskit\"],\"args\":[{\"int\":\"42\"},{\"string\":\"tezoskit\"}],\"prim\":\"Pair\"}")")
+
   // MARK: - Dexter / Token Contract
 
   func testTransferTokens() {
