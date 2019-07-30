@@ -14,7 +14,11 @@ final class SimulationServiceTest: XCTestCase {
       operationMetadataProvider: operationMetadataProvider
     )
 
-    let operation = operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress)
+    let operation = operationFactory.delegateOperation(
+      source: .testAddress,
+      to: .testDestinationAddress,
+      operationFees: nil
+    )
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(
@@ -46,7 +50,11 @@ final class SimulationServiceTest: XCTestCase {
       operationMetadataProvider: operationMetadataProvider
     )
 
-    let operation = operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress)
+    let operation = operationFactory.delegateOperation(
+      source: .testAddress,
+      to: .testDestinationAddress,
+      operationFees: nil
+    )
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(

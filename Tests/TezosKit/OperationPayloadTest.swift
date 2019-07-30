@@ -22,7 +22,7 @@ final class OperationPayloadTest: XCTestCase {
   /// Test a single operation with a revealed manager key.
   func testOperationPayloadInitSingleOperation() {
     let operations = [
-      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress)
+      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress, operationFees: nil)
     ]
 
     let operationPayload = OperationPayload(
@@ -43,8 +43,8 @@ final class OperationPayloadTest: XCTestCase {
   /// Test multiple operations with a revealed manager key.
   func testOperationPayloadInitMultipleOperations() {
     let operations = [
-      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress),
-      operationFactory.registerDelegateOperation(source: .testAddress)
+      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress, operationFees: nil),
+      operationFactory.registerDelegateOperation(source: .testAddress, operationFees: nil)
     ]
 
     let operationPayload = OperationPayload(
@@ -65,8 +65,8 @@ final class OperationPayloadTest: XCTestCase {
   /// Test an operation requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealRequired() {
     let operations = [
-      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress),
-      operationFactory.registerDelegateOperation(source: .testAddress)
+      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress, operationFees: nil),
+      operationFactory.registerDelegateOperation(source: .testAddress, operationFees: nil)
     ]
 
     let operationPayload = OperationPayload(
@@ -89,7 +89,7 @@ final class OperationPayloadTest: XCTestCase {
   /// Test an operation not requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealNotRequired() {
     let operations = [
-      operationFactory.revealOperation(from: .testAddress, publicKey: signatureProvider.publicKey)
+      operationFactory.revealOperation(from: .testAddress, publicKey: signatureProvider.publicKey, operationFees: nil)
     ]
 
     let operationPayload = OperationPayload(
