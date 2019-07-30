@@ -4,6 +4,7 @@ import Foundation
 
 /// String constants used in Micheline param JSON encoding.
 internal enum MichelineConstants {
+  public static let annotations = "annots"
   public static let args = "args"
   public static let primitive = "prim"
   public static let bytes = "bytes"
