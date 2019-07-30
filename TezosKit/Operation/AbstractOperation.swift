@@ -23,8 +23,8 @@ public class AbstractOperation: Operation {
     operation["kind"] = kind.rawValue
     operation["source"] = source
 
-    operation["storage_limit"] = operationFees.storageLimit.rpcRepresentation
-    operation["gas_limit"] = operationFees.gasLimit.rpcRepresentation
+    operation["storage_limit"] = String(operationFees.storageLimit)
+    operation["gas_limit"] = String(operationFees.gasLimit)
     operation["fee"] = operationFees.fee.rpcRepresentation
 
     return operation
