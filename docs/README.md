@@ -10,6 +10,7 @@
 - [Advanced Functionality](AdvancedFunctionality.md): Instructions to use advanced Functions in TezosKit
 
 ### Advanced Topics
+- [Michelson](Michelson.md): Information about working with Michelson in TezosKit.
 - [Fees](Fees.md): Information about how TezosKit assigns fees
 - [Networking](Networking.md): Information about Networking in TezosKit
 - [Operations](Operations.md): Information about Operations in TezosKit
