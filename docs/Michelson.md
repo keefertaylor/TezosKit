@@ -96,7 +96,7 @@ TezosKit can also introsepct contract storage and big maps. Since the set of ent
 ### Introspect Contract Storage
 Simply call the contract storage API on TezosNodeClient. The result will be a `[String: Any]` object which represents the JSON structure of the contract's storage.
 
-```
+```swift
 let contractAddress = "KT1..."
 let tezosNodeClient = TezosNodeClient()
 tezosNodeClient.getContractStorage(address: contractAddress) { result in
@@ -111,7 +111,7 @@ Big maps allow introspection of a single value at a time. The key value must hav
 
 For instance, to retrieve the value stored in a big map that is keyed by addresses:
 
-```
+```swift
 let tezosNodeClient = TezosNodeClient()
 
 // Smart contract containing a big map
