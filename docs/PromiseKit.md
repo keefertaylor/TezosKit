@@ -36,7 +36,3 @@ tezosNodeClient.getBalance(address: "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA").done
   print("Couldn't get balance.")
 }
 ```
-
-### Generic Calls
-
-TODO: Write this section when ConseilClient and TezosNodeClient are typed to the correct RPCS.
