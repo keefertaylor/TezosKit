@@ -14,6 +14,3 @@
 - [Networking](Networking.md): Information about Networking in TezosKit
 - [Operations](Operations.md): Information about Operations in TezosKit
 - [Promises / PromiseKit](PromiseKit.md): About TezosKit's [PromiseKit](https://github.com/mxcl/PromiseKit) integration
-
-## Code Structure
-TODO: Write this when code structure is cleaned up.
