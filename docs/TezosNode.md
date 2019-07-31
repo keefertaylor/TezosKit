@@ -31,6 +31,7 @@ let tezosNodeClient = TezosNodeClient(remoteNodeURL: publicNodeURL)
 #### Optional Parameters
 
 By default, `TezosNodeClient` provides sane defaults for most users. Some parameters in the initializer can be configured for extra functionality:
+
 |Parameter | Type | Default | Description |
 |---|---|---|---|
 |`remoteNodeURL` | `URL` | https://rpc.tezrpc.me | The URL for the remote Tezos Node. |
