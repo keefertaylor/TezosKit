@@ -55,7 +55,7 @@ let michelsonParameter = MichelsonRight(
 
 ### Annotations
 
-Annotations do not have first class support in TezosKit. Please file an issue if you have a use case that uses annotations.
+Every `MichelsonParameter` can have an optional annotation assigned to it. Annotations must start with their leading symbol (`:`, `@`, or `%`). By default, parameters are not annotated.
 
 ### Custom Parameters
 
@@ -89,6 +89,47 @@ let michelineParam = AbstractMichelineParam(networkRepresentation: jsonDict)
 
 You can find the JSON specicification for Micheline here: https://tezos.gitlab.io/master/whitedoc/michelson.html#json-syntax.
 
-## Inspecting Smart Contracts
+## Contract Introspection
 
-Coming Soon!
+TezosKit can also introsepct contract storage and big maps. Since the set of entities in these fields is a superset of the parameters TezosKit supports, the a raw `Dictionary` (`[String: Any]`) containing the contents of the field is returned. In the future, TezosKit will properly parse and return these fields as first class objects. 
+
+### Introspect Contract Storage
+Simply call the contract storage API on TezosNodeClient. The result will be a `[String: Any]` object which represents the JSON structure of the contract's storage.
+
+```
+let contractAddress = "KT1..."
+let tezosNodeClient = TezosNodeClient()
+tezosNodeClient.getContractStorage(address: contractAddress) { result in
+  ...
+}
+```
+
+An equivalent `Promises` API is provided in the `PromiseKit` extension.
+
+### Introspect A Big Map
+Big maps allow introspection of a single value at a time. The key value must have a value (which is a `MichelsonParameter`) and a type. The `MichelsonComparable` enum defines valid types. The result will be a `[String: Any]` object which represents the JSON structure of the contract's storage.
+
+For instance, to retrieve the value stored in a big map that is keyed by addresses:
+
+```
+let tezosNodeClient = TezosNodeClient()
+
+// Smart contract containing a big map
+let contractAddress = "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA"
+
+// Key for the map.
+let key = StringMichelsonParameter(string: "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt")
+
+// Type to interpret the key as.
+let type: MichelsonComparable = .address
+
+self.nodeClient.getBigMapValue(
+  address: contractAddress,
+  key: key,
+  type: type
+) { result in
+  ...
+}
+```
+
+As always, an equivalent `Promises` API is provided in the `PromiseKit` extension.
