@@ -7,7 +7,7 @@ All calls on `TezosNodeClient` that injects an operation on the network provide 
 
 ### Defaults
 
-Each `Operation` object has a default fee that is used when injecting the fee onto the blockchain if no other fee is proved. These default fees are taken from the recommended fees for protocol version 3, as documented in [eztz](https://github.com/TezTech/eztz/blob/master/PROTO_003_FEES.md).
+TezosNodeClient will provide default fees for the `TezosProtocol` version that is provided at initialization time. A `DefaultFeeProvider` object provides fees for a given operation type and `TezosProtocol` version. 
 
 ### Custom Fees
 
