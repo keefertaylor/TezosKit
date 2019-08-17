@@ -3,18 +3,13 @@
 import Foundation
 
 /// JSON keys and values used in the PreapplicationService.
-/// TODO: Remove preapplication service keys
 private enum JSON {
-  // TODO: Remove extras
-  // TODO: Alphabetize
   public enum Keys {
     public static let consumedGas = "consumed_gas"
     public static let contents = "contents"
     public static let metadata = "metadata"
     public static let operationResult = "operation_result"
     public static let status = "status"
-    public static let errors = "errors"
-    public static let id = "id"
     public static let storageSize = "storage_size"
   }
 
@@ -32,8 +27,6 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
     else {
       return nil
     }
-
-    print(json)
 
     guard
       let contents = json[JSON.Keys.contents] as? [[ String: Any ]],

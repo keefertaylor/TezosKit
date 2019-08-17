@@ -15,7 +15,6 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       return
     }
 
-
     guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
       XCTFail()
       return
