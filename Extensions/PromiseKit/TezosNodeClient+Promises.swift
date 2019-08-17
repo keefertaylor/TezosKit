@@ -324,7 +324,7 @@ extension TezosNodeClient {
   ///   - operation: The operation to run.
   ///   - wallet: The wallet requesting the run.
   /// - Returns: A promise which resolves to the result of running the operation.
-  public func runOperation(_ operation: Operation, from wallet: Wallet) -> Promise<[String: Any]> {
+  public func runOperation(_ operation: Operation, from wallet: Wallet) -> Promise<SimulationResult> {
     return Promise { seal in
       runOperation(operation, from: wallet) { result in
         switch result {

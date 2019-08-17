@@ -74,6 +74,9 @@ public class NetworkClientImpl: NetworkClient {
         return
       }
 
+//      print(response)
+      print("\n\n\nRESP:\n")
+      print(String(data: data!, encoding: .utf8)!)
       let result = self.responseHandler.handleResponse(
         response: response,
         data: data,

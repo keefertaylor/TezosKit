@@ -47,7 +47,7 @@ extension Wallet {
 }
 
 extension URL {
-  public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
+  public static let nodeURL = URL(string: "https://tezos-dev.cryptonomic-infra.tech:443")!
 }
 
 extension Double {
@@ -75,7 +75,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
+    let intertestWaitTime: UInt32 = 0
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -283,34 +283,34 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
-
-  public func testRunOperation() {
-    let expectation = XCTestExpectation(description: "completion called")
-
-    let operation = OperationFactory.testOperationFactory.originationOperation(
-      address: Wallet.testWallet.address,
-      operationFees: nil
-    )
-    self.nodeClient.runOperation(operation, from: .testWallet) { result in
-      switch result {
-      case .failure(let error):
-        print(error)
-        XCTFail()
-      case .success(let data):
-        guard let contents = data["contents"] as? [[String: Any]],
-              let metadata = contents[0]["metadata"] as? [String: Any],
-              let operationResult = metadata["operation_result"] as? [String: Any],
-              let consumedGas = operationResult["consumed_gas"] as? String else {
-          XCTFail()
-          return
-        }
-        XCTAssertEqual(consumedGas, "10000")
-        expectation.fulfill()
-      }
-    }
-
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
+//
+//  public func testRunOperation() {
+//    let expectation = XCTestExpectation(description: "completion called")
+//
+//    let operation = OperationFactory.testOperationFactory.originationOperation(
+//      address: Wallet.testWallet.address,
+//      operationFees: nil
+//    )
+//    self.nodeClient.runOperation(operation, from: .testWallet) { result in
+//      switch result {
+//      case .failure(let error):
+//        print(error)
+//        XCTFail()
+//      case .success(let data):
+//        guard let contents = data["contents"] as? [[String: Any]],
+//              let metadata = contents[0]["metadata"] as? [String: Any],
+//              let operationResult = metadata["operation_result"] as? [String: Any],
+//              let consumedGas = operationResult["consumed_gas"] as? String else {
+//          XCTFail()
+//          return
+//        }
+//        XCTAssertEqual(consumedGas, "10000")
+//        expectation.fulfill()
+//      }
+//    }
+//
+//    wait(for: [expectation], timeout: .expectationTimeout)
+//  }
 
   public func testMultipleOperations() {
     let expectation = XCTestExpectation(description: "completion called")
@@ -437,5 +437,37 @@ class TezosNodeIntegrationTests: XCTestCase {
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  // TODO: Simulate operation as bool? Or make run operation private.
+  func testSimulation() {
+    let contractAddress = "KT1XsHrcWTmRFGyPgtzEHb4fb9qDAj5oQxwB"
+    let michelsonParam = StringMichelsonParameter(string: "TezosKit")
+    let operationFees = OperationFees(fee: Tez("1")!, gasLimit: 0, storageLimit: 10000)
+    let amount = Tez.zeroBalance
+//
+//    let operation = TransactionOperation(
+//      amount: amount,
+//      parameter: michelsonParam,
+//      source: Wallet.testWallet.address,
+//      destination: contractAddress,
+//      operationFees: operationFees
+//    )
+
+    let operation = TransactionOperation(
+      amount: Tez(10000000000),
+      source: Wallet.testWallet.address,
+      destination: Wallet.originatedAddress,
+      operationFees: operationFees
+    )
+
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.runOperation(operation, from: Wallet.testWallet) { result in
+      print("RESULT: \(result)");
+      expectation.fulfill()
+    }
+    wait(for: [expectation], timeout: .expectationTimeout)
+
   }
 }
