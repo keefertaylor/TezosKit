@@ -163,7 +163,7 @@ extension TezosNodeIntegrationTests {
         XCTFail()
         return
       }
-      XCTAssertEqual(consumedGas, 10000)
+      XCTAssertEqual(consumedGas, 10_000)
       XCTAssertEqual(consumedStorage, 0)
       expectation.fulfill()
     } .catch { _ in

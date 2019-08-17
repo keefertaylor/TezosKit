@@ -3,6 +3,8 @@
 import TezosKit
 import XCTest
 
+// swiftlint:disable line_length
+
 final class SimulationResultResponseAdapterTest: XCTestCase {
   /// A transaction which only consumes gas.
   func testSuccessfulTransaction() {
@@ -11,7 +13,7 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       let inputData = input.data(using: .utf8),
       let simulationResult = SimulationResultResponseAdapter.parse(input: inputData)
     else {
-      XCTFail();
+      XCTFail()
       return
     }
 
@@ -20,7 +22,7 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       return
     }
 
-    XCTAssertEqual(consumedGas, 10200)
+    XCTAssertEqual(consumedGas, 10_200)
     XCTAssertEqual(consumedStorage, 0)
   }
 
@@ -31,7 +33,7 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       let inputData = input.data(using: .utf8),
       let simulationResult = SimulationResultResponseAdapter.parse(input: inputData)
       else {
-        XCTFail();
+        XCTFail()
         return
     }
 
@@ -40,7 +42,7 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       return
     }
 
-    XCTAssertEqual(consumedGas, 11780)
+    XCTAssertEqual(consumedGas, 11_780)
     XCTAssertEqual(consumedStorage, 49)
   }
 
@@ -51,7 +53,7 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       let inputData = input.data(using: .utf8),
       let simulationResult = SimulationResultResponseAdapter.parse(input: inputData)
       else {
-        XCTFail();
+        XCTFail()
         return
     }
 
@@ -68,7 +70,7 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       let inputData = input.data(using: .utf8),
       let simulationResult = SimulationResultResponseAdapter.parse(input: inputData)
       else {
-        XCTFail();
+        XCTFail()
         return
     }
 
@@ -78,4 +80,3 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
     }
   }
 }
-

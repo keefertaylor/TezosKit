@@ -18,7 +18,6 @@ private enum JSON {
   }
 }
 
-
 /// Parse the resulting JSON from a simulation operation to a SimulationResult enum
 public class SimulationResultResponseAdapter: AbstractResponseAdapter<SimulationResult> {
   public override class func parse(input: Data) -> SimulationResult? {
