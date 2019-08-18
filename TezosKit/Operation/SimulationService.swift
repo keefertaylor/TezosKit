@@ -40,7 +40,7 @@ public class SimulationService {
     _ operation: Operation,
     from source: Address,
     signatureProvider: SignatureProvider,
-    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+    completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
   ) {
     operationMetadataProvider.metadata(for: source) { [weak self] result in
       guard let self = self else {
@@ -48,7 +48,7 @@ public class SimulationService {
       }
       guard case let .success(operationMetadata) = result else {
         completion(
-          result.map { _ in [:] }
+          result.map { _ in .failure }
         )
         return
       }

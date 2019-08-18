@@ -410,7 +410,7 @@ public class TezosNodeClient {
   public func runOperation(
     _ operation: Operation,
     from wallet: Wallet,
-    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+    completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
   ) {
     simulationService.simulate(operation, from: wallet.address, signatureProvider: wallet, completion: completion)
   }

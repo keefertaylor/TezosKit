@@ -3,7 +3,7 @@
 import Foundation
 
 /// An RPC that will run an operation.
-public class RunOperationRPC: RPC<[String: Any]> {
+public class RunOperationRPC: RPC<SimulationResult> {
   /// - Parameter signedOperationPayload: A payload containing an operation to run.
   public init(signedOperationPayload: SignedOperationPayload) {
     let endpoint = "/chains/main/blocks/head/helpers/scripts/run_operation"
@@ -11,7 +11,7 @@ public class RunOperationRPC: RPC<[String: Any]> {
     super.init(
       endpoint: endpoint,
       headers: [Header.contentTypeApplicationJSON],
-      responseAdapterClass: JSONDictionaryResponseAdapter.self,
+      responseAdapterClass: SimulationResultResponseAdapter.self,
       payload: jsonPayload
     )
   }

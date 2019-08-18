@@ -42,6 +42,9 @@
 		779427BD22C0163300559A03 /* SigningServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779427BC22C0163300559A03 /* SigningServiceTests.swift */; };
 		779427BF22C02AA900559A03 /* TezosCrypto.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 779427BE22C02AA800559A03 /* TezosCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7794E97B224C2518000D9F1E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7794E97A224C2518000D9F1E /* Header.swift */; };
+		779A9C5A2308634E004C6575 /* SimulationResultResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C592308634E004C6575 /* SimulationResultResponseAdapterTest.swift */; };
+		779A9C5C230864EE004C6575 /* SimulationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5B230864EE004C6575 /* SimulationResult.swift */; };
+		779A9C5E23086558004C6575 /* SimulationResultResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -269,6 +272,9 @@
 		779427BC22C0163300559A03 /* SigningServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningServiceTests.swift; sourceTree = "<group>"; };
 		779427BE22C02AA800559A03 /* TezosCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TezosCrypto.framework; path = Carthage/Build/iOS/TezosCrypto.framework; sourceTree = "<group>"; };
 		7794E97A224C2518000D9F1E /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		779A9C592308634E004C6575 /* SimulationResultResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResultResponseAdapterTest.swift; sourceTree = "<group>"; };
+		779A9C5B230864EE004C6575 /* SimulationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResult.swift; sourceTree = "<group>"; };
+		779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResultResponseAdapter.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -611,6 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				779427B022BB24C800559A03 /* ForgingPolicy.swift */,
+				779A9C5B230864EE004C6575 /* SimulationResult.swift */,
 				7719266122DCD77500E63DE4 /* InjectionService.swift */,
 				7719265D22DA1A5800E63DE4 /* SimulationService.swift */,
 				7719265922D92F5E00E63DE4 /* PreapplicationService.swift */,
@@ -692,6 +699,7 @@
 			isa = PBXGroup;
 			children = (
 				77CE382F21FC7ED7006ADABA /* TezResponseAdapter.swift */,
+				779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */,
 				77CE383021FC7ED7006ADABA /* ResponseAdapter.swift */,
 				77CE383121FC7ED7006ADABA /* JSONDictionaryResponseAdapter.swift */,
 				77CE383221FC7ED7006ADABA /* AbstractResponseAdapter.swift */,
@@ -736,6 +744,7 @@
 			isa = PBXGroup;
 			children = (
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
+				779A9C592308634E004C6575 /* SimulationResultResponseAdapterTest.swift */,
 				77FE788B22EFFA7100B85B9D /* MichelsonAnnotationTests.swift */,
 				77FE788722EEE42500B85B9D /* GetContractStorageRPCTest.swift */,
 				77FE788122EE913300B85B9D /* GetBigMapValueRPCTest.swift */,
@@ -1044,6 +1053,7 @@
 				77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */,
 				779427AB22BABE5900559A03 /* OperationFactory.swift in Sources */,
 				77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */,
+				779A9C5E23086558004C6575 /* SimulationResultResponseAdapter.swift in Sources */,
 				77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */,
 				77B1EAF52228839000EA4FCE /* OperationPayload.swift in Sources */,
 				77CE386A21FC7ED8006ADABA /* AbstractResponseAdapter.swift in Sources */,
@@ -1080,6 +1090,7 @@
 				77CE387821FC7ED8006ADABA /* GetBallotsListRPC.swift in Sources */,
 				77CE386921FC7ED8006ADABA /* JSONDictionaryResponseAdapter.swift in Sources */,
 				77CE387421FC7ED8006ADABA /* GetAddressDelegateRPC.swift in Sources */,
+				779A9C5C230864EE004C6575 /* SimulationResult.swift in Sources */,
 				77CE384F21FC7ED8006ADABA /* Operation.swift in Sources */,
 				77F4D266221CCE4B00D34B01 /* NetworkClient.swift in Sources */,
 				7767AE3322C3EBFC0043C52C /* PublicKey.swift in Sources */,
@@ -1137,6 +1148,7 @@
 				77F4D264221CB53900D34B01 /* RPCResponseHandlerTest.swift in Sources */,
 				779427BD22C0163300559A03 /* SigningServiceTests.swift in Sources */,
 				77CE36E021F7F49F006ADABA /* IntegerResponseAdapterTest.swift in Sources */,
+				779A9C5A2308634E004C6575 /* SimulationResultResponseAdapterTest.swift in Sources */,
 				77CE36EA21F7F49F006ADABA /* GetCurrentPeriodKindRPCTest.swift in Sources */,
 				77CE36EC21F7F49F006ADABA /* GetChainHeadRPCTest.swift in Sources */,
 				77CE370221F7F49F006ADABA /* PreapplyOperationRPCTest.swift in Sources */,

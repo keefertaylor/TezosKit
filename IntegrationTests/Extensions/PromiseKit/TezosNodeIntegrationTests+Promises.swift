@@ -158,18 +158,16 @@ extension TezosNodeIntegrationTests {
       address: Wallet.testWallet.address,
       operationFees: nil
     )
-    nodeClient.runOperation(operation, from: .testWallet) .done { result in
-      guard let contents = result["contents"] as? [[String: Any]],
-            let metadata = contents[0]["metadata"] as? [String: Any],
-            let operationResult = metadata["operation_result"] as? [String: Any],
-            let consumedGas = operationResult["consumed_gas"] as? String else {
-          XCTFail()
-          return
+    self.nodeClient.runOperation(operation, from: .testWallet).done { simulationResult in
+      guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
+        XCTFail()
+        return
       }
-      XCTAssertEqual(consumedGas, "10000")
+      XCTAssertEqual(consumedGas, 10_000)
+      XCTAssertEqual(consumedStorage, 0)
       expectation.fulfill()
     } .catch { _ in
-      XCTFail()
+        XCTFail()
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)

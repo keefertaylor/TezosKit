@@ -47,7 +47,7 @@ extension Wallet {
 }
 
 extension URL {
-  public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
+  public static let nodeURL = URL(string: "https://tezos-dev.cryptonomic-infra.tech:443")!
 }
 
 extension Double {
@@ -296,15 +296,13 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .failure(let error):
         print(error)
         XCTFail()
-      case .success(let data):
-        guard let contents = data["contents"] as? [[String: Any]],
-              let metadata = contents[0]["metadata"] as? [String: Any],
-              let operationResult = metadata["operation_result"] as? [String: Any],
-              let consumedGas = operationResult["consumed_gas"] as? String else {
+      case .success(let simulationResult):
+        guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
           XCTFail()
           return
         }
-        XCTAssertEqual(consumedGas, "10000")
+        XCTAssertEqual(consumedGas, 10_000)
+        XCTAssertEqual(consumedStorage, 0)
         expectation.fulfill()
       }
     }
