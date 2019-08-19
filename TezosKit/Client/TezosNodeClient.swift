@@ -125,6 +125,8 @@ public class TezosNodeClient {
     injectionService = InjectionService(networkClient: networkClient)
   }
 
+  // MARK: - Queries
+
   /// Retrieve data about the chain head.
   public func getHead(completion: @escaping (Result<[String: Any], TezosKitError>) -> Void) {
     let rpc = GetChainHeadRPC()
@@ -172,174 +174,6 @@ public class TezosNodeClient {
   ) {
     let rpc = GetAddressManagerKeyRPC(address: address)
     networkClient.send(rpc, completion: completion)
-  }
-
-  /// Transact Tezos between accounts.
-  /// - Parameters:
-  ///   - amount: The amount of Tez to send.
-  ///   - recipientAddress: The address which will receive the Tez.
-  ///   - source: The address sending the balance.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  ///   - completion: A completion block called with an optional transaction hash and error.
-  public func send(
-    amount: Tez,
-    to recipientAddress: String,
-    from source: Address,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    let transactionOperation = operationFactory.transactionOperation(
-      amount: amount,
-      source: source,
-      destination: recipientAddress,
-      operationFees: operationFees
-    )
-    forgeSignPreapplyAndInject(
-      transactionOperation,
-      source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
-  }
-
-  /// Call a smart contract.
-  ///
-  /// - Parameters:
-  ///   - contract: The smart contract to invoke.
-  ///   - amount: The amount of Tez to transfer with the invocation. Default is 0.
-  ///   - parameter: An optional parameter to send to the smart contract. Default is none.
-  ///   - source: The address invoking the contract.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  ///   - completion: A completion block called with an optional transaction hash and error.
-  public func call(
-    contract: Address,
-    amount: Tez = Tez.zeroBalance,
-    parameter: MichelsonParameter? = nil,
-    source: Address,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
-      amount: amount,
-      parameter: parameter,
-      source: source,
-      destination: contract,
-      operationFees: operationFees
-    )
-    forgeSignPreapplyAndInject(
-      smartContractInvocationOperation,
-      source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
-  }
-
-  /// Delegate the balance of an originated account.
-  ///
-  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
-  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
-  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
-  ///
-  /// - Parameters:
-  ///   - source: The address which will delegate.
-  ///   - delegate: The address which will receive the delegation.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  ///   - completion: A completion block called with an optional transaction hash and error.
-  public func delegate(
-    from source: Address,
-    to delegate: Address,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    let delegationOperation = operationFactory.delegateOperation(
-      source: source,
-      to: delegate,
-      operationFees: operationFees
-    )
-    forgeSignPreapplyAndInject(
-      delegationOperation,
-      source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
-  }
-
-  /// Clear the delegate of an originated account.
-  ///
-  /// - Parameters:
-  ///   - source: The address which is removing the delegate.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
-  ///                 operation was successful.
-  public func undelegate(
-    from source: Address,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    let undelegateOperatoin = operationFactory.undelegateOperation(source: source, operationFees: operationFees)
-    forgeSignPreapplyAndInject(
-      undelegateOperatoin,
-      source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
-  }
-
-  /// Register an address as a delegate.
-  /// - Parameters:
-  ///   - delegate: The address registering as a delegate.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  ///   - completion: A completion block called with an optional transaction hash and error.
-  public func registerDelegate(
-    delegate: Address,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    let registerDelegateOperation = operationFactory.registerDelegateOperation(
-      source: delegate,
-      operationFees: operationFees
-    )
-    forgeSignPreapplyAndInject(
-      registerDelegateOperation,
-      source: delegate,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
-  }
-
-  /// Originate a new account from the given account.
-  /// - Parameters:
-  ///   - managerAddress: The address which will manage the new account.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
-  ///                 operation was successful.
-  public func originateAccount(
-    managerAddress: String,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    let originationOperation = operationFactory.originationOperation(
-      address: managerAddress,
-      operationFees: operationFees
-    )
-    forgeSignPreapplyAndInject(
-      originationOperation,
-      source: managerAddress,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
   }
 
   /// Retrieve ballots cast so far during a voting period.
@@ -396,9 +230,374 @@ public class TezosNodeClient {
     key: MichelsonParameter,
     type: MichelsonComparable,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
-  ) {
+    ) {
     let rpc = GetBigMapValueRPC(address: address, key: key, type: type)
     networkClient.send(rpc, completion: completion)
+  }
+
+  /// Retrieve the storage of a smart contract.
+  ///
+  /// - Parameters:
+  ///   - address: The address of the smart contract to inspect.
+  ///   - completion: A completion block which will be called with the storage.
+  public func getContractStorage(
+    address: Address,
+    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+    ) {
+    let rpc = GetContractStorageRPC(address: address)
+    networkClient.send(rpc, completion: completion)
+  }
+
+  // MARK: - Operations
+
+  /// Transact Tezos between accounts.
+  ///
+  /// - Parameters:
+  ///   - amount: The amount of Tez to send.
+  ///   - recipientAddress: The address which will receive the Tez.
+  ///   - source: The address sending the balance.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  public func send(
+    amount: Tez,
+    to recipientAddress: String,
+    from source: Address,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    var policy = OperationFeePolicy.default
+    if let operationFees = operationFees {
+      policy = .custom(operationFees)
+    }
+
+    send(
+      amount: amount,
+      to: recipientAddress,
+      from: source,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: policy,
+      completion: completion
+    )
+  }
+
+  /// Transact Tezos between accounts.
+  ///
+  /// - Parameters:
+  ///   - amount: The amount of Tez to send.
+  ///   - recipientAddress: The address which will receive the Tez.
+  ///   - source: The address sending the balance.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  internal func send(
+    amount: Tez,
+    to recipientAddress: String,
+    from source: Address,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let transactionOperation = operationFactory.transactionOperation(
+      amount: amount,
+      source: source,
+      destination: recipientAddress,
+      operationFeePolicy: operationFeePolicy
+    )
+    forgeSignPreapplyAndInject(
+      transactionOperation,
+      source: source,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
+  }
+
+  /// Call a smart contract.
+  ///
+  /// - Parameters:
+  ///   - contract: The smart contract to invoke.
+  ///   - amount: The amount of Tez to transfer with the invocation. Default is 0.
+  ///   - parameter: An optional parameter to send to the smart contract. Default is none.
+  ///   - source: The address invoking the contract.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  public func call(
+    contract: Address,
+    amount: Tez = Tez.zeroBalance,
+    parameter: MichelsonParameter? = nil,
+    source: Address,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    var policy = OperationFeePolicy.default
+    if let operationFees = operationFees {
+      policy = .custom(operationFees)
+    }
+
+    call(
+      contract: contract,
+      amount: amount,
+      parameter: parameter,
+      source: source,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: policy,
+      completion: completion
+    )
+  }
+
+  /// Call a smart contract.
+  ///
+  /// - Parameters:
+  ///   - contract: The smart contract to invoke.
+  ///   - amount: The amount of Tez to transfer with the invocation. Default is 0.
+  ///   - parameter: An optional parameter to send to the smart contract. Default is none.
+  ///   - source: The address invoking the contract.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  internal func call(
+    contract: Address,
+    amount: Tez = Tez.zeroBalance,
+    parameter: MichelsonParameter? = nil,
+    source: Address,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      parameter: parameter,
+      source: source,
+      destination: contract,
+      operationFeePolicy: operationFeePolicy
+    )
+    forgeSignPreapplyAndInject(
+      smartContractInvocationOperation,
+      source: source,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
+  }
+
+  /// Delegate the balance of an originated account.
+  ///
+  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
+  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
+  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+  ///
+  /// - Parameters:
+  ///   - source: The address which will delegate.
+  ///   - delegate: The address which will receive the delegation.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  public func delegate(
+    from source: Address,
+    to delegate: Address,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    var policy = OperationFeePolicy.default
+    if let operationFees = operationFees {
+      policy = .custom(operationFees)
+    }
+
+    self.delegate(
+      from: source,
+      to: delegate,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: policy,
+      completion: completion
+    )
+  }
+
+  /// Delegate the balance of an originated account.
+  ///
+  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
+  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
+  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+  ///
+  /// - Parameters:
+  ///   - source: The address which will delegate.
+  ///   - delegate: The address which will receive the delegation.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  internal func delegate(
+    from source: Address,
+    to delegate: Address,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let delegationOperation = operationFactory.delegateOperation(
+      source: source,
+      to: delegate,
+      operationFeePolicy: operationFeePolicy
+    )
+    forgeSignPreapplyAndInject(
+      delegationOperation,
+      source: source,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
+  }
+
+  /// Clear the delegate of an originated account.
+  ///
+  /// - Parameters:
+  ///   - source: The address which is removing the delegate.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
+  ///                 operation was successful.
+  public func undelegate(
+    from source: Address,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    var policy = OperationFeePolicy.default
+    if let operationFees = operationFees {
+      policy = .custom(operationFees)
+    }
+
+    undelegate(from: source, signatureProvider: signatureProvider, operationFeePolicy: policy, completion: completion)
+  }
+
+  /// Clear the delegate of an originated account.
+  ///
+  /// - Parameters:
+  ///   - source: The address which is removing the delegate.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
+  ///                 operation was successful.
+  internal func undelegate(
+    from source: Address,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    // TODONOT: oepration fees policy
+    let undelegateOperation = operationFactory.undelegateOperation(
+      source: source,
+      operationFeePolicy: operationFeePolicy
+    )
+    forgeSignPreapplyAndInject(
+      undelegateOperation,
+      source: source,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
+  }
+
+  /// Register an address as a delegate.
+  ///
+  /// - Parameters:
+  ///   - delegate: The address registering as a delegate.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  public func registerDelegate(
+    delegate: Address,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    var policy = OperationFeePolicy.default
+    if let operationFees = operationFees {
+      policy = .custom(operationFees)
+    }
+
+    registerDelegate(
+      delegate: delegate,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: policy,
+      completion: completion
+    )
+  }
+
+  /// Register an address as a delegate.
+  ///
+  /// - Parameters:
+  ///   - delegate: The address registering as a delegate.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  internal func registerDelegate(
+    delegate: Address,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let registerDelegateOperation = operationFactory.registerDelegateOperation(
+      source: delegate,
+      operationFeePolicy: operationFeePolicy
+    )
+    forgeSignPreapplyAndInject(
+      registerDelegateOperation,
+      source: delegate,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
+  }
+
+  /// Originate a new account from the given account.
+  ///
+  /// - Parameters:
+  ///   - managerAddress: The address which will manage the new account.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
+  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
+  ///                 operation was successful.
+  public func originateAccount(
+    managerAddress: String,
+    signatureProvider: SignatureProvider,
+    operationFees: OperationFees? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    var policy = OperationFeePolicy.default
+    if let operationFees = operationFees {
+      policy = .custom(operationFees)
+    }
+
+    originateAccount(
+      managerAddress: managerAddress,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: policy,
+      completion: completion
+    )
+  }
+
+  /// Originate a new account from the given account.
+  ///
+  /// - Parameters:
+  ///   - managerAddress: The address which will manage the new account.
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
+  ///                 operation was successful.
+  internal func originateAccount(
+    managerAddress: String,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let originationOperation = operationFactory.originationOperation(
+      address: managerAddress,
+      operationFeePolicy: operationFeePolicy
+    )
+    forgeSignPreapplyAndInject(
+      originationOperation,
+      source: managerAddress,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
   }
 
   /// Retrieve metadata and runs an operation.
@@ -413,19 +612,6 @@ public class TezosNodeClient {
     completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
   ) {
     simulationService.simulate(operation, from: wallet.address, signatureProvider: wallet, completion: completion)
-  }
-
-  /// Retrieve the storage of a smart contract.
-  ///
-  /// - Parameters:
-  ///   - address: The address of the smart contract to inspect.
-  ///   - completion: A completion block which will be called with the storage.
-  public func getContractStorage(
-    address: Address,
-    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
-  ) {
-    let rpc = GetContractStorageRPC(address: address)
-    networkClient.send(rpc, completion: completion)
   }
 
   // MARK: - Private Methods

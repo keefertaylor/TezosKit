@@ -47,7 +47,7 @@ public struct OperationPayload {
       let revealOperation = operationFactory.revealOperation(
         from: source,
         publicKey: signatureProvider.publicKey,
-        operationFees: nil
+        operationFeePolicy: .default
       )
       mutableOperations.insert(revealOperation, at: 0)
     }
