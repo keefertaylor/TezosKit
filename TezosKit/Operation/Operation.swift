@@ -12,7 +12,7 @@ public protocol Operation {
   var requiresReveal: Bool { get }
 
   /// Fees associated with the operation.
-  var operationFees: OperationFees { get }
+  var operationFees: OperationFees { get set }
 
   /// Retrieve a dictionary representing the operation.
   var dictionaryRepresentation: [String: Any] { get }
