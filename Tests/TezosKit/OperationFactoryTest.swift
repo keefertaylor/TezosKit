@@ -12,7 +12,7 @@ class OperationFactoryTest: XCTestCase {
     let revealOperation = operationFactory.revealOperation(
       from: "tz1abc",
       publicKey: FakePublicKey(base58CheckRepresentation: "xyz"),
-      operationFees: nil
+      operationFeePolicy: .default
     )
 
     let defaultFees = DefaultFeeProvider.fees(for: .reveal)
@@ -24,7 +24,7 @@ class OperationFactoryTest: XCTestCase {
   func testOriginationOperationWithDefaultFees() {
     let originationOperation = operationFactory.originationOperation(
       address: "tz1abc",
-      operationFees: nil
+      operationFeePolicy: .default
     )
 
     let defaultFees = DefaultFeeProvider.fees(for: .origination)
@@ -38,7 +38,7 @@ class OperationFactoryTest: XCTestCase {
       amount: Tez(1.0),
       source: "tz1abc",
       destination: "tz2xyz",
-      operationFees: nil
+      operationFeePolicy: .default
     )
 
     let defaultFees = DefaultFeeProvider.fees(for: .transaction)
@@ -48,7 +48,11 @@ class OperationFactoryTest: XCTestCase {
   }
 
   func testDelegationOperationWithDefaultFees() {
-    let delegationOperation = operationFactory.delegateOperation(source: "tz1abc", to: "tz2xyz", operationFees: nil)
+    let delegationOperation = operationFactory.delegateOperation(
+      source: "tz1abc",
+      to: "tz2xyz",
+      operationFeePolicy: .default
+    )
 
     let defaultFees = DefaultFeeProvider.fees(for: .delegation)
     XCTAssertEqual(delegationOperation.operationFees.fee, defaultFees.fee)
@@ -57,7 +61,10 @@ class OperationFactoryTest: XCTestCase {
   }
 
   func testRegisterDelegateOperationWithDefaultFees() {
-    let registerDelegateOperation = operationFactory.registerDelegateOperation(source: "tz1abc", operationFees: nil)
+    let registerDelegateOperation = operationFactory.registerDelegateOperation(
+      source: "tz1abc",
+      operationFeePolicy: .default
+    )
 
     let defaultFees = DefaultFeeProvider.fees(for: .delegation)
     XCTAssertEqual(registerDelegateOperation.operationFees.fee, defaultFees.fee)
@@ -66,7 +73,7 @@ class OperationFactoryTest: XCTestCase {
   }
 
   func testUndelegateOperationWithDefaultFees() {
-    let clearDelegateOperation = operationFactory.undelegateOperation(source: "tz1abc", operationFees: nil)
+    let clearDelegateOperation = operationFactory.undelegateOperation(source: "tz1abc", operationFeePolicy: .default)
 
     let defaultFees = DefaultFeeProvider.fees(for: .delegation)
     XCTAssertEqual(clearDelegateOperation.operationFees.fee, defaultFees.fee)
@@ -80,7 +87,7 @@ class OperationFactoryTest: XCTestCase {
     let revealOperation = operationFactory.revealOperation(
       from: "tz1abc",
       publicKey: FakePublicKey(base58CheckRepresentation: "xyz"),
-      operationFees: .testFees
+      operationFeePolicy: .custom(.testFees)
     )
 
     XCTAssertEqual(revealOperation.operationFees.fee, OperationFees.testFees.fee)
@@ -91,7 +98,7 @@ class OperationFactoryTest: XCTestCase {
   func testOriginationOperationWithCustomFees() {
     let originationOperation = operationFactory.originationOperation(
       address: "tz1abc",
-      operationFees: .testFees
+      operationFeePolicy: .custom(.testFees)
     )
 
     XCTAssertEqual(originationOperation.operationFees.fee, OperationFees.testFees.fee)
@@ -104,7 +111,7 @@ class OperationFactoryTest: XCTestCase {
       amount: Tez(1.0),
       source: "tz1abc",
       destination: "tz2xyz",
-      operationFees: .testFees
+      operationFeePolicy: .custom(.testFees)
     )
 
     XCTAssertEqual(transactionOperation.operationFees.fee, OperationFees.testFees.fee)
@@ -116,7 +123,7 @@ class OperationFactoryTest: XCTestCase {
     let delegationOperation = operationFactory.delegateOperation(
       source: "tz1abc",
       to: "tz2xyz",
-      operationFees: .testFees
+      operationFeePolicy: .custom(.testFees)
     )
 
     XCTAssertEqual(delegationOperation.operationFees.fee, OperationFees.testFees.fee)
@@ -127,7 +134,7 @@ class OperationFactoryTest: XCTestCase {
   func testRegisterDelegateOperationWithCustomFees() {
     let registerDelegateOperation = operationFactory.registerDelegateOperation(
       source: "tz1abc",
-      operationFees: .testFees
+      operationFeePolicy: .custom(.testFees)
     )
 
     XCTAssertEqual(registerDelegateOperation.operationFees.fee, OperationFees.testFees.fee)
@@ -136,7 +143,10 @@ class OperationFactoryTest: XCTestCase {
   }
 
   func testUndelegateOperationWithCustomFees() {
-    let clearDelegateOperation = operationFactory.undelegateOperation(source: "tz1abc", operationFees: .testFees)
+    let clearDelegateOperation = operationFactory.undelegateOperation(
+      source: "tz1abc",
+      operationFeePolicy: .custom(.testFees)
+    )
 
     XCTAssertEqual(clearDelegateOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(clearDelegateOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)

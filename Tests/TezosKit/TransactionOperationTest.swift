@@ -14,7 +14,7 @@ class TransactionOperationTest: XCTestCase {
       amount: balance,
       source: .testAddress,
       destination: .testDestinationAddress,
-      operationFees: nil
+      operationFeePolicy: .default
     )
     let dictionary = operation.dictionaryRepresentation
 
@@ -36,7 +36,7 @@ class TransactionOperationTest: XCTestCase {
       parameter: parameter,
       source: .testAddress,
       destination: .testDestinationAddress,
-      operationFees: nil
+      operationFeePolicy: .default
     )
     let dictionary = operation.dictionaryRepresentation
 
