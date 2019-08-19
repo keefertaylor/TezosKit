@@ -166,7 +166,6 @@ public class OperationFactory {
 
   // MARK: - Internal
 
-  // TODONOT: Why is fee provider not bound to a protocol?
   private func operationFees(
     from policy: OperationFeePolicy,
     operationKind: OperationKind,

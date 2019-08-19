@@ -483,7 +483,6 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    // TODONOT: oepration fees policy
     let undelegateOperation = operationFactory.undelegateOperation(
       source: source,
       operationFeePolicy: operationFeePolicy
