@@ -10,6 +10,7 @@ public class OperationPayloadFactory {
     self.operationFactory = operationFactory
   }
 
+  /// Create an operation payload from the given inputs.
   public func operationPayload(
     from operations: [Operation],
     source: Address,
