@@ -11,13 +11,10 @@ public class OperationFactory {
   /// The protocol this operation factory will produce operations for.
   private let tezosProtocol: TezosProtocol
 
-  /// A fee estimator.
-  private let feeEstimator: FeeEstimator
-
   /// Create a new operation factory.
   ///
   /// - Parameter tezosProtocol: The protocol that this factory will provide operations for. Default is athens.
-  public init(tezosProtocol: TezosProtocol = .athens, feeEstimator: FeeEstimator) {
+  public init(tezosProtocol: TezosProtocol = .athensg) {
     defaultFeeProvider = DefaultFeeProvider.self
     self.tezosProtocol = tezosProtocol
     self.feeEstimator = feeEstimator
@@ -203,8 +200,6 @@ public class OperationFactory {
       return defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol)
     case .custom(let operationFees):
       return operationFees
-    case .estimate:
-      return feeEstimator.estimate(operation: operation, address: addres, signatureProvider: signatureProvider, completion: <#T##(OperationFees?) -> Void#>)
     }
   }
 }
