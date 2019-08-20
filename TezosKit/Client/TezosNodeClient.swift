@@ -72,25 +72,28 @@ public class TezosNodeClient {
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
   /// A factory which produces operations.
-  public let operationFactory: OperationFactory
+  internal let operationFactory: OperationFactory
 
   /// A service which forges operations.
-  public let forgingService: ForgingService
+  internal let forgingService: ForgingService
 
   /// The network client.
-  public let networkClient: NetworkClient
+  internal let networkClient: NetworkClient
 
   /// The operation metadata provider.
-  public let operationMetadataProvider: OperationMetadataProvider
+  internal let operationMetadataProvider: OperationMetadataProvider
 
   /// A service that preapplies operations.
-  public let preapplicationService: PreapplicationService
+  internal let preapplicationService: PreapplicationService
 
   /// A service which simulates operations.
-  public let simulationService: SimulationService
+  internal let simulationService: SimulationService
 
   /// An injection service which injects operations.
-  public let injectionService: InjectionService
+  internal let injectionService: InjectionService
+
+  /// An operation payload factory.
+  internal let operationPayloadFactory: OperationPayloadFactory
 
   /// Initialize a new TezosNodeClient.
   ///
@@ -108,6 +111,7 @@ public class TezosNodeClient {
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
+    operationPayloadFactory = OperationPayloadFactory(operationFactory: operationFactory)
     networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
@@ -119,8 +123,8 @@ public class TezosNodeClient {
     preapplicationService = PreapplicationService(networkClient: networkClient)
     simulationService = SimulationService(
       networkClient: networkClient,
-      operationFactory: operationFactory,
-      operationMetadataProvider: operationMetadataProvider
+      operationMetadataProvider: operationMetadataProvider,
+      operationPayloadFactory: operationPayloadFactory
     )
     injectionService = InjectionService(networkClient: networkClient)
   }
@@ -668,12 +672,11 @@ public class TezosNodeClient {
         return
       }
 
-      let operationPayload = OperationPayload(
-        operations: operations,
-        operationFactory: self.operationFactory,
-        operationMetadata: operationMetadata,
+      let operationPayload = self.operationPayloadFactory.operationPayload(
+        from: operations,
         source: source,
-        signatureProvider: signatureProvider
+        signatureProvider: signatureProvider,
+        operationMetadata: operationMetadata
       )
       self.forgingService.forge(
         operationPayload: operationPayload,
