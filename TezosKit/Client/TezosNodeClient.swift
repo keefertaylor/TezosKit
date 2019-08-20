@@ -107,22 +107,27 @@ public class TezosNodeClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
     networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
-    operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
+
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
+    operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
+    injectionService = InjectionService(networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
+
+
+    let feeEstimator = FeeEstimator(forgingService: forgingService, operationFactory: <#T##OperationFactory#>, operationMetadataProvider: operationMetadataProvider, simulationService: <#T##SimulationService#>)
+    operationFactory = OperationFactory(tezosProtocol: tezosProtocol, feeEstimator: feeEstimator)
+
     simulationService = SimulationService(
       networkClient: networkClient,
       operationFactory: operationFactory,
       operationMetadataProvider: operationMetadataProvider
     )
-    injectionService = InjectionService(networkClient: networkClient)
   }
 
   // MARK: - Queries
@@ -303,7 +308,8 @@ public class TezosNodeClient {
       amount: amount,
       source: source,
       destination: recipientAddress,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     forgeSignPreapplyAndInject(
       transactionOperation,
@@ -372,7 +378,8 @@ public class TezosNodeClient {
       parameter: parameter,
       source: source,
       destination: contract,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     forgeSignPreapplyAndInject(
       smartContractInvocationOperation,
@@ -437,7 +444,8 @@ public class TezosNodeClient {
     let delegationOperation = operationFactory.delegateOperation(
       source: source,
       to: delegate,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     forgeSignPreapplyAndInject(
       delegationOperation,
@@ -485,7 +493,8 @@ public class TezosNodeClient {
   ) {
     let undelegateOperation = operationFactory.undelegateOperation(
       source: source,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     forgeSignPreapplyAndInject(
       undelegateOperation,
@@ -536,7 +545,8 @@ public class TezosNodeClient {
   ) {
     let registerDelegateOperation = operationFactory.registerDelegateOperation(
       source: delegate,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     forgeSignPreapplyAndInject(
       registerDelegateOperation,
@@ -589,7 +599,8 @@ public class TezosNodeClient {
   ) {
     let originationOperation = operationFactory.originationOperation(
       address: managerAddress,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     forgeSignPreapplyAndInject(
       originationOperation,

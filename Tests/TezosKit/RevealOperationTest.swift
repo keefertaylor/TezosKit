@@ -11,7 +11,8 @@ class RevealOperationTest: XCTestCase {
     let operation = OperationFactory.testFactory.revealOperation(
       from: source,
       publicKey: publicKey,
-      operationFeePolicy: .default
+      operationFeePolicy: .default,
+      signatureProvider: FakeSignatureProvider.testSignatureProvider
     )
     let dictionary = operation.dictionaryRepresentation
 
