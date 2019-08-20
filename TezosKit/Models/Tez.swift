@@ -79,6 +79,10 @@ public struct Tez {
     integerAmount = String(integerString)
     decimalAmount = String(decimalString)
   }
+
+  public static func +(left: Tez, right: Tez) {
+
+  }
 }
 
 extension Tez: Equatable {
