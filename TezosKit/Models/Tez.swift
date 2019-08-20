@@ -149,10 +149,6 @@ extension Tez: Comparable {
     let rhsMutez = BigInt(rhs.rpcRepresentation)!
     return lhsMutez < rhsMutez
   }
-
-  public static func +(left: Tez, right: Tez) {
-
-  }
 }
 
 extension Tez: Equatable {

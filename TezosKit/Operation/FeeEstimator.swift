@@ -18,6 +18,12 @@ public class FeeEstimator {
   let operationMetadataProvider: OperationMetadataProvider
   let simulationService: SimulationService
 
+  /// Identifier for the internal dispatch queue.
+  private static let queueIdentifier = "com.keefertaylor.TezosKit.FeeEstimator"
+
+  /// Internal Queue to use in order to perform asynchronous work.
+  private let feeEstimatorQueue: DispatchQueue
+
   public init(
     forgingService: ForgingService,
     operationFactory: OperationFactory,
@@ -25,64 +31,83 @@ public class FeeEstimator {
     simulationService: SimulationService
   ) {
     self.forgingService = forgingService
+    self.operationFactory = operationFactory
     self.operationMetadataProvider = operationMetadataProvider
     self.simulationService = simulationService
+    feeEstimatorQueue = DispatchQueue(label: FeeEstimator.queueIdentifier)
   }
 
   private func estimate(
     operation: Operation,
     address: Address,
-    signatureProvider: SignatureProvider
-  ) -> OperationFees? {
-    guard
-      let simulationResult = simulateOperationSync(
-        operation: operation,
-        address: address,
-        signatureProvider: signatureProvider
-      ),
-      case let .success(consumedGas, consumedStorage) = simulationResult
-    else {
-      return nil
-    }
+    signatureProvider: SignatureProvider,
+    completion: @escaping (OperationFees?) -> Void
+  ) {
+    feeEstimatorQueue.async {
+      // swiftlint:disable force_cast
+      let mutableOperation = operation.mutableCopy() as! Operation
+      // swiftlint:enable force_cast
 
-    let gasFee = feeForGas(consumedGas: consumedGas)
-    let minimumFee = nanoTezToTez(nanoTez: FeeConstants.minimalFee)
-    let initialFee = gasFee > minimumFee ? gasFee : minimumFee
-    let initialOperationFees = OperationFees(fee: initialFee, gasLimit: consumedGas, storageLimit: consumedStorage)
-    operation.operationFees = initialOperationFees
-
-    // Loop until we're happy.
-    var currentFee = initialFee
-    var currentOperationSizeFees = currentFee - gasFee
-    guard
-      var requiredStorageFee = feeForOperation(
-        address: address,
-        operation: operation,
-        signatureProvider: signatureProvider
-      )
-    else {
-      return nil
-    }
-    while currentOperationSizeFees < requiredStorageFee {
-      let difference = requiredStorageFee - currentOperationSizeFees
-      let newFee = currentOperationSizeFees + difference
-      let newOperationFees = OperationFees(fee: newFee, gasLimit: consumedGas, storageLimit: consumedStorage)
-      operation.operationFees = newOperationFees
-
+      // Simulate the operation to determine gas and storage limits.
       guard
-        let newRequiredStorageFee = feeForOperation(
+        let simulationResult = self.simulateOperationSync(
+          operation: mutableOperation,
           address: address,
-          operation: operation,
           signatureProvider: signatureProvider
-        )
+        ),
+        case let .success(consumedGas, consumedStorage) = simulationResult
       else {
-        return nil
+        completion(nil)
+        return
       }
 
-      requiredStorageFee = newRequiredStorageFee
-    }
+      // Start with a minimum fee equal to the minimum fee or the fee required by the gas.
+      let gasFee = self.feeForGas(consumedGas: consumedGas)
+      let minimumFee = self.nanoTezToTez(nanoTez: FeeConstants.minimalFee)
+      let initialFee = gasFee > minimumFee ? gasFee : minimumFee
 
-    return operation.operationFees
+      // Calculate the amount of fees required for the operation size.
+      guard var requiredStorageFee = self.feeForOperation(
+        address: address,
+        operation: mutableOperation,
+        signatureProvider: signatureProvider
+      ) else {
+        completion(nil)
+        return
+      }
+
+      // Modify the operation for these fees.
+      mutableOperation.operationFees = OperationFees(
+        fee: initialFee,
+        gasLimit: consumedGas,
+        storageLimit: consumedStorage
+      )
+
+      // Loop until the storage fee for the operation is above the required storage fee.
+      while mutableOperation.operationFees.fee - gasFee < requiredStorageFee {
+        // Calculate the needed delta on the storage fee and change it out on the operation.
+        let feeDifference = mutableOperation.operationFees.fee - gasFee
+        let newFee = mutableOperation.operationFees.fee + feeDifference
+        mutableOperation.operationFees = OperationFees(
+          fee: newFee,
+          gasLimit: mutableOperation.operationFees.gasLimit,
+          storageLimit: mutableOperation.operationFees.storageLimit
+        )
+
+        // Calculate a new required storage fee, based on the updated fees.
+        guard let newStorageFee = self.feeForOperation(
+          address: address,
+          operation: mutableOperation,
+          signatureProvider: signatureProvider
+        ) else {
+          completion(nil)
+          return
+        }
+        requiredStorageFee = newStorageFee
+      }
+
+      completion(mutableOperation.operationFees)
+    }
   }
 
   private func feeForOperation(address: Address, operation: Operation, signatureProvider: SignatureProvider) -> Tez? {

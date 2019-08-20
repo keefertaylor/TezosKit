@@ -63,4 +63,8 @@ public class DelegationOperation: AbstractOperation {
   public static func undelegateOperation(source: Address, operationFees: OperationFees) -> DelegationOperation {
     return DelegationOperation(source: source, delegate: nil, operationFees: operationFees)
   }
+
+  public override func mutableCopy(with zone: NSZone? = nil) -> Any {
+    return DelegationOperation(source: source, delegate: delegate, operationFees: operationFees)
+  }
 }
