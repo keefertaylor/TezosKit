@@ -11,23 +11,34 @@ public struct Tez {
   /// The number of decimal places available in Tezos values.
   private let decimalDigitCount = 6
 
-  /// A string representing the integer amount of the balance.
-  /// For instance, a balance of 123.456 would be represented in this field as "123".
-  private let integerAmount: String
+  /// A int representing the integer amount of the balance.
+  /// For instance, a balance of 123.456 would be represented in this field as 123.
+  private let integerAmount: BigInt
 
-  /// A string representing the decimal amount of the balance.
-  /// For instance, a balance of 123.456 would be represented in this field as "456".
-  private let decimalAmount: String
+  /// A int representing the decimal amount of the balance.
+  /// For instance, a balance of 123.456 would be represented in this field as 4564.
+  private let decimalAmount: BigInt
 
   /// A human readable representation of the given balance.
   public var humanReadableRepresentation: String {
-    return integerAmount + "." + decimalAmount
+    // Decimal values need to be at least decimalDigitCount long. If the decimal value resolved to
+    // be less than 6 then the number dropped leading zeros. E.G. '0' instead of '000000' or '400'
+    // rather than 000400.
+    var paddedDecimalAmount = String(decimalAmount)
+    while paddedDecimalAmount.count < decimalDigitCount {
+      paddedDecimalAmount = "0" + paddedDecimalAmount
+    }
+    return String(integerAmount) + "." + String(paddedDecimalAmount)
   }
 
   /// A representation of the given balance for use in RPC requests.
   public var rpcRepresentation: String {
     // Trim any leading zeroes by converting to an Int.
-    return (integerAmount + decimalAmount).replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+    return (String(integerAmount) + (String(decimalAmount)).replacingOccurrences(
+      of: "^0+",
+      with: "",
+      options: .regularExpression
+    )
   }
 
   /// Initialize a new balance from a given decimal number.
@@ -44,16 +55,8 @@ public struct Tez {
     let significantIntegerDigitsAsInteger = BigInt(integerValue * BigInt(multiplierIntValue))
     let decimalValue = significantDecimalDigitsAsInteger - significantIntegerDigitsAsInteger
 
-    integerAmount = String(integerValue)
-
-    // Decimal values need to be at least decimalDigitCount long. If the decimal value resolved to
-    // be less than 6 then the number dropped leading zeros. E.G. '0' instead of '000000' or '400'
-    // rather than 000400.
-    var paddedDecimalAmount = String(decimalValue)
-    while paddedDecimalAmount.count < decimalDigitCount {
-      paddedDecimalAmount = "0" + paddedDecimalAmount
-    }
-    decimalAmount = paddedDecimalAmount
+    integerAmount = integerValue
+    decimalAmount = decimalValue
   }
 
   /// Initialize a new balance from an RPC representation of a balance.
