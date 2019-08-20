@@ -11,12 +11,16 @@ public class OperationFactory {
   /// The protocol this operation factory will produce operations for.
   private let tezosProtocol: TezosProtocol
 
+  /// A fee estimator.
+  private let feeEstimator: FeeEstimator
+
   /// Create a new operation factory.
   ///
   /// - Parameter tezosProtocol: The protocol that this factory will provide operations for. Default is athens.
-  public init(tezosProtocol: TezosProtocol = .athens) {
+  public init(tezosProtocol: TezosProtocol = .athens, feeEstimator: FeeEstimator) {
     defaultFeeProvider = DefaultFeeProvider.self
     self.tezosProtocol = tezosProtocol
+    self.feeEstimator = feeEstimator
   }
 
   /// Create a new reveal operation.
@@ -30,12 +34,15 @@ public class OperationFactory {
     publicKey: PublicKey,
     operationFeePolicy: OperationFeePolicy
   ) -> Operation {
+    let operation = RevealOperation(from: address, publicKey: publicKey, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .reveal,
+      address: address,
+      operation: operation,
       tezosProtocol: tezosProtocol
     )
-    return RevealOperation(from: address, publicKey: publicKey, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a new origination operation.
@@ -47,12 +54,15 @@ public class OperationFactory {
     address: Address,
     operationFeePolicy: OperationFeePolicy
   ) -> Operation {
+    let operation = OriginationOperation(address: address, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .origination,
+      address: address,
+      operation: operation,
       tezosProtocol: tezosProtocol
     )
-    return OriginationOperation(address: address, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a delegation operation which will register the given address as a delegate.
@@ -64,12 +74,15 @@ public class OperationFactory {
     source: Address,
     operationFeePolicy: OperationFeePolicy
   ) -> Operation {
+    let operation = DelegationOperation(source: source, delegate: source, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .delegation,
+      address: address,
+      operation: operation,
       tezosProtocol: tezosProtocol
     )
-    return DelegationOperation(source: source, delegate: source, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a delegation operation which will delegate to the given address.
@@ -83,12 +96,15 @@ public class OperationFactory {
     to delegate: Address,
     operationFeePolicy: OperationFeePolicy
   ) -> Operation {
+    let operation = DelegationOperation(source: source, delegate: delegate, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .delegation,
+      address: address,
+      operation: operation,
       tezosProtocol: tezosProtocol
     )
-    return DelegationOperation(source: source, delegate: delegate, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a delegation operation which will clear the delegate from the given address.
@@ -100,12 +116,15 @@ public class OperationFactory {
     source: Address,
     operationFeePolicy: OperationFeePolicy
   ) -> Operation {
+    let operation = DelegationOperation(source: source, delegate: nil, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .delegation,
+      address: address,
+      operation: operation,
       tezosProtocol: tezosProtocol
     )
-    return DelegationOperation(source: source, delegate: nil, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a new transaction operation.
@@ -121,17 +140,20 @@ public class OperationFactory {
     destination: Address,
     operationFeePolicy: OperationFeePolicy
   ) -> Operation {
-    let fees = operationFees(
-      from: operationFeePolicy,
-      operationKind: .transaction,
-      tezosProtocol: tezosProtocol
-    )
-    return TransactionOperation(
+    let operation = TransactionOperation(
       amount: amount,
       source: source,
       destination: destination,
-      operationFees: fees
+      operationFees: OperationFees.zeroFees
     )
+    let fees = operationFees(
+      from: operationFeePolicy,
+      address: address,
+      operation: operation,
+      tezosProtocol: tezosProtocol
+    )
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a new smart contract invocation operation.
@@ -150,32 +172,39 @@ public class OperationFactory {
     destination: Address,
     operationFeePolicy: OperationFeePolicy
   ) -> Operation {
-    let fees = operationFees(
-      from: operationFeePolicy,
-      operationKind: .transaction,
-      tezosProtocol: tezosProtocol
-    )
-    return TransactionOperation(
+    let operation = TransactionOperation(
       amount: amount,
       parameter: parameter,
       source: source,
       destination: destination,
-      operationFees: fees
+      operationFees: OperationFees.zeroFees
     )
+    let fees = operationFees(
+      from: operationFeePolicy,
+      address: address,
+      operation: operation,
+      tezosProtocol: tezosProtocol
+    )
+    operation.operationFees = fees
+    return operation
   }
 
   // MARK: - Internal
 
   private func operationFees(
     from policy: OperationFeePolicy,
-    operationKind: OperationKind,
+    address: Address,
+    operation: Operation,
+    signatureProvider: SignatureProvider,
     tezosProtocol: TezosProtocol
   ) -> OperationFees {
     switch policy {
     case .default:
-      return defaultFeeProvider.fees(for: operationKind, in: tezosProtocol)
+      return defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol)
     case .custom(let operationFees):
       return operationFees
+    case .estimate:
+      return feeEstimator.estimate(operation: operation, address: addres, signatureProvider: signatureProvider, completion: <#T##(OperationFees?) -> Void#>)
     }
   }
 }

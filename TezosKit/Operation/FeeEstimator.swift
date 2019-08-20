@@ -37,7 +37,7 @@ public class FeeEstimator {
     feeEstimatorQueue = DispatchQueue(label: FeeEstimator.queueIdentifier)
   }
 
-  private func estimate(
+  public func estimate(
     operation: Operation,
     address: Address,
     signatureProvider: SignatureProvider,
@@ -109,6 +109,8 @@ public class FeeEstimator {
       completion(mutableOperation.operationFees)
     }
   }
+
+  // MARK: - Helpers
 
   private func feeForOperation(address: Address, operation: Operation, signatureProvider: SignatureProvider) -> Tez? {
     guard let hex = self.forgeSync(address: address, operation: operation, signatureProvider: signatureProvider) else {
