@@ -188,4 +188,14 @@ class TezTest: XCTestCase {
     left -= right
     XCTAssertEqual(left, expected)
   }
+
+  public func testGreaterThan() {
+    XCTAssertTrue(Tez(1.0) > Tez(0.5))
+    XCTAssertFalse(Tez(0.5) > Tez(1.0))
+  }
+
+  public func testLessThan() {
+    XCTAssertFalse(Tez(1.0) < Tez(0.5))
+    XCTAssertTrue(Tez(0.5) < Tez(1.0))
+  }
 }

@@ -143,6 +143,14 @@ extension Tez: AdditiveArithmetic {
   }
 }
 
+extension Tez: Comparable {
+  public static func < (lhs: Tez, rhs: Tez) -> Bool {
+    let lhsMutez = BigInt(lhs.rpcRepresentation)!
+    let rhsMutez = BigInt(rhs.rpcRepresentation)!
+    return lhsMutez < rhsMutez
+  }
+}
+
 extension Tez: Equatable {
   public static func == (lhs: Tez, rhs: Tez) -> Bool {
     return lhs.rpcRepresentation == rhs.rpcRepresentation
