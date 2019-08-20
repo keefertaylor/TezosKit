@@ -8,7 +8,11 @@ class RevealOperationTest: XCTestCase {
     let source = "tz1abc"
     let publicKey = FakePublicKey(base58CheckRepresentation: "edpkXYZ")
 
-    let operation = OperationFactory.testFactory.revealOperation(from: source, publicKey: publicKey, operationFees: nil)
+    let operation = OperationFactory.testFactory.revealOperation(
+      from: source,
+      publicKey: publicKey,
+      operationFeePolicy: .default
+    )
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])

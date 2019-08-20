@@ -156,7 +156,7 @@ extension TezosNodeIntegrationTests {
 
     let operation = OperationFactory.testOperationFactory.originationOperation(
       address: Wallet.testWallet.address,
-      operationFees: nil
+      operationFeePolicy: .default
     )
     self.nodeClient.runOperation(operation, from: .testWallet).done { simulationResult in
       guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
@@ -205,13 +205,13 @@ extension TezosNodeIntegrationTests {
         amount: Tez("1")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFees: nil
+        operationFeePolicy: .default
       ),
       OperationFactory.testOperationFactory.transactionOperation(
         amount: Tez("2")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFees: nil
+        operationFeePolicy: .default
       )
     ]
 

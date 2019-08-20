@@ -22,7 +22,11 @@ final class OperationPayloadTest: XCTestCase {
   /// Test a single operation with a revealed manager key.
   func testOperationPayloadInitSingleOperation() {
     let operations = [
-      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress, operationFees: nil)
+      operationFactory.delegateOperation(
+        source: .testAddress,
+        to: .testDestinationAddress,
+        operationFeePolicy: .default
+      )
     ]
 
     let operationPayload = OperationPayload(
@@ -43,8 +47,12 @@ final class OperationPayloadTest: XCTestCase {
   /// Test multiple operations with a revealed manager key.
   func testOperationPayloadInitMultipleOperations() {
     let operations = [
-      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress, operationFees: nil),
-      operationFactory.registerDelegateOperation(source: .testAddress, operationFees: nil)
+      operationFactory.delegateOperation(
+        source: .testAddress,
+        to: .testDestinationAddress,
+        operationFeePolicy: .default
+      ),
+      operationFactory.registerDelegateOperation(source: .testAddress, operationFeePolicy: .default)
     ]
 
     let operationPayload = OperationPayload(
@@ -65,8 +73,12 @@ final class OperationPayloadTest: XCTestCase {
   /// Test an operation requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealRequired() {
     let operations = [
-      operationFactory.delegateOperation(source: .testAddress, to: .testDestinationAddress, operationFees: nil),
-      operationFactory.registerDelegateOperation(source: .testAddress, operationFees: nil)
+      operationFactory.delegateOperation(
+        source: .testAddress,
+        to: .testDestinationAddress,
+        operationFeePolicy: .default
+      ),
+      operationFactory.registerDelegateOperation(source: .testAddress, operationFeePolicy: .default)
     ]
 
     let operationPayload = OperationPayload(
@@ -89,7 +101,11 @@ final class OperationPayloadTest: XCTestCase {
   /// Test an operation not requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealNotRequired() {
     let operations = [
-      operationFactory.revealOperation(from: .testAddress, publicKey: signatureProvider.publicKey, operationFees: nil)
+      operationFactory.revealOperation(
+        from: .testAddress,
+        publicKey: signatureProvider.publicKey,
+        operationFeePolicy: .default
+      )
     ]
 
     let operationPayload = OperationPayload(
