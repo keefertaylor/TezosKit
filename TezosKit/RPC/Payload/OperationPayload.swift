@@ -32,7 +32,7 @@ public struct OperationPayload {
   ///   - operationMetadata: Metadata about the operations.
   ///   - source: The address executing the operations.
   ///   - signatureProvider: The object which will provide the public key.
-  public init(
+  public init?(
     operations: [Operation],
     operationFactory: OperationFactory,
     operationMetadata: OperationMetadata,
@@ -44,12 +44,16 @@ public struct OperationPayload {
     // perform.
     var mutableOperations = operations
     if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-      let revealOperation = operationFactory.revealOperation(
-        from: source,
-        publicKey: signatureProvider.publicKey,
-        operationFeePolicy: .default,
-        signatureProvider: signatureProvider
-      )
+      guard
+        let revealOperation = operationFactory.revealOperation(
+          from: source,
+          publicKey: signatureProvider.publicKey,
+          operationFeePolicy: .default,
+          signatureProvider: signatureProvider
+        )
+      else {
+        return nil
+      }
       mutableOperations.insert(revealOperation, at: 0)
     }
 

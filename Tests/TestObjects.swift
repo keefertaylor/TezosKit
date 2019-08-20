@@ -53,7 +53,7 @@ extension OperationPayload {
     operationMetadata: .testOperationMetadata,
     source: .testAddress,
     signatureProvider: FakeSignatureProvider.testSignatureProvider
-  )
+  )!
 }
 
 extension SignedOperationPayload {

@@ -53,15 +53,14 @@ public class SimulationService {
         return
       }
 
-      let operationPayload = OperationPayload(
-        operations: [operation],
-        operationFactory: self.operationFactory,
-        operationMetadata: operationMetadata,
-        source: source,
-        signatureProvider: signatureProvider
-      )
-
       guard
+        let operationPayload = OperationPayload(
+          operations: [operation],
+          operationFactory: self.operationFactory,
+          operationMetadata: operationMetadata,
+          source: source,
+          signatureProvider: signatureProvider
+        ),
         let signedOperationPayload = SignedOperationPayload(
           operationPayload: operationPayload,
           signature: SimulationService.defaultSignature

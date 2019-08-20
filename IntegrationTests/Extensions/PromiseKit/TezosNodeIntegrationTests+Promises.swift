@@ -158,7 +158,7 @@ extension TezosNodeIntegrationTests {
       address: Wallet.testWallet.address,
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
-    )
+    )!
     self.nodeClient.runOperation(operation, from: .testWallet).done { simulationResult in
       guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
         XCTFail()
@@ -208,14 +208,14 @@ extension TezosNodeIntegrationTests {
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
         operationFeePolicy: .default,
         signatureProvider: Wallet.testWallet
-      ),
+      )!,
       OperationFactory.testOperationFactory.transactionOperation(
         amount: Tez("2")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
         operationFeePolicy: .default,
         signatureProvider: Wallet.testWallet
-      )
+      )!
     ]
 
     nodeClient.forgeSignPreapplyAndInject(

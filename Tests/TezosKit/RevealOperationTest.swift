@@ -13,7 +13,7 @@ class RevealOperationTest: XCTestCase {
       publicKey: publicKey,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])

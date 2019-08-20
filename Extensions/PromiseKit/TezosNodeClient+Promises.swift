@@ -293,13 +293,19 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
   ) -> Promise<String> {
-    let transactionOperation = operationFactory.transactionOperation(
-      amount: amount,
-      source: source,
-      destination: recipientAddress,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let transactionOperation = operationFactory.transactionOperation(
+        amount: amount,
+        source: source,
+        destination: recipientAddress,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+      else {
+        return Promise { seal in
+          seal.reject(TezosKitError(kind: .transactionFormationFailure))
+        }
+      }
     return forgeSignPreapplyAndInject(
       operation: transactionOperation,
       source: source,
@@ -325,14 +331,21 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
   ) -> Promise<String> {
-    let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
-      amount: amount,
-      parameter: parameter,
-      source: source,
-      destination: contract,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
+        amount: amount,
+        parameter: parameter,
+        source: source,
+        destination: contract,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure))
+      }
+    }
+
     return forgeSignPreapplyAndInject(
       operation: smartContractInvocationOperation,
       source: source,
@@ -358,12 +371,19 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
   ) -> Promise<String> {
-    let delegationOperation = operationFactory.delegateOperation(
-      source: source,
-      to: delegate,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let delegationOperation = operationFactory.delegateOperation(
+        source: source,
+        to: delegate,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure))
+      }
+    }
+
     return forgeSignPreapplyAndInject(
       operation: delegationOperation,
       source: source,
@@ -383,11 +403,18 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
   ) -> Promise<String> {
-    let undelegateOperatoin = operationFactory.undelegateOperation(
-      source: source,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let undelegateOperatoin = operationFactory.undelegateOperation(
+        source: source,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure))
+      }
+    }
+
     return forgeSignPreapplyAndInject(
       operation: undelegateOperatoin,
       source: source,
@@ -407,11 +434,18 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
   ) -> Promise<String> {
-    let registerDelegateOperation = operationFactory.registerDelegateOperation(
-      source: delegate,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let registerDelegateOperation = operationFactory.registerDelegateOperation(
+        source: delegate,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure))
+      }
+    }
+
     return forgeSignPreapplyAndInject(
       operation: registerDelegateOperation,
       source: delegate,
@@ -431,11 +465,18 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
   ) -> Promise<String> {
-    let originationOperation = operationFactory.originationOperation(
-      address: managerAddress,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let originationOperation = operationFactory.originationOperation(
+        address: managerAddress,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure))
+      }
+    }
+
     return forgeSignPreapplyAndInject(
       operation: originationOperation,
       source: managerAddress,
