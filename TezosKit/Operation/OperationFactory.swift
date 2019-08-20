@@ -14,10 +14,9 @@ public class OperationFactory {
   /// Create a new operation factory.
   ///
   /// - Parameter tezosProtocol: The protocol that this factory will provide operations for. Default is athens.
-  public init(tezosProtocol: TezosProtocol = .athensg) {
+  public init(tezosProtocol: TezosProtocol = .athens) {
     defaultFeeProvider = DefaultFeeProvider.self
     self.tezosProtocol = tezosProtocol
-    self.feeEstimator = feeEstimator
   }
 
   /// Create a new reveal operation.
@@ -34,8 +33,7 @@ public class OperationFactory {
     let operation = RevealOperation(from: address, publicKey: publicKey, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      address: address,
-      operation: operation,
+      kind: .reveal,
       tezosProtocol: tezosProtocol
     )
     operation.operationFees = fees
@@ -54,8 +52,7 @@ public class OperationFactory {
     let operation = OriginationOperation(address: address, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      address: address,
-      operation: operation,
+      kind: .origination,
       tezosProtocol: tezosProtocol
     )
     operation.operationFees = fees
@@ -74,8 +71,7 @@ public class OperationFactory {
     let operation = DelegationOperation(source: source, delegate: source, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      address: address,
-      operation: operation,
+      kind: .delegation,
       tezosProtocol: tezosProtocol
     )
     operation.operationFees = fees
@@ -96,8 +92,7 @@ public class OperationFactory {
     let operation = DelegationOperation(source: source, delegate: delegate, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      address: address,
-      operation: operation,
+      kind: .delegation,
       tezosProtocol: tezosProtocol
     )
     operation.operationFees = fees
@@ -116,8 +111,7 @@ public class OperationFactory {
     let operation = DelegationOperation(source: source, delegate: nil, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      address: address,
-      operation: operation,
+      kind: .delegation,
       tezosProtocol: tezosProtocol
     )
     operation.operationFees = fees
@@ -145,8 +139,7 @@ public class OperationFactory {
     )
     let fees = operationFees(
       from: operationFeePolicy,
-      address: address,
-      operation: operation,
+      kind: .transaction,
       tezosProtocol: tezosProtocol
     )
     operation.operationFees = fees
@@ -178,8 +171,7 @@ public class OperationFactory {
     )
     let fees = operationFees(
       from: operationFeePolicy,
-      address: address,
-      operation: operation,
+      kind: .transaction,
       tezosProtocol: tezosProtocol
     )
     operation.operationFees = fees
@@ -190,14 +182,12 @@ public class OperationFactory {
 
   private func operationFees(
     from policy: OperationFeePolicy,
-    address: Address,
-    operation: Operation,
-    signatureProvider: SignatureProvider,
+    kind: OperationKind,
     tezosProtocol: TezosProtocol
   ) -> OperationFees {
     switch policy {
     case .default:
-      return defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol)
+      return defaultFeeProvider.fees(for: kind, in: tezosProtocol)
     case .custom(let operationFees):
       return operationFees
     }
