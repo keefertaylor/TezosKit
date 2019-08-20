@@ -33,8 +33,17 @@ public struct Tez {
 
   /// A representation of the given balance for use in RPC requests.
   public var rpcRepresentation: String {
+    // Decimal values need to be at least decimalDigitCount long. If the decimal value resolved to
+    // be less than 6 then the number dropped leading zeros. E.G. '0' instead of '000000' or '400'
+    // rather than 000400.
+    var paddedDecimalAmount = String(decimalAmount)
+    while paddedDecimalAmount.count < decimalDigitCount {
+      paddedDecimalAmount = "0" + paddedDecimalAmount
+    }
+
     // Trim any leading zeroes by converting to an Int.
-    return (String(integerAmount) + (String(decimalAmount)).replacingOccurrences(
+    let intermediateString = String(integerAmount) + String(paddedDecimalAmount)
+    return intermediateString.replacingOccurrences(
       of: "^0+",
       with: "",
       options: .regularExpression
@@ -79,8 +88,15 @@ public struct Tez {
     let integerString = paddedBalance[integerRange].isEmpty ? "0" : paddedBalance[integerRange]
     let decimalString = paddedBalance[integerDigitEndIndex ..< paddedBalance.endIndex]
 
-    integerAmount = String(integerString)
-    decimalAmount = String(decimalString)
+    guard
+      let integerAmount = BigInt(String(integerString)),
+      let decimalAmount = BigInt(String(decimalString))
+    else {
+      return nil
+    }
+
+    self.integerAmount = integerAmount
+    self.decimalAmount = decimalAmount
   }
 }
 
