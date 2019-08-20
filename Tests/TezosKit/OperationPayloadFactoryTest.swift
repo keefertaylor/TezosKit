@@ -3,7 +3,7 @@
 @testable import TezosKit
 import XCTest
 
-gfinal class OperationPayloadFactoryTest: XCTestCase {
+final class OperationPayloadFactoryTest: XCTestCase {
   let signatureProvider = FakeSignatureProvider(signature: .testSignature, publicKey: FakePublicKey.testPublicKey)
   let operationMetadataWithRevealedKey = OperationMetadata(
     branch: .testBranch,
