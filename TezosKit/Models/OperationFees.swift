@@ -10,7 +10,7 @@ public struct OperationFees {
 
   /// A zero-ed fees object.
   internal static let zeroFees = OperationFees(fee: .zeroBalance, gasLimit: 0, storageLimit: 0)
-g
+
   public init(fee: Tez, gasLimit: Int, storageLimit: Int) {
     self.fee = fee
     self.gasLimit = gasLimit
