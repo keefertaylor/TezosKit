@@ -25,7 +25,8 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
-        operationFeePolicy: .default
+        operationFeePolicy: .default,
+        signatureProvider: FakeSignatureProvider.testSignatureProvider
       )
     ]
 
@@ -50,9 +51,14 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
-        operationFeePolicy: .default
+        operationFeePolicy: .default,
+        signatureProvider: FakeSignatureProvider.testSignatureProvider
       ),
-      operationFactory.registerDelegateOperation(source: .testAddress, operationFeePolicy: .default)
+      operationFactory.registerDelegateOperation(
+        source: .testAddress,
+        operationFeePolicy: .default,
+        signatureProvider: FakeSignatureProvider.testSignatureProvider
+      )
     ]
 
     let operationPayload = OperationPayload(
@@ -76,9 +82,14 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
-        operationFeePolicy: .default
+        operationFeePolicy: .default,
+        signatureProvider: FakeSignatureProvider.testSignatureProvider
       ),
-      operationFactory.registerDelegateOperation(source: .testAddress, operationFeePolicy: .default)
+      operationFactory.registerDelegateOperation(
+        source: .testAddress,
+        operationFeePolicy: .default,
+        signatureProvider: FakeSignatureProvider.testSignatureProvider
+      )
     ]
 
     let operationPayload = OperationPayload(
@@ -104,7 +115,8 @@ final class OperationPayloadTest: XCTestCase {
       operationFactory.revealOperation(
         from: .testAddress,
         publicKey: signatureProvider.publicKey,
-        operationFeePolicy: .default
+        operationFeePolicy: .default,
+        signatureProvider: FakeSignatureProvider.testSignatureProvider
       )
     ]
 

@@ -297,7 +297,8 @@ extension TezosNodeClient {
       amount: amount,
       source: source,
       destination: recipientAddress,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     return forgeSignPreapplyAndInject(
       operation: transactionOperation,
@@ -329,7 +330,8 @@ extension TezosNodeClient {
       parameter: parameter,
       source: source,
       destination: contract,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     return forgeSignPreapplyAndInject(
       operation: smartContractInvocationOperation,
@@ -359,7 +361,8 @@ extension TezosNodeClient {
     let delegationOperation = operationFactory.delegateOperation(
       source: source,
       to: delegate,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     return forgeSignPreapplyAndInject(
       operation: delegationOperation,
@@ -382,7 +385,8 @@ extension TezosNodeClient {
   ) -> Promise<String> {
     let undelegateOperatoin = operationFactory.undelegateOperation(
       source: source,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     return forgeSignPreapplyAndInject(
       operation: undelegateOperatoin,
@@ -405,7 +409,8 @@ extension TezosNodeClient {
   ) -> Promise<String> {
     let registerDelegateOperation = operationFactory.registerDelegateOperation(
       source: delegate,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     return forgeSignPreapplyAndInject(
       operation: registerDelegateOperation,
@@ -428,7 +433,8 @@ extension TezosNodeClient {
   ) -> Promise<String> {
     let originationOperation = operationFactory.originationOperation(
       address: managerAddress,
-      operationFeePolicy: operationFeePolicy
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
     return forgeSignPreapplyAndInject(
       operation: originationOperation,
