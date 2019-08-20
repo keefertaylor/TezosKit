@@ -1,6 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
-import TezosKit
+@testable import TezosKit
 import XCTest
 
 class TezTest: XCTestCase {
@@ -115,5 +115,41 @@ class TezTest: XCTestCase {
     let oneQuadrillionAsDecimal = Tez(1_000_000_000_000_000)
 
     XCTAssertEqual(oneQuadrillionAsString, oneQuadrillionAsDecimal)
+  }
+
+  public func testAddTwoWholeNumbers() {
+    var left = Tez(3.0)
+    let right = Tez(3.0)
+    let expected = Tez(6.0)
+
+    let actual = left + right
+    XCTAssertEqual(actual, expected)
+
+    left += right
+    XCTAssertEqual(left, expected)
+  }
+
+  public func testAddTwoDecimalsNoCarry() {
+    var left = Tez(1.1)
+    let right = Tez(2.2)
+    let expected = Tez(3.3)
+
+    let actual = left + right
+    XCTAssertEqual(actual, expected)
+
+    left += right
+    XCTAssertEqual(left, expected)
+  }
+
+  public func testAddTwoDecimalsWithCarry() {
+    var left = Tez(1.6)
+    let right = Tez(2.7)
+    let expected = Tez(4.3)
+
+    let actual = left + right
+    XCTAssertEqual(actual, expected)
+
+    left += right
+    XCTAssertEqual(left, expected)
   }
 }
