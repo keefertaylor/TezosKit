@@ -123,10 +123,11 @@ extension Tez: AdditiveArithmetic {
 
   public static func - (lhs: Tez, rhs: Tez) -> Tez {
     var newIntegerAmount = lhs.integerAmount - rhs.integerAmount
-    let newDecimalAmount = lhs.decimalAmount - rhs.decimalAmount
+    var newDecimalAmount = lhs.decimalAmount - rhs.decimalAmount
 
     if newDecimalAmount < 0 {
       newIntegerAmount -= 1
+      newDecimalAmount += BigInt((pow(10, Tez.decimalDigitCount) as NSDecimalNumber).intValue)
     }
 
     return Tez(integerAmount: newIntegerAmount, decimalAmount: newDecimalAmount)
