@@ -25,17 +25,23 @@ public class OperationFactory {
   ///   - address: The address to reveal.
   ///   - publicKey: The public key of the address to reveal.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
   public func revealOperation(
     from address: Address,
     publicKey: PublicKey,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
   ) -> Operation {
+    let operation = RevealOperation(from: address, publicKey: publicKey, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .reveal,
+      address: address,
+      operation: operation,
+      signatureProvider: signatureProvider,
       tezosProtocol: tezosProtocol
     )
-    return RevealOperation(from: address, publicKey: publicKey, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a new origination operation.
@@ -43,16 +49,22 @@ public class OperationFactory {
   /// - Parameters:
   ///   - address: The address which will originate the new account.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
   public func originationOperation(
     address: Address,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
   ) -> Operation {
+    let operation = OriginationOperation(address: address, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .origination,
+      address: address,
+      operation: operation,
+      signatureProvider: signatureProvider,
       tezosProtocol: tezosProtocol
     )
-    return OriginationOperation(address: address, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a delegation operation which will register the given address as a delegate.
@@ -60,16 +72,22 @@ public class OperationFactory {
   /// - Parameters:
   ///   - source: The address that will register as a delegate.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
   public func registerDelegateOperation(
     source: Address,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
   ) -> Operation {
+    let operation = DelegationOperation(source: source, delegate: source, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .delegation,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
       tezosProtocol: tezosProtocol
     )
-    return DelegationOperation(source: source, delegate: source, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a delegation operation which will delegate to the given address.
@@ -78,17 +96,23 @@ public class OperationFactory {
   ///   - source: The address that will delegate funds.
   ///   - delegate: The address to delegate to.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
   public func delegateOperation(
     source: Address,
     to delegate: Address,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
   ) -> Operation {
+    let operation = DelegationOperation(source: source, delegate: delegate, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .delegation,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
       tezosProtocol: tezosProtocol
     )
-    return DelegationOperation(source: source, delegate: delegate, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a delegation operation which will clear the delegate from the given address.
@@ -96,16 +120,22 @@ public class OperationFactory {
   /// - Parameters:
   ///   - source: The address that will have its delegate cleared.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
   public func undelegateOperation(
     source: Address,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
   ) -> Operation {
+    let operation = DelegationOperation(source: source, delegate: nil, operationFees: OperationFees.zeroFees)
     let fees = operationFees(
       from: operationFeePolicy,
-      operationKind: .delegation,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
       tezosProtocol: tezosProtocol
     )
-    return DelegationOperation(source: source, delegate: nil, operationFees: fees)
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a new transaction operation.
@@ -115,23 +145,29 @@ public class OperationFactory {
   ///   - from: The address that is sending the XTZ.
   ///   - to: The address that is receiving the XTZ.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
   public func transactionOperation(
     amount: Tez,
     source: Address,
     destination: Address,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
   ) -> Operation {
-    let fees = operationFees(
-      from: operationFeePolicy,
-      operationKind: .transaction,
-      tezosProtocol: tezosProtocol
-    )
-    return TransactionOperation(
+    let operation = TransactionOperation(
       amount: amount,
       source: source,
       destination: destination,
-      operationFees: fees
+      operationFees: OperationFees.zeroFees
     )
+    let fees = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
+    operation.operationFees = fees
+    return operation
   }
 
   /// Create a new smart contract invocation operation.
@@ -143,37 +179,45 @@ public class OperationFactory {
   ///   - source: The address invoking the contract.
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
   public func smartContractInvocationOperation(
     amount: Tez,
     parameter: MichelsonParameter?,
     source: Address,
     destination: Address,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
   ) -> Operation {
-    let fees = operationFees(
-      from: operationFeePolicy,
-      operationKind: .transaction,
-      tezosProtocol: tezosProtocol
-    )
-    return TransactionOperation(
+    let operation = TransactionOperation(
       amount: amount,
       parameter: parameter,
       source: source,
       destination: destination,
-      operationFees: fees
+      operationFees: OperationFees.zeroFees
     )
+    let fees = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
+    operation.operationFees = fees
+    return operation
   }
 
   // MARK: - Internal
 
   private func operationFees(
     from policy: OperationFeePolicy,
-    operationKind: OperationKind,
+    address: Address,
+    operation: Operation,
+    signatureProvider: SignatureProvider,
     tezosProtocol: TezosProtocol
   ) -> OperationFees {
     switch policy {
     case .default:
-      return defaultFeeProvider.fees(for: operationKind, in: tezosProtocol)
+      return defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol)
     case .custom(let operationFees):
       return operationFees
     }

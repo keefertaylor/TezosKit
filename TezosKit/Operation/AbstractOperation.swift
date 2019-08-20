@@ -7,7 +7,7 @@ import Foundation
 public class AbstractOperation: Operation {
   public let source: Address
   public let kind: OperationKind
-  public let operationFees: OperationFees
+  public var operationFees: OperationFees
 
   public var requiresReveal: Bool {
     switch kind {
