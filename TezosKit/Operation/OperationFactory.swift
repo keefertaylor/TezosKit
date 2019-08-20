@@ -161,11 +161,6 @@ public class OperationFactory {
     )
     let fees = operationFees(
       from: operationFeePolicy,
-      kind: .transaction,
-      tezosProtocol: tezosProtocol
-    )
-    let fees = operationFees(
-      from: operationFeePolicy,
       address: source,
       operation: operation,
       signatureProvider: signatureProvider,
