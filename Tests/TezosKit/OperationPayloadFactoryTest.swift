@@ -34,7 +34,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,
-      operationMetadata: .testOperationMetadata
+      operationMetadata: operationMetadataWithRevealedKey
     )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
@@ -64,7 +64,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,
-      operationMetadata: .testOperationMetadata
+      operationMetadata: operationMetadataWithRevealedKey
     )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
@@ -94,7 +94,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,
-      operationMetadata: .testOperationMetadata
+      operationMetadata: operationMetadataWithUnrevealedKey
     )!
 
     // Expected a reveal operation.
@@ -121,7 +121,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,
-      operationMetadata: .testOperationMetadata
+      operationMetadata: operationMetadataWithUnrevealedKey
     )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
