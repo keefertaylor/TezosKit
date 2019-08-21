@@ -47,7 +47,6 @@
 		779A9C5E23086558004C6575 /* SimulationResultResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */; };
 		779A9C60230A49EA004C6575 /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */; };
 		779A9C68230BDA7A004C6575 /* OperationPayloadFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */; };
-		779A9C70230DE492004C6575 /* DexterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C6F230DE492004C6575 /* DexterClient.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -280,7 +279,6 @@
 		779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResultResponseAdapter.swift; sourceTree = "<group>"; };
 		779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFeePolicy.swift; sourceTree = "<group>"; };
 		779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationPayloadFactory.swift; sourceTree = "<group>"; };
-		779A9C6F230DE492004C6575 /* DexterClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterClient.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -553,7 +551,6 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
-				779A9C6F230DE492004C6575 /* DexterClient.swift */,
 				779427BE22C02AA800559A03 /* TezosCrypto.framework */,
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
@@ -1053,7 +1050,6 @@
 				77FE787222EC32DD00B85B9D /* RightMichelsonParameter.swift in Sources */,
 				77CE387A21FC7ED8006ADABA /* PreapplyOperationRPC.swift in Sources */,
 				77CE387121FC7ED8006ADABA /* RPC.swift in Sources */,
-				779A9C70230DE492004C6575 /* DexterClient.swift in Sources */,
 				7719265E22DA1A5800E63DE4 /* SimulationService.swift in Sources */,
 				77FE786822EC31EC00B85B9D /* IntMichelsonParameter.swift in Sources */,
 				77FE787022EC32A900B85B9D /* LeftMichelsonParameter.swift in Sources */,
