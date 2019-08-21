@@ -96,8 +96,8 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       return
     }
 
-    XCTAssertEqual(consumedGas, 11_780)
-    XCTAssertEqual(consumedStorage, 49)
+    XCTAssertEqual(consumedGas, 20_000)
+    XCTAssertEqual(consumedStorage, 0)
   }
 
   func testInternalTransactionS() {
@@ -116,6 +116,6 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
     }
 
     XCTAssertEqual(consumedGas, 733_800)
-    XCTAssertEqual(consumedStorage, 49)
+    XCTAssertEqual(consumedStorage, 17_509)
   }
 }

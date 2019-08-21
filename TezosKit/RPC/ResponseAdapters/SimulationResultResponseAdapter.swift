@@ -76,4 +76,3 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
     return .success(consumedGas: consumedGas, consumedStorage: consumedStorage)
   }
 }
-
