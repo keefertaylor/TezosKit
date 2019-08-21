@@ -5,12 +5,11 @@ import XCTest
 
 final class SimulationServiceTest: XCTestCase {
   func testSimulation() {
+    let operationFactory = OperationFactory(feeEstimator: .testFeeEstimator)
     let networkClient = FakeNetworkClient.tezosNodeNetworkClient
-    let operationFactory = OperationFactory()
     let operationMetadataProvider = OperationMetadataProvider.testOperationMetadataProvider
     let simulationService = SimulationService(
       networkClient: networkClient,
-      operationFactory: operationFactory,
       operationMetadataProvider: operationMetadataProvider
     )
 
@@ -19,7 +18,7 @@ final class SimulationServiceTest: XCTestCase {
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(
@@ -43,11 +42,10 @@ final class SimulationServiceTest: XCTestCase {
     let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
     networkClient.endpointToResponseMap["/chains/main/blocks/head"] = "nonsense"
 
-    let operationFactory = OperationFactory()
+    let operationFactory = OperationFactory(feeEstimator: .testFeeEstimator)
     let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
     let simulationService = SimulationService(
       networkClient: networkClient,
-      operationFactory: operationFactory,
       operationMetadataProvider: operationMetadataProvider
     )
 
@@ -56,7 +54,7 @@ final class SimulationServiceTest: XCTestCase {
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(

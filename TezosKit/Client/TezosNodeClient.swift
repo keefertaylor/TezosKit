@@ -72,25 +72,28 @@ public class TezosNodeClient {
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
   /// A factory which produces operations.
-  public let operationFactory: OperationFactory
+  internal let operationFactory: OperationFactory
 
   /// A service which forges operations.
-  public let forgingService: ForgingService
+  internal let forgingService: ForgingService
 
   /// The network client.
-  public let networkClient: NetworkClient
+  internal let networkClient: NetworkClient
 
   /// The operation metadata provider.
-  public let operationMetadataProvider: OperationMetadataProvider
+  internal let operationMetadataProvider: OperationMetadataProvider
 
   /// A service that preapplies operations.
-  public let preapplicationService: PreapplicationService
+  internal let preapplicationService: PreapplicationService
 
   /// A service which simulates operations.
-  public let simulationService: SimulationService
+  internal let simulationService: SimulationService
 
   /// An injection service which injects operations.
-  public let injectionService: InjectionService
+  internal let injectionService: InjectionService
+
+  /// A callback queue that all completions will be called on.
+  internal let callbackQueue: DispatchQueue
 
   /// Initialize a new TezosNodeClient.
   ///
@@ -107,6 +110,8 @@ public class TezosNodeClient {
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
+    self.callbackQueue = callbackQueue
+
     networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
@@ -116,17 +121,22 @@ public class TezosNodeClient {
 
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
     operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
-    injectionService = InjectionService(networkClient: networkClient)
-    preapplicationService = PreapplicationService(networkClient: networkClient)
-
-    let feeEstimator = FeeEstimator(forgingService: forgingService, operationFactory: <#T##OperationFactory#>, operationMetadataProvider: operationMetadataProvider, simulationService: <#T##SimulationService#>)
-    operationFactory = OperationFactory(tezosProtocol: tezosProtocol, feeEstimator: feeEstimator)
 
     simulationService = SimulationService(
       networkClient: networkClient,
-      operationFactory: operationFactory,
       operationMetadataProvider: operationMetadataProvider
     )
+
+    let feeEstimator = FeeEstimator(
+      forgingService: forgingService,
+      operationMetadataProvider: operationMetadataProvider,
+      simulationService: simulationService
+    )
+
+    operationFactory = OperationFactory(tezosProtocol: tezosProtocol, feeEstimator: feeEstimator)
+
+    injectionService = InjectionService(networkClient: networkClient)
+    preapplicationService = PreapplicationService(networkClient: networkClient)
   }
 
   // MARK: - Queries
@@ -303,13 +313,20 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let transactionOperation = operationFactory.transactionOperation(
-      amount: amount,
-      source: source,
-      destination: recipientAddress,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let transactionOperation = operationFactory.transactionOperation(
+        amount: amount,
+        source: source,
+        destination: recipientAddress,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
+      }
+      return
+    }
     forgeSignPreapplyAndInject(
       transactionOperation,
       source: source,
@@ -372,14 +389,21 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
-      amount: amount,
-      parameter: parameter,
-      source: source,
-      destination: contract,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
+        amount: amount,
+        parameter: parameter,
+        source: source,
+        destination: contract,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
+      }
+      return
+    }
     forgeSignPreapplyAndInject(
       smartContractInvocationOperation,
       source: source,
@@ -440,12 +464,20 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let delegationOperation = operationFactory.delegateOperation(
-      source: source,
-      to: delegate,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let delegationOperation = operationFactory.delegateOperation(
+        source: source,
+        to: delegate,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
+      }
+      return
+    }
+
     forgeSignPreapplyAndInject(
       delegationOperation,
       source: source,
@@ -490,11 +522,18 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let undelegateOperation = operationFactory.undelegateOperation(
-      source: source,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let undelegateOperation = operationFactory.undelegateOperation(
+        source: source,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
+      }
+      return
+    }
     forgeSignPreapplyAndInject(
       undelegateOperation,
       source: source,
@@ -542,11 +581,19 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let registerDelegateOperation = operationFactory.registerDelegateOperation(
-      source: delegate,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let registerDelegateOperation = operationFactory.registerDelegateOperation(
+        source: delegate,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
+      }
+      return
+    }
+
     forgeSignPreapplyAndInject(
       registerDelegateOperation,
       source: delegate,
@@ -596,11 +643,19 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let originationOperation = operationFactory.originationOperation(
-      address: managerAddress,
-      operationFeePolicy: operationFeePolicy,
-      signatureProvider: signatureProvider
-    )
+    guard
+      let originationOperation = operationFactory.originationOperation(
+        address: managerAddress,
+        operationFeePolicy: operationFeePolicy,
+        signatureProvider: signatureProvider
+      )
+    else {
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
+      }
+      return
+    }
+
     forgeSignPreapplyAndInject(
       originationOperation,
       source: managerAddress,
@@ -665,20 +720,22 @@ public class TezosNodeClient {
       guard let self = self else {
         return
       }
-      guard case let .success(operationMetadata) = result else {
+
+      guard
+        case let .success(operationMetadata) = result,
+        let operationPayload = OperationPayloadFactory.operationPayload(
+          from: operations,
+          source: source,
+          signatureProvider: signatureProvider,
+          operationMetadata: operationMetadata
+        )
+      else {
         completion(
           result.map { _ in "" }
         )
         return
       }
 
-      let operationPayload = OperationPayload(
-        operations: operations,
-        operationFactory: self.operationFactory,
-        operationMetadata: operationMetadata,
-        source: source,
-        signatureProvider: signatureProvider
-      )
       self.forgingService.forge(
         operationPayload: operationPayload,
         operationMetadata: operationMetadata

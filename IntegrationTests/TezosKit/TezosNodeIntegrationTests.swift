@@ -59,10 +59,6 @@ extension UInt32 {
   public static let blockTime: UInt32 = 120
 }
 
-extension OperationFactory {
-  public static let testOperationFactory = OperationFactory()
-}
-
 extension String {
   public static let testExpirationTimestamp = "2020-06-29T18:00:21Z"
 }
@@ -287,11 +283,11 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testRunOperation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = OperationFactory.testOperationFactory.originationOperation(
+    let operation = nodeClient.operationFactory.originationOperation(
       address: Wallet.testWallet.address,
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
-    )
+    )!
     self.nodeClient.runOperation(operation, from: .testWallet) { result in
       switch result {
       case .failure(let error):
@@ -315,20 +311,20 @@ class TezosNodeIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
 
     let ops: [TezosKit.Operation] = [
-      OperationFactory.testOperationFactory.transactionOperation(
+      nodeClient.operationFactory.transactionOperation(
         amount: Tez("1")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
         operationFeePolicy: .default,
         signatureProvider: Wallet.testWallet
-      ),
-      OperationFactory.testOperationFactory.transactionOperation(
+      )!,
+      nodeClient.operationFactory.transactionOperation(
         amount: Tez("2")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
         operationFeePolicy: .default,
         signatureProvider: Wallet.testWallet
-      )
+      )!
     ]
 
     nodeClient.forgeSignPreapplyAndInject(

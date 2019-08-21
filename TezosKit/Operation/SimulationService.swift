@@ -7,11 +7,8 @@ public class SimulationService {
   /// The network client which makes requests.
   public let networkClient: NetworkClient
 
-  /// An operation factory which can provide reveal operations.
-  public let operationFactory: OperationFactory
-
   /// The operation metadata provider which provides data for operations.
-  public let operationMetadataProvider: OperationMetadataProvider
+  private let operationMetadataProvider: OperationMetadataProvider
 
   /// A constant for the length of the signature.
   private static let signatureLength = 64
@@ -21,11 +18,9 @@ public class SimulationService {
 
   public init(
     networkClient: NetworkClient,
-    operationFactory: OperationFactory,
     operationMetadataProvider: OperationMetadataProvider
   ) {
     self.networkClient = networkClient
-    self.operationFactory = operationFactory
     self.operationMetadataProvider = operationMetadataProvider
   }
 
@@ -53,15 +48,13 @@ public class SimulationService {
         return
       }
 
-      let operationPayload = OperationPayload(
-        operations: [operation],
-        operationFactory: self.operationFactory,
-        operationMetadata: operationMetadata,
-        source: source,
-        signatureProvider: signatureProvider
-      )
-
       guard
+        let operationPayload = OperationPayloadFactory.operationPayload(
+          from: [operation],
+          source: source,
+          signatureProvider: signatureProvider,
+          operationMetadata: operationMetadata
+        ),
         let signedOperationPayload = SignedOperationPayload(
           operationPayload: operationPayload,
           signature: SimulationService.defaultSignature

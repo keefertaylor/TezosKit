@@ -10,6 +10,6 @@ public enum OperationFeePolicy {
   /// Use custom fees in the associated value.
   case custom(OperationFees)
 
-  /// Estimate the fees
+  /// Estimate the fees.
   case estimate
 }
