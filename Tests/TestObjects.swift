@@ -50,7 +50,7 @@ extension OperationPayload {
   public static let testOperationPayload = OperationPayload(
     operations: [],
     operationMetadata: .testOperationMetadata
-  )!
+  )
 }
 
 extension SignedOperationPayload {
