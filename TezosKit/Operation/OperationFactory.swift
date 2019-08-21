@@ -13,6 +13,12 @@ public class OperationFactory {
 
   private let feeEstimator: FeeEstimator
 
+  /// Identifier for the internal dispatch queue.
+  private static let queueIdentifier = "com.keefertaylor.TezosKit.OperationFactory"
+
+  /// Internal Queue to use in order to perform asynchronous work.
+  private let operationFactoryQueue: DispatchQueue
+
   /// Create a new operation factory.
   ///
   /// - Parameter tezosProtocol: The protocol that this factory will provide operations for. Default is athens.
@@ -20,6 +26,7 @@ public class OperationFactory {
     defaultFeeProvider = DefaultFeeProvider.self
     self.tezosProtocol = tezosProtocol
     self.feeEstimator = feeEstimator
+    operationFactoryQueue = DispatchQueue(label: OperationFactory.queueIdentifier)
   }
 
   /// Create a new reveal operation.
@@ -36,13 +43,17 @@ public class OperationFactory {
     signatureProvider: SignatureProvider
   ) -> Operation? {
     let operation = RevealOperation(from: address, publicKey: publicKey, operationFees: OperationFees.zeroFees)
-    let fees = operationFees(
-      from: operationFeePolicy,
-      address: address,
-      operation: operation,
-      signatureProvider: signatureProvider,
-      tezosProtocol: tezosProtocol
-    )
+    guard
+      let fees = operationFees(
+        from: operationFeePolicy,
+        address: address,
+        operation: operation,
+        signatureProvider: signatureProvider,
+        tezosProtocol: tezosProtocol
+      )
+    else {
+      return nil
+    }
     operation.operationFees = fees
     return operation
   }
@@ -59,13 +70,19 @@ public class OperationFactory {
     signatureProvider: SignatureProvider
   ) -> Operation? {
     let operation = OriginationOperation(address: address, operationFees: OperationFees.zeroFees)
-    let fees = operationFees(
-      from: operationFeePolicy,
-      address: address,
-      operation: operation,
-      signatureProvider: signatureProvider,
-      tezosProtocol: tezosProtocol
-    )
+
+    guard
+      let fees = operationFees(
+        from: operationFeePolicy,
+        address: address,
+        operation: operation,
+        signatureProvider: signatureProvider,
+        tezosProtocol: tezosProtocol
+      )
+    else {
+      return nil
+    }
+
     operation.operationFees = fees
     return operation
   }
@@ -82,13 +99,19 @@ public class OperationFactory {
     signatureProvider: SignatureProvider
   ) -> Operation? {
     let operation = DelegationOperation(source: source, delegate: source, operationFees: OperationFees.zeroFees)
-    let fees = operationFees(
-      from: operationFeePolicy,
-      address: source,
-      operation: operation,
-      signatureProvider: signatureProvider,
-      tezosProtocol: tezosProtocol
-    )
+
+    guard
+      let fees = operationFees(
+        from: operationFeePolicy,
+        address: source,
+        operation: operation,
+        signatureProvider: signatureProvider,
+        tezosProtocol: tezosProtocol
+      )
+    else {
+      return nil
+    }
+
     operation.operationFees = fees
     return operation
   }
@@ -107,13 +130,19 @@ public class OperationFactory {
     signatureProvider: SignatureProvider
   ) -> Operation? {
     let operation = DelegationOperation(source: source, delegate: delegate, operationFees: OperationFees.zeroFees)
-    let fees = operationFees(
-      from: operationFeePolicy,
-      address: source,
-      operation: operation,
-      signatureProvider: signatureProvider,
-      tezosProtocol: tezosProtocol
-    )
+
+    guard
+      let fees = operationFees(
+        from: operationFeePolicy,
+        address: source,
+        operation: operation,
+        signatureProvider: signatureProvider,
+        tezosProtocol: tezosProtocol
+      )
+    else {
+      return nil
+    }
+
     operation.operationFees = fees
     return operation
   }
@@ -130,13 +159,18 @@ public class OperationFactory {
     signatureProvider: SignatureProvider
   ) -> Operation? {
     let operation = DelegationOperation(source: source, delegate: nil, operationFees: OperationFees.zeroFees)
-    let fees = operationFees(
-      from: operationFeePolicy,
-      address: source,
-      operation: operation,
-      signatureProvider: signatureProvider,
-      tezosProtocol: tezosProtocol
-    )
+    guard
+      let fees = operationFees(
+        from: operationFeePolicy,
+        address: source,
+        operation: operation,
+        signatureProvider: signatureProvider,
+        tezosProtocol: tezosProtocol
+      )
+    else {
+      return nil
+    }
+
     operation.operationFees = fees
     return operation
   }
@@ -162,13 +196,19 @@ public class OperationFactory {
       destination: destination,
       operationFees: OperationFees.zeroFees
     )
-    let fees = operationFees(
-      from: operationFeePolicy,
-      address: source,
-      operation: operation,
-      signatureProvider: signatureProvider,
-      tezosProtocol: tezosProtocol
-    )
+
+    guard
+      let fees = operationFees(
+        from: operationFeePolicy,
+        address: source,
+        operation: operation,
+        signatureProvider: signatureProvider,
+        tezosProtocol: tezosProtocol
+      )
+    else {
+      return nil
+    }
+
     operation.operationFees = fees
     return operation
   }
@@ -198,13 +238,19 @@ public class OperationFactory {
       destination: destination,
       operationFees: OperationFees.zeroFees
     )
-    let fees = operationFees(
-      from: operationFeePolicy,
-      address: source,
-      operation: operation,
-      signatureProvider: signatureProvider,
-      tezosProtocol: tezosProtocol
-    )
+
+    guard
+      let fees = operationFees(
+        from: operationFeePolicy,
+        address: source,
+        operation: operation,
+        signatureProvider: signatureProvider,
+        tezosProtocol: tezosProtocol
+      )
+    else {
+      return nil
+    }
+
     operation.operationFees = fees
     return operation
   }
@@ -217,15 +263,38 @@ public class OperationFactory {
     operation: Operation,
     signatureProvider: SignatureProvider,
     tezosProtocol: TezosProtocol
-  ) -> OperationFees {
-
+  ) -> OperationFees? {
     switch policy {
     case .default:
       return defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol)
     case .custom(let operationFees):
       return operationFees
     case .estimate:
-      return defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol)
+      let estimationGroup = DispatchGroup()
+
+      var fees: OperationFees?
+
+      estimationGroup.enter()
+
+      operationFactoryQueue.async {
+        self.feeEstimator.estimate(
+          operation: operation,
+          address: address,
+          signatureProvider: signatureProvider
+        ) { result in
+          defer {
+            estimationGroup.leave()
+          }
+
+          guard let estimatedFees = result else {
+            return
+          }
+          fees = estimatedFees
+        }
+      }
+
+      estimationGroup.wait()
+      return fees
     }
   }
 }
