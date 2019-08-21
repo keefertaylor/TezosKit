@@ -11,6 +11,7 @@ public struct TezosKitError: Error {
     case preapplicationError
     case rpcError
     case signingError
+    case transactionFormationFailure
     case unexpectedRequestFormat
     case unexpectedResponse
     case unknown

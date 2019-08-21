@@ -14,7 +14,7 @@ class OperationFactoryTest: XCTestCase {
       publicKey: FakePublicKey(base58CheckRepresentation: "xyz"),
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let defaultFees = DefaultFeeProvider.fees(for: .reveal)
     XCTAssertEqual(revealOperation.operationFees.fee, defaultFees.fee)
@@ -27,7 +27,7 @@ class OperationFactoryTest: XCTestCase {
       address: "tz1abc",
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let defaultFees = DefaultFeeProvider.fees(for: .origination)
     XCTAssertEqual(originationOperation.operationFees.fee, defaultFees.fee)
@@ -42,7 +42,7 @@ class OperationFactoryTest: XCTestCase {
       destination: "tz2xyz",
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let defaultFees = DefaultFeeProvider.fees(for: .transaction)
     XCTAssertEqual(transactionOperation.operationFees.fee, defaultFees.fee)
@@ -56,7 +56,7 @@ class OperationFactoryTest: XCTestCase {
       to: "tz2xyz",
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let defaultFees = DefaultFeeProvider.fees(for: .delegation)
     XCTAssertEqual(delegationOperation.operationFees.fee, defaultFees.fee)
@@ -69,7 +69,7 @@ class OperationFactoryTest: XCTestCase {
       source: "tz1abc",
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let defaultFees = DefaultFeeProvider.fees(for: .delegation)
     XCTAssertEqual(registerDelegateOperation.operationFees.fee, defaultFees.fee)
@@ -82,7 +82,7 @@ class OperationFactoryTest: XCTestCase {
       source: "tz1abc",
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let defaultFees = DefaultFeeProvider.fees(for: .delegation)
     XCTAssertEqual(clearDelegateOperation.operationFees.fee, defaultFees.fee)
@@ -98,7 +98,7 @@ class OperationFactoryTest: XCTestCase {
       publicKey: FakePublicKey(base58CheckRepresentation: "xyz"),
       operationFeePolicy: .custom(.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     XCTAssertEqual(revealOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(revealOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
@@ -110,7 +110,7 @@ class OperationFactoryTest: XCTestCase {
       address: "tz1abc",
       operationFeePolicy: .custom(.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     XCTAssertEqual(originationOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(originationOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
@@ -124,7 +124,7 @@ class OperationFactoryTest: XCTestCase {
       destination: "tz2xyz",
       operationFeePolicy: .custom(.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     XCTAssertEqual(transactionOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(transactionOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
@@ -137,7 +137,7 @@ class OperationFactoryTest: XCTestCase {
       to: "tz2xyz",
       operationFeePolicy: .custom(.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     XCTAssertEqual(delegationOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(delegationOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
@@ -149,7 +149,7 @@ class OperationFactoryTest: XCTestCase {
       source: "tz1abc",
       operationFeePolicy: .custom(.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     XCTAssertEqual(registerDelegateOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(registerDelegateOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
@@ -161,7 +161,7 @@ class OperationFactoryTest: XCTestCase {
       source: "tz1abc",
       operationFeePolicy: .custom(.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     XCTAssertEqual(clearDelegateOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(clearDelegateOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
