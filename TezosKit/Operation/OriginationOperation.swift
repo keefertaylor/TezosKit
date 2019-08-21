@@ -24,4 +24,8 @@ public class OriginationOperation: AbstractOperation {
 
     super.init(source: address, kind: .origination, operationFees: operationFees)
   }
+
+  public override func mutableCopy(with zone: NSZone? = nil) -> Any {
+    return OriginationOperation(address: managerPublicKeyHash, operationFees: operationFees)
+  }
 }

@@ -8,11 +8,11 @@ import TezosCrypto
 /// - Note: TezosKit will automatically inject this operation when required for supported operations.
 public class RevealOperation: AbstractOperation {
   /// The public key for the address being revealed.
-  private let publicKey: String
+  private let publicKey: PublicKey
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
-    operation["public_key"] = publicKey
+    operation["public_key"] = publicKey.base58CheckRepresentation
     return operation
   }
 
@@ -23,7 +23,11 @@ public class RevealOperation: AbstractOperation {
   ///   - publicKey: The public key of the address to reveal.
   ///   - operationFees: OperationFees for the transaction.
   public init(from address: Address, publicKey: PublicKey, operationFees: OperationFees) {
-    self.publicKey = publicKey.base58CheckRepresentation
+    self.publicKey = publicKey
     super.init(source: address, kind: .reveal, operationFees: operationFees)
+  }
+
+  public override func mutableCopy(with zone: NSZone? = nil) -> Any {
+    return RevealOperation(from: source, publicKey: publicKey, operationFees: operationFees)
   }
 }
