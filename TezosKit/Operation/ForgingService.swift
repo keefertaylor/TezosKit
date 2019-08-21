@@ -10,12 +10,38 @@ public class ForgingService {
   /// A network client that can send requests.
   private let networkClient: NetworkClient
 
+  /// Identifier for the internal dispatch queue.
+  private static let queueIdentifier = "com.keefertaylor.TezosKit.ForgingService"
+
+  /// Internal Queue to use in order to perform asynchronous work.
+  private let forgingServiceQueue: DispatchQueue
+
   /// - Parameters:
   ///   - forgingPolicy: The forging policy to apply to all operations.
   ///   - networkClient: A network client that can communicate with a Tezos Node.
   public init(forgingPolicy: ForgingPolicy, networkClient: NetworkClient) {
     self.forgingPolicy = forgingPolicy
     self.networkClient = networkClient
+    forgingServiceQueue = DispatchQueue(label: ForgingService.queueIdentifier)
+  }
+
+  public func forgeSync(
+    operationPayload: OperationPayload,
+    operationMetadata: OperationMetadata
+  ) -> Result<String, TezosKitError> {
+    let forgingGroup = DispatchGroup()
+
+    var result: Result<String, TezosKitError> = .failure(TezosKitError(kind: .unknown))
+    forgingGroup.enter()
+    forgingServiceQueue.async {
+      self.forge(operationPayload: operationPayload, operationMetadata: operationMetadata) { forgingResult in
+        result = forgingResult
+        forgingGroup.leave()
+      }
+    }
+
+    forgingGroup.wait()
+    return result
   }
 
   /// Forge the given operation by applying the forging policy encapsulated by this service.
@@ -72,6 +98,6 @@ public class ForgingService {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let rpc = ForgeOperationRPC(operationPayload: operationPayload, operationMetadata: operationMetadata)
-    networkClient.send(rpc, completion: completion)
+    networkClient.send(rpc, overrideCallbackQueue: forgingServiceQueue, completion: completion)
   }
 }

@@ -4,6 +4,34 @@ import TezosKit
 import XCTest
 
 final class SimulationServiceTest: XCTestCase {
+  func testSimulationSync() {
+    let operationFactory = OperationFactory(feeEstimator: .testFeeEstimator)
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient
+    let operationMetadataProvider = OperationMetadataProvider.testOperationMetadataProvider
+    let simulationService = SimulationService(
+      networkClient: networkClient,
+      operationMetadataProvider: operationMetadataProvider
+    )
+
+    let operation = operationFactory.delegateOperation(
+      source: .testAddress,
+      to: .testDestinationAddress,
+      operationFeePolicy: .default,
+      signatureProvider: FakeSignatureProvider.testSignatureProvider
+    )!
+
+    let result = simulationService.simulateSync(
+      operation,
+      from: .testAddress,
+      signatureProvider: FakeSignatureProvider.testSignatureProvider
+    )
+
+    guard case .success = result else {
+      XCTFail()
+      return
+    }
+  }
+
   func testSimulation() {
     let operationFactory = OperationFactory(feeEstimator: .testFeeEstimator)
     let networkClient = FakeNetworkClient.tezosNodeNetworkClient

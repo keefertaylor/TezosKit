@@ -30,6 +30,26 @@ public class OperationMetadataProvider {
   ///
   /// This method parallelizes fetches to get chain and address data and returns all required data together as an
   /// OperationData object.
+  public func metadataSync(
+    for address: Address
+  ) -> Result<OperationMetadata, TezosKitError> {
+    let metadataGroup = DispatchGroup()
+
+    var result: Result<OperationMetadata, TezosKitError> = .failure(TezosKitError(kind: .unknown))
+    metadataGroup.enter()
+    metadata(for: address) { metadatResult in
+      result = metadatResult
+      metadataGroup.leave()
+    }
+
+    metadataGroup.wait()
+    return result
+  }
+
+  /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
+  ///
+  /// This method parallelizes fetches to get chain and address data and returns all required data together as an
+  /// OperationData object.
   public func metadata(
     for address: Address,
     completion: @escaping (Result<OperationMetadata, TezosKitError>) -> Void
@@ -37,48 +57,53 @@ public class OperationMetadataProvider {
     // Dispatch group acts as a barrier for all metadata fetches.
     let metadataFetchGroup = DispatchGroup()
 
+    metadataFetchGroup.enter()
+    metadataFetchGroup.enter()
+    metadataFetchGroup.enter()
+
+    var addressKey: String?
     metadataProviderQueue.async {
-      metadataFetchGroup.enter()
-      var addressKey: String?
       self.managerKey(for: address) { fetchedAddressKey in
         addressKey = fetchedAddressKey
         metadataFetchGroup.leave()
       }
+    }
 
-      metadataFetchGroup.enter()
-      var operationCounter: Int?
+    var operationCounter: Int?
+    metadataProviderQueue.async {
       self.operationCounter(for: address) { fetchedCounter in
         operationCounter = fetchedCounter
         metadataFetchGroup.leave()
       }
+    }
 
-      metadataFetchGroup.enter()
-      var headHash: String?
-      var protocolHash: String?
+    var headHash: String?
+    var protocolHash: String?
+    metadataProviderQueue.async {
       self.chainInfo(for: address) { addressInfo in
         headHash = addressInfo?.headHash
         protocolHash = addressInfo?.protocol
         metadataFetchGroup.leave()
       }
-
-      // Wait for all required data to be fetched.
-      metadataFetchGroup.wait()
-
-      // Return fetched data as an OperationData if all data was successfully retrieved.
-      if let operationCounter = operationCounter,
-        let headHash = headHash,
-        let protocolHash = protocolHash {
-        let metadata = OperationMetadata(
-          branch: headHash,
-          protocol: protocolHash,
-          addressCounter: operationCounter,
-          key: addressKey
-        )
-        completion(.success(metadata))
-        return
-      }
-      completion(.failure(TezosKitError(kind: .unknown, underlyingError: "Couldn't fetch metadata")))
     }
+
+    // Wait for all required data to be fetched.
+    metadataFetchGroup.wait()
+
+    // Return fetched data as an OperationData if all data was successfully retrieved.
+    if let operationCounter = operationCounter,
+      let headHash = headHash,
+      let protocolHash = protocolHash {
+      let metadata = OperationMetadata(
+        branch: headHash,
+        protocol: protocolHash,
+        addressCounter: operationCounter,
+        key: addressKey
+      )
+      completion(.success(metadata))
+      return
+    }
+    completion(.failure(TezosKitError(kind: .unknown, underlyingError: "Couldn't fetch metadata")))
   }
 
   /// Retrieve chain info counter for the given address.
@@ -89,7 +114,7 @@ public class OperationMetadataProvider {
     completion: @escaping (((headHash: String, protocol: String))?) -> Void
   ) {
     let chainHeadRequestRPC = GetChainHeadRPC()
-    networkClient.send(chainHeadRequestRPC) { result in
+    networkClient.send(chainHeadRequestRPC, overrideCallbackQueue: metadataProviderQueue) { result in
       switch result {
       case .failure:
         break
@@ -112,7 +137,7 @@ public class OperationMetadataProvider {
   /// - Warning: This method is not thread safe.
   private func operationCounter(for address: Address, completion: @escaping (Int?) -> Void) {
     let getAddressCounterRPC = GetAddressCounterRPC(address: address)
-    self.networkClient.send(getAddressCounterRPC) { result in
+    self.networkClient.send(getAddressCounterRPC, overrideCallbackQueue: metadataProviderQueue) { result in
       switch result {
       case .failure:
         completion(nil)
@@ -127,7 +152,7 @@ public class OperationMetadataProvider {
   /// - Warning: This method is not thread safe.
   private func managerKey(for address: Address, completion: @escaping (String?) -> Void) {
     let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
-    networkClient.send(getAddressManagerKeyRPC) { result in
+    networkClient.send(getAddressManagerKeyRPC, overrideCallbackQueue: metadataProviderQueue) { result in
       switch result {
       case .failure:
         break

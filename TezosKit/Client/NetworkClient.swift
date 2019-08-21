@@ -5,7 +5,17 @@ import Foundation
 /// An opaque network client which implements requests.
 public protocol NetworkClient {
   /// Send an RPC.
-  func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void)
+  func send<T>(
+    _ rpc: RPC<T>,
+    completion: @escaping (Result<T, TezosKitError>) -> Void
+  )
+
+  /// Send an RPC.
+  func send<T>(
+    _ rpc: RPC<T>,
+    overrideCallbackQueue: DispatchQueue?,
+    completion: @escaping (Result<T, TezosKitError>) -> Void
+  )
 }
 
 /// A standard implementation of the network client.
@@ -47,7 +57,20 @@ public class NetworkClientImpl: NetworkClient {
     self.responseHandler = responseHandler
   }
 
-  public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
+  public func send<T>(
+    _ rpc: RPC<T>,
+    completion: @escaping (Result<T, TezosKitError>) -> Void
+  ) {
+    send(rpc, overrideCallbackQueue: nil, completion: completion)
+  }
+
+  public func send<T>(
+    _ rpc: RPC<T>,
+    overrideCallbackQueue: DispatchQueue? = nil,
+    completion: @escaping (Result<T, TezosKitError>) -> Void
+  ) {
+    let completionQueue = overrideCallbackQueue ?? self.callbackQueue
+
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
@@ -80,7 +103,7 @@ public class NetworkClientImpl: NetworkClient {
         error: error,
         responseAdapterClass: rpc.responseAdapterClass
       )
-      self.callbackQueue.async {
+      completionQueue.async {
         completion(result)
       }
     }

@@ -4,6 +4,22 @@ import TezosKit
 import XCTest
 
 class ForgingServiceTests: XCTestCase {
+  func testForgingServiceWithRemotePolicySync() {
+    let forgingService = ForgingService(forgingPolicy: .remote, networkClient: FakeNetworkClient.tezosNodeNetworkClient)
+
+    let result = forgingService.forgeSync(
+      operationPayload: .testOperationPayload,
+      operationMetadata: .testOperationMetadata
+    )
+
+    guard case let .success(forgingServiceForgeResult) = result else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertEqual(forgingServiceForgeResult, .testForgeResult)
+  }
+
   func testForgingServiceWithRemotePolicy() {
     let forgingService = ForgingService(forgingPolicy: .remote, networkClient: FakeNetworkClient.tezosNodeNetworkClient)
 

@@ -79,6 +79,14 @@ public class FakeNetworkClient: NetworkClient {
   }
 
   public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
+    send(rpc, overrideCallbackQueue: nil, completion: completion)
+  }
+
+  public func send<T>(
+    _ rpc: RPC<T>,
+    overrideCallbackQueue: DispatchQueue?,
+    completion: @escaping (Result<T, TezosKitError>) -> Void
+  ) {
     var statusCode = 400
     var responseData: Data?
 

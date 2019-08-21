@@ -156,3 +156,9 @@ extension Tez: Equatable {
     return lhs.rpcRepresentation == rhs.rpcRepresentation
   }
 }
+
+extension Tez: CustomStringConvertible {
+  public var description: String {
+    return humanReadableRepresentation
+  }
+}
