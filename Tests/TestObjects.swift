@@ -49,11 +49,8 @@ extension FakeSignatureProvider {
 extension OperationPayload {
   public static let testOperationPayload = OperationPayload(
     operations: [],
-    operationFactory: OperationFactory(),
-    operationMetadata: .testOperationMetadata,
-    source: .testAddress,
-    signatureProvider: FakeSignatureProvider.testSignatureProvider
-  )!
+    operationMetadata: .testOperationMetadata
+  )
 }
 
 extension SignedOperationPayload {
@@ -102,6 +99,10 @@ extension Transaction {
 
 extension OperationFactory {
   public static let testFactory = OperationFactory()
+}
+
+extension OperationPayloadFactory {
+  public static let testFactory = OperationPayloadFactory(operationFactory: .testFactory)
 }
 
 extension OperationFees {

@@ -5,13 +5,13 @@ import XCTest
 
 final class SimulationServiceTest: XCTestCase {
   func testSimulation() {
-    let networkClient = FakeNetworkClient.tezosNodeNetworkClient
     let operationFactory = OperationFactory()
+    let networkClient = FakeNetworkClient.tezosNodeNetworkClient
     let operationMetadataProvider = OperationMetadataProvider.testOperationMetadataProvider
     let simulationService = SimulationService(
       networkClient: networkClient,
-      operationFactory: operationFactory,
-      operationMetadataProvider: operationMetadataProvider
+      operationMetadataProvider: operationMetadataProvider,
+      operationPayloadFactory: .testFactory
     )
 
     let operation = operationFactory.delegateOperation(
@@ -47,8 +47,8 @@ final class SimulationServiceTest: XCTestCase {
     let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
     let simulationService = SimulationService(
       networkClient: networkClient,
-      operationFactory: operationFactory,
-      operationMetadataProvider: operationMetadataProvider
+      operationMetadataProvider: operationMetadataProvider,
+      operationPayloadFactory: .testFactory
     )
 
     let operation = operationFactory.delegateOperation(

@@ -3,8 +3,7 @@
 @testable import TezosKit
 import XCTest
 
-final class OperationPayloadTest: XCTestCase {
-  let operationFactory = OperationFactory()
+final class OperationPayloadFactoryTest: XCTestCase {
   let signatureProvider = FakeSignatureProvider(signature: .testSignature, publicKey: FakePublicKey.testPublicKey)
   let operationMetadataWithRevealedKey = OperationMetadata(
     branch: .testBranch,
@@ -18,11 +17,12 @@ final class OperationPayloadTest: XCTestCase {
     addressCounter: .testAddressCounter,
     key: nil
   )
+  let operationPayloadFactory = OperationPayloadFactory(operationFactory: .testFactory)
 
   /// Test a single operation with a revealed manager key.
   func testOperationPayloadInitSingleOperation() {
     let operations = [
-      operationFactory.delegateOperation(
+      OperationFactory.testFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
         operationFeePolicy: .default,
@@ -30,12 +30,11 @@ final class OperationPayloadTest: XCTestCase {
       )!
     ]
 
-    let operationPayload = OperationPayload(
-      operations: operations,
-      operationFactory: operationFactory,
-      operationMetadata: operationMetadataWithRevealedKey,
+    let operationPayload = operationPayloadFactory.operationPayload(
+      from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider
+      signatureProvider: signatureProvider,
+      operationMetadata: operationMetadataWithRevealedKey
     )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
@@ -48,25 +47,24 @@ final class OperationPayloadTest: XCTestCase {
   /// Test multiple operations with a revealed manager key.
   func testOperationPayloadInitMultipleOperations() {
     let operations = [
-      operationFactory.delegateOperation(
+      OperationFactory.testFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
       )!,
-      operationFactory.registerDelegateOperation(
+      OperationFactory.testFactory.registerDelegateOperation(
         source: .testAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
       )!
     ]
 
-    let operationPayload = OperationPayload(
-      operations: operations,
-      operationFactory: operationFactory,
-      operationMetadata: operationMetadataWithRevealedKey,
+    let operationPayload = operationPayloadFactory.operationPayload(
+      from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider
+      signatureProvider: signatureProvider,
+      operationMetadata: operationMetadataWithRevealedKey
     )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
@@ -79,25 +77,24 @@ final class OperationPayloadTest: XCTestCase {
   /// Test an operation requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealRequired() {
     let operations = [
-      operationFactory.delegateOperation(
+      OperationFactory.testFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
       )!,
-      operationFactory.registerDelegateOperation(
+      OperationFactory.testFactory.registerDelegateOperation(
         source: .testAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
       )!
     ]
 
-    let operationPayload = OperationPayload(
-      operations: operations,
-      operationFactory: operationFactory,
-      operationMetadata: operationMetadataWithUnrevealedKey,
+    let operationPayload = operationPayloadFactory.operationPayload(
+      from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider
+      signatureProvider: signatureProvider,
+      operationMetadata: operationMetadataWithUnrevealedKey
     )!
 
     // Expected a reveal operation.
@@ -112,7 +109,7 @@ final class OperationPayloadTest: XCTestCase {
   /// Test an operation not requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealNotRequired() {
     let operations = [
-      operationFactory.revealOperation(
+      OperationFactory.testFactory.revealOperation(
         from: .testAddress,
         publicKey: signatureProvider.publicKey,
         operationFeePolicy: .default,
@@ -120,12 +117,11 @@ final class OperationPayloadTest: XCTestCase {
       )!
     ]
 
-    let operationPayload = OperationPayload(
-      operations: operations,
-      operationFactory: operationFactory,
-      operationMetadata: operationMetadataWithUnrevealedKey,
+    let operationPayload = operationPayloadFactory.operationPayload(
+      from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider
+      signatureProvider: signatureProvider,
+      operationMetadata: operationMetadataWithUnrevealedKey
     )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
