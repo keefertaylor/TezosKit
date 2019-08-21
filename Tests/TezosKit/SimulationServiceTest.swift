@@ -19,7 +19,7 @@ final class SimulationServiceTest: XCTestCase {
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(
@@ -56,7 +56,7 @@ final class SimulationServiceTest: XCTestCase {
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(

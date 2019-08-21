@@ -36,3 +36,9 @@ public class AbstractOperation: Operation {
     self.operationFees = operationFees
   }
 }
+
+extension AbstractOperation: NSMutableCopying {
+  public func mutableCopy(with zone: NSZone? = nil) -> Any {
+    return AbstractOperation(source: source, kind: kind, operationFees: operationFees)
+  }
+}

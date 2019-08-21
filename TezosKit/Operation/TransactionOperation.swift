@@ -37,4 +37,14 @@ public class TransactionOperation: AbstractOperation {
 
     super.init(source: source, kind: .transaction, operationFees: operationFees)
   }
+
+  public override func mutableCopy(with zone: NSZone? = nil) -> Any {
+    return TransactionOperation(
+      amount: amount,
+      parameter: parameter,
+      source: source,
+      destination: destination,
+      operationFees: operationFees
+    )
+  }
 }

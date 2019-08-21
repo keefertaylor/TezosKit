@@ -27,15 +27,14 @@ final class OperationPayloadFactoryTest: XCTestCase {
         to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )
+      )!
     ]
 
     let operationPayload = operationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider,
-      operationMetadata: operationMetadataWithRevealedKey
-    )
+      signatureProvider: signatureProvider
+    )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
     verifyOperationCountersInAscendingOrder(
@@ -52,20 +51,19 @@ final class OperationPayloadFactoryTest: XCTestCase {
         to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      ),
-      OperationFactory.testFactory.registerDelegateOperation(
+      )!,
+      operationFactory.registerDelegateOperation(
         source: .testAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )
+      )!
     ]
 
     let operationPayload = operationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider,
-      operationMetadata: operationMetadataWithRevealedKey
-    )
+      signatureProvider: signatureProvider
+    )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
     verifyOperationCountersInAscendingOrder(
@@ -82,20 +80,19 @@ final class OperationPayloadFactoryTest: XCTestCase {
         to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      ),
-      OperationFactory.testFactory.registerDelegateOperation(
+      )!,
+      operationFactory.registerDelegateOperation(
         source: .testAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )
+      )!
     ]
 
     let operationPayload = operationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider,
-      operationMetadata: operationMetadataWithUnrevealedKey
-    )
+      signatureProvider: signatureProvider
+    )!
 
     // Expected a reveal operation.
     XCTAssertEqual(operationPayload.operations.count, operations.count + 1)
@@ -114,15 +111,14 @@ final class OperationPayloadFactoryTest: XCTestCase {
         publicKey: signatureProvider.publicKey,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )
+      )!
     ]
 
     let operationPayload = operationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
-      signatureProvider: signatureProvider,
-      operationMetadata: operationMetadataWithUnrevealedKey
-    )
+      signatureProvider: signatureProvider
+    )!
 
     XCTAssertEqual(operationPayload.operations.count, operations.count)
     verifyOperationCountersInAscendingOrder(

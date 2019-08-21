@@ -16,18 +16,23 @@ public class OperationPayloadFactory {
     source: Address,
     signatureProvider: SignatureProvider,
     operationMetadata: OperationMetadata
-  ) -> OperationPayload {
+  ) -> OperationPayload? {
     // Determine if the address performing the operations has been revealed. If it has not been, check if any of the
     // operations to perform requires the address to be revealed. If so, prepend a reveal operation to the operations to
     // perform.
     var mutableOperations = operations
     if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-      let revealOperation = operationFactory.revealOperation(
-        from: source,
-        publicKey: signatureProvider.publicKey,
-        operationFeePolicy: .default,
-        signatureProvider: signatureProvider
-      )
+      guard
+        let revealOperation = operationFactory.revealOperation(
+          from: source,
+          publicKey: signatureProvider.publicKey,
+          operationFeePolicy: .default,
+          signatureProvider: signatureProvider
+        )
+      else {
+        return nil
+      }
+
       mutableOperations.insert(revealOperation, at: 0)
     }
 
