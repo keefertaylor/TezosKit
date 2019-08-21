@@ -48,6 +48,7 @@
 		779A9C60230A49EA004C6575 /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */; };
 		779A9C68230BDA7A004C6575 /* OperationPayloadFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */; };
 		779A9C74230E0824004C6575 /* TokenContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C73230E0824004C6575 /* TokenContractClient.swift */; };
+		779A9C77230E09DB004C6575 /* TokenContractIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -281,6 +282,7 @@
 		779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFeePolicy.swift; sourceTree = "<group>"; };
 		779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationPayloadFactory.swift; sourceTree = "<group>"; };
 		779A9C73230E0824004C6575 /* TokenContractClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractClient.swift; sourceTree = "<group>"; };
+		779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractIntegrationTests.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 		772F48A62224894E00DF0F9D /* IntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				779A9C75230E09C8004C6575 /* Dexter */,
 				77B1EAE72225CE8F00EA4FCE /* Extensions */,
 				77B1EAE62225CE8400EA4FCE /* TezosKit */,
 			);
@@ -498,6 +501,14 @@
 			isa = PBXGroup;
 			children = (
 				779A9C73230E0824004C6575 /* TokenContractClient.swift */,
+			);
+			path = Dexter;
+			sourceTree = "<group>";
+		};
+		779A9C75230E09C8004C6575 /* Dexter */ = {
+			isa = PBXGroup;
+			children = (
+				779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */,
 			);
 			path = Dexter;
 			sourceTree = "<group>";
@@ -1043,6 +1054,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */,
+				779A9C77230E09DB004C6575 /* TokenContractIntegrationTests.swift in Sources */,
 				774C9B2122A2A0F400CEB509 /* TezosNodeIntegrationTests+Promises.swift in Sources */,
 				77B69ED522534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift in Sources */,
 				77B69ECF2251127D00DB4319 /* ConseilClientIntegrationTests.swift in Sources */,
