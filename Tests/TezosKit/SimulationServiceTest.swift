@@ -10,7 +10,8 @@ final class SimulationServiceTest: XCTestCase {
     let operationMetadataProvider = OperationMetadataProvider.testOperationMetadataProvider
     let simulationService = SimulationService(
       networkClient: networkClient,
-      operationMetadataProvider: operationMetadataProvider
+      operationMetadataProvider: operationMetadataProvider,
+      operationPayloadFactory: .testFactory
     )
 
     let operation = operationFactory.delegateOperation(

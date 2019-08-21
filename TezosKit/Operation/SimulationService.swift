@@ -33,7 +33,7 @@ public class SimulationService {
     self.networkClient = networkClient
     self.operationMetadataProvider = operationMetadataProvider
     self.operationPayloadFactory = operationPayloadFactory
-    operationMetadataProvider: OperationMetadataProvider
+    simulationServiceQueue = DispatchQueue(label: SimulationService.queueIdentifier)
   }
 
   /// Simulate the given operation in a synchronous manner.
@@ -107,7 +107,7 @@ public class SimulationService {
       }
 
       let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-      self.networkClient.send(rpc, callbackQueue: simulationServiceQueue, completion: completion)
+      self.networkClient.send(rpc, callbackQueue: self.simulationServiceQueue, completion: completion)
     }
   }
 }
