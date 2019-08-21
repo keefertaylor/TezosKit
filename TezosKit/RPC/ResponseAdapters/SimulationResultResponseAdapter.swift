@@ -23,8 +23,8 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
   public override class func parse(input: Data) -> SimulationResult? {
     guard
       let json = JSONDictionaryResponseAdapter.parse(input: input)
-    else {
-      return nil
+      else {
+        return nil
     }
 
     guard
@@ -34,8 +34,8 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
       let metadata = firstContent[JSON.Keys.metadata] as? [String: Any],
       let operationResult = metadata[JSON.Keys.operationResult] as? [String: Any],
       let status = operationResult[JSON.Keys.status] as? String
-    else {
-      return nil
+      else {
+        return nil
     }
 
     if status == JSON.Values.failed {

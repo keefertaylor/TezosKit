@@ -79,4 +79,24 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       return
     }
   }
+
+  /// A batch transaction.
+  func testBatchTransaction() {
+    let input = "{  \"contents\": [{    \"counter\": \"776970\",    \"fee\": \"1268\",    \"gas_limit\": \"10000\",    \"kind\": \"reveal\",    \"metadata\": {      \"balance_updates\": [{        \"change\": \"-1268\",        \"contract\": \"tz1WwEvjKxdz1EFa6a7HYP14SwZSPGfFnPuc\",        \"kind\": \"contract\"      }, {        \"category\": \"fees\",        \"change\": \"1268\",        \"cycle\": 290,        \"delegate\": \"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",        \"kind\": \"freezer\"      }],      \"operation_result\": {        \"consumed_gas\": \"10000\",        \"status\": \"applied\"}    },    \"public_key\": \"edpkuG12SJVcmdNxWfXKPb24mNXSxFX4jsDPYPG7r5AwqdG5G7aACZ\",    \"source\": \"tz1WwEvjKxdz1EFa6a7HYP14SwZSPGfFnPuc\",\"storage_limit\": \"0\"}, {    \"counter\": \"776971\",    \"delegate\": \"tz1WwEvjKxdz1EFa6a7HYP14SwZSPGfFnPuc\",\"fee\": \"0\", \"gas_limit\": \"800000\", \"kind\": \"delegation\",\"metadata\": {\"balance_updates\": [],\"operation_result\": {\"consumed_gas\": \"10000\",\"status\": \"applied\"}},\"source\": \"tz1WwEvjKxdz1EFa6a7HYP14SwZSPGfFnPuc\",\"storage_limit\": \"60000\"}]}"
+    guard
+      let inputData = input.data(using: .utf8),
+      let simulationResult = SimulationResultResponseAdapter.parse(input: inputData)
+      else {
+        XCTFail()
+        return
+    }
+
+    guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertEqual(consumedGas, 11_780)
+    XCTAssertEqual(consumedStorage, 49)
+  }
 }
