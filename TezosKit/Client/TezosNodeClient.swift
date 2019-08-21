@@ -119,7 +119,6 @@ public class TezosNodeClient {
     injectionService = InjectionService(networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
 
-
     let feeEstimator = FeeEstimator(forgingService: forgingService, operationFactory: <#T##OperationFactory#>, operationMetadataProvider: operationMetadataProvider, simulationService: <#T##SimulationService#>)
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol, feeEstimator: feeEstimator)
 

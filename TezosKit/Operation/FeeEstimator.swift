@@ -26,7 +26,7 @@ public class FeeEstimator {
 
   public init(
     forgingService: ForgingService,
-    operationFactory: OperationFactory,
+    operationPayloadFactory: OperationPayloadFactory,
     operationMetadataProvider: OperationMetadataProvider,
     simulationService: SimulationService
   ) {
@@ -112,7 +112,11 @@ public class FeeEstimator {
 
   // MARK: - Helpers
 
-  private func feeForOperation(address: Address, operation: Operation, signatureProvider: SignatureProvider) -> Tez? {
+  private func feeForOperation(
+    address: Address,
+    operation: OperationPayload,
+    signatureProvider: SignatureProvider
+  ) -> Tez? {
     guard let hex = self.forgeSync(address: address, operation: operation, signatureProvider: signatureProvider) else {
       return nil
     }
@@ -141,18 +145,10 @@ public class FeeEstimator {
     return simulationOutput
   }
 
-  private func forgeSync(address: Address, operation: Operation, signatureProvider: SignatureProvider) -> Hex? {
+  private func forgeSync(address: Address, operation: OperationPayload, signatureProvider: SignatureProvider) -> Hex? {
     guard let operationMetadata = operationMetadataSync(address: address) else {
       return nil
     }
-
-    let operationPayload = OperationPayload(
-      operations: [operation],
-      operationFactory: operationFactory,
-      operationMetadata: operationMetadata,
-      source: address,
-      signatureProvider: signatureProvider
-    )
 
     let forgeGroup = DispatchGroup()
 
