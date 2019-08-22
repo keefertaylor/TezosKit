@@ -27,7 +27,7 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
 
     guard
       let json = JSONDictionaryResponseAdapter.parse(input: input)
-      else {
+    else {
         return nil
     }
 
