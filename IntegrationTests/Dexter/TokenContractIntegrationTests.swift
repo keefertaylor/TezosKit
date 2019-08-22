@@ -17,14 +17,13 @@ import XCTest
 /// https://alphanet.tzscan.io/KT1PARMPddZ9WD1MPmPthXYBCgErmxAHKBD8
 
 extension Address {
-  public static let tokenContractAddress = "KT1PARMPddZ9WD1MPmPthXYBCgErmxAHKBD8"
+  public static let tokenContractAddress = "KT1WiDkoaKgH6dcmHa3tLJKzfnW5QuPjppgn"
+  public static let tokenRecipient = "tz1XarY7qEahQBipuuNZ4vPw9MN6Ldyxv8G3"
 }
 
 extension Wallet {
   public static let tokenOwner =
     Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
-  public static let tokenRecipient =
-    Wallet(mnemonic: "over retreat table edge spawn weather curve issue risk you autumn shy garage wheat zone")!
 }
 
 class TokenContractClientIntegrationTests: XCTestCase {
@@ -33,11 +32,6 @@ class TokenContractClientIntegrationTests: XCTestCase {
 
   public override func setUp() {
     super.setUp()
-
-    /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
-    /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
-    sleep(intertestWaitTime)
 
     let nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
     tokenContractClient = TokenContractClient(
@@ -51,13 +45,13 @@ class TokenContractClientIntegrationTests: XCTestCase {
 
     tokenContractClient.transferTokens(
       from: Wallet.tokenOwner.address,
-      to: Wallet.tokenRecipient.address,
+      to: Address.tokenRecipient,
       numTokens: 1,
       signatureProvider: Wallet.tokenOwner
     ) { result in
       switch result {
       case .success(let hash):
-        print("operation hash: \(hash)")
+        print(hash)
         completionExpectation.fulfill()
       case .failure(let error):
         print(error)
@@ -69,6 +63,17 @@ class TokenContractClientIntegrationTests: XCTestCase {
   }
 
   public func testGetBalance() {
+    let completionExpectation = XCTestExpectation(description: "Completion called")
 
+    tokenContractClient.getTokenBalance(address: Wallet.tokenOwner.address) { result in
+      guard case let .success(balance) = result else {
+        XCTFail()
+        return
+      }
+
+      XCTAssert(balance > 0)
+      completionExpectation.fulfill()
+    }
+    wait(for: [ completionExpectation ], timeout: .expectationTimeout)
   }
 }

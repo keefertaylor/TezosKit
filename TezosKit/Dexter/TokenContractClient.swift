@@ -4,6 +4,13 @@
 ///
 /// - See: https://gitlab.com/camlcase-dev/dexter
 public class TokenContractClient {
+  private enum JSON {
+    public enum Keys {
+      public static let args = "args"
+      public static let int = "int"
+    }
+  }
+
   /// An underlying gateway to the Tezos Network.
   private let tezosNodeClient: TezosNodeClient
 
@@ -58,15 +65,26 @@ public class TokenContractClient {
       parameter: michelsonParameter,
       source: source,
       signatureProvider: signatureProvider,
+      operationFeePolicy: .estimate,
       completion: completion
     )
   }
 
-  //$ ~/alphanet.sh client get big map value for '"<account-address>"'  of type 'address' in <token-contract-name>
   public func getTokenBalance(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let key = StringMichelsonParameter(string: address)
     tezosNodeClient.getBigMapValue(address: tokenContractAddress, key: key, type: .address) { result in
-      print(result)
+      guard
+        case let .success(json) = result,
+        let args = json[JSON.Keys.args] as? [ Any ],
+        let firstArg = args.first as? [ String: Any ],
+        let balanceString = firstArg[JSON.Keys.int] as? String,
+        let balance = Int(balanceString)
+      else {
+        completion(result.map { _ in 0 })
+        return
+      }
+
+      completion(.success(balance))
     }
   }
 }

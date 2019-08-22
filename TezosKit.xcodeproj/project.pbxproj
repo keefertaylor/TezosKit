@@ -51,6 +51,7 @@
 		779A9C77230E09DB004C6575 /* TokenContractIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */; };
 		779A9C79230E2C4D004C6575 /* FeeEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C78230E2C4A004C6575 /* FeeEstimator.swift */; };
 		779A9C7D230E320C004C6575 /* FeeEstimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */; };
+		779A9C80230E3CCF004C6575 /* TokenContractClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C7F230E3CCF004C6575 /* TokenContractClientTests.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -287,6 +288,7 @@
 		779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractIntegrationTests.swift; sourceTree = "<group>"; };
 		779A9C78230E2C4A004C6575 /* FeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeeEstimator.swift; sourceTree = "<group>"; };
 		779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeEstimatorTest.swift; sourceTree = "<group>"; };
+		779A9C7F230E3CCF004C6575 /* TokenContractClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractClientTests.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -517,6 +519,14 @@
 			path = Dexter;
 			sourceTree = "<group>";
 		};
+		779A9C7E230E3CBA004C6575 /* Dexter */ = {
+			isa = PBXGroup;
+			children = (
+				779A9C7F230E3CCF004C6575 /* TokenContractClientTests.swift */,
+			);
+			path = Dexter;
+			sourceTree = "<group>";
+		};
 		77B1EAE62225CE8400EA4FCE /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,6 +615,7 @@
 				77B1EAFB2228C03400EA4FCE /* TestObjects.swift */,
 				7776493A227616B200451DD5 /* FakeObjects.swift */,
 				77FE788322EEA29300B85B9D /* TestHelpers.swift */,
+				779A9C7E230E3CBA004C6575 /* Dexter */,
 				77F4D27422221CDD00D34B01 /* Extensions */,
 				77F4D27322221CCE00D34B01 /* TezosKit */,
 			);
@@ -1229,6 +1240,7 @@
 				77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */,
 				7719265C22D93B8200E63DE4 /* PreapplicationServiceTest.swift in Sources */,
 				77CE370621F7F49F006ADABA /* TezResponseAdapterTest.swift in Sources */,
+				779A9C80230E3CCF004C6575 /* TokenContractClientTests.swift in Sources */,
 				77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */,
 				77B1EAFC2228C03400EA4FCE /* TestObjects.swift in Sources */,
 				77B1EB02222A09AE00EA4FCE /* SignedOperationPayloadTest.swift in Sources */,

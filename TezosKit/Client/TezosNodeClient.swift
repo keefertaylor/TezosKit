@@ -103,21 +103,37 @@ public class TezosNodeClient {
   ///   - forgingPolicy: The policy to apply when forging operations. Default is remote.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
-  public init(
+  public convenience init(
     remoteNodeURL: URL = defaultNodeURL,
     tezosProtocol: TezosProtocol = .athens,
     forgingPolicy: ForgingPolicy = .remote,
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
-    self.callbackQueue = callbackQueue
-
-    networkClient = NetworkClientImpl(
+    let networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
+
+    self.init(
+      networkClient: networkClient,
+      tezosProtocol: tezosProtocol,
+      forgingPolicy: forgingPolicy,
+      callbackQueue: callbackQueue
+    )
+  }
+
+  /// An internal initializer which allows injection of a network client for testability.
+  internal init(
+    networkClient: NetworkClient,
+    tezosProtocol: TezosProtocol = .athens,
+    forgingPolicy: ForgingPolicy = .remote,
+    callbackQueue: DispatchQueue = DispatchQueue.main
+  ) {
+    self.networkClient = networkClient
+    self.callbackQueue = callbackQueue
 
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
     operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
@@ -244,7 +260,7 @@ public class TezosNodeClient {
     key: MichelsonParameter,
     type: MichelsonComparable,
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
-    ) {
+  ) {
     let rpc = GetBigMapValueRPC(address: address, key: key, type: type)
     networkClient.send(rpc, completion: completion)
   }
