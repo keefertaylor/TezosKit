@@ -49,6 +49,8 @@
 		779A9C68230BDA7A004C6575 /* OperationPayloadFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */; };
 		779A9C74230E0824004C6575 /* TokenContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C73230E0824004C6575 /* TokenContractClient.swift */; };
 		779A9C77230E09DB004C6575 /* TokenContractIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */; };
+		779A9C79230E2C4D004C6575 /* FeeEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C78230E2C4A004C6575 /* FeeEstimator.swift */; };
+		779A9C7D230E320C004C6575 /* FeeEstimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -283,6 +285,8 @@
 		779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationPayloadFactory.swift; sourceTree = "<group>"; };
 		779A9C73230E0824004C6575 /* TokenContractClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractClient.swift; sourceTree = "<group>"; };
 		779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractIntegrationTests.swift; sourceTree = "<group>"; };
+		779A9C78230E2C4A004C6575 /* FeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeeEstimator.swift; sourceTree = "<group>"; };
+		779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeEstimatorTest.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -572,6 +576,7 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */,
 				779427BE22C02AA800559A03 /* TezosCrypto.framework */,
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
@@ -643,6 +648,7 @@
 			isa = PBXGroup;
 			children = (
 				779427B022BB24C800559A03 /* ForgingPolicy.swift */,
+				779A9C78230E2C4A004C6575 /* FeeEstimator.swift */,
 				779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */,
 				779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */,
 				779A9C5B230864EE004C6575 /* SimulationResult.swift */,
@@ -1131,6 +1137,7 @@
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
 				77CE384721FC7ED8006ADABA /* OriginationOperation.swift in Sources */,
 				77F4D26F22220C9600D34B01 /* NetworkClient+Promises.swift in Sources */,
+				779A9C79230E2C4D004C6575 /* FeeEstimator.swift in Sources */,
 				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,
@@ -1197,6 +1204,7 @@
 				77FE788222EE913300B85B9D /* GetBigMapValueRPCTest.swift in Sources */,
 				77CE36FE21F7F49F006ADABA /* GetBallotsRPCTest.swift in Sources */,
 				77CE36F221F7F49F006ADABA /* JSONDictionaryResponseAdapterTest.swift in Sources */,
+				779A9C7D230E320C004C6575 /* FeeEstimatorTest.swift in Sources */,
 				77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */,
 				77CE36FF21F7F49F006ADABA /* PeriodKindResponseAdapterTest.swift in Sources */,
 				77B1EB08222A179F00EA4FCE /* OperationWithCounterTest.swift in Sources */,

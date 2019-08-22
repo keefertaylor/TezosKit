@@ -97,12 +97,30 @@ extension Transaction {
   )
 }
 
-extension OperationFactory {
-  public static let testFactory = OperationFactory()
+extension ForgingService {
+  public static let testForgingService = ForgingService(
+    forgingPolicy: .remote,
+    networkClient: FakeNetworkClient.tezosNodeNetworkClient
+  )
 }
 
-extension OperationPayloadFactory {
-  public static let testFactory = OperationPayloadFactory(operationFactory: .testFactory)
+extension SimulationService {
+  public static let testSimulationService = SimulationService(
+    networkClient: FakeNetworkClient.tezosNodeNetworkClient,
+    operationMetadataProvider: .testOperationMetadataProvider
+  )
+}
+
+extension FeeEstimator {
+  public static let testFeeEstimator = FeeEstimator(
+    forgingService: .testForgingService,
+    operationMetadataProvider: .testOperationMetadataProvider,
+    simulationService: .testSimulationService
+  )
+}
+
+extension OperationFactory {
+  public static let testFactory = OperationFactory(feeEstimator: .testFeeEstimator)
 }
 
 extension OperationFees {

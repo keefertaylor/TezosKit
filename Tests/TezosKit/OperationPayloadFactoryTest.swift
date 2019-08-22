@@ -17,7 +17,6 @@ final class OperationPayloadFactoryTest: XCTestCase {
     addressCounter: .testAddressCounter,
     key: nil
   )
-  let operationPayloadFactory = OperationPayloadFactory(operationFactory: .testFactory)
 
   /// Test a single operation with a revealed manager key.
   func testOperationPayloadInitSingleOperation() {
@@ -30,7 +29,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       )!
     ]
 
-    let operationPayload = operationPayloadFactory.operationPayload(
+    let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,
@@ -60,7 +59,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       )!
     ]
 
-    let operationPayload = operationPayloadFactory.operationPayload(
+    let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,
@@ -90,7 +89,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       )!
     ]
 
-    let operationPayload = operationPayloadFactory.operationPayload(
+    let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,
@@ -117,7 +116,7 @@ final class OperationPayloadFactoryTest: XCTestCase {
       )!
     ]
 
-    let operationPayload = operationPayloadFactory.operationPayload(
+    let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,
       source: .testAddress,
       signatureProvider: signatureProvider,

@@ -56,11 +56,7 @@ extension Double {
 
 extension UInt32 {
   // Time between blocks to wait for an operation to get included.
-  public static let blockTime: UInt32 = 120
-}
-
-extension OperationFactory {
-  public static let testOperationFactory = OperationFactory()
+  public static let blockTime: UInt32 = 90
 }
 
 extension String {
@@ -221,7 +217,6 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
     wait(for: [checkDelegateClearedAfterDelegationExpectation], timeout: .expectationTimeout)
-
   }
 
   public func testGetAccountBalance() {
@@ -253,7 +248,8 @@ class TezosNodeIntegrationTests: XCTestCase {
       switch result {
       case .failure:
         XCTFail()
-      case .success:
+      case .success(let hash):
+        print(hash)
         expectation.fulfill()
       }
     }
@@ -287,7 +283,7 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testRunOperation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = OperationFactory.testOperationFactory.originationOperation(
+    let operation = nodeClient.operationFactory.originationOperation(
       address: Wallet.testWallet.address,
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
@@ -315,14 +311,14 @@ class TezosNodeIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
 
     let ops: [TezosKit.Operation] = [
-      OperationFactory.testOperationFactory.transactionOperation(
+      nodeClient.operationFactory.transactionOperation(
         amount: Tez("1")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
         operationFeePolicy: .default,
         signatureProvider: Wallet.testWallet
       )!,
-      OperationFactory.testOperationFactory.transactionOperation(
+      nodeClient.operationFactory.transactionOperation(
         amount: Tez("2")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
@@ -349,7 +345,7 @@ class TezosNodeIntegrationTests: XCTestCase {
   func testSmartContractInvocation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operationFees = OperationFees(fee: Tez(1), gasLimit: 733_732, storageLimit: 0)
+    let operationFees = OperationFees(fee: Tez(0.073_69), gasLimit: 733_944, storageLimit: 0)
     let parameter =
       RightMichelsonParameter(
         arg: LeftMichelsonParameter(
@@ -362,16 +358,18 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     self.nodeClient.call(
       contract: Wallet.dexterExchangeContract,
-      amount: Tez(1.0),
+      amount: Tez(10.0),
       parameter: parameter,
       source: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       operationFees: operationFees
     ) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
-      case .success:
+      case .success(let hash):
+        print(hash)
         expectation.fulfill()
       }
     }
@@ -434,6 +432,210 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .failure(let error):
         print(error)
         XCTFail()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  // MARK: - Fee Estimation
+
+  public func testDelegation_estimateFees() {
+    // Clear any existing delegate.
+    let undelegateExpectation = XCTestExpectation(description: "undelegate called")
+    self.nodeClient.undelegate(
+      from: Wallet.originatedAddress,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        undelegateExpectation.fulfill()
+      }
+    }
+    wait(for: [undelegateExpectation], timeout: .expectationTimeout)
+    sleep(.blockTime)
+
+    // Validate the delegate cleared
+    let checkDelegateClearedExpectation = XCTestExpectation(description: "check delegate cleared")
+    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
+        print("delegate cleared!")
+        checkDelegateClearedExpectation.fulfill()
+      case .success:
+        XCTFail()
+      }
+    }
+    wait(for: [checkDelegateClearedExpectation], timeout: .expectationTimeout)
+
+    // Create a new account, send it some XTZ.
+    let baker = Wallet()!
+    let sendExpectation = XCTestExpectation(description: "sent xtz")
+    self.nodeClient.send(
+      amount: Tez(1),
+      to: baker.address,
+      from: Wallet.testWallet.address,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        sendExpectation.fulfill()
+      }
+    }
+    wait(for: [sendExpectation], timeout: .expectationTimeout)
+    sleep(.blockTime)
+
+    // Register the new account as a baker.
+    let registerBakerExpectation = XCTestExpectation(description: "register baker")
+    self.nodeClient.registerDelegate(
+      delegate: baker.address,
+      signatureProvider: baker,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        registerBakerExpectation.fulfill()
+      }
+    }
+    wait(for: [registerBakerExpectation], timeout: .expectationTimeout)
+    sleep(.blockTime)
+
+    // Delegate to the new baker.
+    let delegateToBakerExpectation = XCTestExpectation(description: "delegated")
+    self.nodeClient.delegate(
+      from: Wallet.originatedAddress,
+      to: baker.address,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        delegateToBakerExpectation.fulfill()
+      }
+    }
+    wait(for: [delegateToBakerExpectation], timeout: .expectationTimeout)
+    sleep(.blockTime)
+
+    // Validate the delegate set correctly
+    let checkDelegateSetToBakerExpectation = XCTestExpectation(description: "delegated to baker")
+    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let delegate):
+        XCTAssertEqual(delegate, baker.address)
+        checkDelegateSetToBakerExpectation.fulfill()
+      }
+    }
+    wait(for: [checkDelegateSetToBakerExpectation], timeout: .expectationTimeout)
+
+    // Clear the delegate
+    let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
+    self.nodeClient.undelegate(
+      from: Wallet.originatedAddress,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print("Undelegate success \(hash)")
+        clearDelegateAfterDelegationExpectation.fulfill()
+      }
+    }
+    wait(for: [clearDelegateAfterDelegationExpectation], timeout: .expectationTimeout)
+    sleep(.blockTime)
+
+    // Validate the delegate cleared successfully
+    let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
+    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
+        print("delegate is expectdly nil")
+        checkDelegateClearedAfterDelegationExpectation.fulfill()
+      case .success:
+        XCTFail()
+      }
+    }
+    wait(for: [checkDelegateClearedAfterDelegationExpectation], timeout: .expectationTimeout)
+  }
+
+  func testSmartContractInvocation_EstimateFees() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let parameter =
+      RightMichelsonParameter(
+        arg: LeftMichelsonParameter(
+          arg: PairMichelsonParameter(
+            left: IntMichelsonParameter(int: 1),
+            right: StringMichelsonParameter(string: .testExpirationTimestamp)
+          )
+        )
+    )
+
+    self.nodeClient.call(
+      contract: Wallet.dexterExchangeContract,
+      amount: Tez(100.0),
+      parameter: parameter,
+      source: Wallet.testWallet.address,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  public func testSend_estimateFees() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.send(
+      amount: Tez(1.0),
+      to: Wallet()!.address,
+      from: Wallet.testWallet.address,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        expectation.fulfill()
       }
     }
 
