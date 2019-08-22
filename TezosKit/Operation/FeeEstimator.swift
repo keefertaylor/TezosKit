@@ -139,7 +139,7 @@ public class FeeEstimator {
 
       let calculatedFee = mutableOperation.operationFees.fee + SafetyMargin.fee
       let calculatedOperationFees = OperationFees(
-        fee: calculatedFees,
+        fee: calculatedFee,
         gasLimit: mutableOperation.operationFees.gasLimit,
         storageLimit: mutableOperation.operationFees.storageLimit
       )
@@ -191,7 +191,7 @@ public class FeeEstimator {
     // maximum possible.
     let maxedFees = OperationFees(
       fee: Tez.zeroBalance,
-      gasLimit: Maximums.gas
+      gasLimit: Maximums.gas,
       storageLimit: Maximums.storage
     )
     maxedOperation.operationFees = maxedFees
@@ -255,7 +255,7 @@ public class FeeEstimator {
   /// - Note: This method assumes the given string is UTF-8
   private func feeFromSerializedOperation(operationHex: Hex) -> Tez {
     let nanoTez = operationHex.count * FeeConstants.feePerStorageByte
-    return nanoTezToTez(nanoTez: nanoTez) + FeeEstimator.kSafetyMarginFee
+    return nanoTezToTez(nanoTez: nanoTez)
   }
 
   /// Convert the given amount of NanoTez to a Tez object.
