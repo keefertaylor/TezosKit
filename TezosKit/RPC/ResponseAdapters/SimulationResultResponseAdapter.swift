@@ -23,17 +23,11 @@ private enum JSON {
 /// Parse the resulting JSON from a simulation operation to a SimulationResult enum
 public class SimulationResultResponseAdapter: AbstractResponseAdapter<SimulationResult> {
   public override class func parse(input: Data) -> SimulationResult? {
-    let stringData = String(data: input, encoding: .utf8)
-    print("raw data: \(stringData)")
-
     guard
       let json = JSONDictionaryResponseAdapter.parse(input: input)
-      else {
+    else {
         return nil
     }
-
-    print("JSON DEBUG:")
-    print(JSONUtils.jsonString(for: json))
 
     guard
       let contents = json[JSON.Keys.contents] as? [[ String: Any ]]
