@@ -241,7 +241,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     self.nodeClient.send(
       amount: Tez("10000000")!,
-      to: "tz1SAP4KLNbGY2S33gQGhk4Pvukw2siqFqZQ",
+      to: "tz1NBAfG9MpKxxWpaAXa52Y9XYh6Wdv77xG7",
       from: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet
     ) { result in
