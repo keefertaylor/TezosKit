@@ -11,6 +11,7 @@ public class OperationFactory {
   /// The protocol this operation factory will produce operations for.
   private let tezosProtocol: TezosProtocol
 
+  /// An object that can estimate fees for operations.
   private let feeEstimator: FeeEstimator
 
   /// Identifier for the internal dispatch queue.
@@ -21,7 +22,9 @@ public class OperationFactory {
 
   /// Create a new operation factory.
   ///
-  /// - Parameter tezosProtocol: The protocol that this factory will provide operations for. Default is athens.
+  /// - Parameters:
+  ///   - tezosProtocol: The protocol that this factory will provide operations for. Default is athens.
+  ///   - feeEstimator: An object that can estimate fees for operations.
   public init(tezosProtocol: TezosProtocol = .athens, feeEstimator: FeeEstimator) {
     defaultFeeProvider = DefaultFeeProvider.self
     self.tezosProtocol = tezosProtocol

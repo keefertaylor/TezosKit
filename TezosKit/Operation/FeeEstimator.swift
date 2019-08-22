@@ -2,25 +2,41 @@
 
 import Foundation
 
+/// NanoTez units.
 private typealias NanoTez = Int
 
+/// A class which can estimate fee, gas and storage limits for an operation.
 public class FeeEstimator {
+  /// The number of nanotez in a single mutez.
   private static let kNanoTezPerMutez = 1_000
-  private static let kMaxGasPerOperation = 800_000
-  private static let kMaxStoragePerOepration = 60_000
 
+  /// Maximum values for limits in OperationFees.
+  private enum Maximums {
+    public static let gas = 800_000
+    public static let storage = 60_000
+  }
+
+  /// Constants that are used in fee calculations.
   private enum FeeConstants {
     public static let minimalFee: NanoTez = 100_000
     public static let feePerGasUnit: NanoTez = 100
     public static let feePerStorageByte: NanoTez = 1_000
   }
 
-  public static let kSafetyMarginGas = 100
-  public static let kSafetyMarginStorage = 257
-  public static let kSafetyMarginFee = Tez(0.000_100)
+  /// Safety margins that will be added.
+  private enum SafetyMargin {
+    public static let gas = 100
+    public static let storage = 257
+    public static let fee = Tez(0.000_100)
+  }
 
+  /// A service which can forge operations.
   let forgingService: ForgingService
+
+  /// A service which can provide metadata for operations.
   let operationMetadataProvider: OperationMetadataProvider
+
+  /// A service which can simulate operations.
   let simulationService: SimulationService
 
   /// Identifier for the internal dispatch queue.
@@ -40,13 +56,20 @@ public class FeeEstimator {
     feeEstimatorQueue = DispatchQueue(label: FeeEstimator.queueIdentifier)
   }
 
+  /// Estimate OperationFees for the given inputs.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to estimate fees for.
+  ///   - address: The address performing the operation.
+  ///   - signatureProvider: An opaque object which can sign the operation.
+  ///   - completion: A completion block that will be called with the estimated fees if they could be determined.
   public func estimate(
     operation: Operation,
     address: Address,
     signatureProvider: SignatureProvider,
     completion: @escaping (OperationFees?) -> Void
   ) {
-//    feeEstimatorQueue.async {
+    DispatchQueue.global(qos: .background).async {
       // swiftlint:disable force_cast
       let mutableOperation = operation.mutableCopy() as! Operation
       // swiftlint:enable force_cast
@@ -63,9 +86,10 @@ public class FeeEstimator {
         completion(nil)
         return
       }
-      // add safety margins
-      let gasLimit = consumedGas + FeeEstimator.kSafetyMarginGas
-      let storageLimit = consumedStorage + FeeEstimator.kSafetyMarginStorage
+
+      // Add safety margins for gas and storage limits.
+      let gasLimit = consumedGas + SafetyMargin.gas
+      let storageLimit = consumedStorage + SafetyMargin.storage
 
       // Start with a minimum fee equal to the minimum fee or the fee required by the gas.
       let gasFee = self.feeForGas(gas: gasLimit)
@@ -73,7 +97,7 @@ public class FeeEstimator {
       let initialFee = minimumFee + gasFee
 
       // Calculate the amount of fees required for the operation size.
-      guard var requiredStorageFee = self.feeForOperation(
+      guard var requiredStorageFee = self.sizeFeeForOperation(
         address: address,
         operation: mutableOperation,
         signatureProvider: signatureProvider
@@ -102,7 +126,7 @@ public class FeeEstimator {
         )
 
         // Calculate a new required storage fee, based on the updated fees.
-        guard let newStorageFee = self.feeForOperation(
+        guard let newStorageFee = self.sizeFeeForOperation(
           address: address,
           operation: mutableOperation,
           signatureProvider: signatureProvider
@@ -113,17 +137,28 @@ public class FeeEstimator {
         requiredStorageFee = newStorageFee
       }
 
-      print("EST FEES \(mutableOperation.operationFees.fee)")
-      print("EST  GAS \(mutableOperation.operationFees.gasLimit)")
-      print("EST STOR \(mutableOperation.operationFees.storageLimit)")
-
-      completion(mutableOperation.operationFees)
-//    }
+      let calculatedFee = mutableOperation.operationFees.fee + SafetyMargin.fee
+      let calculatedOperationFees = OperationFees(
+        fee: calculatedFees,
+        gasLimit: mutableOperation.operationFees.gasLimit,
+        storageLimit: mutableOperation.operationFees.storageLimit
+      )
+      completion(calculatedOperationFees)
+    }
   }
 
   // MARK: - Helpers
 
-  private func feeForOperation(
+  /// Retrieve the given fee required for the serialized size of the operation.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameters:
+  ///   - address: The address which is performing the operation.
+  ///   - operation: The operation to simulate.
+  ///   - signatureProvider: An opaque object which can provide a public key.
+  /// - Returns: A required fee for the operations serialized representation, if it could be determined, otherwise nil.
+  private func sizeFeeForOperation(
     address: Address,
     operation: Operation,
     signatureProvider: SignatureProvider
@@ -131,22 +166,34 @@ public class FeeEstimator {
     guard let hex = self.forgeSync(address: address, operation: operation, signatureProvider: signatureProvider) else {
       return nil
     }
-    return feeFromSerializedString(string: hex)
+    return feeFromSerializedOperation(operationHex: hex)
   }
 
+  /// Synchronously simulate the given operation.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to simulate.
+  ///   - address: The address which is performing the operation.
+  ///   - signatureProvider: An opaque object which can provide a public key.
+  /// - Returns: A simulation result if simulation could be performed, otherwise nil.
   private func simulateOperationSync(
     operation: Operation,
     address: Address,
     signatureProvider: SignatureProvider
   ) -> SimulationResult? {
-    // There must be a better RPC.
-    let maxedFees = OperationFees(
-      fee: Tez.zeroBalance,
-      gasLimit: FeeEstimator.kMaxGasPerOperation,
-      storageLimit: FeeEstimator.kMaxStoragePerOepration
-    )
     // swiftlint:disable force_cast
     let maxedOperation = operation.mutableCopy() as! Operation
+    // swiftlint:enable force_cast
+
+    // Simulation will tell us the actual limits of the operation performed. Set initial gas / storage limits to the
+    // maximum possible.
+    let maxedFees = OperationFees(
+      fee: Tez.zeroBalance,
+      gasLimit: Maximums.gas
+      storageLimit: Maximums.storage
+    )
     maxedOperation.operationFees = maxedFees
 
     let result = simulationService.simulateSync(
@@ -160,6 +207,15 @@ public class FeeEstimator {
     return nil
   }
 
+  /// Synchronously forge the given inputs.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameters:
+  ///   - address: The source address.
+  ///   - operation: The operation to forge.
+  ///   - signatureProvider: An opaque object which can sign the operation.
+  /// - Returns: Forged hex if successful, otherwise nil.
   private func forgeSync(address: Address, operation: Operation, signatureProvider: SignatureProvider) -> Hex? {
     guard let operationMetadata = operationMetadataSync(address: address) else {
       return nil
@@ -174,6 +230,12 @@ public class FeeEstimator {
     return nil
   }
 
+  /// Synchronously retrieve operation metadata.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameter address: The address to get metadata for.
+  /// - Returns: The metadata or nil if unsuccessful.
   private func operationMetadataSync(address: Address) -> OperationMetadata? {
     let result = operationMetadataProvider.metadataSync(for: address)
     if case let .success(metadata) = result {
@@ -182,28 +244,25 @@ public class FeeEstimator {
     return nil
   }
 
+  /// Calcluate the fee required to fulfill the given gas limit.
   private func feeForGas(gas: Int) -> Tez {
     let nanoTez = gas * FeeConstants.feePerGasUnit
     return nanoTezToTez(nanoTez: nanoTez)
   }
 
-  /// Assume we're dealing with UTF-8
-  private func feeFromSerializedString(string: Hex) -> Tez {
-    let nanoTez = string.count * FeeConstants.feePerStorageByte
+  /// Get the fee required for the given serialized operation.
+  ///
+  /// - Note: This method assumes the given string is UTF-8
+  private func feeFromSerializedOperation(operationHex: Hex) -> Tez {
+    let nanoTez = operationHex.count * FeeConstants.feePerStorageByte
     return nanoTezToTez(nanoTez: nanoTez) + FeeEstimator.kSafetyMarginFee
   }
 
-  /// NanoTez to Tez
+  /// Convert the given amount of NanoTez to a Tez object.
   private func nanoTezToTez(nanoTez: NanoTez) -> Tez {
     let mutez = nanoTez % FeeEstimator.kNanoTezPerMutez == 0 ?
       nanoTez / FeeEstimator.kNanoTezPerMutez :
       (nanoTez / FeeEstimator.kNanoTezPerMutez) + 1
     return Tez(mutez: mutez)
-  }
-}
-
-extension Tez {
-  public init(mutez: Int) {
-    self.init(String(mutez))!
   }
 }

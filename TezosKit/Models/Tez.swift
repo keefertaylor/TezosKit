@@ -97,6 +97,10 @@ public struct Tez {
     self.init(integerAmount: integerAmount, decimalAmount: decimalAmount)
   }
 
+  internal init(mutez: Int) {
+    self.init(String(mutez))!
+  }
+
   private init(integerAmount: BigInt, decimalAmount: BigInt) {
     self.integerAmount = integerAmount
     self.decimalAmount = decimalAmount
