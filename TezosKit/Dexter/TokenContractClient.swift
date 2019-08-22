@@ -70,7 +70,7 @@ public class TokenContractClient {
     )
   }
 
-  /// Retrive the token balance for the given address.
+  /// Retrieve the token balance for the given address.
   public func getTokenBalance(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let key = StringMichelsonParameter(string: address)
     tezosNodeClient.getBigMapValue(address: tokenContractAddress, key: key, type: .address) { result in
