@@ -29,7 +29,7 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
     guard
       let json = JSONDictionaryResponseAdapter.parse(input: input)
     else {
-      return nil
+        return nil
     }
 
     print("JSON DEBUG:")

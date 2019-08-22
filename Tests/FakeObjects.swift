@@ -67,6 +67,7 @@ public class FakeURLSessionDataTask: URLSessionDataTask {
 
 /// A fake network client which has default responses for given paths.
 public class FakeNetworkClient: NetworkClient {
+
   public var endpointToResponseMap: [String: String]
   public let responseHandler: RPCResponseHandler
 
@@ -78,13 +79,16 @@ public class FakeNetworkClient: NetworkClient {
     self.responseHandler = RPCResponseHandler()
   }
 
-  public func send<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
-    send(rpc, overrideCallbackQueue: nil, completion: completion)
+  public func send<T>(
+    _ rpc: RPC<T>,
+    completion: @escaping (Result<T, TezosKitError>) -> Void
+  ) {
+    send(rpc, callbackQueue: nil, completion: completion)
   }
 
   public func send<T>(
     _ rpc: RPC<T>,
-    overrideCallbackQueue: DispatchQueue?,
+    callbackQueue: DispatchQueue? = nil,
     completion: @escaping (Result<T, TezosKitError>) -> Void
   ) {
     var statusCode = 400
@@ -110,6 +114,13 @@ public class FakeNetworkClient: NetworkClient {
       responseAdapterClass: rpc.responseAdapterClass
     )
 
+    // If there's a custom thread to call back on, use that. Otherwise default to the current thread.
+    if let callbackQueue = callbackQueue {
+      callbackQueue.async {
+        completion(result)
+      }
+      return
+    }
     completion(result)
   }
 }
