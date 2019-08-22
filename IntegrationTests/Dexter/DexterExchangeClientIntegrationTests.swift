@@ -3,7 +3,19 @@
 @testable import TezosKit
 import XCTest
 
-/// Write up a blurb about what is going on.
+/// Integration tests to run against a DEXter Exchange Contract. These tests require a live alphanet node.
+///
+/// To get an alphanet node running locally, follow instructions here:
+/// https://tezos.gitlab.io/alphanet/introduction/howtoget.html
+///
+/// These tests are not hermetic and may fail for a number or reasons, such as:
+/// - Insufficient balance in account.
+/// - Adverse network conditions.
+///
+/// Before running the tests, you should make sure that there's sufficient tokens in the owners account (which is
+/// tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW) and liquidity in the exchange:
+/// Exchange: https://alphanet.tzscan.io/KT18dHMg7xWwRvo2TA9DSkcPkaG3AkDyEeKB
+/// Address: https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
   public static let exchangeContractAddress = "KT18dHMg7xWwRvo2TA9DSkcPkaG3AkDyEeKB"
