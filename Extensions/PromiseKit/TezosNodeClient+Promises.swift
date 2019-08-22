@@ -133,6 +133,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func send(
     amount: Tez,
     to recipientAddress: String,
@@ -164,6 +165,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func call(
     contract: Address,
     amount: Tez = Tez.zeroBalance,
@@ -199,6 +201,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func delegate(
     from source: Address,
     to delegate: Address,
@@ -220,6 +223,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func undelegate(
     from source: Address,
     signatureProvider: SignatureProvider,
@@ -240,6 +244,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func registerDelegate(
     delegate: Address,
     signatureProvider: SignatureProvider,
@@ -260,6 +265,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func originateAccount(
     managerAddress: String,
     signatureProvider: SignatureProvider,
@@ -286,7 +292,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  internal func send(
+  public func send(
     amount: Tez,
     to recipientAddress: String,
     from source: Address,
@@ -323,7 +329,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  internal func call(
+  public func call(
     contract: Address,
     amount: Tez = Tez.zeroBalance,
     parameter: MichelsonParameter? = nil,
@@ -365,7 +371,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  internal func delegate(
+  public func delegate(
     from source: Address,
     to delegate: Address,
     signatureProvider: SignatureProvider,
@@ -398,7 +404,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  internal func undelegate(
+  public func undelegate(
     from source: Address,
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
@@ -429,7 +435,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  internal func registerDelegate(
+  public func registerDelegate(
     delegate: Address,
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
@@ -460,7 +466,7 @@ extension TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
-  internal func originateAccount(
+  public func originateAccount(
     managerAddress: String,
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy
