@@ -16,6 +16,8 @@ public class DexterExchangeClient {
   /// The address of a DEXter exchange contract.
   private let exchangeContractAddress: Address
 
+  // MARK: - Balance Queries
+
   /// Initialize a new DEXter client.
   ///
   /// - Parameters:
@@ -63,6 +65,8 @@ public class DexterExchangeClient {
     }
   }
 
+  // MARK: - Liquidity Management
+
   /// Add liquidity to the exchange.
   ///
   /// - Parameters:
@@ -82,7 +86,7 @@ public class DexterExchangeClient {
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let param = LeftMichelsonParameter(
+    let parameter = LeftMichelsonParameter(
       arg: LeftMichelsonParameter(
         arg: PairMichelsonParameter(
           left: IntMichelsonParameter(int: minLiquidity),
@@ -97,7 +101,7 @@ public class DexterExchangeClient {
     tezosNodeClient.call(
       contract: exchangeContractAddress,
       amount: amount,
-      parameter: param,
+      parameter: parameter,
       source: source,
       signatureProvider: signatureProvider,
       operationFeePolicy: .estimate,
@@ -105,66 +109,138 @@ public class DexterExchangeClient {
     )
   }
 
-//  // $ ~/alphanet.sh client transfer <tez> from <liquidity-minter> \
-//  //  to <exchange-contract-name> \
-//  //  --arg 'Left (Left (Pair <min-liquidity-minted> (Pair <max-tokens-deposited> "<deadline>")))' \
-//  //  --burn-cap 1
-//
-//  // Deadline shoudl be a DateTime
-//
-//  //  $ ~/alphanet.sh client transfer <tez> from <liquidity-remover> to <exchange-contract-name> --arg
-//  // 'Left (Right (Pair (Pair <liquidity-burned> <min-mutez-withdrawn>)
-  // (Pair <min-token-withdrawn> "<deadline>")))' --burn-cap 1
-//  public func removeLiquidity(from source: Address) {
-//    let param = LeftMichelsonParameter(
-//      arg: RightMichelsonParameter(
-//        PairMichelsonParam(
-//          left: PairMichelsonParam(
-//            left: IntMichelsonParam(int: liquidityBurned)
-//            right: IntMichelsonParam(int: minMutezWithdrawn)
-//          )
-//          right: PairMichelsonParam(
-//            left: IntMichelsonParam(int: minTokenWithdrawn),
-//            right: StringMichelsonParam(deadline)
-//          )
-//        )
-//      )
-//    )
-//  }
-//
-//  // $ ~/alphanet.sh client transfer <tez> from <buyer> to <exchange-contract-name> \
-//  //--arg 'Right (Left (Pair <min-tokens-required> "<deadline>"))' \
-//  // --burn-cap 1
-//  public func tradeTezForToken() {
-//    let param = RightMichelsonParameter(
-//      arg: LeftMichelsonParameter(
-//        arg: PairMichelsonParam(
-//          left: IntMichelsonParam(int: minTokensRequired),
-//          right: StringMichelsonParam(string: deadline)
-//        )
-//      )
-//    )
-//  }
-//
-//  //  $ ~/alphanet.sh client transfer 0 from <buyer> to <exchange-contract-name> \
-//  //  --arg 'Right (Right (Left (Pair <tokens-sold> (Pair <min-tez-required> "<deadline>"))))' \
-//  //  --burn-cap 1
-//  public func tradeTokenForTez() {
-//    let param = RightMichelsonParameter(
-//      arg: RightMichelsonParameter(
-//        arg: LeftMichelsonParameter(
-//          arg: PairMichelsonParam(
-//            left: IntMichelsonParam(int: tokensSold),
-//            right: PairMichelsonParam(
-//              left: IntMichelsonParam(int: minTezRequired),
-//              right: StringMichelsonParam(string: deadline)
-//            )
-//          )
-//        )
-//      )
-//    )
-//  }
-//
+  /// Withdraw liquidity from the exchange.
+  ///
+  /// - Parameters:
+  ///   - source: The address adding the liquidity
+  ///   - signatureProvider: An opaque object that can sign the operation.
+  ///   - liquidityBurned: The amount of liquidity to remove from the exchange.
+  ///   - tezToWithdraw: The amount of Tez to withdraw from the exchange.
+  ///   - minTokensToWithdraw: The minimum number of tokens to withdraw.
+  ///   - deadline: A deadline for the transaction to occur by.
+  ///   - completion: A completion block which will be called with the result hash, if successful.
+  public func withdrawLiquidity(
+    from source: Address,
+    signatureProvider: SignatureProvider,
+    liquidityBurned: Int,
+    tezToWidthdraw: Tez,
+    minTokensToWithdraw: Int,
+    deadline: Date,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    guard let mutezToWithdraw = Int(tezToWidthdraw.rpcRepresentation) else {
+      completion(.failure(TezosKitError(kind: .unknown)))
+      return
+    }
 
-//
+    let parameter = LeftMichelsonParameter(
+      arg: RightMichelsonParameter(
+        arg: PairMichelsonParameter(
+          left: PairMichelsonParameter(
+            left: IntMichelsonParameter(int: liquidityBurned),
+            right: IntMichelsonParameter(int: mutezToWithdraw)
+          ),
+          right: PairMichelsonParameter(
+            left: IntMichelsonParameter(int: minTokensToWithdraw),
+            right: StringMichelsonParameter(date: deadline)
+          )
+        )
+      )
+    )
+
+    tezosNodeClient.call(
+      contract: exchangeContractAddress,
+      amount: Tez.zeroBalance,
+      parameter: parameter,
+      source: source,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: .estimate,
+      completion: completion
+    )
+  }
+
+  // MARK: - Trades
+
+  /// Buy tokens with Tez.
+  ///
+  /// - Parameters:
+  ///   - source: The address making the trade.
+  ///   - amount: The amount of Tez to sell.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - minTokensToPurchase: The minimum number of tokens to purchase.
+  ///   - deadline: A deadline for the transaction to occur by.
+  ///   - completion: A completion block which will be called with the result hash, if successful.
+  public func tradeTezForToken(
+    source: Address,
+    amount: Tez,
+    signatureProvider: SignatureProvider,
+    minTokensToPurchase: Int,
+    deadline: Date,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let parameter = RightMichelsonParameter(
+      arg: LeftMichelsonParameter(
+        arg: PairMichelsonParameter(
+          left: IntMichelsonParameter(int: minTokensToPurchase),
+          right: StringMichelsonParameter(date: deadline)
+        )
+      )
+    )
+
+    tezosNodeClient.call(
+      contract: exchangeContractAddress,
+      amount: amount,
+      parameter: parameter,
+      source: source,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: .estimate,
+      completion: completion
+    )
+  }
+
+  /// Buy Tez with tokens.
+  ///
+  /// - Parameters:
+  ///   - source: The address making the trade.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - tokensToSell: The number of tokens to sell.
+  ///   - minTezToBuy: The minimum number of Tez to buy.
+  ///   - deadline: A deadline for the transaction to occur by.
+  ///   - completion: A completion block which will be called with the result hash, if successful.
+  public func tradeTokenForTez(
+    source: Address,
+    signatureProvider: SignatureProvider,
+    tokensToSell: Int,
+    minTezToBuy: Tez,
+    deadline: Date,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    guard let minMutezToBuy = Int(minTezToBuy.rpcRepresentation) else {
+      completion(.failure(TezosKitError(kind: .unknown)))
+      return
+    }
+
+    let parameter = RightMichelsonParameter(
+      arg: RightMichelsonParameter(
+        arg: LeftMichelsonParameter(
+          arg: PairMichelsonParameter(
+              left: IntMichelsonParameter(int: tokensToSell),
+              right: PairMichelsonParameter(
+                left: IntMichelsonParameter(int: minMutezToBuy),
+                right: StringMichelsonParameter(date: deadline)
+              )
+            )
+          )
+        )
+      )
+
+    tezosNodeClient.call(
+      contract: exchangeContractAddress,
+      parameter: parameter,
+      source: source,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: .estimate,
+      completion: completion
+    )
+  }
 }

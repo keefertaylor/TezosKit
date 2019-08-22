@@ -46,6 +46,13 @@ final class MichelsonTests: XCTestCase {
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonUnitEncoding))
   }
 
+  func testEncodeDateToJSON() {
+    let date = Date(timeIntervalSince1970: 1_593_453_621) // Monday, June 29, 2020 6:00:21 PM, GMT
+    let michelson = StringMichelsonParameter(date: date)
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString("{\"string\":\"2020-06-29T14:00:21Z\"}"))
+  }
+
   func testEncodeStringToJSON() {
     let michelson = MichelsonTests.michelsonString
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)

@@ -3,7 +3,7 @@
 @testable import TezosKit
 import XCTest
 
-/// TODONOT: Write up a blurb about what is going on.
+/// Write up a blurb about what is going on.
 
 extension Address {
   public static let exchangeContractAddress = "KT18dHMg7xWwRvo2TA9DSkcPkaG3AkDyEeKB"
@@ -78,6 +78,81 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
       signatureProvider: Wallet.testWallet,
       minLiquidity: 1,
       maxTokensDeposited: 10,
+      deadline: deadline
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        completionExpectation.fulfill()
+      }
+    }
+
+    wait(for: [ completionExpectation ], timeout: .expectationTimeout)
+  }
+
+  public func testRemoveLiquidity() {
+    let completionExpectation = XCTestExpectation(description: "Completion called")
+
+    let deadline = Date().addingTimeInterval(24 * 60 * 60) // 24 hours in the future
+    exchangeClient.withdrawLiquidity(
+      from: Wallet.testWallet.address,
+      signatureProvider: Wallet.testWallet,
+      liquidityBurned: 100,
+      tezToWidthdraw: Tez(0.000_001),
+      minTokensToWithdraw: 1,
+      deadline: deadline
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        completionExpectation.fulfill()
+      }
+    }
+
+    wait(for: [ completionExpectation ], timeout: .expectationTimeout)
+  }
+
+  public func testTradeTezForToken() {
+    let completionExpectation = XCTestExpectation(description: "Completion called")
+
+    let deadline = Date().addingTimeInterval(24 * 60 * 60) // 24 hours in the future
+
+    exchangeClient.tradeTezForToken(
+      source: Wallet.testWallet.address,
+      amount: Tez(10.0),
+      signatureProvider: Wallet.testWallet,
+      minTokensToPurchase: 1,
+      deadline: deadline
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        completionExpectation.fulfill()
+      }
+    }
+
+    wait(for: [ completionExpectation ], timeout: .expectationTimeout)
+  }
+
+  func testTradeTokenForTez() {
+    let completionExpectation = XCTestExpectation(description: "Completion called")
+
+    let deadline = Date().addingTimeInterval(24 * 60 * 60) // 24 hours in the future
+
+    exchangeClient.tradeTokenForTez(
+      source: Wallet.testWallet.address,
+      signatureProvider: Wallet.testWallet,
+      tokensToSell: 1,
+      minTezToBuy: Tez(0.000_001),
       deadline: deadline
     ) { result in
       switch result {
