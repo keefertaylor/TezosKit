@@ -92,9 +92,6 @@ public class TezosNodeClient {
   /// An injection service which injects operations.
   internal let injectionService: InjectionService
 
-  /// An operation payload factory.
-  internal let operationPayloadFactory: OperationPayloadFactory
-
   /// A callback queue that all completions will be called on.
   internal let callbackQueue: DispatchQueue
 
@@ -115,7 +112,6 @@ public class TezosNodeClient {
   ) {
     self.callbackQueue = callbackQueue
     operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
-    operationPayloadFactory = OperationPayloadFactory(operationFactory: operationFactory)
     networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
@@ -127,8 +123,7 @@ public class TezosNodeClient {
     preapplicationService = PreapplicationService(networkClient: networkClient)
     simulationService = SimulationService(
       networkClient: networkClient,
-      operationMetadataProvider: operationMetadataProvider,
-      operationPayloadFactory: operationPayloadFactory
+      operationMetadataProvider: operationMetadataProvider
     )
     injectionService = InjectionService(networkClient: networkClient)
   }
@@ -717,7 +712,7 @@ public class TezosNodeClient {
 
       guard
         case let .success(operationMetadata) = result,
-        let operationPayload = self.operationPayloadFactory.operationPayload(
+        let operationPayload = OperationPayloadFactory.operationPayload(
           from: operations,
           source: source,
           signatureProvider: signatureProvider,

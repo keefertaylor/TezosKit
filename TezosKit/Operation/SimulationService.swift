@@ -10,9 +10,6 @@ public class SimulationService {
   /// The operation metadata provider which provides data for operations.
   private let operationMetadataProvider: OperationMetadataProvider
 
-  /// The operation payload factory.
-  private let operationPayloadFactory: OperationPayloadFactory
-
   /// A constant for the length of the signature.
   private static let signatureLength = 64
 
@@ -27,12 +24,10 @@ public class SimulationService {
 
   public init(
     networkClient: NetworkClient,
-    operationMetadataProvider: OperationMetadataProvider,
-    operationPayloadFactory: OperationPayloadFactory
+    operationMetadataProvider: OperationMetadataProvider
   ) {
     self.networkClient = networkClient
     self.operationMetadataProvider = operationMetadataProvider
-    self.operationPayloadFactory = operationPayloadFactory
     simulationServiceQueue = DispatchQueue(label: SimulationService.queueIdentifier)
   }
 
@@ -90,7 +85,7 @@ public class SimulationService {
       }
 
       guard
-        let operationPayload = self.operationPayloadFactory.operationPayload(
+        let operationPayload = OperationPayloadFactory.operationPayload(
           from: [operation],
           source: source,
           signatureProvider: signatureProvider,

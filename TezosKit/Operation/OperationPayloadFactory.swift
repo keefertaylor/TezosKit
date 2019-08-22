@@ -3,15 +3,9 @@
 import Foundation
 
 /// A factory which can produce operation payloads
-public class OperationPayloadFactory {
-  private let operationFactory: OperationFactory
-
-  public init(operationFactory: OperationFactory) {
-    self.operationFactory = operationFactory
-  }
-
+public enum OperationPayloadFactory {
   /// Create an operation payload from the given inputs.
-  public func operationPayload(
+  public static func operationPayload(
     from operations: [Operation],
     source: Address,
     signatureProvider: SignatureProvider,
@@ -22,16 +16,12 @@ public class OperationPayloadFactory {
     // perform.
     var mutableOperations = operations
     if operationMetadata.key == nil && operations.first(where: { $0.requiresReveal }) != nil {
-      guard
-        let revealOperation = operationFactory.revealOperation(
-          from: source,
-          publicKey: signatureProvider.publicKey,
-          operationFeePolicy: .default,
-          signatureProvider: signatureProvider
-        )
-      else {
-        return nil
-      }
+      let defaultRevealFees = DefaultFeeProvider.fees(for: .reveal)
+      let revealOperation = RevealOperation(
+        from: source,
+        publicKey: signatureProvider.publicKey,
+        operationFees: defaultRevealFees
+      )
 
       mutableOperations.insert(revealOperation, at: 0)
     }
