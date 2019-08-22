@@ -304,14 +304,14 @@ public class TezosNodeClient {
   ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func send(
     amount: Tez,
     to recipientAddress: String,
     from source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -380,7 +380,7 @@ public class TezosNodeClient {
   ///   - parameter: An optional parameter to send to the smart contract. Default is none.
   ///   - source: The address invoking the contract.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func call(
     contract: Address,
@@ -388,7 +388,7 @@ public class TezosNodeClient {
     parameter: MichelsonParameter? = nil,
     source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -458,13 +458,13 @@ public class TezosNodeClient {
   ///   - source: The address which will delegate.
   ///   - delegate: The address which will receive the delegation.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func delegate(
     from source: Address,
     to delegate: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -517,13 +517,13 @@ public class TezosNodeClient {
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
   public func undelegate(
     from source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -578,12 +578,12 @@ public class TezosNodeClient {
   /// - Parameters:
   ///   - delegate: The address registering as a delegate.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func registerDelegate(
     delegate: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -640,13 +640,13 @@ public class TezosNodeClient {
   /// - Parameters:
   ///   - managerAddress: The address which will manage the new account.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
   public func originateAccount(
     managerAddress: String,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard

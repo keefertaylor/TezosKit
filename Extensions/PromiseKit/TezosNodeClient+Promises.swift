@@ -290,14 +290,14 @@ extension TezosNodeClient {
   ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func send(
     amount: Tez,
     to recipientAddress: String,
     from source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
     guard
       let transactionOperation = operationFactory.transactionOperation(
@@ -326,7 +326,7 @@ extension TezosNodeClient {
   ///   - amount: The amount of Tez to transfer with the invocation. Default is 0.
   ///   - parameter: An optional parameter to send to the smart contract. Default is none.
   ///   - source: The address invoking the contract.
-  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func call(
@@ -335,7 +335,7 @@ extension TezosNodeClient {
     parameter: MichelsonParameter? = nil,
     source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
     guard
       let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
@@ -369,13 +369,13 @@ extension TezosNodeClient {
   ///   - source: The address which will delegate.
   ///   - delegate: The address which will receive the delegation.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func delegate(
     from source: Address,
     to delegate: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
     guard
       let delegationOperation = operationFactory.delegateOperation(
@@ -402,12 +402,12 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func undelegate(
     from source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
     guard
       let undelegateOperatoin = operationFactory.undelegateOperation(
@@ -433,12 +433,12 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - delegate: The address registering as a delegate.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func registerDelegate(
     delegate: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
     guard
       let registerDelegateOperation = operationFactory.registerDelegateOperation(
@@ -464,12 +464,12 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - managerAddress: The address which will manage the new account.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   /// - Returns: A promise which resolves to a string representing the transaction hash.
   public func originateAccount(
     managerAddress: String,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy
+    operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
     guard
       let originationOperation = operationFactory.originationOperation(
@@ -503,7 +503,7 @@ extension TezosNodeClient {
     operation: Operation,
     source: Address,
     signatureProvider: SignatureProvider
-    ) -> Promise<String> {
+  ) -> Promise<String> {
     return Promise { seal in
       forgeSignPreapplyAndInject([operation], source: source, signatureProvider: signatureProvider) { result in
         switch result {
