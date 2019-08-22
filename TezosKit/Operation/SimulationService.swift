@@ -16,12 +16,48 @@ public class SimulationService {
   /// A default signature to use for simulations as simulations don't need to be properly signed.
   private static let defaultSignature = [UInt8](repeating: 0, count: SimulationService.signatureLength)
 
+  /// Identifier for the internal dispatch queue.
+  private static let queueIdentifier = "com.keefertaylor.TezosKit.SimulationService"
+
+  /// Internal Queue to use in order to perform asynchronous work.
+  private let simulationServiceQueue: DispatchQueue
+
   public init(
     networkClient: NetworkClient,
     operationMetadataProvider: OperationMetadataProvider
   ) {
     self.networkClient = networkClient
     self.operationMetadataProvider = operationMetadataProvider
+    simulationServiceQueue = DispatchQueue(label: SimulationService.queueIdentifier)
+  }
+
+  /// Simulate the given operation in a synchronous manner.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to run.
+  ///   - source: The address requesting the run.
+  ///   - signatureProvider: The object which will provide a public key, if a reveal is needed.
+  /// - Returns: The result of the simulation.
+  public func simulateSync(
+    _ operation: Operation,
+    from source: Address,
+    signatureProvider: SignatureProvider
+  ) -> Result<SimulationResult, TezosKitError> {
+    let simulationDispatchGroup = DispatchGroup()
+
+    simulationDispatchGroup.enter()
+    var result: Result<SimulationResult, TezosKitError> = .failure(TezosKitError(kind: .unknown))
+    simulationServiceQueue.async {
+      self.simulate(operation, from: source, signatureProvider: signatureProvider) { simulationResult in
+        result = simulationResult
+        simulationDispatchGroup.leave()
+      }
+    }
+
+    simulationDispatchGroup.wait()
+    return result
   }
 
   /// Simulate the given operation.
@@ -66,7 +102,7 @@ public class SimulationService {
       }
 
       let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-      self.networkClient.send(rpc, completion: completion)
+      self.networkClient.send(rpc, callbackQueue: self.simulationServiceQueue, completion: completion)
     }
   }
 }
