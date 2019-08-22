@@ -111,21 +111,32 @@ public class TezosNodeClient {
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
     self.callbackQueue = callbackQueue
-    operationFactory = OperationFactory(tezosProtocol: tezosProtocol)
+
     networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
-    operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
+
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
-    preapplicationService = PreapplicationService(networkClient: networkClient)
+    operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
+
     simulationService = SimulationService(
       networkClient: networkClient,
       operationMetadataProvider: operationMetadataProvider
     )
+
+    let feeEstimator = FeeEstimator(
+      forgingService: forgingService,
+      operationMetadataProvider: operationMetadataProvider,
+      simulationService: simulationService
+    )
+
+    operationFactory = OperationFactory(tezosProtocol: tezosProtocol, feeEstimator: feeEstimator)
+
     injectionService = InjectionService(networkClient: networkClient)
+    preapplicationService = PreapplicationService(networkClient: networkClient)
   }
 
   // MARK: - Queries

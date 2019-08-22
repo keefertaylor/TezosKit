@@ -31,8 +31,8 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
 
     guard
       let contents = json[JSON.Keys.contents] as? [[ String: Any ]]
-      else {
-        return nil
+    else {
+      return nil
     }
 
     var consumedGas = 0
@@ -42,8 +42,8 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
         let metadata = content[JSON.Keys.metadata] as? [String: Any],
         let operationResult = metadata[JSON.Keys.operationResult] as? [String: Any],
         let status = operationResult[JSON.Keys.status] as? String
-        else {
-          continue
+      else {
+        continue
       }
 
       if status == JSON.Values.failed {

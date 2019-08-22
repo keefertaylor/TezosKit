@@ -4,7 +4,9 @@
 import XCTest
 
 class OperationFactoryTest: XCTestCase {
-  private let operationFactory = OperationFactory()
+  private let operationFactory = OperationFactory(
+    feeEstimator: .testFeeEstimator
+  )
 
   // MARK: - Default Fees
 

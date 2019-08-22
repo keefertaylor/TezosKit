@@ -97,6 +97,10 @@ public struct Tez {
     self.init(integerAmount: integerAmount, decimalAmount: decimalAmount)
   }
 
+  internal init(mutez: Int) {
+    self.init(String(mutez))!
+  }
+
   private init(integerAmount: BigInt, decimalAmount: BigInt) {
     self.integerAmount = integerAmount
     self.decimalAmount = decimalAmount
@@ -154,5 +158,11 @@ extension Tez: Comparable {
 extension Tez: Equatable {
   public static func == (lhs: Tez, rhs: Tez) -> Bool {
     return lhs.rpcRepresentation == rhs.rpcRepresentation
+  }
+}
+
+extension Tez: CustomStringConvertible {
+  public var description: String {
+    return humanReadableRepresentation
   }
 }
