@@ -46,22 +46,18 @@ final class SimulationServiceTest: XCTestCase {
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+      )!
 
-    let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
-    simulationService.simulate(
+    let result = simulationService.simulateSync(
       operation,
       from: .testAddress,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    ) { result in
-      switch result {
-      case .failure:
-        XCTFail()
-      case .success:
-        simulationCompletionExpectation.fulfill()
-      }
+    )
+
+    guard case .success = result else {
+      XCTFail()
+      return
     }
-    wait(for: [simulationCompletionExpectation], timeout: .expectationTimeout)
   }
 
   // swiftlint:disable force_cast

@@ -25,6 +25,14 @@ public class ForgingService {
     forgingServiceQueue = DispatchQueue(label: ForgingService.queueIdentifier)
   }
 
+  /// Forge the given operation by applying the forging policy encapsulated by this service.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameters:
+  ///   - operationPayload: The operation payload to forge.
+  ///   - operationMetadata: Metadata to forge with the operation.
+  /// - Returns: The result of the forge.
   public func forgeSync(
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata
@@ -49,7 +57,7 @@ public class ForgingService {
   /// - Parameters:
   ///   - operationPayload: The operation payload to forge.
   ///   - operationMetadata: Metadata to forge with the operation.
-  ///   - completion: A completion block to call with the result of the  forge.
+  ///   - completion: A completion block to call with the result of the forge.
   public func forge(
     operationPayload: OperationPayload,
     operationMetadata: OperationMetadata,
@@ -98,6 +106,6 @@ public class ForgingService {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let rpc = ForgeOperationRPC(operationPayload: operationPayload, operationMetadata: operationMetadata)
-    networkClient.send(rpc, overrideCallbackQueue: forgingServiceQueue, completion: completion)
+    networkClient.send(rpc, callbackQueue: forgingServiceQueue, completion: completion)
   }
 }

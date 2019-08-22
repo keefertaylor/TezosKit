@@ -4,6 +4,22 @@ import TezosKit
 import XCTest
 
 final class OperationMetadataProviderTests: XCTestCase {
+  func testOperationMetadataWithValidResponsesSync() {
+    let operationMetadataProvider = OperationMetadataProvider(networkClient: FakeNetworkClient.tezosNodeNetworkClient)
+
+    let result = operationMetadataProvider.metadataSync(for: .testAddress)
+
+    guard case let .success(metadata) = result else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertEqual(metadata.addressCounter, .testAddressCounter)
+    XCTAssertEqual(metadata.branch, .testBranch)
+    XCTAssertEqual(metadata.key, .testPublicKey)
+    XCTAssertEqual(metadata.protocol, .testProtocol)
+  }
+
   func testOperationMetadataWithValidResponses() {
     let operationMetadataProvider = OperationMetadataProvider(networkClient: FakeNetworkClient.tezosNodeNetworkClient)
 

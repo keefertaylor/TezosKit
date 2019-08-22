@@ -31,6 +31,15 @@ public class SimulationService {
     simulationServiceQueue = DispatchQueue(label: SimulationService.queueIdentifier)
   }
 
+  /// Simulate the given operation in a synchronous manner.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to run.
+  ///   - source: The address requesting the run.
+  ///   - signatureProvider: The object which will provide a public key, if a reveal is needed.
+  /// - Returns: The result of the simulation.
   public func simulateSync(
     _ operation: Operation,
     from source: Address,
@@ -93,7 +102,7 @@ public class SimulationService {
       }
 
       let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
-      self.networkClient.send(rpc, overrideCallbackQueue: self.simulationServiceQueue, completion: completion)
+      self.networkClient.send(rpc, callbackQueue: self.simulationServiceQueue, completion: completion)
     }
   }
 }

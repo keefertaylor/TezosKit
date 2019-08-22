@@ -47,7 +47,7 @@
 		779A9C5E23086558004C6575 /* SimulationResultResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */; };
 		779A9C60230A49EA004C6575 /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */; };
 		779A9C68230BDA7A004C6575 /* OperationPayloadFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */; };
-		779A9C6B230CFD18004C6575 /* FeeEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C6A230CFD18004C6575 /* FeeEstimator.swift */; };
+		779A9C79230E2C4D004C6575 /* FeeEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C78230E2C4A004C6575 /* FeeEstimator.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -280,7 +280,7 @@
 		779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResultResponseAdapter.swift; sourceTree = "<group>"; };
 		779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFeePolicy.swift; sourceTree = "<group>"; };
 		779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationPayloadFactory.swift; sourceTree = "<group>"; };
-		779A9C6A230CFD18004C6575 /* FeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeeEstimator.swift; sourceTree = "<group>"; };
+		779A9C78230E2C4A004C6575 /* FeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeeEstimator.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -623,7 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				779427B022BB24C800559A03 /* ForgingPolicy.swift */,
-				779A9C6A230CFD18004C6575 /* FeeEstimator.swift */,
+				779A9C78230E2C4A004C6575 /* FeeEstimator.swift */,
 				779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */,
 				779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */,
 				779A9C5B230864EE004C6575 /* SimulationResult.swift */,
@@ -1110,7 +1110,7 @@
 				77CE386E21FC7ED8006ADABA /* StringResponseAdapter.swift in Sources */,
 				77CE384721FC7ED8006ADABA /* OriginationOperation.swift in Sources */,
 				77F4D26F22220C9600D34B01 /* NetworkClient+Promises.swift in Sources */,
-				779A9C6B230CFD18004C6575 /* FeeEstimator.swift in Sources */,
+				779A9C79230E2C4D004C6575 /* FeeEstimator.swift in Sources */,
 				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,

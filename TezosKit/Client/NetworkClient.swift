@@ -5,15 +5,28 @@ import Foundation
 /// An opaque network client which implements requests.
 public protocol NetworkClient {
   /// Send an RPC.
+  ///
+  /// - Note: Callbacks for the RPC will run on the callback queue the network client was initialized with.
+  ///
+  /// - Parameters:
+  ///   - rpc: The RPC to send.
+  ///   - completion: A completion block which contains the results of the RPC.
   func send<T>(
     _ rpc: RPC<T>,
     completion: @escaping (Result<T, TezosKitError>) -> Void
   )
 
-  /// Send an RPC.
+  /// Send an RPC which runs a callback on a custom queue.
+  ///
+  /// - Note: Callbacks for the RPC will run on the callback queue provided.
+  ///
+  /// - Parameters:
+  ///   - rpc: The RPC to send.
+  ///   - callbackQueus: A callback queue to call the completion block on. If nil, the default queue will be used.
+  ///   - completion: A completion block which contains the results of the RPC.
   func send<T>(
     _ rpc: RPC<T>,
-    overrideCallbackQueue: DispatchQueue?,
+    callbackQueue: DispatchQueue?,
     completion: @escaping (Result<T, TezosKitError>) -> Void
   )
 }
@@ -60,16 +73,18 @@ public class NetworkClientImpl: NetworkClient {
   public func send<T>(
     _ rpc: RPC<T>,
     completion: @escaping (Result<T, TezosKitError>) -> Void
-  ) {
-    send(rpc, overrideCallbackQueue: nil, completion: completion)
+    ) {
+    send(rpc, callbackQueue: nil, completion: completion)
   }
 
   public func send<T>(
     _ rpc: RPC<T>,
-    overrideCallbackQueue: DispatchQueue? = nil,
+    callbackQueue: DispatchQueue? = nil,
     completion: @escaping (Result<T, TezosKitError>) -> Void
   ) {
-    let completionQueue = overrideCallbackQueue ?? self.callbackQueue
+    // Determine the queue to call completion on. Opt for the callback queue provided in the call's parameters, if
+    // provided.
+    let completionQueue = callbackQueue ?? self.callbackQueue
 
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)

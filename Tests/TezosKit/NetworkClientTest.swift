@@ -48,6 +48,21 @@ class NetworkClientTest: XCTestCase {
     wait(for: [expectation], timeout: 10)
   }
 
+  public func testCallbackOnCorrectQueueWithOverriddenQueue() {
+    let customCallbackQueue = DispatchQueue(label: "customCallbackQueue")
+
+    let expectation = XCTestExpectation(description: "Completion is Called")
+    let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)
+    networkClient?.send(rpc, callbackQueue: customCallbackQueue) { _ in
+      if #available(iOS 10, OSX 10.12, *) {
+        dispatchPrecondition(condition: .onQueue(customCallbackQueue))
+      }
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: 10)
+  }
+
   public func testBadEndpointCompletesWithURL() {
     let expectation = XCTestExpectation(description: "Completion is Called")
 

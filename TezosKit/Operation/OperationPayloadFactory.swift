@@ -3,7 +3,7 @@
 import Foundation
 
 /// A factory which can produce operation payloads
-public enum  OperationPayloadFactory {
+public enum OperationPayloadFactory {
   /// Create an operation payload from the given inputs.
   public static func operationPayload(
     from operations: [Operation],
@@ -22,6 +22,7 @@ public enum  OperationPayloadFactory {
         publicKey: signatureProvider.publicKey,
         operationFees: defaultRevealFees
       )
+
       mutableOperations.insert(revealOperation, at: 0)
     }
 

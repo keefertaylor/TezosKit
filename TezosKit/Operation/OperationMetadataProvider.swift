@@ -26,13 +26,15 @@ public class OperationMetadataProvider {
     metadataProviderQueue = DispatchQueue(label: OperationMetadataProvider.queueIdentifier)
   }
 
-  /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation.
+  /// Retrieve metadata needed to forge / pre-apply / sign / inject an operation in a synchronous manner.
+  ///
+  /// - Note: This method blocks the calling thread.
   ///
   /// This method parallelizes fetches to get chain and address data and returns all required data together as an
   /// OperationData object.
   public func metadataSync(
     for address: Address
-  ) -> Result<OperationMetadata, TezosKitError> {
+    ) -> Result<OperationMetadata, TezosKitError> {
     let metadataGroup = DispatchGroup()
 
     var result: Result<OperationMetadata, TezosKitError> = .failure(TezosKitError(kind: .unknown))
@@ -53,7 +55,7 @@ public class OperationMetadataProvider {
   public func metadata(
     for address: Address,
     completion: @escaping (Result<OperationMetadata, TezosKitError>) -> Void
-  ) {
+    ) {
     // Dispatch group acts as a barrier for all metadata fetches.
     let metadataFetchGroup = DispatchGroup()
 
@@ -112,9 +114,9 @@ public class OperationMetadataProvider {
   private func chainInfo(
     for address: Address,
     completion: @escaping (((headHash: String, protocol: String))?) -> Void
-  ) {
+    ) {
     let chainHeadRequestRPC = GetChainHeadRPC()
-    networkClient.send(chainHeadRequestRPC, overrideCallbackQueue: metadataProviderQueue) { result in
+    networkClient.send(chainHeadRequestRPC, callbackQueue: metadataProviderQueue) { result in
       switch result {
       case .failure:
         break
@@ -122,8 +124,8 @@ public class OperationMetadataProvider {
         guard
           let headHash = json[OperationMetadataProvider.JSON.Keys.hash] as? String,
           let `protocol` = json[OperationMetadataProvider.JSON.Keys.protocol] as? String
-        else {
-          break
+          else {
+            break
         }
         completion((headHash: headHash, protocol: `protocol`))
         return
@@ -137,7 +139,7 @@ public class OperationMetadataProvider {
   /// - Warning: This method is not thread safe.
   private func operationCounter(for address: Address, completion: @escaping (Int?) -> Void) {
     let getAddressCounterRPC = GetAddressCounterRPC(address: address)
-    self.networkClient.send(getAddressCounterRPC, overrideCallbackQueue: metadataProviderQueue) { result in
+    self.networkClient.send(getAddressCounterRPC, callbackQueue: metadataProviderQueue) { result in
       switch result {
       case .failure:
         completion(nil)
@@ -152,7 +154,7 @@ public class OperationMetadataProvider {
   /// - Warning: This method is not thread safe.
   private func managerKey(for address: Address, completion: @escaping (String?) -> Void) {
     let getAddressManagerKeyRPC = GetAddressManagerKeyRPC(address: address)
-    networkClient.send(getAddressManagerKeyRPC, overrideCallbackQueue: metadataProviderQueue) { result in
+    networkClient.send(getAddressManagerKeyRPC, callbackQueue: metadataProviderQueue) { result in
       switch result {
       case .failure:
         break
