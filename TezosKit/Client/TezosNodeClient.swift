@@ -273,6 +273,7 @@ public class TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func send(
     amount: Tez,
     to recipientAddress: String,
@@ -303,14 +304,14 @@ public class TezosNodeClient {
   ///   - recipientAddress: The address which will receive the Tez.
   ///   - source: The address sending the balance.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
-  internal func send(
+  public func send(
     amount: Tez,
     to recipientAddress: String,
     from source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -345,6 +346,7 @@ public class TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func call(
     contract: Address,
     amount: Tez = Tez.zeroBalance,
@@ -378,15 +380,15 @@ public class TezosNodeClient {
   ///   - parameter: An optional parameter to send to the smart contract. Default is none.
   ///   - source: The address invoking the contract.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
-  internal func call(
+  public func call(
     contract: Address,
     amount: Tez = Tez.zeroBalance,
     parameter: MichelsonParameter? = nil,
     source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -424,6 +426,7 @@ public class TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func delegate(
     from source: Address,
     to delegate: Address,
@@ -455,13 +458,13 @@ public class TezosNodeClient {
   ///   - source: The address which will delegate.
   ///   - delegate: The address which will receive the delegation.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
-  internal func delegate(
+  public func delegate(
     from source: Address,
     to delegate: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -494,6 +497,7 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func undelegate(
     from source: Address,
     signatureProvider: SignatureProvider,
@@ -513,13 +517,13 @@ public class TezosNodeClient {
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
-  internal func undelegate(
+  public func undelegate(
     from source: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -549,6 +553,7 @@ public class TezosNodeClient {
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block called with an optional transaction hash and error.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func registerDelegate(
     delegate: Address,
     signatureProvider: SignatureProvider,
@@ -573,12 +578,12 @@ public class TezosNodeClient {
   /// - Parameters:
   ///   - delegate: The address registering as a delegate.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
-  internal func registerDelegate(
+  public func registerDelegate(
     delegate: Address,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
@@ -610,6 +615,7 @@ public class TezosNodeClient {
   ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
+  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
   public func originateAccount(
     managerAddress: String,
     signatureProvider: SignatureProvider,
@@ -634,13 +640,13 @@ public class TezosNodeClient {
   /// - Parameters:
   ///   - managerAddress: The address which will manage the new account.
   ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
   ///                 operation was successful.
-  internal func originateAccount(
+  public func originateAccount(
     managerAddress: String,
     signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     guard
