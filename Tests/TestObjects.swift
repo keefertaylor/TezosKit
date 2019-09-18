@@ -134,7 +134,7 @@ extension OperationFees {
 }
 
 extension TimeInterval {
-  public static let expectationTimeout = 0.1
+  public static let expectationTimeout = 2.0
 }
 
 extension Wallet {

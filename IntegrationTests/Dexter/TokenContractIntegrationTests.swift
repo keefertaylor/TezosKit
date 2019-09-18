@@ -30,7 +30,7 @@ extension Wallet {
 
 class TokenContractClientIntegrationTests: XCTestCase {
   public var nodeClient = TezosNodeClient()
-  public var tokenContractClient = TokenContractClient(tokenContractAddress: "")
+  public var tokenContractClient = TokenContractClient(tokenContractAddress: .tokenContractAddress)
 
   public override func setUp() {
     super.setUp()
