@@ -28,12 +28,10 @@ final class FeeEstimatorTest: XCTestCase {
     let completionExpectation = XCTestExpectation(description: "completion called")
 
     feeEstimator.estimate(operation: operation, address: address, signatureProvider: signatureProvider) { result in
-      guard let result = result else {
+      guard result != nil else {
         XCTFail()
         return
       }
-      print(result)
-
       completionExpectation.fulfill()
     }
 

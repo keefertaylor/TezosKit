@@ -10,6 +10,7 @@ public class JSONDictionaryResponseAdapter: AbstractResponseAdapter<[String: Any
       guard let typedJSON = json as? [String: Any] else {
         return nil
       }
+
       return typedJSON
     } catch {
       return nil
