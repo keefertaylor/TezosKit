@@ -29,7 +29,8 @@ extension TezosNodeIntegrationTests {
 
     self.nodeClient.originateAccount(
       managerAddress: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
     ).done { hash in
       XCTAssertNotNil(hash)
       expectation.fulfill()
@@ -43,7 +44,11 @@ extension TezosNodeIntegrationTests {
   public func testDelegation_promises() {
     // Clear any existing delegate.
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
-    self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet).done { _ in
+    self.nodeClient.undelegate(
+      from: Wallet.originatedAddress,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ).done { _ in
       undelegateExpectation.fulfill()
     } .catch { _ in
         XCTFail()
@@ -68,7 +73,8 @@ extension TezosNodeIntegrationTests {
       amount: Tez(1),
       to: baker.address,
       from: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
     ).done { _ in
       sendExpectation.fulfill()
     } .catch { _ in
@@ -79,7 +85,11 @@ extension TezosNodeIntegrationTests {
 
     // Register the new account as a baker.
     let registerBakerExpectation = XCTestExpectation(description: "register baker")
-    self.nodeClient.registerDelegate(delegate: baker.address, signatureProvider: baker).done { _ in
+    self.nodeClient.registerDelegate(
+      delegate: baker.address,
+      signatureProvider: baker,
+      operationFeePolicy: .estimate
+    ).done { _ in
       registerBakerExpectation.fulfill()
     } .catch { _ in
       XCTFail()
@@ -92,7 +102,8 @@ extension TezosNodeIntegrationTests {
     self.nodeClient.delegate(
       from: Wallet.originatedAddress,
       to: baker.address,
-      signatureProvider: Wallet.testWallet
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
     ).done { _ in
       delegateToBakerExpectation.fulfill()
     } .catch { _ in
@@ -113,7 +124,11 @@ extension TezosNodeIntegrationTests {
 
     // Clear the delegate
     let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
-    self.nodeClient.undelegate(from: Wallet.originatedAddress, signatureProvider: Wallet.testWallet).done { _ in
+    self.nodeClient.undelegate(
+      from: Wallet.originatedAddress,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ).done { _ in
       clearDelegateAfterDelegationExpectation.fulfill()
     } .catch { _ in
       XCTFail()
@@ -140,7 +155,8 @@ extension TezosNodeIntegrationTests {
       amount: Tez("1")!,
       to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
       from: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
     ) .done { hash in
       XCTAssertNotNil(hash)
       expectation.fulfill()
@@ -182,7 +198,8 @@ extension TezosNodeIntegrationTests {
       amount: Tez("10000000000000")!,
       to: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
       from: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
     ).done { _ in
       XCTFail()
     } .catch { error in
@@ -233,7 +250,6 @@ extension TezosNodeIntegrationTests {
   func testSmartContractInvocation_promises() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operationFees = OperationFees(fee: Tez(1), gasLimit: 733_732, storageLimit: 0)
     let parameter =
       RightMichelsonParameter(
         arg: LeftMichelsonParameter(
@@ -250,7 +266,7 @@ extension TezosNodeIntegrationTests {
       parameter: parameter,
       source: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
-      operationFees: operationFees
+      operationFeePolicy: .estimate
     ) .done { _ in
       expectation.fulfill()
     } .catch { _ in
