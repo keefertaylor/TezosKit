@@ -26,7 +26,7 @@ public class TokenContractClient {
   public init(
     tokenContractAddress: Address,
     tezosNodeClient: TezosNodeClient = TezosNodeClient()
-    ) {
+  ) {
     self.tezosNodeClient = tezosNodeClient
     self.tokenContractAddress = tokenContractAddress
   }
@@ -70,6 +70,7 @@ public class TokenContractClient {
     )
   }
 
+  /// Retrieve the token balance for the given address.
   public func getTokenBalance(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let key = StringMichelsonParameter(string: address)
     tezosNodeClient.getBigMapValue(address: tokenContractAddress, key: key, type: .address) { result in

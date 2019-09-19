@@ -6,7 +6,7 @@ import Foundation
 public class GetContractStorageRPC: RPC<[String: Any]> {
   /// - Parameter address: The address to retrieve info about.
   public init(address: Address) {
-    let endpoint = "chains/main/blocks/head/context/contracts/\(address)/storage"
+    let endpoint = "/chains/main/blocks/head/context/contracts/\(address)/storage"
     super.init(endpoint: endpoint, responseAdapterClass: JSONDictionaryResponseAdapter.self)
   }
 }
