@@ -3,7 +3,7 @@
 @testable import TezosKit
 import XCTest
 
-/// Integration tests to run against a Dexter Token Contract. These tests require a live alphanet node.
+/// Integration tests to run against a DEXter Token Contract. These tests require a live alphanet node.
 ///
 /// To get an alphanet node running locally, follow instructions here:
 /// https://tezos.gitlab.io/alphanet/introduction/howtoget.html
@@ -14,7 +14,8 @@ import XCTest
 ///
 /// Before running the tests, you should make sure that there's sufficient tokens in the owners account (which is
 /// tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW) in the token contract at:
-/// https://alphanet.tzscan.io/KT1PARMPddZ9WD1MPmPthXYBCgErmxAHKBD8
+/// Token Contract: https://alphanet.tzscan.io/KT1PARMPddZ9WD1MPmPthXYBCgErmxAHKBD8
+/// Address: https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
   public static let tokenContractAddress = "KT1WiDkoaKgH6dcmHa3tLJKzfnW5QuPjppgn"
