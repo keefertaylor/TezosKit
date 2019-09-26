@@ -586,7 +586,6 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
-				779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */,
 				779427BE22C02AA800559A03 /* TezosCrypto.framework */,
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
@@ -788,6 +787,7 @@
 		77F4D27322221CCE00D34B01 /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
+				779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */,
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
 				779A9C592308634E004C6575 /* SimulationResultResponseAdapterTest.swift */,
 				77FE788B22EFFA7100B85B9D /* MichelsonAnnotationTests.swift */,
