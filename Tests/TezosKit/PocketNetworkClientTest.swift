@@ -22,7 +22,7 @@ class PocketNetworkClientTest: XCTestCase {
     public func testRetrieveNetworkVersion() {
         let expectation = XCTestExpectation(description: "Completion is Called")
         // RPC endpoint will resolve to a valid URL.
-        let header = Header.init(field: "Content-Type", value: "application/json")
+        let header = Header.contentTypeApplicationJSON
         let rpc = RPC(endpoint: "/network/version", headers: [header], responseAdapterClass: StringResponseAdapter.self, payload: nil)
         
         networkClient?.send(rpc, completion: { (result) in
