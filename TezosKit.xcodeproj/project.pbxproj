@@ -47,8 +47,14 @@
 		779A9C5E23086558004C6575 /* SimulationResultResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */; };
 		779A9C60230A49EA004C6575 /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */; };
 		779A9C68230BDA7A004C6575 /* OperationPayloadFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */; };
+		779A9C74230E0824004C6575 /* TokenContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C73230E0824004C6575 /* TokenContractClient.swift */; };
+		779A9C77230E09DB004C6575 /* TokenContractIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */; };
 		779A9C79230E2C4D004C6575 /* FeeEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C78230E2C4A004C6575 /* FeeEstimator.swift */; };
 		779A9C7D230E320C004C6575 /* FeeEstimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */; };
+		779A9C80230E3CCF004C6575 /* TokenContractClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C7F230E3CCF004C6575 /* TokenContractClientTests.swift */; };
+		779A9C82230E457A004C6575 /* DexterExchangeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C81230E457A004C6575 /* DexterExchangeClient.swift */; };
+		779A9C85230E4707004C6575 /* DexterExchangeClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C84230E4707004C6575 /* DexterExchangeClientIntegrationTests.swift */; };
+		779A9C87230E6606004C6575 /* DexterExchangeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A9C86230E6606004C6575 /* DexterExchangeClientTests.swift */; };
 		77B1EADE222496B500EA4FCE /* TezosNodeClient+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */; };
 		77B1EAED2227342200EA4FCE /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F4D26B221F899800D34B01 /* PromiseKit.framework */; };
 		77B1EAEF222736FC00EA4FCE /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7774780E222228E50010BA4D /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -328,8 +334,14 @@
 		779A9C5D23086558004C6575 /* SimulationResultResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResultResponseAdapter.swift; sourceTree = "<group>"; };
 		779A9C5F230A49EA004C6575 /* OperationFeePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFeePolicy.swift; sourceTree = "<group>"; };
 		779A9C67230BDA7A004C6575 /* OperationPayloadFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationPayloadFactory.swift; sourceTree = "<group>"; };
+		779A9C73230E0824004C6575 /* TokenContractClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractClient.swift; sourceTree = "<group>"; };
+		779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractIntegrationTests.swift; sourceTree = "<group>"; };
 		779A9C78230E2C4A004C6575 /* FeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeeEstimator.swift; sourceTree = "<group>"; };
 		779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeEstimatorTest.swift; sourceTree = "<group>"; };
+		779A9C7F230E3CCF004C6575 /* TokenContractClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractClientTests.swift; sourceTree = "<group>"; };
+		779A9C81230E457A004C6575 /* DexterExchangeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClient.swift; sourceTree = "<group>"; };
+		779A9C84230E4707004C6575 /* DexterExchangeClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientIntegrationTests.swift; sourceTree = "<group>"; };
+		779A9C86230E6606004C6575 /* DexterExchangeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientTests.swift; sourceTree = "<group>"; };
 		77B1EADD222496B500EA4FCE /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAE9222730D600EA4FCE /* TezosNodeIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
 		77B1EAF0222745F600EA4FCE /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
@@ -542,6 +554,7 @@
 		772F48A62224894E00DF0F9D /* IntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				779A9C75230E09C8004C6575 /* Dexter */,
 				77B1EAE72225CE8F00EA4FCE /* Extensions */,
 				77B1EAE62225CE8400EA4FCE /* TezosKit */,
 			);
@@ -567,6 +580,33 @@
 				77FE787922EE10C100B85B9D /* AbstractMichelsonParameter.swift */,
 			);
 			path = Michelson;
+			sourceTree = "<group>";
+		};
+		779A9C72230E080C004C6575 /* Dexter */ = {
+			isa = PBXGroup;
+			children = (
+				779A9C73230E0824004C6575 /* TokenContractClient.swift */,
+				779A9C81230E457A004C6575 /* DexterExchangeClient.swift */,
+			);
+			path = Dexter;
+			sourceTree = "<group>";
+		};
+		779A9C75230E09C8004C6575 /* Dexter */ = {
+			isa = PBXGroup;
+			children = (
+				779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */,
+				779A9C84230E4707004C6575 /* DexterExchangeClientIntegrationTests.swift */,
+			);
+			path = Dexter;
+			sourceTree = "<group>";
+		};
+		779A9C7E230E3CBA004C6575 /* Dexter */ = {
+			isa = PBXGroup;
+			children = (
+				779A9C7F230E3CCF004C6575 /* TokenContractClientTests.swift */,
+				779A9C86230E6606004C6575 /* DexterExchangeClientTests.swift */,
+			);
+			path = Dexter;
 			sourceTree = "<group>";
 		};
 		77B1EAE62225CE8400EA4FCE /* TezosKit */ = {
@@ -658,6 +698,7 @@
 				77B1EAFB2228C03400EA4FCE /* TestObjects.swift */,
 				7776493A227616B200451DD5 /* FakeObjects.swift */,
 				77FE788322EEA29300B85B9D /* TestHelpers.swift */,
+				779A9C7E230E3CBA004C6575 /* Dexter */,
 				77F4D27422221CDD00D34B01 /* Extensions */,
 				77F4D27322221CCE00D34B01 /* TezosKit */,
 			);
@@ -693,6 +734,7 @@
 			children = (
 				77CE388021FC7EED006ADABA /* Info.plist */,
 				77CE387F21FC7EED006ADABA /* TezosKit.h */,
+				779A9C72230E080C004C6575 /* Dexter */,
 				77B69EA5224C38CD00DB4319 /* Conseil */,
 				7730B1D722E95A9700148990 /* Michelson */,
 				77CE384421FC7ED8006ADABA /* Client */,
@@ -838,6 +880,7 @@
 		77F4D27322221CCE00D34B01 /* TezosKit */ = {
 			isa = PBXGroup;
 			children = (
+				779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */,
 				77633D522247EFE20011106A /* TezosNodeClientTests.swift */,
 				779A9C592308634E004C6575 /* SimulationResultResponseAdapterTest.swift */,
 				77FE788B22EFFA7100B85B9D /* MichelsonAnnotationTests.swift */,
@@ -1129,8 +1172,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				774C9B2022A2A0F400CEB509 /* TezosNodeIntegrationTests.swift in Sources */,
+				779A9C77230E09DB004C6575 /* TokenContractIntegrationTests.swift in Sources */,
 				774C9B2122A2A0F400CEB509 /* TezosNodeIntegrationTests+Promises.swift in Sources */,
 				77B69ED522534F2B00DB4319 /* ConseilClientIntegrationTests+Promises.swift in Sources */,
+				779A9C85230E4707004C6575 /* DexterExchangeClientIntegrationTests.swift in Sources */,
 				77B69ECF2251127D00DB4319 /* ConseilClientIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1161,6 +1206,7 @@
 				77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */,
 				77B1EAF52228839000EA4FCE /* OperationPayload.swift in Sources */,
 				77CE386A21FC7ED8006ADABA /* AbstractResponseAdapter.swift in Sources */,
+				779A9C74230E0824004C6575 /* TokenContractClient.swift in Sources */,
 				77CE387021FC7ED8006ADABA /* GetChainHeadRPC.swift in Sources */,
 				779427B122BB24C800559A03 /* ForgingPolicy.swift in Sources */,
 				77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */,
@@ -1232,6 +1278,7 @@
 				779427B322BB257F00559A03 /* ForgingService.swift in Sources */,
 				77CE387621FC7ED8006ADABA /* GetCurrentPeriodKindRPC.swift in Sources */,
 				77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */,
+				779A9C82230E457A004C6575 /* DexterExchangeClient.swift in Sources */,
 				77B69EB9224E5C6500DB4319 /* ConseilQueryRPC.swift in Sources */,
 				77B1EB06222A102500EA4FCE /* OperationWithCounter.swift in Sources */,
 				77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */,
@@ -1289,6 +1336,7 @@
 				77F4D268221CD44100D34B01 /* NetworkClientTest.swift in Sources */,
 				7776493B227616B200451DD5 /* FakeObjects.swift in Sources */,
 				C5E729542349BD0400155217 /* PocketNetworkClientTest.swift in Sources */,
+				779A9C87230E6606004C6575 /* DexterExchangeClientTests.swift in Sources */,
 				779427AF22BB1D6700559A03 /* OperationFactoryTest.swift in Sources */,
 				7719266022DA1E1500E63DE4 /* SimulationServiceTest.swift in Sources */,
 				77CE36E521F7F49F006ADABA /* RPCTest.swift in Sources */,
@@ -1298,6 +1346,7 @@
 				77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */,
 				7719265C22D93B8200E63DE4 /* PreapplicationServiceTest.swift in Sources */,
 				77CE370621F7F49F006ADABA /* TezResponseAdapterTest.swift in Sources */,
+				779A9C80230E3CCF004C6575 /* TokenContractClientTests.swift in Sources */,
 				77CE370521F7F49F006ADABA /* DelegationOperationTest.swift in Sources */,
 				77B1EAFC2228C03400EA4FCE /* TestObjects.swift in Sources */,
 				77B1EB02222A09AE00EA4FCE /* SignedOperationPayloadTest.swift in Sources */,
