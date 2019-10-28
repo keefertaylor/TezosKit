@@ -17,6 +17,7 @@ after_deploy:
 script:
 - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone
   XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
+- pod lib lint
 after_success:
 - slather
 - bash <(curl -s https://codecov.io/bash)
