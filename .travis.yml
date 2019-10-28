@@ -17,9 +17,9 @@ before_deploy:
 after_deploy:
 - travis_wait 120 pod trunk push --skip-import-validation --skip-tests --allow-warnings
 script:
+- pod lib lint
 - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone
   XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
-- pod lib lint
 after_success:
 - slather
 - bash <(curl -s https://codecov.io/bash)
