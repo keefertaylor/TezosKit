@@ -10,15 +10,13 @@ before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
 - brew outdated cocoapods || brew upgrade cocoapods
-- brew install xcodegen
 
 jobs:
   include:
     - stage: Build Carthage
       script:
-        - xcodegen generate
         - travis_wait 500 carthage bootstrap --platform iOS --no-use-binaries --verbose
-        - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
+        - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
         - slather
         - bash <(curl -s https://codecov.io/bash)
     - stage: Build CocoaPods
