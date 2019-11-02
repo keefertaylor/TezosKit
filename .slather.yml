@@ -2,4 +2,4 @@
 
 coverage_service: cobertura_xml
 xcodeproj: TezosKit.xcodeproj
-scheme: TezosKitTests
+scheme: TezosKit_iOS
