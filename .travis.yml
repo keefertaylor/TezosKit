@@ -13,11 +13,11 @@ before_install:
 
 jobs:
   include:
-    - stage: Build Carthage
-      script:
-        - travis_wait 500 carthage bootstrap --platform iOS --no-use-binaries --verbose
-        - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
-        - slather
-        - bash <(curl -s https://codecov.io/bash)
+#    - stage: Build Carthage
+#      script:
+#        - travis_wait 500 carthage bootstrap --platform iOS --no-use-binaries --verbose
+#        - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
+#        - slather
+#        - bash <(curl -s https://codecov.io/bash)
     - stage: Build CocoaPods
-      script: travis_wait 500 pod lib lint
+      script: travis_wait 500 pod lib lint --verbose
