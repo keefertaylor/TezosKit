@@ -10,6 +10,7 @@ before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
 - brew outdated cocoapods || brew upgrade cocoapods
+- brew install xcodegen
 
 jobs:
   include:
