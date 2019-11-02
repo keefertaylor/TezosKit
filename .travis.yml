@@ -19,5 +19,7 @@ jobs:
 #        - set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
 #        - slather
 #        - bash <(curl -s https://codecov.io/bash)
-    - stage: Build CocoaPods
-      script: travis_wait 500 pod lib lint --verbose
+    - stage: Build CocoaPods    
+      script:
+        - pod repo update
+        - travis_wait 500 pod lib lint --verbose
