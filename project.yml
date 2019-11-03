@@ -7,7 +7,7 @@ targets:
   TezosKit:
     type: framework
     platform: [iOS, macOS]
-    sources: [TezosKit]
+    sources: [TezosKit, Extensions]
     scheme:
       testTargets:
         - TezosKitTests_$platform
