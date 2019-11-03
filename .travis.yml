@@ -10,6 +10,11 @@ before_install:
 
 jobs:
   include:
+    - stage: Build CocoaPods
+      script:
+        - brew outdated cocoapods || brew upgrade cocoapods
+        - pod repo update
+        - travis_wait 500 pod lib lint --fail-fast --platforms=ios --verbose
     - stage: Build Carthage
       script:
         - brew outdated carthage || brew upgrade carthage
@@ -20,8 +25,4 @@ jobs:
         - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
         - slather
         - bash <(curl -s https://codecov.io/bash)
-    - stage: Build CocoaPods
-      script:
-        - brew outdated cocoapods || brew upgrade cocoapods
-        - pod repo update
-        - travis_wait 500 pod lib lint --fail-fast --platforms=ios --skip-import-validation --skip-tests --verbose
+    
