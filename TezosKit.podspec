@@ -14,7 +14,6 @@ Pod::Spec.new do |s|
   s.swift_version = "4.2"
   s.ios.deployment_target = "10.0"
   s.osx.deployment_target = "10.14"
-  s.default_subspecs = 'TezosKitCore', 'TezosKitPromises'
 
   s.source_files = [ "TezosKit/**/*.swift", "Extensions/PromiseKit/*.swift"]
   s.frameworks = 'Foundation'
