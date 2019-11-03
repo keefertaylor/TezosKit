@@ -9,7 +9,7 @@ class OriginationOperationTest: XCTestCase {
     let operation = OperationFactory.testFactory.originationOperation(
       address: address,
       operationFeePolicy: .default,
-      signatureProvider: FakeSignatureProvider.testProvider
+      signatureProvider: FakeSignatureProvider.testSignatureProvider
     )
     let dictionary = operation.dictionaryRepresentation
 
