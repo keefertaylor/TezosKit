@@ -6,7 +6,11 @@ import XCTest
 class OriginationOperationTest: XCTestCase {
   public func testDictionaryRepresentation() {
     let address = "tz1abc123"
-    let operation = OperationFactory.testFactory.originationOperation(address: address)
+    let operation = OperationFactory.testFactory.originationOperation(
+      address: address,
+      operationFeePolicy: .default,
+      signatureProvider: FakeSignatureProvider.testSignatureProvider
+    )!
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["manager_pubkey"])
