@@ -32,8 +32,7 @@ import XCTest
 /// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
 extension Wallet {
-  public static let testWallet =
-    Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
+  // Originated Address
   public static let originatedAddress = "KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka"
 
   // An address which has originated contracts on it.
@@ -48,10 +47,6 @@ extension Wallet {
 
 extension URL {
   public static let nodeURL = URL(string: "https://tezos-dev.cryptonomic-infra.tech:443")!
-}
-
-extension Double {
-  public static let expectationTimeout = 10.0
 }
 
 extension UInt32 {

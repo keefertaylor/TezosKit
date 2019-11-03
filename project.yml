@@ -22,12 +22,12 @@ targets:
   TezosKitTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
-    sources: [Tests]
+    sources: [Tests/UnitTests, Tests/Common]
     dependencies:
       - target: TezosKit_$platform
   TezosKitIntegrationTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
-    sources: [IntegrationTests]
+    sources: [Tests/IntegrationTests, Tests/Common]
     dependencies:
       - target: TezosKit_$platform
