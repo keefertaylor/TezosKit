@@ -22,4 +22,4 @@ jobs:
       script:
         - brew outdated cocoapods || brew upgrade cocoapods
         - pod repo update
-        - travis_wait 500 pod lib lint --platforms=ios --verbose
+        - travis_wait 500 pod lib lint --fail-fast --use-libraries --platforms=ios --skip-import-validation --skip-tests --verbose
