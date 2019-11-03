@@ -10,7 +10,7 @@ class OriginationOperationTest: XCTestCase {
       address: address,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )
+    )!
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["manager_pubkey"])
