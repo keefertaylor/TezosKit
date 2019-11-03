@@ -25,4 +25,3 @@ jobs:
         - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
         - slather
         - bash <(curl -s https://codecov.io/bash)
-    
