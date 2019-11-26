@@ -19,6 +19,8 @@ targets:
       - carthage: BigInt
       - carthage: TezosCrypto
       - carthage: PromiseKit
+      - carthage: Base58Swift
+      - carthage: MnemonicKit
   TezosKitTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
