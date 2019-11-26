@@ -1,6 +1,8 @@
 osx_image: xcode10.2
 language: swift
 cache:
+  bundler: true
+  cocoapods: true
   directories:
   - Carthage
 env:
@@ -10,18 +12,61 @@ before_install:
 
 jobs:
   include:
-    - stage: Build CocoaPods
-      script:
+    - stage: Build - CocoaPods
+      install:
         - brew outdated cocoapods || brew upgrade cocoapods
-        - pod repo update
-        - travis_wait 500 pod lib lint --fail-fast --platforms=ios --verbose
-    - stage: Build Carthage
       script:
+        - travis_wait 500 pod lib lint
+    - stage: Build - Carthage And Code Coverage
+      install:
         - brew outdated carthage || brew upgrade carthage
         - brew install xcodegen
         - gem install slather
+      script:
+        # Carthage requires that XCode project files are checked in. Project.yml is
+        # the canonical definition for the .xcodeproj file. Remove the .xcodeproj file
+        # and regenerate it.
+        # See: https://github.com/Carthage/Carthage/issues/2684
+        - rm -rf TezosKit.xcodeproj
         - xcodegen generate
+
+        # Build with Carthage
         - travis_wait 500 carthage bootstrap --platform iOS --no-use-binaries --verbose
         - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
+
+        # Generate and Upload Code Coverage
         - slather
         - bash <(curl -s https://codecov.io/bash)
+
+    - stage: Release - If Tagged Commit
+      script:
+        - echo "Checking for release tag"
+      before_deploy:
+        - echo "Found tagged release"
+
+        - echo "Deploying CocoaPods"
+        - brew outdated cocoapods || brew upgrade cocoapods
+        - travis_wait 500 pod trunk push --skip-import-validation --skip-tests --allow-warnings
+
+        - echo "Deploying Carthage"
+        - brew outdated carthage || brew upgrade carthage
+        - brew install xcodegen
+
+        # Carthage requires that XCode project files are checked in. Project.yml is
+        # the canonical definition for the .xcodeproj file. Remove the .xcodeproj file
+        # and regenerate it.
+        # See: https://github.com/Carthage/Carthage/issues/2684
+        - rm -rf TezosKit.xcodeproj
+        - xcodegen generate
+
+        - travis_wait 500 carthage build --no-skip-current --platform iOS,mac --cache-builds
+        - travis_wait 500 carthage archive $FRAMEWORK_NAME
+      deploy:
+        provider: releases
+        api_key:
+          secure: md8YfrZO/5WKAPmiIInTk7oWtc/B5FmibnEfwXeCGiVa+0N6CtcJNdQYFmYCxEm7+JCPXBKakk2UFM0T1eOAKOvnwqkxy+xP1aAxvjAP+1hpt8OVGtkXdmemoXNdxoQq+qqGLtfVtr5cVdeL1sqnpfKOdUQeCZXYcy8LL3oOuMwh3jn9bZbctVYTs7L1UD/p8tEFTdfxLxropQ+u96mXb1kmVkqKwzU4Sro6D9opHaGW2aHIJF3CVVAELr/pICM14HwMCvqhpZ8q3z9FhIdFab9EaFGZE9c7w00q+2wUdl0uoQJ7oe2nCtCYJj6Hh7onRUyc81e/MepEdQHyD5jLGmKbPpPFdGM+BjtVUfdvPAzV5kAp88HuqBAn++BVm2cT4wtawsUFsC4lnfR+0vBAxFU69L7JhxT744bc+X58XS+UUBFcAJsYlDU579iZWP0xFzZHjy+2q8PzuB/2iqY1n3aeSkkrHt7meAlmepzQUdJIM3BqUfibW/fqL/A5uhSOCHeaH70r24CkBlaUlQcOWUv5V48j99cae9vlNE/PJ68cC94LVz1t7jDM98sU6dCs7vgkPkYI4QzBKbnqCRk0MdvdwwATadmhjOJKtmJxm8tDmPAf4Gp9tLzCuDaokCd2HJpWUotmHy1DkM6+xGX4i3s21aU0U81bgQgYJFV1BWk=
+          file: "$FRAMEWORK_NAME.framework.zip"
+        skip_cleanup: true
+        on:
+          repo: keefertaylor/TezosKit
+          tags: true
