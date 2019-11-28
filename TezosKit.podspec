@@ -22,10 +22,11 @@ Pod::Spec.new do |s|
 
       ss.ios.deployment_target = '10.0'
       ss.osx.deployment_target = '10.14'
-
-      ss.dependency "BigInt"
-      ss.dependency "MnemonicKit"
-      ss.dependency "TezosCrypto"
+      
+      ss.dependency "BigInt", "~> 3.1"
+      ss.dependency "MnemonicKit", "~> 1.3"
+      ss.dependency "TezosCrypto", "~> 2.1"
+      ss.dependency "Base58Swift", "~> 2.1"
       ss.dependency "PocketSwift-Core"
   end
 
@@ -35,9 +36,9 @@ Pod::Spec.new do |s|
 
       ss.ios.deployment_target = '10.0'
       ss.osx.deployment_target = '10.14'
-
-      ss.dependency 'TezosKit/TezosKitCore'
-      ss.dependency "PromiseKit"
+      
+      ss.dependency 'TezosKit/TezosKitCore'      
+      ss.dependency "PromiseKit", "~> 6.8"
   end
 
   s.test_spec "Tests" do |test_spec|
