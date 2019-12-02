@@ -12,11 +12,11 @@ before_install:
 
 jobs:
   include:
-    - stage: Build - CocoaPods
-      install:
-        - brew outdated cocoapods || brew upgrade cocoapods
-      script:
-        - travis_wait 500 pod lib lint
+#    - stage: Build - CocoaPods
+#      install:
+#        - brew outdated cocoapods || brew upgrade cocoapods
+#      script:
+#        - travis_wait 500 pod lib lint
     - stage: Build - Carthage And Code Coverage
       install:
         - brew outdated carthage || brew upgrade carthage
@@ -31,14 +31,14 @@ jobs:
         - xcodegen generate
 
         # Build with Carthage
-        - travis_wait 500 carthage bootstrap --no-use-binaries --verbose
+        - travis_wait 500 carthage bootstrap --platform ios,mac --no-use-binaries --verbose
         - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
         - set -o pipefail && xcodebuild test -scheme TezosKit_macOS -destination 'platform=macOS,arch=x86_64' ONLY_ACTIVE_ARCH=YES | xcpretty
 
+      after_success:
         # Generate and Upload Code Coverage
         - slather
         - bash <(curl -s https://codecov.io/bash)
-
     - stage: Release - If Tagged Commit
       script:
         - echo "Checking for release tag"
