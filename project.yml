@@ -12,7 +12,7 @@ targets:
       iOS: 10.0
     scheme:
       testTargets:
-        - TezosKitTests_$platform
+        - TezosKitTests_${platform}
       gatherCoverageData: true
     postCompileScripts:
       - script: swiftlint autocorrect --config .swiftlint.yml
@@ -31,10 +31,10 @@ targets:
     platform: [iOS, macOS]
     sources: [Tests/UnitTests, Tests/Common]
     dependencies:
-      - target: TezosKit_$platform
+      - target: TezosKit_${platform}
   TezosKitIntegrationTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
     sources: [Tests/IntegrationTests, Tests/Common]
     dependencies:
-      - target: TezosKit_$platform
+      - target: TezosKit_${platform}
