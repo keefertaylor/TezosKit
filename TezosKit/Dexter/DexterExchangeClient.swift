@@ -1,5 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
+import Foundation
+
 private enum JSON {
   public enum Keys {
     public static let args = "args"

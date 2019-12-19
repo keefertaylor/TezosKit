@@ -1,5 +1,7 @@
 // Copyright Keefer Taylor, 2019
 
+import Foundation
+
 /// A client for a Conseil Server.
 public class ConseilClient {
   /// The network client.
