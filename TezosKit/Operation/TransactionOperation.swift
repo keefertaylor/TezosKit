@@ -9,11 +9,16 @@ public class TransactionOperation: AbstractOperation {
   private let parameter: MichelsonParameter?
 
   public override var dictionaryRepresentation: [String: Any] {
+    
+    
     var operation = super.dictionaryRepresentation
     operation["amount"] = amount.rpcRepresentation
     operation["destination"] = destination
     if let parameter = self.parameter {
-        operation["parameters"] = parameter.networkRepresentation
+        operation["parameters"] = [
+            "entrypoint": "default",
+            "value": parameter.networkRepresentation
+        ]
     }
     return operation
   }
