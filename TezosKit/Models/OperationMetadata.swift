@@ -8,6 +8,9 @@ public struct OperationMetadata {
   /// The hash of the head of the chain being operated on.
   public let branch: String
 
+  /// The identifier of the chain being operated on.
+  public let chainID: String
+
   /// The hash of the protocol being operated on.
   public let `protocol`: String
 

@@ -235,7 +235,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       operationFeePolicy: .estimate
     ) { result in
       switch result {
-      case .failure:
+      case .failure(let error):
         XCTFail()
       case .success(let hash):
         print(hash)
@@ -275,7 +275,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     let operation = nodeClient.operationFactory.delegateOperation(
       source: Wallet.testWallet.address,
-      to: .testDestinationAddress,
+      to: "tz1RR6wETy9BeXG3Fjk25YmkSMGHxTtKkhpX",
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
     )!

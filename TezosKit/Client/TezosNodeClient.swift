@@ -200,7 +200,7 @@ public class TezosNodeClient {
   /// Retrieve the address manager key for the given address.
   public func getAddressManagerKey(
     address: Address,
-    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+    completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let rpc = GetAddressManagerKeyRPC(address: address)
     networkClient.send(rpc, completion: completion)

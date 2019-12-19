@@ -115,6 +115,7 @@
 		40ACC605362177DDD753AF43 /* CodingUtilTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47259C26A53DB562B22F087B /* CodingUtilTest.swift */; };
 		40D3B5BF40C5EE325C951BB2 /* FeeEstimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC56B6DF6FF924206963D52 /* FeeEstimatorTest.swift */; };
 		41806A8A36A64F5A02A7516D /* Base58Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47131DE435D053FC8DE2DBF /* Base58Swift.framework */; };
+		4197411F6C008D1A1FA85581 /* RunOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C87BB979D145B4F39D399C /* RunOperationPayload.swift */; };
 		41C95DDD5870A9230FD20104 /* GetChainHeadHashRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFED1AB3870A0537888D39E /* GetChainHeadHashRPCTest.swift */; };
 		42942076138616B8E91C9280 /* TezResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F56EE382535F0A59A52E76 /* TezResponseAdapterTest.swift */; };
 		42B2FF8CA413F46C1323980B /* Base58Swift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F47131DE435D053FC8DE2DBF /* Base58Swift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -212,6 +213,7 @@
 		826CAAB671AEE759E1F7A80A /* SigningServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DD030C2ACB7856608B34BA /* SigningServiceTests.swift */; };
 		82705C677A1705DE861B5837 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD53D15FDED0B9265AC96E1 /* Hex.swift */; };
 		8308A1E55F8BAD7EF8DDD13C /* ConseilQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D552948C9850FA50ED7155 /* ConseilQuery.swift */; };
+		84027D946BD35D59DDDB6F13 /* RunOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C87BB979D145B4F39D399C /* RunOperationPayload.swift */; };
 		84D5C538E429370571F6B022 /* RunOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227FD388A5B50891D5C7FE1 /* RunOperationRPCTest.swift */; };
 		85026F71DEB4414B03D92624 /* PreapplicationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FCF6EFDB51394D49E1479C /* PreapplicationServiceTest.swift */; };
 		850FA2C5B3942A9E976BFBB7 /* OperationWithCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E537FD113A64E725641F52 /* OperationWithCounter.swift */; };
@@ -697,6 +699,7 @@
 		D2D552948C9850FA50ED7155 /* ConseilQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQuery.swift; sourceTree = "<group>"; };
 		D4CC2EFE37BC672A082A9F69 /* TezosKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6051D167763077DEB139912 /* TransactionsResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsResponseAdapter.swift; sourceTree = "<group>"; };
+		D8C87BB979D145B4F39D399C /* RunOperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationPayload.swift; sourceTree = "<group>"; };
 		D9F5DCCA68E890BE7185F769 /* DexterExchangeClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientIntegrationTests.swift; sourceTree = "<group>"; };
 		DEE985D5D40374131C51C3D3 /* PairMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairMichelsonParameter.swift; sourceTree = "<group>"; };
 		DF8D4BAA248CCB8092FBF3B3 /* AbstractMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractMichelsonParameter.swift; sourceTree = "<group>"; };
@@ -1076,6 +1079,7 @@
 				83E537FD113A64E725641F52 /* OperationWithCounter.swift */,
 				CA0D3BC47F4385A7FC52AD88 /* PreapplicationService.swift */,
 				8B028588E2CA02E910DA28DA /* RevealOperation.swift */,
+				D8C87BB979D145B4F39D399C /* RunOperationPayload.swift */,
 				11E00624B1C53DDE6AF8A9C2 /* SigningService.swift */,
 				7A61A9EA0FA8878B570608F2 /* SimulationResult.swift */,
 				FE36695F3C93A5DB12218A6E /* SimulationService.swift */,
@@ -1585,6 +1589,7 @@
 				CB418AED8F5243CA936F2A1B /* ResponseAdapter.swift in Sources */,
 				BCCF3EF1538523DD8578E173 /* RevealOperation.swift in Sources */,
 				FDD6C87B68DB0737240A7109 /* RightMichelsonParameter.swift in Sources */,
+				4197411F6C008D1A1FA85581 /* RunOperationPayload.swift in Sources */,
 				6F406259A8C7EA4959D7A21A /* RunOperationRPC.swift in Sources */,
 				0FFD5966D70D23B61C4BA7AB /* SignedOperationPayload.swift in Sources */,
 				CF3F90CC3987E4D24A3CC586 /* SignedProtocolOperationPayload.swift in Sources */,
@@ -1782,6 +1787,7 @@
 				8648DF0DE1A1F5B78171CB3B /* ResponseAdapter.swift in Sources */,
 				3E5182800DAD57ABCD180966 /* RevealOperation.swift in Sources */,
 				75239C4752AB9BD7F7876662 /* RightMichelsonParameter.swift in Sources */,
+				84027D946BD35D59DDDB6F13 /* RunOperationPayload.swift in Sources */,
 				BE1CB24218F8167326C5EAE0 /* RunOperationRPC.swift in Sources */,
 				37000C76751363703B9438BB /* SignedOperationPayload.swift in Sources */,
 				598E95267D758C5779D41C2C /* SignedProtocolOperationPayload.swift in Sources */,
