@@ -32,9 +32,6 @@ import XCTest
 /// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
 extension Wallet {
-  // Originated Address
-  public static let originatedAddress = "KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka"
-
   // An address which has originated contracts on it.
   public static let contractOwningAddress = "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt"
 
@@ -72,30 +69,11 @@ class TezosNodeIntegrationTests: XCTestCase {
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
   }
 
-  public func testOrigination() {
-    let expectation = XCTestExpectation(description: "completion called")
-
-    self.nodeClient.originateAccount(
-      managerAddress: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet,
-      operationFeePolicy: .estimate
-    ) { result in
-      switch result {
-      case .failure:
-        XCTFail()
-      case .success:
-        expectation.fulfill()
-      }
-    }
-
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
-
   public func testDelegation() {
     // Clear any existing delegate.
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
     self.nodeClient.undelegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
     ) { result in
@@ -112,7 +90,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Validate the delegate cleared
     let checkDelegateClearedExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -166,7 +144,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     // Delegate to the new baker.
     let delegateToBakerExpectation = XCTestExpectation(description: "delegated")
     self.nodeClient.delegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       to: baker.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
@@ -184,7 +162,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Validate the delegate set correctly
     let checkDelegateSetToBakerExpectation = XCTestExpectation(description: "delegated to baker")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -199,7 +177,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     // Clear the delegate
     let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
     self.nodeClient.undelegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
     ) { result in
@@ -216,7 +194,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Validate the delegate cleared successfully
     let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -295,8 +273,9 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testRunOperation() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = nodeClient.operationFactory.originationOperation(
-      address: Wallet.testWallet.address,
+    let operation = nodeClient.operationFactory.delegateOperation(
+      source: Wallet.testWallet.address,
+      to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
     )!
@@ -455,7 +434,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     // Clear any existing delegate.
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
     self.nodeClient.undelegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
     ) { result in
@@ -473,7 +452,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Validate the delegate cleared
     let checkDelegateClearedExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -530,7 +509,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     // Delegate to the new baker.
     let delegateToBakerExpectation = XCTestExpectation(description: "delegated")
     self.nodeClient.delegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       to: baker.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
@@ -549,7 +528,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Validate the delegate set correctly
     let checkDelegateSetToBakerExpectation = XCTestExpectation(description: "delegated to baker")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address) { result in
       switch result {
       case .failure(let error):
         print(error)
@@ -564,7 +543,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     // Clear the delegate
     let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
     self.nodeClient.undelegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
     ) { result in
@@ -582,7 +561,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     // Validate the delegate cleared successfully
     let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress) { result in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address) { result in
       switch result {
       case .failure(let error):
         print(error)

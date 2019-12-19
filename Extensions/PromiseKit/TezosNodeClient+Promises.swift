@@ -189,11 +189,7 @@ extension TezosNodeClient {
     )
   }
 
-  /// Delegate the balance of an originated account.
-  ///
-  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
-  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
-  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+  /// Delegate the balance of an account.
   ///
   /// - Parameters:
   ///   - source: The address which will delegate.
@@ -216,7 +212,7 @@ extension TezosNodeClient {
     return self.delegate(from: source, to: delegate, signatureProvider: signatureProvider, operationFeePolicy: policy)
   }
 
-  /// Clear the delegate of an originated account.
+  /// Clear the delegate of an account.
   ///
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
@@ -256,31 +252,6 @@ extension TezosNodeClient {
     }
 
     return registerDelegate(delegate: delegate, signatureProvider: signatureProvider, operationFeePolicy: policy)
-  }
-
-  /// Originate a new account from the given account.
-  ///
-  /// - Parameters:
-  ///   - managerAddress: The address which will manage the new account.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  /// - Returns: A promise which resolves to a string representing the transaction hash.
-  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
-  public func originateAccount(
-    managerAddress: String,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil
-  ) -> Promise<String> {
-    var policy = OperationFeePolicy.default
-    if let operationFees = operationFees {
-      policy = .custom(operationFees)
-    }
-
-    return originateAccount(
-      managerAddress: managerAddress,
-      signatureProvider: signatureProvider,
-      operationFeePolicy: policy
-    )
   }
 
   /// Transact Tezos between accounts.
@@ -359,11 +330,7 @@ extension TezosNodeClient {
     )
   }
 
-  /// Delegate the balance of an originated account.
-  ///
-  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
-  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
-  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+  /// Delegate the balance of an account.
   ///
   /// - Parameters:
   ///   - source: The address which will delegate.
@@ -397,7 +364,7 @@ extension TezosNodeClient {
     )
   }
 
-  /// Clear the delegate of an originated account.
+  /// Clear the delegate of an account.
   ///
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
@@ -455,37 +422,6 @@ extension TezosNodeClient {
     return forgeSignPreapplyAndInject(
       operation: registerDelegateOperation,
       source: delegate,
-      signatureProvider: signatureProvider
-    )
-  }
-
-  /// Originate a new account from the given account.
-  ///
-  /// - Parameters:
-  ///   - managerAddress: The address which will manage the new account.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
-  /// - Returns: A promise which resolves to a string representing the transaction hash.
-  public func originateAccount(
-    managerAddress: String,
-    signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy = .default
-  ) -> Promise<String> {
-    guard
-      let originationOperation = operationFactory.originationOperation(
-        address: managerAddress,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure))
-      }
-    }
-
-    return forgeSignPreapplyAndInject(
-      operation: originationOperation,
-      source: managerAddress,
       signatureProvider: signatureProvider
     )
   }

@@ -8,5 +8,4 @@ public enum OperationKind: String {
   case transaction
   case reveal
   case delegation
-  case origination
 }

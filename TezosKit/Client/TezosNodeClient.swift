@@ -430,11 +430,7 @@ public class TezosNodeClient {
     )
   }
 
-  /// Delegate the balance of an originated account.
-  ///
-  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
-  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
-  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+  /// Delegate the balance of an account.
   ///
   /// - Parameters:
   ///   - source: The address which will delegate.
@@ -464,11 +460,7 @@ public class TezosNodeClient {
     )
   }
 
-  /// Delegate the balance of an originated account.
-  ///
-  /// Note that only KT1 accounts can delegate. TZ1 accounts are not able to delegate. This invariant
-  /// is not checked on an input to this methods. Thus, the source address must be a KT1 address and
-  /// the keys to sign the operation for the address are the keys used to manage the TZ1 address.
+  /// Delegate the balance of an account.
   ///
   /// - Parameters:
   ///   - source: The address which will delegate.
@@ -505,7 +497,7 @@ public class TezosNodeClient {
     )
   }
 
-  /// Clear the delegate of an originated account.
+  /// Clear the delegate of an account.
   ///
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
@@ -528,7 +520,7 @@ public class TezosNodeClient {
     undelegate(from: source, signatureProvider: signatureProvider, operationFeePolicy: policy, completion: completion)
   }
 
-  /// Clear the delegate of an originated account.
+  /// Clear the delegate of an account.
   ///
   /// - Parameters:
   ///   - source: The address which is removing the delegate.
@@ -618,69 +610,6 @@ public class TezosNodeClient {
     forgeSignPreapplyAndInject(
       registerDelegateOperation,
       source: delegate,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
-  }
-
-  /// Originate a new account from the given account.
-  ///
-  /// - Parameters:
-  ///   - managerAddress: The address which will manage the new account.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFees: OperationFees for the transaction. If nil, default fees are used.
-  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
-  ///                 operation was successful.
-  @available(*, deprecated, message: "Please use an OperationFeePolicy API instead.")
-  public func originateAccount(
-    managerAddress: String,
-    signatureProvider: SignatureProvider,
-    operationFees: OperationFees? = nil,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    var policy = OperationFeePolicy.default
-    if let operationFees = operationFees {
-      policy = .custom(operationFees)
-    }
-
-    originateAccount(
-      managerAddress: managerAddress,
-      signatureProvider: signatureProvider,
-      operationFeePolicy: policy,
-      completion: completion
-    )
-  }
-
-  /// Originate a new account from the given account.
-  ///
-  /// - Parameters:
-  ///   - managerAddress: The address which will manage the new account.
-  ///   - signatureProvider: The object which will sign the operation.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
-  ///   - completion: A completion block which will be called with a string representing the transaction ID hash if the
-  ///                 operation was successful.
-  public func originateAccount(
-    managerAddress: String,
-    signatureProvider: SignatureProvider,
-    operationFeePolicy: OperationFeePolicy = .default,
-    completion: @escaping (Result<String, TezosKitError>) -> Void
-  ) {
-    guard
-      let originationOperation = operationFactory.originationOperation(
-        address: managerAddress,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
-      }
-      return
-    }
-
-    forgeSignPreapplyAndInject(
-      originationOperation,
-      source: managerAddress,
       signatureProvider: signatureProvider,
       completion: completion
     )

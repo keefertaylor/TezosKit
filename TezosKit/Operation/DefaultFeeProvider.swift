@@ -29,12 +29,6 @@ public class DefaultFeeProvider {
         gasLimit: 10_000,
         storageLimit: 0
       )
-    case .origination:
-      return OperationFees(
-        fee: Tez(0.001_265),
-        gasLimit: 10_000,
-        storageLimit: 257
-      )
     case .reveal:
       return OperationFees(
         fee: Tez(0.001_268),

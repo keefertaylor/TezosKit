@@ -24,28 +24,11 @@ extension TezosNodeIntegrationTests {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
-  public func testOrigination_promises() {
-    let expectation = XCTestExpectation(description: "promise fulfilled")
-
-    self.nodeClient.originateAccount(
-      managerAddress: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet,
-      operationFeePolicy: .estimate
-    ).done { hash in
-      XCTAssertNotNil(hash)
-      expectation.fulfill()
-    } .catch { _ in
-      XCTFail()
-    }
-
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
-
   public func testDelegation_promises() {
     // Clear any existing delegate.
     let undelegateExpectation = XCTestExpectation(description: "undelegate called")
     self.nodeClient.undelegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
     ).done { _ in
@@ -58,7 +41,7 @@ extension TezosNodeIntegrationTests {
 
     // Validate the delegate cleared
     let checkDelegateClearedExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress).done { _ in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address).done { _ in
       XCTFail()
     } .catch { _ in
       // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
@@ -100,7 +83,7 @@ extension TezosNodeIntegrationTests {
     // Delegate to the new baker.
     let delegateToBakerExpectation = XCTestExpectation(description: "delegated")
     self.nodeClient.delegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       to: baker.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
@@ -114,7 +97,7 @@ extension TezosNodeIntegrationTests {
 
     // Validate the delegate set correctly
     let checkDelegateSetToBakerExpectation = XCTestExpectation(description: "delegated to baker")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress).done { delegate in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address).done { delegate in
       XCTAssertEqual(delegate, baker.address)
       checkDelegateSetToBakerExpectation.fulfill()
     } .catch { _ in
@@ -125,7 +108,7 @@ extension TezosNodeIntegrationTests {
     // Clear the delegate
     let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
     self.nodeClient.undelegate(
-      from: Wallet.originatedAddress,
+      from: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       operationFeePolicy: .estimate
     ).done { _ in
@@ -138,7 +121,7 @@ extension TezosNodeIntegrationTests {
 
     // Validate the delegate cleared successfully
     let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.originatedAddress).done { _ in
+    self.nodeClient.getDelegate(address: Wallet.testWallet.address).done { _ in
       XCTFail()
     } .catch { _ in
       // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
@@ -170,8 +153,9 @@ extension TezosNodeIntegrationTests {
   public func testRunOperation_promises() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let operation = nodeClient.operationFactory.originationOperation(
-      address: Wallet.testWallet.address,
+    let operation = nodeClient.operationFactory.delegateOperation(
+      source: Wallet.testWallet.address,
+      to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
     )!
