@@ -49,7 +49,7 @@ extension TezosNodeClient {
   }
 
   /// Retrieve the address manager key for the given address.
-  public func getAddressManagerKey(address: Address) -> Promise<[String: Any]> {
+  public func getAddressManagerKey(address: Address) -> Promise<String> {
     let rpc = GetAddressManagerKeyRPC(address: address)
     return networkClient.send(rpc)
   }
