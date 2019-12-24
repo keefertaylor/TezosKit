@@ -24,19 +24,6 @@ class OperationFactoryTest: XCTestCase {
     XCTAssertEqual(revealOperation.operationFees.storageLimit, defaultFees.storageLimit)
   }
 
-  func testOriginationOperationWithDefaultFees() {
-    let originationOperation = operationFactory.originationOperation(
-      address: "tz1abc",
-      operationFeePolicy: .default,
-      signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
-
-    let defaultFees = DefaultFeeProvider.fees(for: .origination)
-    XCTAssertEqual(originationOperation.operationFees.fee, defaultFees.fee)
-    XCTAssertEqual(originationOperation.operationFees.gasLimit, defaultFees.gasLimit)
-    XCTAssertEqual(originationOperation.operationFees.storageLimit, defaultFees.storageLimit)
-  }
-
   func testTransactionOperationWithDefaultFees() {
     let transactionOperation = operationFactory.transactionOperation(
       amount: Tez(1.0),
@@ -105,18 +92,6 @@ class OperationFactoryTest: XCTestCase {
     XCTAssertEqual(revealOperation.operationFees.fee, OperationFees.testFees.fee)
     XCTAssertEqual(revealOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
     XCTAssertEqual(revealOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
-  }
-
-  func testOriginationOperationWithCustomFees() {
-    let originationOperation = operationFactory.originationOperation(
-      address: "tz1abc",
-      operationFeePolicy: .custom(.testFees),
-      signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
-
-    XCTAssertEqual(originationOperation.operationFees.fee, OperationFees.testFees.fee)
-    XCTAssertEqual(originationOperation.operationFees.gasLimit, OperationFees.testFees.gasLimit)
-    XCTAssertEqual(originationOperation.operationFees.storageLimit, OperationFees.testFees.storageLimit)
   }
 
   func testTransactionOperationWithCustomFees() {

@@ -61,35 +61,6 @@ public class OperationFactory {
     return operation
   }
 
-  /// Create a new origination operation.
-  ///
-  /// - Parameters:
-  ///   - address: The address which will originate the new account.
-  ///   - operationFeePolicy: A policy to apply when determining operation fees.
-  ///   - signatureProvider: A signature provider which can sign the operation.
-  public func originationOperation(
-    address: Address,
-    operationFeePolicy: OperationFeePolicy,
-    signatureProvider: SignatureProvider
-  ) -> Operation? {
-    let operation = OriginationOperation(address: address, operationFees: OperationFees.zeroFees)
-
-    guard
-      let fees = operationFees(
-        from: operationFeePolicy,
-        address: address,
-        operation: operation,
-        signatureProvider: signatureProvider,
-        tezosProtocol: tezosProtocol
-      )
-    else {
-      return nil
-    }
-
-    operation.operationFees = fees
-    return operation
-  }
-
   /// Create a delegation operation which will register the given address as a delegate.
   ///
   /// - Parameters:

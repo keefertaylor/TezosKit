@@ -9,8 +9,9 @@ final class FeeEstimatorTest: XCTestCase {
     let signatureProvider = FakeSignatureProvider.testSignatureProvider
     let operationFactory = OperationFactory.testFactory
     guard
-      let operation = operationFactory.originationOperation(
-        address: address,
+      let operation = operationFactory.delegateOperation(
+        source: address,
+        to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: signatureProvider
       )
