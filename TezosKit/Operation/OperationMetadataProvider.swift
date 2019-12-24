@@ -7,7 +7,6 @@ public class OperationMetadataProvider {
   internal enum JSON {
     public enum Keys {
       public static let hash = "hash"
-      public static let key = "key"
       public static let `protocol` = "protocol"
     }
   }
@@ -158,10 +157,7 @@ public class OperationMetadataProvider {
       switch result {
       case .failure:
         break
-      case .success(let fetchedManagerAndKey):
-        guard let fetchedKey = fetchedManagerAndKey[OperationMetadataProvider.JSON.Keys.key] as? String else {
-          break
-        }
+      case .success(let fetchedKey):
         completion(fetchedKey)
         return
       }
