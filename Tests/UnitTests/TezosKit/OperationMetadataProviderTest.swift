@@ -64,7 +64,7 @@ final class OperationMetadataProviderTests: XCTestCase {
   func testOperationMetadataWithMissingManagerKey() {
     let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
     let endpoint = "/chains/main/blocks/head/context/contracts/" + .testAddress + "/manager_key"
-    networkClient.endpointToResponseMap[endpoint] = "nonsense"
+    networkClient.endpointToResponseMap[endpoint] = "null"
     let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
 
     let completionCalledExpection = XCTestExpectation()
