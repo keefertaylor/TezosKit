@@ -12,16 +12,12 @@ before_install:
 
 jobs:
   include:
-    - stage: Build - CocoaPods
-      install:
-        - brew outdated cocoapods || brew upgrade cocoapods
-      script:
-        - travis_wait 500 pod lib lint
+    
     - stage: Build - Carthage And Code Coverage
       install:
         - brew outdated carthage || brew upgrade carthage
         - brew install xcodegen
-        - gem install slather
+        #- gem install slather
       script:
         # Carthage requires that XCode project files are checked in. Project.yml is
         # the canonical definition for the .xcodeproj file. Remove the .xcodeproj file
@@ -37,15 +33,8 @@ jobs:
 
       after_success:
         # Generate and Upload Code Coverage
-        - slather
-        - cat ./cobertura.xml
+        #- slather
+        #- cat ./cobertura.xml
         - bash <(curl -s https://codecov.io/bash)
-    - stage: Build and Push Release if tagged commit	
-      script:	
-        - echo "Building Release If Tag is Present"	
-      before_deploy:	
-        - echo "Found tagged release"	
-        - echo "Deploying CocoaPods"	
-        - brew outdated cocoapods || brew upgrade cocoapods	
-        - pod trunk push --skip-import-validation --skip-tests --allow-warnings
+   
       
