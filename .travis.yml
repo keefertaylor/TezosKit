@@ -17,7 +17,7 @@ jobs:
       install:
         - brew outdated carthage || brew upgrade carthage
         - brew install xcodegen
-        #- gem install slather
+        - gem install slather
       script:
         # Carthage requires that XCode project files are checked in. Project.yml is
         # the canonical definition for the .xcodeproj file. Remove the .xcodeproj file
@@ -33,8 +33,8 @@ jobs:
 
       after_success:
         # Generate and Upload Code Coverage
-        #- slather
+        - slather
         #- cat ./cobertura.xml
-        - bash <(curl -s https://codecov.io/bash)
+        - bash <(curl -s https://codecov.io/bash) -f ./cobertura.xml -d
    
       
