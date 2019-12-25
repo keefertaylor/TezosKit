@@ -35,6 +35,6 @@ jobs:
         # Generate and Upload Code Coverage
         - slather
         #- cat ./cobertura.xml
-        - bash <(curl -s https://codecov.io/bash) -f ./cobertura.xml -d
+        - bash <(curl -s https://codecov.io/bash) -f ./cobertura.xml
    
       
