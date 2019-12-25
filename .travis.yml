@@ -27,9 +27,9 @@ jobs:
         - xcodegen generate
 
         # Build with Carthage
-        - travis_wait 500 carthage bootstrap --platform iOS,mac
+        - travis_wait 500 carthage bootstrap --platform iOS --cache-builds
         - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
-        - set -o pipefail && xcodebuild test -scheme TezosKit_macOS -destination 'platform=macOS,arch=x86_64' ONLY_ACTIVE_ARCH=YES | xcpretty
+        # - set -o pipefail && xcodebuild test -scheme TezosKit_macOS -destination 'platform=macOS,arch=x86_64' ONLY_ACTIVE_ARCH=YES | xcpretty
 
       after_success:
         # Generate and Upload Code Coverage
