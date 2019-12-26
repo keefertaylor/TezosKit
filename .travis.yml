@@ -12,7 +12,11 @@ before_install:
 
 jobs:
   include:
-    
+    - stage: Build - CocoaPods	
+      install:	
+        - brew outdated cocoapods || brew upgrade cocoapods	
+      script:	
+        - travis_wait 500 pod lib lint
     - stage: Build - Carthage And Code Coverage
       install:
         - brew outdated carthage || brew upgrade carthage
