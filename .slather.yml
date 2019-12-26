@@ -1,5 +1,4 @@
-# .slather.yml
-
 coverage_service: cobertura_xml
-xcodeproj: TezosKit.xcodeproj
+xcodeproj: ./TezosKit.xcodeproj
 scheme: TezosKit_iOS
+output_directory: ./
