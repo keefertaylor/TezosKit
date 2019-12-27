@@ -5,6 +5,9 @@ import Foundation
 /// A lightweight property bag containing data about the current chain state in order to forge / preapply / inject
 /// operations on the Tezos blockchain.
 public struct OperationMetadata {
+  /// The ID of the chain being operated on.
+  public let chainID: String
+
   /// The hash of the head of the chain being operated on.
   public let branch: String
 

@@ -6,6 +6,7 @@ public class OperationMetadataProvider {
   /// JSON keys and values used in fetching metadata.
   internal enum JSON {
     public enum Keys {
+      public static let chainID = "chain_id"
       public static let hash = "hash"
       public static let `protocol` = "protocol"
     }
@@ -80,10 +81,12 @@ public class OperationMetadataProvider {
 
     var headHash: String?
     var protocolHash: String?
+    var chainID: String?
     metadataProviderQueue.async {
       self.chainInfo(for: address) { addressInfo in
         headHash = addressInfo?.headHash
         protocolHash = addressInfo?.protocol
+        chainID = addressInfo?.chainID
         metadataFetchGroup.leave()
       }
     }
@@ -94,8 +97,10 @@ public class OperationMetadataProvider {
     // Return fetched data as an OperationData if all data was successfully retrieved.
     if let operationCounter = operationCounter,
       let headHash = headHash,
-      let protocolHash = protocolHash {
+      let protocolHash = protocolHash,
+      let chainID = chainID {
       let metadata = OperationMetadata(
+        chainID: chainID,
         branch: headHash,
         protocol: protocolHash,
         addressCounter: operationCounter,
@@ -112,7 +117,7 @@ public class OperationMetadataProvider {
   /// - Warning: This method is not thread safe.
   private func chainInfo(
     for address: Address,
-    completion: @escaping (((headHash: String, protocol: String))?) -> Void
+    completion: @escaping (((headHash: String, protocol: String, chainID: String))?) -> Void
     ) {
     let chainHeadRequestRPC = GetChainHeadRPC()
     networkClient.send(chainHeadRequestRPC, callbackQueue: metadataProviderQueue) { result in
@@ -122,11 +127,12 @@ public class OperationMetadataProvider {
       case .success(let json):
         guard
           let headHash = json[OperationMetadataProvider.JSON.Keys.hash] as? String,
-          let `protocol` = json[OperationMetadataProvider.JSON.Keys.protocol] as? String
-          else {
+          let `protocol` = json[OperationMetadataProvider.JSON.Keys.protocol] as? String,
+          let chainID = json[OperationMetadataProvider.JSON.Keys.chainID] as? String
+        else {
             break
         }
-        completion((headHash: headHash, protocol: `protocol`))
+        completion((headHash: headHash, protocol: `protocol`, chainID: chainID))
         return
       }
       completion(nil)
