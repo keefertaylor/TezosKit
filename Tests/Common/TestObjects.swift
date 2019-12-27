@@ -64,6 +64,13 @@ extension SignedOperationPayload {
   )!
 }
 
+extension RunOperationPayload {
+  public static let testRunOperationPayload = RunOperationPayload(
+    signedOperationPayload: .testSignedOperationPayload,
+    operationMetadata: .testOperationMetadata
+  )
+}
+
 extension SignedProtocolOperationPayload {
   public static let testSignedProtocolOperationPayload = SignedProtocolOperationPayload(
     signedOperationPayload: .testSignedOperationPayload,

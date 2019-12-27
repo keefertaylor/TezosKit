@@ -6,12 +6,12 @@ import XCTest
 
 class RunOperationRPCTest: XCTestCase {
   public func testForgeOperationRPC() {
-    let rpc = RunOperationRPC(signedOperationPayload: .testSignedOperationPayload)
+    let rpc = RunOperationRPC(runOperationPayload: .testRunOperationPayload)
 
     let expectedEndpoint =
       "/chains/main/blocks/head/helpers/scripts/run_operation"
     let expectedPayload =
-      JSONUtils.jsonString(for: SignedOperationPayload.testSignedOperationPayload.dictionaryRepresentation)
+      JSONUtils.jsonString(for: RunOperationPayload.testRunOperationPayload.dictionaryRepresentation)
 
     XCTAssertEqual(rpc.endpoint, expectedEndpoint)
     XCTAssertEqual(rpc.payload, expectedPayload)
