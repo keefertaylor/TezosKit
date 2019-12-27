@@ -152,7 +152,8 @@ extension OperationMetadataProvider {
 extension Dictionary where Key == String, Value == String {
   public static let headResponse: [String: String]  = [
     OperationMetadataProvider.JSON.Keys.protocol: .testProtocol,
-    OperationMetadataProvider.JSON.Keys.hash: .testBranch
+    OperationMetadataProvider.JSON.Keys.hash: .testBranch,
+    OperationMetadataProvider.JSON.Keys.chainID: .testChainID
   ]
 }
 
