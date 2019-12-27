@@ -6,12 +6,14 @@ import XCTest
 final class OperationPayloadFactoryTest: XCTestCase {
   let signatureProvider = FakeSignatureProvider(signature: .testSignature, publicKey: FakePublicKey.testPublicKey)
   let operationMetadataWithRevealedKey = OperationMetadata(
+    chainID: .testChainID,
     branch: .testBranch,
     protocol: .testProtocol,
     addressCounter: .testAddressCounter,
     key: .testPublicKey
   )
   let operationMetadataWithUnrevealedKey = OperationMetadata(
+    chainID: .testChainID,
     branch: .testBranch,
     protocol: .testProtocol,
     addressCounter: .testAddressCounter,

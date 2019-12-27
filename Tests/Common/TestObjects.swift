@@ -9,6 +9,7 @@ import TezosCrypto
 
 extension String {
   public static let testBranch = "xyz"
+  public static let testChainID = "testChainID"
   public static let testProtocol = "alpha"
   public static let testSignature = "edsigabc123"
   public static let testAddress = "tz1abc123xyz"
@@ -34,6 +35,7 @@ extension Array where Element == UInt8 {
 
 extension OperationMetadata {
   public static let testOperationMetadata = OperationMetadata(
+    chainID: .testChainID,
     branch: .testBranch,
     protocol: .testProtocol,
     addressCounter: .testAddressCounter,
