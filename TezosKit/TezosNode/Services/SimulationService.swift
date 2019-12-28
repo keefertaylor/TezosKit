@@ -101,7 +101,12 @@ public class SimulationService {
           return
       }
 
-      let rpc = RunOperationRPC(signedOperationPayload: signedOperationPayload)
+      let runOperationPayload = RunOperationPayload(
+        signedOperationPayload: signedOperationPayload,
+        operationMetadata: operationMetadata
+      )
+
+      let rpc = RunOperationRPC(runOperationPayload: runOperationPayload)
       self.networkClient.send(rpc, callbackQueue: self.simulationServiceQueue, completion: completion)
     }
   }
