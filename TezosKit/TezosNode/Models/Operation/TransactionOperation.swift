@@ -7,8 +7,13 @@ public class TransactionOperation: AbstractOperation {
   private enum JSON {
     public enum Keys {
       public static let amount = "amount"
+      public static let entrypoint = "entrypoint"
       public static let destination = "destination"
       public static let parameters = "parameters"
+      public static let value = "value"
+    }
+    public enum Values {
+      public static let `default` = "default"
     }
   }
 
@@ -20,9 +25,15 @@ public class TransactionOperation: AbstractOperation {
     var operation = super.dictionaryRepresentation
     operation[TransactionOperation.JSON.Keys.amount] = amount.rpcRepresentation
     operation[TransactionOperation.JSON.Keys.destination] = destination
+
     if let parameter = self.parameter {
-        operation[TransactionOperation.JSON.Keys.parameters] = parameter.networkRepresentation
+      let parameters: [String: Any] = [
+        TransactionOperation.JSON.Keys.entrypoint: TransactionOperation.JSON.Values.default,
+        TransactionOperation.JSON.Keys.value: parameter.networkRepresentation
+      ]
+      operation[TransactionOperation.JSON.Keys.parameters] = parameters
     }
+
     return operation
   }
 
