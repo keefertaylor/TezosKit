@@ -4,17 +4,36 @@ import Foundation
 
 /// An operation to transact XTZ between addresses.
 public class TransactionOperation: AbstractOperation {
+  private enum JSON {
+    public enum Keys {
+      public static let amount = "amount"
+      public static let entrypoint = "entrypoint"
+      public static let destination = "destination"
+      public static let parameters = "parameters"
+      public static let value = "value"
+    }
+    public enum Values {
+      public static let `default` = "default"
+    }
+  }
+
   private let amount: Tez
   private let destination: Address
   private let parameter: MichelsonParameter?
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
-    operation["amount"] = amount.rpcRepresentation
-    operation["destination"] = destination
+    operation[TransactionOperation.JSON.Keys.amount] = amount.rpcRepresentation
+    operation[TransactionOperation.JSON.Keys.destination] = destination
+
     if let parameter = self.parameter {
-        operation["parameters"] = parameter.networkRepresentation
+      let parameters: [String: Any] = [
+        TransactionOperation.JSON.Keys.entrypoint: TransactionOperation.JSON.Values.default,
+        TransactionOperation.JSON.Keys.value: parameter.networkRepresentation
+      ]
+      operation[TransactionOperation.JSON.Keys.parameters] = parameters
     }
+
     return operation
   }
 
