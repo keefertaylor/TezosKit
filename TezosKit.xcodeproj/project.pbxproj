@@ -226,6 +226,8 @@
 		C5E729542349BD0400155217 /* PocketNetworkClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E72952234997D200155217 /* PocketNetworkClientTest.swift */; };
 		C5E729562349CFB300155217 /* PocketSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E729552349CFB300155217 /* PocketSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5E72957234A567900155217 /* PocketSwift.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = C5E729552349CFB300155217 /* PocketSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5ED751D23A1923500A36F7E /* ci_config.json in Resources */ = {isa = PBXBuildFile; fileRef = C5ED751C23A1923500A36F7E /* ci_config.json */; };
+		C5ED751E23A1953500A36F7E /* ci_config.json in Resources */ = {isa = PBXBuildFile; fileRef = C5ED751C23A1923500A36F7E /* ci_config.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -337,7 +339,6 @@
 		779A9C73230E0824004C6575 /* TokenContractClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractClient.swift; sourceTree = "<group>"; };
 		779A9C76230E09DB004C6575 /* TokenContractIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractIntegrationTests.swift; sourceTree = "<group>"; };
 		779A9C78230E2C4A004C6575 /* FeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeeEstimator.swift; sourceTree = "<group>"; };
-		779A9C7C230E320B004C6575 /* FeeEstimatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeEstimatorTest.swift; sourceTree = "<group>"; };
 		779A9C7F230E3CCF004C6575 /* TokenContractClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenContractClientTests.swift; sourceTree = "<group>"; };
 		779A9C81230E457A004C6575 /* DexterExchangeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClient.swift; sourceTree = "<group>"; };
 		779A9C84230E4707004C6575 /* DexterExchangeClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientIntegrationTests.swift; sourceTree = "<group>"; };
@@ -500,6 +501,7 @@
 		C5E729502349973500155217 /* PocketNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketNetworkClient.swift; sourceTree = "<group>"; };
 		C5E72952234997D200155217 /* PocketNetworkClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketNetworkClientTest.swift; sourceTree = "<group>"; };
 		C5E729552349CFB300155217 /* PocketSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSwift.framework; path = Carthage/Build/iOS/PocketSwift.framework; sourceTree = "<group>"; };
+		C5ED751C23A1923500A36F7E /* ci_config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ci_config.json; sourceTree = SOURCE_ROOT; };
 		F4F69CEC90588DB51FE973FC /* Pods_TezosKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TezosKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -695,6 +697,7 @@
 		77CE35A321F7DC76006ADABA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C5ED751C23A1923500A36F7E /* ci_config.json */,
 				77B1EAFB2228C03400EA4FCE /* TestObjects.swift */,
 				7776493A227616B200451DD5 /* FakeObjects.swift */,
 				77FE788322EEA29300B85B9D /* TestHelpers.swift */,
@@ -1007,6 +1010,7 @@
 				77CE359421F7DC76006ADABA /* Resources */,
 				77CE362D21F7EED8006ADABA /* Copy Files */,
 				77CE362E21F7EEE2006ADABA /* Carthage */,
+				C5A6258D239942EC00EC9155 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1092,6 +1096,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5ED751D23A1923500A36F7E /* ci_config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,6 +1104,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5ED751E23A1953500A36F7E /* ci_config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1163,6 +1169,23 @@
 			shellPath = /bin/sh;
 			shellScript = "
 ";
+		};
+		C5A6258D239942EC00EC9155 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nsource ~/.bash_profile\ndevID=\"{\\\"POCKET_DEV_ID\\\": \\\"$POCKET_DEV_ID\\\"}\"\necho \"${devID}\" > ci_config.json\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1320,7 +1343,6 @@
 				77FE788222EE913300B85B9D /* GetBigMapValueRPCTest.swift in Sources */,
 				77CE36FE21F7F49F006ADABA /* GetBallotsRPCTest.swift in Sources */,
 				77CE36F221F7F49F006ADABA /* JSONDictionaryResponseAdapterTest.swift in Sources */,
-				779A9C7D230E320C004C6575 /* FeeEstimatorTest.swift in Sources */,
 				77CE36E121F7F49F006ADABA /* RevealOperationTest.swift in Sources */,
 				77CE36FF21F7F49F006ADABA /* PeriodKindResponseAdapterTest.swift in Sources */,
 				77B1EB08222A179F00EA4FCE /* OperationWithCounterTest.swift in Sources */,
