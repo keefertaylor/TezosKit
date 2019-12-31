@@ -7,12 +7,26 @@ class PocketNetworkClientTest: XCTestCase {
     public var networkClient: NetworkClient?
     public let fakeURLSession = FakeURLSession()
     public let callbackQueue: DispatchQueue = DispatchQueue(label: "callbackQueue")
+    public var pocket_dev_id = ""
     // Setup
     public override func setUp() {
         super.setUp()
+
+        if let path = Bundle(for: type(of: self)).path(forResource: "ci_config", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let dev_id = jsonResult["POCKET_DEV_ID"] as? String {
+                    self.pocket_dev_id = dev_id
+                }
+            } catch {
+                print("Failed to retrieve the Pocket DevID with error: \(error)")
+                XCTFail()
+            }
+        }
         // Initialize PocketNetwork Client
         networkClient = PocketNetworkClient(
-            devID: "",
+            devID: self.pocket_dev_id,
             netID: "MAINNET",
             callbackQueue: callbackQueue,
             responseHandler: RPCResponseHandler()
