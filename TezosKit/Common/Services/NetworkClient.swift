@@ -112,6 +112,10 @@ public class NetworkClientImpl: NetworkClient {
         return
       }
 
+      print("DATA: \(String(data: data!, encoding: .utf8)!)")
+      print("RESP: \(response)")
+      print("ERROR: \(error)")
+
       let result = self.responseHandler.handleResponse(
         response: response,
         data: data,

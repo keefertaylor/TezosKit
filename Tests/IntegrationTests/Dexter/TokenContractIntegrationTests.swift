@@ -18,7 +18,7 @@ import XCTest
 /// Address: https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
-  public static let tokenContractAddress = "KT1WiDkoaKgH6dcmHa3tLJKzfnW5QuPjppgn"
+  public static let tokenContractAddress = "KT1LKSFTrGSDNfVbWV4JXRrqGRD8XDSv5NAU"
   public static let tokenRecipient = "tz1XarY7qEahQBipuuNZ4vPw9MN6Ldyxv8G3"
 }
 

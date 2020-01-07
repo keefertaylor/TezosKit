@@ -19,6 +19,9 @@ extension String {
   public static let testForgeResult = "test_forge_result"
   public static let testPublicKey = "edpk_test"
   public static let testSignedBytesForInjection = "abc123edsigxyz789"
+
+  // A baker registered on TestNet
+  public static let testnetBaker = "tz1LhS2WFCinpwUTdUb991ocL2D9Uk6FJGJK"
 }
 
 extension Int {

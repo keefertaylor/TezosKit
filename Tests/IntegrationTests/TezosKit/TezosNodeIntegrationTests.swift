@@ -36,10 +36,10 @@ extension Wallet {
   public static let contractOwningAddress = "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt"
 
   // An address of a Dexter Exchange Contract
-  public static let dexterExchangeContract = "KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434"
+  public static let dexterExchangeContract = "KT1HrxtrCQ9ShddfCwExumteSXwR5Vp98EcS"
 
   // An address of a token contract
-  public static let tokenContract = "KT1Md4zkfCvkdqgxAC9tyRYpRUBKmD1owEi2"
+  public static let tokenContract = "KT1LKSFTrGSDNfVbWV4JXRrqGRD8XDSv5NAU"
 }
 
 extension URL {
@@ -63,7 +63,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
+    let intertestWaitTime: UInt32 = 120
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -81,6 +81,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .failure(let error):
         print(error)
         XCTFail()
+        return
       case .success:
         undelegateExpectation.fulfill()
       }
@@ -98,6 +99,7 @@ class TezosNodeIntegrationTests: XCTestCase {
         checkDelegateClearedExpectation.fulfill()
       case .success:
         XCTFail()
+        return
       }
     }
     wait(for: [checkDelegateClearedExpectation], timeout: .expectationTimeout)
@@ -116,6 +118,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .failure(let error):
         print(error)
         XCTFail()
+        return
       case .success:
         sendExpectation.fulfill()
       }
@@ -134,6 +137,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .failure(let error):
         print(error)
         XCTFail()
+        return
       case .success:
         registerBakerExpectation.fulfill()
       }
@@ -153,6 +157,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .failure(let error):
         print(error)
         XCTFail()
+        return
       case .success:
         delegateToBakerExpectation.fulfill()
       }
@@ -167,44 +172,13 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .failure(let error):
         print(error)
         XCTFail()
+        return
       case .success(let delegate):
         XCTAssertEqual(delegate, baker.address)
         checkDelegateSetToBakerExpectation.fulfill()
       }
     }
     wait(for: [checkDelegateSetToBakerExpectation], timeout: .expectationTimeout)
-
-    // Clear the delegate
-    let clearDelegateAfterDelegationExpectation = XCTestExpectation(description: "delegate cleared again")
-    self.nodeClient.undelegate(
-      from: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet,
-      operationFeePolicy: .estimate
-    ) { result in
-      switch result {
-      case .failure(let error):
-        print(error)
-        XCTFail()
-      case .success:
-        clearDelegateAfterDelegationExpectation.fulfill()
-      }
-    }
-    wait(for: [clearDelegateAfterDelegationExpectation], timeout: .expectationTimeout)
-    sleep(.blockTime)
-
-    // Validate the delegate cleared successfully
-    let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.testWallet.address) { result in
-      switch result {
-      case .failure(let error):
-        print(error)
-        // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
-        checkDelegateClearedAfterDelegationExpectation.fulfill()
-      case .success:
-        XCTFail()
-      }
-    }
-    wait(for: [checkDelegateClearedAfterDelegationExpectation], timeout: .expectationTimeout)
   }
 
   public func testGetAccountBalance() {
@@ -259,8 +233,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     ) { result in
       switch result {
       case .failure(let error):
-        XCTAssertEqual(error.kind, .preapplicationError)
-        XCTAssert(error.underlyingError!.contains("balance_too_low"))
+        XCTAssertEqual(error.kind, .transactionFormationFailure)
         expectation.fulfill()
       case .success:
         XCTFail()
@@ -275,7 +248,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     let operation = nodeClient.operationFactory.delegateOperation(
       source: Wallet.testWallet.address,
-      to: .testDestinationAddress,
+      to: .testnetBaker,
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
     )!
@@ -306,14 +279,14 @@ class TezosNodeIntegrationTests: XCTestCase {
         amount: Tez("1")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .default,
+        operationFeePolicy: .estimate,
         signatureProvider: Wallet.testWallet
       )!,
       nodeClient.operationFactory.transactionOperation(
         amount: Tez("2")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .default,
+        operationFeePolicy: .estimate,
         signatureProvider: Wallet.testWallet
       )!
     ]
@@ -380,7 +353,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .success(let result):
         guard
           let args = result["args"] as? [Any],
-          let firstArg = args[0] as? [String: Any],
+          let firstArg = args[1] as? [String: Any],
           let valueString = firstArg["int"] as? String,
           let value = Int(valueString)
           else {
@@ -401,7 +374,7 @@ class TezosNodeIntegrationTests: XCTestCase {
   func testGetContractStorage() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    self.nodeClient.getContractStorage(address: Wallet.tokenContract) { result in
+    self.nodeClient.getContractStorage(address: Wallet.dexterExchangeContract) { result in
       switch result {
       case .success(let result):
         guard

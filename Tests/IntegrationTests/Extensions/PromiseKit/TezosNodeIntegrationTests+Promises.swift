@@ -34,7 +34,8 @@ extension TezosNodeIntegrationTests {
     ).done { _ in
       undelegateExpectation.fulfill()
     } .catch { _ in
-        XCTFail()
+      XCTFail()
+      return
     }
     wait(for: [undelegateExpectation], timeout: .expectationTimeout)
     sleep(.blockTime)
@@ -43,6 +44,7 @@ extension TezosNodeIntegrationTests {
     let checkDelegateClearedExpectation = XCTestExpectation(description: "check delegate cleared")
     self.nodeClient.getDelegate(address: Wallet.testWallet.address).done { _ in
       XCTFail()
+      return
     } .catch { _ in
       // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
       checkDelegateClearedExpectation.fulfill()
@@ -61,7 +63,8 @@ extension TezosNodeIntegrationTests {
     ).done { _ in
       sendExpectation.fulfill()
     } .catch { _ in
-        XCTFail()
+      XCTFail()
+      return
     }
     wait(for: [sendExpectation], timeout: .expectationTimeout)
     sleep(.blockTime)
@@ -76,6 +79,7 @@ extension TezosNodeIntegrationTests {
       registerBakerExpectation.fulfill()
     } .catch { _ in
       XCTFail()
+      return
     }
     wait(for: [registerBakerExpectation], timeout: .expectationTimeout)
     sleep(.blockTime)
@@ -91,6 +95,7 @@ extension TezosNodeIntegrationTests {
       delegateToBakerExpectation.fulfill()
     } .catch { _ in
       XCTFail()
+      return
     }
     wait(for: [delegateToBakerExpectation], timeout: .expectationTimeout)
     sleep(.blockTime)
@@ -102,6 +107,7 @@ extension TezosNodeIntegrationTests {
       checkDelegateSetToBakerExpectation.fulfill()
     } .catch { _ in
       XCTFail()
+      return
     }
     wait(for: [checkDelegateSetToBakerExpectation], timeout: .expectationTimeout)
 
@@ -115,20 +121,10 @@ extension TezosNodeIntegrationTests {
       clearDelegateAfterDelegationExpectation.fulfill()
     } .catch { _ in
       XCTFail()
+      return
     }
     wait(for: [clearDelegateAfterDelegationExpectation], timeout: .expectationTimeout)
     sleep(.blockTime)
-
-    // Validate the delegate cleared successfully
-    let checkDelegateClearedAfterDelegationExpectation = XCTestExpectation(description: "check delegate cleared")
-    self.nodeClient.getDelegate(address: Wallet.testWallet.address).done { _ in
-      XCTFail()
-    } .catch { _ in
-      // Expect a 404, see: https://gitlab.com/tezos/tezos/issues/490
-      checkDelegateClearedAfterDelegationExpectation.fulfill()
-    }
-
-    wait(for: [checkDelegateClearedAfterDelegationExpectation], timeout: .expectationTimeout)
   }
 
   public func testSend_promises() {
@@ -155,7 +151,7 @@ extension TezosNodeIntegrationTests {
 
     let operation = nodeClient.operationFactory.delegateOperation(
       source: Wallet.testWallet.address,
-      to: .testDestinationAddress,
+      to: .testnetBaker,
       operationFeePolicy: .default,
       signatureProvider: Wallet.testWallet
     )!
@@ -191,8 +187,7 @@ extension TezosNodeIntegrationTests {
         XCTFail()
         return
       }
-      XCTAssertEqual(tezosKitError.kind, .preapplicationError)
-      XCTAssert(tezosKitError.underlyingError!.contains("balance_too_low"))
+      XCTAssertEqual(tezosKitError.kind, .transactionFormationFailure)
       expectation.fulfill()
     }
 
@@ -207,14 +202,14 @@ extension TezosNodeIntegrationTests {
         amount: Tez("1")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .default,
+        operationFeePolicy: .estimate,
         signatureProvider: Wallet.testWallet
       )!,
       nodeClient.operationFactory.transactionOperation(
         amount: Tez("2")!,
         source: Wallet.testWallet.address,
         destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .default,
+        operationFeePolicy: .estimate,
         signatureProvider: Wallet.testWallet
       )!
     ]
@@ -225,8 +220,8 @@ extension TezosNodeIntegrationTests {
       signatureProvider: Wallet.testWallet
     ) .done { _ in
       expectation.fulfill()
-    } .catch { _ in
-      XCTFail()
+    } .catch { error in
+      XCTFail("\(error)")
     }
     wait(for: [expectation], timeout: .expectationTimeout)
   }
