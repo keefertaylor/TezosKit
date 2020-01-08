@@ -205,7 +205,7 @@ public class OperationFactory {
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
   ) -> Operation? {
-    let operation = TransactionOperation(
+    let operation = SmartContractInvocationOperation(
       amount: amount,
       parameter: parameter,
       source: source,
