@@ -192,6 +192,7 @@ public class OperationFactory {
   /// - Parameters:
   ///   - contract: The smart contract to invoke.
   ///   - amount: The amount of Tez to transfer with the invocation.
+  ///   - entrypoint: An optional entrypoint to use for the transaction.
   ///   - parameter: An optional parameter to send to the smart contract.
   ///   - source: The address invoking the contract.
   ///   - signatureProvider: The object which will sign the operation.
@@ -199,6 +200,7 @@ public class OperationFactory {
   ///   - signatureProvider: A signature provider which can sign the operation.
   public func smartContractInvocationOperation(
     amount: Tez,
+    entrypoint: String?,
     parameter: MichelsonParameter?,
     source: Address,
     destination: Address,
@@ -207,6 +209,7 @@ public class OperationFactory {
   ) -> Operation? {
     let operation = SmartContractInvocationOperation(
       amount: amount,
+      entrypoint: entrypoint,
       parameter: parameter,
       source: source,
       destination: destination,

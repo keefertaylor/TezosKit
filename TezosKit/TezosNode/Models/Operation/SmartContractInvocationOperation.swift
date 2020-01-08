@@ -15,13 +15,14 @@ public class SmartContractInvocationOperation: TransactionOperation {
     }
   }
 
+  private let entrypoint: String?
   private let parameter: MichelsonParameter?
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
 
     let parameter = self.parameter ?? UnitMichelsonParameter()
-    let entrypoint = SmartContractInvocationOperation.JSON.Values.default
+    let entrypoint = self.entrypoint ?? SmartContractInvocationOperation.JSON.Values.default
 
     let parameters: [String: Any] = [
       SmartContractInvocationOperation.JSON.Keys.entrypoint: entrypoint,
@@ -34,17 +35,20 @@ public class SmartContractInvocationOperation: TransactionOperation {
 
   /// - Parameters:
   ///   - amount: The amount of XTZ to transact.
-  ///   - parameter: An optional parameter to include in the transaction if the call is being made to a smart contract.
+  ///   - entrypoint: An optional entrypoint to use for the transaction. If nil, the default entry point is used.
+  ///   - parameter: An optional parameter to include in the transaction if the call is being made to a smart contract. If nil, the unit parameter is used.
   ///   - from: The address that is sending the XTZ.
   ///   - to: The address that is receiving the XTZ.
   ///   - operationFees: OperationFees for the transaction.
   public init(
     amount: Tez,
+    entrypoint: String? = nil,
     parameter: MichelsonParameter? = nil,
     source: Address,
     destination: Address,
     operationFees: OperationFees
   ) {
+    self.entrypoint = entrypoint
     self.parameter = parameter
 
     super.init(amount: amount, source: source, destination: destination, operationFees: operationFees)

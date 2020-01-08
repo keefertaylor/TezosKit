@@ -295,7 +295,8 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - contract: The smart contract to invoke.
   ///   - amount: The amount of Tez to transfer with the invocation. Default is 0.
-  ///   - parameter: An optional parameter to send to the smart contract. Default is none.
+  ///   - entrypoint: An optional entrypoint to use for the transaction. Default is nil.
+  ///   - parameter: An optional parameter to send to the smart contract. Default is nil.
   ///   - source: The address invoking the contract.
   ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - operationFeePolicy: A policy to apply when determining operation fees.
@@ -303,6 +304,7 @@ extension TezosNodeClient {
   public func call(
     contract: Address,
     amount: Tez = Tez.zeroBalance,
+    entrypoint: String? = nil,
     parameter: MichelsonParameter? = nil,
     source: Address,
     signatureProvider: SignatureProvider,
@@ -311,6 +313,7 @@ extension TezosNodeClient {
     guard
       let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
         amount: amount,
+        entrypoint: entrypoint,
         parameter: parameter,
         source: source,
         destination: contract,
