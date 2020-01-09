@@ -127,7 +127,7 @@ extension TezosNodeClient {
   /// - Parameters:
   ///   - rpc: The RPC to run.
   public func run<T>(_ rpc: RPC<T>) -> Promise<T> {
-    networkClient.send(rpc)
+    return networkClient.send(rpc)
   }
 
   // MARK: - Operations
