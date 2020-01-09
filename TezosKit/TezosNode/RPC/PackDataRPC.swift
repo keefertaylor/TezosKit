@@ -12,9 +12,9 @@ public class PackDataRPC: RPC<String> {
 
     super.init(
       endpoint: endpoint,
+      headers: [ Header.contentTypeApplicationJSON ],
       responseAdapterClass: StringResponseAdapter.self,
       payload: payload
     )
   }
 }
-

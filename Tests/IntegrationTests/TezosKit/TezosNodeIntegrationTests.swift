@@ -604,4 +604,27 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
+
+  public func testPackData() {
+    let expectation = XCTestExpectation(description: "completion called")
+    let input: [String: Any] = [
+      "data": [ "string": "tz1bwsEWCwSEXdRvnJxvegQZKeX5dj6oKEys" ],
+      "type": [ "prim": "address" ],
+      "gas": "800000"
+    ]
+    let rpc = PackDataRPC(input: input)
+
+    self.nodeClient.run(rpc) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
 }
