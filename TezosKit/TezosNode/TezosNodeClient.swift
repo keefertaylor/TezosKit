@@ -160,7 +160,7 @@ public class TezosNodeClient {
   /// Retrieve data about the chain head.
   public func getHead(completion: @escaping (Result<[String: Any], TezosKitError>) -> Void) {
     let rpc = GetChainHeadRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the balance of a given wallet.
@@ -171,7 +171,7 @@ public class TezosNodeClient {
   /// Retrieve the balance of a given address.
   public func getBalance(address: Address, completion: @escaping (Result<Tez, TezosKitError>) -> Void) {
     let rpc = GetAddressBalanceRPC(address: address)
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the delegate of a given wallet.
@@ -182,19 +182,19 @@ public class TezosNodeClient {
   /// Retrieve the delegate of a given address.
   public func getDelegate(address: Address, completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetDelegateRPC(address: address)
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the hash of the block at the head of the chain.
   public func getHeadHash(completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetChainHeadHashRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the address counter for the given address.
   public func getAddressCounter(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let rpc = GetAddressCounterRPC(address: address)
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the address manager key for the given address.
@@ -203,49 +203,49 @@ public class TezosNodeClient {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let rpc = GetAddressManagerKeyRPC(address: address)
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve ballots cast so far during a voting period.
   public func getBallotsList(completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void) {
     let rpc = GetBallotsListRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the expected quorum.
   public func getExpectedQuorum(completion: @escaping (Result<Int, TezosKitError>) -> Void) {
     let rpc = GetExpectedQuorumRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the current period kind for voting.
   public func getCurrentPeriodKind(completion: @escaping (Result<PeriodKind, TezosKitError>) -> Void) {
     let rpc = GetCurrentPeriodKindRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the sum of ballots cast so far during a voting period.
   public func getBallots(completion: @escaping (Result<[String: Any], TezosKitError>) -> Void) {
     let rpc = GetBallotsRPC()
-    networkClient.send(rpc, completion: completion)
-  }
+    self.run(rpc, completion: completion)  }
 
   /// Retrieve a list of proposals with number of supporters.
   public func getProposalsList(completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void) {
     let rpc = GetProposalsListRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the current proposal under evaluation.
   public func getProposalUnderEvaluation(completion: @escaping (Result<String, TezosKitError>) -> Void) {
     let rpc = GetProposalUnderEvaluationRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve a list of delegates with their voting weight, in number of rolls.
   public func getVotingDelegateRights(completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void) {
     let rpc = GetVotingDelegateRightsRPC()
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
+
   }
 
   /// Inspect the value of a big map in a smart contract.
@@ -262,7 +262,7 @@ public class TezosNodeClient {
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
   ) {
     let rpc = GetBigMapValueRPC(address: address, key: key, type: type)
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
   }
 
   /// Retrieve the storage of a smart contract.
@@ -275,7 +275,16 @@ public class TezosNodeClient {
     completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
     ) {
     let rpc = GetContractStorageRPC(address: address)
-    networkClient.send(rpc, completion: completion)
+    self.run(rpc, completion: completion)
+  }
+
+  /// Run an arbitrary RPC.
+  ///
+  /// - Parameters:
+  ///   - rpc: The RPC to run.
+  ///   - completion : A completion block which handles the results of the RPC
+  public func run<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
+    self.networkClient.send(rpc, completion: completion)
   }
 
   // MARK: - Operations
