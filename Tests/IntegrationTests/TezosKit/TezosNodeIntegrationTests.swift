@@ -604,4 +604,21 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
+
+  public func testGetBigMapValueByID() {
+    let expectation = XCTestExpectation(description: "Got big map value")
+    let rpc = GetBigMapValueByIDRPC(bigMapID: 22, expression: "exprv6UsC1sN3Fk2XfgcJCL8NCerP5rCGy1PRESZAqr7L2JdzX55EN")
+    self.nodeClient.run(rpc) {  result in
+      switch result {
+      case .failure(let error):
+        XCTFail("\(error)")
+      case .success(let value):
+        print(value)
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+
+  }
 }

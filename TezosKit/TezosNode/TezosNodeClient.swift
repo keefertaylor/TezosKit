@@ -248,6 +248,17 @@ public class TezosNodeClient {
     networkClient.send(rpc, completion: completion)
   }
 
+  /// Run an arbitrary RPC.
+  ///
+  /// - Parameters:
+  ///   - rpc: The RPC to run.
+  ///   - completion : A completion block which handles the results of the RPC
+  // TODO(keefertaylor): Make all methods call this.
+  // TODO(keefertaylor): Add promisekit variant.
+  public func run<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
+    networkClient.send(rpc, completion: completion)
+  }
+
   /// Inspect the value of a big map in a smart contract.
   ///
   /// - Parameters:
