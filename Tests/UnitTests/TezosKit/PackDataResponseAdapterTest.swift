@@ -1,4 +1,4 @@
-// Copyright Keefer Taylor, 2018
+// Copyright Keefer Taylor, 2020
 
 import TezosKit
 import XCTest
