@@ -217,6 +217,7 @@
 		8631A783EBB8BA07F24BD8D6 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1F6B1DDF04EB174551D3 /* TestObjects.swift */; };
 		86A23698EB0F1A7C654EA5FE /* TezosNodeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A82D9C70BEC192B4D73809 /* TezosNodeClient.swift */; };
 		871FE402420222A66F323F7B /* MichelsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2ED9478409396EF8CA5E053 /* MichelsonTests.swift */; };
+		874E720C50CA30079F31F127 /* PackDataRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4567ADF69709F66F2EB345 /* PackDataRPC.swift */; };
 		8756D5F4B281D22404F1A645 /* GetExpectedQuorumRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E006B0AA63CD2D50D07762F /* GetExpectedQuorumRPC.swift */; };
 		88940D2D624897654210349C /* GetProposalsListRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C714AAB4A35FE0C6B5BEB154 /* GetProposalsListRPC.swift */; };
 		88B60F36E3AEB38D180B5802 /* SmartContractInvocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE79D36BAE8F2465D6231C8 /* SmartContractInvocationOperation.swift */; };
@@ -414,6 +415,7 @@
 		F9BE3DBB7109326574DD8821 /* GetBigMapValueRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0577D28D7A8761465FE76F9 /* GetBigMapValueRPC.swift */; };
 		FA69D591490F2E93C465A258 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC64BA50EF400CF4B90951AA /* CryptoSwift.framework */; };
 		FAFE54CF7E5E0BC0D60B460E /* PromiseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 33A83E353521083164433924 /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBC6C42F1CA1E2C3347610A9 /* PackDataRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4567ADF69709F66F2EB345 /* PackDataRPC.swift */; };
 		FC62BE3B01BE1641A8EA8FAC /* MnemonicUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D7B0277CE3BF6560DFD91 /* MnemonicUtilsTest.swift */; };
 		FCFF1137D39FC8613661D401 /* SimulationResultResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7C3270399D4C501F334311 /* SimulationResultResponseAdapterTest.swift */; };
 		FD6C74F4210D79D6F9EDF7B7 /* ConseilClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCD5416B3E149D9389F6961 /* ConseilClientTests.swift */; };
@@ -616,6 +618,7 @@
 		6D884FB468334AB4A1BB1C6A /* RPCResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandler.swift; sourceTree = "<group>"; };
 		6E81E509282B154977477905 /* NetworkClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkClient+Promises.swift"; sourceTree = "<group>"; };
 		6EF6AE2D1FDA4575445E424F /* TezosKitIntegrationTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TezosKitIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F4567ADF69709F66F2EB345 /* PackDataRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackDataRPC.swift; sourceTree = "<group>"; };
 		6F588414A4E9819AFC69197D /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sodium.framework; sourceTree = "<group>"; };
 		7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedContractsRPC.swift; sourceTree = "<group>"; };
 		7032899C34EC0CB096B9A57C /* TezosNodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeIntegrationTests.swift; sourceTree = "<group>"; };
@@ -1263,6 +1266,7 @@
 				407B756EB7320CC968E1C2ED /* GetProposalUnderEvaluationRPC.swift */,
 				FDBD6A96F194F57F5A9AE2DA /* GetVotingDelegateRightsRPC.swift */,
 				F1A2CD91AC2A1310E66E207E /* InjectOperationRPC.swift */,
+				6F4567ADF69709F66F2EB345 /* PackDataRPC.swift */,
 				B033280AD0AE71CF00F15555 /* PreapplyOperationRPC.swift */,
 				BC51B27A148DD74109FEB276 /* RunOperationRPC.swift */,
 				E6FA9BD7360B51E2353AFA20 /* Payload */,
@@ -1667,6 +1671,7 @@
 				963E92E6248582A1CD1D9468 /* OperationPayload.swift in Sources */,
 				85BC63DB233D9E4663D05D6B /* OperationPayloadFactory.swift in Sources */,
 				346B3C1348BED784D82EF921 /* OperationWithCounter.swift in Sources */,
+				FBC6C42F1CA1E2C3347610A9 /* PackDataRPC.swift in Sources */,
 				CA01543E526BB78E930BE2BE /* PairMichelsonParameter.swift in Sources */,
 				767808D0C01FF2CB4F56C5CC /* PeriodKind.swift in Sources */,
 				27641CCD3D8C9AC9A6719869 /* PeriodKindResponseAdapter.swift in Sources */,
@@ -1867,6 +1872,7 @@
 				B481FCFB6820FB7C37019455 /* OperationPayload.swift in Sources */,
 				F20D1C720BE42B84FF5C3F60 /* OperationPayloadFactory.swift in Sources */,
 				9C490216EE45DD3B2D5FA043 /* OperationWithCounter.swift in Sources */,
+				874E720C50CA30079F31F127 /* PackDataRPC.swift in Sources */,
 				84835281C8BB752513193EC6 /* PairMichelsonParameter.swift in Sources */,
 				C35BAE30B5D78DD325FFA296 /* PeriodKind.swift in Sources */,
 				619E6BD3481626F8DA9E6FA2 /* PeriodKindResponseAdapter.swift in Sources */,
