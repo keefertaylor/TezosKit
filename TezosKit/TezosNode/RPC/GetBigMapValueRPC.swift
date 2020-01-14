@@ -20,7 +20,7 @@ public class GetBigMapValueRPC: RPC<[String: Any]> {
     let payload = JSONUtils.jsonString(
       for: [
         GetBigMapValueJSONConstants.key: key.networkRepresentation,
-        GetBigMapValueJSONConstants.type: GetBigMapValueRPC.typeDict(for: type)
+        GetBigMapValueJSONConstants.type: MichelsonComparable.networkRepresentation(for: type)
       ]
     )
 
@@ -36,9 +36,5 @@ public class GetBigMapValueRPC: RPC<[String: Any]> {
       responseAdapterClass: JSONDictionaryResponseAdapter.self,
       payload: payload
     )
-  }
-
-  private static func typeDict(for type: MichelsonComparable) -> [String: String] {
-    return [ GetBigMapValueJSONConstants.prim: type.rawValue ]
   }
 }

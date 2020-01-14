@@ -1,5 +1,6 @@
 // Copyright Keefer Taylor, 2019.
 
+import BigInt
 @testable import TezosKit
 import XCTest
 
@@ -607,18 +608,41 @@ class TezosNodeIntegrationTests: XCTestCase {
 
   public func testGetBigMapValueByID() {
     let expectation = XCTestExpectation(description: "Got big map value")
-    let rpc = GetBigMapValueByIDRPC(bigMapID: 22, expression: "exprv6UsC1sN3Fk2XfgcJCL8NCerP5rCGy1PRESZAqr7L2JdzX55EN")
-    self.nodeClient.run(rpc) {  result in
+
+    self.nodeClient.getBigMapValue(
+      bigMapID: BigInt(22),
+      key: StringMichelsonParameter(string: "tz1bwsEWCwSEXdRvnJxvegQZKeX5dj6oKEys"),
+      type: .address) { result in
       switch result {
       case .failure(let error):
         XCTFail("\(error)")
-      case .success(let value):
-        print(value)
+      case .success:
+        expectation.fulfill()
+      }
+    }
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  public func testPackData() {
+    let expectation = XCTestExpectation(description: "completion called")
+    let expected = "exprv6UsC1sN3Fk2XfgcJCL8NCerP5rCGy1PRESZAqr7L2JdzX55EN"
+    let payload = PackDataPayload(
+      michelsonParameter: StringMichelsonParameter(string: "tz1bwsEWCwSEXdRvnJxvegQZKeX5dj6oKEys"),
+      michelsonComparable: .address
+    )
+    let rpc = PackDataRPC(payload: payload)
+
+    self.nodeClient.run(rpc) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        XCTAssertEqual(hash, expected)
         expectation.fulfill()
       }
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)
-
   }
 }
