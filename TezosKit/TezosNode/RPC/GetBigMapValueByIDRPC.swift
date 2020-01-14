@@ -4,7 +4,6 @@ import BigInt
 import Foundation
 
 /// An RPC that will retrieve the value of a big map for the given key.
-// TODO(keefertaylor): Rename file
 public class GetBigMapValueByIDRPC: RPC<[String: Any]> {
   /// - Parameters:
   ///   - address: The address of a smart contract with a big map.

@@ -254,8 +254,6 @@ public class TezosNodeClient {
   /// - Parameters:
   ///   - rpc: The RPC to run.
   ///   - completion : A completion block which handles the results of the RPC
-  // TODO(keefertaylor): Make all methods call this.
-  // TODO(keefertaylor): Add promisekit variant.
   public func run<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
     networkClient.send(rpc, completion: completion)
   }
@@ -290,6 +288,13 @@ public class TezosNodeClient {
     self.run(rpc, completion: completion)
   }
 
+  /// Retrieve a value from a big map. 
+  ///
+  /// - Parameters:
+  ///   - bigMapID: The ID of the big map.
+  ///   - key: The key in the big map to look up.
+  ///   - type: The michelson type of the key.
+  ///   - completion: A completion block to call.  
   public func getBigMapValue(
     bigMapID: BigInt,
     key: MichelsonParameter,
@@ -299,8 +304,11 @@ public class TezosNodeClient {
     let payload = PackDataPayload(michelsonParameter: key, michelsonComparable: type)
     let packDataRPC = PackDataRPC(payload: payload)
 
-    // TODO(keefertaylor): weak self.
-    self.run(packDataRPC) { result in
+    self.run(packDataRPC) { [weak self] result in
+      guard let self = self else {
+        return
+      }
+
       guard case let .success(expression) = result else {
         completion(
           result.map { _ in [:] }
