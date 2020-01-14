@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2019
 
 import Base58Swift
+import BigInt
 import Foundation
 import TezosCrypto
 
@@ -248,6 +249,15 @@ public class TezosNodeClient {
 
   }
 
+  /// Run an arbitrary RPC.
+  ///
+  /// - Parameters:
+  ///   - rpc: The RPC to run.
+  ///   - completion : A completion block which handles the results of the RPC
+  public func run<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
+    networkClient.send(rpc, completion: completion)
+  }
+
   /// Inspect the value of a big map in a smart contract.
   ///
   /// - Parameters:
@@ -278,13 +288,37 @@ public class TezosNodeClient {
     self.run(rpc, completion: completion)
   }
 
-  /// Run an arbitrary RPC.
+  /// Retrieve a value from a big map. 
   ///
   /// - Parameters:
-  ///   - rpc: The RPC to run.
-  ///   - completion : A completion block which handles the results of the RPC
-  public func run<T>(_ rpc: RPC<T>, completion: @escaping (Result<T, TezosKitError>) -> Void) {
-    self.networkClient.send(rpc, completion: completion)
+  ///   - bigMapID: The ID of the big map.
+  ///   - key: The key in the big map to look up.
+  ///   - type: The michelson type of the key.
+  ///   - completion: A completion block to call.  
+  public func getBigMapValue(
+    bigMapID: BigInt,
+    key: MichelsonParameter,
+    type: MichelsonComparable,
+    completion: @escaping (Result<[String: Any], TezosKitError>) -> Void
+  ) {
+    let payload = PackDataPayload(michelsonParameter: key, michelsonComparable: type)
+    let packDataRPC = PackDataRPC(payload: payload)
+
+    self.run(packDataRPC) { [weak self] result in
+      guard let self = self else {
+        return
+      }
+
+      guard case let .success(expression) = result else {
+        completion(
+          result.map { _ in [:] }
+        )
+        return
+      }
+
+      let bigMapValueRPC = GetBigMapValueByIDRPC(bigMapID: bigMapID, expression: expression)
+      self.run(bigMapValueRPC, completion: completion)
+    }
   }
 
   // MARK: - Operations

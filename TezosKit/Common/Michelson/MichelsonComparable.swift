@@ -13,4 +13,14 @@ public enum MichelsonComparable: String {
   case nat
   case string
   case timestamp
+
+  private enum JSON {
+    public enum Keys {
+      public static let prim = "prim"
+    }
+  }
+
+  public static func networkRepresentation(for type: MichelsonComparable) -> [String: String] {
+    return [ JSON.Keys.prim: type.rawValue ]
+  }
 }

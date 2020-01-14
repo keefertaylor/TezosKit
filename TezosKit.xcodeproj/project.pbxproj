@@ -34,6 +34,7 @@
 		1283CBD6F35544031013F520 /* ConseilEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C935B8FA02AA0F4D639B200 /* ConseilEntity.swift */; };
 		142AB23ED4D91C70AF3695C1 /* OperationWithCounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E2A45E6EB2DCA9A6D1E3F /* OperationWithCounterTest.swift */; };
 		150BC04519380FB34ABE25AF /* OperationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB59AEAEB019E7B641B448B1 /* OperationFactory.swift */; };
+		154FD7E8B299099904F4FD66 /* GetBigMapValueByID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DC175F77A75BF249FD6180 /* GetBigMapValueByID.swift */; };
 		156B321DCC4509F69AFDFEEE /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207E6BD1F08A190CAD16F7AA /* OperationFeePolicy.swift */; };
 		1625E43AF077065705ADBFFD /* GetProposalsListRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C714AAB4A35FE0C6B5BEB154 /* GetProposalsListRPC.swift */; };
 		17502DA144CE9470DAEB95AA /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E212CD2F0656857B66156D04 /* NetworkClient.swift */; };
@@ -82,6 +83,7 @@
 		32144B5BCBA06B8114DF0F0D /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A480E400F3C3D065639376F4 /* TezosNodeClientTests.swift */; };
 		323631CC9EF11EB971525EA6 /* Base58Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7284743A69C9A12186E4D67 /* Base58Swift.framework */; };
 		3255CEC47E34C92CFAD279ED /* SipHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 737132D7F972BD110818F565 /* SipHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		32D4E01A8FC1F543D5488856 /* PackDataPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510562653A6F7930885D3F55 /* PackDataPayload.swift */; };
 		344530B289ACAD25404E5452 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3BE4BAECB893457A44FC1 /* TestHelpers.swift */; };
 		34473DC68AF5DC541FC41AD8 /* SipHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 737132D7F972BD110818F565 /* SipHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		346B3C1348BED784D82EF921 /* OperationWithCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04781056C289A009489C072C /* OperationWithCounter.swift */; };
@@ -279,6 +281,7 @@
 		A5BA4DFA80A9734ED61F1BC6 /* InjectOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090B8A708287039DE6178F4 /* InjectOperationRPCTest.swift */; };
 		A78894097ED7DAEF4506FFDE /* RunOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E029B048FAFC8D60F794D0 /* RunOperationPayload.swift */; };
 		A88030B456653F6A73CC5077 /* DexterExchangeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274BAF5E1A4B223F09042484 /* DexterExchangeClientTests.swift */; };
+		AA3BDE0C47B0E314CC7C7A52 /* GetBigMapValueByID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DC175F77A75BF249FD6180 /* GetBigMapValueByID.swift */; };
 		AA82E884F2075A30018067CC /* DexterExchangeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274BAF5E1A4B223F09042484 /* DexterExchangeClientTests.swift */; };
 		AB844D81BBE08DCFBD9FFF79 /* ForgingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99191D08E7D0F08C52254D6B /* ForgingPolicy.swift */; };
 		ABAB89B9D4772B56744185DA /* GetReceivedTransactions.RPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0675B789B9F5EF98BC4E4568 /* GetReceivedTransactions.RPC.swift */; };
@@ -413,6 +416,7 @@
 		F5EE3E4DED51F38477AED282 /* AbstractMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A19E59C8D7BEEA9368BE4 /* AbstractMichelsonParameter.swift */; };
 		F64A31F20AFD809EE41CCA02 /* OperationFactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A33A07A0728F3091018D933 /* OperationFactoryTest.swift */; };
 		F67AA457A2052215F46D22C3 /* ConseilClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1968AE0A3A2B4DAD756FD72 /* ConseilClientIntegrationTests.swift */; };
+		F71BD51C6A8C3F5CB182AE41 /* PackDataPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510562653A6F7930885D3F55 /* PackDataPayload.swift */; };
 		F7DA8FC104D17AEC891A61BE /* StringResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7B474664A9C0C8EA93EA08 /* StringResponseAdapterTest.swift */; };
 		F808CE08290F42ED19C06B78 /* IntegerResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC964601A972639F6CEDDF75 /* IntegerResponseAdapterTest.swift */; };
 		F9BE3DBB7109326574DD8821 /* GetBigMapValueRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0577D28D7A8761465FE76F9 /* GetBigMapValueRPC.swift */; };
@@ -597,9 +601,11 @@
 		407B756EB7320CC968E1C2ED /* GetProposalUnderEvaluationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPC.swift; sourceTree = "<group>"; };
 		4090B8A708287039DE6178F4 /* InjectOperationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectOperationRPCTest.swift; sourceTree = "<group>"; };
 		443F94AEAF2C38E5B751E7EC /* InjectionServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectionServiceTest.swift; sourceTree = "<group>"; };
+		45DC175F77A75BF249FD6180 /* GetBigMapValueByID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueByID.swift; sourceTree = "<group>"; };
 		47259C26A53DB562B22F087B /* CodingUtilTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUtilTest.swift; sourceTree = "<group>"; };
 		4C935B8FA02AA0F4D639B200 /* ConseilEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilEntity.swift; sourceTree = "<group>"; };
 		4E006B0AA63CD2D50D07762F /* GetExpectedQuorumRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetExpectedQuorumRPC.swift; sourceTree = "<group>"; };
+		510562653A6F7930885D3F55 /* PackDataPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackDataPayload.swift; sourceTree = "<group>"; };
 		525C931C7CD120487B51DA9A /* MichelsonComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MichelsonComparable.swift; sourceTree = "<group>"; };
 		53BA885B9E3E1F6BA3693A3F /* SignedProtocolOperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedProtocolOperationPayload.swift; sourceTree = "<group>"; };
 		55B2484FD06C8D95BB5ACDCC /* ConseilClientIntegrationTests+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConseilClientIntegrationTests+Promises.swift"; sourceTree = "<group>"; };
@@ -1247,6 +1253,7 @@
 			isa = PBXGroup;
 			children = (
 				7B2A43B6B3647D2CE712D1B0 /* OperationPayload.swift */,
+				510562653A6F7930885D3F55 /* PackDataPayload.swift */,
 				78E029B048FAFC8D60F794D0 /* RunOperationPayload.swift */,
 				A700A211C7AB1E92C5D7C3F4 /* SignedOperationPayload.swift */,
 				AD2FD2E17433D630AA933B5B /* SignedProtocolOperationPayload.swift */,
@@ -1264,6 +1271,7 @@
 				B01627EE910CBE5821502281 /* GetAddressManagerKeyRPC.swift */,
 				7DF606714D021D4EFFA07E6A /* GetBallotsListRPC.swift */,
 				B84952454AD66BD8E378047D /* GetBallotsRPC.swift */,
+				45DC175F77A75BF249FD6180 /* GetBigMapValueByID.swift */,
 				F0577D28D7A8761465FE76F9 /* GetBigMapValueRPC.swift */,
 				CCEA4823FE108BF24AC51A10 /* GetChainHeadHashRPC.swift */,
 				38FFC7595908A6BC3424370C /* GetChainHeadRPC.swift */,
@@ -1640,6 +1648,7 @@
 				26684AB4366572B8B2CD89D5 /* GetAddressManagerKeyRPC.swift in Sources */,
 				19BF852742C7D35BD097808B /* GetBallotsListRPC.swift in Sources */,
 				69D1108BBFEF81261566FF65 /* GetBallotsRPC.swift in Sources */,
+				154FD7E8B299099904F4FD66 /* GetBigMapValueByID.swift in Sources */,
 				F9BE3DBB7109326574DD8821 /* GetBigMapValueRPC.swift in Sources */,
 				A119F0B0B84DED49D2BDF2A0 /* GetChainHeadHashRPC.swift in Sources */,
 				0CD4F987EE82D3CEA1D6FD07 /* GetChainHeadRPC.swift in Sources */,
@@ -1680,6 +1689,7 @@
 				963E92E6248582A1CD1D9468 /* OperationPayload.swift in Sources */,
 				85BC63DB233D9E4663D05D6B /* OperationPayloadFactory.swift in Sources */,
 				346B3C1348BED784D82EF921 /* OperationWithCounter.swift in Sources */,
+				F71BD51C6A8C3F5CB182AE41 /* PackDataPayload.swift in Sources */,
 				FBC6C42F1CA1E2C3347610A9 /* PackDataRPC.swift in Sources */,
 				58C7A5EADB3679DB8A4CB288 /* PackDataResponseAdapter.swift in Sources */,
 				CA01543E526BB78E930BE2BE /* PairMichelsonParameter.swift in Sources */,
@@ -1843,6 +1853,7 @@
 				565974251F53ED2304F67976 /* GetAddressManagerKeyRPC.swift in Sources */,
 				E99BFF3E63A3086672E2E46D /* GetBallotsListRPC.swift in Sources */,
 				21DFB6D5F1C38A65473294A4 /* GetBallotsRPC.swift in Sources */,
+				AA3BDE0C47B0E314CC7C7A52 /* GetBigMapValueByID.swift in Sources */,
 				BCE3F98F723E8ED5400723A1 /* GetBigMapValueRPC.swift in Sources */,
 				C59529A854409FB4806D2369 /* GetChainHeadHashRPC.swift in Sources */,
 				2699AF538FEBA53B91818459 /* GetChainHeadRPC.swift in Sources */,
@@ -1883,6 +1894,7 @@
 				B481FCFB6820FB7C37019455 /* OperationPayload.swift in Sources */,
 				F20D1C720BE42B84FF5C3F60 /* OperationPayloadFactory.swift in Sources */,
 				9C490216EE45DD3B2D5FA043 /* OperationWithCounter.swift in Sources */,
+				32D4E01A8FC1F543D5488856 /* PackDataPayload.swift in Sources */,
 				874E720C50CA30079F31F127 /* PackDataRPC.swift in Sources */,
 				23845BE3533EAB49AF8FFB9C /* PackDataResponseAdapter.swift in Sources */,
 				84835281C8BB752513193EC6 /* PairMichelsonParameter.swift in Sources */,
