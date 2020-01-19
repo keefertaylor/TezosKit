@@ -14,11 +14,11 @@ import XCTest
 ///
 /// Before running the tests, you should make sure that there's sufficient tokens in the owners account (which is
 /// tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW) and liquidity in the exchange:
-/// Exchange: https://alphanet.tzscan.io/KT18dHMg7xWwRvo2TA9DSkcPkaG3AkDyEeKB
-/// Address: https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
+/// Exchange:  https://better-call.dev/babylon/KT1DnqXjsHHYwWaANmWhKCnodkNU9FtABzcq
+/// Address: https://babylonnet.tzstats.com/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
-  public static let exchangeContractAddress = "KT18dHMg7xWwRvo2TA9DSkcPkaG3AkDyEeKB"
+  public static let exchangeContractAddress = "KT1DnqXjsHHYwWaANmWhKCnodkNU9FtABzcq"
 }
 
 class DexterExchangeClientIntegrationTests: XCTestCase {
@@ -109,8 +109,9 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
     let completionExpectation = XCTestExpectation(description: "Completion called")
 
     let deadline = Date().addingTimeInterval(24 * 60 * 60) // 24 hours in the future
-    exchangeClient.withdrawLiquidity(
+    exchangeClient.removeLiquidity(
       from: Wallet.testWallet.address,
+      destination: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       liquidityBurned: 100,
       tezToWidthdraw: Tez(0.000_001),
@@ -162,6 +163,7 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
 
     exchangeClient.tradeTokenForTez(
       source: Wallet.testWallet.address,
+      destination: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
       tokensToSell: 1,
       minTezToBuy: Tez(0.000_001),

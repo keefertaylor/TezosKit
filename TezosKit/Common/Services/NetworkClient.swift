@@ -109,6 +109,7 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
 
+    print("request to \(remoteNodeEndpoint)")
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
         return
