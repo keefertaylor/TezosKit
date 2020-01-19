@@ -63,6 +63,28 @@ class TokenContractClientIntegrationTests: XCTestCase {
     wait(for: [ completionExpectation ], timeout: .expectationTimeout)
   }
 
+  public func testApproveAllowanceTokens() {
+    let completionExpectation = XCTestExpectation(description: "Completion called")
+
+    tokenContractClient.approveAllowance(
+      source: Wallet.tokenOwner.address,
+      spender: Address.tokenRecipient,
+      allowance: 1,
+      signatureProvider: Wallet.tokenOwner
+    ) { result in
+      switch result {
+      case .success(let hash):
+        print(hash)
+        completionExpectation.fulfill()
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      }
+    }
+
+    wait(for: [ completionExpectation ], timeout: .expectationTimeout)
+  }
+
   public func testGetBalance() {
     let completionExpectation = XCTestExpectation(description: "Completion called")
 

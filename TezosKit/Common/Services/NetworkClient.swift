@@ -94,7 +94,6 @@ public class NetworkClientImpl: NetworkClient {
       let payload = rpc.payload,
       let payloadData = payload.data(using: .utf8)
     {
-      print("payload: \(payload)")
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
@@ -115,10 +114,6 @@ public class NetworkClientImpl: NetworkClient {
       guard let self = self else {
         return
       }
-
-      print("Data: \(String(data: data!, encoding: .utf8))")
-      print("Error: \(error)")
-      print("----------------------------------------")
 
       let result = self.responseHandler.handleResponse(
         response: response,

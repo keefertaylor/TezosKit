@@ -1,9 +1,14 @@
 // Copyright Keefer Taylor, 2019.
 
-/// A client for a token contract.
+/// A client for an  FA1.2 Token Contract.
 ///
-/// - See: https://gitlab.com/camlcase-dev/dexter
+/// - See: https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-7
 public class TokenContractClient {
+  private enum EntryPoint {
+    public static let approve = "approve"
+    public static let transfer = "transfer"
+  }
+
   private enum JSON {
     public enum Keys {
       public static let args = "args"
@@ -49,7 +54,6 @@ public class TokenContractClient {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let amount = Tez.zeroBalance
-    let entrypoint = "transfer"
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
@@ -61,7 +65,40 @@ public class TokenContractClient {
     tezosNodeClient.call(
       contract: tokenContractAddress,
       amount: amount,
-      entrypoint: entrypoint,
+      entrypoint: EntryPoint.transfer,
+      parameter: parameter,
+      source: source,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: .estimate,
+      completion: completion
+    )
+  }
+
+  /// Approve an allowance.
+  ///
+  /// - Parameters:
+  ///   - source: The address initiating the approval.
+  ///   - spender: The address being approved.
+  ///   - allowance: The number of tokens to approve.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - completion: A completion block called with the operation hash or an error.
+  public func approveAllowance(
+    source: Address,
+    spender: Address,
+    allowance: Int,
+    signatureProvider: SignatureProvider,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let amount = Tez.zeroBalance
+    let parameter = PairMichelsonParameter(
+      left: StringMichelsonParameter(string: spender),
+      right: IntMichelsonParameter(int: allowance)
+    )
+
+    tezosNodeClient.call(
+      contract: tokenContractAddress,
+      amount: amount,
+      entrypoint: EntryPoint.approve,
       parameter: parameter,
       source: source,
       signatureProvider: signatureProvider,
