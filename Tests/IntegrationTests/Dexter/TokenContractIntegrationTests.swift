@@ -14,11 +14,11 @@ import XCTest
 ///
 /// Before running the tests, you should make sure that there's sufficient tokens in the owners account (which is
 /// tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW) in the token contract at:
-/// Token Contract: https://alphanet.tzscan.io/KT1PARMPddZ9WD1MPmPthXYBCgErmxAHKBD8
+/// Token Contract: https://alphanet.tzscan.io/KT1SRbqoSpj6v4UoWFC95bv8o4qmkTdVRCyR
 /// Address: https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
-  public static let tokenContractAddress = "KT1LKSFTrGSDNfVbWV4JXRrqGRD8XDSv5NAU"
+  public static let tokenContractAddress = "KT1AG2ukm1QcwXycRmMAeahk3wMeXhWDnpTM"
   public static let tokenRecipient = "tz1XarY7qEahQBipuuNZ4vPw9MN6Ldyxv8G3"
 }
 

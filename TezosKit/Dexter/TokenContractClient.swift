@@ -49,20 +49,20 @@ public class TokenContractClient {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let amount = Tez.zeroBalance
-    let michelsonParameter = LeftMichelsonParameter(
-      arg: PairMichelsonParameter(
+    let entrypoint = "transfer"
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
-        right: PairMichelsonParameter(
-          left: StringMichelsonParameter(string: destination),
-          right: IntMichelsonParameter(int: numTokens)
-        )
-      )
+        right: StringMichelsonParameter(string: destination)
+      ),
+      right: IntMichelsonParameter(int: numTokens)
     )
 
     tezosNodeClient.call(
       contract: tokenContractAddress,
       amount: amount,
-      parameter: michelsonParameter,
+      entrypoint: entrypoint,
+      parameter: parameter,
       source: source,
       signatureProvider: signatureProvider,
       operationFeePolicy: .estimate,
@@ -77,8 +77,8 @@ public class TokenContractClient {
       guard
         case let .success(json) = result,
         let args = json[JSON.Keys.args] as? [ Any ],
-        let firstArg = args.first as? [ String: Any ],
-        let balanceString = firstArg[JSON.Keys.int] as? String,
+        let second = args[1] as? [String: Any],
+        let balanceString = second[JSON.Keys.int] as? String,
         let balance = Int(balanceString)
       else {
         completion(result.map { _ in 0 })
