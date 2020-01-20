@@ -89,9 +89,11 @@ public class NetworkClientImpl: NetworkClient {
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
-    if rpc.isPOSTRequest,
+    if
+      rpc.isPOSTRequest,
       let payload = rpc.payload,
-      let payloadData = payload.data(using: .utf8) {
+      let payloadData = payload.data(using: .utf8)
+    {
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData

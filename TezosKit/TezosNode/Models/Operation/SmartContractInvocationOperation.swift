@@ -57,6 +57,7 @@ public class SmartContractInvocationOperation: TransactionOperation {
   public override func mutableCopy(with zone: NSZone? = nil) -> Any {
     return SmartContractInvocationOperation(
       amount: amount,
+      entrypoint: entrypoint,
       parameter: parameter,
       source: source,
       destination: destination,

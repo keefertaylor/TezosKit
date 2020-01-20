@@ -14,11 +14,11 @@ import XCTest
 ///
 /// Before running the tests, you should make sure that there's sufficient tokens in the owners account (which is
 /// tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW) in the token contract at:
-/// Token Contract: https://alphanet.tzscan.io/KT1PARMPddZ9WD1MPmPthXYBCgErmxAHKBD8
-/// Address: https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
+/// Token Contract: https://better-call.dev/babylon/KT1U3cebEK95hbkg574qin45jLARg5PEV4yr
+/// Address: https://babylonnet.tzstats.com/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
-  public static let tokenContractAddress = "KT1LKSFTrGSDNfVbWV4JXRrqGRD8XDSv5NAU"
+  public static let tokenContractAddress = "KT1U3cebEK95hbkg574qin45jLARg5PEV4yr"
   public static let tokenRecipient = "tz1XarY7qEahQBipuuNZ4vPw9MN6Ldyxv8G3"
 }
 
@@ -48,6 +48,28 @@ class TokenContractClientIntegrationTests: XCTestCase {
       from: Wallet.tokenOwner.address,
       to: Address.tokenRecipient,
       numTokens: 1,
+      signatureProvider: Wallet.tokenOwner
+    ) { result in
+      switch result {
+      case .success(let hash):
+        print(hash)
+        completionExpectation.fulfill()
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      }
+    }
+
+    wait(for: [ completionExpectation ], timeout: .expectationTimeout)
+  }
+
+  public func testApproveAllowanceTokens() {
+    let completionExpectation = XCTestExpectation(description: "Completion called")
+
+    tokenContractClient.approveAllowance(
+      source: Wallet.tokenOwner.address,
+      spender: Address.tokenRecipient,
+      allowance: 1,
       signatureProvider: Wallet.tokenOwner
     ) { result in
       switch result {
