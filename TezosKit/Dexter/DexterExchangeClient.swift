@@ -2,16 +2,25 @@
 
 import Foundation
 
-private enum JSON {
-  public enum Keys {
-    public static let args = "args"
-    public static let int = "int"
-  }
-}
-
 /// A client for a DEXter exchange.
 /// - See: https://gitlab.com/camlcase-dev/dexter
 public class DexterExchangeClient {
+  /// JSON keys for network requests.
+  private enum JSON {
+    public enum Keys {
+      public static let args = "args"
+      public static let int = "int"
+    }
+  }
+
+  /// Entrypoints for smart contracts
+  private enum EntryPoint {
+    public static let addLiquidity = "addLiquidity"
+    public static let removeLiquidity = "removeLiquidity"
+    public static let tokenToXTZ = "tokenToXtz"
+    public static let xtzToToken = "xtzToToken"
+  }
+
   /// An underlying gateway to the Tezos Network.
   private let tezosNodeClient: TezosNodeClient
 
@@ -53,10 +62,12 @@ public class DexterExchangeClient {
         let args0 = json[JSON.Keys.args] as? [Any],
         let right0 = args0[1] as? [String: Any],
         let args1 = right0[JSON.Keys.args] as? [Any],
-        let right1 = args1[1] as? [String: Any],
+        let right1 = args1[0] as? [String: Any],
         let args2 = right1[JSON.Keys.args] as? [Any],
-        let left2 = args2[0] as? [String: Any],
-        let balanceString = left2[JSON.Keys.int] as? String,
+        let left2 = args2[1] as? [String: Any],
+        let args3 = left2[JSON.Keys.args] as? [Any],
+        let right2 = args3[1] as? [String: Any],
+        let balanceString = right2[JSON.Keys.int] as? String,
         let balance = Int(balanceString)
       else {
         completion(result.map { _ in 0 })
@@ -88,21 +99,21 @@ public class DexterExchangeClient {
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let parameter = LeftMichelsonParameter(
-      arg: LeftMichelsonParameter(
-        arg: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: minLiquidity),
-          right: PairMichelsonParameter(
-            left: IntMichelsonParameter(int: maxTokensDeposited),
-            right: StringMichelsonParameter(date: deadline)
-          )
-        )
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: StringMichelsonParameter(string: source),
+        right: IntMichelsonParameter(int: minLiquidity)
+      ),
+      right: PairMichelsonParameter(
+        left: IntMichelsonParameter(int: maxTokensDeposited),
+        right: StringMichelsonParameter(date: deadline)
       )
     )
 
     tezosNodeClient.call(
       contract: exchangeContractAddress,
       amount: amount,
+      entrypoint: EntryPoint.addLiquidity,
       parameter: parameter,
       source: source,
       signatureProvider: signatureProvider,
@@ -114,15 +125,17 @@ public class DexterExchangeClient {
   /// Withdraw liquidity from the exchange.
   ///
   /// - Parameters:
-  ///   - source: The address adding the liquidity
+  ///   - source: The address withdrawing the liquidity
+  ///   - destination: The location to withdraw the liquidity to.
   ///   - signatureProvider: An opaque object that can sign the operation.
   ///   - liquidityBurned: The amount of liquidity to remove from the exchange.
   ///   - tezToWithdraw: The amount of Tez to withdraw from the exchange.
   ///   - minTokensToWithdraw: The minimum number of tokens to withdraw.
   ///   - deadline: A deadline for the transaction to occur by.
   ///   - completion: A completion block which will be called with the result hash, if successful.
-  public func withdrawLiquidity(
+  public func removeLiquidity(
     from source: Address,
+    destination: Address,
     signatureProvider: SignatureProvider,
     liquidityBurned: Int,
     tezToWidthdraw: Tez,
@@ -135,24 +148,27 @@ public class DexterExchangeClient {
       return
     }
 
-    let parameter = LeftMichelsonParameter(
-      arg: RightMichelsonParameter(
-        arg: PairMichelsonParameter(
-          left: PairMichelsonParameter(
-            left: IntMichelsonParameter(int: liquidityBurned),
-            right: IntMichelsonParameter(int: mutezToWithdraw)
-          ),
-          right: PairMichelsonParameter(
-            left: IntMichelsonParameter(int: minTokensToWithdraw),
-            right: StringMichelsonParameter(date: deadline)
-          )
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: PairMichelsonParameter(
+          left: StringMichelsonParameter(string: source),
+          right: StringMichelsonParameter(string: destination)
+        ),
+        right: PairMichelsonParameter(
+          left: IntMichelsonParameter(int: liquidityBurned),
+          right: IntMichelsonParameter(int: mutezToWithdraw)
         )
+      ),
+      right: PairMichelsonParameter(
+        left: IntMichelsonParameter(int: minTokensToWithdraw),
+        right: StringMichelsonParameter(date: deadline)
       )
     )
 
     tezosNodeClient.call(
       contract: exchangeContractAddress,
       amount: Tez.zeroBalance,
+      entrypoint: EntryPoint.removeLiquidity,
       parameter: parameter,
       source: source,
       signatureProvider: signatureProvider,
@@ -180,18 +196,18 @@ public class DexterExchangeClient {
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let parameter = RightMichelsonParameter(
-      arg: LeftMichelsonParameter(
-        arg: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: minTokensToPurchase),
-          right: StringMichelsonParameter(date: deadline)
-        )
-      )
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: StringMichelsonParameter(string: source),
+        right: IntMichelsonParameter(int: minTokensToPurchase)
+      ),
+      right: StringMichelsonParameter(date: deadline)
     )
 
     tezosNodeClient.call(
       contract: exchangeContractAddress,
       amount: amount,
+      entrypoint: EntryPoint.xtzToToken,
       parameter: parameter,
       source: source,
       signatureProvider: signatureProvider,
@@ -204,6 +220,7 @@ public class DexterExchangeClient {
   ///
   /// - Parameters:
   ///   - source: The address making the trade.
+  ///   - destination: The destination for the tokens.
   ///   - signatureProvider: An opaque object that can sign the transaction.
   ///   - tokensToSell: The number of tokens to sell.
   ///   - minTezToBuy: The minimum number of Tez to buy.
@@ -211,6 +228,7 @@ public class DexterExchangeClient {
   ///   - completion: A completion block which will be called with the result hash, if successful.
   public func tradeTokenForTez(
     source: Address,
+    destination: Address,
     signatureProvider: SignatureProvider,
     tokensToSell: Int,
     minTezToBuy: Tez,
@@ -222,22 +240,23 @@ public class DexterExchangeClient {
       return
     }
 
-    let parameter = RightMichelsonParameter(
-      arg: RightMichelsonParameter(
-        arg: LeftMichelsonParameter(
-          arg: PairMichelsonParameter(
-              left: IntMichelsonParameter(int: tokensToSell),
-              right: PairMichelsonParameter(
-                left: IntMichelsonParameter(int: minMutezToBuy),
-                right: StringMichelsonParameter(date: deadline)
-              )
-            )
-          )
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: PairMichelsonParameter(
+          left: StringMichelsonParameter(string: source),
+          right: StringMichelsonParameter(string: destination)
+        ),
+        right: PairMichelsonParameter(
+          left: IntMichelsonParameter(int: tokensToSell),
+          right: IntMichelsonParameter(int: minMutezToBuy)
         )
-      )
+      ),
+      right: StringMichelsonParameter(date: deadline)
+    )
 
     tezosNodeClient.call(
       contract: exchangeContractAddress,
+      entrypoint: EntryPoint.tokenToXTZ,
       parameter: parameter,
       source: source,
       signatureProvider: signatureProvider,
