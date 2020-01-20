@@ -62,10 +62,12 @@ public class DexterExchangeClient {
         let args0 = json[JSON.Keys.args] as? [Any],
         let right0 = args0[1] as? [String: Any],
         let args1 = right0[JSON.Keys.args] as? [Any],
-        let right1 = args1[1] as? [String: Any],
+        let right1 = args1[0] as? [String: Any],
         let args2 = right1[JSON.Keys.args] as? [Any],
-        let left2 = args2[0] as? [String: Any],
-        let balanceString = left2[JSON.Keys.int] as? String,
+        let left2 = args2[1] as? [String: Any],
+        let args3 = left2[JSON.Keys.args] as? [Any],
+        let right2 = args3[1] as? [String: Any],
+        let balanceString = right2[JSON.Keys.int] as? String,
         let balance = Int(balanceString)
       else {
         completion(result.map { _ in 0 })
@@ -194,13 +196,12 @@ public class DexterExchangeClient {
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let parameter = RightMichelsonParameter(
-      arg: LeftMichelsonParameter(
-        arg: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: minTokensToPurchase),
-          right: StringMichelsonParameter(date: deadline)
-        )
-      )
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: StringMichelsonParameter(string: source),
+        right: IntMichelsonParameter(int: minTokensToPurchase)
+      ),
+      right: StringMichelsonParameter(date: deadline)
     )
 
     tezosNodeClient.call(

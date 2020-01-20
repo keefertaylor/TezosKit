@@ -14,11 +14,11 @@ import XCTest
 ///
 /// Before running the tests, you should make sure that there's sufficient tokens in the owners account (which is
 /// tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW) and liquidity in the exchange:
-/// Exchange:  https://better-call.dev/babylon/KT1DnqXjsHHYwWaANmWhKCnodkNU9FtABzcq
+/// Exchange:  https://better-call.dev/babylon/KT1DWDmibBTERCxFpTZXwi42AeF5Ug82vjto
 /// Address: https://babylonnet.tzstats.com/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
-  public static let exchangeContractAddress = "KT1DnqXjsHHYwWaANmWhKCnodkNU9FtABzcq"
+  public static let exchangeContractAddress = "KT1DWDmibBTERCxFpTZXwi42AeF5Ug82vjto"
 }
 
 class DexterExchangeClientIntegrationTests: XCTestCase {
@@ -89,7 +89,7 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
       amount: Tez(10.0),
       signatureProvider: Wallet.testWallet,
       minLiquidity: 1,
-      maxTokensDeposited: 10,
+      maxTokensDeposited: 100,
       deadline: deadline
     ) { result in
       switch result {
@@ -113,7 +113,7 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
       from: Wallet.testWallet.address,
       destination: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
-      liquidityBurned: 100,
+      liquidityBurned: 5_000_000,
       tezToWidthdraw: Tez(0.000_001),
       minTokensToWithdraw: 1,
       deadline: deadline
@@ -138,7 +138,7 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
 
     exchangeClient.tradeTezForToken(
       source: Wallet.testWallet.address,
-      amount: Tez(10.0),
+      amount: Tez(5.0),
       signatureProvider: Wallet.testWallet,
       minTokensToPurchase: 1,
       deadline: deadline
@@ -165,7 +165,7 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
       source: Wallet.testWallet.address,
       destination: Wallet.testWallet.address,
       signatureProvider: Wallet.testWallet,
-      tokensToSell: 1,
+      tokensToSell: 40,
       minTezToBuy: Tez(0.000_001),
       deadline: deadline
     ) { result in
