@@ -14,7 +14,7 @@ import XCTest
 ///
 /// Before running the tests, you should make sure that there's sufficient tokens in the owners account (which is
 /// tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW) and liquidity in the exchange:
-/// Exchange:  https://better-call.dev/babylon/KT1DWDmibBTERCxFpTZXwi42AeF5Ug82vjto
+/// Exchange: https://better-call.dev/babylon/KT1DWDmibBTERCxFpTZXwi42AeF5Ug82vjto
 /// Address: https://babylonnet.tzstats.com/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW
 
 extension Address {
