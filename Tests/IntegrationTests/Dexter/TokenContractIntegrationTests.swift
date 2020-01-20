@@ -68,7 +68,7 @@ class TokenContractClientIntegrationTests: XCTestCase {
 
     tokenContractClient.approveAllowance(
       source: Wallet.tokenOwner.address,
-      spender: "KT1DWDmibBTERCxFpTZXwi42AeF5Ug82vjto", //Address.tokenRecipient,
+      spender: Address.exchangeContractAddress,
       allowance: 500,
       signatureProvider: Wallet.tokenOwner
     ) { result in
