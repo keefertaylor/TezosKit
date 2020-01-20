@@ -89,8 +89,9 @@ final class DexterExchangeClientTests: XCTestCase {
   func testWithdrawLiquidity() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    exchangeClient?.withdrawLiquidity(
+    exchangeClient?.removeLiquidity(
       from: Address.testAddress,
+      destination: Address.testAddress,
       signatureProvider: FakeSignatureProvider.testSignatureProvider,
       liquidityBurned: 1,
       tezToWidthdraw: Tez(1.0),
@@ -134,6 +135,7 @@ final class DexterExchangeClientTests: XCTestCase {
 
     exchangeClient?.tradeTokenForTez(
       source: .testAddress,
+      destination: .testAddress,
       signatureProvider: FakeSignatureProvider.testSignatureProvider,
       tokensToSell: 1,
       minTezToBuy: Tez(1.0),
