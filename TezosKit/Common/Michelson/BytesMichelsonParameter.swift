@@ -5,7 +5,7 @@ import Foundation
 /// A representation of a bytes parameter in Michelson.
 public class BytesMichelsonParameter: AbstractMichelsonParameter {
   public convenience init?(bytes: [UInt8], annotations: [MichelsonAnnotation]? = nil) {
-    guard let hex = CodingUtil.binToHex(bytes) else {
+    guard let hex = CryptoUtils.binToHex(bytes) else {
       return nil
     }
     self.init(hex: hex, annotations: annotations)

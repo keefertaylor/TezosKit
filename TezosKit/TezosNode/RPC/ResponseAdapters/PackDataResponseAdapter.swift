@@ -10,7 +10,7 @@ public class PackDataResponseAdapter: AbstractResponseAdapter<String> {
     guard
       let dictionary = JSONDictionaryResponseAdapter.parse(input: input),
       let packedHex = dictionary["packed"] as? String,
-      let packedBinary = CodingUtil.hexToBin(packedHex)
+      let packedBinary = CryptoUtils.hexToBin(packedHex)
     else {
       return nil
     }

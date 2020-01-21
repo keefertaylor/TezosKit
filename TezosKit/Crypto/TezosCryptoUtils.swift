@@ -7,7 +7,8 @@ import Foundation
 import Sodium
 
 /// A static helper class that provides utility functions for cyptography.
-public enum TezosCryptoUtils {
+// TODO(keefertaylor): Modify file name.
+public enum CryptoUtils {
   /// Check that a given address is valid public key hash.
   public static func validateAddress(address: String) -> Bool {
     // Decode bytes. This call verifies the checksum is correct.
@@ -35,7 +36,7 @@ public enum TezosCryptoUtils {
 
   /// Convert signature bytes to their base58 representation.
   public static func base58(signature: [UInt8]) -> String? {
-    return Base58.encode(message: signature, prefix: TezosCrypto.Prefix.Sign.signature)
+    return Base58.encode(message: signature, prefix: Prefix.Sign.signature)
   }
 
   /// Create injectable hex bytes from the given hex operation and signature bytes

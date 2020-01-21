@@ -37,11 +37,11 @@ public struct Wallet {
   ///   - passphrase: An optional passphrase used for encryption.
   public init?(mnemonic: String, passphrase: String = "") {
     guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-      let secretKey = TezosCrypto.SecretKey(seedString: seedString) else {
+      let secretKey = SecretKey(seedString: seedString) else {
       return nil
     }
 
-    let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
+    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .ed25519)
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey, mnemonic: mnemonic)
   }
@@ -50,11 +50,11 @@ public struct Wallet {
   ///
   /// - Parameter secretKey: A base58check encoded secret key, prefixed with "edsk".
   public init?(secretKey: String) {
-    guard let secretKey = TezosCrypto.SecretKey(secretKey) else {
+    guard let secretKey = SecretKey(secretKey) else {
       return nil
     }
 
-    let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
+    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .ed25519)
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey)
   }

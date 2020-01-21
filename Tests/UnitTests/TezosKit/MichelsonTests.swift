@@ -102,7 +102,7 @@ final class MichelsonTests: XCTestCase {
   }
 
   func testEncodeBinaryBytesToJSON() {
-    let bytes = CodingUtil.hexToBin("deadbeef")!
+    let bytes = CryptoUtils.hexToBin("deadbeef")!
     let michelson = BytesMichelsonParameter(bytes: bytes)!
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonBytesEncoding))

@@ -3,10 +3,6 @@
 import Foundation
 @testable import TezosKit
 
-public struct FakePublicKey: TezosKit.PublicKey {
-  public let base58CheckRepresentation: String
-}
-
 /// A fake SignatureProvider.
 public class FakeSignatureProvider: SignatureProvider {
   private let signature: [UInt8]
