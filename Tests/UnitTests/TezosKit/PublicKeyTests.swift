@@ -1,7 +1,7 @@
 // Copyright Keefer Taylor, 2019
 
 import Foundation
-import TezosCrypto
+import TezosKit
 import XCTest
 
 final class PublicKeyTests: XCTestCase {

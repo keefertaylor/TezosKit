@@ -3,7 +3,7 @@
 import Base58Swift
 import Foundation
 
-/// Helper functions on Base58Swift for TezosCrypto
+/// Helper functions on Base58Swift.
 extension Base58 {
   /// Encode a Base58Check string from the given message and prefix.
   ///

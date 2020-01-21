@@ -1,12 +1,12 @@
 // Copyright Keefer Taylor, 2019
 
-import TezosCrypto
+import TezosKit
 import XCTest
 
 // swiftlint:disable todo
 // TODO: Re-enable
 
-class TezosCryptoTests: XCTestCase {
+class CryptoUtilsTest: XCTestCase {
   public func testValidateAddress() {
     let validAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPH"
     let validOriginatedAddress = "KT1Agon3ARPS7U74UedWpR96j1CCbPCsSTsL"
@@ -14,11 +14,11 @@ class TezosCryptoTests: XCTestCase {
     let publicKey = "edpkvESBNf3cbx7sb4CjyurMxFJjCkUVkunDMjsXD4Squoo5nJR4L4"
     let nonBase58Address = "tz10ol1OLscph"
 
-    XCTAssertTrue(TezosCryptoUtils.validateAddress(address: validAddress))
-    XCTAssertFalse(TezosCryptoUtils.validateAddress(address: validOriginatedAddress))
-    XCTAssertFalse(TezosCryptoUtils.validateAddress(address: invalidAddress))
-    XCTAssertFalse(TezosCryptoUtils.validateAddress(address: publicKey))
-    XCTAssertFalse(TezosCryptoUtils.validateAddress(address: nonBase58Address))
+    XCTAssertTrue(CryptoUtils.validateAddress(address: validAddress))
+    XCTAssertFalse(CryptoUtils.validateAddress(address: validOriginatedAddress))
+    XCTAssertFalse(CryptoUtils.validateAddress(address: invalidAddress))
+    XCTAssertFalse(CryptoUtils.validateAddress(address: publicKey))
+    XCTAssertFalse(CryptoUtils.validateAddress(address: nonBase58Address))
   }
 
   public func testBase58Representation() {
@@ -29,7 +29,7 @@ class TezosCryptoTests: XCTestCase {
         121, 43, 25, 235, 97, 235, 140, 144, 168, 32, 75, 190, 101, 126, 99, 117, 13
       ]
 
-    let base58Representation = TezosCryptoUtils.base58(signature: signature)
+    let base58Representation = CryptoUtils.base58(signature: signature)
     XCTAssertEqual(
       base58Representation,
       "edsigu13UN5tAjQsxaLmXL7vCXM9BRggVDygne5LDZs7fHNH61PXfgbmXaAAq63GR8gqgeqa3aYNH4dnv18LdHaSCetC9sSJUCF"
@@ -37,16 +37,16 @@ class TezosCryptoTests: XCTestCase {
   }
 
   public func testHexToBin() {
-    XCTAssertEqual(TezosCryptoUtils.hexToBin("1234"), [18, 52])
+    XCTAssertEqual(CryptoUtils.hexToBin("1234"), [18, 52])
   }
 
   public func testBinToHex() {
-    XCTAssertEqual(TezosCryptoUtils.binToHex([18, 52]), "1234")
+    XCTAssertEqual(CryptoUtils.binToHex([18, 52]), "1234")
   }
 
   public func testInjectableBytes() {
     let hex = "deadbeef"
     let signature: [UInt8] = [18, 52]
-    XCTAssertEqual(TezosCryptoUtils.injectableHex(hex, signature: signature), "deadbeef1234")
+    XCTAssertEqual(CryptoUtils.injectableHex(hex, signature: signature), "deadbeef1234")
   }
 }
