@@ -3,7 +3,6 @@
 import Base58Swift
 import BigInt
 import Foundation
-import TezosCrypto
 
 /// TezosNodeClient is the gateway into the Tezos Network via a Tezos Node.
 ///
@@ -777,7 +776,7 @@ public class TezosNodeClient {
   ) {
     guard
       let signature = SigningService.sign(forgeResult, with: signatureProvider),
-      let signatureHex = TezosCryptoUtils.binToHex(signature),
+      let signatureHex = CryptoUtils.binToHex(signature),
       let signedBytesForInjection = JSONUtils.jsonString(for: forgeResult + signatureHex),
       let signedOperationPayload = SignedOperationPayload(
         operationPayload: operationPayload,

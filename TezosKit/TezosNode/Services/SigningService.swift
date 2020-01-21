@@ -2,7 +2,6 @@
 
 import Base58Swift
 import Foundation
-import TezosCrypto
 
 /// An opaque object which implements public key cryptography functions.
 public protocol SignatureProvider {

@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
-import TezosCrypto
 
 /// A model of a wallet in the Tezos ecosystem.
 ///

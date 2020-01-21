@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2019.
 
 import Foundation
-import TezosCrypto
 
 /// A payload for an operation and associated signature.
 public struct SignedOperationPayload {
@@ -23,7 +22,7 @@ public struct SignedOperationPayload {
   ///   - signature: The signature for the operation payload.
   public init?(operationPayload: OperationPayload, signature: [UInt8]) {
     self.operationPayload = operationPayload
-    guard let base58Signature = TezosCryptoUtils.base58(signature: signature) else {
+    guard let base58Signature = CryptoUtils.base58(signature: signature) else {
       return nil
     }
     self.base58Signature = base58Signature
