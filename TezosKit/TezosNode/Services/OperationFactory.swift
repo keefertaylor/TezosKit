@@ -40,7 +40,7 @@ public class OperationFactory {
   ///   - signatureProvider: A signature provider which can sign the operation.
   public func revealOperation(
     from address: Address,
-    publicKey: PublicKey,
+    publicKey: PublicKeyProtocol,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
   ) -> Operation? {

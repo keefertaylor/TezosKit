@@ -9,7 +9,7 @@ import TezosCrypto
 /// providing an mnemonic and optional passphrase.
 public struct Wallet {
   /// Keys for the wallet.
-  public let publicKey: PublicKey
+  public let publicKey: PublicKeyProtocol
   internal let secretKey: SecretKey
 
   /// A base58check encoded public key hash for the wallet, prefixed with "tz1" which represents an address in the Tezos

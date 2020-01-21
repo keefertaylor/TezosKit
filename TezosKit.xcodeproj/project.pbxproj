@@ -198,6 +198,7 @@
 		76FDABA9BB58D85B61F56E87 /* SignedOperationPayloadTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A461E89A11A327962A4232 /* SignedOperationPayloadTest.swift */; };
 		775E7DBBE39DCB0644DF5E42 /* UnitMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D650111C52C89A65467CC889 /* UnitMichelsonParameter.swift */; };
 		77A465AF8459D646E26EDDF4 /* GetContractStorageRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C07BA2584C54711181C33DE /* GetContractStorageRPC.swift */; };
+		77A722B7108EC761FCD7D318 /* PublicKeyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80BC8FA72641177E530F7E /* PublicKeyProtocol.swift */; };
 		77CF4AAA059852274EECC261 /* GetSentTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1564F45DEFBC0D755FAB0218 /* GetSentTransactionsRPC.swift */; };
 		7AC9104107B7C65E0157CDAA /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53D59AD9EA44F6B351A350F /* Transaction.swift */; };
 		7ADA70F21D418E673B3D1FC2 /* TezosCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39FE75C2C5F5177A3F3C6752 /* TezosCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -370,6 +371,7 @@
 		D7BE1B36BA48E3EF78E8D88A /* TezosProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059E31F2A63807B325D4115 /* TezosProtocol.swift */; };
 		D7BF3E0BD873DA969B967580 /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7032899C34EC0CB096B9A57C /* TezosNodeIntegrationTests.swift */; };
 		D867A7026A6E246C8319C0E4 /* AbstractOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5FAF254AF66B1A805ABF27 /* AbstractOperationTest.swift */; };
+		D8D3825EEB92B28B774C544C /* PublicKeyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80BC8FA72641177E530F7E /* PublicKeyProtocol.swift */; };
 		D98B97305EDA7C6CDEEB8533 /* JSONArrayResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C325259AE4DD3416B4F30 /* JSONArrayResponseAdapter.swift */; };
 		DA1F8FEB719BB06EB6E0B4CF /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD132F238141B3A1D24CC3 /* PublicKey.swift */; };
 		DAB2C96A2F10A124E40ABB1A /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61EDBE7577517E6ACF2498A2 /* MnemonicKit.framework */; };
@@ -700,6 +702,7 @@
 		AA46CF630A8512DF758EB2E2 /* ConseilEntityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilEntityTest.swift; sourceTree = "<group>"; };
 		AAF8AE07E00BB723F1C5F139 /* ForgeOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgeOperationRPC.swift; sourceTree = "<group>"; };
 		AB59AEAEB019E7B641B448B1 /* OperationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFactory.swift; sourceTree = "<group>"; };
+		AB80BC8FA72641177E530F7E /* PublicKeyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyProtocol.swift; sourceTree = "<group>"; };
 		AC64BA50EF400CF4B90951AA /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = "<group>"; };
 		AC964601A972639F6CEDDF75 /* IntegerResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerResponseAdapterTest.swift; sourceTree = "<group>"; };
 		AD2FD2E17433D630AA933B5B /* SignedProtocolOperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedProtocolOperationPayload.swift; sourceTree = "<group>"; };
@@ -1034,6 +1037,7 @@
 				0BB8C8A74A942774B715E706 /* EllipticalCurve.swift */,
 				0A77AE24F8BDC52A906F1A10 /* Prefixes.swift */,
 				D8DD132F238141B3A1D24CC3 /* PublicKey.swift */,
+				AB80BC8FA72641177E530F7E /* PublicKeyProtocol.swift */,
 				9EA478BD897E8082B638E6E0 /* SecretKey.swift */,
 				8373F22F20972134DC7B3DC4 /* Sodium+TezosCrypto.swift */,
 				56AF2EEB2DB071DCD75326C7 /* TezosCryptoUtils.swift */,
@@ -1728,6 +1732,7 @@
 				D3E2F1400C41E92F55451367 /* PreapplyOperationRPC.swift in Sources */,
 				657E1EEDBFB199F02B80A690 /* Prefixes.swift in Sources */,
 				61E11906D70DD8544DA137D7 /* PublicKey.swift in Sources */,
+				77A722B7108EC761FCD7D318 /* PublicKeyProtocol.swift in Sources */,
 				1F1BE8043A523F121852538E /* RPC.swift in Sources */,
 				491266272393A7957B05EC64 /* RPCResponseHandler.swift in Sources */,
 				8ADF28B51303B381B5BADF71 /* ResponseAdapter.swift in Sources */,
@@ -1938,6 +1943,7 @@
 				232A22C322ECB499CE1ABB97 /* PreapplyOperationRPC.swift in Sources */,
 				ED72915CAD746F7E86E36473 /* Prefixes.swift in Sources */,
 				DA1F8FEB719BB06EB6E0B4CF /* PublicKey.swift in Sources */,
+				D8D3825EEB92B28B774C544C /* PublicKeyProtocol.swift in Sources */,
 				003826423B0CED390C5BFF08 /* RPC.swift in Sources */,
 				D0504B3FFA0DF83B7DE3A235 /* RPCResponseHandler.swift in Sources */,
 				123CA667757617121345656F /* ResponseAdapter.swift in Sources */,
