@@ -7,7 +7,6 @@ import Foundation
 import Sodium
 
 /// A static helper class that provides utility functions for cyptography.
-// TODO(keefertaylor): Modify file name.
 public enum CryptoUtils {
   /// Check that a given address is valid public key hash.
   public static func validateAddress(address: String) -> Bool {
