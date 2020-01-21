@@ -39,7 +39,7 @@ public struct PublicKey {
   /// Initialize a public key with the given base58check encoded string.
   ///
   /// The string must begin with 'edpk'.
-  public init?(string: String, signingCurve: EllipticalCurve) {
+  public convenience init?(string: String, signingCurve: EllipticalCurve) {
     guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.public) else {
       return nil
     }
