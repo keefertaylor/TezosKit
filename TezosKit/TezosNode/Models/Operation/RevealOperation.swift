@@ -1,14 +1,13 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
-import TezosCrypto
 
 /// An operation to reveal an address.
 ///
 /// - Note: TezosKit will automatically inject this operation when required for supported operations.
 public class RevealOperation: AbstractOperation {
   /// The public key for the address being revealed.
-  private let publicKey: PublicKey
+  private let publicKey: PublicKeyProtocol
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
@@ -22,7 +21,7 @@ public class RevealOperation: AbstractOperation {
   ///   - address: The address to reveal.
   ///   - publicKey: The public key of the address to reveal.
   ///   - operationFees: OperationFees for the transaction.
-  public init(from address: Address, publicKey: PublicKey, operationFees: OperationFees) {
+  public init(from address: Address, publicKey: PublicKeyProtocol, operationFees: OperationFees) {
     self.publicKey = publicKey
     super.init(source: address, kind: .reveal, operationFees: operationFees)
   }

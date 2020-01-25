@@ -5,10 +5,10 @@ import XCTest
 
 class CryptoUtilTest: XCTestCase {
   public func testHexToBin() {
-    XCTAssertEqual(CodingUtil.hexToBin("1234"), [18, 52])
+    XCTAssertEqual(CryptoUtils.hexToBin("1234"), [18, 52])
   }
 
   public func testBinToHex() {
-    XCTAssertEqual(CodingUtil.binToHex([18, 52]), "1234")
+    XCTAssertEqual(CryptoUtils.binToHex([18, 52]), "1234")
   }
 }

@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
-import TezosCrypto
 
 /// A model of a wallet in the Tezos ecosystem.
 ///
@@ -9,7 +8,7 @@ import TezosCrypto
 /// providing an mnemonic and optional passphrase.
 public struct Wallet {
   /// Keys for the wallet.
-  public let publicKey: PublicKey
+  public let publicKey: PublicKeyProtocol
   internal let secretKey: SecretKey
 
   /// A base58check encoded public key hash for the wallet, prefixed with "tz1" which represents an address in the Tezos
@@ -37,11 +36,11 @@ public struct Wallet {
   ///   - passphrase: An optional passphrase used for encryption.
   public init?(mnemonic: String, passphrase: String = "") {
     guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-      let secretKey = TezosCrypto.SecretKey(seedString: seedString) else {
+      let secretKey = SecretKey(seedString: seedString) else {
       return nil
     }
 
-    let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
+    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .ed25519)
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey, mnemonic: mnemonic)
   }
@@ -50,11 +49,11 @@ public struct Wallet {
   ///
   /// - Parameter secretKey: A base58check encoded secret key, prefixed with "edsk".
   public init?(secretKey: String) {
-    guard let secretKey = TezosCrypto.SecretKey(secretKey) else {
+    guard let secretKey = SecretKey(secretKey) else {
       return nil
     }
 
-    let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
+    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .ed25519)
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey)
   }
