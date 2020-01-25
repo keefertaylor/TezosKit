@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2019
 
 import Foundation
-import TezosCrypto
 
 /// TezosNodeClient is the gateway into the Tezos Network via a Tezos Node.
 ///
@@ -171,6 +170,19 @@ public class TezosNodeClient: AbstractClient {
     operationFees: OperationFees? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
+    self.sendInternal(amount: amount, to: recipientAddress, from: source, keys: keys, parameters: parameters, operationFees: operationFees, completion: completion)
+  }
+
+  public func sendInternal(
+    amount: Tez,
+    to recipientAddress: String,
+    from source: String,
+    keys: Keys,
+    parameters: [String: Any]? = nil,
+    operationFees: OperationFees? = nil,
+    manager: EllipticCurveKeyPair.Manager? = nil,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
     let transactionOperation = TransactionOperation(
       amount: amount,
       source: source,
@@ -182,6 +194,7 @@ public class TezosNodeClient: AbstractClient {
       transactionOperation,
       source: source,
       keys: keys,
+      manager: manager,
       completion: completion
     )
   }
@@ -434,12 +447,14 @@ public class TezosNodeClient: AbstractClient {
     _ operation: Operation,
     source: String,
     keys: Keys,
+    manager: EllipticCurveKeyPair.Manager? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     forgeSignPreapplyAndInject(
       [operation],
       source: source,
       keys: keys,
+      manager: manager,
       completion: completion
     )
   }
@@ -457,6 +472,7 @@ public class TezosNodeClient: AbstractClient {
     _ operations: [Operation],
     source: String,
     keys: Keys,
+    manager: EllipticCurveKeyPair.Manager? = nil,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     getMetadataForOperation(address: source) { [weak self] result in
@@ -517,7 +533,7 @@ public class TezosNodeClient: AbstractClient {
     forgedPayload: String,
     keys: Keys
   ) -> (signedBytes: String, signedOperationPayload: SignedOperationPayload)? {
-    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
+    guard let secretKey = keys.secretKey as? CryptoSecretKey,
       let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
       let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {
       return nil
@@ -548,6 +564,7 @@ public class TezosNodeClient: AbstractClient {
     keys: Keys,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
+    print("FORGE RESULT: \(forgeResult)")
     guard let (signedBytes, signedOperationPayload) = sign(
       operationPayload: operationPayload,
       forgedPayload: forgeResult,
@@ -583,9 +600,10 @@ public class TezosNodeClient: AbstractClient {
     operationMetadata: OperationMetadata,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-      let preapplyOperationRPC = PreapplyOperationRPC(
-        signedProtocolOperationPayload: signedProtocolOperationPayload,
-        operationMetadata: operationMetadata
+    print("Signed proto: \(signedProtocolOperationPayload.dictionaryRepresentation)")
+    let preapplyOperationRPC = PreapplyOperationRPC(
+      signedProtocolOperationPayload: signedProtocolOperationPayload,
+      operationMetadata: operationMetadata
     )
     send(preapplyOperationRPC) { [weak self] result in
       guard let self = self else {

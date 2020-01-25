@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
-import TezosCrypto
 
 /// An operation to reveal an address.
 ///

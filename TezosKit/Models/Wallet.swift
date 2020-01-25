@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
-import TezosCrypto
 
 /// A model of a wallet in the Tezos ecosystem.
 ///
@@ -22,11 +21,11 @@ public struct Wallet {
   /// Create a new wallet by generating a mnemonic and encrypted with an optional passphrase.
   ///
   ///- Parameter passphrase: An optional passphrase used for encryption.
-  public init?(passphrase: String = "") {
+  public init?(passphrase: String = "", signingCurve: EllipticalCurve) {
     guard let mnemonic = MnemonicUtil.generateMnemonic() else {
       return nil
     }
-    self.init(mnemonic: mnemonic, passphrase: passphrase)
+    self.init(mnemonic: mnemonic, passphrase: passphrase, curve: signingCurve)
   }
 
   /// Create a new wallet with the given mnemonic and encrypted with an optional passphrase.
@@ -34,13 +33,13 @@ public struct Wallet {
   /// - Parameters:
   ///   - mnemonic: A space delimited string of english mnemonic words from the BIP39
   ///   - passphrase: An optional passphrase used for encryption.
-  public init?(mnemonic: String, passphrase: String = "") {
+  public init?(mnemonic: String, passphrase: String = "", curve: EllipticalCurve) {
     guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-      let secretKey = TezosCrypto.SecretKey(seedString: seedString) else {
+      let secretKey = CryptoSecretKey(seedString: seedString, signingCurve: curve) else {
       return nil
     }
 
-    let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
+    let publicKey = CryptoPublicKey(secretKey: secretKey, signingCurve: curve)
     let address = publicKey.publicKeyHash
     let keys = Keys(publicKey: publicKey, secretKey: secretKey)
     self.init(address: address, keys: keys, mnemonic: mnemonic)
@@ -49,12 +48,12 @@ public struct Wallet {
   /// Create a wallet with a given secret key.
   ///
   /// - Parameter secretKey: A base58check encoded secret key, prefixed with "edsk".
-  public init?(secretKey: String) {
-    guard let secretKey = TezosCrypto.SecretKey(secretKey) else {
+  public init?(secretKey: String, curve: EllipticalCurve) {
+    guard let secretKey = CryptoSecretKey(secretKey, signingCurve: curve) else {
       return nil
     }
 
-    let publicKey = TezosCrypto.PublicKey(secretKey: secretKey, signingCurve: .ed25519)
+    let publicKey = CryptoPublicKey(secretKey: secretKey, signingCurve: curve)
     let address = publicKey.publicKeyHash
     let keys = Keys(publicKey: publicKey, secretKey: secretKey)
     self.init(address: address, keys: keys)

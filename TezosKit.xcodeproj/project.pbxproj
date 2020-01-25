@@ -10,6 +10,18 @@
 		772F48A82224894E00DF0F9D /* TezosNodeIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */; };
 		772F48AA2224894E00DF0F9D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; };
 		7741B95D226DF5860005B398 /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */; };
+		7756A85A2276623F00608A9E /* SecretKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8502276623D00608A9E /* SecretKey.swift */; };
+		7756A85B2276623F00608A9E /* Sodium+TezosCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8512276623D00608A9E /* Sodium+TezosCrypto.swift */; };
+		7756A85C2276623F00608A9E /* Prefixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8522276623D00608A9E /* Prefixes.swift */; };
+		7756A85D2276623F00608A9E /* TezosCryptoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8532276623E00608A9E /* TezosCryptoUtils.swift */; };
+		7756A85E2276623F00608A9E /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8542276623E00608A9E /* PublicKey.swift */; };
+		7756A85F2276623F00608A9E /* Base58+TezosCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8552276623E00608A9E /* Base58+TezosCrypto.swift */; };
+		7756A8602276623F00608A9E /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8562276623E00608A9E /* KeyPair.swift */; };
+		7756A8612276623F00608A9E /* Secp256K1Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8572276623E00608A9E /* Secp256K1Utils.swift */; };
+		7756A8622276623F00608A9E /* EllipticalCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8582276623E00608A9E /* EllipticalCurve.swift */; };
+		7756A8632276623F00608A9E /* OperationSigningResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A8592276623E00608A9E /* OperationSigningResult.swift */; };
+		7756A865227662B000608A9E /* secp256k1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7756A864227662B000608A9E /* secp256k1.framework */; };
+		7756A86B2278D2B800608A9E /* Nist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A86A2278D2B800608A9E /* Nist.swift */; };
 		77633D532247EFE20011106A /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77633D522247EFE20011106A /* TezosNodeClientTests.swift */; };
 		7774780522221DE50010BA4D /* AbstractClientTest+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */; };
 		7774780B2222281B0010BA4D /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CE359621F7DC76006ADABA /* TezosKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -200,6 +212,18 @@
 		772F48A72224894E00DF0F9D /* TezosNodeIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeIntegrationTests.swift; sourceTree = "<group>"; };
 		772F48A92224894E00DF0F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7741B95C226DF5860005B398 /* GetOriginatedContractsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedContractsRPC.swift; sourceTree = "<group>"; };
+		7756A8502276623D00608A9E /* SecretKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecretKey.swift; path = TezosCrypto/SecretKey.swift; sourceTree = "<group>"; };
+		7756A8512276623D00608A9E /* Sodium+TezosCrypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Sodium+TezosCrypto.swift"; path = "TezosCrypto/Sodium+TezosCrypto.swift"; sourceTree = "<group>"; };
+		7756A8522276623D00608A9E /* Prefixes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Prefixes.swift; path = TezosCrypto/Prefixes.swift; sourceTree = "<group>"; };
+		7756A8532276623E00608A9E /* TezosCryptoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TezosCryptoUtils.swift; path = TezosCrypto/TezosCryptoUtils.swift; sourceTree = "<group>"; };
+		7756A8542276623E00608A9E /* PublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublicKey.swift; path = TezosCrypto/PublicKey.swift; sourceTree = "<group>"; };
+		7756A8552276623E00608A9E /* Base58+TezosCrypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Base58+TezosCrypto.swift"; path = "TezosCrypto/Base58+TezosCrypto.swift"; sourceTree = "<group>"; };
+		7756A8562276623E00608A9E /* KeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyPair.swift; path = TezosCrypto/KeyPair.swift; sourceTree = "<group>"; };
+		7756A8572276623E00608A9E /* Secp256K1Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secp256K1Utils.swift; path = TezosCrypto/Secp256K1Utils.swift; sourceTree = "<group>"; };
+		7756A8582276623E00608A9E /* EllipticalCurve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EllipticalCurve.swift; path = TezosCrypto/EllipticalCurve.swift; sourceTree = "<group>"; };
+		7756A8592276623E00608A9E /* OperationSigningResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperationSigningResult.swift; path = TezosCrypto/OperationSigningResult.swift; sourceTree = "<group>"; };
+		7756A864227662B000608A9E /* secp256k1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = secp256k1.framework; path = Carthage/Build/iOS/secp256k1.framework; sourceTree = "<group>"; };
+		7756A86A2278D2B800608A9E /* Nist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nist.swift; sourceTree = "<group>"; };
 		77633D522247EFE20011106A /* TezosNodeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClientTests.swift; sourceTree = "<group>"; };
 		7774780422221DE50010BA4D /* AbstractClientTest+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AbstractClientTest+Promises.swift"; sourceTree = "<group>"; };
 		7774780E222228E50010BA4D /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
@@ -354,6 +378,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7756A865227662B000608A9E /* secp256k1.framework in Frameworks */,
 				77F4D26C221F899800D34B01 /* PromiseKit.framework in Frameworks */,
 				77F4D2542218866E00D34B01 /* TezosCrypto.framework in Frameworks */,
 				77CE370721FBE67C006ADABA /* Sodium.framework in Frameworks */,
@@ -442,6 +467,17 @@
 		77CE358C21F7DC76006ADABA = {
 			isa = PBXGroup;
 			children = (
+				7756A8552276623E00608A9E /* Base58+TezosCrypto.swift */,
+				7756A86A2278D2B800608A9E /* Nist.swift */,
+				7756A8582276623E00608A9E /* EllipticalCurve.swift */,
+				7756A8562276623E00608A9E /* KeyPair.swift */,
+				7756A8592276623E00608A9E /* OperationSigningResult.swift */,
+				7756A8522276623D00608A9E /* Prefixes.swift */,
+				7756A8542276623E00608A9E /* PublicKey.swift */,
+				7756A8572276623E00608A9E /* Secp256K1Utils.swift */,
+				7756A8502276623D00608A9E /* SecretKey.swift */,
+				7756A8512276623D00608A9E /* Sodium+TezosCrypto.swift */,
+				7756A8532276623E00608A9E /* TezosCryptoUtils.swift */,
 				7774780E222228E50010BA4D /* PromiseKit.framework */,
 				7791E60F21FE862600957650 /* TezosKitExample.playground */,
 				77F4D26D22220C5200D34B01 /* Extensions */,
@@ -477,6 +513,7 @@
 		77CE362F21F7EF32006ADABA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7756A864227662B000608A9E /* secp256k1.framework */,
 				77F4D26B221F899800D34B01 /* PromiseKit.framework */,
 				77F4D2532218866E00D34B01 /* TezosCrypto.framework */,
 				77CE36B721F7F3D6006ADABA /* MnemonicKit.framework */,
@@ -847,6 +884,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/TezosCrypto.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Base58Swift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/secp256k1.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -860,6 +898,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/TezosCrypto.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Base58Swift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PromiseKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/secp256k1.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -903,9 +942,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7756A8622276623F00608A9E /* EllipticalCurve.swift in Sources */,
+				7756A85B2276623F00608A9E /* Sodium+TezosCrypto.swift in Sources */,
 				77B69EA4224C38C700DB4319 /* ConseilClient.swift in Sources */,
+				7756A86B2278D2B800608A9E /* Nist.swift in Sources */,
 				77CE386B21FC7ED8006ADABA /* IntegerResponseAdapter.swift in Sources */,
 				77CE385B21FC7ED8006ADABA /* OperationMetadata.swift in Sources */,
+				7756A85D2276623F00608A9E /* TezosCryptoUtils.swift in Sources */,
 				77CE387A21FC7ED8006ADABA /* PreapplyOperationRPC.swift in Sources */,
 				77CE387121FC7ED8006ADABA /* RPC.swift in Sources */,
 				77CE386321FC7ED8006ADABA /* GetAddressCounterRPC.swift in Sources */,
@@ -914,9 +957,11 @@
 				77CE385C21FC7ED8006ADABA /* OperationFees.swift in Sources */,
 				77B1EAF1222745F600EA4FCE /* RunOperationRPC.swift in Sources */,
 				77CE385821FC7ED8006ADABA /* MnemonicUtil.swift in Sources */,
+				7756A85A2276623F00608A9E /* SecretKey.swift in Sources */,
 				77CE384A21FC7ED8006ADABA /* RevealOperation.swift in Sources */,
 				77B1EAF52228839000EA4FCE /* OperationPayload.swift in Sources */,
 				77CE386A21FC7ED8006ADABA /* AbstractResponseAdapter.swift in Sources */,
+				7756A85F2276623F00608A9E /* Base58+TezosCrypto.swift in Sources */,
 				77CE387021FC7ED8006ADABA /* GetChainHeadRPC.swift in Sources */,
 				77CE387B21FC7ED8006ADABA /* GetExpectedQuorumRPC.swift in Sources */,
 				77B69EB7224E3F3A00DB4319 /* ConseilQuery.swift in Sources */,
@@ -951,6 +996,7 @@
 				77F4D25622189A5000D34B01 /* RPCResponseHandler.swift in Sources */,
 				77CE385721FC7ED8006ADABA /* JSONUtils.swift in Sources */,
 				77CE387521FC7ED8006ADABA /* GetProposalUnderEvaluationRPC.swift in Sources */,
+				7756A8632276623F00608A9E /* OperationSigningResult.swift in Sources */,
 				77CE387721FC7ED8006ADABA /* GetVotingDelegateRightsRPC.swift in Sources */,
 				77B1EAF922289B9800EA4FCE /* SignedProtocolOperationPayload.swift in Sources */,
 				77CE386121FC7ED8006ADABA /* GetAddressBalanceRPC.swift in Sources */,
@@ -958,17 +1004,21 @@
 				77CE387C21FC7ED8006ADABA /* TezosNodeClient.swift in Sources */,
 				77CE385E21FC7ED8006ADABA /* Wallet.swift in Sources */,
 				77CE384D21FC7ED8006ADABA /* TransactionOperation.swift in Sources */,
+				7756A8612276623F00608A9E /* Secp256K1Utils.swift in Sources */,
 				77CE386621FC7ED8006ADABA /* GetProposalsListRPC.swift in Sources */,
 				77CE387D21FC7ED8006ADABA /* TezosKitError.swift in Sources */,
 				77B69EAD224C424800DB4319 /* Transaction.swift in Sources */,
 				77CE384821FC7ED8006ADABA /* DelegationOperation.swift in Sources */,
 				77B69EAF224C435B00DB4319 /* TransactionsResponseAdapter.swift in Sources */,
 				77CE387621FC7ED8006ADABA /* GetCurrentPeriodKindRPC.swift in Sources */,
+				7756A8602276623F00608A9E /* KeyPair.swift in Sources */,
+				7756A85C2276623F00608A9E /* Prefixes.swift in Sources */,
 				77CE387921FC7ED8006ADABA /* ForgeOperationRPC.swift in Sources */,
 				77B69EB9224E5C6500DB4319 /* ConseilQueryRPC.swift in Sources */,
 				77B1EB06222A102500EA4FCE /* OperationWithCounter.swift in Sources */,
 				77CE385D21FC7ED8006ADABA /* PeriodKind.swift in Sources */,
 				77CE387321FC7ED8006ADABA /* GetAddressManagerKeyRPC.swift in Sources */,
+				7756A85E2276623F00608A9E /* PublicKey.swift in Sources */,
 				77B1EAF322275A4A00EA4FCE /* GasLimitPolicy.swift in Sources */,
 				77CE384921FC7ED8006ADABA /* AbstractOperation.swift in Sources */,
 				77CE387221FC7ED8006ADABA /* InjectOperationRPC.swift in Sources */,

@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
 import Foundation
-import TezosCrypto
 
 public protocol PublicKey {
   var base58CheckRepresentation: String { get }
@@ -23,8 +22,8 @@ extension Keys: Equatable {
   }
 }
 
-extension TezosCrypto.PublicKey: PublicKey {
+extension CryptoPublicKey: PublicKey {
 }
 
-extension TezosCrypto.SecretKey: SecretKey {
+extension CryptoSecretKey: SecretKey {
 }

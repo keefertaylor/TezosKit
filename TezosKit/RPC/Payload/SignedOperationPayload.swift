@@ -1,7 +1,6 @@
 // Copyright Keefer Taylor, 2019.
 
 import Foundation
-import TezosCrypto
 
 /// A payload for an operation and associated signature.
 public struct SignedOperationPayload {

@@ -62,7 +62,7 @@ extension TezosNodeIntegrationTests {
     wait(for: [checkDelegateClearedExpectation], timeout: .expectationTimeout)
 
     // Create a new account, send it some XTZ.
-    let baker = Wallet()!
+    let baker = Wallet(signingCurve: .ed25519)!
     let sendExpectation = XCTestExpectation(description: "sent xtz")
     self.nodeClient.send(
       amount: Tez(1),

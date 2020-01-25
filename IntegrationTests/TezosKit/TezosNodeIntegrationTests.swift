@@ -1,6 +1,6 @@
 // Copyright Keefer Taylor, 2019.
 
-import TezosKit
+@testable import TezosKit
 import XCTest
 
 // swiftlint:disable cyclomatic_complexity
@@ -26,7 +26,11 @@ import XCTest
 
 extension Wallet {
   public static let testWallet =
-    Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook")!
+    Wallet(
+      mnemonic:  "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook",
+      curve: EllipticalCurve.secp256k1
+    )!
+//    Wallet(mnemonic: "predict corn duty process brisk tomato shrimp virtual horror half rhythm cook", signingCurve: .ed25519)!
   public static let originatedAddress = "KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka"
 
   // An address which has originated contracts on it.
@@ -34,7 +38,7 @@ extension Wallet {
 }
 
 extension URL {
-  public static let nodeURL = URL(string: "http://127.0.0.1:8732")!
+  public static let nodeURL = URL(string: "http://alphanet-node.tzscan.io:80")! // URL(string: "http://127.0.0.1:8732")!
 }
 
 extension Double {
@@ -54,7 +58,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 30
+    let intertestWaitTime: UInt32 = 0
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -106,7 +110,7 @@ class TezosNodeIntegrationTests: XCTestCase {
     wait(for: [checkDelegateClearedExpectation], timeout: .expectationTimeout)
 
     // Create a new account, send it some XTZ.
-    let baker = Wallet()!
+    let baker = Wallet(signingCurve: .ed25519)!
     let sendExpectation = XCTestExpectation(description: "sent xtz")
     self.nodeClient.send(
       amount: Tez(1),
@@ -224,7 +228,45 @@ class TezosNodeIntegrationTests: XCTestCase {
       switch result {
       case .failure:
         XCTFail()
-      case .success:
+      case .success(let result):
+        print("RESULT HASH: \(result)")
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  public func testSend_tz2() {
+    let secret = "spsk1zkqrmst1yg2c4xi3crWcZPqgdc9KtPtb9SAZWYHAdiQzdHy7j"
+    let expectedPublic = "sppk7aMNM3xh14haqEyaxNjSt7hXanCDyoWtRcxF8wbtya859ak6yZT"
+    let expectedPKH = "tz28YZoayJjVz2bRgGeVjxE8NonMiJ3r2Wdu"
+    let expectedSig = "spsig1RriZtYADyRhyNoQMa6AiPuJJ7AUDcrxWZfgqexzgANqMv4nXs6qsXDoXcoChBgmCcn2t7Y3EkJaVRuAmNh2cDDxWTdmsz"
+    let sigMessage = Array("test".data(using: .utf8)!)
+
+    let secretKey = CryptoSecretKey(secret, signingCurve: .secp256k1)!
+    XCTAssertEqual(secretKey.base58CheckRepresentation, secret)
+
+    let publicKey = CryptoPublicKey(secretKey: secretKey, signingCurve: .secp256k1)
+    XCTAssertEqual(publicKey.base58CheckRepresentation, expectedPublic)
+    XCTAssertEqual(publicKey.publicKeyHash, expectedPKH)
+
+    let k = Keys(publicKey: publicKey, secretKey: secretKey)
+
+    let expectation = XCTestExpectation(description: "completion called")
+
+    self.nodeClient.send(
+      amount: Tez("1")!,
+      to: "KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka",
+      from: publicKey.publicKeyHash,
+      keys: k
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print("ERR: \(error)")
+        XCTFail()
+      case .success(let result):
+        print("RESULT HASH: \(result)")
         expectation.fulfill()
       }
     }
@@ -309,4 +351,44 @@ class TezosNodeIntegrationTests: XCTestCase {
     }
     wait(for: [expectation], timeout: .expectationTimeout)
   }
+
+
+
+  public func testSend_tz3() {
+    let publicAccessControl = EllipticCurveKeyPair.AccessControl(protection: kSecAttrAccessibleAlwaysThisDeviceOnly, flags: [])
+    let privateAccessControl = EllipticCurveKeyPair.AccessControl(protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly, flags: [.userPresence, .privateKeyUsage])
+    let config = EllipticCurveKeyPair.Config(
+      publicLabel: "payment.sign.public",
+      privateLabel: "payment.sign.private",
+      operationPrompt: "Confirm payment",
+      publicKeyAccessControl: publicAccessControl,
+      privateKeyAccessControl: privateAccessControl,
+      token: .secureEnclave)
+    let manager = EllipticCurveKeyPair.Manager(config: config)
+    let keys = try! manager.keys()
+    
+
+    //    let k = Keys(publicKey: publicKey, secretKey: secretKey)
+
+    let expectation = XCTestExpectation(description: "completion called")
+//
+//    self.nodeClient.send(
+//      amount: Tez("1")!,
+//      to: "KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka",
+//      from: publicKey.publicKeyHash,
+//      keys: k
+//    ) { result in
+//      switch result {
+//      case .failure(let error):
+//        print("ERR: \(error)")
+//        XCTFail()
+//      case .success(let result):
+//        print("RESULT HASH: \(result)")
+//        expectation.fulfill()
+//      }
+//    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
 }

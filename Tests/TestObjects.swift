@@ -2,7 +2,6 @@
 
 import Foundation
 
-import TezosCrypto
 @testable import TezosKit
 
 /// Extensions to classes to provide static objects for testing.
