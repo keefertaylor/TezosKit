@@ -1,7 +1,15 @@
 // Copyright Keefer Taylor, 2019
 
+import Foundation
+
 /// A client for a Conseil Server.
-public class ConseilClient: AbstractClient {
+public class ConseilClient {
+  /// The network client.
+  public let networkClient: NetworkClient
+
+  /// The callback queue that all callbacks will be made on.
+  public let callbackQueue: DispatchQueue
+
   /// Initialize a new client for a Conseil Service.
   ///
   /// - Parameters:
@@ -11,7 +19,7 @@ public class ConseilClient: AbstractClient {
   ///   - network: The network to query, defaults to mainnet.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
-  public init(
+  public convenience init(
     remoteNodeURL: URL,
     apiKey: String,
     platform: ConseilPlatform = .tezos,
@@ -29,13 +37,33 @@ public class ConseilClient: AbstractClient {
       Header(field: "apiKey", value: apiKey)
     ]
 
-    super.init(
+    let networkClient = NetworkClientImpl(
       remoteNodeURL: nodeBaseURL,
       urlSession: urlSession,
       headers: headers,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
     )
+
+    self.init(
+      callbackQueue: callbackQueue,
+      networkClient: networkClient
+    )
+  }
+
+  /// Initialize a new client for a Conseil Service.
+  ///
+  /// This initializer allows a network client to be injected for testing.
+  ///
+  /// - Parameters:
+  ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
+  ///   - networkClient: A networkClient to use.
+  internal init(
+    callbackQueue: DispatchQueue = DispatchQueue.main,
+    networkClient: NetworkClient
+  ) {
+    self.networkClient = networkClient
+    self.callbackQueue = callbackQueue
   }
 
   /// Retrieve originated accounts.
@@ -50,7 +78,7 @@ public class ConseilClient: AbstractClient {
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
     let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve originated contracts.
@@ -65,7 +93,7 @@ public class ConseilClient: AbstractClient {
     completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
   ) {
     let rpc = GetOriginatedContractsRPC(account: account, limit: limit)
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve transactions both sent and received from an account.
@@ -136,7 +164,7 @@ public class ConseilClient: AbstractClient {
       account: account,
       limit: limit
     )
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   /// Retrieve transactions sent from an account.
@@ -154,7 +182,7 @@ public class ConseilClient: AbstractClient {
       account: account,
       limit: limit
     )
-    send(rpc, completion: completion)
+    networkClient.send(rpc, completion: completion)
   }
 
   // MARK: - Private Methods

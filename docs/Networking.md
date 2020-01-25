@@ -11,13 +11,13 @@ Internally, TezosKit uses a `URLSession` based network stack. The default sessio
 TezosKit's networking and request / response handling is comprised of three major components:
 * RPCs: Encapsulate the request to the node, including the endpoint to request, headers to send, and payload data.
 * Response Adapters: Encapsulates parsing the data returned from the API to the expected format
-* `AbstractClient`: A class which mediates the interaction between `URLSession`, RPC objects and Response Adapters
+* `NetworkClient`: A class which mediates the interaction between `URLSession`, RPC objects and Response Adapters
 
-### AbsractClient
+### `NetworkClient` 
 
-`AbstractClient` is a class which contians the core logic for transcribing `RPC` and `ResponseAdapter` objects into requests made to the network. `AbstractClient` provdes a closure callback style API as well as a [PromiseKit](https://github.com/mxcl/Promisekit) style API.
+`NetworkClient` is a class which contians the core logic for transcribing `RPC` and `ResponseAdapter` objects into requests made to the network. `NetworkClient` provdes a closure callback style API as well as a [PromiseKit](https://github.com/mxcl/Promisekit) style API.
 
-`AbstractClient` is the super class of both `TezosNodeClient` and `ConseilClient`. It holds onto immutable defaults that are constant throughout the lifetime of the client, including the `URLSession`, the URL of the service, and headers that are constant on all requests.
+A `NetworkClient` is instantiated internally in `ConseilClient` and `TezosClient`. `NetworkClients` are immutable and injected into subcomponents of the clients.
 
 ### Response Adapters
 

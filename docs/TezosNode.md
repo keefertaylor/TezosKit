@@ -4,7 +4,8 @@ A Tezos Node is the main entry point to the Tezos Network. The `TezosNodeClient`
 
 The `TezosNodeClient` API provides affordances to examine the state of the Tezos blockchain as well as to inject operations into the chain.
 
-Conseil functionality supports both `Result` style completion blocks or a promises API ([via PromiseKit](https://github.com/mxcl/PromiseKit))
+The `TezosNodeClient` functionality supports both `Result` style completion blocks or a promises API ([via PromiseKit](https://github.com/mxcl/PromiseKit))
+
 ## Getting Started
 The TezosNodeClient supports a wide set of functionality, which includes:
 * Getting account balances
@@ -17,14 +18,28 @@ The TezosNodeClient supports a wide set of functionality, which includes:
 * Registering as a delegate
 * Originating accounts
 * Examining upgrade votes
-* Deploying / Examining / Calling smart contracts
+* Invoking Smart Contracts
+* Examing smart contract storage or big maps
 
 ### TezosNodeClient Client
-Create a `TezosNodeClient` that will connect to a remote Conseil service.
+Create a `TezosNodeClient` that will connect to a remote Tezos Node service.
 ```swift
 let publicNodeURL = URL(string: "https://rpc.tezrpc.me")!
 let tezosNodeClient = TezosNodeClient(remoteNodeURL: publicNodeURL)
 ```
+
+#### Optional Parameters
+
+By default, `TezosNodeClient` provides sane defaults for most users. Some parameters in the initializer can be configured for extra functionality:
+
+|Parameter | Type | Default | Description |
+|---|---|---|---|
+|`remoteNodeURL` | `URL` | https://rpc.tezrpc.me | The URL for the remote Tezos Node. |
+|`tezosProtocol` | `TezosProtocol` | `.athens` | An enum describing the protocol running on the remote node |
+|`forgingPolicy` | `ForgingPolicy` | `.remote` | A policy which dictates how operations are forged |
+|`urlSession` | `URLSession` | `URLSession.Shared` | A URL session to use for network requests |
+|`callbackQueue` | `DispatchQueue` | `DispatchQueue.main` | A queue to execute callbacks on. |
+
 ### Wallets
 Every account on the Tezos Blockchain is represented by a `Wallet` object.  By default, wallets are created with an:
 - Address: The wallet's address on the blockchain. This is either a tz1, tz2, tz3 or KT1 address
@@ -76,6 +91,9 @@ let myWallet = Wallet()
 let secretKey = myWallet.keys.secret
 let newWallet = Wallet(secretKey: secretKey)
 ```
+
+### SignatureProvider
+The `SignatureProvider` protocol encompasses objects which can sign transactions. All `Wallet` objects in TezosKit are `SignatureProviders`.
 
 #### Hierarchical Derivation Wallets
 TezosKit does not yet support hierarchical derivation for wallets. This functionality will be delivered in a future update.
@@ -184,52 +202,54 @@ tezosNodeClient.delegate(
 }
 
 ```
-#### Fetch the code of a Smart Contract
-
-```swift
-  let contractAddress: String = ...
-  tezosNodeClient.getAddressCode(address: contractAddress) { result in
-     ...
-  }
-```  
-
-#### Deploy a Smart Contract 
-
-```swift
-  let wallet: Wallet = ...
-  let code: ContractCode = ...
-  tezosNodeClient.originateAccount(
-    managerAddress: wallet.address, 
-    keys: wallet.keys,
-    contractCode: contractCode
-  ) { result in
-    guard case let .success(txHash) = result else {
-      return
-    }
-    print("Originated a smart contract. See https://tzscan.io/\(txHash!)")
-  }
-```
 
 #### Call a Smart Contract
 
 Assuming a smart contract takes a single string as an argument:
 
 ```swift
-let txAmount: Tez = ...
-let wallet: Wallet = ...
-let contractAddr: String = ...
-let parameters = ["string": "argument_to_smart_contract"]   
+let operationFees = OperationFees(fee: Tez(1), gasLimit: 733_732, storageLimit: 0)
+let parameter =
+  RightMichelsonParameter(
+    arg: LeftMichelsonParameter(
+      arg: PairMichelsonParameter(
+        left: IntMichelsonParameter(int: 1),
+        right: StringMichelsonParameter(string: .testExpirationTimestamp)
+      )
+    )
+  )
+
 tezosNodeClient.send(
-  amount: txAmount, 
-  to: contractAddr, 
-  from: wallet.address,  
-  keys: wallet.keys, 
-  parameters: parameters
+  contract: Wallet.dexterExchangeContract,
+  amount: Tez(1.0),
+  parameter: parameter,
+  source: Wallet.testWallet.address,
+  signatureProvider: Wallet.testWallet,
+  operationFees: operationFees
 ) { result in
   guard case let .success(txHash) = result else {
     return
   }
   print("Called a smart contract. See https://tzscan.io/\(txHash!)")
+}
+```
+
+### Introspect Contract Storage
+```
+self.nodeClient.getContractStorage(address: Wallet.tokenContract) { result in
+  ...
+}
+```
+
+### Introspect A Big Map
+```
+let parameter = StringMichelsonParameter(string: "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt")
+self.nodeClient.getBigMapValue(
+  address: "KT1BVAXZQUc4BGo3WTJ7UML6diVaEbe4bLZA",
+  key: parameter,
+  type: .address
+) { result in
+  ...
 }
 ```
 

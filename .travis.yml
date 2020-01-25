@@ -1,35 +1,43 @@
 osx_image: xcode10.2
 language: swift
-cache:	
-  directories:	
+cache:
+  bundler: true
+  cocoapods: true
+  directories:
   - Carthage
 env:
   secure: ink5jhbtR9aGbiVzcrPP+jBLtYKmZ61uxmXmqwqsyAZip2zbL/tktXdLaeNhUnlJHazZF156rOFe5DFSElFmNYvpSZrXJCVMxwWKB+MJWQ879LUk6W4W65jTvkXKZmMrrUqwkOTNNMq0ycfs5tx+eFJBzHd3Z93OX0oKwb44ZjC1NC05LGJfOlZQs+7IWYKXu0XKpZ/Zo+n4jGxMPEaQCMifz8ac8WVAgsgXs5R3ANrAd6AtBHZqNLu+NzGi5FQ2u7M1EERWo69qAmmHQYKB9aYyERi4cU6KD3XF8B89szR3pH41avfYFs+ZqenF7yAm0dN5UoLBqHA5s+yBQ1kzZbvcCunEU88XjgeRuzwTUfyTq8RIN+BNzaAwSCgu/fNMaFLOZjYAXK+gtVm2elx69maC6N+hKpZblmgUtmaOQyXzY3pVNXdqCqqqzIrqSyvqPuuNSzLxjVFJUW8ycYEfB4Iywcwl74IlxWJ58WpeCgMW3cVE4l4kxw+ZWoVniumpVlp69QtgwHloUosOzmzoIwLjgEm6uGZvr3DIKKXwLZACtq8Oj7uhm8iNV4sU5eS0w+b+VC6gYCxI4yOZHWhwtBG4QtrKlEvXC0Gjy4rIXN0JuKiAHLZKiCr0YuCmks2xXv2INNnJAIBVlJ7URVY4OSY+eqCiWUSobO8n48Zu7gk=
 before_install:
-- gem install slather
-- gem install cocoapods
 - brew update
-- brew outdated carthage || brew upgrade carthage
-- travis_wait 120 carthage bootstrap --platform iOS --no-use-binaries --verbose
-before_deploy:
-- travis_wait 120 carthage build --no-skip-current --platform iOS --cache-builds
-- carthage archive $FRAMEWORK_NAME
-after_deploy:
-- travis_wait 120 pod trunk push --skip-import-validation --skip-tests --allow-warnings
-script:
-- set -o pipefail && xcodebuild test -scheme TezosKit -destination 'platform=iOS Simulator,name=iPhone
-  XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
-after_success:
-- slather
-- bash <(curl -s https://codecov.io/bash)
-after_failure:
-- cat /var/folders/17/5mc7816d3mndxjqgplq6057w0000gn/T/*.log
-deploy:
-  provider: releases
-  api_key:
-    secure: md8YfrZO/5WKAPmiIInTk7oWtc/B5FmibnEfwXeCGiVa+0N6CtcJNdQYFmYCxEm7+JCPXBKakk2UFM0T1eOAKOvnwqkxy+xP1aAxvjAP+1hpt8OVGtkXdmemoXNdxoQq+qqGLtfVtr5cVdeL1sqnpfKOdUQeCZXYcy8LL3oOuMwh3jn9bZbctVYTs7L1UD/p8tEFTdfxLxropQ+u96mXb1kmVkqKwzU4Sro6D9opHaGW2aHIJF3CVVAELr/pICM14HwMCvqhpZ8q3z9FhIdFab9EaFGZE9c7w00q+2wUdl0uoQJ7oe2nCtCYJj6Hh7onRUyc81e/MepEdQHyD5jLGmKbPpPFdGM+BjtVUfdvPAzV5kAp88HuqBAn++BVm2cT4wtawsUFsC4lnfR+0vBAxFU69L7JhxT744bc+X58XS+UUBFcAJsYlDU579iZWP0xFzZHjy+2q8PzuB/2iqY1n3aeSkkrHt7meAlmepzQUdJIM3BqUfibW/fqL/A5uhSOCHeaH70r24CkBlaUlQcOWUv5V48j99cae9vlNE/PJ68cC94LVz1t7jDM98sU6dCs7vgkPkYI4QzBKbnqCRk0MdvdwwATadmhjOJKtmJxm8tDmPAf4Gp9tLzCuDaokCd2HJpWUotmHy1DkM6+xGX4i3s21aU0U81bgQgYJFV1BWk=
-  file: "$FRAMEWORK_NAME.framework.zip"
-  skip_cleanup: true
-  on:
-    repo: keefertaylor/TezosKit
-    tags: true
+
+jobs:
+  include:
+    - stage: Build - CocoaPods	
+      install:	
+        - brew outdated cocoapods || brew upgrade cocoapods	
+      script:	
+        - travis_wait 500 pod lib lint
+    - stage: Build - Carthage And Code Coverage
+      install:
+        - brew outdated carthage || brew upgrade carthage
+        - brew install xcodegen
+        - gem install slather
+      script:
+        # Carthage requires that XCode project files are checked in. Project.yml is
+        # the canonical definition for the .xcodeproj file. Remove the .xcodeproj file
+        # and regenerate it.
+        # See: https://github.com/Carthage/Carthage/issues/2684
+        - rm -rf TezosKit.xcodeproj
+        - xcodegen generate
+
+        # Build with Carthage
+        - travis_wait 500 carthage bootstrap --platform iOS,mac --no-use-binaries --verbose
+        - set -o pipefail && xcodebuild test -scheme TezosKit_macOS -destination 'platform=macOS,arch=x86_64' ONLY_ACTIVE_ARCH=YES | xcpretty
+        - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
+
+      after_success:
+        # Generate and Upload Code Coverage
+        - slather
+        - bash <(curl -s https://codecov.io/bash) -f ./cobertura.xml
+   
+      

@@ -1,0 +1,41 @@
+name: TezosKit
+options:
+  bundleIdPrefix: com.keefertaylor
+settings:
+  LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS"
+targets:
+  TezosKit:
+    type: framework
+    platform: [iOS, macOS]
+    sources: [TezosKit, Extensions]
+    deploymentTarget:
+      iOS: 10.0
+    scheme:
+      testTargets:
+        - TezosKitTests_${platform}
+      gatherCoverageData: true
+    postCompileScripts:
+      - script: swiftlint autocorrect --config .swiftlint.yml
+        name: SwiftLint
+    dependencies:
+      - carthage: BigInt
+      - carthage: SipHash
+      - carthage: Sodium
+      - carthage: CryptoSwift
+      - carthage: TezosCrypto
+      - carthage: PromiseKit
+      - carthage: Base58Swift
+      - carthage: MnemonicKit
+      - carthage: secp256k1
+  TezosKitTests:
+    type: bundle.unit-test
+    platform: [iOS, macOS]
+    sources: [Tests/UnitTests, Tests/Common]
+    dependencies:
+      - target: TezosKit_${platform}
+  TezosKitIntegrationTests:
+    type: bundle.unit-test
+    platform: [iOS, macOS]
+    sources: [Tests/IntegrationTests, Tests/Common]
+    dependencies:
+      - target: TezosKit_${platform}

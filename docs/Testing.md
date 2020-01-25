@@ -31,6 +31,12 @@ To get an Alphanet node up and running, follow instructions [here](https://tezos
 
 The integration tests assume that the test account on Alphanet has a sufficient balance (~100 XTZ) to run the tests. The alphanet test account is [tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW](https://alphanet.tzscan.io/tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW). If the test account needs to be topped up, follow instructions to load additional XTZ from the Alphanet fauce [here](https://tezos.gitlab.io/alphanet/introduction/howtouse.html#faucet).
 
+These tests also utilize a token and Dexter Exchange contract, located at:
+https://alphanet.tzscan.io/KT1RrfbcDM5eqho4j4u5EbqbaoEFwBsXA434 and https://alphanet.tzscan.io/KT1Md4zkfCvkdqgxAC9tyRYpRUBKmD1owEi2.
+
+(For more information about Dexter, see: https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md)
+
+
 The integration tests assume that an alphanet node is running at the default location, `http://127.0.0.1:8732`. If this is not true, you may change `nodeUrl` in `TezosNodeIntegrationTests.swift` to point to the correct location. 
 
 With setup complete, open `TezosKit.xcodeproj`, select the `IntegrationTests` target from the drop down menu and run the `TezosNodeIntegrationTests` tests from the XCTest UI.

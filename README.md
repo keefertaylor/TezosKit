@@ -1,4 +1,4 @@
-# TezosKit 
+# TezosKit
 
 [![Build Status](https://travis-ci.org/keefertaylor/TezosKit.svg?branch=master)](https://travis-ci.org/keefertaylor/TezosKit)
 [![codecov](https://codecov.io/gh/keefertaylor/TezosKit/branch/master/graph/badge.svg)](https://codecov.io/gh/keefertaylor/TezosKit)
@@ -14,7 +14,7 @@ TezosKit is a swift SDK that is compatible with the [Tezos Blockchain](https://t
 TezosKit provides native functionality to interact with a [Tezos node](docs/TezosNode.md) or [Conseil](docs/Conseil.md), an indexing service. TezosKit supports interaction with the chain via both closure based callbacks and Promises ([PromiseKit](https://github.com/mxcl/PromiseKit)) functionality.
 
 TezosKit is compatible with both CocoaPods and Carthage. See the installation section below for specific instructions.
- 
+
 ## QuickStart
 
 ### Wallets and Accounts
@@ -105,8 +105,17 @@ If you use Carthage to build your dependencies, make sure you have added `Base58
 ## Bugs / Contributions
 If you enounter bugs or missing features in TezosKit, please feel free to open a GitHub issue. You may want to check if the work you are suggesting is planned in [future work](docs/FutureWork.md).
 
-Contributions and bug fixes are appreciated. Please open a PR for any missing or erroneous functionality for which you can contribute a fix. 
+Contributions and bug fixes are appreciated. Please open a PR for any missing or erroneous functionality for which you can contribute a fix.
+
+To get started:
+To get set up:
+```shell
+$ brew install xcodegen # if you don't already have it
+$ xcodegen generate # Generate an XCode project from project.yml
+$ open TezosKit.xcodeproj
+```
+
 ## License
-TezosKit is licensed under the permissive MIT licence. 
+TezosKit is licensed under the permissive MIT licence.
 ## See Also
 * [TezosCrypto](https://github.com/keefertaylor/TezosCrypto): A swift implementation of Tezos Cryptography
