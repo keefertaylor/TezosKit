@@ -10,9 +10,17 @@ public struct SecretKey {
   /// Underlying bytes
   public let bytes: [UInt8]
 
-  /// Base58Check representation of the key, prefixed with 'espk'.
+  /// The elliptical curve this key is using.
+  public let signingCurve: EllipticalCurve
+
+  /// Base58Check representation of the key.
   public var base58CheckRepresentation: String {
-    return Base58.encode(message: bytes, prefix: Prefix.Keys.secret)
+    switch signingCurve {
+    case .ed25519:
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.secret)
+    case .secp256k1:
+      fatalError("Unimplemented")
+    }
   }
 
   /// Initialize a key with the given mnemonic and passphrase.
@@ -20,38 +28,63 @@ public struct SecretKey {
   /// - Parameters:
   ///   - mnemonic: A mnemonic phrase to use.
   ///   - passphrase: An optional passphrase to use. Default is the empty string.
+  ///   - signingCurve: The elliptical curve to use for the key. Defaults to ed25519.
   /// - Returns: A representative secret key, or nil if an invalid mnemonic was given.
-  public init?(mnemonic: String, passphrase: String = "") {
-    guard let seedString = Mnemonic.deterministicSeedString(from: mnemonic, passphrase: passphrase) else {
-      return nil
+  public init?(mnemonic: String, passphrase: String = "", signingCurve: EllipticalCurve = .ed25519) {
+    switch signingCurve {
+    case.ed25519:
+      guard let seedString = Mnemonic.deterministicSeedString(from: mnemonic, passphrase: passphrase) else {
+        return nil
+      }
+      self.init(seedString: String(seedString[..<seedString.index(seedString.startIndex, offsetBy: 64)]))
+    case .secp256k1:
+      fatalError("Unimplemented")
     }
-    self.init(seedString: String(seedString[..<seedString.index(seedString.startIndex, offsetBy: 64)]))
   }
 
   /// Initialize a key with the given hex seed string.
   ///
+  ///  - Parameters:
+  ///    - seedString a hex encoded seed string.
+  ///    - signingCurve: The elliptical curve to use for the key. Defaults to ed25519.
   /// - Returns: A representative secret key, or nil if the seed string was in an unexpected format.
-  public init?(seedString: String) {
-    guard let seed = Sodium.shared.utils.hex2bin(seedString),
-          let keyPair = Sodium.shared.sign.keyPair(seed: seed) else {
-            return nil
+  public init?(seedString: String, signingCurve: EllipticalCurve = .ed25519) {
+    switch signingCurve {
+    case .ed25519:
+      guard let seed = Sodium.shared.utils.hex2bin(seedString),
+            let keyPair = Sodium.shared.sign.keyPair(seed: seed) else {
+              return nil
+      }
+      self.init(keyPair.secretKey)
+    case .secp256k1:
+      fatalError("Unimplemented")
     }
-    self.init(keyPair.secretKey)
   }
 
   /// Initialize a secret key with the given base58check encoded string.
   ///
-  /// The string must begin with 'edsk'.
-  public init?(_ string: String) {
-    guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.secret) else {
-      return nil
+  ///  - Parameters:
+  ///    - string: A base58check encoded string.
+  ///    - signingCurve: The elliptical curve to use for the key. Defaults to ed25519.
+  public init?(_ string: String, signingCurve: EllipticalCurve = .ed25519) {
+    switch signingCurve {
+    case .ed25519:
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.secret) else {
+        return nil
+      }
+      self.init(bytes)
+    case .secp256k1:
+      fatalError("Unimplemented")
     }
-    self.init(bytes)
   }
 
   /// Initialize a key with the given bytes.
-  public init(_ bytes: [UInt8]) {
+  ///  - Parameters:
+  ///    - bytes: Raw bytes of the private key.
+  ///    - signingCurve: The elliptical curve to use for the key. Defaults to ed25519.
+  public init(_ bytes: [UInt8], signingCurve: EllipticalCurve = .ed25519) {
     self.bytes = bytes
+    self.signingCurve = .ed25519
   }
 
   /// Sign the given hex encoded string with the given key.
@@ -74,11 +107,16 @@ public struct SecretKey {
   ///   - secretKey: The secret key to sign with.
   /// - Returns: A signature from the input.
   public func sign(bytes: [UInt8]) -> [UInt8]? {
-    guard let bytesToSign = prepareBytesForSigning(bytes),
-      let signature = Sodium.shared.sign.signature(message: bytesToSign, secretKey: self.bytes) else {
-        return nil
+    guard let bytesToSign = prepareBytesForSigning(bytes) else {
+      return nil
     }
-    return signature
+
+    switch signingCurve {
+    case .ed25519:
+      return Sodium.shared.sign.signature(message: bytesToSign, secretKey: self.bytes)
+    case .secp256k1:
+      fatalError("Unimplemented")
+    }
   }
 
   /// Prepare bytes for signing by applying a watermark and hashing.
