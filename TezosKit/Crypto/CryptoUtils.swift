@@ -50,5 +50,4 @@ public enum CryptoUtils {
   public static func injectableHex(_ hex: String, signatureHex: String) -> String {
     return hex + signatureHex
   }
-
 }

@@ -52,7 +52,7 @@ final class SecretKeyTests: XCTestCase {
 
   public func testSignHex() {
     let hexToSign = "deadbeef"
-    guard let signature = SecretKey.testSecretKey.sign(hex: hexToSign) else {
+    guard let signature = SecretKey.testSecretKeyEd25519.sign(hex: hexToSign) else {
       XCTFail()
       return
     }

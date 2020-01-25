@@ -43,19 +43,16 @@ public struct PublicKey: PublicKeyProtocol {
   /// Initialize a key with the given bytes and signing curve.
   public init(bytes: [UInt8], signingCurve: EllipticalCurve) {
     self.signingCurve = signingCurve
-    switch signingCurve {
-    case .ed25519:
-      self.bytes = bytes
-    case .secp256k1:
-      self.bytes = bytes
-    }
+    self.bytes = bytes
   }
 
   /// Initialize a public key with the given base58check encoded string.
   ///
   /// The string must begin with 'edpk'.
   public init?(string: String, signingCurve: EllipticalCurve) {
-    guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.public) else {
+    // TODO(keefertaylor): this needs to be generic
+    // TODO(keefertaylor): Add tests for public key / secret key
+    guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.Ed25519.public) else {
       return nil
     }
     self.init(bytes: bytes, signingCurve: signingCurve)
@@ -67,6 +64,7 @@ public struct PublicKey: PublicKeyProtocol {
     case .ed25519:
       self.bytes = Array(secretKey.bytes[32...])
     case .secp256k1:
+      // TODO(keefertaylor): Remove dead code.
       let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))!
       var cPubkey = secp256k1_pubkey()
       let result = secp256k1_ec_pubkey_create(context, &cPubkey, secretKey.bytes)

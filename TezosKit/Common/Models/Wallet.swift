@@ -21,12 +21,14 @@ public struct Wallet {
 
   /// Create a new wallet by generating a mnemonic and encrypted with an optional passphrase.
   ///
-  ///- Parameter passphrase: An optional passphrase used for encryption.
-  public init?(passphrase: String = "") {
+  ///- Parameter
+  ///   - passphrase: An optional passphrase used for encryption.
+  ///   - signingCurve: The curve to use. Default is ed25519.
+  public init?(passphrase: String = "", signingCurve: EllipticalCurve = .ed25519) {
     guard let mnemonic = MnemonicUtil.generateMnemonic() else {
       return nil
     }
-    self.init(mnemonic: mnemonic, passphrase: passphrase)
+    self.init(mnemonic: mnemonic, passphrase: passphrase, signingCurve: signingCurve)
   }
 
   /// Create a new wallet with the given mnemonic and encrypted with an optional passphrase.
@@ -34,9 +36,10 @@ public struct Wallet {
   /// - Parameters:
   ///   - mnemonic: A space delimited string of english mnemonic words from the BIP39
   ///   - passphrase: An optional passphrase used for encryption.
-  public init?(mnemonic: String, passphrase: String = "") {
+  ///   - signingCurve: The curve to use. Default is ed25519.
+  public init?(mnemonic: String, passphrase: String = "", signingCurve: EllipticalCurve = .ed25519) {
     guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-      let secretKey = SecretKey(seedString: seedString, signingCurve: .ed25519) else {
+      let secretKey = SecretKey(seedString: seedString, signingCurve: signingCurve) else {
       return nil
     }
 
@@ -47,9 +50,11 @@ public struct Wallet {
 
   /// Create a wallet with a given secret key.
   ///
-  /// - Parameter secretKey: A base58check encoded secret key, prefixed with "edsk".
-  public init?(secretKey: String) {
-    guard let secretKey = SecretKey(secretKey, signingCurve: .ed25519) else {
+  /// - Parameter
+  ///   - secretKey: A base58check encoded secret key, prefixed with "edsk".
+  ///   - signingCurve: The curve to use. Default is ed25519.
+  public init?(secretKey: String, signingCurve: EllipticalCurve = .ed25519) {
+    guard let secretKey = SecretKey(secretKey, signingCurve: signingCurve) else {
       return nil
     }
 
