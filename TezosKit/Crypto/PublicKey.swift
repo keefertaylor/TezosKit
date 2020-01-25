@@ -2,6 +2,7 @@
 
 import Base58Swift
 import Foundation
+import secp256k1
 import Sodium
 
 /// Encapsulation of a Public Key.
@@ -14,6 +15,13 @@ public struct PublicKey: PublicKeyProtocol {
 
   /// Base58Check representation of the key, prefixed with 'edpk'.
   public var base58CheckRepresentation: String {
+    switch signingCurve {
+    case .ed25519:
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.public)
+    case .secp256k1:
+      return Base58.encode(message: bytes, prefix: Prefix.Secp.public)
+    }
+
     return Base58.encode(message: bytes, prefix: Prefix.Keys.public)
   }
 
@@ -27,13 +35,20 @@ public struct PublicKey: PublicKeyProtocol {
     switch signingCurve {
     case .ed25519:
       return Base58.encode(message: hash, prefix: Prefix.Address.tz1)
+    case .secp256k1:
+      return Base58.encode(message: hash, prefix: Prefix.Address.tz2)
     }
   }
 
   /// Initialize a key with the given bytes and signing curve.
   public init(bytes: [UInt8], signingCurve: EllipticalCurve) {
-    self.bytes = bytes
     self.signingCurve = signingCurve
+    switch signingCurve {
+    case .ed25519:
+      self.bytes = bytes
+    case .secp256k1:
+      self.bytes = bytes
+    }
   }
 
   /// Initialize a public key with the given base58check encoded string.
@@ -48,7 +63,19 @@ public struct PublicKey: PublicKeyProtocol {
 
   /// Initialize a key from the given secret key with the given signing curve.
   public init(secretKey: SecretKey, signingCurve: EllipticalCurve) {
-    self.bytes = Array(secretKey.bytes[32...])
+    switch signingCurve {
+    case .ed25519:
+      self.bytes = Array(secretKey.bytes[32...])
+    case .secp256k1:
+      let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))!
+      var cPubkey = secp256k1_pubkey()
+      let result = secp256k1_ec_pubkey_create(context, &cPubkey, secretKey.bytes)
+
+      var pubKeyLen = 33
+      var pubkey: [UInt8] = Array(repeating: 0, count: pubKeyLen)
+      let result2 = secp256k1_ec_pubkey_serialize(context, &pubkey, &pubKeyLen, &cPubkey, UInt32(SECP256K1_EC_COMPRESSED))
+      self.bytes = pubkey
+    }
     self.signingCurve = signingCurve
   }
 
@@ -81,6 +108,9 @@ public struct PublicKey: PublicKeyProtocol {
     switch signingCurve {
     case .ed25519:
       return Sodium.shared.sign.verify(message: bytesToVerify, publicKey: self.bytes, signature: signature)
+    case .secp256k1:
+      // TODO(keefertaylor): Implement
+      return false
     }
   }
 

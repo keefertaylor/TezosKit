@@ -14,7 +14,7 @@ public enum Prefix {
   }
 
   public enum Sign {
-    public static let operation: [UInt8] = [9, 245, 205, 134, 18] // edsig
+    public static let signature: [UInt8] = [9, 245, 205, 134, 18] // edsig
   }
 
   public enum Address {

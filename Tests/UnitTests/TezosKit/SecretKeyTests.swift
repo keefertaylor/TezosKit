@@ -6,7 +6,7 @@ import XCTest
 
 final class SecretKeyTests: XCTestCase {
   func testBase58CheckRepresentation() {
-    guard let secretKey = SecretKey(mnemonic: .mnemonic) else {
+    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519) else {
       XCTFail()
       return
     }
@@ -19,10 +19,13 @@ final class SecretKeyTests: XCTestCase {
 
   func testInitFromBase58CheckRepresntation_ValidString() {
     let secretKeyFromString =
-      SecretKey("edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp")
+      SecretKey(
+        "edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp",
+        signingCurve: .ed25519
+    )
     XCTAssertNotNil(secretKeyFromString)
 
-    guard let secretKeyFromMnemonic = SecretKey(mnemonic: .mnemonic) else {
+    guard let secretKeyFromMnemonic = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519) else {
       XCTFail()
       return
     }
@@ -32,19 +35,19 @@ final class SecretKeyTests: XCTestCase {
 
   func testInitFromBase58CheckRepresentation_InvalidBase58() {
     XCTAssertNil(
-      SecretKey("edsko0O")
+      SecretKey("edsko0O", signingCurve: .ed25519)
     )
   }
 
   func testInvalidMnemonic() {
     let invalidMnemonic =
       "TezosKit TezosKit TezosKit TezosKit TezosKit TezosKit TezosKit TezosKit TezosKit TezosKit TezosKit"
-    XCTAssertNil(SecretKey(mnemonic: invalidMnemonic))
+    XCTAssertNil(SecretKey(mnemonic: invalidMnemonic, signingCurve: .ed25519))
   }
 
   func testInvalidSeedString() {
     let invalidSeedString = "abcdefghijklmnopqrstuvwxyz"
-    XCTAssertNil(SecretKey(seedString: invalidSeedString))
+    XCTAssertNil(SecretKey(seedString: invalidSeedString, signingCurve: .ed25519))
   }
 
   public func testSignHex() {
@@ -63,6 +66,8 @@ final class SecretKeyTests: XCTestCase {
       ]
     )
   }
+
+  // TODO(keefertaylor): Re-enable
 //
 //  public func testSignHexInvalid() {
 //    let invalidHexString = "abcdefghijklmnopqrstuvwxyz"

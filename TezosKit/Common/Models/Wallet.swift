@@ -36,7 +36,7 @@ public struct Wallet {
   ///   - passphrase: An optional passphrase used for encryption.
   public init?(mnemonic: String, passphrase: String = "") {
     guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-      let secretKey = SecretKey(seedString: seedString) else {
+      let secretKey = SecretKey(seedString: seedString, signingCurve: .ed25519) else {
       return nil
     }
 
@@ -49,7 +49,7 @@ public struct Wallet {
   ///
   /// - Parameter secretKey: A base58check encoded secret key, prefixed with "edsk".
   public init?(secretKey: String) {
-    guard let secretKey = SecretKey(secretKey) else {
+    guard let secretKey = SecretKey(secretKey, signingCurve: .ed25519) else {
       return nil
     }
 

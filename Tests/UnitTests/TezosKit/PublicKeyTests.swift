@@ -4,9 +4,11 @@ import Foundation
 import TezosKit
 import XCTest
 
+// TODO(keefertaylor): Add tests for secpk
+// TODO(keefertaylor): re-name tests for ed25519
 final class PublicKeyTests: XCTestCase {
   func testBase58CheckRepresentation() {
-    guard let secretKey = SecretKey(mnemonic: .mnemonic) else {
+    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519) else {
       XCTFail()
       return
     }
@@ -19,7 +21,7 @@ final class PublicKeyTests: XCTestCase {
   }
 
   func testPublicKeyHash() {
-    guard let secretKey = SecretKey(mnemonic: .mnemonic) else {
+    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519) else {
       XCTFail()
       return
     }
@@ -36,7 +38,7 @@ final class PublicKeyTests: XCTestCase {
       PublicKey(string: "edpku9ZF6UUAEo1AL3NWy1oxHLL6AfQcGYwA5hFKrEKVHMT3Xx889A", signingCurve: .ed25519)
     XCTAssertNotNil(publicKeyFromString)
 
-    guard let secretKey = SecretKey(mnemonic: .mnemonic) else {
+    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519) else {
       XCTFail()
       return
     }
@@ -54,8 +56,11 @@ final class PublicKeyTests: XCTestCase {
   public func testVerifyHex() {
     let hexToSign = "123456"
     guard
-      let secretKey1 = SecretKey(mnemonic: .mnemonic),
-      let secretKey2 = SecretKey(mnemonic: "soccer soccer soccer soccer soccer soccer soccer soccer soccer")
+      let secretKey1 = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519),
+      let secretKey2 = SecretKey(
+        mnemonic: "soccer soccer soccer soccer soccer soccer soccer soccer soccer",
+        signingCurve: .ed25519
+      )
     else {
       XCTFail()
       return
