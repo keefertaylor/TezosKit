@@ -19,6 +19,8 @@ public struct PublicKey: PublicKeyProtocol {
       return Base58.encode(message: bytes, prefix: Prefix.Keys.public)
     case .secp256k1:
       fatalError("Unimplemented")
+    case .p256:
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.P256.public)
     }
   }
 
@@ -34,6 +36,8 @@ public struct PublicKey: PublicKeyProtocol {
       return Base58.encode(message: hash, prefix: Prefix.Address.tz1)
     case .secp256k1:
       fatalError("Unimplemented")
+    case .p256:
+      return Base58.encode(message: hash, prefix: Prefix.Address.tz3)
     }
   }
 
@@ -53,6 +57,11 @@ public struct PublicKey: PublicKeyProtocol {
       self.init(bytes: bytes, signingCurve: signingCurve)
     case .secp256k1:
       fatalError("Unimplemented")
+    case .p256:
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.P256.public) else {
+        return nil
+      }
+      self.init(bytes: bytes, signingCurve: signingCurve)
     }
   }
 
@@ -63,6 +72,8 @@ public struct PublicKey: PublicKeyProtocol {
       self.bytes = Array(secretKey.bytes[32...])
       self.signingCurve = signingCurve
     case .secp256k1:
+      fatalError("Unimplemented")
+    case .p256:
       fatalError("Unimplemented")
     }
   }
@@ -97,6 +108,8 @@ public struct PublicKey: PublicKeyProtocol {
     case .ed25519:
       return Sodium.shared.sign.verify(message: bytesToVerify, publicKey: self.bytes, signature: signature)
     case .secp256k1:
+      fatalError("Unimplemented")
+    case .p256:
       fatalError("Unimplemented")
     }
   }
