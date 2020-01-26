@@ -592,7 +592,7 @@ public class TezosNodeClient: AbstractClient {
     // 56, 55, 163, 214, 92, 216, 249, 214, 201, 173, 175, 2, 33, 0, 194, 208, 163, 213, 77, 133, 112, 64, 165, 114,
     // 209, 28, 247, 7, 46, 196, 93, 226, 5, 143, 82, 203, 219, 148, 73, 204, 227, 184, 11, 224, 148, 52
 
-    
+
 //    guard let secretKey = keys.secretKey as? TezosCrypto.SecretKey,
 //      let signingResult = TezosCryptoUtils.sign(hex: forgedPayload, secretKey: secretKey),
 //      let jsonSignedBytes = JSONUtils.jsonString(for: signingResult.injectableHexBytes) else {
