@@ -20,6 +20,8 @@ public struct SecretKey {
       return Base58.encode(message: bytes, prefix: Prefix.Keys.secret)
     case .secp256k1:
       fatalError("Unimplemented")
+    case .p256:
+      fatalError("Unimplemented")
     }
   }
 
@@ -38,6 +40,8 @@ public struct SecretKey {
       }
       self.init(seedString: String(seedString[..<seedString.index(seedString.startIndex, offsetBy: 64)]))
     case .secp256k1:
+      fatalError("Unimplemented")
+    case .p256:
       fatalError("Unimplemented")
     }
   }
@@ -58,6 +62,8 @@ public struct SecretKey {
       self.init(keyPair.secretKey)
     case .secp256k1:
       fatalError("Unimplemented")
+    case .p256:
+      fatalError("Unimplemented")
     }
   }
 
@@ -74,6 +80,8 @@ public struct SecretKey {
       }
       self.init(bytes)
     case .secp256k1:
+      fatalError("Unimplemented")
+    case .p256:
       fatalError("Unimplemented")
     }
   }
@@ -115,6 +123,8 @@ public struct SecretKey {
     case .ed25519:
       return Sodium.shared.sign.signature(message: bytesToSign, secretKey: self.bytes)
     case .secp256k1:
+      fatalError("Unimplemented")
+    case .p256:
       fatalError("Unimplemented")
     }
   }
