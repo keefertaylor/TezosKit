@@ -26,6 +26,7 @@ targets:
       - carthage: PromiseKit
       - carthage: Base58Swift
       - carthage: MnemonicKit
+      - carthage: secp256k1
   TezosKitTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
