@@ -38,12 +38,14 @@ public struct Wallet {
   ///   - passphrase: An optional passphrase used for encryption.
   ///   - signingCurve: The curve to use. Default is ed25519.
   public init?(mnemonic: String, passphrase: String = "", signingCurve: EllipticalCurve = .ed25519) {
-    guard let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
-      let secretKey = SecretKey(seedString: seedString, signingCurve: signingCurve) else {
+    guard
+      let seedString = MnemonicUtil.seedString(from: mnemonic, passphrase: passphrase),
+      let secretKey = SecretKey(seedString: seedString, signingCurve: signingCurve),
+      let publicKey = PublicKey(secretKey: secretKey)
+    else {
       return nil
     }
 
-    let publicKey = PublicKey(secretKey: secretKey, signingCurve: signingCurve)
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey, mnemonic: mnemonic)
   }
@@ -54,11 +56,13 @@ public struct Wallet {
   ///   - secretKey: A base58check encoded secret key, prefixed with "edsk".
   ///   - signingCurve: The curve to use. Default is ed25519.
   public init?(secretKey: String, signingCurve: EllipticalCurve = .ed25519) {
-    guard let secretKey = SecretKey(secretKey, signingCurve: signingCurve) else {
+    guard
+      let secretKey = SecretKey(secretKey, signingCurve: signingCurve),
+      let publicKey = PublicKey(secretKey: secretKey)
+    else {
       return nil
     }
 
-    let publicKey = PublicKey(secretKey: secretKey, signingCurve: signingCurve)
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey)
   }

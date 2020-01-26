@@ -48,8 +48,6 @@ public struct SecretKey {
   ///    - signingCurve: The elliptical curve to use for the key. Defaults to ed25519.
   /// - Returns: A representative secret key, or nil if the seed string was in an unexpected format.
   public init?(seedString: String, signingCurve: EllipticalCurve = .ed25519) {
-    print("SEED: " + seedString)
-
     guard
       let seed = Sodium.shared.utils.hex2bin(seedString),
       let keyPair = Sodium.shared.sign.keyPair(seed: seed)
@@ -58,19 +56,6 @@ public struct SecretKey {
     }
 
     self.init(keyPair.secretKey, signingCurve: .ed25519)
-
-//
-//    switch signingCurve {
-//    case .ed25519:
-//      guard
-//        let keyPair = Sodium.shared.sign.keyPair(seed: seed)
-//      else {
-//        return nil
-//      }
-//    case .secp256k1:
-//      // TODO(keefertaylor): Implement.
-//      fatalError("Unimplemented")
-//    }
   }
 
   /// Initialize a secret key with the given base58check encoded string.
@@ -126,29 +111,31 @@ public struct SecretKey {
       return nil
     }
 
-    // TODO(keefertaylor): Need verify context?
-
     switch signingCurve {
     case .ed25519:
       return Sodium.shared.sign.signature(message: bytesToSign, secretKey: self.bytes)
     case .secp256k1:
-      let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY))!
-      var cSignature = secp256k1_ecdsa_signature()
-      _ = secp256k1_ecdsa_sign(context, &cSignature, bytesToSign, self.bytes, nil, nil)
+      let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))!
+      defer {
+        secp256k1_context_destroy(context)
+      }
 
-      let sigLen = 64
-      var output = [UInt8](repeating: 0, count: sigLen)
-      _ = secp256k1_ecdsa_signature_serialize_compact(context, &output, &cSignature)
+      var signature = secp256k1_ecdsa_signature()
+      let signatureLength = 64
+      var output = [UInt8](repeating: 0, count: signatureLength)
+      guard
+        secp256k1_ecdsa_sign(context, &signature, bytesToSign, self.bytes, nil, nil) != 0,
+        secp256k1_ecdsa_signature_serialize_compact(context, &output, &signature) != 0
+      else {
+        return nil
+      }
+
       return output
     }
   }
 
   /// Prepare bytes for signing by applying a watermark and hashing.
   private func prepareBytesForSigning(_ bytes: [UInt8]) -> [UInt8]? {
-//return Sodium.shared.genericHash.hash(message: bytes, outputLength: 32)
-
-    //    return bytes
-
     let watermarkedOperation = Prefix.Watermark.operation + bytes
     return Sodium.shared.genericHash.hash(message: watermarkedOperation, outputLength: 32)
   }

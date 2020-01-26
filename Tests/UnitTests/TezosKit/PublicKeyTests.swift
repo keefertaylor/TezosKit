@@ -9,11 +9,13 @@ final class PublicKeyTests: XCTestCase {
   // MARK: ed25519
 
   func testBase58CheckRepresentation_ed25519() {
-    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519) else {
+    guard
+      let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519),
+      let publicKey = PublicKey(secretKey: secretKey)
+    else {
       XCTFail()
       return
     }
-    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .ed25519)
 
     XCTAssertEqual(
       publicKey.base58CheckRepresentation,
@@ -22,11 +24,13 @@ final class PublicKeyTests: XCTestCase {
   }
 
   func testPublicKeyHash_ed25519() {
-    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519) else {
+    guard
+      let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519),
+      let publicKey = PublicKey(secretKey: secretKey)
+    else {
       XCTFail()
       return
     }
-    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .ed25519)
 
     XCTAssertEqual(
       publicKey.publicKeyHash,
@@ -43,7 +47,7 @@ final class PublicKeyTests: XCTestCase {
       XCTFail()
       return
     }
-    let publicKeyFromSecretKey = PublicKey(secretKey: secretKey, signingCurve: .ed25519)
+    let publicKeyFromSecretKey = PublicKey(secretKey: secretKey)
 
     XCTAssertEqual(publicKeyFromString, publicKeyFromSecretKey)
   }
@@ -61,13 +65,13 @@ final class PublicKeyTests: XCTestCase {
       let secretKey2 = SecretKey(
         mnemonic: "soccer soccer soccer soccer soccer soccer soccer soccer soccer",
         signingCurve: .ed25519
-      )
+      ),
+      let publicKey1 = PublicKey(secretKey: secretKey1),
+      let publicKey2 = PublicKey(secretKey: secretKey2)
     else {
       XCTFail()
       return
     }
-    let publicKey1 = PublicKey(secretKey: secretKey1, signingCurve: .ed25519)
-    let publicKey2 = PublicKey(secretKey: secretKey2, signingCurve: .ed25519)
 
     guard let signature = secretKey1.sign(hex: hexToSign) else {
       XCTFail()
@@ -98,14 +102,13 @@ final class PublicKeyTests: XCTestCase {
 
   func testPublicKeyFromSecretKey_secp256k1() {
     guard
-      let secretKey = SecretKey("spsk2rBDDeUqakQ42nBHDGQTtP3GErb6AahHPwF9bhca3Q5KA5HESE", signingCurve: .secp256k1)
+      let secretKey = SecretKey("spsk2rBDDeUqakQ42nBHDGQTtP3GErb6AahHPwF9bhca3Q5KA5HESE", signingCurve: .secp256k1),
+      let publicKey = PublicKey(secretKey: secretKey)
     else {
       XCTFail()
       return
     }
 
-    // TODO(keefertaylor): This param is not needed.
-    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .secp256k1)
     XCTAssertEqual(publicKey.base58CheckRepresentation, "sppk7aqSksZan1AGXuKtCz9UBLZZ77e3ZWGpFxR7ig1Z17GneEhSSbH")
   }
 
@@ -125,30 +128,28 @@ final class PublicKeyTests: XCTestCase {
   }
 
   public func testVerifyHex_secp256k1() {
-    let base58Representation = "sppk7aqSksZan1AGXuKtCz9UBLZZ77e3ZWGpFxR7ig1Z17GneEhSSbH"
     let hexToSign = "1234"
 
     guard
       let secretKey1 = SecretKey("spsk2rBDDeUqakQ42nBHDGQTtP3GErb6AahHPwF9bhca3Q5KA5HESE", signingCurve: .secp256k1),
       let secretKey2 = SecretKey(mnemonic: .mnemonic, signingCurve: .secp256k1),
-      let validSignatureFromPublicKey1 = secretKey1.sign(hex: hexToSign)
+      let validSignatureFromPublicKey1 = secretKey1.sign(hex: hexToSign),
+      let publicKey1 = PublicKey(secretKey: secretKey1),
+      let publicKey2 = PublicKey(secretKey: secretKey2)
     else {
       XCTFail()
       return
     }
-    /// TODO(keefer): Derive from secretkey1
-    let publicKey1 = PublicKey(string: "sppk7aqSksZan1AGXuKtCz9UBLZZ77e3ZWGpFxR7ig1Z17GneEhSSbH", signingCurve: .secp256k1)!
-    let publicKey2 = PublicKey(secretKey: secretKey2, signingCurve: .secp256k1)
 
     XCTAssertTrue(
       publicKey1.verify(signature: validSignatureFromPublicKey1, hex: hexToSign)
     )
-//    XCTAssertFalse(
-//      publicKey1.verify(signature: [1, 2, 3, 4], hex: hexToSign)
-//    )
+    XCTAssertFalse(
+      publicKey1.verify(signature: [1, 2, 3, 4], hex: hexToSign)
+    )
 
-//    XCTAssertFalse(
-//      publicKey2.verify(signature: validSignatureFromPublicKey1, hex: hexToSign)
-//    )
+    XCTAssertFalse(
+      publicKey2.verify(signature: validSignatureFromPublicKey1, hex: hexToSign)
+    )
   }
 }

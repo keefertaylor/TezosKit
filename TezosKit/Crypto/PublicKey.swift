@@ -61,24 +61,38 @@ public struct PublicKey: PublicKeyProtocol {
   }
 
   /// Initialize a key from the given secret key with the given signing curve.
-  public init(secretKey: SecretKey, signingCurve: EllipticalCurve) {
-    switch signingCurve {
+  public init?(secretKey: SecretKey) {
+    switch secretKey.signingCurve {
     case .ed25519:
       self.init(bytes: Array(secretKey.bytes[32...]), signingCurve: .ed25519)
     case .secp256k1:
-      let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))
-      var pubKey = secp256k1_pubkey()
-      guard secp256k1_ec_pubkey_create(ctx!, &pubKey, secretKey.bytes) != 0 else {
-        fatalError()
+      let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))
+      defer {
+        secp256k1_context_destroy(context)
       }
 
-      var pubKeyBytes = [UInt8](repeating: 0, count: 33)
-      var outputLen = 33
-      _ = secp256k1_ec_pubkey_serialize(
-          ctx!, &pubKeyBytes, &outputLen, &pubKey, UInt32(SECP256K1_EC_COMPRESSED))
+      var publicKey = secp256k1_pubkey()
+      guard
+        secp256k1_ec_pubkey_create(context!, &publicKey, secretKey.bytes) != 0
+      else {
+        return nil
+      }
 
-      secp256k1_context_destroy(ctx)
-      self.init(bytes: pubKeyBytes, signingCurve: .secp256k1)
+      var outputLength = 33
+      var publicKeyBytes = [UInt8](repeating: 0, count: outputLength)
+      guard
+        secp256k1_ec_pubkey_serialize(
+          context!,
+          &publicKeyBytes,
+          &outputLength,
+          &publicKey,
+          UInt32(SECP256K1_EC_COMPRESSED)
+        ) != 0
+      else {
+        return nil
+      }
+
+      self.init(bytes: publicKeyBytes, signingCurve: .secp256k1)
     }
   }
 
@@ -108,25 +122,23 @@ public struct PublicKey: PublicKeyProtocol {
       return false
     }
 
-    // TODO(keefertaylor): remember to destroy context when doing signing.
-    // TODO(keefertaylor): Formatting and credit for this code.
     // TODO(keefertaylor): Use defer to destroy context.
 
     switch signingCurve {
     case .ed25519:
       return Sodium.shared.sign.verify(message: bytesToVerify, publicKey: self.bytes, signature: signature)
     case .secp256k1:
-      let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_VERIFY))
-      var sig = secp256k1_ecdsa_signature()
-      var pubKey = secp256k1_pubkey()
-      guard
-        secp256k1_ecdsa_signature_parse_compact(ctx!, &sig, signature) != 0,
-        secp256k1_ec_pubkey_parse(ctx!, &pubKey, self.bytes, self.bytes.count) != 0
-      else {
-        fatalError("WRONG AGAIN")
+      let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_VERIFY))
+      defer {
+        secp256k1_context_destroy(context)
       }
 
-      return secp256k1_ecdsa_verify(ctx!, &sig, bytesToVerify, &pubKey) == 1
+      var cSignature = secp256k1_ecdsa_signature()
+      var publicKey = secp256k1_pubkey()
+      secp256k1_ecdsa_signature_parse_compact(context!, &cSignature, signature)
+      secp256k1_ec_pubkey_parse(context!, &publicKey, self.bytes, self.bytes.count)
+
+      return secp256k1_ecdsa_verify(context!, &cSignature, bytesToVerify, &publicKey) == 1
     }
   }
 
