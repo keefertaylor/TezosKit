@@ -9,12 +9,17 @@ public struct PublicKey: PublicKeyProtocol {
   /// Underlying bytes.
   public let bytes: [UInt8]
 
-  /// Curve type.
+  /// The elliptical curve this key is using.
   public let signingCurve: EllipticalCurve
 
-  /// Base58Check representation of the key, prefixed with 'edpk'.
+  /// Base58Check representation of the key.
   public var base58CheckRepresentation: String {
-    return Base58.encode(message: bytes, prefix: Prefix.Keys.public)
+    switch signingCurve {
+    case .ed25519:
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.public)
+    case .secp256k1:
+      fatalError("Unimplemented")
+    }
   }
 
   /// Public key hash representation of the key.
@@ -27,6 +32,8 @@ public struct PublicKey: PublicKeyProtocol {
     switch signingCurve {
     case .ed25519:
       return Base58.encode(message: hash, prefix: Prefix.Address.tz1)
+    case .secp256k1:
+      fatalError("Unimplemented")
     }
   }
 
@@ -37,19 +44,27 @@ public struct PublicKey: PublicKeyProtocol {
   }
 
   /// Initialize a public key with the given base58check encoded string.
-  ///
-  /// The string must begin with 'edpk'.
   public init?(string: String, signingCurve: EllipticalCurve) {
-    guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.public) else {
-      return nil
+    switch signingCurve {
+    case .ed25519:
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.public) else {
+        return nil
+      }
+      self.init(bytes: bytes, signingCurve: signingCurve)
+    case .secp256k1:
+      fatalError("Unimplemented")
     }
-    self.init(bytes: bytes, signingCurve: signingCurve)
   }
 
   /// Initialize a key from the given secret key with the given signing curve.
   public init(secretKey: SecretKey, signingCurve: EllipticalCurve) {
-    self.bytes = Array(secretKey.bytes[32...])
-    self.signingCurve = signingCurve
+    switch signingCurve {
+    case .ed25519:
+      self.bytes = Array(secretKey.bytes[32...])
+      self.signingCurve = signingCurve
+    case .secp256k1:
+      fatalError("Unimplemented")
+    }
   }
 
   /// Verify that the given signature matches the given input hex.
@@ -81,6 +96,8 @@ public struct PublicKey: PublicKeyProtocol {
     switch signingCurve {
     case .ed25519:
       return Sodium.shared.sign.verify(message: bytesToVerify, publicKey: self.bytes, signature: signature)
+    case .secp256k1:
+      fatalError("Unimplemented")
     }
   }
 
