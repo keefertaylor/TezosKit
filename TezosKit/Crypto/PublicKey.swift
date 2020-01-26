@@ -122,8 +122,6 @@ public struct PublicKey: PublicKeyProtocol {
       return false
     }
 
-    // TODO(keefertaylor): Use defer to destroy context.
-
     switch signingCurve {
     case .ed25519:
       return Sodium.shared.sign.verify(message: bytesToVerify, publicKey: self.bytes, signature: signature)
@@ -136,7 +134,7 @@ public struct PublicKey: PublicKeyProtocol {
       var cSignature = secp256k1_ecdsa_signature()
       var publicKey = secp256k1_pubkey()
       secp256k1_ecdsa_signature_parse_compact(context!, &cSignature, signature)
-      secp256k1_ec_pubkey_parse(context!, &publicKey, self.bytes, self.bytes.count)
+      _ = secp256k1_ec_pubkey_parse(context!, &publicKey, self.bytes, self.bytes.count)
 
       return secp256k1_ecdsa_verify(context!, &cSignature, bytesToVerify, &publicKey) == 1
     }
