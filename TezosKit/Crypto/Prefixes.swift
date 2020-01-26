@@ -24,6 +24,6 @@ public enum Prefix {
 
   public enum Address {
     public static let tz1: [UInt8] = [6, 161, 159] // tz1
-    public static let tz2: [UInt8] = [6, 161, 161] // tz1
+    public static let tz2: [UInt8] = [6, 161, 161] // tz2
   }
 }
