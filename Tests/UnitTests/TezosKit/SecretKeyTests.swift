@@ -130,4 +130,30 @@ final class SecretKeyTests: XCTestCase {
 
     XCTAssertEqual(signature, expectedSignature)
   }
+
+  public func testBakingBadCase() {
+    let secretKey = SecretKey("spsk1qYjGNaPGL154oYWL3gtPFC3fG3Kix4XrdHGx996gzcR9m1vmT", signingCurve: .secp256k1)!
+    let publicKey = PublicKey(secretKey: secretKey, signingCurve: .secp256k1)
+    XCTAssertEqual(publicKey.base58CheckRepresentation, "sppk7bk8D6HLwZ65H5gnZkMMiehXSqsjjEt9zSbc2N27TLjs18d2mpT")
+    XCTAssertEqual(publicKey.publicKeyHash, "tz2SdEd9huoRMnPhV7m2EWqQYSwVdM6kdrN2")
+
+    let bytes = CryptoUtils.hexToBin("74657374")!
+    let signature = secretKey.sign(bytes: bytes)!
+
+    let sigb58 = CryptoUtils.base58(signature: signature, signingCurve: .secp256k1)
+    XCTAssertEqual(
+      sigb58,
+      "spsig1Mn66fdQTuHT53M6hFvosHhPSgmnBZbjjtwVxPuNNQmggddA9aHjE8FLe7pUMFQALVVi6iAUZ7LRFXmyUe2pB3HTgPD31T"
+    )
+  }
+
+  public func testSanityCheckMnemonic() {
+    let seed = "a4b150eec4427f4cb8d38e5451dc713269a389222fd3f416d4a87f9619642697"
+    let mnemonic = "actress creek talent hundred else forum market large stand toast wild visa accuse file radio"
+
+    let s1 = SecretKey(mnemonic: mnemonic, signingCurve: .ed25519)!
+    let s2 = SecretKey(seedString: seed)!
+
+    XCTAssertEqual(s1, s2)
+  }
 }

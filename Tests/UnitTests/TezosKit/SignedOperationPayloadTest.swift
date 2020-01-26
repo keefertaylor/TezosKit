@@ -8,6 +8,9 @@ import XCTest
 class SignedOperationPayloadTest: XCTestCase {
   public func testDictionaryRepresentation() {
     let dictionaryRepresentation = SignedOperationPayload.testSignedOperationPayload.dictionaryRepresentation
-    XCTAssertEqual(dictionaryRepresentation["signature"] as? String, CryptoUtils.base58(signature: .testSignature))
+    XCTAssertEqual(
+      dictionaryRepresentation["signature"] as? String,
+      CryptoUtils.base58(signature: .testSignature, signingCurve: .ed25519)
+    )
   }
 }

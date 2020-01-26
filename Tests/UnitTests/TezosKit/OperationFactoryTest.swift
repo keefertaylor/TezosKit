@@ -13,7 +13,7 @@ class OperationFactoryTest: XCTestCase {
   func testRevealOperationWithDefaultFees() {
     let revealOperation = operationFactory.revealOperation(
       from: "tz1abc",
-      publicKey: FakePublicKey(base58CheckRepresentation: "xyz"),
+      publicKey: FakePublicKey(base58CheckRepresentation: "xyz", signingCurve: .ed25519),
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
     )!
@@ -84,7 +84,7 @@ class OperationFactoryTest: XCTestCase {
   func testRevealOperationWithCustomFees() {
     let revealOperation = operationFactory.revealOperation(
       from: "tz1abc",
-      publicKey: FakePublicKey(base58CheckRepresentation: "xyz"),
+      publicKey: FakePublicKey(base58CheckRepresentation: "xyz", signingCurve: .ed25519),
       operationFeePolicy: .custom(.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
     )!

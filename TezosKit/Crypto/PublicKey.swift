@@ -2,6 +2,7 @@
 
 import Base58Swift
 import Foundation
+import secp256k1
 import Sodium
 
 /// Encapsulation of a Public Key.
@@ -63,10 +64,21 @@ public struct PublicKey: PublicKeyProtocol {
   public init(secretKey: SecretKey, signingCurve: EllipticalCurve) {
     switch signingCurve {
     case .ed25519:
-      self.bytes = Array(secretKey.bytes[32...])
-      self.signingCurve = signingCurve
+      self.init(bytes: Array(secretKey.bytes[32...]), signingCurve: .ed25519)
     case .secp256k1:
-      fatalError("Unimplemented")
+      let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))
+      var pubKey = secp256k1_pubkey()
+      guard secp256k1_ec_pubkey_create(ctx!, &pubKey, secretKey.bytes) != 0 else {
+        fatalError()
+      }
+
+      var pubKeyBytes = [UInt8](repeating: 0, count: 33)
+      var outputLen = 33
+      _ = secp256k1_ec_pubkey_serialize(
+          ctx!, &pubKeyBytes, &outputLen, &pubKey, UInt32(SECP256K1_EC_COMPRESSED))
+
+      secp256k1_context_destroy(ctx)
+      self.init(bytes: pubKeyBytes, signingCurve: .secp256k1)
     }
   }
 
@@ -96,11 +108,25 @@ public struct PublicKey: PublicKeyProtocol {
       return false
     }
 
+    // TODO(keefertaylor): remember to destroy context when doing signing.
+    // TODO(keefertaylor): Formatting and credit for this code.
+    // TODO(keefertaylor): Use defer to destroy context.
+
     switch signingCurve {
     case .ed25519:
       return Sodium.shared.sign.verify(message: bytesToVerify, publicKey: self.bytes, signature: signature)
     case .secp256k1:
-      fatalError("Unimplemented")
+      let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_VERIFY))
+      var sig = secp256k1_ecdsa_signature()
+      var pubKey = secp256k1_pubkey()
+      guard
+        secp256k1_ecdsa_signature_parse_compact(ctx!, &sig, signature) != 0,
+        secp256k1_ec_pubkey_parse(ctx!, &pubKey, self.bytes, self.bytes.count) != 0
+      else {
+        fatalError("WRONG AGAIN")
+      }
+
+      return secp256k1_ecdsa_verify(ctx!, &sig, bytesToVerify, &pubKey) == 1
     }
   }
 

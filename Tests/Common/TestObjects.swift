@@ -28,7 +28,10 @@ extension Int {
 }
 
 extension FakePublicKey {
-  public static let testPublicKey = FakePublicKey(base58CheckRepresentation: "public_key_base_58")
+  public static let testPublicKey = FakePublicKey(
+    base58CheckRepresentation: "public_key_base_58",
+    signingCurve: .ed25519
+  )
 }
 
 extension Array where Element == UInt8 {
@@ -62,7 +65,8 @@ extension OperationPayload {
 extension SignedOperationPayload {
   public static let testSignedOperationPayload = SignedOperationPayload(
     operationPayload: .testOperationPayload,
-    signature: .testSignature
+    signature: .testSignature,
+    signingCurve: .ed25519
   )!
 }
 

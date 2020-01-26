@@ -73,7 +73,7 @@ public class NetworkClientImpl: NetworkClient {
   public func send<T>(
     _ rpc: RPC<T>,
     completion: @escaping (Result<T, TezosKitError>) -> Void
-    ) {
+  ) {
     send(rpc, callbackQueue: nil, completion: completion)
   }
 
@@ -97,6 +97,8 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
+
+      print("Payload: \(rpc.payload)")
     }
 
     // Add headers from client.
@@ -108,6 +110,9 @@ public class NetworkClientImpl: NetworkClient {
     for header in rpc.headers {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
+
+    print("Request: \(remoteNodeEndpoint)")
+    print("------------------------")
 
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {

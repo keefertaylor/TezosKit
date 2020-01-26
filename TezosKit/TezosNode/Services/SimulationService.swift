@@ -93,7 +93,8 @@ public class SimulationService {
         ),
         let signedOperationPayload = SignedOperationPayload(
           operationPayload: operationPayload,
-          signature: SimulationService.defaultSignature
+          signature: SimulationService.defaultSignature,
+          signingCurve: .ed25519
         )
       else {
           let error = TezosKitError(kind: .signingError, underlyingError: nil)

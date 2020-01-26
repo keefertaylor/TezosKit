@@ -780,7 +780,8 @@ public class TezosNodeClient {
       let signedBytesForInjection = JSONUtils.jsonString(for: forgeResult + signatureHex),
       let signedOperationPayload = SignedOperationPayload(
         operationPayload: operationPayload,
-        signature: signature
+        signature: signature,
+        signingCurve: signatureProvider.publicKey.signingCurve
       )
     else {
       let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
