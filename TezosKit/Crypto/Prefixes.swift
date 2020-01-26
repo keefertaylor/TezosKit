@@ -9,8 +9,15 @@ public enum Prefix {
   }
 
   public enum Keys {
-    public static let `public`: [UInt8] = [13, 15, 37, 217] // edpk
-    public static let secret: [UInt8] = [43, 246, 78, 7]    // edsk
+    public enum Ed25519 {
+      public static let `public`: [UInt8] = [13, 15, 37, 217] // edpk
+      public static let secret: [UInt8] = [43, 246, 78, 7]    // edsk
+    }
+
+    public enum Secp256k1 {
+      public static let `public`: [UInt8] = [3, 254, 226, 86] // sppk
+      public static let secret: [UInt8] = [17, 162, 224, 201]  // spsk
+    }
   }
 
   public enum Sign {
@@ -19,5 +26,6 @@ public enum Prefix {
 
   public enum Address {
     public static let tz1: [UInt8] = [6, 161, 159] // tz1
+    public static let tz2: [UInt8] = [6, 161, 161] // tz1
   }
 }

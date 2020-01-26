@@ -198,7 +198,8 @@ extension String {
 
 extension SecretKey {
   // swiftlint:disable force_unwrapping
-  public static let testSecretKey = SecretKey(mnemonic: .mnemonic)!
+  public static let testSecretKey_ed25519 = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519)!
+  public static let testSecretKey_secp256k1 = SecretKey(mnemonic: .mnemonic, signingCurve: .secp256k1)!
   // swiftlint:enable force_unwrapping
 }
 

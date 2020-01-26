@@ -16,9 +16,9 @@ public struct PublicKey: PublicKeyProtocol {
   public var base58CheckRepresentation: String {
     switch signingCurve {
     case .ed25519:
-      return Base58.encode(message: bytes, prefix: Prefix.Keys.public)
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.Ed25519.public)
     case .secp256k1:
-      fatalError("Unimplemented")
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.Secp256k1.public)
     }
   }
 
@@ -33,7 +33,7 @@ public struct PublicKey: PublicKeyProtocol {
     case .ed25519:
       return Base58.encode(message: hash, prefix: Prefix.Address.tz1)
     case .secp256k1:
-      fatalError("Unimplemented")
+      return Base58.encode(message: hash, prefix: Prefix.Address.tz2)
     }
   }
 
@@ -47,12 +47,15 @@ public struct PublicKey: PublicKeyProtocol {
   public init?(string: String, signingCurve: EllipticalCurve) {
     switch signingCurve {
     case .ed25519:
-      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.public) else {
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.Ed25519.public) else {
         return nil
       }
       self.init(bytes: bytes, signingCurve: signingCurve)
     case .secp256k1:
-      fatalError("Unimplemented")
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.Secp256k1.public) else {
+        return nil
+      }
+      self.init(bytes: bytes, signingCurve: signingCurve)
     }
   }
 
