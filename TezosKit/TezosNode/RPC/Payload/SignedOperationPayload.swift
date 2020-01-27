@@ -20,9 +20,9 @@ public struct SignedOperationPayload {
   /// - Parameters:
   ///   - operationPayload: The operation payload.
   ///   - signature: The signature for the operation payload.
-  public init?(operationPayload: OperationPayload, signature: [UInt8]) {
+  public init?(operationPayload: OperationPayload, signature: [UInt8], signingCurve: EllipticalCurve) {
     self.operationPayload = operationPayload
-    guard let base58Signature = CryptoUtils.base58(signature: signature) else {
+    guard let base58Signature = CryptoUtils.base58(signature: signature, signingCurve: signingCurve) else {
       return nil
     }
     self.base58Signature = base58Signature

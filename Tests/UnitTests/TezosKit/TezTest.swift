@@ -153,7 +153,7 @@ class TezTest: XCTestCase {
     XCTAssertEqual(left, expected)
   }
 
-  public func testSubtractTwoWhoNumbers() {
+  public func testSubtractTwoWholeNumbers() {
     var left = Tez(3.0)
     let right = Tez(2.0)
     let expected = Tez(1.0)

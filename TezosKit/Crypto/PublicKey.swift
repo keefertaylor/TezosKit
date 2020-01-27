@@ -2,6 +2,7 @@
 
 import Base58Swift
 import Foundation
+import secp256k1
 import Sodium
 
 /// Encapsulation of a Public Key.
@@ -16,9 +17,9 @@ public struct PublicKey: PublicKeyProtocol {
   public var base58CheckRepresentation: String {
     switch signingCurve {
     case .ed25519:
-      return Base58.encode(message: bytes, prefix: Prefix.Keys.public)
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.Ed25519.public)
     case .secp256k1:
-      fatalError("Unimplemented")
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.Secp256k1.public)
     }
   }
 
@@ -33,7 +34,7 @@ public struct PublicKey: PublicKeyProtocol {
     case .ed25519:
       return Base58.encode(message: hash, prefix: Prefix.Address.tz1)
     case .secp256k1:
-      fatalError("Unimplemented")
+      return Base58.encode(message: hash, prefix: Prefix.Address.tz2)
     }
   }
 
@@ -47,23 +48,51 @@ public struct PublicKey: PublicKeyProtocol {
   public init?(string: String, signingCurve: EllipticalCurve) {
     switch signingCurve {
     case .ed25519:
-      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.public) else {
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.Ed25519.public) else {
         return nil
       }
       self.init(bytes: bytes, signingCurve: signingCurve)
     case .secp256k1:
-      fatalError("Unimplemented")
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.Secp256k1.public) else {
+        return nil
+      }
+      self.init(bytes: bytes, signingCurve: signingCurve)
     }
   }
 
   /// Initialize a key from the given secret key with the given signing curve.
-  public init(secretKey: SecretKey, signingCurve: EllipticalCurve) {
-    switch signingCurve {
+  public init?(secretKey: SecretKey) {
+    switch secretKey.signingCurve {
     case .ed25519:
-      self.bytes = Array(secretKey.bytes[32...])
-      self.signingCurve = signingCurve
+      self.init(bytes: Array(secretKey.bytes[32...]), signingCurve: .ed25519)
     case .secp256k1:
-      fatalError("Unimplemented")
+      let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN))
+      defer {
+        secp256k1_context_destroy(context)
+      }
+
+      var publicKey = secp256k1_pubkey()
+      guard
+        secp256k1_ec_pubkey_create(context!, &publicKey, secretKey.bytes) != 0
+      else {
+        return nil
+      }
+
+      var outputLength = 33
+      var publicKeyBytes = [UInt8](repeating: 0, count: outputLength)
+      guard
+        secp256k1_ec_pubkey_serialize(
+          context!,
+          &publicKeyBytes,
+          &outputLength,
+          &publicKey,
+          UInt32(SECP256K1_EC_COMPRESSED)
+        ) != 0
+      else {
+        return nil
+      }
+
+      self.init(bytes: publicKeyBytes, signingCurve: .secp256k1)
     }
   }
 
@@ -97,7 +126,17 @@ public struct PublicKey: PublicKeyProtocol {
     case .ed25519:
       return Sodium.shared.sign.verify(message: bytesToVerify, publicKey: self.bytes, signature: signature)
     case .secp256k1:
-      fatalError("Unimplemented")
+      let context = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_VERIFY))
+      defer {
+        secp256k1_context_destroy(context)
+      }
+
+      var cSignature = secp256k1_ecdsa_signature()
+      var publicKey = secp256k1_pubkey()
+      secp256k1_ecdsa_signature_parse_compact(context!, &cSignature, signature)
+      _ = secp256k1_ec_pubkey_parse(context!, &publicKey, self.bytes, self.bytes.count)
+
+      return secp256k1_ecdsa_verify(context!, &cSignature, bytesToVerify, &publicKey) == 1
     }
   }
 

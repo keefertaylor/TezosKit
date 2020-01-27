@@ -5,6 +5,7 @@ import Foundation
 
 public struct FakePublicKey: PublicKeyProtocol {
   public let base58CheckRepresentation: String
+  public let signingCurve: EllipticalCurve
 }
 
 /// A fake SignatureProvider.

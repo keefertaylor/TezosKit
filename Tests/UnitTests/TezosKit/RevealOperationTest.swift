@@ -6,7 +6,7 @@ import XCTest
 class RevealOperationTest: XCTestCase {
   public func testDictionaryRepresentation() {
     let source = "tz1abc"
-    let publicKey = FakePublicKey(base58CheckRepresentation: "edpkXYZ")
+    let publicKey = FakePublicKey(base58CheckRepresentation: "edpkXYZ", signingCurve: .ed25519)
 
     let operation = OperationFactory.testFactory.revealOperation(
       from: source,

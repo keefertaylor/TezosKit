@@ -21,10 +21,12 @@ extension Base58 {
   /// - Returns: The raw bytes without the given prefix if the string was valid Base58Check and had the expected prefix,
   ///            otherwise, nil.
   public static func base58CheckDecodeWithPrefix(string: String, prefix: [UInt8]) -> [UInt8]? {
-    guard let bytes = Base58.base58CheckDecode(string),
-          bytes.prefix(Prefix.Keys.secret.count).elementsEqual(prefix) else {
+    guard
+      let bytes = Base58.base58CheckDecode(string),
+      bytes.prefix(prefix.count).elementsEqual(prefix)
+    else {
         return nil
     }
-    return Array(bytes.suffix(from: Prefix.Keys.secret.count))
+    return Array(bytes.suffix(from: prefix.count))
   }
 }

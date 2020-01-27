@@ -73,7 +73,7 @@ public class NetworkClientImpl: NetworkClient {
   public func send<T>(
     _ rpc: RPC<T>,
     completion: @escaping (Result<T, TezosKitError>) -> Void
-    ) {
+  ) {
     send(rpc, callbackQueue: nil, completion: completion)
   }
 
