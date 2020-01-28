@@ -33,7 +33,6 @@
 		127F92545866411A37E2563A /* TezTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF8E4119383EA36202FE25 /* TezTest.swift */; };
 		128311F2C5A0B70E2EE1D409 /* GetBallotsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9ECBC79C00C0B082798EB /* GetBallotsRPCTest.swift */; };
 		1283CBD6F35544031013F520 /* ConseilEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C935B8FA02AA0F4D639B200 /* ConseilEntity.swift */; };
-		12A0424FB376EC5D310EAEDD /* SecureEnclaveWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */; };
 		142AB23ED4D91C70AF3695C1 /* OperationWithCounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E2A45E6EB2DCA9A6D1E3F /* OperationWithCounterTest.swift */; };
 		150BC04519380FB34ABE25AF /* OperationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB59AEAEB019E7B641B448B1 /* OperationFactory.swift */; };
 		156B321DCC4509F69AFDFEEE /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207E6BD1F08A190CAD16F7AA /* OperationFeePolicy.swift */; };
@@ -131,7 +130,6 @@
 		4F48F1939F7FBC9EF5D8EBFA /* secp256k1.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8FD368E4F600E8C2A2D1D3A /* secp256k1.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4FCF97E349053D21AE8E506E /* GetProposalUnderEvaluationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B756EB7320CC968E1C2ED /* GetProposalUnderEvaluationRPC.swift */; };
 		507040285C936250D661F395 /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95F395F6CD3F62BF5D3FCED1 /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		50A376D5E41657DE31D49E4A /* SecureEnclaveWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */; };
 		50D2C68AA4145527E3333F6F /* StringResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7B474664A9C0C8EA93EA08 /* StringResponseAdapterTest.swift */; };
 		50D5AF8F52F0363F90F9EF6D /* GetDelegateRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA474C90E513C4377433A85C /* GetDelegateRPCTest.swift */; };
 		51019358C9044908CD8DAA42 /* BoolMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04B3A5C6B64BB78285FD5F6 /* BoolMichelsonParameter.swift */; };
@@ -600,7 +598,6 @@
 		2B1E035A6252AD79E6A4AAD1 /* SigningService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningService.swift; sourceTree = "<group>"; };
 		2B3D7B0277CE3BF6560DFD91 /* MnemonicUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicUtilsTest.swift; sourceTree = "<group>"; };
 		2FFED1AB3870A0537888D39E /* GetChainHeadHashRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPCTest.swift; sourceTree = "<group>"; };
-		3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveWallet.swift; sourceTree = "<group>"; };
 		31A43F54FBE7049C2AAE4183 /* GetProposalUnderEvaluationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPCTest.swift; sourceTree = "<group>"; };
 		31F867E1CE5F1920E101259B /* GasLimitPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasLimitPolicy.swift; sourceTree = "<group>"; };
 		32F4925116A936510F4B1176 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = "<group>"; };
@@ -1016,7 +1013,6 @@
 			children = (
 				A4B1E1C9C5236B52B797EFA7 /* Address.swift */,
 				6067C4058BC42C52B64AF93A /* Hex.swift */,
-				3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */,
 				3D6EF4B87FBEBB73B166F339 /* Tez.swift */,
 				0C4387729ED2573C33E3320F /* Wallet.swift */,
 			);
@@ -1761,7 +1757,6 @@
 				A78894097ED7DAEF4506FFDE /* RunOperationPayload.swift in Sources */,
 				5176340FF8C190A4F793CDBB /* RunOperationRPC.swift in Sources */,
 				C3EDBCD5E67501AA5ED1EFFC /* SecretKey.swift in Sources */,
-				12A0424FB376EC5D310EAEDD /* SecureEnclaveWallet.swift in Sources */,
 				CD09D6ADC165E072F1941888 /* SignedOperationPayload.swift in Sources */,
 				8BE28CF8A5B3B2FD3C2D3781 /* SignedProtocolOperationPayload.swift in Sources */,
 				6A010379E6D6E1574A25E439 /* SigningService.swift in Sources */,
@@ -1976,7 +1971,6 @@
 				8270CB670129FD8CBE391DB5 /* RunOperationPayload.swift in Sources */,
 				C5A5A45C65BF1CFAC428C422 /* RunOperationRPC.swift in Sources */,
 				FFECC5266FF384A624C13396 /* SecretKey.swift in Sources */,
-				50A376D5E41657DE31D49E4A /* SecureEnclaveWallet.swift in Sources */,
 				8F5F5CAA8F8726A3391FB576 /* SignedOperationPayload.swift in Sources */,
 				AE83DAF69E3ADD93C33F0B44 /* SignedProtocolOperationPayload.swift in Sources */,
 				3D0DFC6B5FED520A51FFA5ED /* SigningService.swift in Sources */,
