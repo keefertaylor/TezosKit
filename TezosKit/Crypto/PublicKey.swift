@@ -20,6 +20,8 @@ public struct PublicKey: PublicKeyProtocol {
       return Base58.encode(message: bytes, prefix: Prefix.Keys.Ed25519.public)
     case .secp256k1:
       return Base58.encode(message: bytes, prefix: Prefix.Keys.Secp256k1.public)
+    case .p256:
+      return Base58.encode(message: bytes, prefix: Prefix.Keys.P256.public)
     }
   }
 
@@ -35,6 +37,8 @@ public struct PublicKey: PublicKeyProtocol {
       return Base58.encode(message: hash, prefix: Prefix.Address.tz1)
     case .secp256k1:
       return Base58.encode(message: hash, prefix: Prefix.Address.tz2)
+    case .p256:
+      return Base58.encode(message: hash, prefix: Prefix.Address.tz3)
     }
   }
 
@@ -54,6 +58,11 @@ public struct PublicKey: PublicKeyProtocol {
       self.init(bytes: bytes, signingCurve: signingCurve)
     case .secp256k1:
       guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.Secp256k1.public) else {
+        return nil
+      }
+      self.init(bytes: bytes, signingCurve: signingCurve)
+    case .p256:
+      guard let bytes = Base58.base58CheckDecodeWithPrefix(string: string, prefix: Prefix.Keys.P256.public) else {
         return nil
       }
       self.init(bytes: bytes, signingCurve: signingCurve)
@@ -80,19 +89,20 @@ public struct PublicKey: PublicKeyProtocol {
 
       var outputLength = 33
       var publicKeyBytes = [UInt8](repeating: 0, count: outputLength)
-      guard
-        secp256k1_ec_pubkey_serialize(
-          context!,
-          &publicKeyBytes,
-          &outputLength,
-          &publicKey,
+      guard secp256k1_ec_pubkey_serialize(
+        context!,
+        &publicKeyBytes,
+        &outputLength,
+        &publicKey,
           UInt32(SECP256K1_EC_COMPRESSED)
-        ) != 0
+      ) != 0
       else {
         return nil
       }
 
       self.init(bytes: publicKeyBytes, signingCurve: .secp256k1)
+    case .p256:
+      fatalError("Unimplemented")
     }
   }
 
@@ -137,6 +147,8 @@ public struct PublicKey: PublicKeyProtocol {
       _ = secp256k1_ec_pubkey_parse(context!, &publicKey, self.bytes, self.bytes.count)
 
       return secp256k1_ecdsa_verify(context!, &cSignature, bytesToVerify, &publicKey) == 1
+    case .p256:
+      fatalError("Unimplemented")
     }
   }
 

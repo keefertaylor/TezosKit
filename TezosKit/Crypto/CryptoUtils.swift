@@ -40,6 +40,8 @@ public enum CryptoUtils {
       return Base58.encode(message: signature, prefix: Prefix.Keys.Ed25519.signature)
     case .secp256k1:
       return Base58.encode(message: signature, prefix: Prefix.Keys.Secp256k1.signature)
+    case .p256:
+      return Base58.encode(message: signature, prefix: Prefix.Keys.P256.signature)
     }
   }
 

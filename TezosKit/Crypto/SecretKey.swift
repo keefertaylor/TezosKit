@@ -21,6 +21,8 @@ public struct SecretKey {
       return Base58.encode(message: bytes, prefix: Prefix.Keys.Ed25519.secret)
     case .secp256k1:
       return Base58.encode(message: bytes, prefix: Prefix.Keys.Secp256k1.secret)
+    case .p256:
+      fatalError("Unimplemented")
     }
   }
 
@@ -75,6 +77,8 @@ public struct SecretKey {
         return nil
       }
       self.init(bytes, signingCurve: .secp256k1)
+    case .p256:
+      fatalError("Unimplemented")
     }
   }
 
@@ -131,6 +135,8 @@ public struct SecretKey {
       }
 
       return output
+    case .p256:
+      fatalError("Unimplemented")
     }
   }
 
