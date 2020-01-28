@@ -29,7 +29,7 @@ class CryptoUtilsTest: XCTestCase {
         121, 43, 25, 235, 97, 235, 140, 144, 168, 32, 75, 190, 101, 126, 99, 117, 13
       ]
 
-    let base58Representation = CryptoUtils.base58(signature: signature)
+    let base58Representation = CryptoUtils.base58(signature: signature, signingCurve: .ed25519)
     XCTAssertEqual(
       base58Representation,
       "edsigu13UN5tAjQsxaLmXL7vCXM9BRggVDygne5LDZs7fHNH61PXfgbmXaAAq63GR8gqgeqa3aYNH4dnv18LdHaSCetC9sSJUCF"

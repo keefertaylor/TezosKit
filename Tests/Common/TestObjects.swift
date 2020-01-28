@@ -28,7 +28,10 @@ extension Int {
 }
 
 extension FakePublicKey {
-  public static let testPublicKey = FakePublicKey(base58CheckRepresentation: "public_key_base_58")
+  public static let testPublicKey = FakePublicKey(
+    base58CheckRepresentation: "public_key_base_58",
+    signingCurve: .ed25519
+  )
 }
 
 extension Array where Element == UInt8 {
@@ -62,7 +65,8 @@ extension OperationPayload {
 extension SignedOperationPayload {
   public static let testSignedOperationPayload = SignedOperationPayload(
     operationPayload: .testOperationPayload,
-    signature: .testSignature
+    signature: .testSignature,
+    signingCurve: .ed25519
   )!
 }
 
@@ -198,7 +202,8 @@ extension String {
 
 extension SecretKey {
   // swiftlint:disable force_unwrapping
-  public static let testSecretKey = SecretKey(mnemonic: .mnemonic)!
+  public static let testSecretKey_ed25519 = SecretKey(mnemonic: .mnemonic, signingCurve: .ed25519)!
+  public static let testSecretKey_secp256k1 = SecretKey(mnemonic: .mnemonic, signingCurve: .secp256k1)!
   // swiftlint:enable force_unwrapping
 }
 

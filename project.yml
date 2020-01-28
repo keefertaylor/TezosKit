@@ -22,10 +22,10 @@ targets:
       - carthage: SipHash
       - carthage: Sodium
       - carthage: CryptoSwift
-      - carthage: TezosCrypto
       - carthage: PromiseKit
       - carthage: Base58Swift
       - carthage: MnemonicKit
+      - carthage: secp256k1
   TezosKitTests:
     type: bundle.unit-test
     platform: [iOS, macOS]

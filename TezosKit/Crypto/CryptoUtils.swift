@@ -34,8 +34,15 @@ public enum CryptoUtils {
   }
 
   /// Convert signature bytes to their base58 representation.
-  public static func base58(signature: [UInt8]) -> String? {
-    return Base58.encode(message: signature, prefix: Prefix.Sign.signature)
+  public static func base58(signature: [UInt8], signingCurve: EllipticalCurve) -> String? {
+    switch signingCurve {
+    case .ed25519:
+      return Base58.encode(message: signature, prefix: Prefix.Keys.Ed25519.signature)
+    case .secp256k1:
+      return Base58.encode(message: signature, prefix: Prefix.Keys.Secp256k1.signature)
+    case .p256:
+      return Base58.encode(message: signature, prefix: Prefix.Keys.P256.signature)
+    }
   }
 
   /// Create injectable hex bytes from the given hex operation and signature bytes

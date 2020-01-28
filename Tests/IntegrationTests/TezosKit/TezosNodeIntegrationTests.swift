@@ -606,6 +606,31 @@ class TezosNodeIntegrationTests: XCTestCase {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
+  public func testSend_tz2() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let tz2Wallet = Wallet(secretKey: "spsk1qYjGNaPGL154oYWL3gtPFC3fG3Kix4XrdHGx996gzcR9m1vmT", signingCurve: .secp256k1)!
+
+    self.nodeClient.send(
+      amount: Tez(1.0),
+      to: Wallet()!.address,
+      from: tz2Wallet.address,
+      signatureProvider: tz2Wallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
   public func testGetBigMapValueByID() {
     let expectation = XCTestExpectation(description: "Got big map value")
 
