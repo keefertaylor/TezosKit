@@ -152,4 +152,30 @@ final class PublicKeyTests: XCTestCase {
       publicKey2.verify(signature: validSignatureFromPublicKey1, hex: hexToSign)
     )
   }
+
+  // MARK: secp256k1
+
+   func testBase58CheckRepresentation_p256() {
+     let base58Representation = "p2pk66yEDuRC5RLHpVj8hvAS5fr8HnU2YsLvFNdwQoW3jH8WUynMwGG"
+     guard let publicKey = PublicKey(string: base58Representation, signingCurve: .p256) else {
+       XCTFail()
+       return
+     }
+     XCTAssertEqual(publicKey.base58CheckRepresentation, base58Representation)
+   }
+
+   func testPublicKeyHash_p256() {
+     let base58Representation = "p2pk66yEDuRC5RLHpVj8hvAS5fr8HnU2YsLvFNdwQoW3jH8WUynMwGG"
+     guard let publicKey = PublicKey(string: base58Representation, signingCurve: .p256) else {
+       XCTFail()
+       return
+     }
+     XCTAssertEqual(publicKey.publicKeyHash, "tz3Q2KTKWw3xqiowvfX4N7gyyAfCz8hTvcnk")
+  }
+
+   func testInitFromBase58CheckRepresentation_InvalidBase58_p256() {
+     XCTAssertNil(
+       PublicKey(string: "edsko0O", signingCurve: .p256)
+     )
+   }
 }
