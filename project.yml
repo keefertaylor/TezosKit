@@ -38,3 +38,10 @@ targets:
     sources: [Tests/IntegrationTests, Tests/Common]
     dependencies:
       - target: TezosKit_${platform}
+  SecureEnclaveExample:
+    type: application
+    platform: iOS
+    deploymentTarget: "10.0"
+    sources: [Examples/SecureEnclave]
+    dependencies:
+      - target: TezosKit_iOS
