@@ -7,6 +7,7 @@ import Foundation
 public protocol SignatureProvider {
   func sign(_ hex: String) -> [UInt8]?
   var publicKey: PublicKeyProtocol { get }
+  var address: String { get }
 }
 
 /// Manages signing of transactions.

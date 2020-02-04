@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     nodeClient.send(
       amount: Tez("1")!,
       to: "tz1NpWrAyDL9k2Lmnyxcgr9xuJakbBxdq7FB",
-      from: "x",
+      from: wallet.address,
       signatureProvider: wallet,
       operationFeePolicy: .estimate
     ) { result in
