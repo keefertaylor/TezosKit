@@ -64,7 +64,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 120
+    let intertestWaitTime: UInt32 = 0 //120
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -609,14 +609,14 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testSend_tz2() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let tz2Wallet = Wallet(secretKey: "spsk1qYjGNaPGL154oYWL3gtPFC3fG3Kix4XrdHGx996gzcR9m1vmT", signingCurve: .secp256k1)!
+    let tz2Wallet = Wallet(secretKey: "spsk1fYtbGsvDEeb4NGanSiYQYcLFNZYNZ9F7jSvmCbT55DHcbtWjL", signingCurve: .secp256k1)!
 
     self.nodeClient.send(
       amount: Tez(1.0),
-      to: Wallet()!.address,
+      to: "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW", // Wallet()!.address,
       from: tz2Wallet.address,
       signatureProvider: tz2Wallet,
-      operationFeePolicy: .estimate
+      operationFeePolicy: .estimate //  .custom(OperationFees(fee: Tez(2.0), gasLimit: 40_000, storageLimit: 300))
     ) { result in
       switch result {
       case .failure(let error):
@@ -628,7 +628,7 @@ class TezosNodeIntegrationTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: .expectationTimeout)
+    wait(for: [expectation], timeout: 50_000)
   }
 
   public func testGetBigMapValueByID() {

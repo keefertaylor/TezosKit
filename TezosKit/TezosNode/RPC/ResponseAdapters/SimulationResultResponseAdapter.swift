@@ -47,7 +47,7 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
       }
 
       if status == JSON.Values.failed {
-        return .failure
+        return nil
       }
 
       let rawConsumedGas = operationResult[JSON.Keys.consumedGas] as? String ?? "0"
@@ -73,6 +73,6 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
       }
     }
 
-    return .success(consumedGas: consumedGas, consumedStorage: consumedStorage)
+    return SimulationResult(consumedGas: consumedGas, consumedStorage: consumedStorage)
   }
 }

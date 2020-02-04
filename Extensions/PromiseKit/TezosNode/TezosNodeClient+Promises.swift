@@ -278,24 +278,26 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
-    guard
-      let transactionOperation = operationFactory.transactionOperation(
-        amount: amount,
-        source: source,
-        destination: recipientAddress,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-      else {
-        return Promise { seal in
-          seal.reject(TezosKitError(kind: .transactionFormationFailure))
-        }
-      }
-    return forgeSignPreapplyAndInject(
-      operation: transactionOperation,
+    let result = operationFactory.transactionOperation(
+      amount: amount,
       source: source,
+      destination: recipientAddress,
+      operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let transactionOperation):
+      return forgeSignPreapplyAndInject(
+        operation: transactionOperation,
+        source: source,
+        signatureProvider: signatureProvider
+      )
+    case .failure(let error):
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      }
+    }
   }
 
   /// Call a smart contract.
@@ -318,27 +320,28 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
-    guard
-      let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
-        amount: amount,
-        entrypoint: entrypoint,
-        parameter: parameter,
-        source: source,
-        destination: contract,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure))
-      }
-    }
-
-    return forgeSignPreapplyAndInject(
-      operation: smartContractInvocationOperation,
+    let result = operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      entrypoint: entrypoint,
+      parameter: parameter,
       source: source,
+      destination: contract,
+      operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let smartContractInvocationOperation):
+      return forgeSignPreapplyAndInject(
+        operation: smartContractInvocationOperation,
+        source: source,
+        signatureProvider: signatureProvider
+      )
+    case .failure(let error):
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      }
+    }
   }
 
   /// Delegate the balance of an account.
@@ -355,24 +358,25 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
-    guard
-      let delegationOperation = operationFactory.delegateOperation(
-        source: source,
-        to: delegate,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure))
-      }
-    }
-
-    return forgeSignPreapplyAndInject(
-      operation: delegationOperation,
+    let result = operationFactory.delegateOperation(
       source: source,
+      to: delegate,
+      operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let delegationOperation):
+      return forgeSignPreapplyAndInject(
+        operation: delegationOperation,
+        source: source,
+        signatureProvider: signatureProvider
+      )
+    case .failure(let error):
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      }
+    }
   }
 
   /// Clear the delegate of an account.
@@ -387,23 +391,23 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
-    guard
-      let undelegateOperatoin = operationFactory.undelegateOperation(
-        source: source,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure))
-      }
-    }
-
-    return forgeSignPreapplyAndInject(
-      operation: undelegateOperatoin,
+    let result = operationFactory.undelegateOperation(
       source: source,
+      operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider
     )
+    switch result {
+    case .success(let undelegateOperation):
+      return forgeSignPreapplyAndInject(
+        operation: undelegateOperation,
+        source: source,
+        signatureProvider: signatureProvider
+      )
+    case .failure(let error):
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      }
+    }
   }
 
   /// Register an address as a delegate.
@@ -418,23 +422,24 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy = .default
   ) -> Promise<String> {
-    guard
-      let registerDelegateOperation = operationFactory.registerDelegateOperation(
-        source: delegate,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure))
-      }
-    }
-
-    return forgeSignPreapplyAndInject(
-      operation: registerDelegateOperation,
+    let result = operationFactory.registerDelegateOperation(
       source: delegate,
+      operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let registerDelegateOperation):
+      return forgeSignPreapplyAndInject(
+        operation: registerDelegateOperation,
+        source: delegate,
+        signatureProvider: signatureProvider
+      )
+    case .failure(let error):
+      return Promise { seal in
+        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      }
+    }
   }
 
   /// Forge, sign, preapply and then inject a single operation.

@@ -75,9 +75,9 @@ class ViewController: UIViewController {
 
   @objc
   func generate() {
-    let wallet = Wallet()
-
-    genKey.text = wallet?.address
+    let wallet = Wallet()!
+    genKey.text = wallet.address
+    print(wallet.address)
 
     self.wallet = wallet
   }

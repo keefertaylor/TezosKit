@@ -43,21 +43,23 @@ public class OperationFactory {
     publicKey: PublicKeyProtocol,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
-  ) -> Operation? {
+  ) -> Result<Operation, TezosKitError> {
     let operation = RevealOperation(from: address, publicKey: publicKey, operationFees: OperationFees.zeroFees)
-    guard
-      let fees = operationFees(
-        from: operationFeePolicy,
-        address: address,
-        operation: operation,
-        signatureProvider: signatureProvider,
-        tezosProtocol: tezosProtocol
-      )
-    else {
-      return nil
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: address,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
+
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
     }
-    operation.operationFees = fees
-    return operation
   }
 
   /// Create a delegation operation which will register the given address as a delegate.
@@ -70,23 +72,23 @@ public class OperationFactory {
     source: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
-  ) -> Operation? {
+  ) -> Result<Operation, TezosKitError> {
     let operation = DelegationOperation(source: source, delegate: source, operationFees: OperationFees.zeroFees)
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
 
-    guard
-      let fees = operationFees(
-        from: operationFeePolicy,
-        address: source,
-        operation: operation,
-        signatureProvider: signatureProvider,
-        tezosProtocol: tezosProtocol
-      )
-    else {
-      return nil
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
     }
-
-    operation.operationFees = fees
-    return operation
   }
 
   /// Create a delegation operation which will delegate to the given address.
@@ -101,23 +103,23 @@ public class OperationFactory {
     to delegate: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
-  ) -> Operation? {
+  ) -> Result<Operation, TezosKitError> {
     let operation = DelegationOperation(source: source, delegate: delegate, operationFees: OperationFees.zeroFees)
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
 
-    guard
-      let fees = operationFees(
-        from: operationFeePolicy,
-        address: source,
-        operation: operation,
-        signatureProvider: signatureProvider,
-        tezosProtocol: tezosProtocol
-      )
-    else {
-      return nil
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
     }
-
-    operation.operationFees = fees
-    return operation
   }
 
   /// Create a delegation operation which will clear the delegate from the given address.
@@ -130,22 +132,23 @@ public class OperationFactory {
     source: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
-  ) -> Operation? {
+  ) -> Result<Operation, TezosKitError> {
     let operation = DelegationOperation(source: source, delegate: nil, operationFees: OperationFees.zeroFees)
-    guard
-      let fees = operationFees(
-        from: operationFeePolicy,
-        address: source,
-        operation: operation,
-        signatureProvider: signatureProvider,
-        tezosProtocol: tezosProtocol
-      )
-    else {
-      return nil
-    }
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
 
-    operation.operationFees = fees
-    return operation
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+    }
   }
 
   /// Create a new transaction operation.
@@ -162,7 +165,7 @@ public class OperationFactory {
     destination: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
-  ) -> Operation? {
+  ) -> Result<Operation, TezosKitError> {
     let operation = TransactionOperation(
       amount: amount,
       source: source,
@@ -170,20 +173,21 @@ public class OperationFactory {
       operationFees: OperationFees.zeroFees
     )
 
-    guard
-      let fees = operationFees(
-        from: operationFeePolicy,
-        address: source,
-        operation: operation,
-        signatureProvider: signatureProvider,
-        tezosProtocol: tezosProtocol
-      )
-    else {
-      return nil
-    }
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
 
-    operation.operationFees = fees
-    return operation
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+    }
   }
 
   /// Create a new smart contract invocation operation.
@@ -205,7 +209,7 @@ public class OperationFactory {
     destination: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
-  ) -> Operation? {
+  ) -> Result<Operation, TezosKitError> {
     let operation = SmartContractInvocationOperation(
       amount: amount,
       entrypoint: entrypoint,
@@ -215,20 +219,22 @@ public class OperationFactory {
       operationFees: OperationFees.zeroFees
     )
 
-    guard
-      let fees = operationFees(
-        from: operationFeePolicy,
-        address: source,
-        operation: operation,
-        signatureProvider: signatureProvider,
-        tezosProtocol: tezosProtocol
-      )
-    else {
-      return nil
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
+
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
     }
 
-    operation.operationFees = fees
-    return operation
   }
 
   // MARK: - Internal
@@ -239,16 +245,16 @@ public class OperationFactory {
     operation: Operation,
     signatureProvider: SignatureProvider,
     tezosProtocol: TezosProtocol
-  ) -> OperationFees? {
+  ) -> Result<OperationFees, TezosKitError> {
     switch policy {
     case .default:
-      return defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol)
+      return .success(defaultFeeProvider.fees(for: operation.kind, in: tezosProtocol))
     case .custom(let operationFees):
-      return operationFees
+      return .success(operationFees)
     case .estimate:
       let estimationGroup = DispatchGroup()
 
-      var fees: OperationFees?
+      var fees: Result<OperationFees, TezosKitError> = .failure(TezosKitError(kind: .unknown))
 
       estimationGroup.enter()
 
@@ -261,11 +267,7 @@ public class OperationFactory {
           defer {
             estimationGroup.leave()
           }
-
-          guard let estimatedFees = result else {
-            return
-          }
-          fees = estimatedFees
+          fees = result
         }
       }
 

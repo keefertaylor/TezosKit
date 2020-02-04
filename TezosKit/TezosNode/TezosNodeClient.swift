@@ -372,26 +372,27 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard
-      let transactionOperation = operationFactory.transactionOperation(
-        amount: amount,
-        source: source,
-        destination: recipientAddress,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
-      }
-      return
-    }
-    forgeSignPreapplyAndInject(
-      transactionOperation,
+    let result = operationFactory.transactionOperation(
+      amount: amount,
       source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
+      destination: recipientAddress,
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let transactionOperation):
+      forgeSignPreapplyAndInject(
+        transactionOperation,
+        source: source,
+        signatureProvider: signatureProvider,
+        completion: completion
+      )
+    case .failure(let error):
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+      }
+    }
   }
 
   /// Call a smart contract.
@@ -451,28 +452,29 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard
-      let smartContractInvocationOperation = operationFactory.smartContractInvocationOperation(
-        amount: amount,
-        entrypoint: entrypoint,
-        parameter: parameter,
-        source: source,
-        destination: contract,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
-      }
-      return
-    }
-    forgeSignPreapplyAndInject(
-      smartContractInvocationOperation,
+    let result = operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      entrypoint: entrypoint,
+      parameter: parameter,
       source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
+      destination: contract,
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let smartContractInvocationOperation):
+      forgeSignPreapplyAndInject(
+        smartContractInvocationOperation,
+        source: source,
+        signatureProvider: signatureProvider,
+        completion: completion
+      )
+    case .failure(let error):
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+      }
+    }
   }
 
   /// Delegate the balance of an account.
@@ -520,26 +522,26 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard
-      let delegationOperation = operationFactory.delegateOperation(
-        source: source,
-        to: delegate,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
-      }
-      return
-    }
-
-    forgeSignPreapplyAndInject(
-      delegationOperation,
+    let result = operationFactory.delegateOperation(
       source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
+      to: delegate,
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let delegationOperation):
+      forgeSignPreapplyAndInject(
+        delegationOperation,
+        source: source,
+        signatureProvider: signatureProvider,
+        completion: completion
+      )
+    case .failure(let error):
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+      }
+    }
   }
 
   /// Clear the delegate of an account.
@@ -579,24 +581,26 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard
-      let undelegateOperation = operationFactory.undelegateOperation(
+    let result = operationFactory.undelegateOperation(
+      source: source,
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
+    )
+
+    switch result {
+    case .success(let undelegateOperation):
+      forgeSignPreapplyAndInject(
+        undelegateOperation,
         source: source,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
+        signatureProvider: signatureProvider,
+        completion: completion
       )
-    else {
+    case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
       }
       return
     }
-    forgeSignPreapplyAndInject(
-      undelegateOperation,
-      source: source,
-      signatureProvider: signatureProvider,
-      completion: completion
-    )
   }
 
   /// Register an address as a delegate.
@@ -639,25 +643,25 @@ public class TezosNodeClient {
     operationFeePolicy: OperationFeePolicy = .default,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard
-      let registerDelegateOperation = operationFactory.registerDelegateOperation(
-        source: delegate,
-        operationFeePolicy: operationFeePolicy,
-        signatureProvider: signatureProvider
-      )
-    else {
-      callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure)))
-      }
-      return
-    }
-
-    forgeSignPreapplyAndInject(
-      registerDelegateOperation,
+    let result = operationFactory.registerDelegateOperation(
       source: delegate,
-      signatureProvider: signatureProvider,
-      completion: completion
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
+
+    switch result {
+    case .success(let registerDelegateOperation):
+      forgeSignPreapplyAndInject(
+        registerDelegateOperation,
+        source: delegate,
+        signatureProvider: signatureProvider,
+        completion: completion
+      )
+    case .failure(let error):
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+      }
+    }
   }
 
   /// Retrieve metadata and runs an operation.
