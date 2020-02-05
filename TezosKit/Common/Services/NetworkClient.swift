@@ -97,8 +97,6 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
-
-      print(rpc.payload)
     }
 
     // Add headers from client.
@@ -111,15 +109,10 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
 
-    print(remoteNodeEndpoint)
-
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
         return
       }
-
-      print("Resp: \(String(data: data!, encoding: .utf8))")
-      print("----------------------------------------------------")
 
       let result = self.responseHandler.handleResponse(
         response: response,

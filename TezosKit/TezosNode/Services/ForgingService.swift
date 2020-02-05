@@ -41,12 +41,9 @@ public class ForgingService {
 
     var result: Result<String, TezosKitError> = .failure(TezosKitError(kind: .unknown))
     forgingGroup.enter()
-    print("entered")
     forgingServiceQueue.async {
-      // TODO: Use defer
       self.forge(operationPayload: operationPayload, operationMetadata: operationMetadata) { forgingResult in
         result = forgingResult
-        print("leave")
         forgingGroup.leave()
       }
     }
