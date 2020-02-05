@@ -22,12 +22,15 @@ class ViewController: UIViewController {
   /// The last operation hash received from TezosClient.
   var opHash: String?
 
+  var nodeClient: TezosNodeClient?
+
   // MARK: - UIView
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     titleLabel.text = "Tezos Secure Enclave Signing"
+    titleLabel.textColor = .black
     generateKey.setTitle("Generate Key", for: .normal)
     generateKey.frame = CGRect(x: 50, y: 200, width: 300, height: 50)
     generateKey.backgroundColor = .gray
@@ -35,18 +38,22 @@ class ViewController: UIViewController {
     self.view.addSubview(generateKey)
 
     pkh.text = "Public Key Hash:"
+    pkh.textColor = .black
     pkh.frame = CGRect(x: 50, y: 270, width: 300, height: 20)
     self.view.addSubview(pkh)
 
     genKey.text = ""
+    genKey.textColor = .black
     genKey.frame = CGRect(x: 50, y: 310, width: 300, height: 20)
     self.view.addSubview(genKey)
 
     dest.text = "Destination:"
+    dest.textColor = .black
     dest.frame = CGRect(x: 50, y: 350, width: 300, height: 20)
     self.view.addSubview(dest)
 
     destKey.text = "tz1NpWrAyDL9k2Lmnyxcgr9xuJakbBxdq7FB"
+    destKey.textColor = .black
     destKey.frame = CGRect(x: 50, y: 390, width: 300, height: 20)
     self.view.addSubview(destKey)
 
@@ -57,10 +64,12 @@ class ViewController: UIViewController {
     self.view.addSubview(signTransaction)
 
     h.text = "Operation Hash:"
+    h.textColor = .black
     h.frame = CGRect(x: 50, y: 530, width: 300, height: 20)
     self.view.addSubview(h)
 
     hash2.text = ""
+    hash2.textColor = .black
     hash2.frame = CGRect(x: 50, y: 570, width: 300, height: 20)
     self.view.addSubview(hash2)
 
@@ -75,9 +84,9 @@ class ViewController: UIViewController {
 
   @objc
   func generate() {
-    let wallet = Wallet()
-
-    genKey.text = wallet?.address
+    let wallet = Wallet()!
+    genKey.text = wallet.address
+    print(wallet.address)
 
     self.wallet = wallet
   }
@@ -89,11 +98,12 @@ class ViewController: UIViewController {
     }
 
     let nodeURL = URL(string: "https://tezos-dev.cryptonomic-infra.tech")!
-    let nodeClient = TezosNodeClient(remoteNodeURL: nodeURL)
+    let nodeClient = TezosNodeClient(remoteNodeURL: nodeURL, callbackQueue: DispatchQueue(label: "tezosqueue"))
+    self.nodeClient = nodeClient
     nodeClient.send(
       amount: Tez("1")!,
       to: "tz1NpWrAyDL9k2Lmnyxcgr9xuJakbBxdq7FB",
-      from: "x",
+      from: wallet.address,
       signatureProvider: wallet,
       operationFeePolicy: .estimate
     ) { result in

@@ -77,38 +77,36 @@ public class SimulationService {
       guard let self = self else {
         return
       }
-      guard case let .success(operationMetadata) = result else {
-        completion(
-          result.map { _ in .failure }
-        )
-        return
-      }
-
-      guard
-        let operationPayload = OperationPayloadFactory.operationPayload(
-          from: [operation],
-          source: source,
-          signatureProvider: signatureProvider,
-          operationMetadata: operationMetadata
-        ),
-        let signedOperationPayload = SignedOperationPayload(
-          operationPayload: operationPayload,
-          signature: SimulationService.defaultSignature,
-          signingCurve: .ed25519
-        )
-      else {
+      switch result {
+      case .failure(let error):
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+      case .success(let operationMetadata):
+        guard
+          let operationPayload = OperationPayloadFactory.operationPayload(
+            from: [operation],
+            source: source,
+            signatureProvider: signatureProvider,
+            operationMetadata: operationMetadata
+          ),
+          let signedOperationPayload = SignedOperationPayload(
+            operationPayload: operationPayload,
+            signature: SimulationService.defaultSignature,
+            signingCurve: .ed25519
+          )
+        else {
           let error = TezosKitError(kind: .signingError, underlyingError: nil)
           completion(.failure(error))
           return
+        }
+
+        let runOperationPayload = RunOperationPayload(
+          signedOperationPayload: signedOperationPayload,
+          operationMetadata: operationMetadata
+        )
+
+        let rpc = RunOperationRPC(runOperationPayload: runOperationPayload)
+        self.networkClient.send(rpc, callbackQueue: self.simulationServiceQueue, completion: completion)
       }
-
-      let runOperationPayload = RunOperationPayload(
-        signedOperationPayload: signedOperationPayload,
-        operationMetadata: operationMetadata
-      )
-
-      let rpc = RunOperationRPC(runOperationPayload: runOperationPayload)
-      self.networkClient.send(rpc, callbackQueue: self.simulationServiceQueue, completion: completion)
     }
   }
 }

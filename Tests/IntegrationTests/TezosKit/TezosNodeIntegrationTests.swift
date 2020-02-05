@@ -609,11 +609,11 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testSend_tz2() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    let tz2Wallet = Wallet(secretKey: "spsk1qYjGNaPGL154oYWL3gtPFC3fG3Kix4XrdHGx996gzcR9m1vmT", signingCurve: .secp256k1)!
+    let tz2Wallet = Wallet(secretKey: "spsk1fYtbGsvDEeb4NGanSiYQYcLFNZYNZ9F7jSvmCbT55DHcbtWjL", signingCurve: .secp256k1)!
 
     self.nodeClient.send(
       amount: Tez(1.0),
-      to: Wallet()!.address,
+      to: "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
       from: tz2Wallet.address,
       signatureProvider: tz2Wallet,
       operationFeePolicy: .estimate
