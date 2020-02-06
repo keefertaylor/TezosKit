@@ -6,4 +6,5 @@ import Foundation
 public protocol PublicKeyProtocol {
   var base58CheckRepresentation: String { get }
   var signingCurve: EllipticalCurve { get }
+  var publicKeyHash: String { get }
 }

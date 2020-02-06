@@ -33,6 +33,8 @@
 		127F92545866411A37E2563A /* TezTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF8E4119383EA36202FE25 /* TezTest.swift */; };
 		128311F2C5A0B70E2EE1D409 /* GetBallotsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9ECBC79C00C0B082798EB /* GetBallotsRPCTest.swift */; };
 		1283CBD6F35544031013F520 /* ConseilEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C935B8FA02AA0F4D639B200 /* ConseilEntity.swift */; };
+		12A0424FB376EC5D310EAEDD /* SecureEnclaveWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */; };
+		12AF2FD780D3F25BD46FDEF1 /* EllipticCurveKeyPair.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4069F7BAA9DFA10B35B701E6 /* EllipticCurveKeyPair.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		142AB23ED4D91C70AF3695C1 /* OperationWithCounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E2A45E6EB2DCA9A6D1E3F /* OperationWithCounterTest.swift */; };
 		150BC04519380FB34ABE25AF /* OperationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB59AEAEB019E7B641B448B1 /* OperationFactory.swift */; };
 		156B321DCC4509F69AFDFEEE /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207E6BD1F08A190CAD16F7AA /* OperationFeePolicy.swift */; };
@@ -59,6 +61,7 @@
 		21D16434E5CA699713465031 /* TezosKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 632B9078CDB2B8EC754A858F /* TezosKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		21DFB6D5F1C38A65473294A4 /* GetBallotsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84952454AD66BD8E378047D /* GetBallotsRPC.swift */; };
 		231A8423F33E60910EC2C9E7 /* TransactionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8230197EBFE429B4C99611 /* TransactionTest.swift */; };
+		231CAC043BEC1374DE2FCB5A /* EllipticCurveKeyPair.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4069F7BAA9DFA10B35B701E6 /* EllipticCurveKeyPair.framework */; };
 		232A22C322ECB499CE1ABB97 /* PreapplyOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B033280AD0AE71CF00F15555 /* PreapplyOperationRPC.swift */; };
 		23845BE3533EAB49AF8FFB9C /* PackDataResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F486C701A3D29A99234232CF /* PackDataResponseAdapter.swift */; };
 		242A7A44B6E8CBB749D1599A /* GetProposalsListRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37006AE33DD9117CB4E6FC9F /* GetProposalsListRPCTest.swift */; };
@@ -105,6 +108,7 @@
 		3F3B6E81340BD7ECFCE8FBAF /* ForgeOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF8AE07E00BB723F1C5F139 /* ForgeOperationRPC.swift */; };
 		3F5EE99A632A748BBB6D0FE4 /* IntegerResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109F98709DCC0A5351158718 /* IntegerResponseAdapter.swift */; };
 		3FA01EA6B1FC4327269B16A9 /* PromiseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 32F4925116A936510F4B1176 /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		402EEED977AE9A3A05A4BD91 /* EllipticCurveKeyPair.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A9A5BFDED57C9F690243F763 /* EllipticCurveKeyPair.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40708A0C7052EF4251CD9BAC /* GetSentTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1564F45DEFBC0D755FAB0218 /* GetSentTransactionsRPC.swift */; };
 		40ACC605362177DDD753AF43 /* CodingUtilTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47259C26A53DB562B22F087B /* CodingUtilTest.swift */; };
 		40D3B5BF40C5EE325C951BB2 /* FeeEstimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC56B6DF6FF924206963D52 /* FeeEstimatorTest.swift */; };
@@ -134,6 +138,7 @@
 		4FCF97E349053D21AE8E506E /* GetProposalUnderEvaluationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B756EB7320CC968E1C2ED /* GetProposalUnderEvaluationRPC.swift */; };
 		4FF49B2B994C90E6844FC1A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103F9F9791635574BDC25318 /* LaunchScreen.storyboard */; };
 		507040285C936250D661F395 /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95F395F6CD3F62BF5D3FCED1 /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		50A376D5E41657DE31D49E4A /* SecureEnclaveWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */; };
 		50D2C68AA4145527E3333F6F /* StringResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7B474664A9C0C8EA93EA08 /* StringResponseAdapterTest.swift */; };
 		50D5AF8F52F0363F90F9EF6D /* GetDelegateRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA474C90E513C4377433A85C /* GetDelegateRPCTest.swift */; };
 		51019358C9044908CD8DAA42 /* BoolMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04B3A5C6B64BB78285FD5F6 /* BoolMichelsonParameter.swift */; };
@@ -152,6 +157,7 @@
 		5887D02AA393101D925EFE47 /* FakeObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4465D045474BB982821D86 /* FakeObjects.swift */; };
 		58C7A5EADB3679DB8A4CB288 /* PackDataResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F486C701A3D29A99234232CF /* PackDataResponseAdapter.swift */; };
 		5921B5ED76C2A0C0C67E36DA /* TezosNodeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A82D9C70BEC192B4D73809 /* TezosNodeClient.swift */; };
+		5983A448BAEFACFEF015F18C /* EllipticCurveKeyPair.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A5BFDED57C9F690243F763 /* EllipticCurveKeyPair.framework */; };
 		59A1BF03FDC7C2729B77469E /* Base58+TezosCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57EC805C27A406AF0C4B17E /* Base58+TezosCrypto.swift */; };
 		59A2F834737A398C874C200B /* TezosNodeClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A480E400F3C3D065639376F4 /* TezosNodeClientTests.swift */; };
 		59F27929724F9EF92946A3FC /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */; };
@@ -203,6 +209,7 @@
 		727FAAC57D3B5FB1DFC993F6 /* ForgeOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3C6101EC3A6572348C068C /* ForgeOperationRPCTest.swift */; };
 		730FC94BF17634F7B0A065C0 /* GetCurrentPeriodKindRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933679D90DA718BAE1ECF1ED /* GetCurrentPeriodKindRPC.swift */; };
 		74702CAD5E79A2B0DA1D3494 /* JSONArrayResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C325259AE4DD3416B4F30 /* JSONArrayResponseAdapter.swift */; };
+		74FFD74A2211F83B207A4AEC /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C7225DE55A77297776B686 /* ASN1.swift */; };
 		767808D0C01FF2CB4F56C5CC /* PeriodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FEF269B74ED2BB4A9C9FB8 /* PeriodKind.swift */; };
 		768EC7127649F743CADF5485 /* InjectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D83203112185AC915DDD2 /* InjectionService.swift */; };
 		76E015C816A9797BEA99C3D1 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E212CD2F0656857B66156D04 /* NetworkClient.swift */; };
@@ -391,6 +398,7 @@
 		DAB2C96A2F10A124E40ABB1A /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61EDBE7577517E6ACF2498A2 /* MnemonicKit.framework */; };
 		DAB469501CBBA2BC3259F563 /* TransactionOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8539A22E432B9FCA2191C6F3 /* TransactionOperationTest.swift */; };
 		DACADEC72463D0CE8063EBBA /* OperationFees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009F72EE9B4FAB81EA63A88E /* OperationFees.swift */; };
+		DAE14C5E0C97F3C62D567A88 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C7225DE55A77297776B686 /* ASN1.swift */; };
 		DB6EA6FF18BEC9B88F56F40D /* GetProposalUnderEvaluationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B756EB7320CC968E1C2ED /* GetProposalUnderEvaluationRPC.swift */; };
 		DB9D8A24F4E1BADBC532528E /* TokenContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8CAB1EBF88156948D30F4 /* TokenContractClient.swift */; };
 		DBB6BA7F5BA4F6525A350D22 /* RevealOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9497DCBC4C3BE5334CF8BC59 /* RevealOperation.swift */; };
@@ -400,6 +408,7 @@
 		DC1E1E56237DA3D9D9658F46 /* GetCurrentPeriodKindRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED831CC057088D0986D62D11 /* GetCurrentPeriodKindRPCTest.swift */; };
 		DC9C8834E1D992263ED86CBA /* TransactionOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8539A22E432B9FCA2191C6F3 /* TransactionOperationTest.swift */; };
 		DE76843D18B4E20B091CFE2F /* AbstractResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29024177105AD82662279805 /* AbstractResponseAdapter.swift */; };
+		DE9B767D774B29825BF918E8 /* EllipticCurveKeyPair.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A9A5BFDED57C9F690243F763 /* EllipticCurveKeyPair.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DEC0B33BFB2FD57BDA72F908 /* secp256k1.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD76EFEED13EEB01FF11D1D /* secp256k1.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF7BC9CE0907809EC5D31FB4 /* PackDataResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF6AC0E4147B4D778F38BB /* PackDataResponseAdapterTest.swift */; };
 		DFD9A90F3093E54A39B695BC /* GetVotingDelegateRightsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39091129CFF302C9A24A91C3 /* GetVotingDelegateRightsRPCTest.swift */; };
@@ -409,6 +418,7 @@
 		E0959E31A8070943401A504B /* ConseilQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB45514356C89019DB00E50 /* ConseilQuery.swift */; };
 		E15E9B606007A7798D79926D /* BoolMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04B3A5C6B64BB78285FD5F6 /* BoolMichelsonParameter.swift */; };
 		E1BA99AD0B1A4AECDD2A8ADD /* DelegationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35169AC0F795C07FA8AC1ED /* DelegationOperationTest.swift */; };
+		E207C06DE3D7C8C8B7B84A81 /* EllipticCurveKeyPair.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4069F7BAA9DFA10B35B701E6 /* EllipticCurveKeyPair.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E26EA01A1CBE78934F1DB018 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3BE4BAECB893457A44FC1 /* TestHelpers.swift */; };
 		E2F309725BF25B205C05A6AE /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC64BA50EF400CF4B90951AA /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E565D4EC8A4CCF33E6DBB8FB /* InjectOperationRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2CD91AC2A1310E66E207E /* InjectOperationRPC.swift */; };
@@ -507,6 +517,7 @@
 				9E6EFCDB62128E8D81DE0A28 /* Base58Swift.framework in Embed Frameworks */,
 				7F343BFAB58B2CF79A43C7F3 /* BigInt.framework in Embed Frameworks */,
 				078DB916D5C442FBEAF6C207 /* CryptoSwift.framework in Embed Frameworks */,
+				E207C06DE3D7C8C8B7B84A81 /* EllipticCurveKeyPair.framework in Embed Frameworks */,
 				89385B570B73F859DD132068 /* MnemonicKit.framework in Embed Frameworks */,
 				6DD065FF295ADBB604B88EF1 /* PromiseKit.framework in Embed Frameworks */,
 				E97BCA66FE0C6E211FDBA80F /* SipHash.framework in Embed Frameworks */,
@@ -526,6 +537,7 @@
 				A179D2426984A3AE45527544 /* Base58Swift.framework in Embed Frameworks */,
 				6DD1697EEE7C52FC8DEF9C56 /* BigInt.framework in Embed Frameworks */,
 				62C0718A0A00329A5232FF3A /* CryptoSwift.framework in Embed Frameworks */,
+				DE9B767D774B29825BF918E8 /* EllipticCurveKeyPair.framework in Embed Frameworks */,
 				3DD35013DA97BA70B30E7ADF /* MnemonicKit.framework in Embed Frameworks */,
 				F0AEE76F37F8405989F53A1A /* PromiseKit.framework in Embed Frameworks */,
 				3255CEC47E34C92CFAD279ED /* SipHash.framework in Embed Frameworks */,
@@ -545,6 +557,7 @@
 				42B2FF8CA413F46C1323980B /* Base58Swift.framework in Embed Frameworks */,
 				C0382A1E21312C3D3323732F /* BigInt.framework in Embed Frameworks */,
 				E6ADE3A5AA3B2E3DBB49A515 /* CryptoSwift.framework in Embed Frameworks */,
+				402EEED977AE9A3A05A4BD91 /* EllipticCurveKeyPair.framework in Embed Frameworks */,
 				D445EE1F54141ACD6014D443 /* MnemonicKit.framework in Embed Frameworks */,
 				FAFE54CF7E5E0BC0D60B460E /* PromiseKit.framework in Embed Frameworks */,
 				34473DC68AF5DC541FC41AD8 /* SipHash.framework in Embed Frameworks */,
@@ -564,6 +577,7 @@
 				A0B6D82615E5DCF70E37D5EB /* Base58Swift.framework in Embed Frameworks */,
 				507040285C936250D661F395 /* BigInt.framework in Embed Frameworks */,
 				E2F309725BF25B205C05A6AE /* CryptoSwift.framework in Embed Frameworks */,
+				12AF2FD780D3F25BD46FDEF1 /* EllipticCurveKeyPair.framework in Embed Frameworks */,
 				B5FFE6258A7B9E96E00F4D95 /* MnemonicKit.framework in Embed Frameworks */,
 				3FA01EA6B1FC4327269B16A9 /* PromiseKit.framework in Embed Frameworks */,
 				1A63200730FAA4748B49D99F /* SipHash.framework in Embed Frameworks */,
@@ -625,6 +639,7 @@
 		2B1E035A6252AD79E6A4AAD1 /* SigningService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningService.swift; sourceTree = "<group>"; };
 		2B3D7B0277CE3BF6560DFD91 /* MnemonicUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicUtilsTest.swift; sourceTree = "<group>"; };
 		2FFED1AB3870A0537888D39E /* GetChainHeadHashRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetChainHeadHashRPCTest.swift; sourceTree = "<group>"; };
+		3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveWallet.swift; sourceTree = "<group>"; };
 		31A43F54FBE7049C2AAE4183 /* GetProposalUnderEvaluationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPCTest.swift; sourceTree = "<group>"; };
 		31F867E1CE5F1920E101259B /* GasLimitPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasLimitPolicy.swift; sourceTree = "<group>"; };
 		32F4925116A936510F4B1176 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = "<group>"; };
@@ -643,6 +658,7 @@
 		3D0AD0F585AD355B45543613 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3D6EF4B87FBEBB73B166F339 /* Tez.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tez.swift; sourceTree = "<group>"; };
 		3D81337F4A5B2C502DB3D076 /* OperationKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationKind.swift; sourceTree = "<group>"; };
+		4069F7BAA9DFA10B35B701E6 /* EllipticCurveKeyPair.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EllipticCurveKeyPair.framework; sourceTree = "<group>"; };
 		4072A0AC0434DA705B972883 /* TezosKitTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		407B756EB7320CC968E1C2ED /* GetProposalUnderEvaluationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProposalUnderEvaluationRPC.swift; sourceTree = "<group>"; };
 		4090B8A708287039DE6178F4 /* InjectOperationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectOperationRPCTest.swift; sourceTree = "<group>"; };
@@ -734,6 +750,7 @@
 		A700A211C7AB1E92C5D7C3F4 /* SignedOperationPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOperationPayload.swift; sourceTree = "<group>"; };
 		A7284743A69C9A12186E4D67 /* Base58Swift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Base58Swift.framework; sourceTree = "<group>"; };
 		A84ECF4C95D1743641BEF321 /* TransactionOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionOperation.swift; sourceTree = "<group>"; };
+		A9A5BFDED57C9F690243F763 /* EllipticCurveKeyPair.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EllipticCurveKeyPair.framework; sourceTree = "<group>"; };
 		AA46CF630A8512DF758EB2E2 /* ConseilEntityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilEntityTest.swift; sourceTree = "<group>"; };
 		AAF8AE07E00BB723F1C5F139 /* ForgeOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgeOperationRPC.swift; sourceTree = "<group>"; };
 		AB59AEAEB019E7B641B448B1 /* OperationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFactory.swift; sourceTree = "<group>"; };
@@ -780,6 +797,7 @@
 		D9F5DCCA68E890BE7185F769 /* DexterExchangeClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientIntegrationTests.swift; sourceTree = "<group>"; };
 		DEAEB55943792CC3F5CE052C /* SecureEnclaveExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecureEnclaveExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B48169F083D2DAEB462840 /* SimulationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationServiceTest.swift; sourceTree = "<group>"; };
+		E1C7225DE55A77297776B686 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		E212CD2F0656857B66156D04 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		E4B3BE4BAECB893457A44FC1 /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		E564AA5901EF3BB2FCF79397 /* SecretKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretKeyTests.swift; sourceTree = "<group>"; };
@@ -841,6 +859,7 @@
 				41806A8A36A64F5A02A7516D /* Base58Swift.framework in Frameworks */,
 				7DBDD4E5B7E0D5672BDDA73E /* MnemonicKit.framework in Frameworks */,
 				0390C92B910E0E1BA97E424E /* secp256k1.framework in Frameworks */,
+				5983A448BAEFACFEF015F18C /* EllipticCurveKeyPair.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,6 +883,7 @@
 				323631CC9EF11EB971525EA6 /* Base58Swift.framework in Frameworks */,
 				DAB2C96A2F10A124E40ABB1A /* MnemonicKit.framework in Frameworks */,
 				B59CA39ADEBDD06466164288 /* secp256k1.framework in Frameworks */,
+				231CAC043BEC1374DE2FCB5A /* EllipticCurveKeyPair.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1075,7 @@
 			children = (
 				A4B1E1C9C5236B52B797EFA7 /* Address.swift */,
 				6067C4058BC42C52B64AF93A /* Hex.swift */,
+				3103A3291FFE6B0ACB0E0FD3 /* SecureEnclaveWallet.swift */,
 				3D6EF4B87FBEBB73B166F339 /* Tez.swift */,
 				0C4387729ED2573C33E3320F /* Wallet.swift */,
 			);
@@ -1088,6 +1109,7 @@
 		447BCFB9A1DA6D42EE8061D7 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
+				E1C7225DE55A77297776B686 /* ASN1.swift */,
 				E57EC805C27A406AF0C4B17E /* Base58+TezosCrypto.swift */,
 				900C4EF29B323D36C58C403C /* CryptoUtils.swift */,
 				0BB8C8A74A942774B715E706 /* EllipticalCurve.swift */,
@@ -1227,6 +1249,7 @@
 				F47131DE435D053FC8DE2DBF /* Base58Swift.framework */,
 				7806BE5035AB3100BA7C791C /* BigInt.framework */,
 				AFC77643CD2C374042E0B932 /* CryptoSwift.framework */,
+				A9A5BFDED57C9F690243F763 /* EllipticCurveKeyPair.framework */,
 				1DD4B1012288DD6F90E8C78A /* MnemonicKit.framework */,
 				33A83E353521083164433924 /* PromiseKit.framework */,
 				D8FD368E4F600E8C2A2D1D3A /* secp256k1.framework */,
@@ -1310,6 +1333,7 @@
 				A7284743A69C9A12186E4D67 /* Base58Swift.framework */,
 				95F395F6CD3F62BF5D3FCED1 /* BigInt.framework */,
 				AC64BA50EF400CF4B90951AA /* CryptoSwift.framework */,
+				4069F7BAA9DFA10B35B701E6 /* EllipticCurveKeyPair.framework */,
 				61EDBE7577517E6ACF2498A2 /* MnemonicKit.framework */,
 				32F4925116A936510F4B1176 /* PromiseKit.framework */,
 				7AD76EFEED13EEB01FF11D1D /* secp256k1.framework */,
@@ -1666,6 +1690,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Base58Swift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BigInt.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/EllipticCurveKeyPair.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MnemonicKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SipHash.framework",
@@ -1677,6 +1702,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Base58Swift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BigInt.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/EllipticCurveKeyPair.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MnemonicKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PromiseKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SipHash.framework",
@@ -1788,6 +1814,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE14C5E0C97F3C62D567A88 /* ASN1.swift in Sources */,
 				F5EE3E4DED51F38477AED282 /* AbstractMichelsonParameter.swift in Sources */,
 				45FF7FCB7F2351BA549C6BDF /* AbstractOperation.swift in Sources */,
 				5C243C48B85DBB99E58CE34C /* AbstractResponseAdapter.swift in Sources */,
@@ -1878,6 +1905,7 @@
 				A78894097ED7DAEF4506FFDE /* RunOperationPayload.swift in Sources */,
 				5176340FF8C190A4F793CDBB /* RunOperationRPC.swift in Sources */,
 				C3EDBCD5E67501AA5ED1EFFC /* SecretKey.swift in Sources */,
+				12A0424FB376EC5D310EAEDD /* SecureEnclaveWallet.swift in Sources */,
 				CD09D6ADC165E072F1941888 /* SignedOperationPayload.swift in Sources */,
 				8BE28CF8A5B3B2FD3C2D3781 /* SignedProtocolOperationPayload.swift in Sources */,
 				6A010379E6D6E1574A25E439 /* SigningService.swift in Sources */,
@@ -2002,6 +2030,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74FFD74A2211F83B207A4AEC /* ASN1.swift in Sources */,
 				903F786504865D80F76138B1 /* AbstractMichelsonParameter.swift in Sources */,
 				BF8368AEC93713FD0257CB2A /* AbstractOperation.swift in Sources */,
 				DE76843D18B4E20B091CFE2F /* AbstractResponseAdapter.swift in Sources */,
@@ -2092,6 +2121,7 @@
 				8270CB670129FD8CBE391DB5 /* RunOperationPayload.swift in Sources */,
 				C5A5A45C65BF1CFAC428C422 /* RunOperationRPC.swift in Sources */,
 				FFECC5266FF384A624C13396 /* SecretKey.swift in Sources */,
+				50A376D5E41657DE31D49E4A /* SecureEnclaveWallet.swift in Sources */,
 				8F5F5CAA8F8726A3391FB576 /* SignedOperationPayload.swift in Sources */,
 				AE83DAF69E3ADD93C33F0B44 /* SignedProtocolOperationPayload.swift in Sources */,
 				3D0DFC6B5FED520A51FFA5ED /* SigningService.swift in Sources */,
@@ -2266,6 +2296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Enclave2.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2606,6 +2637,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Enclave2.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				FRAMEWORK_SEARCH_PATHS = (

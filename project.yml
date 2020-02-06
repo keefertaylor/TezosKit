@@ -26,6 +26,7 @@ targets:
       - carthage: Base58Swift
       - carthage: MnemonicKit
       - carthage: secp256k1
+      - carthage: EllipticCurveKeyPair
   TezosKitTests:
     type: bundle.unit-test
     platform: [iOS, macOS]
@@ -45,3 +46,8 @@ targets:
     sources: [Examples/SecureEnclave]
     dependencies:
       - target: TezosKit_iOS
+    entitlements:
+      path: ./Enclave2.entitlements
+      properties:
+        keychain-access-groups: $(AppIdentifierPrefix)com.keefertaylor.Enclave
+

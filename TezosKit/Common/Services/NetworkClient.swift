@@ -97,6 +97,8 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
+
+      print(payload)
     }
 
     // Add headers from client.

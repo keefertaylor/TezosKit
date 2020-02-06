@@ -19,6 +19,8 @@ class ViewController: UIViewController {
   /// The wallet that we're interacting with.
   var wallet: SignatureProvider?
 
+  var address: String?
+
   /// The last operation hash received from TezosClient.
   var opHash: String?
 
@@ -84,10 +86,11 @@ class ViewController: UIViewController {
 
   @objc
   func generate() {
-    let wallet = Wallet()!
+    let wallet = SecureEnclaveWallet()!
     genKey.text = wallet.address
     print(wallet.address)
 
+    self.address = wallet.address
     self.wallet = wallet
   }
 
@@ -103,13 +106,16 @@ class ViewController: UIViewController {
     nodeClient.send(
       amount: Tez("1")!,
       to: "tz1NpWrAyDL9k2Lmnyxcgr9xuJakbBxdq7FB",
-      from: wallet.address,
+      from: self.address!,
       signatureProvider: wallet,
       operationFeePolicy: .estimate
     ) { result in
       switch result {
       case .success(let opHash):
         self.opHash = opHash
+        DispatchQueue.main.async {
+          self.hash2.text = opHash
+        }
       case .failure(let error):
         print("error :( \(error)")
       }
