@@ -46,8 +46,4 @@ targets:
     sources: [Examples/SecureEnclave]
     dependencies:
       - target: TezosKit_iOS
-    entitlements:
-      path: ./Enclave2.entitlements
-      properties:
-        keychain-access-groups: $(AppIdentifierPrefix)com.keefertaylor.Enclave
 

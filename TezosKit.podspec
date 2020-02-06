@@ -28,6 +28,7 @@ Pod::Spec.new do |s|
   s.dependency "CryptoSwift", "~> 0.14.0"
   s.dependency "Sodium", "~> 0.8.0"
   s.dependency "secp256k1.swift"
+  s.dependency "EllipticCurveKeyPair"
 
   s.test_spec "Tests" do |test_spec|
     test_spec.source_files = ["Tests/Common/*.swift", "Tests/TezosKit/*.swift", "Tests/Extensions/PromiseKit/*.swift"]

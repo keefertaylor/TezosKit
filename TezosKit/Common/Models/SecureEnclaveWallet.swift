@@ -11,6 +11,7 @@ import Sodium
 /// A wallet which stores keys in a device's secure enclave.
 // TODO(keefertaylor): Write a strong warning about how iOS can arbitrarily reset this and it is not backed up.
 // TODO(keefertaylor): Write a README.md about using this class.
+// TODO(keefertaylor): Verify graceful behavior on a simulator.
 public class SecureEnclaveWallet: SignatureProvider {
   /// Labels for keys in the enclave.
   private enum KeyLabels {
