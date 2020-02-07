@@ -3,7 +3,6 @@
 import Base58Swift
 import BigInt
 import CommonCrypto
-import EllipticCurveKeyPair
 import Foundation
 import Security
 import Sodium
@@ -15,6 +14,7 @@ import Sodium
 public class SecureEnclaveWallet: SignatureProvider {
   /// Labels for keys in the enclave.
   private enum KeyLabels {
+    // TODO(keefertaylor): Utilize these.
     public static let `public` = "com.keefertaylor.SecureEnclaveExample.public"
     public static let secret = "com.keefertaylor.SecureEnclaveExample.secret"
   }

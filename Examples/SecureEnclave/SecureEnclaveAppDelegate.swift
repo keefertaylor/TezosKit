@@ -9,7 +9,7 @@ import TezosKit
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+xclass AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   var nc: TezosNodeClient?
