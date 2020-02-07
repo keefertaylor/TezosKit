@@ -14,7 +14,6 @@ import Sodium
 public class SecureEnclaveWallet: SignatureProvider {
   /// Labels for keys in the enclave.
   private enum KeyLabels {
-    // TODO(keefertaylor): Utilize these.
     public static let `public` = "com.keefertaylor.SecureEnclaveExample.public"
     public static let secret = "com.keefertaylor.SecureEnclaveExample.secret"
   }
@@ -35,7 +34,8 @@ public class SecureEnclaveWallet: SignatureProvider {
     self.publicKey.publicKeyHash
   }
 
-  public init?() {
+  /// - Parameter prompt: A prompt to use when asking the wallet to sign bytes.
+  public init?(prompt: String) {
     let publicAccessControl = EllipticCurveKeyPair.AccessControl(
       protection: kSecAttrAccessibleAlwaysThisDeviceOnly,
       flags: []
@@ -45,9 +45,9 @@ public class SecureEnclaveWallet: SignatureProvider {
       flags: [.userPresence, .privateKeyUsage]
     )
     let config = EllipticCurveKeyPair.Config(
-      publicLabel: "payment.sign.public",
-      privateLabel: "payment.sign.private",
-      operationPrompt: "Confirm payment",
+      publicLabel: KeyLabels.public,
+      privateLabel: KeyLabels.secret,
+      operationPrompt: prompt,
       publicKeyAccessControl: publicAccessControl,
       privateKeyAccessControl: privateAccessControl,
       token: .secureEnclave
