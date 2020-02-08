@@ -33,7 +33,7 @@ public class FakeURLSession: URLSession {
   public override func dataTask(
     with request: URLRequest,
     completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
-    ) -> URLSessionDataTask {
+  ) -> URLSessionDataTask {
     return FakeURLSessionDataTask(
       urlResponse: urlResponse,
       data: data,

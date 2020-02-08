@@ -505,11 +505,7 @@ public enum EllipticCurveKeyPair {
     public struct Constants {
         public static let noCompression: UInt8 = 4
         public static let attrKeyTypeEllipticCurve: String = {
-            if #available(iOS 10.0, *) {
-                return kSecAttrKeyTypeECSECPrimeRandom as String
-            } else {
-                return kSecAttrKeyTypeEC as String
-            }
+            return kSecAttrKeyTypeECSECPrimeRandom as String
         }()
     }
 
@@ -628,12 +624,7 @@ public enum EllipticCurveKeyPair {
         }
 
         private func queryData() throws -> PublicKeyData {
-            let keyRaw: Data
-            if #available(iOS 10.0, *) {
-                keyRaw = try export()
-            } else {
-                keyRaw = try exportWithOldApi()
-            }
+            let keyRaw = try export()
             guard keyRaw.first == Constants.noCompression else {
                 throw Error.inconcistency(message: "Tried reading public key bytes, but its headers says it is compressed and this library only handles uncompressed keys.")
             }

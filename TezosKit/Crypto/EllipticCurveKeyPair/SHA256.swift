@@ -33,7 +33,7 @@ public extension Data {
     func sha256() -> Data {
         let bytes: [UInt8] = Array(self)
         let result = SHA256(bytes).calculate32()
-        return Data(bytes: result)
+        return Data(result)
     }
 }
 
@@ -202,11 +202,8 @@ internal func bitPadding(to data: [UInt8], blockSize: Int, allowance: Int = 0) -
     return tmp
 }
 
-internal struct BytesSequence<D: RandomAccessCollection>: Sequence where D.Iterator.Element == UInt8,
-    D.IndexDistance == Int,
-    D.SubSequence.IndexDistance == Int,
-D.Index == Int {
-    let chunkSize: D.IndexDistance
+internal struct BytesSequence<D: RandomAccessCollection>: Sequence where D.Iterator.Element == UInt8, D.Index == Int {
+    let chunkSize: Int
     let data: D
 
     func makeIterator() -> AnyIterator<D.SubSequence> {
