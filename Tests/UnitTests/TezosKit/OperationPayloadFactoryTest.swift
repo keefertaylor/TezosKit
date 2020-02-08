@@ -22,14 +22,17 @@ final class OperationPayloadFactoryTest: XCTestCase {
 
   /// Test a single operation with a revealed manager key.
   func testOperationPayloadInitSingleOperation() {
-    let operations = [
-      OperationFactory.testFactory.delegateOperation(
-        source: .testAddress,
-        to: .testDestinationAddress,
-        operationFeePolicy: .default,
-        signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )!
-    ]
+    guard case let .success(operation) = OperationFactory.testFactory.delegateOperation(
+      source: .testAddress,
+      to: .testDestinationAddress,
+      operationFeePolicy: .default,
+      signatureProvider: FakeSignatureProvider.testSignatureProvider
+    ) else {
+      XCTFail()
+      return
+    }
+
+    let operations = [ operation ]
 
     let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,
@@ -47,19 +50,24 @@ final class OperationPayloadFactoryTest: XCTestCase {
 
   /// Test multiple operations with a revealed manager key.
   func testOperationPayloadInitMultipleOperations() {
-    let operations = [
-      OperationFactory.testFactory.delegateOperation(
+    guard
+      case let .success(operation1) = OperationFactory.testFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )!,
-      OperationFactory.testFactory.registerDelegateOperation(
+      ),
+      case let .success(operation2) = OperationFactory.testFactory.registerDelegateOperation(
         source: .testAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )!
-    ]
+      )
+    else {
+      XCTFail()
+      return
+    }
+
+    let operations = [ operation1, operation2 ]
 
     let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,
@@ -77,19 +85,24 @@ final class OperationPayloadFactoryTest: XCTestCase {
 
   /// Test an operation requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealRequired() {
-    let operations = [
-      OperationFactory.testFactory.delegateOperation(
+    guard
+      case let .success(operation1) = OperationFactory.testFactory.delegateOperation(
         source: .testAddress,
         to: .testDestinationAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )!,
-      OperationFactory.testFactory.registerDelegateOperation(
+      ),
+      case let .success(operation2) = OperationFactory.testFactory.registerDelegateOperation(
         source: .testAddress,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )!
-    ]
+      )
+    else {
+      XCTFail()
+      return
+    }
+
+    let operations = [ operation1, operation2 ]
 
     let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,
@@ -109,14 +122,19 @@ final class OperationPayloadFactoryTest: XCTestCase {
 
   /// Test an operation not requiring a reveal without a revealed manager key.
   func testOperationPayloadInitWithUnrevealedKeyRevealNotRequired() {
-    let operations = [
-      OperationFactory.testFactory.revealOperation(
+    guard
+      case let .success(operation) = OperationFactory.testFactory.revealOperation(
         from: .testAddress,
         publicKey: signatureProvider.publicKey,
         operationFeePolicy: .default,
         signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )!
-    ]
+      )
+    else {
+      XCTFail()
+      return
+    }
+
+    let operations = [ operation ]
 
     let operationPayload = OperationPayloadFactory.operationPayload(
       from: operations,

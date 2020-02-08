@@ -8,13 +8,16 @@ import XCTest
 class TransactionOperationTest: XCTestCase {
   public func testTransation() {
     let balance = Tez(3.50)
-    let operation = OperationFactory.testFactory.transactionOperation(
+    guard case let .success(operation) = OperationFactory.testFactory.transactionOperation(
       amount: balance,
       source: .testAddress,
       destination: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])

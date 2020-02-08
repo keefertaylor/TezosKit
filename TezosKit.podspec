@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.14"
 
   s.source_files = [ "TezosKit/**/*.swift", "Extensions/PromiseKit/*.swift"]
-  s.frameworks = 'Foundation'
+  s.frameworks = 'Foundation', "Security"
 
   s.ios.deployment_target = '10.0'
   s.osx.deployment_target = '10.14'

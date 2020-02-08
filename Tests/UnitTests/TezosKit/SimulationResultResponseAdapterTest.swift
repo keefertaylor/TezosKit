@@ -17,13 +17,8 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
       return
     }
 
-    guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
-      XCTFail()
-      return
-    }
-
-    XCTAssertEqual(consumedGas, 10_200)
-    XCTAssertEqual(consumedStorage, 0)
+    XCTAssertEqual(simulationResult.consumedGas, 10_200)
+    XCTAssertEqual(simulationResult.consumedStorage, 0)
   }
 
   /// A transaction that consumes gas and storage.
@@ -37,47 +32,34 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
         return
     }
 
-    guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
-      XCTFail()
-      return
-    }
-
-    XCTAssertEqual(consumedGas, 11_780)
-    XCTAssertEqual(consumedStorage, 49)
+    XCTAssertEqual(simulationResult.consumedGas, 11_780)
+    XCTAssertEqual(simulationResult.consumedStorage, 49)
   }
 
   /// Failed transaction - attempted to send too many Tez.
   public func testFailureOperationParameters() {
     let input = "{\"contents\":[{\"kind\":\"transaction\",\"source\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"fee\":\"1\",\"counter\":\"31127\",\"gas_limit\":\"100000\",\"storage_limit\":\"10000\",\"amount\":\"10000000000000000\",\"destination\":\"KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka\",\"metadata\":{\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1\"},{\"kind\":\"freezer\",\"category\":\"fees\",\"delegate\":\"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",\"cycle\":284,\"change\":\"1\"}],\"operation_result\":{\"status\":\"failed\",\"errors\":[{\"kind\":\"temporary\",\"id\":\"proto.004-Pt24m4xi.contract.balance_too_low\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"balance\":\"400570851\",\"amount\":\"10000000000000000\"}]}}}]}"
     guard
-      let inputData = input.data(using: .utf8),
-      let simulationResult = SimulationResultResponseAdapter.parse(input: inputData)
-      else {
+      let inputData = input.data(using: .utf8)
+    else {
         XCTFail()
         return
     }
 
-    guard case .failure = simulationResult else {
-      XCTFail()
-      return
-    }
+    XCTAssertNil(SimulationResultResponseAdapter.parse(input: inputData))
   }
 
   /// Failed transaction - too low of gas limit
   public func testFailureExhaustedGas() {
     let input = "{\"contents\":[{\"kind\":\"transaction\",\"source\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"fee\":\"1\",\"counter\":\"31127\",\"gas_limit\":\"0\",\"storage_limit\":\"10000\",\"amount\":\"10000000000000000\",\"destination\":\"KT1D5jmrBD7bDa3jCpgzo32FMYmRDdK2ihka\",\"metadata\":{\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1\"},{\"kind\":\"freezer\",\"category\":\"fees\",\"delegate\":\"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",\"cycle\":284,\"change\":\"1\"}],\"operation_result\":{\"status\":\"failed\",\"errors\":[{\"kind\":\"temporary\",\"id\":\"proto.004-Pt24m4xi.gas_exhausted.operation\"}]}}}]}"
     guard
-      let inputData = input.data(using: .utf8),
-      let simulationResult = SimulationResultResponseAdapter.parse(input: inputData)
-      else {
+      let inputData = input.data(using: .utf8)
+    else {
         XCTFail()
         return
     }
 
-    guard case .failure = simulationResult else {
-      XCTFail()
-      return
-    }
+    XCTAssertNil(SimulationResultResponseAdapter.parse(input: inputData))
   }
 
   /// A batch transaction.
@@ -91,13 +73,8 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
         return
     }
 
-    guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
-      XCTFail()
-      return
-    }
-
-    XCTAssertEqual(consumedGas, 20_000)
-    XCTAssertEqual(consumedStorage, 0)
+    XCTAssertEqual(simulationResult.consumedGas, 20_000)
+    XCTAssertEqual(simulationResult.consumedStorage, 0)
   }
 
   func testInternalTransactionS() {
@@ -110,12 +87,7 @@ final class SimulationResultResponseAdapterTest: XCTestCase {
         return
     }
 
-    guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
-      XCTFail()
-      return
-    }
-
-    XCTAssertEqual(consumedGas, 733_800)
-    XCTAssertEqual(consumedStorage, 17_509)
+    XCTAssertEqual(simulationResult.consumedGas, 733_800)
+    XCTAssertEqual(simulationResult.consumedStorage, 17_509)
   }
 }

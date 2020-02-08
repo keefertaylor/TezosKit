@@ -9,7 +9,7 @@ final class FeeEstimatorTest: XCTestCase {
     let signatureProvider = FakeSignatureProvider.testSignatureProvider
     let operationFactory = OperationFactory.testFactory
     guard
-      let operation = operationFactory.delegateOperation(
+      case let .success(operation) = operationFactory.delegateOperation(
         source: address,
         to: .testDestinationAddress,
         operationFeePolicy: .default,
@@ -29,14 +29,15 @@ final class FeeEstimatorTest: XCTestCase {
     let completionExpectation = XCTestExpectation(description: "completion called")
 
     feeEstimator.estimate(operation: operation, address: address, signatureProvider: signatureProvider) { result in
-      guard result != nil else {
+      switch result {
+      case .success:
+        completionExpectation.fulfill()
+      case .failure:
         XCTFail()
-        return
       }
-      completionExpectation.fulfill()
     }
 
     wait(for: [completionExpectation], timeout: .expectationTimeout)
 
-  }
+    }
 }

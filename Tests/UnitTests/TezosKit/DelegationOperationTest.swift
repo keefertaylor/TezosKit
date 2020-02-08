@@ -8,12 +8,15 @@ class DelegationOperationTest: XCTestCase {
     let source = "tz1abc"
     let delegate = "tz1def"
 
-    let operation = OperationFactory.testFactory.delegateOperation(
+    guard case let .success(operation) = OperationFactory.testFactory.delegateOperation(
       source: source,
       to: delegate,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
@@ -26,11 +29,14 @@ class DelegationOperationTest: XCTestCase {
   public func testDictionaryRepresentation_undelegate() {
     let source = "tz1abc"
 
-    let operation = OperationFactory.testFactory.undelegateOperation(
+    guard case let .success(operation) = OperationFactory.testFactory.undelegateOperation(
       source: source,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])
@@ -42,11 +48,14 @@ class DelegationOperationTest: XCTestCase {
   public func testDictionaryRepresentation_registerDelegate() {
     let source = "tz1abc"
 
-    let operation = OperationFactory.testFactory.registerDelegateOperation(
+    guard case let .success(operation) = OperationFactory.testFactory.registerDelegateOperation(
       source: source,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
     let dictionary = operation.dictionaryRepresentation
 
     XCTAssertNotNil(dictionary["source"])

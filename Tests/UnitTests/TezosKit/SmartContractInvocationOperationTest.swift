@@ -11,7 +11,7 @@ class SmartContractInvocationOperationTest: XCTestCase {
   let parameter = LeftMichelsonParameter(arg: IntMichelsonParameter(int: 42))
 
   public func testDictionaryRepresentationWithParameter() {
-    let operation = OperationFactory.testFactory.smartContractInvocationOperation(
+    guard case let .success(operation) = OperationFactory.testFactory.smartContractInvocationOperation(
       amount: balance,
       entrypoint: nil,
       parameter: parameter,
@@ -19,7 +19,10 @@ class SmartContractInvocationOperationTest: XCTestCase {
       destination: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
     let dictionary = operation.dictionaryRepresentation
 
     // Verify parameter is as expected.
@@ -37,7 +40,7 @@ class SmartContractInvocationOperationTest: XCTestCase {
   public func testDictionaryRepresentationWithParameterAndCustomEntrypoint() {
     let entrypoint = "TezosKit"
 
-    let operation = OperationFactory.testFactory.smartContractInvocationOperation(
+    guard case let .success(operation) = OperationFactory.testFactory.smartContractInvocationOperation(
       amount: balance,
       entrypoint: entrypoint,
       parameter: parameter,
@@ -45,7 +48,10 @@ class SmartContractInvocationOperationTest: XCTestCase {
       destination: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
     let dictionary = operation.dictionaryRepresentation
 
     // Verify parameter is as expected.
@@ -61,7 +67,7 @@ class SmartContractInvocationOperationTest: XCTestCase {
   }
 
   public func testDictionaryRepresentationWithoutParameter() {
-    let operation = OperationFactory.testFactory.smartContractInvocationOperation(
+    guard case let .success(operation) = OperationFactory.testFactory.smartContractInvocationOperation(
       amount: balance,
       entrypoint: nil,
       parameter: nil,
@@ -69,7 +75,10 @@ class SmartContractInvocationOperationTest: XCTestCase {
       destination: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
     let dictionary = operation.dictionaryRepresentation
 
     // Verify parameter is as expected.

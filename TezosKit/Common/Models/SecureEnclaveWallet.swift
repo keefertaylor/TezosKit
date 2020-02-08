@@ -2,6 +2,7 @@
 
 import Base58Swift
 import BigInt
+// TODO: needed
 import CommonCrypto
 import Foundation
 import Security
@@ -11,6 +12,7 @@ import Sodium
 // TODO(keefertaylor): Write a strong warning about how iOS can arbitrarily reset this and it is not backed up.
 // TODO(keefertaylor): Write a README.md about using this class.
 // TODO(keefertaylor): Verify graceful behavior on a simulator.
+@available(OSX 10.12.1, iOS 9.0, *)
 public class SecureEnclaveWallet: SignatureProvider {
   /// Labels for keys in the enclave.
   private enum KeyLabels {

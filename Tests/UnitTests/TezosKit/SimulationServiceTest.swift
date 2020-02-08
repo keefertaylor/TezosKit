@@ -13,12 +13,15 @@ final class SimulationServiceTest: XCTestCase {
       operationMetadataProvider: operationMetadataProvider
     )
 
-    let operation = operationFactory.delegateOperation(
+    guard case let .success(operation) = operationFactory.delegateOperation(
       source: .testAddress,
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
 
     let result = simulationService.simulateSync(
       operation,
@@ -41,12 +44,15 @@ final class SimulationServiceTest: XCTestCase {
       operationMetadataProvider: operationMetadataProvider
     )
 
-    let operation = operationFactory.delegateOperation(
+    guard case let .success(operation) = operationFactory.delegateOperation(
       source: .testAddress,
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-      )!
+    ) else {
+      XCTFail()
+      return
+    }
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(
@@ -77,12 +83,15 @@ final class SimulationServiceTest: XCTestCase {
       operationMetadataProvider: operationMetadataProvider
     )
 
-    let operation = operationFactory.delegateOperation(
+    guard case let .success(operation) = operationFactory.delegateOperation(
       source: .testAddress,
       to: .testDestinationAddress,
       operationFeePolicy: .default,
       signatureProvider: FakeSignatureProvider.testSignatureProvider
-    )!
+    ) else {
+      XCTFail()
+      return
+    }
 
     let simulationCompletionExpectation = XCTestExpectation(description: "Simulation completion called.")
     simulationService.simulate(
