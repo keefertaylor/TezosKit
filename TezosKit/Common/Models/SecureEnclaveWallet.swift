@@ -33,7 +33,7 @@ public class SecureEnclaveWallet: SignatureProvider {
 
   /// The address of a the key stored in secure enclave
   public var address: String {
-    self.publicKey.publicKeyHash
+    return self.publicKey.publicKeyHash
   }
 
   /// - Parameter prompt: A prompt to use when asking the wallet to sign bytes.
