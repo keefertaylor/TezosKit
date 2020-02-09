@@ -64,7 +64,7 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     /// Sending a bunch of requests quickly can cause race conditions in the Tezos network as counters and operations
     /// propagate. Define a throttle period in seconds to wait between each test.
-    let intertestWaitTime: UInt32 = 120
+    let intertestWaitTime: UInt32 = 0 // 120
     sleep(intertestWaitTime)
 
     nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
@@ -243,69 +243,69 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
-
-  public func testRunOperation() {
-    let expectation = XCTestExpectation(description: "completion called")
-
-    let operation = nodeClient.operationFactory.delegateOperation(
-      source: Wallet.testWallet.address,
-      to: .testnetBaker,
-      operationFeePolicy: .default,
-      signatureProvider: Wallet.testWallet
-    )!
-    self.nodeClient.runOperation(operation, from: .testWallet) { result in
-      switch result {
-      case .failure(let error):
-        print(error)
-        XCTFail()
-      case .success(let simulationResult):
-        guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
-          XCTFail()
-          return
-        }
-        XCTAssertEqual(consumedGas, 10_000)
-        XCTAssertEqual(consumedStorage, 0)
-        expectation.fulfill()
-      }
-    }
-
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
-
-  public func testMultipleOperations() {
-    let expectation = XCTestExpectation(description: "completion called")
-
-    let ops: [TezosKit.Operation] = [
-      nodeClient.operationFactory.transactionOperation(
-        amount: Tez("1")!,
-        source: Wallet.testWallet.address,
-        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .estimate,
-        signatureProvider: Wallet.testWallet
-      )!,
-      nodeClient.operationFactory.transactionOperation(
-        amount: Tez("2")!,
-        source: Wallet.testWallet.address,
-        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .estimate,
-        signatureProvider: Wallet.testWallet
-      )!
-    ]
-
-    nodeClient.forgeSignPreapplyAndInject(
-      ops,
-      source: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet
-    ) { result in
-      switch result {
-      case .failure:
-        XCTFail()
-      case .success:
-        expectation.fulfill()
-      }
-    }
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
+//
+//  public func testRunOperation() {
+//    let expectation = XCTestExpectation(description: "completion called")
+//
+//    let operation = nodeClient.operationFactory.delegateOperation(
+//      source: Wallet.testWallet.address,
+//      to: .testnetBaker,
+//      operationFeePolicy: .default,
+//      signatureProvider: Wallet.testWallet
+//    )!
+//    self.nodeClient.runOperation(operation, from: .testWallet) { result in
+//      switch result {
+//      case .failure(let error):
+//        print(error)
+//        XCTFail()
+//      case .success(let simulationResult):
+//        guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
+//          XCTFail()
+//          return
+//        }
+//        XCTAssertEqual(consumedGas, 10_000)
+//        XCTAssertEqual(consumedStorage, 0)
+//        expectation.fulfill()
+//      }
+//    }
+//
+//    wait(for: [expectation], timeout: .expectationTimeout)
+//  }
+//
+//  public func testMultipleOperations() {
+//    let expectation = XCTestExpectation(description: "completion called")
+//
+//    let ops: [TezosKit.Operation] = [
+//      nodeClient.operationFactory.transactionOperation(
+//        amount: Tez("1")!,
+//        source: Wallet.testWallet.address,
+//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+//        operationFeePolicy: .estimate,
+//        signatureProvider: Wallet.testWallet
+//      )!,
+//      nodeClient.operationFactory.transactionOperation(
+//        amount: Tez("2")!,
+//        source: Wallet.testWallet.address,
+//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+//        operationFeePolicy: .estimate,
+//        signatureProvider: Wallet.testWallet
+//      )!
+//    ]
+//
+//    nodeClient.forgeSignPreapplyAndInject(
+//      ops,
+//      source: Wallet.testWallet.address,
+//      signatureProvider: Wallet.testWallet
+//    ) { result in
+//      switch result {
+//      case .failure:
+//        XCTFail()
+//      case .success:
+//        expectation.fulfill()
+//      }
+//    }
+//    wait(for: [expectation], timeout: .expectationTimeout)
+//  }
 
   func testSmartContractInvocation() {
     let expectation = XCTestExpectation(description: "completion called")
@@ -610,6 +610,31 @@ class TezosNodeIntegrationTests: XCTestCase {
     let expectation = XCTestExpectation(description: "completion called")
 
     let tz2Wallet = Wallet(secretKey: "spsk1fYtbGsvDEeb4NGanSiYQYcLFNZYNZ9F7jSvmCbT55DHcbtWjL", signingCurve: .secp256k1)!
+
+    self.nodeClient.send(
+      amount: Tez(1.0),
+      to: "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+      from: tz2Wallet.address,
+      signatureProvider: tz2Wallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .failure(let error):
+        print(error)
+        XCTFail()
+      case .success(let hash):
+        print(hash)
+        expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  public func testSend_tz3() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    let tz2Wallet = Wallet(secretKey: "p2sk3F598zRWQkdhYsuxHd1KgytsqvN9Gvn7RLqE24CMghJjDqFo54", signingCurve: .p256)!
 
     self.nodeClient.send(
       amount: Tez(1.0),

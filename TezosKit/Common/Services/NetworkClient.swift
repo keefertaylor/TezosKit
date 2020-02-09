@@ -97,6 +97,9 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
+
+      print(">>>> \(remoteNodeEndpoint)")
+      print(payload)
     }
 
     // Add headers from client.
