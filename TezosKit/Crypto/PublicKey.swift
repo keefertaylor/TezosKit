@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
 import Base58Swift
+import CryptoKit
 import Foundation
 import secp256k1
 import Sodium
@@ -102,7 +103,18 @@ public struct PublicKey: PublicKeyProtocol {
 
       self.init(bytes: publicKeyBytes, signingCurve: .secp256k1)
     case .p256:
-      fatalError("Unimplemented")
+      if #available(iOS 13.0, *) {
+        guard
+          let secretKey = try? P256.KeyAgreement.PrivateKey(rawRepresentation: secretKey.bytes),
+          let compressedPublicKeyBytes = CryptoUtils.compressKey(secretKey.publicKey.x963Representation.bytes)
+        else {
+          return nil
+        }
+
+        self.init(bytes: compressedPublicKeyBytes, signingCurve: .p256)
+      } else {
+        return nil
+      }
     }
   }
 

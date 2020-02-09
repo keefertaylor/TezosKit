@@ -145,30 +145,30 @@ extension TezosNodeIntegrationTests {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
-
-  public func testRunOperation_promises() {
-    let expectation = XCTestExpectation(description: "completion called")
-
-    let operation = nodeClient.operationFactory.delegateOperation(
-      source: Wallet.testWallet.address,
-      to: .testnetBaker,
-      operationFeePolicy: .default,
-      signatureProvider: Wallet.testWallet
-    )!
-    self.nodeClient.runOperation(operation, from: .testWallet).done { simulationResult in
-      guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
-        XCTFail()
-        return
-      }
-      XCTAssertEqual(consumedGas, 10_000)
-      XCTAssertEqual(consumedStorage, 0)
-      expectation.fulfill()
-    } .catch { _ in
-        XCTFail()
-    }
-
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
+//
+//  public func testRunOperation_promises() {
+//    let expectation = XCTestExpectation(description: "completion called")
+//
+//    let operation = nodeClient.operationFactory.delegateOperation(
+//      source: Wallet.testWallet.address,
+//      to: .testnetBaker,
+//      operationFeePolicy: .default,
+//      signatureProvider: Wallet.testWallet
+//    )!
+//    self.nodeClient.runOperation(operation, from: .testWallet).done { simulationResult in
+//      guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
+//        XCTFail()
+//        return
+//      }
+//      XCTAssertEqual(consumedGas, 10_000)
+//      XCTAssertEqual(consumedStorage, 0)
+//      expectation.fulfill()
+//    } .catch { _ in
+//        XCTFail()
+//    }
+//
+//    wait(for: [expectation], timeout: .expectationTimeout)
+//  }
 
   /// Preapplication should failure because of insufficient balance.
   public func testPreapplyFailure_promises() {
@@ -193,38 +193,38 @@ extension TezosNodeIntegrationTests {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
-
-  public func testMultipleOperations_promises() {
-    let expectation = XCTestExpectation(description: "promise fulfilled")
-
-    let ops: [TezosKit.Operation] = [
-      nodeClient.operationFactory.transactionOperation(
-        amount: Tez("1")!,
-        source: Wallet.testWallet.address,
-        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .estimate,
-        signatureProvider: Wallet.testWallet
-      )!,
-      nodeClient.operationFactory.transactionOperation(
-        amount: Tez("2")!,
-        source: Wallet.testWallet.address,
-        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-        operationFeePolicy: .estimate,
-        signatureProvider: Wallet.testWallet
-      )!
-    ]
-
-    nodeClient.forgeSignPreapplyAndInject(
-      operations: ops,
-      source: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet
-    ) .done { _ in
-      expectation.fulfill()
-    } .catch { error in
-      XCTFail("\(error)")
-    }
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
+//
+//  public func testMultipleOperations_promises() {
+//    let expectation = XCTestExpectation(description: "promise fulfilled")
+//
+//    let ops: [TezosKit.Operation] = [
+//      nodeClient.operationFactory.transactionOperation(
+//        amount: Tez("1")!,
+//        source: Wallet.testWallet.address,
+//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+//        operationFeePolicy: .estimate,
+//        signatureProvider: Wallet.testWallet
+//      )!,
+//      nodeClient.operationFactory.transactionOperation(
+//        amount: Tez("2")!,
+//        source: Wallet.testWallet.address,
+//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+//        operationFeePolicy: .estimate,
+//        signatureProvider: Wallet.testWallet
+//      )!
+//    ]
+//
+//    nodeClient.forgeSignPreapplyAndInject(
+//      operations: ops,
+//      source: Wallet.testWallet.address,
+//      signatureProvider: Wallet.testWallet
+//    ) .done { _ in
+//      expectation.fulfill()
+//    } .catch { error in
+//      XCTFail("\(error)")
+//    }
+//    wait(for: [expectation], timeout: .expectationTimeout)
+//  }
 
   func testSmartContractInvocation_promises() {
     let expectation = XCTestExpectation(description: "completion called")
