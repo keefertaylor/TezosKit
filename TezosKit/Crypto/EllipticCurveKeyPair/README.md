@@ -13,4 +13,5 @@ If a new version of EllipticCurveKeyPair is released, this library should move t
 ## History 
 ** Please update this if new version are ever imported. ** 
 
+- Feb 09, 2020: [Performed minor fixes and upgrades for Swift 5](https://github.com/keefertaylor/TezosKit/pull/164)
 - Feb 07, 2020: Initial import
