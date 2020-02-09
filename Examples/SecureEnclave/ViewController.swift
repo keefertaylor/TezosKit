@@ -86,12 +86,17 @@ class ViewController: UIViewController {
 
   @objc
   func generate() {
-    let wallet = SecureEnclaveWallet()!
-    genKey.text = wallet.address
-    print(wallet.address)
+    if #available(iOS 13.0, *) {
+      let wallet = SecureEnclaveWallet(prompt: "enc access")!
+      genKey.text = wallet.address
+      print(wallet.address)
 
-    self.address = wallet.address
-    self.wallet = wallet
+      self.address = wallet.address
+      self.wallet = wallet
+
+    } else {
+      // Fallback on earlier versions
+    }
   }
 
   @objc

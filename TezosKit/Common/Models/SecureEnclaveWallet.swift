@@ -8,8 +8,6 @@ import Foundation
 import Security
 import Sodium
 
-import CryptoKit
-
 /// A wallet which stores keys in a device's secure enclave.
 // TODO(keefertaylor): Write a strong warning about how iOS can arbitrarily reset this and it is not backed up.
 // TODO(keefertaylor): Write a README.md about using this class.
@@ -17,6 +15,7 @@ import CryptoKit
 @available(OSX 10.12.1, iOS 9.0, *)
 public class SecureEnclaveWallet: SignatureProvider {
   /// Labels for keys in the enclave.
+  // TODO(keefertaylor): hook these up
   private enum KeyLabels {
     public static let `public` = "com.keefertaylor.SecureEnclaveExample.public"
     public static let secret = "com.keefertaylor.SecureEnclaveExample.secret"
@@ -24,6 +23,7 @@ public class SecureEnclaveWallet: SignatureProvider {
 
   /// A key manager object.
   /// TODO(keefertaylor): Consider using less opinionated facade.
+  /// TODO(keefertaylor): This class is only doing key generation. Consider if this whole class could be removed.
   private let manager: EllipticCurveKeyPair.Manager
 
   /// References to the public and private keys
@@ -41,7 +41,7 @@ public class SecureEnclaveWallet: SignatureProvider {
   /// - Parameter prompt: A prompt to use when asking the wallet to sign bytes.
   public init?(prompt: String) {
     let publicAccessControl = EllipticCurveKeyPair.AccessControl(
-      protection: kSecAttrAccessibleAlwaysThisDeviceOnly,
+      protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
       flags: []
     )
     let privateAccessControl = EllipticCurveKeyPair.AccessControl(
@@ -49,8 +49,8 @@ public class SecureEnclaveWallet: SignatureProvider {
       flags: [.userPresence, .privateKeyUsage]
     )
     let config = EllipticCurveKeyPair.Config(
-      publicLabel: KeyLabels.public,
-      privateLabel: KeyLabels.secret,
+      publicLabel: "payment.sign.public",
+      privateLabel: "payment.sign.private",
       operationPrompt: prompt,
       publicKeyAccessControl: publicAccessControl,
       privateKeyAccessControl: privateAccessControl,
@@ -101,31 +101,48 @@ public class SecureEnclaveWallet: SignatureProvider {
     let watermarkedOperation = Prefix.Watermark.operation + bytes
 
     guard
-      var hashedBytesForSigning = Sodium.shared.genericHash.hash(message: watermarkedOperation, outputLength: 32)
+      let hashedBytesForSigning = Sodium.shared.genericHash.hash(message: watermarkedOperation, outputLength: 32)
     else {
       return nil
     }
 
     // Sign the bytes and copy out the result.
-    var signatureLength = 128
-    var signatureBytes = [UInt8](repeating: 0, count: signatureLength)
-    guard
-      SecKeyRawSign(
-        self.enclaveSecretKey.underlying,
-        .PKCS1,
-        &hashedBytesForSigning,
-        hashedBytesForSigning.count,
-        &signatureBytes,
-        &signatureLength
-      ) == errSecSuccess
-    else {
-      return nil
-    }
-    let signature = Data(bytes: &signatureBytes, count: signatureLength)
+//    var signatureLength = 128
+//    var signatureBytes = [UInt8](repeating: 0, count: signatureLength)
+////    guard
+
+    var error: Unmanaged<CFError>?
+    let signature: Data = SecKeyCreateSignature(
+      self.enclaveSecretKey.underlying,
+      SecKeyAlgorithm.ecdsaSignatureDigestX962SHA256,
+      Data(hashedBytesForSigning) as CFData,
+      &error
+    )! as Data
+
+    // WORKS
+//     let result = SecKeyRawSign(
+//        self.enclaveSecretKey.underlying,
+//        .PKCS1,
+//        &hashedBytesForSigning,
+//        hashedBytesForSigning.count,
+//        &signatureBytes,
+//        &signatureLength
+//      ) // == errSecSuccess
+//    else {
+//      return nil
+//    }
+  //  let signature = Data(bytes: &signatureBytes, count: signatureLength)
 
     // The signature returned to us is a ASN.1 DER sequence which encodes the 64 byte signature. Parse the DER to
     // obtain the raw signature.
     // See: https://medium.com/@maxchuquimia/decoding-asn-1-der-sequences-in-swift-1b801c6c8cc9
+    //
+    // Note: These lines could be replaced with the following implementation from CryptoKit, however, CryptoKit is only
+    // available on iOS 13.0+ and MacOS 15.0+, which greatly restricts the compatibility of this library.
+    // ```
+    //    let ecdsaSignature = try! P256.Signing.ECDSASignature(derRepresentation: signature)
+    //    return ecdsaSignature.rawRepresentation.bytes
+    // ```
     guard let decoded = ASN1DERDecoder.decode(data: signature) else {
       return nil
     }
