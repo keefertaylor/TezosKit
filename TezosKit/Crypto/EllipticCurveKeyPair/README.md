@@ -13,4 +13,4 @@ If a new version of EllipticCurveKeyPair is released, this library should move t
 ## History 
 ** Please update this if new version are ever imported. ** 
 
-Feb 07, 2020: Initial import
+- Feb 07, 2020: Initial import

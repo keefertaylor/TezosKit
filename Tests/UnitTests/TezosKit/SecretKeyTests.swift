@@ -130,3 +130,4 @@ final class SecretKeyTests: XCTestCase {
     XCTAssertEqual(signature, expectedSignature)
   }
 }
+

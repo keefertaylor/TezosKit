@@ -6,6 +6,7 @@ import XCTest
 // swiftlint:disable force_cast
 
 class TransactionOperationTest: XCTestCase {
+<<<<<<< HEAD
   public func testTransation() {
     let balance = Tez(3.50)
     guard case let .success(operation) = OperationFactory.testFactory.transactionOperation(
@@ -29,4 +30,26 @@ class TransactionOperationTest: XCTestCase {
     XCTAssertNotNil(dictionary["amount"])
     XCTAssertEqual(dictionary["amount"] as? String, balance.rpcRepresentation)
   }
+=======
+//  public func testTransation() {
+//    let balance = Tez(3.50)
+//    let operation = OperationFactory.testFactory.transactionOperation(
+//      amount: balance,
+//      source: .testAddress,
+//      destination: .testDestinationAddress,
+//      operationFeePolicy: .default,
+//      signatureProvider: FakeSignatureProvider.testSignatureProvider
+//    )!
+//    let dictionary = operation.dictionaryRepresentation
+//
+//    XCTAssertNotNil(dictionary["source"])
+//    XCTAssertEqual(dictionary["source"] as? String, .testAddress)
+//
+//    XCTAssertNotNil(dictionary["destination"])
+//    XCTAssertEqual(dictionary["destination"] as? String, .testDestinationAddress)
+//
+//    XCTAssertNotNil(dictionary["amount"])
+//    XCTAssertEqual(dictionary["amount"] as? String, balance.rpcRepresentation)
+//  }
+>>>>>>> master
 }
