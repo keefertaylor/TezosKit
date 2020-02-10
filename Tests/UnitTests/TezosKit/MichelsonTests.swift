@@ -243,4 +243,27 @@ final class MichelsonTests: XCTestCase {
     let json = JSONUtils.jsonString(for: param.networkRepresentation)
     XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
+
+  public func testListParameter() {
+    let parameter = LeftMichelsonParameter(
+      arg: ListMichelsonParameter(args:
+        [
+        PairMichelsonParameter(
+          left: PairMichelsonParameter(
+            left: IntMichelsonParameter(int: 1),
+            right: StringMichelsonParameter(string: "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb")
+          ),
+          right: PairMichelsonParameter(
+            left: StringMichelsonParameter(string: "tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6"),
+            right: RightMichelsonParameter(arg: UnitMichelsonParameter()))
+          )
+        ]
+      )
+    )
+
+    let expected = "{    \"prim\": \"Left\",    \"args\": [      [{        \"prim\": \"Pair\",        \"args\": [{            \"prim\": \"Pair\",            \"args\": [{                \"int\": \"1\"              },{                \"string\": \"tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb\"}]},{\"prim\": \"Pair\",\"args\": [{\"string\": \"tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6\"},{\"prim\": \"Right\",\"args\": [{\"prim\": \"Unit\"}]}]}]}]]}"
+
+    let json = JSONUtils.jsonString(for: parameter.networkRepresentation)
+    XCTAssertEqual(json, Helpers.orderJSONString(expected))
+  }
 }
