@@ -255,6 +255,7 @@
 		8AA7945D4413BEEE0DD45E38 /* DelegationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170AD904F169111FBCD93FCC /* DelegationOperation.swift */; };
 		8ADF28B51303B381B5BADF71 /* ResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D9A0CB32FB707D9BF32654 /* ResponseAdapter.swift */; };
 		8B2EA0D1375841337C15C2E1 /* ConseilQueryRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24BCDA4254C7A2D50F5728 /* ConseilQueryRPC.swift */; };
+		8B41AC6DD12AF82644C3E88A /* ListMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CF04353F26D635E453CF11 /* ListMichelsonParameter.swift */; };
 		8B8CA3EF54C673DA42012EA7 /* NoneMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588112F5BDBF5213EB952EF1 /* NoneMichelsonParameter.swift */; };
 		8BE28CF8A5B3B2FD3C2D3781 /* SignedProtocolOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2FD2E17433D630AA933B5B /* SignedProtocolOperationPayload.swift */; };
 		8CF091BDFB42E3D5E901AFE7 /* PeriodKindResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33048AAA1D1966A1A89E409F /* PeriodKindResponseAdapterTest.swift */; };
@@ -305,6 +306,7 @@
 		A26BF0891BE26654AB683DF1 /* DelegationOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35169AC0F795C07FA8AC1ED /* DelegationOperationTest.swift */; };
 		A28CACC9D1FF82076A876DEE /* RightMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6400970C08C18B3CAD121530 /* RightMichelsonParameter.swift */; };
 		A367ECAE3F91FFB06320C691 /* TransactionsResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2DD3668D2DD62AF8EDD738 /* TransactionsResponseAdapterTest.swift */; };
+		A3C3011FB97A95E5AFB9C6D7 /* ListMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CF04353F26D635E453CF11 /* ListMichelsonParameter.swift */; };
 		A4F85C0954646854BED31139 /* MnemonicUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7863872FECCF90A64CFD1F99 /* MnemonicUtil.swift */; };
 		A52003C0498A19CF87EB06A0 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5EBE1E77B4458B18D149C1 /* Operation.swift */; };
 		A5BA4DFA80A9734ED61F1BC6 /* InjectOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090B8A708287039DE6178F4 /* InjectOperationRPCTest.swift */; };
@@ -725,6 +727,7 @@
 		90D9A0CB32FB707D9BF32654 /* ResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAdapter.swift; sourceTree = "<group>"; };
 		933679D90DA718BAE1ECF1ED /* GetCurrentPeriodKindRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentPeriodKindRPC.swift; sourceTree = "<group>"; };
 		9497DCBC4C3BE5334CF8BC59 /* RevealOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealOperation.swift; sourceTree = "<group>"; };
+		94CF04353F26D635E453CF11 /* ListMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMichelsonParameter.swift; sourceTree = "<group>"; };
 		95A67597F73AC6D20F83B677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		95F395F6CD3F62BF5D3FCED1 /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BigInt.framework; sourceTree = "<group>"; };
 		99191D08E7D0F08C52254D6B /* ForgingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgingPolicy.swift; sourceTree = "<group>"; };
@@ -793,7 +796,7 @@
 		D8DD132F238141B3A1D24CC3 /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		D8FD368E4F600E8C2A2D1D3A /* secp256k1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = secp256k1.framework; sourceTree = "<group>"; };
 		D9F5DCCA68E890BE7185F769 /* DexterExchangeClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientIntegrationTests.swift; sourceTree = "<group>"; };
-		DEAEB55943792CC3F5CE052C /* SecureEnclaveExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecureEnclaveExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEAEB55943792CC3F5CE052C /* SecureEnclaveExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SecureEnclaveExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B48169F083D2DAEB462840 /* SimulationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationServiceTest.swift; sourceTree = "<group>"; };
 		E1C7225DE55A77297776B686 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		E212CD2F0656857B66156D04 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -1167,6 +1170,7 @@
 				AE3CEDF87CB74674EF5E2BB5 /* BytesMichelsonParameter.swift */,
 				1DC8C35C8541E0CBE377968D /* IntMichelsonParameter.swift */,
 				18257A644A0B08F1E48E8808 /* LeftMichelsonParameter.swift */,
+				94CF04353F26D635E453CF11 /* ListMichelsonParameter.swift */,
 				D2F15CD865BE921BF9DF8CC0 /* MichelsonAnnotation.swift */,
 				525C931C7CD120487B51DA9A /* MichelsonComparable.swift */,
 				908CE3F01F463AD656302DFD /* MichelsonParameter.swift */,
@@ -1616,13 +1620,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1020;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 719A796CF4303FCE1EA34089 /* Build configuration list for PBXProject "TezosKit" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = 40497E8417609B6A929D29D7;
@@ -1892,6 +1897,7 @@
 				6C211B5899F3AB595386C678 /* JSONDictionaryResponseAdapter.swift in Sources */,
 				5315F49C61534B939678E39C /* JSONUtils.swift in Sources */,
 				C15CDCE9A538AB91764BCE7E /* LeftMichelsonParameter.swift in Sources */,
+				A3C3011FB97A95E5AFB9C6D7 /* ListMichelsonParameter.swift in Sources */,
 				92813B3FAE81849626114B08 /* MichelsonAnnotation.swift in Sources */,
 				609CBA9E58941C450A963639 /* MichelsonComparable.swift in Sources */,
 				7D7DE0D66FA04949CD3EBF56 /* MichelsonParameter.swift in Sources */,
@@ -2110,6 +2116,7 @@
 				0B817D8CE75D689CD87178C1 /* JSONDictionaryResponseAdapter.swift in Sources */,
 				083E6F479F724D868A0513C0 /* JSONUtils.swift in Sources */,
 				B1E5191F0BB57EF3A72555FC /* LeftMichelsonParameter.swift in Sources */,
+				8B41AC6DD12AF82644C3E88A /* ListMichelsonParameter.swift in Sources */,
 				5762636B9F6E606FCF4E6981 /* MichelsonAnnotation.swift in Sources */,
 				8DB6E3EE6F04C2FF16A37338 /* MichelsonComparable.swift in Sources */,
 				7B0AFC2B03A527B407CD802C /* MichelsonParameter.swift in Sources */,
@@ -2323,7 +2330,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -2389,12 +2395,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2645,12 +2646,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
@@ -2663,7 +2659,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
