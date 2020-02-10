@@ -44,7 +44,7 @@ extension Wallet {
 }
 
 extension URL {
-  public static let nodeURL = URL(string: "https://tezos-dev.cryptonomic-infra.tech:443")!
+  public static let nodeURL = URL(string: "http://127.0.0.1:8732")! //https://tezos-dev.cryptonomic-infra.tech:443")!
 }
 
 extension UInt32 {
@@ -185,13 +185,12 @@ class TezosNodeIntegrationTests: XCTestCase {
   public func testGetAccountBalance() {
     let expectation = XCTestExpectation(description: "completion called")
 
-    nodeClient.getBalance(wallet: .testWallet) { result in
+    nodeClient.getBalance(address: "KT1PFwyCZwnjgLiRXfteLsbXVKatfwEdMnnE") { result in
       switch result {
       case .failure:
         XCTFail()
       case .success(let balance):
-        let humanReadableBalance = Double(balance.humanReadableRepresentation)!
-        XCTAssertGreaterThan(humanReadableBalance, 0.0, "Balance in account was not greater than 0")
+        print("Got balance: \(balance)")
         expectation.fulfill()
       }
     }
@@ -308,35 +307,141 @@ class TezosNodeIntegrationTests: XCTestCase {
 //  }
 
   func testSmartContractInvocation() {
-    let expectation = XCTestExpectation(description: "completion called")
 
-    let parameter =
-      RightMichelsonParameter(
-        arg: LeftMichelsonParameter(
-          arg: PairMichelsonParameter(
-            left: IntMichelsonParameter(int: 1),
-            right: StringMichelsonParameter(string: .testExpirationTimestamp)
-          )
-        )
-      )
+    let tezosNodeClient = TezosNodeClient(remoteNodeURL: URL(fileURLWithPath: "https://api.tez.ie/rpc/babylonnet"))
 
-    self.nodeClient.call(
-      contract: Wallet.dexterExchangeContract,
-      amount: Tez(10.0),
-      parameter: parameter,
-      source: Wallet.testWallet.address,
-      signatureProvider: Wallet.testWallet,
-      operationFeePolicy: .estimate
-    ) { result in
+//    let tezosNodeClient = TezosNodeClient(remoteNodeURL: URL(fileURLWithPath: "http://127.0.0.1:8732"))
+
+    let address = "KT1WaMovfyakU4cpiEziTMCovc8WcQRsifxX"
+    tezosNodeClient.getBalance(address: address) { result in
       switch result {
+      case .success(let balance):
+        print("Balance of \(address) is \(balance.humanReadableRepresentation)")
       case .failure(let error):
-        print(error)
-        XCTFail()
-      case .success(let hash):
-        print(hash)
-        expectation.fulfill()
+        print("Error getting result: \(error)")
       }
     }
+    let mnemonic = "later sign team luggage advance ostrich link hurdle deer nerve dial twelve excuse frost poet"
+
+    let wallet = Wallet(secretKey: "edskS8m8UT4bhYaQ8iQcARyzGH988Z96ZpPdf6PGJWNn8HA4gQLLAgS1aTDc9xTDHvYAL4reT1tJZypS2JJhyFcQY2J6fdnyp2")
+    print(wallet!.address)
+
+    let operationFees = OperationFees(fee: Tez(1), gasLimit: 733_732, storageLimit: 0)
+    let param = PairMichelsonParameter(
+            left: PairMichelsonParameter(
+                left: IntMichelsonParameter(int: 1),
+                right: StringMichelsonParameter(string: "tz1NkT6YCFS3mDo6kfaMFKFrRiA7w2o5dkWp" )
+            ),
+            right: PairMichelsonParameter(
+                left: StringMichelsonParameter(string: "tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6"),
+                right: RightMichelsonParameter(arg: UnitMichelsonParameter())
+                )
+            )
+
+        let expectation = XCTestExpectation(description: "completion called")
+
+    tezosNodeClient.call(
+      contract: "KT1WaMovfyakU4cpiEziTMCovc8WcQRsifxX",
+      amount: Tez(0.0),
+      parameter: param,
+      source: wallet!.address,
+      signatureProvider: wallet!,
+      operationFeePolicy: .custom(operationFees)
+    ) { result in
+      print("got callback")
+      switch result {
+      case .success(let txHash):
+        print(txHash)
+      case .failure(let error):
+        print("err :( \(error)")
+      }
+
+      expectation.fulfill()
+    }
+
+//    let address = "KT1JRkr5Wa4SNjGNKgizMHzHccen2UobsW2b"
+//    tezosNodeClient.getBalance(address: address) { result in
+//      switch result {
+//      case .success(let balance):
+//        print("Balance of \(address) is \(balance.humanReadableRepresentation)")
+//      case .failure(let error):
+//        print("Error getting result: \(error)")
+//      }
+//    }
+//    let mnemonic = "later sign team luggage advance ostrich link hurdle deer nerve dial twelve excuse frost poet"
+//
+//    let wallet = Wallet(mnemonic: mnemonic)
+//    print(wallet!.address)
+//
+//    let param = LeftMichelsonParameter(
+//    arg: PairMichelsonParameter(
+//        left: PairMichelsonParameter(
+//            left: IntMichelsonParameter(int: 1),
+//            right: StringMichelsonParameter(string: "tz1NkT6YCFS3mDo6kfaMFKFrRiA7w2o5dkWp" )
+//        ),
+//        right: PairMichelsonParameter(
+//            left: StringMichelsonParameter(string: "tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6"),
+//            right: RightMichelsonParameter(arg: UnitMichelsonParameter())
+//            )
+//        )
+//    )
+//
+//    tezosNodeClient.call(
+//      contract: "KT1JRkr5Wa4SNjGNKgizMHzHccen2UobsW2b",
+//      amount: Tez(0.0),
+//      parameter: param,
+//      source: wallet!.address,
+//      signatureProvider: wallet!,
+//      operationFeePolicy: .estimate
+//    ) { result in
+//      guard case let .success(txHash) = result else {
+//        return
+//      }
+//      print(txHash)
+////      PlaygroundPage.current.finishExecution()
+//    }
+//
+//    let expectation = XCTestExpectation(description: "completion called")
+//
+//    let parameter =
+//      RightMichelsonParameter(
+//        arg: LeftMichelsonParameter(
+//          arg: PairMichelsonParameter(
+//            left: IntMichelsonParameter(int: 1),
+//            right: StringMichelsonParameter(string: .testExpirationTimestamp)
+//          )
+//        )
+//      )
+//
+//    self.nodeClient.call(
+//      contract: "KT1WaMovfyakU4cpiEziTMCovc8WcQRsifxX",
+//      amount: Tez(1.0),
+//      parameter: parameter,
+//      source: Wallet.testWallet.address,
+//      signatureProvider: Wallet.testWallet,
+//      operationFees: nil
+//    ) { _ in
+//      expectation.fulfill()
+//      print("hi")
+//    }
+//
+//    self.nodeClient.call(
+//      contract: Wallet.dexterExchangeContract,
+//      amount: Tez(10.0),
+//      parameter: parameter,
+//      source: Wallet.testWallet.address,
+//      signatureProvider: Wallet.testWallet,
+//      operationFeePolicy: .estimate
+//    ) { result in
+//      switch result {
+//      case .failure(let error):
+//        print(error)
+//        XCTFail()
+//      case .success(let hash):
+//        print(hash)
+//        expectation.fulfill()
+//      }
+//    }
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }

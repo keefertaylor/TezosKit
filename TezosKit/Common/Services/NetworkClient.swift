@@ -89,11 +89,15 @@ public class NetworkClientImpl: NetworkClient {
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
+    print(">>>> \(remoteNodeEndpoint)")
+
     if
       rpc.isPOSTRequest,
       let payload = rpc.payload,
       let payloadData = payload.data(using: .utf8)
     {
+      print("\(payload)")
+
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
@@ -110,6 +114,13 @@ public class NetworkClientImpl: NetworkClient {
     }
 
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
+      print("<<<<<")
+      if let d = data {
+        print(String(data: d, encoding: .utf8))
+      } else {
+        print("NO DATA")
+      }
+
       guard let self = self else {
         return
       }

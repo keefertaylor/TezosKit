@@ -694,6 +694,7 @@
 		717CE63EDCDACE20EFDEF9A6 /* GetContractStorageRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetContractStorageRPCTest.swift; sourceTree = "<group>"; };
 		737132D7F972BD110818F565 /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SipHash.framework; sourceTree = "<group>"; };
 		754389C145F7AF7208CBBD41 /* TezosKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosKitError.swift; sourceTree = "<group>"; };
+		77A998DF23F0C22700719D0F /* TezosKitPlayGround.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitPlayGround.playground; path = "../../Library/Autosave Information/TezosKitPlayGround.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		77CF8E4119383EA36202FE25 /* TezTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezTest.swift; sourceTree = "<group>"; };
 		7806BE5035AB3100BA7C791C /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BigInt.framework; sourceTree = "<group>"; };
 		7863872FECCF90A64CFD1F99 /* MnemonicUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicUtil.swift; sourceTree = "<group>"; };
@@ -1090,6 +1091,7 @@
 		40497E8417609B6A929D29D7 = {
 			isa = PBXGroup;
 			children = (
+				77A998DF23F0C22700719D0F /* TezosKitPlayGround.playground */,
 				D231A0952D7582EAE9B5877D /* Common */,
 				50C91A025E54A221B684A314 /* Extensions */,
 				69291FDD3EDCCD2E9D0374A2 /* IntegrationTests */,
