@@ -25,5 +25,6 @@ internal enum MichelineConstants {
 /// - SeeAlso: https://tezos.gitlab.io/master/whitedoc/michelson.html
 public protocol MichelsonParameter {
   /// A dictionary representing the paramater as a JSON object.
-  var networkRepresentation: [String: Any] { get }
+  // TODO(keefertaylor): Make this JSON encodable or some other protocol.
+  var networkRepresentation: Any { get } /*[String: Any] { get } */
 }

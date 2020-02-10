@@ -24,6 +24,11 @@ public enum JSONUtils {
     return jsonString(for: String(int))
   }
 
+  // TODO(keefertaylor): Convert this to be a protocl.
+  public static func jsonString(for object: Any) -> String? {
+    return jsonString(forUntypedObject: object)
+  }
+
   /// Private untyped helper that returns a JSON encoded representation of the given object.
   ///
   /// - Note: The only supported objects are Arrays and Dictionaries.
