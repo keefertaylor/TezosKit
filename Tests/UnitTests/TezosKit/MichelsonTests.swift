@@ -244,7 +244,7 @@ final class MichelsonTests: XCTestCase {
     XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
 
-  public func testStoveLabs() {
+  public func testListParameter() {
     let parameter = LeftMichelsonParameter(
       arg: ListMichelsonParameter(args:
         [
@@ -261,7 +261,9 @@ final class MichelsonTests: XCTestCase {
       )
     )
 
+    let expected = "{    \"prim\": \"Left\",    \"args\": [      [{        \"prim\": \"Pair\",        \"args\": [{            \"prim\": \"Pair\",            \"args\": [{                \"int\": \"1\"              },{                \"string\": \"tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb\"}]},{\"prim\": \"Pair\",\"args\": [{\"string\": \"tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6\"},{\"prim\": \"Right\",\"args\": [{\"prim\": \"Unit\"}]}]}]}]]}"
+
     let json = JSONUtils.jsonString(for: parameter.networkRepresentation)
-    print(json)
+    XCTAssertEqual(json, Helpers.orderJSONString(expected))
   }
 }
