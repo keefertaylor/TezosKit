@@ -72,7 +72,7 @@ public class TezosNodeClient {
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
   /// A factory which produces operations.
-  internal let operationFactory: OperationFactory
+  public let operationFactory: OperationFactory
 
   /// A service which forges operations.
   internal let forgingService: ForgingService
