@@ -216,6 +216,41 @@ public class DexterExchangeClient {
     )
   }
 
+  /// Create an operation to trade tokens with Tez.
+  ///
+  /// - Parameters:
+  ///   - source: The address making the trade.
+  ///   - amount: The amount of Tez to sell.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - minTokensToPurchase: The minimum number of tokens to purchase.
+  ///   - deadline: A deadline for the transaction to occur by.
+  ///   - completion: A completion block which will be called with the result hash, if successful.
+  public func tradeTezForTokenOperation(
+    source: Address,
+    amount: Tez,
+    signatureProvider: SignatureProvider,
+    minTokensToPurchase: Int,
+    deadline: Date
+  ) -> Result<TezosKit.Operation, TezosKitError> {
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: StringMichelsonParameter(string: source),
+        right: IntMichelsonParameter(int: minTokensToPurchase)
+      ),
+      right: StringMichelsonParameter(date: deadline)
+    )
+
+    return tezosNodeClient.operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      entrypoint: EntryPoint.xtzToToken,
+      parameter: parameter,
+      source: source,
+      destination: exchangeContractAddress,
+      operationFeePolicy: .estimate,
+      signatureProvider: signatureProvider
+    )
+  }
+
   /// Buy Tez with tokens.
   ///
   /// - Parameters:
@@ -262,6 +297,53 @@ public class DexterExchangeClient {
       signatureProvider: signatureProvider,
       operationFeePolicy: .estimate,
       completion: completion
+    )
+  }
+
+  /// Create an operation to buy Tez with tokens.
+  ///
+  /// - Parameters:
+  ///   - source: The address making the trade.
+  ///   - destination: The destination for the tokens.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - tokensToSell: The number of tokens to sell.
+  ///   - minTezToBuy: The minimum number of Tez to buy.
+  ///   - deadline: A deadline for the transaction to occur by.
+  ///   - completion: A completion block which will be called with the result hash, if successful.
+  public func tradeTokenForTezOperation(
+    source: Address,
+    destination: Address,
+    signatureProvider: SignatureProvider,
+    tokensToSell: Int,
+    minTezToBuy: Tez,
+    deadline: Date
+  ) -> Result<TezosKit.Operation, TezosKitError> {
+    guard let minMutezToBuy = Int(minTezToBuy.rpcRepresentation) else {
+      return .failure(TezosKitError(kind: .unknown))
+    }
+
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: PairMichelsonParameter(
+          left: StringMichelsonParameter(string: source),
+          right: StringMichelsonParameter(string: destination)
+        ),
+        right: PairMichelsonParameter(
+          left: IntMichelsonParameter(int: tokensToSell),
+          right: IntMichelsonParameter(int: minMutezToBuy)
+        )
+      ),
+      right: StringMichelsonParameter(date: deadline)
+    )
+
+    return tezosNodeClient.operationFactory.smartContractInvocationOperation(
+      amount: Tez.zeroBalance,
+      entrypoint: EntryPoint.tokenToXTZ,
+      parameter: parameter,
+      source: source,
+      destination: exchangeContractAddress,
+      operationFeePolicy: .estimate,
+      signatureProvider: signatureProvider
     )
   }
 }

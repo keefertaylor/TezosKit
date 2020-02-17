@@ -74,6 +74,40 @@ public class TokenContractClient {
     )
   }
 
+  /// Create an operation to transfer tokens.
+  ///
+  /// - Parameters:
+  ///   - source: The address initiating the transfer.
+  ///   - destination: The address receiving the tokens.
+  ///   - numTokens: The number of tokens to transfer.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - completion: A completion block called with the operation hash or an error.
+  public func transferTokensOperation(
+    from source: Address,
+    to destination: Address,
+    numTokens: Int,
+    signatureProvider: SignatureProvider
+  ) -> Result<TezosKit.Operation, TezosKitError> {
+    let amount = Tez.zeroBalance
+    let parameter = PairMichelsonParameter(
+      left: PairMichelsonParameter(
+        left: StringMichelsonParameter(string: source),
+        right: StringMichelsonParameter(string: destination)
+      ),
+      right: IntMichelsonParameter(int: numTokens)
+    )
+
+    return tezosNodeClient.operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      entrypoint: EntryPoint.transfer,
+      parameter: parameter,
+      source: source,
+      destination: tokenContractAddress,
+      operationFeePolicy: .estimate,
+      signatureProvider: signatureProvider
+    )
+  }
+
   /// Approve an allowance.
   ///
   /// - Parameters:
@@ -105,6 +139,71 @@ public class TokenContractClient {
       operationFeePolicy: .estimate,
       completion: completion
     )
+  }
+
+  /// Create an operation to approve an allowance.
+  ///
+  /// - Parameters:
+  ///   - source: The address initiating the approval.
+  ///   - spender: The address being approved.
+  ///   - allowance: The number of tokens to approve.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - completion: A completion block called with the operation hash or an error.
+  public func approveAllowanceOperation(
+    source: Address,
+    spender: Address,
+    allowance: Int,
+    signatureProvider: SignatureProvider
+  ) -> Result<TezosKit.Operation, TezosKitError> {
+    let amount = Tez.zeroBalance
+    let parameter = PairMichelsonParameter(
+      left: StringMichelsonParameter(string: spender),
+      right: IntMichelsonParameter(int: allowance)
+    )
+
+    return tezosNodeClient.operationFactory.smartContractInvocationOperation(
+      amount: amount,
+      entrypoint: EntryPoint.approve,
+      parameter: parameter,
+      source: source,
+      destination: tokenContractAddress,
+      operationFeePolicy: .estimate,
+      signatureProvider: signatureProvider
+    )
+  }
+
+  /// Create operations to approve an allowance and transfer tokens, so thye can be sent together in one request.
+  ///
+  /// - Parameters:
+  ///   - source: The address initiating the approval.
+  ///   - spender: The address being approved.
+  ///   - allowance: The number of tokens to approve.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - completion: A completion block called with the operation hash or an error.
+  public func approveAndTransferOperations(
+    source: Address,
+    spender: Address,
+    destination: Address,
+    numTokens: Int,
+    signatureProvider: SignatureProvider
+  ) -> Result<[TezosKit.Operation], TezosKitError> {
+    let approveOperation = approveAllowanceOperation(source: source, spender: spender, allowance: numTokens, signatureProvider: signatureProvider)
+    let transferOperation = transferTokensOperation(from: source, to: destination, numTokens: numTokens, signatureProvider: signatureProvider)
+
+    if case .success(let approveOp) = approveOperation, case .success(let transferOp) = transferOperation {
+      return Result.success([approveOp, transferOp])
+
+    } else {
+      if case .failure(let error) = approveOperation {
+        return Result.failure(error)
+
+      } else if case .failure(let error) = transferOperation {
+        return Result.failure(error)
+      }
+    }
+
+    // Should never reach here
+    return Result.failure(TezosKitError(kind: .unknown))
   }
 
   /// Retrieve the token balance for the given address.

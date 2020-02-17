@@ -8,4 +8,5 @@ import Foundation
 ///         not necessarily the same.
 public enum TezosProtocol {
   case athens // Protocol version 4
+  case babylon // Protocol version 5
 }
