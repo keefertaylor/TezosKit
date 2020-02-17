@@ -1,5 +1,7 @@
 // Copyright Keefer Taylor, 2019.
 
+import Foundation
+
 /// A client for an  FA1.2 Token Contract.
 ///
 /// - See: https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-7
@@ -49,7 +51,7 @@ public class TokenContractClient {
   public func transferTokens(
     from source: Address,
     to destination: Address,
-    numTokens: Int,
+    numTokens: Decimal,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -74,7 +76,7 @@ public class TokenContractClient {
   public func transferTokensOperation(
     from source: Address,
     to destination: Address,
-    numTokens: Int,
+    numTokens: Decimal,
     signatureProvider: SignatureProvider
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let amount = Tez.zeroBalance
@@ -83,7 +85,7 @@ public class TokenContractClient {
         left: StringMichelsonParameter(string: source),
         right: StringMichelsonParameter(string: destination)
       ),
-      right: IntMichelsonParameter(int: numTokens)
+      right: DecimalMichelsonParameter(decimal: numTokens)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
@@ -108,7 +110,7 @@ public class TokenContractClient {
   public func approveAllowance(
     source: Address,
     spender: Address,
-    allowance: Int,
+    allowance: Decimal,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -133,13 +135,13 @@ public class TokenContractClient {
   public func approveAllowanceOperation(
     source: Address,
     spender: Address,
-    allowance: Int,
+    allowance: Decimal,
     signatureProvider: SignatureProvider
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let amount = Tez.zeroBalance
     let parameter = PairMichelsonParameter(
       left: StringMichelsonParameter(string: spender),
-      right: IntMichelsonParameter(int: allowance)
+      right: DecimalMichelsonParameter(decimal: allowance)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
@@ -165,7 +167,7 @@ public class TokenContractClient {
     source: Address,
     spender: Address,
     destination: Address,
-    numTokens: Int,
+    numTokens: Decimal,
     signatureProvider: SignatureProvider
   ) -> Result<[TezosKit.Operation], TezosKitError> {
     let approveOperation = approveAllowanceOperation(source: source, spender: spender, allowance: numTokens, signatureProvider: signatureProvider)
