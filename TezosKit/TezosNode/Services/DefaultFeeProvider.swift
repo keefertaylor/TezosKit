@@ -8,7 +8,7 @@ public class DefaultFeeProvider {
   ///
   /// - Parameters:
   ///   - operationKind: The type of operation to request default fees for.
-  ///   - tezosProtocol: The protocol to request default fees for. Default is Athens / Proto4.
+  ///   - tezosProtocol: The protocol to request default fees for. Default is Babylon / Proto5.
   /// - Returns: Default fees for the requested inputs.
   public static func fees(
     for operationKind: OperationKind,
