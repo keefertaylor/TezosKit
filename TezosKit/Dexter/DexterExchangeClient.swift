@@ -94,18 +94,18 @@ public class DexterExchangeClient {
     from source: Address,
     amount: Tez,
     signatureProvider: SignatureProvider,
-    minLiquidity: Int,
-    maxTokensDeposited: Int,
+    minLiquidity: Decimal,
+    maxTokensDeposited: Decimal,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
-        right: IntMichelsonParameter(int: minLiquidity)
+        right: DecimalMichelsonParameter(decimal: minLiquidity)
       ),
       right: PairMichelsonParameter(
-        left: IntMichelsonParameter(int: maxTokensDeposited),
+        left: DecimalMichelsonParameter(decimal: maxTokensDeposited),
         right: StringMichelsonParameter(date: deadline)
       )
     )
@@ -137,13 +137,13 @@ public class DexterExchangeClient {
     from source: Address,
     destination: Address,
     signatureProvider: SignatureProvider,
-    liquidityBurned: Int,
+    liquidityBurned: Decimal,
     tezToWidthdraw: Tez,
-    minTokensToWithdraw: Int,
+    minTokensToWithdraw: Decimal,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard let mutezToWithdraw = Int(tezToWidthdraw.rpcRepresentation) else {
+	guard let mutezToWithdraw = Decimal(string: tezToWidthdraw.rpcRepresentation) else {
       completion(.failure(TezosKitError(kind: .unknown)))
       return
     }
@@ -155,12 +155,12 @@ public class DexterExchangeClient {
           right: StringMichelsonParameter(string: destination)
         ),
         right: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: liquidityBurned),
-          right: IntMichelsonParameter(int: mutezToWithdraw)
+          left: DecimalMichelsonParameter(decimal: liquidityBurned),
+          right: DecimalMichelsonParameter(decimal: mutezToWithdraw)
         )
       ),
       right: PairMichelsonParameter(
-        left: IntMichelsonParameter(int: minTokensToWithdraw),
+        left: DecimalMichelsonParameter(decimal: minTokensToWithdraw),
         right: StringMichelsonParameter(date: deadline)
       )
     )
@@ -192,7 +192,7 @@ public class DexterExchangeClient {
     source: Address,
     amount: Tez,
     signatureProvider: SignatureProvider,
-    minTokensToPurchase: Int,
+    minTokensToPurchase: Decimal,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
@@ -219,13 +219,13 @@ public class DexterExchangeClient {
     source: Address,
     amount: Tez,
     signatureProvider: SignatureProvider,
-    minTokensToPurchase: Int,
+    minTokensToPurchase: Decimal,
     deadline: Date
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
-        right: IntMichelsonParameter(int: minTokensToPurchase)
+        right: DecimalMichelsonParameter(decimal: minTokensToPurchase)
       ),
       right: StringMichelsonParameter(date: deadline)
     )
@@ -255,7 +255,7 @@ public class DexterExchangeClient {
     source: Address,
     destination: Address,
     signatureProvider: SignatureProvider,
-    tokensToSell: Int,
+    tokensToSell: Decimal,
     minTezToBuy: Tez,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
@@ -284,11 +284,11 @@ public class DexterExchangeClient {
     source: Address,
     destination: Address,
     signatureProvider: SignatureProvider,
-    tokensToSell: Int,
+    tokensToSell: Decimal,
     minTezToBuy: Tez,
     deadline: Date
   ) -> Result<TezosKit.Operation, TezosKitError> {
-    guard let minMutezToBuy = Int(minTezToBuy.rpcRepresentation) else {
+	guard let minMutezToBuy = Decimal(string: minTezToBuy.rpcRepresentation) else {
       return .failure(TezosKitError(kind: .unknown))
     }
 
@@ -299,8 +299,8 @@ public class DexterExchangeClient {
           right: StringMichelsonParameter(string: destination)
         ),
         right: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: tokensToSell),
-          right: IntMichelsonParameter(int: minMutezToBuy)
+          left: DecimalMichelsonParameter(decimal: tokensToSell),
+          right: DecimalMichelsonParameter(decimal: minMutezToBuy)
         )
       ),
       right: StringMichelsonParameter(date: deadline)
