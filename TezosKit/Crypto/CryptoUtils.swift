@@ -57,4 +57,29 @@ public enum CryptoUtils {
   public static func injectableHex(_ hex: String, signatureHex: String) -> String {
     return hex + signatureHex
   }
+
+  /// Compress a 65 byte public key to a 33 byte public key.
+  ///
+  /// Tezos expects usage of compressed keys.
+  public static func compressKey(_ bytes: [UInt8]) -> [UInt8]? {
+    // A magic byte 0x04 indicates that the key is uncompressed. Compressed keys use 0x02 and 0x03 to indicate the
+    // key is compressed and the value of the Y coordinate of the keys.
+    let rawPublicKeyBytes = Array(bytes)
+    guard
+      let firstByte = rawPublicKeyBytes.first,
+      let lastByte = rawPublicKeyBytes.last,
+      // Expect an uncompressed key to have length = 65 bytes (two 32 byte coordinates, and 1 magic prefix byte)
+      rawPublicKeyBytes.count == 65,
+      // Expect the first byte of the public key to be a magic 0x04 byte, indicating an uncompressed key.
+      firstByte == 4
+    else {
+      return nil
+    }
+
+    // Assign a new magic byte based on the Y coordinate's parity.
+    // See: https://bitcointalk.org/index.php?topic=644919.0
+    let magicByte: [UInt8] = lastByte % 2 == 0 ? [2] : [3]
+    let xCoordinateBytes = rawPublicKeyBytes[1...32]
+    return magicByte + xCoordinateBytes
+  }
 }

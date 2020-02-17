@@ -3,9 +3,6 @@
 import TezosKit
 import XCTest
 
-// swiftlint:disable todo
-// TODO: Re-enable
-
 class CryptoUtilsTest: XCTestCase {
   public func testValidateAddress() {
     let validAddress = "tz1PnyUZjRTFdYbYcJFenMwZanXtVP17scPH"
@@ -48,5 +45,57 @@ class CryptoUtilsTest: XCTestCase {
     let hex = "deadbeef"
     let signature: [UInt8] = [18, 52]
     XCTAssertEqual(CryptoUtils.injectableHex(hex, signature: signature), "deadbeef1234")
+  }
+
+  public func testCompressKey_oddParity() {
+    guard
+      let uncompressedBytes = CryptoUtils.hexToBin(
+        "0414fc03b8df87cd7b872996810db8458d61da8448e531569c8517b469a119d267be5645686309c6e6736dbd93940707cc9143d3cf29f1b877ff340e2cb2d259cf"
+      ),
+      let expectedCompressedBytes = CryptoUtils.hexToBin("0314fc03b8df87cd7b872996810db8458d61da8448e531569c8517b469a119d267")
+    else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertEqual(CryptoUtils.compressKey(uncompressedBytes), expectedCompressedBytes)
+  }
+
+  public func testCompressKey_evenParity() {
+    guard
+      let uncompressedBytes = CryptoUtils.hexToBin(
+        "0414fc03b8df87cd7b872996810db8458d61da8448e531569c8517b469a119d267be5645686309c6e6736dbd93940707cc9143d3cf29f1b877ff340e2cb2d259ce"
+      ),
+      let expectedCompressedBytes = CryptoUtils.hexToBin("0214fc03b8df87cd7b872996810db8458d61da8448e531569c8517b469a119d267")
+    else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertEqual(CryptoUtils.compressKey(uncompressedBytes), expectedCompressedBytes)
+  }
+
+  public func testCompressKey_badLength() {
+    guard
+      let uncompressedBytes = CryptoUtils.hexToBin("00")
+    else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertNil(CryptoUtils.compressKey(uncompressedBytes))
+  }
+
+  public func testCompressKey_badMagicByte() {
+    guard
+      let uncompressedBytes = CryptoUtils.hexToBin(
+        "0214fc03b8df87cd7b872996810db8458d61da8448e531569c8517b469a119d267be5645686309c6e6736dbd93940707cc9143d3cf29f1b877ff340e2cb2d259ce"
+      )
+    else {
+      XCTFail()
+      return
+    }
+
+    XCTAssertNil(CryptoUtils.compressKey(uncompressedBytes))
   }
 }
