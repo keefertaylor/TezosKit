@@ -7,4 +7,8 @@ public class IntMichelsonParameter: AbstractMichelsonParameter {
   public init(int: Int, annotations: [MichelsonAnnotation]? = nil) {
     super.init(networkRepresentation: [MichelineConstants.int: "\(int)"], annotations: annotations)
   }
+
+  public init(decimal: Decimal, annotations: [MichelsonAnnotation]? = nil) {
+    super.init(networkRepresentation: [MichelineConstants.int: "\(decimal)"], annotations: annotations)
+  }
 }

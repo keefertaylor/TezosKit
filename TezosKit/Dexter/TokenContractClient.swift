@@ -52,11 +52,12 @@ public class TokenContractClient {
     from source: Address,
     to destination: Address,
     numTokens: Decimal,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let result = transferTokensOperation(from: source, to: destination, numTokens: numTokens, signatureProvider: signatureProvider)
-    
+    let result = transferTokensOperation(from: source, to: destination, numTokens: numTokens, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider)
+
     switch result {
       case .success(let op):
         tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
@@ -77,7 +78,7 @@ public class TokenContractClient {
     from source: Address,
     to destination: Address,
     numTokens: Decimal,
-	operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let amount = Tez.zeroBalance
@@ -86,7 +87,7 @@ public class TokenContractClient {
         left: StringMichelsonParameter(string: source),
         right: StringMichelsonParameter(string: destination)
       ),
-      right: DecimalMichelsonParameter(decimal: numTokens)
+      right: IntMichelsonParameter(decimal: numTokens)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
@@ -112,10 +113,11 @@ public class TokenContractClient {
     source: Address,
     spender: Address,
     allowance: Decimal,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let result = approveAllowanceOperation(source: source, spender: spender, allowance: allowance, signatureProvider: signatureProvider)
+    let result = approveAllowanceOperation(source: source, spender: spender, allowance: allowance, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider)
 
     switch result {
       case .success(let op):
@@ -137,13 +139,13 @@ public class TokenContractClient {
     source: Address,
     spender: Address,
     allowance: Decimal,
-	operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let amount = Tez.zeroBalance
     let parameter = PairMichelsonParameter(
       left: StringMichelsonParameter(string: spender),
-      right: DecimalMichelsonParameter(decimal: allowance)
+      right: IntMichelsonParameter(decimal: allowance)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
@@ -170,7 +172,7 @@ public class TokenContractClient {
     spender: Address,
     destination: Address,
     numTokens: Decimal,
-	operationFeePolicy: OperationFeePolicy,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
   ) -> Result<[TezosKit.Operation], TezosKitError> {
     let approveOperation = approveAllowanceOperation(source: source, spender: spender, allowance: numTokens, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider)

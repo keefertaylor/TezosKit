@@ -102,10 +102,10 @@ public class DexterExchangeClient {
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
-        right: DecimalMichelsonParameter(decimal: minLiquidity)
+        right: IntMichelsonParameter(decimal: minLiquidity)
       ),
       right: PairMichelsonParameter(
-        left: DecimalMichelsonParameter(decimal: maxTokensDeposited),
+        left: IntMichelsonParameter(decimal: maxTokensDeposited),
         right: StringMichelsonParameter(date: deadline)
       )
     )
@@ -155,12 +155,12 @@ public class DexterExchangeClient {
           right: StringMichelsonParameter(string: destination)
         ),
         right: PairMichelsonParameter(
-          left: DecimalMichelsonParameter(decimal: liquidityBurned),
-          right: DecimalMichelsonParameter(decimal: mutezToWithdraw)
+          left: IntMichelsonParameter(decimal: liquidityBurned),
+          right: IntMichelsonParameter(decimal: mutezToWithdraw)
         )
       ),
       right: PairMichelsonParameter(
-        left: DecimalMichelsonParameter(decimal: minTokensToWithdraw),
+        left: IntMichelsonParameter(decimal: minTokensToWithdraw),
         right: StringMichelsonParameter(date: deadline)
       )
     )
@@ -191,12 +191,13 @@ public class DexterExchangeClient {
   public func tradeTezForToken(
     source: Address,
     amount: Tez,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
     minTokensToPurchase: Decimal,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let result = tradeTezForTokenOperation(source: source, amount: amount, signatureProvider: signatureProvider, minTokensToPurchase: minTokensToPurchase, deadline: deadline)
+    let result = tradeTezForTokenOperation(source: source, amount: amount, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider, minTokensToPurchase: minTokensToPurchase, deadline: deadline)
 
     switch result {
       case .success(let op):
@@ -218,6 +219,7 @@ public class DexterExchangeClient {
   public func tradeTezForTokenOperation(
     source: Address,
     amount: Tez,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
     minTokensToPurchase: Decimal,
     deadline: Date
@@ -225,7 +227,7 @@ public class DexterExchangeClient {
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
-        right: DecimalMichelsonParameter(decimal: minTokensToPurchase)
+        right: IntMichelsonParameter(decimal: minTokensToPurchase)
       ),
       right: StringMichelsonParameter(date: deadline)
     )
@@ -236,7 +238,7 @@ public class DexterExchangeClient {
       parameter: parameter,
       source: source,
       destination: exchangeContractAddress,
-      operationFeePolicy: .estimate,
+      operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider
     )
   }
@@ -254,13 +256,14 @@ public class DexterExchangeClient {
   public func tradeTokenForTez(
     source: Address,
     destination: Address,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
     tokensToSell: Decimal,
     minTezToBuy: Tez,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let result = tradeTokenForTezOperation(source: source, destination: destination, signatureProvider: signatureProvider, tokensToSell: tokensToSell, minTezToBuy: minTezToBuy, deadline: deadline)
+    let result = tradeTokenForTezOperation(source: source, destination: destination, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider, tokensToSell: tokensToSell, minTezToBuy: minTezToBuy, deadline: deadline)
 
     switch result {
       case .success(let op):
@@ -283,6 +286,7 @@ public class DexterExchangeClient {
   public func tradeTokenForTezOperation(
     source: Address,
     destination: Address,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
     tokensToSell: Decimal,
     minTezToBuy: Tez,
@@ -299,8 +303,8 @@ public class DexterExchangeClient {
           right: StringMichelsonParameter(string: destination)
         ),
         right: PairMichelsonParameter(
-          left: DecimalMichelsonParameter(decimal: tokensToSell),
-          right: DecimalMichelsonParameter(decimal: minMutezToBuy)
+          left: IntMichelsonParameter(decimal: tokensToSell),
+          right: IntMichelsonParameter(decimal: minMutezToBuy)
         )
       ),
       right: StringMichelsonParameter(date: deadline)
@@ -312,7 +316,7 @@ public class DexterExchangeClient {
       parameter: parameter,
       source: source,
       destination: exchangeContractAddress,
-      operationFeePolicy: .estimate,
+      operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider
     )
   }
