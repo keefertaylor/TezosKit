@@ -53,25 +53,14 @@ public class TokenContractClient {
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let amount = Tez.zeroBalance
-    let parameter = PairMichelsonParameter(
-      left: PairMichelsonParameter(
-        left: StringMichelsonParameter(string: source),
-        right: StringMichelsonParameter(string: destination)
-      ),
-      right: IntMichelsonParameter(int: numTokens)
-    )
-
-    tezosNodeClient.call(
-      contract: tokenContractAddress,
-      amount: amount,
-      entrypoint: EntryPoint.transfer,
-      parameter: parameter,
-      source: source,
-      signatureProvider: signatureProvider,
-      operationFeePolicy: .estimate,
-      completion: completion
-    )
+    let result = transferTokensOperation(from: source, to: destination, numTokens: numTokens, signatureProvider: signatureProvider)
+    
+    switch result {
+      case .success(let op):
+        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+      case .failure(let error):
+        completion(Result.failure(error))
+    }
   }
 
   /// Create an operation to transfer tokens.
@@ -123,22 +112,14 @@ public class TokenContractClient {
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let amount = Tez.zeroBalance
-    let parameter = PairMichelsonParameter(
-      left: StringMichelsonParameter(string: spender),
-      right: IntMichelsonParameter(int: allowance)
-    )
+    let result = approveAllowanceOperation(source: source, spender: spender, allowance: allowance, signatureProvider: signatureProvider)
 
-    tezosNodeClient.call(
-      contract: tokenContractAddress,
-      amount: amount,
-      entrypoint: EntryPoint.approve,
-      parameter: parameter,
-      source: source,
-      signatureProvider: signatureProvider,
-      operationFeePolicy: .estimate,
-      completion: completion
-    )
+    switch result {
+      case .success(let op):
+        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+      case .failure(let error):
+        completion(Result.failure(error))
+    }
   }
 
   /// Create an operation to approve an allowance.
