@@ -115,6 +115,7 @@ final class DexterExchangeClientTests: XCTestCase {
     exchangeClient?.tradeTezForToken(
       source: .testAddress,
       amount: Tez(1.0),
+	  operationFeePolicy: .custom(OperationFees.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider,
       minTokensToPurchase: 1,
       deadline: Date()
@@ -136,6 +137,7 @@ final class DexterExchangeClientTests: XCTestCase {
     exchangeClient?.tradeTokenForTez(
       source: .testAddress,
       destination: .testAddress,
+	  operationFeePolicy: .custom(OperationFees.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider,
       tokensToSell: 1,
       minTezToBuy: Tez(1.0),

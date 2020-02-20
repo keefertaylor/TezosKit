@@ -195,7 +195,7 @@ public class TokenContractClient {
   }
 
   /// Retrieve the token balance for the given address.
-  public func getTokenBalance(address: Address, completion: @escaping (Result<Int, TezosKitError>) -> Void) {
+  public func getTokenBalance(address: Address, completion: @escaping (Result<Decimal, TezosKitError>) -> Void) {
     let key = StringMichelsonParameter(string: address)
     tezosNodeClient.getBigMapValue(address: tokenContractAddress, key: key, type: .address) { result in
       guard
@@ -203,7 +203,7 @@ public class TokenContractClient {
         let args = json[JSON.Keys.args] as? [ Any ],
         let second = args[1] as? [String: Any],
         let balanceString = second[JSON.Keys.int] as? String,
-        let balance = Int(balanceString)
+        let balance = Decimal(string: balanceString)
       else {
         completion(result.map { _ in 0 })
         return

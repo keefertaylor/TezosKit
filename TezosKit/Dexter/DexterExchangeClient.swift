@@ -48,14 +48,14 @@ public class DexterExchangeClient {
   /// Get the total balance of the exchange in tokens.
   public func getExchangeBalanceTokens(
     tokenContractAddress: Address,
-    completion: @escaping(Result<Int, TezosKitError>) -> Void
+    completion: @escaping(Result<Decimal, TezosKitError>) -> Void
   ) {
     let tokenClient = TokenContractClient(tokenContractAddress: tokenContractAddress, tezosNodeClient: tezosNodeClient)
     tokenClient.getTokenBalance(address: exchangeContractAddress, completion: completion)
   }
 
   /// Get the total exchange liquidity.
-  public func getExchangeLiquidity(completion: @escaping (Result<Int, TezosKitError>) -> Void) {
+  public func getExchangeLiquidity(completion: @escaping (Result<Decimal, TezosKitError>) -> Void) {
     tezosNodeClient.getContractStorage(address: exchangeContractAddress) { result in
       guard
         case let .success(json) = result,
@@ -68,7 +68,7 @@ public class DexterExchangeClient {
         let args3 = left2[JSON.Keys.args] as? [Any],
         let right2 = args3[1] as? [String: Any],
         let balanceString = right2[JSON.Keys.int] as? String,
-        let balance = Int(balanceString)
+		let balance = Decimal(string: balanceString)
       else {
         completion(result.map { _ in 0 })
         return
