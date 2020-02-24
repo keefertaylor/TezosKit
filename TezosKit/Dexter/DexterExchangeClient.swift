@@ -48,14 +48,14 @@ public class DexterExchangeClient {
   /// Get the total balance of the exchange in tokens.
   public func getExchangeBalanceTokens(
     tokenContractAddress: Address,
-    completion: @escaping(Result<Int, TezosKitError>) -> Void
+    completion: @escaping(Result<Decimal, TezosKitError>) -> Void
   ) {
     let tokenClient = TokenContractClient(tokenContractAddress: tokenContractAddress, tezosNodeClient: tezosNodeClient)
     tokenClient.getTokenBalance(address: exchangeContractAddress, completion: completion)
   }
 
   /// Get the total exchange liquidity.
-  public func getExchangeLiquidity(completion: @escaping (Result<Int, TezosKitError>) -> Void) {
+  public func getExchangeLiquidity(completion: @escaping (Result<Decimal, TezosKitError>) -> Void) {
     tezosNodeClient.getContractStorage(address: exchangeContractAddress) { result in
       guard
         case let .success(json) = result,
@@ -68,7 +68,7 @@ public class DexterExchangeClient {
         let args3 = left2[JSON.Keys.args] as? [Any],
         let right2 = args3[1] as? [String: Any],
         let balanceString = right2[JSON.Keys.int] as? String,
-        let balance = Int(balanceString)
+		let balance = Decimal(string: balanceString)
       else {
         completion(result.map { _ in 0 })
         return
@@ -94,18 +94,18 @@ public class DexterExchangeClient {
     from source: Address,
     amount: Tez,
     signatureProvider: SignatureProvider,
-    minLiquidity: Int,
-    maxTokensDeposited: Int,
+    minLiquidity: Decimal,
+    maxTokensDeposited: Decimal,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
-        right: IntMichelsonParameter(int: minLiquidity)
+        right: IntMichelsonParameter(decimal: minLiquidity)
       ),
       right: PairMichelsonParameter(
-        left: IntMichelsonParameter(int: maxTokensDeposited),
+        left: IntMichelsonParameter(decimal: maxTokensDeposited),
         right: StringMichelsonParameter(date: deadline)
       )
     )
@@ -137,13 +137,13 @@ public class DexterExchangeClient {
     from source: Address,
     destination: Address,
     signatureProvider: SignatureProvider,
-    liquidityBurned: Int,
+    liquidityBurned: Decimal,
     tezToWidthdraw: Tez,
-    minTokensToWithdraw: Int,
+    minTokensToWithdraw: Decimal,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard let mutezToWithdraw = Int(tezToWidthdraw.rpcRepresentation) else {
+	guard let mutezToWithdraw = Decimal(string: tezToWidthdraw.rpcRepresentation) else {
       completion(.failure(TezosKitError(kind: .unknown)))
       return
     }
@@ -155,12 +155,12 @@ public class DexterExchangeClient {
           right: StringMichelsonParameter(string: destination)
         ),
         right: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: liquidityBurned),
-          right: IntMichelsonParameter(int: mutezToWithdraw)
+          left: IntMichelsonParameter(decimal: liquidityBurned),
+          right: IntMichelsonParameter(decimal: mutezToWithdraw)
         )
       ),
       right: PairMichelsonParameter(
-        left: IntMichelsonParameter(int: minTokensToWithdraw),
+        left: IntMichelsonParameter(decimal: minTokensToWithdraw),
         right: StringMichelsonParameter(date: deadline)
       )
     )
@@ -191,28 +191,55 @@ public class DexterExchangeClient {
   public func tradeTezForToken(
     source: Address,
     amount: Tez,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
-    minTokensToPurchase: Int,
+    minTokensToPurchase: Decimal,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
+    let result = tradeTezForTokenOperation(source: source, amount: amount, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider, minTokensToPurchase: minTokensToPurchase, deadline: deadline)
+
+    switch result {
+      case .success(let op):
+        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+      case .failure(let error):
+        completion(Result.failure(error))
+    }
+  }
+
+  /// Create an operation to trade tokens with Tez.
+  ///
+  /// - Parameters:
+  ///   - source: The address making the trade.
+  ///   - amount: The amount of Tez to sell.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - minTokensToPurchase: The minimum number of tokens to purchase.
+  ///   - deadline: A deadline for the transaction to occur by.
+  ///   - completion: A completion block which will be called with the result hash, if successful.
+  public func tradeTezForTokenOperation(
+    source: Address,
+    amount: Tez,
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider,
+    minTokensToPurchase: Decimal,
+    deadline: Date
+  ) -> Result<TezosKit.Operation, TezosKitError> {
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
         left: StringMichelsonParameter(string: source),
-        right: IntMichelsonParameter(int: minTokensToPurchase)
+        right: IntMichelsonParameter(decimal: minTokensToPurchase)
       ),
       right: StringMichelsonParameter(date: deadline)
     )
 
-    tezosNodeClient.call(
-      contract: exchangeContractAddress,
+    return tezosNodeClient.operationFactory.smartContractInvocationOperation(
       amount: amount,
       entrypoint: EntryPoint.xtzToToken,
       parameter: parameter,
       source: source,
-      signatureProvider: signatureProvider,
-      operationFeePolicy: .estimate,
-      completion: completion
+      destination: exchangeContractAddress,
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
   }
 
@@ -229,15 +256,44 @@ public class DexterExchangeClient {
   public func tradeTokenForTez(
     source: Address,
     destination: Address,
+    operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
-    tokensToSell: Int,
+    tokensToSell: Decimal,
     minTezToBuy: Tez,
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    guard let minMutezToBuy = Int(minTezToBuy.rpcRepresentation) else {
-      completion(.failure(TezosKitError(kind: .unknown)))
-      return
+    let result = tradeTokenForTezOperation(source: source, destination: destination, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider, tokensToSell: tokensToSell, minTezToBuy: minTezToBuy, deadline: deadline)
+
+    switch result {
+      case .success(let op):
+        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+      case .failure(let error):
+        completion(Result.failure(error))
+    }
+  }
+
+  /// Create an operation to buy Tez with tokens.
+  ///
+  /// - Parameters:
+  ///   - source: The address making the trade.
+  ///   - destination: The destination for the tokens.
+  ///   - signatureProvider: An opaque object that can sign the transaction.
+  ///   - tokensToSell: The number of tokens to sell.
+  ///   - minTezToBuy: The minimum number of Tez to buy.
+  ///   - deadline: A deadline for the transaction to occur by.
+  ///   - completion: A completion block which will be called with the result hash, if successful.
+  public func tradeTokenForTezOperation(
+    source: Address,
+    destination: Address,
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider,
+    tokensToSell: Decimal,
+    minTezToBuy: Tez,
+    deadline: Date
+  ) -> Result<TezosKit.Operation, TezosKitError> {
+	guard let minMutezToBuy = Decimal(string: minTezToBuy.rpcRepresentation) else {
+      return .failure(TezosKitError(kind: .unknown))
     }
 
     let parameter = PairMichelsonParameter(
@@ -247,21 +303,21 @@ public class DexterExchangeClient {
           right: StringMichelsonParameter(string: destination)
         ),
         right: PairMichelsonParameter(
-          left: IntMichelsonParameter(int: tokensToSell),
-          right: IntMichelsonParameter(int: minMutezToBuy)
+          left: IntMichelsonParameter(decimal: tokensToSell),
+          right: IntMichelsonParameter(decimal: minMutezToBuy)
         )
       ),
       right: StringMichelsonParameter(date: deadline)
     )
 
-    tezosNodeClient.call(
-      contract: exchangeContractAddress,
+    return tezosNodeClient.operationFactory.smartContractInvocationOperation(
+      amount: Tez.zeroBalance,
       entrypoint: EntryPoint.tokenToXTZ,
       parameter: parameter,
       source: source,
-      signatureProvider: signatureProvider,
-      operationFeePolicy: .estimate,
-      completion: completion
+      destination: exchangeContractAddress,
+      operationFeePolicy: operationFeePolicy,
+      signatureProvider: signatureProvider
     )
   }
 }

@@ -8,15 +8,17 @@ public class DefaultFeeProvider {
   ///
   /// - Parameters:
   ///   - operationKind: The type of operation to request default fees for.
-  ///   - tezosProtocol: The protocol to request default fees for. Default is Athens / Proto4.
+  ///   - tezosProtocol: The protocol to request default fees for. Default is Babylon / Proto5.
   /// - Returns: Default fees for the requested inputs.
   public static func fees(
     for operationKind: OperationKind,
-    in tezosProtocol: TezosProtocol = .athens
+    in tezosProtocol: TezosProtocol = .babylon
   ) -> OperationFees {
     switch tezosProtocol {
     case .athens:
       return feesInAthens(for: operationKind)
+    case .babylon:
+      return feesInBabylon(for: operationKind)
     }
   }
 
@@ -39,6 +41,30 @@ public class DefaultFeeProvider {
       return OperationFees(
         fee: Tez(0.001_284),
         gasLimit: 10_200,
+        storageLimit: 257
+      )
+    }
+  }
+
+  /// Returns default fees for the babylon protocol.
+  private static func feesInBabylon(for operationKind: OperationKind) -> OperationFees {
+    switch operationKind {
+    case .delegation:
+      return OperationFees(
+        fee: Tez(0.001_257),
+        gasLimit: 10_000,
+        storageLimit: 0
+      )
+    case .reveal:
+      return OperationFees(
+        fee: Tez(0.001_268),
+        gasLimit: 10_000,
+        storageLimit: 0
+      )
+    case .transaction:
+      return OperationFees(
+        fee: Tez(0.001_284),
+        gasLimit: 10_307,
         storageLimit: 257
       )
     }
