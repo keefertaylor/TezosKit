@@ -72,7 +72,7 @@ public class TezosNodeClient {
   public static let defaultNodeURL = URL(string: "https://rpc.tezrpc.me")!
 
   /// A factory which produces operations.
-  internal let operationFactory: OperationFactory
+  public let operationFactory: OperationFactory
 
   /// A service which forges operations.
   internal let forgingService: ForgingService
@@ -99,13 +99,13 @@ public class TezosNodeClient {
   ///
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
-  ///   - tezosProtocol: The protocol version to use, defaults to athens.
+  ///   - tezosProtocol: The protocol version to use, defaults to babylon.
   ///   - forgingPolicy: The policy to apply when forging operations. Default is remote.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
   public convenience init(
     remoteNodeURL: URL = defaultNodeURL,
-    tezosProtocol: TezosProtocol = .athens,
+    tezosProtocol: TezosProtocol = .babylon,
     forgingPolicy: ForgingPolicy = .remote,
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
@@ -128,7 +128,7 @@ public class TezosNodeClient {
   /// An internal initializer which allows injection of a network client for testability.
   internal init(
     networkClient: NetworkClient,
-    tezosProtocol: TezosProtocol = .athens,
+    tezosProtocol: TezosProtocol = .babylon,
     forgingPolicy: ForgingPolicy = .remote,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {

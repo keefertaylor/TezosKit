@@ -6,7 +6,7 @@ import Foundation
 ///
 /// This abstract base class can be used to create Michelson parameters which TezosKit doesn't support.
 public class AbstractMichelsonParameter: MichelsonParameter {
-  public let networkRepresentation: Any //[String: Any]
+  public let networkRepresentation: JSONCodable
 
   /// - Parameter networkRepresentation: A dictionary representation of the parameter which can be encoded to JSON.
   /// - Parameter annotations: Optional annotations
@@ -19,7 +19,7 @@ public class AbstractMichelsonParameter: MichelsonParameter {
     self.networkRepresentation = annotationAugmentedDictionary
   }
 
-  // TODO(keefertaylor): Type this parameter.
+  /// - Parameter networkRepresentation: An array representation of the parameter which can be encoded to JSON.
   public init(networkRepresentation: [Any]) {
     self.networkRepresentation = networkRepresentation
   }

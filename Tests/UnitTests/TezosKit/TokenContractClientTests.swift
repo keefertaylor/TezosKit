@@ -26,6 +26,7 @@ final class TokenContractClientTests: XCTestCase {
       from: Address.testAddress,
       to: Address.testDestinationAddress,
       numTokens: 1,
+	  operationFeePolicy: .custom(OperationFees.testFees),
       signatureProvider: FakeSignatureProvider.testSignatureProvider
     ) { result in
       switch result {

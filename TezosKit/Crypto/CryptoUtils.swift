@@ -58,8 +58,10 @@ public enum CryptoUtils {
     return hex + signatureHex
   }
 
+  /// Compress a 65 byte public key to a 33 byte public key.
+  ///
+  /// Tezos expects usage of compressed keys.
   public static func compressKey(_ bytes: [UInt8]) -> [UInt8]? {
-    // The secure enclave provides us a key in an uncompressed format and Tezos keys expect the compressed format.
     // A magic byte 0x04 indicates that the key is uncompressed. Compressed keys use 0x02 and 0x03 to indicate the
     // key is compressed and the value of the Y coordinate of the keys.
     let rawPublicKeyBytes = Array(bytes)
