@@ -696,7 +696,6 @@
 		717CE63EDCDACE20EFDEF9A6 /* GetContractStorageRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetContractStorageRPCTest.swift; sourceTree = "<group>"; };
 		737132D7F972BD110818F565 /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SipHash.framework; sourceTree = "<group>"; };
 		754389C145F7AF7208CBBD41 /* TezosKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosKitError.swift; sourceTree = "<group>"; };
-		77A998DF23F0C22700719D0F /* TezosKitPlayGround.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = TezosKitPlayGround.playground; path = "../../Library/Autosave Information/TezosKitPlayGround.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		77CF8E4119383EA36202FE25 /* TezTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezTest.swift; sourceTree = "<group>"; };
 		7806BE5035AB3100BA7C791C /* BigInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BigInt.framework; sourceTree = "<group>"; };
 		7863872FECCF90A64CFD1F99 /* MnemonicUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MnemonicUtil.swift; sourceTree = "<group>"; };
@@ -796,7 +795,7 @@
 		D8DD132F238141B3A1D24CC3 /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		D8FD368E4F600E8C2A2D1D3A /* secp256k1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = secp256k1.framework; sourceTree = "<group>"; };
 		D9F5DCCA68E890BE7185F769 /* DexterExchangeClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientIntegrationTests.swift; sourceTree = "<group>"; };
-		DEAEB55943792CC3F5CE052C /* SecureEnclaveExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SecureEnclaveExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEAEB55943792CC3F5CE052C /* SecureEnclaveExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecureEnclaveExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B48169F083D2DAEB462840 /* SimulationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationServiceTest.swift; sourceTree = "<group>"; };
 		E1C7225DE55A77297776B686 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		E212CD2F0656857B66156D04 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -1094,7 +1093,6 @@
 		40497E8417609B6A929D29D7 = {
 			isa = PBXGroup;
 			children = (
-				77A998DF23F0C22700719D0F /* TezosKitPlayGround.playground */,
 				D231A0952D7582EAE9B5877D /* Common */,
 				50C91A025E54A221B684A314 /* Extensions */,
 				69291FDD3EDCCD2E9D0374A2 /* IntegrationTests */,
@@ -2329,6 +2327,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -2668,6 +2667,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6F6VXZUKN5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

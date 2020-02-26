@@ -2,32 +2,25 @@
 
 import Base58Swift
 import BigInt
-// TODO: needed
-import CommonCrypto
 import Foundation
 import Security
 import Sodium
 
 /// A wallet which stores keys in a device's secure enclave.
-// TODO(keefertaylor): Write a strong warning about how iOS can arbitrarily reset this and it is not backed up.
-// TODO(keefertaylor): Write a README.md about using this class.
-// TODO(keefertaylor): Verify graceful behavior on a simulator.
+///
+/// WARNING: Keys generated in the secure enclave are not able to be backed up. Additionally, iOS may choose to remove these keys at it's discretion, including
+///          when biometrics on the device are changed, a the device is restored, or the host app is deleted. This wallet should only be used as part of a
+///          multisignature signing scheme with a proper backup.
+///          Read more: https://medium.com/@keefertaylor/signing-tezos-transactions-with-ioss-secure-enclave-and-face-id-6166a752519?source=your_stories_page---------------------------
 @available(OSX 10.12.1, iOS 9.0, *)
 public class SecureEnclaveWallet: SignatureProvider {
   /// Labels for keys in the enclave.
-  // TODO(keefertaylor): hook these up
   private enum KeyLabels {
-    public static let `public` = "com.keefertaylor.SecureEnclaveExample.public"
-    public static let secret = "com.keefertaylor.SecureEnclaveExample.secret"
+    public static let `public` = "tezoskit.public"
+    public static let secret = "tezoskit.private"
   }
 
-  /// A key manager object.
-  /// TODO(keefertaylor): Consider using less opinionated facade.
-  /// TODO(keefertaylor): This class is only doing key generation. Consider if this whole class could be removed.
-  private let manager: EllipticCurveKeyPair.Manager
-
   /// References to the public and private keys
-  private let enclavePublicKey: EllipticCurveKeyPair.PublicKey
   private let enclaveSecretKey: EllipticCurveKeyPair.PrivateKey
 
   /// The TezosKit public key.
@@ -38,8 +31,18 @@ public class SecureEnclaveWallet: SignatureProvider {
     return self.publicKey.publicKeyHash
   }
 
+  /// Returns whether the device contains a secure enclave.
+  public static var deviceHasSecureEnclave: Bool {
+    return EllipticCurveKeyPair.Device.hasSecureEnclave
+  }
+
   /// - Parameter prompt: A prompt to use when asking the wallet to sign bytes.
   public init?(prompt: String) {
+    // Ensure that the device has access to a secure enclave.
+    guard SecureEnclaveWallet.deviceHasSecureEnclave else {
+      return nil
+    }
+
     let publicAccessControl = EllipticCurveKeyPair.AccessControl(
       protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
       flags: []
@@ -49,50 +52,31 @@ public class SecureEnclaveWallet: SignatureProvider {
       flags: [.userPresence, .privateKeyUsage]
     )
     let config = EllipticCurveKeyPair.Config(
-      publicLabel: "payment.sign.public",
-      privateLabel: "payment.sign.private",
+      publicLabel: KeyLabels.public,
+      privateLabel: KeyLabels.secret,
       operationPrompt: prompt,
       publicKeyAccessControl: publicAccessControl,
       privateKeyAccessControl: privateAccessControl,
       token: .secureEnclave
     )
-    self.manager = EllipticCurveKeyPair.Manager(config: config)
+    let manager = EllipticCurveKeyPair.Manager(config: config)
 
     guard
-      let keys = try? self.manager.keys(),
+      let keys = try? manager.keys(),
       let rawPublicKey = try? keys.public.data().raw
     else {
       return nil
     }
-    self.enclavePublicKey = keys.public
     self.enclaveSecretKey = keys.private
 
-    // The secure enclave provides us a key in an uncompressed format and Tezos keys expect the compressed format.
-    // A magic byte 0x04 indicates that the key is uncompressed. Compressed keys use 0x02 and 0x03 to indicate the
-    // key is compressed and the value of the Y coordinate of the keys.
-    let rawPublicKeyBytes = Array(rawPublicKey)
-    guard
-      let firstByte = rawPublicKeyBytes.first,
-      let lastByte = rawPublicKeyBytes.last,
-      // Expect an uncompressed key to have length = 65 bytes (two 32 byte coordinates, and 1 magic prefix byte)
-      rawPublicKeyBytes.count == 65,
-      // Expect the first byte of the public key to be a magic 0x04 byte, indicating an uncompressed key.
-      firstByte == 4
-    else {
+    guard let compressedPublicKeyBytes = CryptoUtils.compressKey(Array(rawPublicKey)) else {
       return nil
     }
-
-    // Assign a new magic byte based on the Y coordinate's parity.
-    // See: https://bitcointalk.org/index.php?topic=644919.0
-    let magicByte: [UInt8] = lastByte % 2 == 0 ? [2] : [3]
-    let xCoordinateBytes = rawPublicKeyBytes[1...32]
-    let compressedPublicKeyBytes = magicByte + xCoordinateBytes
     self.publicKey = PublicKey(bytes: compressedPublicKeyBytes, signingCurve: .p256)
   }
 
-  // TODO(keefertaylor): This method implicitly assumes that the bytes being signed are on operation. Reconsider.
-  // TODO(keefertaylor): This logic is duplicated with `SecretKey`. Move somewhere common.
-  // TODO(keefertaylor): It probably makes sense for these to operate on bytes, rather than strings.
+  // TODO(keefertaylor): This method is duplicated with PrivateKey and assumes the watermark is always an operation.
+  //                     Refactor and genericize.
   public func sign(_ hex: String) -> [UInt8]? {
     // Prepare bytes for signing.
     guard let bytes = Sodium.shared.utils.hex2bin(hex) else {
@@ -107,10 +91,6 @@ public class SecureEnclaveWallet: SignatureProvider {
     }
 
     // Sign the bytes and copy out the result.
-//    var signatureLength = 128
-//    var signatureBytes = [UInt8](repeating: 0, count: signatureLength)
-////    guard
-
     var error: Unmanaged<CFError>?
     let signature: Data = SecKeyCreateSignature(
       self.enclaveSecretKey.underlying,
@@ -118,20 +98,6 @@ public class SecureEnclaveWallet: SignatureProvider {
       Data(hashedBytesForSigning) as CFData,
       &error
     )! as Data
-
-    // WORKS
-//     let result = SecKeyRawSign(
-//        self.enclaveSecretKey.underlying,
-//        .PKCS1,
-//        &hashedBytesForSigning,
-//        hashedBytesForSigning.count,
-//        &signatureBytes,
-//        &signatureLength
-//      ) // == errSecSuccess
-//    else {
-//      return nil
-//    }
-  //  let signature = Data(bytes: &signatureBytes, count: signatureLength)
 
     // The signature returned to us is a ASN.1 DER sequence which encodes the 64 byte signature. Parse the DER to
     // obtain the raw signature.

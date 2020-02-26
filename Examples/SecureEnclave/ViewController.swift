@@ -86,17 +86,12 @@ class ViewController: UIViewController {
 
   @objc
   func generate() {
-    if #available(iOS 13.0, *) {
-      let wallet = SecureEnclaveWallet(prompt: "enc access")!
-      genKey.text = wallet.address
-      print(wallet.address)
+    let wallet = SecureEnclaveWallet(prompt: "Sign using secure enclave")!
+    genKey.text = wallet.address
+    print(wallet.address)
 
-      self.address = wallet.address
-      self.wallet = wallet
-
-    } else {
-      // Fallback on earlier versions
-    }
+    self.address = wallet.address
+    self.wallet = wallet
   }
 
   @objc
@@ -115,14 +110,14 @@ class ViewController: UIViewController {
       signatureProvider: wallet,
       operationFeePolicy: .estimate
     ) { result in
-      switch result {
-      case .success(let opHash):
-        self.opHash = opHash
-        DispatchQueue.main.async {
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let opHash):
+          self.opHash = opHash
           self.hash2.text = opHash
+        case .failure(let error):
+          print("error :( \(error)")
         }
-      case .failure(let error):
-        print("error :( \(error)")
       }
     }
   }
