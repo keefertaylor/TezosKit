@@ -236,7 +236,46 @@ public class OperationFactory {
     case .failure(let error):
       return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
     }
+  }
 
+  /// Create a new originate smart contract operation.
+  ///
+  ///  Tip: use https://smart-contracts-micheline-michelson-translator-for-tezos.scalac.io/ to convert Michelson to Micheline
+  ///
+  /// - Parameters:
+  ///   - michelineInit: Micheline JSON object used to initialize storage
+  ///   - code: Micheline object containing the complied Michelon smart contract code
+  ///   - operationFeePolicy: A policy to apply when determining operation fees.
+  ///   - signatureProvider: A signature provider which can sign the operation.
+  public func orignateSmartContractnOperation(
+    michelineInit: [String: Any],
+    code: [String: Any],
+    source: Address,
+    operationFeePolicy: OperationFeePolicy,
+    signatureProvider: SignatureProvider
+  ) -> Result<Operation, TezosKitError> {
+    let operation = OriginateSmartContractOperation(
+      michelineInit: michelineInit,
+      code: code,
+      source: source,
+      operationFees: OperationFees.zeroFees
+    )
+
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: source,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
+
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+    }
   }
 
   // MARK: - Internal

@@ -363,6 +363,8 @@
 		BF58AA3718890216B35F94D1 /* SigningServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DD030C2ACB7856608B34BA /* SigningServiceTests.swift */; };
 		BF8368AEC93713FD0257CB2A /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BC48461432501639D06FD6 /* AbstractOperation.swift */; };
 		C0382A1E21312C3D3323732F /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7806BE5035AB3100BA7C791C /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0F9AE5F24098AC5002479FF /* OriginateSmartContractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F9AE5E24098AC4002479FF /* OriginateSmartContractOperation.swift */; };
+		C0F9AE6024098AC5002479FF /* OriginateSmartContractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F9AE5E24098AC4002479FF /* OriginateSmartContractOperation.swift */; };
 		C0FE1015DACEF52DD7FE3A33 /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632B9078CDB2B8EC754A858F /* TezosKit.framework */; };
 		C15CDCE9A538AB91764BCE7E /* LeftMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18257A644A0B08F1E48E8808 /* LeftMichelsonParameter.swift */; };
 		C3449CF9473642AADC85DC42 /* MichelsonAnnotationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362C94B98BAA147AB9D080DC /* MichelsonAnnotationTests.swift */; };
@@ -786,6 +788,7 @@
 		BF24BCDA4254C7A2D50F5728 /* ConseilQueryRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQueryRPC.swift; sourceTree = "<group>"; };
 		BFC366A9719F3F6D07093E37 /* GetBigMapValueByIDRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueByIDRPC.swift; sourceTree = "<group>"; };
 		C014CF988B5D6585A97BC0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C0F9AE5E24098AC4002479FF /* OriginateSmartContractOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginateSmartContractOperation.swift; sourceTree = "<group>"; };
 		C1968AE0A3A2B4DAD756FD72 /* ConseilClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientIntegrationTests.swift; sourceTree = "<group>"; };
 		C1FCF6EFDB51394D49E1479C /* PreapplicationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreapplicationServiceTest.swift; sourceTree = "<group>"; };
 		C525A21D32496E9B7BB4F79A /* GetAddressCounterRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressCounterRPCTest.swift; sourceTree = "<group>"; };
@@ -939,6 +942,7 @@
 				9497DCBC4C3BE5334CF8BC59 /* RevealOperation.swift */,
 				9BE79D36BAE8F2465D6231C8 /* SmartContractInvocationOperation.swift */,
 				A84ECF4C95D1743641BEF321 /* TransactionOperation.swift */,
+				C0F9AE5E24098AC4002479FF /* OriginateSmartContractOperation.swift */,
 			);
 			path = Operation;
 			sourceTree = "<group>";
@@ -1974,6 +1978,7 @@
 				20E9FCE054F634DB3EBE0352 /* StringMichelsonParameter.swift in Sources */,
 				D197ECDB0CE8D9806CA2DF33 /* StringResponseAdapter.swift in Sources */,
 				8A8A0C3FA8BB4D7D06B3BC41 /* Tez.swift in Sources */,
+				C0F9AE5F24098AC5002479FF /* OriginateSmartContractOperation.swift in Sources */,
 				B00C58996BCA758752DD3B17 /* TezResponseAdapter.swift in Sources */,
 				C6C549A79623A9E2FD3D418E /* TezosKitError.swift in Sources */,
 				EA7CAAC03CEEC69CF5828734 /* TezosNodeClient+Promises.swift in Sources */,
@@ -2197,6 +2202,7 @@
 				B511E62F850E8E2F3BD41094 /* StringMichelsonParameter.swift in Sources */,
 				B2FF44BEDF48FEE044D2AC91 /* StringResponseAdapter.swift in Sources */,
 				E65D8132F4164B73EF0B68DC /* Tez.swift in Sources */,
+				C0F9AE6024098AC5002479FF /* OriginateSmartContractOperation.swift in Sources */,
 				4810379C933F3041C8193B3E /* TezResponseAdapter.swift in Sources */,
 				4EE95B692BE0F6AFF3B9AE13 /* TezosKitError.swift in Sources */,
 				4F2F78B301A1CE1C55EE77BA /* TezosNodeClient+Promises.swift in Sources */,

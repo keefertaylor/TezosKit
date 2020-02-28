@@ -11,7 +11,7 @@ public class AbstractOperation: Operation {
 
   public var requiresReveal: Bool {
     switch kind {
-    case .delegation, .transaction:
+      case .delegation, .transaction, .origination:
       return true
     case .reveal:
       return false
