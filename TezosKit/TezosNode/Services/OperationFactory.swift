@@ -249,7 +249,7 @@ public class OperationFactory {
   ///   - signatureProvider: A signature provider which can sign the operation.
   public func orignateSmartContractnOperation(
     michelineInit: [String: Any],
-    code: [String: Any],
+    code: Any,
     source: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
