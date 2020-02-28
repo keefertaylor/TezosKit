@@ -20,7 +20,7 @@ public class OriginateSmartContractOperation: AbstractOperation {
   }
 
   internal let michelineInit: [String: Any]
-  internal let code: [String: Any]
+  internal let code: Any
 
   public override var dictionaryRepresentation: [String: Any] {
     var operation = super.dictionaryRepresentation
@@ -38,7 +38,7 @@ public class OriginateSmartContractOperation: AbstractOperation {
   ///   - operationFees: OperationFees for the transaction.
   public init(
     michelineInit: [String: Any],
-    code: [String: Any],
+    code: Any,
     source: Address,
     operationFees: OperationFees
   ) {
