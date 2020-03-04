@@ -10,6 +10,11 @@ import Foundation
 ///          Read more: https://medium.com/@keefertaylor/signing-tezos-transactions-with-ioss-secure-enclave-and-face-id-6166a752519?source=your_stories_page---------------------------
 @available(OSX 10.12.1, iOS 9.0, *)
 public class SecureEnclaveWallet: DeviceWallet {
+  /// Labels for keys in the enclave.
+  private enum KeyLabels {
+    public static let `public` = "tezoskit.public"
+    public static let `private` = "tezoskit.private"
+  }
 
   /// Returns whether the device contains a secure enclave.
   public static var deviceHasSecureEnclave: Bool {
@@ -23,6 +28,11 @@ public class SecureEnclaveWallet: DeviceWallet {
       return nil
     }
 
-    super.init(prompt: prompt, token: .secureEnclave)
+    super.init(
+      prompt: prompt,
+      token: .secureEnclave,
+      publicKeyLabel: KeyLabels.public,
+      privateKeyLabel: KeyLabels.private
+    )
   }
 }

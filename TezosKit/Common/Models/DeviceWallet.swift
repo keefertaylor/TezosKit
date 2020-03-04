@@ -8,12 +8,6 @@ import Sodium
 
 /// A wallet that uses on device storage to manage keys. This is an abstract class, please use one of the concrete subclasses.
 public class DeviceWallet: SignatureProvider {
-  /// Labels for keys in the enclave.
-  private enum KeyLabels {
-    public static let `public` = "tezoskit.public"
-    public static let secret = "tezoskit.private"
-  }
-
   /// References to the public and private keys
   private let enclaveSecretKey: EllipticCurveKeyPair.PrivateKey
 
@@ -26,37 +20,32 @@ public class DeviceWallet: SignatureProvider {
   }
 
   /// - Parameter prompt: A prompt to use when asking the wallet to sign bytes.
-  internal init?(prompt: String, token: EllipticCurveKeyPair.Token) {
-    let privateAccessFlags: SecAccessControlCreateFlags =
-      token == .secureEnclave ?  [.userPresence, .privateKeyUsage] :  [.userPresence]
-
+  internal init?(prompt: String, token: EllipticCurveKeyPair.Token, publicKeyLabel: String, privateKeyLabel: String) {
     let publicAccessControl = EllipticCurveKeyPair.AccessControl(
       protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
       flags: []
     )
     let privateAccessControl = EllipticCurveKeyPair.AccessControl(
       protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
-      flags: privateAccessFlags
+      flags: [.userPresence, .privateKeyUsage]
     )
     let config = EllipticCurveKeyPair.Config(
-      publicLabel: KeyLabels.public,
-      privateLabel: KeyLabels.secret,
+      publicLabel: publicKeyLabel,
+      privateLabel: privateKeyLabel,
       operationPrompt: prompt,
       publicKeyAccessControl: publicAccessControl,
       privateKeyAccessControl: privateAccessControl,
       token: token
     )
-    let helper = EllipticCurveKeyPair.Helper(config: config)
+    let manager = EllipticCurveKeyPair.Manager(config: config)
 
     guard
-      let keys = try? helper.getKeys(),
+      let keys = try? manager.keys(),
       let rawPublicKey = try? keys.public.data().raw
-      else {
-        return nil
+    else {
+      return nil
     }
     self.enclaveSecretKey = keys.private
-
-    print(try! keys.private.isStoredOnSecureEnclave())
 
     guard let compressedPublicKeyBytes = CryptoUtils.compressKey(Array(rawPublicKey)) else {
       return nil
