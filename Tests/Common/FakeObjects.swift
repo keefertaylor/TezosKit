@@ -6,6 +6,7 @@ import Foundation
 public struct FakePublicKey: PublicKeyProtocol {
   public let base58CheckRepresentation: String
   public let signingCurve: EllipticalCurve
+  public let publicKeyHash: String
 }
 
 /// A fake SignatureProvider.
@@ -32,7 +33,7 @@ public class FakeURLSession: URLSession {
   public override func dataTask(
     with request: URLRequest,
     completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
-    ) -> URLSessionDataTask {
+  ) -> URLSessionDataTask {
     return FakeURLSessionDataTask(
       urlResponse: urlResponse,
       data: data,

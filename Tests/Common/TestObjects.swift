@@ -30,7 +30,8 @@ extension Int {
 extension FakePublicKey {
   public static let testPublicKey = FakePublicKey(
     base58CheckRepresentation: "public_key_base_58",
-    signingCurve: .ed25519
+    signingCurve: .ed25519,
+    publicKeyHash: .testAddress
   )
 }
 
