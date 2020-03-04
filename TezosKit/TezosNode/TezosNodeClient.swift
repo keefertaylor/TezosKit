@@ -664,6 +664,46 @@ public class TezosNodeClient {
     }
   }
 
+  /// Originate a new smart contract
+  ///
+  /// - Parameters:
+  ///   - amount: The amount to transfer to the new contract
+  ///   - code: The code of the new contract.
+  ///   - storage: The initial storage of the contract
+  ///   - signatureProvider: The object which will sign the operation.
+  ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
+  ///   - completion: A completion block called with an optional transaction hash and error.
+  public func originateAccount(
+    amount: Tez,
+    code: MichelsonParameter,
+    storage: MichelsonParameter,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy = .default,
+    completion: @escaping (Result<String, TezosKitError>) -> Void
+  ) {
+    let result = operationFactory.originationOperation(
+      amount: amount,
+      code: code,
+      storage: storage,
+      signatureProvider: signatureProvider,
+      operationFeePolicy: operationFeePolicy
+    )
+
+    switch result {
+    case .success(let originationOperation):
+      forgeSignPreapplyAndInject(
+        originationOperation,
+        source: signatureProvider.publicKey.publicKeyHash,
+        signatureProvider: signatureProvider,
+        completion: completion
+      )
+    case .failure(let error):
+      callbackQueue.async {
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+      }
+    }
+  }
+
   /// Retrieve metadata and runs an operation.
   ///
   /// - Parameters:
@@ -811,3 +851,82 @@ public class TezosNodeClient {
     }
   }
 }
+
+//{ "contents":
+//     [ { "kind": "origination",
+//         "source": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW", "fee": "0",
+//         "counter": "2362", "gas_limit": "800000", "storage_limit": "60000",
+//         "balance": "10000000",
+//         "script":
+//           { "code":
+//               [ { "prim": "parameter",
+//                   "args":
+//                     [ { "prim": "or",
+//                         "args":
+//                           [ { "prim": "lambda",
+//                               "args":
+//                                 [ { "prim": "unit" },
+//                                   { "prim": "list",
+//                                     "args": [ { "prim": "operation" } ] } ],
+//                               "annots": [ "%do" ] },
+//                             { "prim": "unit", "annots": [ "%default" ] } ] } ] },
+//                 { "prim": "storage", "args": [ { "prim": "key_hash" } ] },
+//                 { "prim": "code",
+//                   "args":
+//                     [ [ [ [ { "prim": "DUP" }, { "prim": "CAR" },
+//                             { "prim": "DIP",
+//                               "args": [ [ { "prim": "CDR" } ] ] } ] ],
+//                         { "prim": "IF_LEFT",
+//                           "args":
+//                             [ [ { "prim": "PUSH",
+//                                   "args":
+//                                     [ { "prim": "mutez" }, { "int": "0" } ] },
+//                                 { "prim": "AMOUNT" },
+//                                 [ [ { "prim": "COMPARE" },
+//                                     { "prim": "EQ" } ],
+//                                   { "prim": "IF",
+//                                     "args":
+//                                       [ [],
+//                                         [ [ { "prim": "UNIT" },
+//                                             { "prim": "FAILWITH" } ] ] ] } ],
+//                                 [ { "prim": "DIP",
+//                                     "args": [ [ { "prim": "DUP" } ] ] },
+//                                   { "prim": "SWAP" } ],
+//                                 { "prim": "IMPLICIT_ACCOUNT" },
+//                                 { "prim": "ADDRESS" },
+//                                 { "prim": "SENDER" },
+//                                 [ [ { "prim": "COMPARE" },
+//                                     { "prim": "EQ" } ],
+//                                   { "prim": "IF",
+//                                     "args":
+//                                       [ [],
+//                                         [ [ { "prim": "UNIT" },
+//                                             { "prim": "FAILWITH" } ] ] ] } ],
+//                                 { "prim": "UNIT" }, { "prim": "EXEC" },
+//                                 { "prim": "PAIR" } ],
+//                               [ { "prim": "DROP" },
+//                                 { "prim": "NIL",
+//                                   "args": [ { "prim": "operation" } ] },
+//                                 { "prim": "PAIR" } ] ] } ] ] } ],
+//             "storage": { "string": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW" } },
+//         "metadata":
+//           { "balance_updates": [],
+//             "operation_result":
+//               { "status": "applied", "big_map_diff": [],
+//                 "balance_updates":
+//                   [ { "kind": "contract",
+//                       "contract": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+//                       "change": "-232000" },
+//                     { "kind": "contract",
+//                       "contract": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+//                       "change": "-257000" },
+//                     { "kind": "contract",
+//                       "contract": "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW",
+//                       "change": "-10000000" },
+//                     { "kind": "contract",
+//                       "contract": "KT1KW1mvQCpg8DfiLNAGimCayHfzJa7jirwT",
+//                       "change": "10000000" } ],
+//                 "originated_contracts":
+//                   [ "KT1KW1mvQCpg8DfiLNAGimCayHfzJa7jirwT" ],
+//                 "consumed_gas": "15555", "storage_size": "232",
+//                 "paid_storage_size_diff": "232" } } } ] }

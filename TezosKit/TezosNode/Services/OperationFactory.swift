@@ -234,7 +234,38 @@ public class OperationFactory {
     case .failure(let error):
       return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
     }
+  }
 
+  public func originationOperation(
+    amount: Tez,
+    code: MichelsonParameter,
+    storage: MichelsonParameter,
+    signatureProvider: SignatureProvider,
+    operationFeePolicy: OperationFeePolicy = .default
+  ) -> Result<Operation, TezosKitError> {
+    let operation = OriginationOperation(
+      source: signatureProvider.publicKey.publicKeyHash,
+      balance: amount,
+      code: code,
+      storage: storage,
+      operationFees: OperationFees.zeroFees
+    )
+
+    let feeResult = operationFees(
+      from: operationFeePolicy,
+      address: signatureProvider.publicKey.publicKeyHash,
+      operation: operation,
+      signatureProvider: signatureProvider,
+      tezosProtocol: tezosProtocol
+    )
+
+    switch feeResult {
+    case .success(let fees):
+      operation.operationFees = fees
+      return .success(operation)
+    case .failure(let error):
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+    }
   }
 
   // MARK: - Internal

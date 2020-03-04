@@ -243,69 +243,69 @@ class TezosNodeIntegrationTests: XCTestCase {
 
     wait(for: [expectation], timeout: .expectationTimeout)
   }
-//
-//  public func testRunOperation() {
-//    let expectation = XCTestExpectation(description: "completion called")
-//
-//    let operation = nodeClient.operationFactory.delegateOperation(
-//      source: Wallet.testWallet.address,
-//      to: .testnetBaker,
-//      operationFeePolicy: .default,
-//      signatureProvider: Wallet.testWallet
-//    )!
-//    self.nodeClient.runOperation(operation, from: .testWallet) { result in
-//      switch result {
-//      case .failure(let error):
-//        print(error)
-//        XCTFail()
-//      case .success(let simulationResult):
-//        guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
-//          XCTFail()
-//          return
-//        }
-//        XCTAssertEqual(consumedGas, 10_000)
-//        XCTAssertEqual(consumedStorage, 0)
-//        expectation.fulfill()
-//      }
-//    }
-//
-//    wait(for: [expectation], timeout: .expectationTimeout)
-//  }
-//
-//  public func testMultipleOperations() {
-//    let expectation = XCTestExpectation(description: "completion called")
-//
-//    let ops: [TezosKit.Operation] = [
-//      nodeClient.operationFactory.transactionOperation(
-//        amount: Tez("1")!,
-//        source: Wallet.testWallet.address,
-//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-//        operationFeePolicy: .estimate,
-//        signatureProvider: Wallet.testWallet
-//      )!,
-//      nodeClient.operationFactory.transactionOperation(
-//        amount: Tez("2")!,
-//        source: Wallet.testWallet.address,
-//        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
-//        operationFeePolicy: .estimate,
-//        signatureProvider: Wallet.testWallet
-//      )!
-//    ]
-//
-//    nodeClient.forgeSignPreapplyAndInject(
-//      ops,
-//      source: Wallet.testWallet.address,
-//      signatureProvider: Wallet.testWallet
-//    ) { result in
-//      switch result {
-//      case .failure:
-//        XCTFail()
-//      case .success:
-//        expectation.fulfill()
-//      }
-//    }
-//    wait(for: [expectation], timeout: .expectationTimeout)
-//  }
+  //
+  //  public func testRunOperation() {
+  //    let expectation = XCTestExpectation(description: "completion called")
+  //
+  //    let operation = nodeClient.operationFactory.delegateOperation(
+  //      source: Wallet.testWallet.address,
+  //      to: .testnetBaker,
+  //      operationFeePolicy: .default,
+  //      signatureProvider: Wallet.testWallet
+  //    )!
+  //    self.nodeClient.runOperation(operation, from: .testWallet) { result in
+  //      switch result {
+  //      case .failure(let error):
+  //        print(error)
+  //        XCTFail()
+  //      case .success(let simulationResult):
+  //        guard case .success(let consumedGas, let consumedStorage) = simulationResult else {
+  //          XCTFail()
+  //          return
+  //        }
+  //        XCTAssertEqual(consumedGas, 10_000)
+  //        XCTAssertEqual(consumedStorage, 0)
+  //        expectation.fulfill()
+  //      }
+  //    }
+  //
+  //    wait(for: [expectation], timeout: .expectationTimeout)
+  //  }
+  //
+  //  public func testMultipleOperations() {
+  //    let expectation = XCTestExpectation(description: "completion called")
+  //
+  //    let ops: [TezosKit.Operation] = [
+  //      nodeClient.operationFactory.transactionOperation(
+  //        amount: Tez("1")!,
+  //        source: Wallet.testWallet.address,
+  //        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+  //        operationFeePolicy: .estimate,
+  //        signatureProvider: Wallet.testWallet
+  //      )!,
+  //      nodeClient.operationFactory.transactionOperation(
+  //        amount: Tez("2")!,
+  //        source: Wallet.testWallet.address,
+  //        destination: "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5",
+  //        operationFeePolicy: .estimate,
+  //        signatureProvider: Wallet.testWallet
+  //      )!
+  //    ]
+  //
+  //    nodeClient.forgeSignPreapplyAndInject(
+  //      ops,
+  //      source: Wallet.testWallet.address,
+  //      signatureProvider: Wallet.testWallet
+  //    ) { result in
+  //      switch result {
+  //      case .failure:
+  //        XCTFail()
+  //      case .success:
+  //        expectation.fulfill()
+  //      }
+  //    }
+  //    wait(for: [expectation], timeout: .expectationTimeout)
+  //  }
 
   func testSmartContractInvocation() {
     let expectation = XCTestExpectation(description: "completion called")
@@ -318,7 +318,7 @@ class TezosNodeIntegrationTests: XCTestCase {
             right: StringMichelsonParameter(string: .testExpirationTimestamp)
           )
         )
-      )
+    )
 
     self.nodeClient.call(
       contract: Wallet.dexterExchangeContract,
@@ -386,9 +386,9 @@ class TezosNodeIntegrationTests: XCTestCase {
           let args5 = args4["args"] as? [Any],
           let args6 = args5[1] as? [String: Any],
           let ticker = args6["string"] as? String
-        else {
-          XCTFail()
-          return
+          else {
+            XCTFail()
+            return
         }
 
         XCTAssertEqual(ticker, "TGD")
@@ -663,12 +663,12 @@ class TezosNodeIntegrationTests: XCTestCase {
       bigMapID: BigInt(22),
       key: StringMichelsonParameter(string: "tz1bwsEWCwSEXdRvnJxvegQZKeX5dj6oKEys"),
       type: .address) { result in
-      switch result {
-      case .failure(let error):
-        XCTFail("\(error)")
-      case .success:
-        expectation.fulfill()
-      }
+        switch result {
+        case .failure(let error):
+          XCTFail("\(error)")
+        case .success:
+          expectation.fulfill()
+        }
     }
     wait(for: [expectation], timeout: .expectationTimeout)
   }
@@ -690,6 +690,84 @@ class TezosNodeIntegrationTests: XCTestCase {
       case .success(let hash):
         XCTAssertEqual(hash, expected)
         expectation.fulfill()
+      }
+    }
+
+    wait(for: [expectation], timeout: .expectationTimeout)
+  }
+
+  public func testOrigination() {
+    let expectation = XCTestExpectation(description: "completion called")
+
+    // manager.tz contract
+    let storage = StringMichelsonParameter(string: "tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW")
+    let code = AbstractMichelsonParameter(networkRepresentation:
+      [ [ "prim": "parameter",
+                   "args":
+                    [ [ "prim": "or",
+                        "args":
+                          [ [ "prim": "lambda",
+                              "args":
+                                [ [ "prim": "unit" ],
+                                  [ "prim": "list",
+                                    "args": [ [ "prim": "operation" ] ] ] ],
+                              "annots": [ "%do" ] ],
+                            [ "prim": "unit", "annots": [ "%default" ] ] ] ] ] ],
+                 [ "prim": "storage", "args": [ [ "prim": "key_hash" ] ] ],
+                 [ "prim": "code",
+                   "args":
+                    [ [ [ [ [ "prim": "DUP" ], [ "prim": "CAR" ],
+                            [ "prim": "DIP",
+                              "args": [ [ [ "prim": "CDR" ] ] ] ] ] ],
+                        [ "prim": "IF_LEFT",
+                          "args":
+                            [ [ [ "prim": "PUSH",
+                                  "args":
+                                    [ [ "prim": "mutez" ],
+                                      [ "int": "0" ] ] ],
+                                [ "prim": "AMOUNT" ],
+                                [ [ [ "prim": "COMPARE" ],
+                                    [ "prim": "EQ" ] ],
+                                  [ "prim": "IF",
+                                    "args":
+                                      [ [],
+                                        [ [ [ "prim": "UNIT" ],
+                                            [ "prim": "FAILWITH" ] ] ] ] ] ],
+                                [ [ "prim": "DIP",
+                                    "args": [ [ [ "prim": "DUP" ] ] ] ],
+                                  [ "prim": "SWAP" ] ],
+                                [ "prim": "IMPLICIT_ACCOUNT" ],
+                                [ "prim": "ADDRESS" ],
+                                [ "prim": "SENDER" ],
+                                [ [ [ "prim": "COMPARE" ],
+                                    [ "prim": "EQ" ] ],
+                                  [ "prim": "IF",
+                                    "args":
+                                      [ [],
+                                        [ [ [ "prim": "UNIT" ],
+                                            [ "prim": "FAILWITH" ] ] ] ] ] ],
+                                [ "prim": "UNIT" ], [ "prim": "EXEC" ],
+                                [ "prim": "PAIR" ] ],
+                              [ [ "prim": "DROP" ],
+                                [ "prim": "NIL",
+                                  "args": [ [ "prim": "operation" ] ] ],
+                                [ "prim": "PAIR" ] ] ] ] ] ] ] ]
+      )
+
+    self.nodeClient.originateAccount(
+      amount: Tez(10.0),
+      code: code,
+      storage: storage,
+      signatureProvider: Wallet.testWallet,
+      operationFeePolicy: .estimate
+    ) { result in
+      switch result {
+      case .success(let hash):
+        print(hash)
+        expectation.fulfill()
+      case .failure(let error):
+        print(error)
+        XCTFail()
       }
     }
 
