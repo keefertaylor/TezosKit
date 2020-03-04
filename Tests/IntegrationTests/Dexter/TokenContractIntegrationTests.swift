@@ -48,6 +48,7 @@ class TokenContractClientIntegrationTests: XCTestCase {
       from: Wallet.tokenOwner.address,
       to: Address.tokenRecipient,
       numTokens: 1,
+      operationFeePolicy: .estimate,
       signatureProvider: Wallet.tokenOwner
     ) { result in
       switch result {
@@ -70,6 +71,7 @@ class TokenContractClientIntegrationTests: XCTestCase {
       source: Wallet.tokenOwner.address,
       spender: Address.exchangeContractAddress,
       allowance: 500,
+      operationFeePolicy: .estimate,
       signatureProvider: Wallet.tokenOwner
     ) { result in
       switch result {
