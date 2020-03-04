@@ -74,7 +74,7 @@ final class SimulationServiceTest: XCTestCase {
 
   func testSimulationMetadataRetrievalFailed() {
     let networkClient = FakeNetworkClient.tezosNodeNetworkClient.copy() as! FakeNetworkClient
-    networkClient.endpointToResponseMap["/chains / main / blocks / head"] = "nonsense"
+    networkClient.endpointToResponseMap["/chains/main/blocks/head"] = "nonsense"
 
     let operationFactory = OperationFactory(feeEstimator: .testFeeEstimator)
     let operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
