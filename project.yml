@@ -45,3 +45,4 @@ targets:
     sources: [Examples/SecureEnclave]
     dependencies:
       - target: TezosKit_iOS
+
