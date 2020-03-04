@@ -363,6 +363,8 @@
 		BF58AA3718890216B35F94D1 /* SigningServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DD030C2ACB7856608B34BA /* SigningServiceTests.swift */; };
 		BF8368AEC93713FD0257CB2A /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BC48461432501639D06FD6 /* AbstractOperation.swift */; };
 		C0382A1E21312C3D3323732F /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7806BE5035AB3100BA7C791C /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C073032F240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */; };
+		C0730330240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */; };
 		C0F9AE5F24098AC5002479FF /* OriginateSmartContractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F9AE5E24098AC4002479FF /* OriginateSmartContractOperation.swift */; };
 		C0F9AE6024098AC5002479FF /* OriginateSmartContractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F9AE5E24098AC4002479FF /* OriginateSmartContractOperation.swift */; };
 		C0FE1015DACEF52DD7FE3A33 /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632B9078CDB2B8EC754A858F /* TezosKit.framework */; };
@@ -788,6 +790,7 @@
 		BF24BCDA4254C7A2D50F5728 /* ConseilQueryRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQueryRPC.swift; sourceTree = "<group>"; };
 		BFC366A9719F3F6D07093E37 /* GetBigMapValueByIDRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueByIDRPC.swift; sourceTree = "<group>"; };
 		C014CF988B5D6585A97BC0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawMichelineMichelsonParameter.swift; sourceTree = "<group>"; };
 		C0F9AE5E24098AC4002479FF /* OriginateSmartContractOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginateSmartContractOperation.swift; sourceTree = "<group>"; };
 		C1968AE0A3A2B4DAD756FD72 /* ConseilClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientIntegrationTests.swift; sourceTree = "<group>"; };
 		C1FCF6EFDB51394D49E1479C /* PreapplicationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreapplicationServiceTest.swift; sourceTree = "<group>"; };
@@ -1197,6 +1200,7 @@
 				CB80D50511873CF9783361B4 /* SomeMichelsonParameter.swift */,
 				3CCF66588A24A65AA37CC90C /* StringMichelsonParameter.swift */,
 				D650111C52C89A65467CC889 /* UnitMichelsonParameter.swift */,
+				C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */,
 			);
 			path = Michelson;
 			sourceTree = "<group>";
@@ -1989,6 +1993,7 @@
 				B995FA190438FAC10CCCF28B /* TransactionOperation.swift in Sources */,
 				C7EC814C5823F266A4D6E3CF /* TransactionsResponseAdapter.swift in Sources */,
 				2B6489B6FC91E02E2474922C /* UnitMichelsonParameter.swift in Sources */,
+				C073032F240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */,
 				2EA1145A13E79EA9F466EE0B /* Wallet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2213,6 +2218,7 @@
 				108B419FFDA7CF0729F362A8 /* TransactionOperation.swift in Sources */,
 				71E5791297A5DAE0D0D5C9C6 /* TransactionsResponseAdapter.swift in Sources */,
 				775E7DBBE39DCB0644DF5E42 /* UnitMichelsonParameter.swift in Sources */,
+				C0730330240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */,
 				892E99DE1CF34B1762EF4EF1 /* Wallet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
