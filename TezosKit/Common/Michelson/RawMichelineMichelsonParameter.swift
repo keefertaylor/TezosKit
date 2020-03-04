@@ -12,4 +12,8 @@ public class RawMichelineMichelsonParameter: AbstractMichelsonParameter {
 	public init(micheline: [String: Any]) {
 		super.init(networkRepresentation: micheline, annotations: nil)
 	}
+
+	public init(micheline: [Any]) {
+		super.init(networkRepresentation: micheline)
+	}
 }
