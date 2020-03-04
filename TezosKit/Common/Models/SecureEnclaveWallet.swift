@@ -12,8 +12,8 @@ import Foundation
 public class SecureEnclaveWallet: DeviceWallet {
   /// Labels for keys in the enclave.
   private enum KeyLabels {
-    public static let `public` = "tezoskit.public"
-    public static let `private` = "tezoskit.private"
+    public static let `public` = "TezosKitEnclave.public"
+    public static let `private` = "TezosKitEnclave.private"
   }
 
   /// Returns whether the device contains a secure enclave.

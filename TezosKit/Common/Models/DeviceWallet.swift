@@ -8,13 +8,13 @@ import Sodium
 
 /// A wallet that uses on device storage to manage keys. This is an abstract class, please use one of the concrete subclasses.
 public class DeviceWallet: SignatureProvider {
-  /// References to the public and private keys
-  private let enclaveSecretKey: EllipticCurveKeyPair.PrivateKey
+  /// References to the secret keys
+  private let secretKey: EllipticCurveKeyPair.PrivateKey
 
-  /// The TezosKit public key.
+  /// The public key.
   public let publicKey: PublicKeyProtocol
 
-  /// The address of a the key stored in secure enclave
+  /// The address of the underlying keys
   public var address: String {
     return self.publicKey.publicKeyHash
   }
@@ -45,7 +45,7 @@ public class DeviceWallet: SignatureProvider {
     else {
       return nil
     }
-    self.enclaveSecretKey = keys.private
+    self.secretKey = keys.private
 
     guard let compressedPublicKeyBytes = CryptoUtils.compressKey(Array(rawPublicKey)) else {
       return nil
@@ -71,7 +71,7 @@ public class DeviceWallet: SignatureProvider {
     // Sign the bytes and copy out the result.
     var error: Unmanaged<CFError>?
     let signature: Data = SecKeyCreateSignature(
-      self.enclaveSecretKey.underlying,
+      self.secretKey.underlying,
       SecKeyAlgorithm.ecdsaSignatureDigestX962SHA256,
       Data(hashedBytesForSigning) as CFData,
       &error
