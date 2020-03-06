@@ -102,7 +102,6 @@ public class OperationFactory {
   ///   - signatureProvider: A signature provider which can sign the operation.
   public func delegateOperation(
     source: Address,
-	owner: Address? = nil,
     to delegate: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
@@ -111,7 +110,6 @@ public class OperationFactory {
     let feeResult = operationFees(
       from: operationFeePolicy,
       address: source,
-	  owner: owner,
       operation: operation,
       signatureProvider: signatureProvider,
       tezosProtocol: tezosProtocol
@@ -285,7 +283,6 @@ public class OperationFactory {
   private func operationFees(
     from policy: OperationFeePolicy,
     address: Address,
-	owner: Address? = nil,
     operation: Operation,
     signatureProvider: SignatureProvider,
     tezosProtocol: TezosProtocol
@@ -306,7 +303,6 @@ public class OperationFactory {
         self.feeEstimator.estimate(
           operation: operation,
           address: address,
-		  owner: owner,
           signatureProvider: signatureProvider
         ) { result in
           defer {

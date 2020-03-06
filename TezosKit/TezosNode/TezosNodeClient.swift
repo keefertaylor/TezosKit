@@ -511,14 +511,12 @@ public class TezosNodeClient {
   ///
   /// - Parameters:
   ///   - source: The address which will delegate.
-  ///   - owner: Optional: When setting the delegate of a smart contract, details are needed about the owner
   ///   - delegate: The address which will receive the delegation.
   ///   - signatureProvider: The object which will sign the operation.
   ///   - operationFeePolicy: A policy to apply when determining operation fees. Default is default fees.
   ///   - completion: A completion block called with an optional transaction hash and error.
   public func delegate(
     from source: Address,
-	owner: Address? = nil,
     to delegate: Address,
     signatureProvider: SignatureProvider,
     operationFeePolicy: OperationFeePolicy = .default,
@@ -526,7 +524,6 @@ public class TezosNodeClient {
   ) {
     let result = operationFactory.delegateOperation(
       source: source,
-	  owner: owner,
       to: delegate,
       operationFeePolicy: operationFeePolicy,
       signatureProvider: signatureProvider

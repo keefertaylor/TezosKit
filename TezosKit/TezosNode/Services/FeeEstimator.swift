@@ -66,7 +66,6 @@ public class FeeEstimator {
   public func estimate(
     operation: Operation,
     address: Address,
-	owner: Address? = nil,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<OperationFees, TezosKitError>) -> Void
   ) {
@@ -79,7 +78,6 @@ public class FeeEstimator {
       let simulationResult = self.simulateOperationSync(
         operation: mutableOperation,
         address: address,
-		owner: owner,
         signatureProvider: signatureProvider
       )
       switch simulationResult {
@@ -189,7 +187,6 @@ public class FeeEstimator {
   private func simulateOperationSync(
     operation: Operation,
     address: Address,
-	owner: Address? = nil,
     signatureProvider: SignatureProvider
   ) -> Result<SimulationResult, TezosKitError> {
     // swiftlint:disable force_cast
@@ -208,7 +205,6 @@ public class FeeEstimator {
     let result = simulationService.simulateSync(
       maxedOperation,
       from: address,
-	  owner: owner,
       signatureProvider: signatureProvider
     )
 

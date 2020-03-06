@@ -43,7 +43,6 @@ public class SimulationService {
   public func simulateSync(
     _ operation: Operation,
     from source: Address,
-	owner: Address? = nil,
     signatureProvider: SignatureProvider
   ) -> Result<SimulationResult, TezosKitError> {
     let simulationDispatchGroup = DispatchGroup()
@@ -51,7 +50,7 @@ public class SimulationService {
     simulationDispatchGroup.enter()
     var result: Result<SimulationResult, TezosKitError> = .failure(TezosKitError(kind: .unknown))
     simulationServiceQueue.async {
-      self.simulate(operation, from: source, owner: owner, signatureProvider: signatureProvider) { simulationResult in
+      self.simulate(operation, from: source, signatureProvider: signatureProvider) { simulationResult in
         result = simulationResult
         simulationDispatchGroup.leave()
       }
@@ -71,16 +70,10 @@ public class SimulationService {
   public func simulate(
     _ operation: Operation,
     from source: Address,
-	owner: Address? = nil,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
   ) {
-	var metadataAddress = source
-	if let owner = owner {
-		metadataAddress = owner
-	}
-	
-    operationMetadataProvider.metadata(for: metadataAddress) { [weak self] result in
+    operationMetadataProvider.metadata(for: source) { [weak self] result in
       guard let self = self else {
         return
       }
