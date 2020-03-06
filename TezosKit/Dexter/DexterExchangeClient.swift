@@ -190,6 +190,7 @@ public class DexterExchangeClient {
   ///   - completion: A completion block which will be called with the result hash, if successful.
   public func tradeTezForToken(
     source: Address,
+	destination: Address,
     amount: Tez,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
@@ -197,7 +198,7 @@ public class DexterExchangeClient {
     deadline: Date,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    let result = tradeTezForTokenOperation(source: source, amount: amount, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider, minTokensToPurchase: minTokensToPurchase, deadline: deadline)
+	let result = tradeTezForTokenOperation(source: source, destination: destination, amount: amount, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider, minTokensToPurchase: minTokensToPurchase, deadline: deadline)
 
     switch result {
       case .success(let op):
@@ -218,6 +219,7 @@ public class DexterExchangeClient {
   ///   - completion: A completion block which will be called with the result hash, if successful.
   public func tradeTezForTokenOperation(
     source: Address,
+	destination: Address,
     amount: Tez,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
@@ -226,7 +228,7 @@ public class DexterExchangeClient {
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
-        left: StringMichelsonParameter(string: source),
+        left: StringMichelsonParameter(string: destination),
         right: IntMichelsonParameter(decimal: minTokensToPurchase)
       ),
       right: StringMichelsonParameter(date: deadline)
