@@ -3,7 +3,7 @@
 import Foundation
 
 /// An RPC that will run an operation.
-public class RunOperationRPC: RPC<SimulationResult> {
+public class RunOperationRPC: RPC<[SimulationResult]> {
   /// - Parameter runOperationPayload: A payload containing an operation to run.
   public init(runOperationPayload: RunOperationPayload) {
     let endpoint = "/chains/main/blocks/head/helpers/scripts/run_operation"

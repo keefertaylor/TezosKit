@@ -69,86 +69,127 @@ public class FeeEstimator {
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<OperationFees, TezosKitError>) -> Void
   ) {
-    DispatchQueue.global(qos: .background).async {
-      // swiftlint:disable force_cast
-      let mutableOperation = operation.mutableCopy() as! Operation
-      // swiftlint:enable force_cast
+    self.estimate(
+      operations: [operation],
+      address: address,
+      signatureProvider: signatureProvider
+    ) { result in
+      switch result {
+      case.success(let operationFees):
+        guard let firstFees = operationFees.first else {
+          completion(
+            .failure(
+              TezosKitError(
+                kind: .unknown,
+                underlyingError: "No fees were returned. This should never happen"
+              )
+            )
+          )
+          return
+        }
+        completion(.success(firstFees))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
 
+  /// Estimate OperationFees for the given inputs.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to estimate fees for.
+  ///   - address: The address performing the operation.
+  ///   - signatureProvider: An opaque object which can sign the operation.
+  ///   - completion: A completion block that will be called with the estimated fees if they could be determined.
+  public func estimate(
+    operations: [Operation],
+    address: Address,
+    signatureProvider: SignatureProvider,
+    completion: @escaping (Result<[OperationFees], TezosKitError>) -> Void
+  ) {
+    DispatchQueue.global(qos: .background).async {
       // Simulate the operation to determine gas and storage limits.
-      let simulationResult = self.simulateOperationSync(
-        operation: mutableOperation,
+      let simulationResult = self.simulateOperationsSync(
+        operations: operations,
         address: address,
         signatureProvider: signatureProvider
       )
       switch simulationResult {
       case .failure(let error):
         completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
-      case .success(let consumedResources):
-        // Add safety margins for gas and storage limits.
-        let gasLimit = consumedResources.consumedGas + SafetyMargin.gas
-        let storageLimit = consumedResources.consumedStorage + SafetyMargin.storage
+      case .success(let consumedResourcesArray):
+        var estimatedFees: [OperationFees] = []
+        for i in 0..<consumedResourcesArray.count {
+          let consumedResources = consumedResourcesArray[i]
+          let mutableOperation = operations[i].mutableCopy() as! Operation
 
-        // Start with a minimum fee equal to the minimum fee or the fee required by the gas.
-        let gasFee = self.feeForGas(gas: gasLimit)
-        let minimumFee = self.nanoTezToTez(nanoTez: FeeConstants.minimalFee)
-        let initialFee = minimumFee + gasFee
+          // Add safety margins for gas and storage limits.
+          let gasLimit = consumedResources.consumedGas + SafetyMargin.gas
+          let storageLimit = consumedResources.consumedStorage + SafetyMargin.storage
 
-        // Calculate the amount of fees required for the operation size.
-        guard var requiredStorageFee = self.sizeFeeForOperation(
-          address: address,
-          operation: mutableOperation,
-          signatureProvider: signatureProvider
-        ) else {
-          let error = TezosKitError(
-            kind: .transactionFormationFailure,
-            underlyingError: "Could not calculate a fee for the size of the operation"
-          )
-          completion(.failure(error))
-          return
-        }
+          // Start with a minimum fee equal to the minimum fee or the fee required by the gas.
+          let gasFee = self.feeForGas(gas: gasLimit)
+          let minimumFee = self.nanoTezToTez(nanoTez: FeeConstants.minimalFee)
+          let initialFee = minimumFee + gasFee
 
-        // Modify the operation for these fees.
-        mutableOperation.operationFees = OperationFees(
-          fee: initialFee,
-          gasLimit: gasLimit,
-          storageLimit: storageLimit
-        )
-
-        // Loop until the storage fee for the operation is above the required storage fee.
-        while mutableOperation.operationFees.fee - initialFee < requiredStorageFee {
-          // Calculate the needed delta on the storage fee and change it out on the operation.
-          let storageFee = mutableOperation.operationFees.fee - initialFee
-          let feeDifference = requiredStorageFee - storageFee
-          let newFee = mutableOperation.operationFees.fee + feeDifference
-          mutableOperation.operationFees = OperationFees(
-            fee: newFee,
-            gasLimit: mutableOperation.operationFees.gasLimit,
-            storageLimit: mutableOperation.operationFees.storageLimit
-          )
-
-          // Calculate a new required storage fee, based on the updated fees.
-          guard let newStorageFee = self.sizeFeeForOperation(
+          // Calculate the amount of fees required for the operation size.
+          guard var requiredStorageFee = self.sizeFeeForOperation(
             address: address,
             operation: mutableOperation,
             signatureProvider: signatureProvider
-          ) else {
-            let error = TezosKitError(
-              kind: .transactionFormationFailure,
-              underlyingError: "Could not calculate a fee for the size of the operation"
-            )
-            completion(.failure(error))
-            return
+            ) else {
+              let error = TezosKitError(
+                kind: .transactionFormationFailure,
+                underlyingError: "Could not calculate a fee for the size of the operation"
+              )
+              completion(.failure(error))
+              return
           }
-          requiredStorageFee = newStorageFee
-        }
 
-        let calculatedFee = mutableOperation.operationFees.fee + SafetyMargin.fee
-        let calculatedOperationFees = OperationFees(
-          fee: calculatedFee,
-          gasLimit: mutableOperation.operationFees.gasLimit,
-          storageLimit: mutableOperation.operationFees.storageLimit
-        )
-        completion(.success(calculatedOperationFees))
+          // Modify the operation for these fees.
+          mutableOperation.operationFees = OperationFees(
+            fee: initialFee,
+            gasLimit: gasLimit,
+            storageLimit: storageLimit
+          )
+
+          // Loop until the storage fee for the operation is above the required storage fee.
+          while mutableOperation.operationFees.fee - initialFee < requiredStorageFee {
+            // Calculate the needed delta on the storage fee and change it out on the operation.
+            let storageFee = mutableOperation.operationFees.fee - initialFee
+            let feeDifference = requiredStorageFee - storageFee
+            let newFee = mutableOperation.operationFees.fee + feeDifference
+            mutableOperation.operationFees = OperationFees(
+              fee: newFee,
+              gasLimit: mutableOperation.operationFees.gasLimit,
+              storageLimit: mutableOperation.operationFees.storageLimit
+            )
+
+            // Calculate a new required storage fee, based on the updated fees.
+            guard let newStorageFee = self.sizeFeeForOperation(
+              address: address,
+              operation: mutableOperation,
+              signatureProvider: signatureProvider
+              ) else {
+                let error = TezosKitError(
+                  kind: .transactionFormationFailure,
+                  underlyingError: "Could not calculate a fee for the size of the operation"
+                )
+                completion(.failure(error))
+                return
+            }
+            requiredStorageFee = newStorageFee
+          }
+
+          let calculatedFee = mutableOperation.operationFees.fee + SafetyMargin.fee
+          let calculatedOperationFees = OperationFees(
+            fee: calculatedFee,
+            gasLimit: mutableOperation.operationFees.gasLimit,
+            storageLimit: mutableOperation.operationFees.storageLimit
+          )
+          estimatedFees.append(calculatedOperationFees)
+        }
+        completion(.success(estimatedFees))
       }
     }
   }
@@ -180,19 +221,15 @@ public class FeeEstimator {
   /// - Note: This method blocks the calling thread.
   ///
   /// - Parameters:
-  ///   - operation: The operation to simulate.
+  ///   - operations: The operations to simulate.
   ///   - address: The address which is performing the operation.
   ///   - signatureProvider: An opaque object which can provide a public key.
   /// - Returns: A simulation result if simulation could be performed, otherwise nil.
-  private func simulateOperationSync(
-    operation: Operation,
+  private func simulateOperationsSync(
+    operations: [Operation],
     address: Address,
     signatureProvider: SignatureProvider
-  ) -> Result<SimulationResult, TezosKitError> {
-    // swiftlint:disable force_cast
-    let maxedOperation = operation.mutableCopy() as! Operation
-    // swiftlint:enable force_cast
-
+  ) -> Result<[SimulationResult], TezosKitError> {
     // Simulation will tell us the actual limits of the operation performed. Set initial gas / storage limits to the
     // maximum possible.
     let maxedFees = OperationFees(
@@ -200,20 +237,19 @@ public class FeeEstimator {
       gasLimit: Maximums.gas,
       storageLimit: Maximums.storage
     )
-    maxedOperation.operationFees = maxedFees
 
-    let result = simulationService.simulateSync(
-      maxedOperation,
+    let maxedOperations = operations.map { (operation: Operation) -> Operation in
+      let maxedOperations = operation.mutableCopy() as! Operation
+      maxedOperations.operationFees = maxedFees
+
+      return maxedOperations
+    }
+
+    return simulationService.simulateSync(
+      maxedOperations,
       from: address,
       signatureProvider: signatureProvider
     )
-
-    switch result {
-    case .success(let simulationResult):
-      return .success(simulationResult)
-    case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
-    }
   }
 
   /// Synchronously forge the given inputs.

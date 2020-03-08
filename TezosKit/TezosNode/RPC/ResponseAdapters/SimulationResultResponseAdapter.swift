@@ -21,29 +21,31 @@ private enum JSON {
 }
 
 /// Parse the resulting JSON from a simulation operation to a SimulationResult enum
-public class SimulationResultResponseAdapter: AbstractResponseAdapter<SimulationResult> {
-  public override class func parse(input: Data) -> SimulationResult? {
+public class SimulationResultResponseAdapter: AbstractResponseAdapter<[SimulationResult]> {
+  public override class func parse(input: Data) -> [SimulationResult]? {
     guard
       let json = JSONDictionaryResponseAdapter.parse(input: input)
-    else {
+      else {
         return nil
     }
 
+    var simulationResults: [SimulationResult] = []
+
     guard
       let contents = json[JSON.Keys.contents] as? [[ String: Any ]]
-    else {
-      return nil
+      else {
+        return nil
     }
 
-    var consumedGas = 0
-    var consumedStorage = 0
     for content in contents {
+      var consumedGas = 0
+      var consumedStorage = 0
       guard
         let metadata = content[JSON.Keys.metadata] as? [String: Any],
         let operationResult = metadata[JSON.Keys.operationResult] as? [String: Any],
         let status = operationResult[JSON.Keys.status] as? String
-      else {
-        continue
+        else {
+          continue
       }
 
       if status == JSON.Values.failed {
@@ -71,8 +73,8 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
           consumedStorage += internalConsumedStorage
         }
       }
+      simulationResults.append(SimulationResult(consumedGas: consumedGas, consumedStorage: consumedStorage))
     }
-
-    return SimulationResult(consumedGas: consumedGas, consumedStorage: consumedStorage)
+    return simulationResults
   }
 }
