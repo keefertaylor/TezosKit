@@ -94,6 +94,8 @@ public class NetworkClientImpl: NetworkClient {
       let payload = rpc.payload,
       let payloadData = payload.data(using: .utf8)
     {
+      print("Payload:\n\(payload)")
+
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
@@ -108,6 +110,8 @@ public class NetworkClientImpl: NetworkClient {
     for header in rpc.headers {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
+
+    print("Hitting: \(urlRequest.url)")
 
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {

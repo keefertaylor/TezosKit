@@ -21,7 +21,7 @@ public class RPCResponseHandler {
     // Check if the response contained a 200 HTTP OK response. If not, then propagate an error.
     if let httpResponse = response as? HTTPURLResponse,
         httpResponse.statusCode != 200 {
-       let httpError = parseError(from: httpResponse, with: data)
+      let httpError = parseError(from: httpResponse, with: data)
       return .failure(httpError)
     }
 

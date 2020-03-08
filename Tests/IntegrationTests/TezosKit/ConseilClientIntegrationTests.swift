@@ -16,12 +16,12 @@ import XCTest
 /// *** Configuration must be done before theses tests can be run. Please configure: ***
 /// - Conseil URL
 /// - Conseil API Key
-let apiKey = "hooman"
+let apiKey = "ENTER_KEY_HERE"
 let remoteNodeURL = URL(string: "https://conseil-dev.cryptonomic-infra.tech:443")!
 
 class ConseilClientIntegrationTests: XCTestCase {
   public lazy var conseilClient: ConseilClient = {
-    return ConseilClient(remoteNodeURL: remoteNodeURL, apiKey: apiKey, platform: .tezos, network: .alphanet)
+    return ConseilClient(remoteNodeURL: remoteNodeURL, apiKey: apiKey, platform: .tezos, network: .babylonnet)
   }()
 
   public func testConseilSent() {
@@ -31,7 +31,8 @@ class ConseilClientIntegrationTests: XCTestCase {
       case .success(let results):
         XCTAssert(results.count > 1)
         expectation.fulfill()
-      case .failure:
+      case .failure(let error):
+        print(error)
         XCTFail()
       }
     }
@@ -66,24 +67,9 @@ class ConseilClientIntegrationTests: XCTestCase {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
-  public func testConseilOriginatedAccounts() {
-    let expectation = XCTestExpectation(description: "completion called")
-    conseilClient.originatedAccounts(from: Wallet.testWallet.address) { result in
-      switch result {
-      case .success(let results):
-        XCTAssert(results.count > 1)
-        expectation.fulfill()
-      case .failure(let error):
-        print(error)
-        XCTFail()
-      }
-    }
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
-
   public func testConseilOriginatedContracts() {
     let expectation = XCTestExpectation(description: "completion called")
-    conseilClient.originatedContracts(from: Wallet.contractOwningAddress) { result in
+    conseilClient.originatedContracts(from: Wallet.testWallet.address) { result in
       switch result {
       case .success(let results):
         XCTAssert(results.count > 1)

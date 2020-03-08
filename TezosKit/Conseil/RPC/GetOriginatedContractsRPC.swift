@@ -7,19 +7,19 @@ public class GetOriginatedContractsRPC: ConseilQueryRPC<[[String: Any]]> {
   ///   - limit: The number of items to return.
   public init(account: String, limit: Int) {
     let predicates: [ConseilPredicate] = [
-      ConseilQuery.Predicates.predicateWith(field: "manager", set: [account]),
-      ConseilQuery.Predicates.predicateWith(
-        field: "script",
-        operation: ConseilQuery.Predicates.Operation.isNull,
-        inverse: true
-      )
+      ConseilQuery.Predicates.predicateWith(field: "kind", set: [ "origination" ])
     ]
     let orderBy: ConseilOrderBy = ConseilQuery.OrderBy.orderBy(field: "block_level")
-    let query: [String: Any] = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
+    let query: [String: Any] = ConseilQuery.query(
+      fields: ["timestamp", "block_level", "source", "originated_contracts", "kind", "fee", "operation_group_hash"],
+      predicates: predicates,
+      orderBy: orderBy,
+      limit: limit
+    )
 
     super.init(
       query: query,
-      entity: .account,
+      entity: .operation,
       responseAdapterClass: JSONArrayResponseAdapter.self
     )
   }

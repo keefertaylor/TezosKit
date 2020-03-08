@@ -66,21 +66,6 @@ public class ConseilClient {
     self.callbackQueue = callbackQueue
   }
 
-  /// Retrieve originated accounts.
-  ///
-  /// - Parameters:
-  ///   - account: The account to query.
-  ///   - limit: The number of accounts to return, defaults to 100.
-  ///   - completion: A completion callback.
-  public func originatedAccounts(
-    from account: String,
-    limit: Int = 100,
-    completion: @escaping (Result<[[String: Any]], TezosKitError>) -> Void
-  ) {
-    let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
-    networkClient.send(rpc, completion: completion)
-  }
-
   /// Retrieve originated contracts.
   ///
   /// - Parameters:
