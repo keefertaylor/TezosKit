@@ -189,6 +189,7 @@ public class FeeEstimator {
           )
           estimatedFees.append(calculatedOperationFees)
         }
+        completion(.success(estimatedFees))
       }
     }
   }
