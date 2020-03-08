@@ -99,13 +99,13 @@ public class TezosNodeClient {
   ///
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
-  ///   - tezosProtocol: The protocol version to use, defaults to babylon.
+  ///   - tezosProtocol: The protocol version to use, defaults to Carthage.
   ///   - forgingPolicy: The policy to apply when forging operations. Default is remote.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
   public convenience init(
     remoteNodeURL: URL = defaultNodeURL,
-    tezosProtocol: TezosProtocol = .babylon,
+    tezosProtocol: TezosProtocol = .carthage,
     forgingPolicy: ForgingPolicy = .remote,
     urlSession: URLSession = URLSession.shared,
     callbackQueue: DispatchQueue = DispatchQueue.main
@@ -128,7 +128,7 @@ public class TezosNodeClient {
   /// An internal initializer which allows injection of a network client for testability.
   internal init(
     networkClient: NetworkClient,
-    tezosProtocol: TezosProtocol = .babylon,
+    tezosProtocol: TezosProtocol = .carthage,
     forgingPolicy: ForgingPolicy = .remote,
     callbackQueue: DispatchQueue = DispatchQueue.main
   ) {
