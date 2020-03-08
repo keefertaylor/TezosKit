@@ -69,14 +69,31 @@ public class FeeEstimator {
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<OperationFees, TezosKitError>) -> Void
   ) {
-    DispatchQueue.global(qos: .background).async {
-      // swiftlint:disable force_cast
-      let mutableOperation = operation.mutableCopy() as! Operation
-      // swiftlint:enable force_cast
+    self.estimate(
+      operations: [operation],
+      address: address,
+      signatureProvider: signatureProvider,
+      completion: completion
+    )
+  }
 
+  /// Estimate OperationFees for the given inputs.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to estimate fees for.
+  ///   - address: The address performing the operation.
+  ///   - signatureProvider: An opaque object which can sign the operation.
+  ///   - completion: A completion block that will be called with the estimated fees if they could be determined.
+  public func estimate(
+    operations: [Operation],
+    address: Address,
+    signatureProvider: SignatureProvider,
+    completion: @escaping (Result<OperationFees, TezosKitError>) -> Void
+  ) {
+    DispatchQueue.global(qos: .background).async {
       // Simulate the operation to determine gas and storage limits.
-      let simulationResult = self.simulateOperationSync(
-        operation: mutableOperation,
+      let simulationResult = self.simulateOperationsSync(
+        operations: operations,
         address: address,
         signatureProvider: signatureProvider
       )
@@ -180,19 +197,15 @@ public class FeeEstimator {
   /// - Note: This method blocks the calling thread.
   ///
   /// - Parameters:
-  ///   - operation: The operation to simulate.
+  ///   - operations: The operations to simulate.
   ///   - address: The address which is performing the operation.
   ///   - signatureProvider: An opaque object which can provide a public key.
   /// - Returns: A simulation result if simulation could be performed, otherwise nil.
-  private func simulateOperationSync(
-    operation: Operation,
+  private func simulateOperationsSync(
+    operations: [Operation],
     address: Address,
     signatureProvider: SignatureProvider
   ) -> Result<SimulationResult, TezosKitError> {
-    // swiftlint:disable force_cast
-    let maxedOperation = operation.mutableCopy() as! Operation
-    // swiftlint:enable force_cast
-
     // Simulation will tell us the actual limits of the operation performed. Set initial gas / storage limits to the
     // maximum possible.
     let maxedFees = OperationFees(
@@ -200,10 +213,16 @@ public class FeeEstimator {
       gasLimit: Maximums.gas,
       storageLimit: Maximums.storage
     )
-    maxedOperation.operationFees = maxedFees
+
+    let maxedOperations = operations.map { (operation: Operation) -> Operation in
+      let maxedOperations = operation.mutableCopy() as! Operation
+      maxedOperations.operationFees = maxedFees
+
+      return maxedOperations
+    }
 
     let result = simulationService.simulateSync(
-      maxedOperation,
+      maxedOperations,
       from: address,
       signatureProvider: signatureProvider
     )

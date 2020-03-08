@@ -45,12 +45,29 @@ public class SimulationService {
     from source: Address,
     signatureProvider: SignatureProvider
   ) -> Result<SimulationResult, TezosKitError> {
+    return self.simulateSync([operation], from: source, signatureProvider: signatureProvider)
+  }
+
+  /// Simulate the given operation in a synchronous manner.
+  ///
+  /// - Note: This method blocks the calling thread.
+  ///
+  /// - Parameters:
+  ///   - operations: The operations to run.
+  ///   - source: The address requesting the run.
+  ///   - signatureProvider: The object which will provide a public key, if a reveal is needed.
+  /// - Returns: The result of the simulation.
+  public func simulateSync(
+    _ operations: [Operation],
+    from source: Address,
+    signatureProvider: SignatureProvider
+  ) -> Result<SimulationResult, TezosKitError> {
     let simulationDispatchGroup = DispatchGroup()
 
     simulationDispatchGroup.enter()
     var result: Result<SimulationResult, TezosKitError> = .failure(TezosKitError(kind: .unknown))
     simulationServiceQueue.async {
-      self.simulate(operation, from: source, signatureProvider: signatureProvider) { simulationResult in
+      self.simulate(operations, from: source, signatureProvider: signatureProvider) { simulationResult in
         result = simulationResult
         simulationDispatchGroup.leave()
       }
@@ -73,6 +90,22 @@ public class SimulationService {
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
   ) {
+    self.simulate([operation], from: source, signatureProvider: signatureProvider, completion: completion)
+  }
+
+  /// Simulate the given operation.
+  ///
+  /// - Parameters:
+  ///   - operations: The operations to run.
+  ///   - source: The address requesting the run.
+  ///   - signatureProvider: The object which will provide a public key, if a reveal is needed.
+  ///   - completion: A completion block to call.
+  public func simulate(
+    _ operations: [Operation],
+    from source: Address,
+    signatureProvider: SignatureProvider,
+    completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
+  ) {
     operationMetadataProvider.metadata(for: source) { [weak self] result in
       guard let self = self else {
         return
@@ -83,7 +116,7 @@ public class SimulationService {
       case .success(let operationMetadata):
         guard
           let operationPayload = OperationPayloadFactory.operationPayload(
-            from: [operation],
+            from: operations,
             source: source,
             signatureProvider: signatureProvider,
             operationMetadata: operationMetadata
@@ -93,10 +126,10 @@ public class SimulationService {
             signature: SimulationService.defaultSignature,
             signingCurve: signatureProvider.publicKey.signingCurve
           )
-        else {
-          let error = TezosKitError(kind: .signingError, underlyingError: nil)
-          completion(.failure(error))
-          return
+          else {
+            let error = TezosKitError(kind: .signingError, underlyingError: nil)
+            completion(.failure(error))
+            return
         }
 
         let runOperationPayload = RunOperationPayload(
