@@ -100,8 +100,8 @@
 		369AFABBC4DC7B34F4122FE7 /* GetAddressCounterRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF147FA8F9FDDEBA70FA2759 /* GetAddressCounterRPC.swift */; };
 		381DBFEA8AB85D0A93AD40FE /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1F6B1DDF04EB174551D3 /* TestObjects.swift */; };
 		3837CAC485DCEEA626A0602E /* PreapplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC96BBBBF950226E07E85 /* PreapplicationService.swift */; };
-		39956383AC208C08BA1F8D85 /* KeyChainWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2319DB8D9848B66780D89EBB /* KeyChainWallet.swift */; };
 		3AD54821F71295B8173C3241 /* ManagerContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606292A7C4D50AD99EDC7208 /* ManagerContractClient.swift */; };
+		39956383AC208C08BA1F8D85 /* KeyChainWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2319DB8D9848B66780D89EBB /* KeyChainWallet.swift */; };
 		3C99F5A58A32231BE0820A4A /* GetBallotsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9ECBC79C00C0B082798EB /* GetBallotsRPCTest.swift */; };
 		3CC9387F30A2C0880378097A /* TezosKitErrorCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4254B915770CD924FBBE9D /* TezosKitErrorCodesTest.swift */; };
 		3D0DFC6B5FED520A51FFA5ED /* SigningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E035A6252AD79E6A4AAD1 /* SigningService.swift */; };
@@ -277,6 +277,7 @@
 		91F7DB335A6358E36BD62134 /* FakeObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4465D045474BB982821D86 /* FakeObjects.swift */; };
 		92813B3FAE81849626114B08 /* MichelsonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F15CD865BE921BF9DF8CC0 /* MichelsonAnnotation.swift */; };
 		930578FE1ABD5693D559912F /* PublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4EFB572B203694CE5AD6B7 /* PublicKeyTests.swift */; };
+		933B932FCB6435B861C30DE7 /* GetOriginatedAccountsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66957E41DB2A3F6E370C7964 /* GetOriginatedAccountsRPC.swift */; };
 		939548F15F97DC67E8274809 /* EllipticalCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB8C8A74A942774B715E706 /* EllipticalCurve.swift */; };
 		939A208F6EA5E1229B94B4F4 /* SecretKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E564AA5901EF3BB2FCF79397 /* SecretKeyTests.swift */; };
 		94C7392EDEF6750F9B766A89 /* PreapplyOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC385B9CD31989369391F0B6 /* PreapplyOperationRPCTest.swift */; };
@@ -413,6 +414,7 @@
 		DB9D8A24F4E1BADBC532528E /* TokenContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8CAB1EBF88156948D30F4 /* TokenContractClient.swift */; };
 		DBB6BA7F5BA4F6525A350D22 /* RevealOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9497DCBC4C3BE5334CF8BC59 /* RevealOperation.swift */; };
 		DBE66F45A55F10273BFF06B1 /* GetChainHeadRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4252DFDE63B35970A3B59A /* GetChainHeadRPCTest.swift */; };
+		DBFC5E6F2589F05F86749E79 /* GetOriginatedAccountsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66957E41DB2A3F6E370C7964 /* GetOriginatedAccountsRPC.swift */; };
 		DC0009944D0F8DF693A323C0 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2344402EC93A8166B86CFAE /* Header.swift */; };
 		DC1E1E56237DA3D9D9658F46 /* GetCurrentPeriodKindRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED831CC057088D0986D62D11 /* GetCurrentPeriodKindRPCTest.swift */; };
 		DC9C8834E1D992263ED86CBA /* TransactionOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8539A22E432B9FCA2191C6F3 /* TransactionOperationTest.swift */; };
@@ -689,6 +691,7 @@
 		64FB9E39443B329830408289 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		653FD23DE712676D0DFCA7D2 /* JSONDictionaryResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDictionaryResponseAdapter.swift; sourceTree = "<group>"; };
 		66310D79AAEC83514BB1F0F8 /* GetBigMapValueRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueRPCTest.swift; sourceTree = "<group>"; };
+		66957E41DB2A3F6E370C7964 /* GetOriginatedAccountsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOriginatedAccountsRPC.swift; sourceTree = "<group>"; };
 		6736E66F6C33A71E96D8AA57 /* SimulationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResult.swift; sourceTree = "<group>"; };
 		67BF17864BD54D09DB6CE2FA /* OperationMetadataProviderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMetadataProviderTest.swift; sourceTree = "<group>"; };
 		6AF9ECBC79C00C0B082798EB /* GetBallotsRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBallotsRPCTest.swift; sourceTree = "<group>"; };
@@ -1368,6 +1371,7 @@
 			isa = PBXGroup;
 			children = (
 				BF24BCDA4254C7A2D50F5728 /* ConseilQueryRPC.swift */,
+				66957E41DB2A3F6E370C7964 /* GetOriginatedAccountsRPC.swift */,
 				7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */,
 				0675B789B9F5EF98BC4E4568 /* GetReceivedTransactions.RPC.swift */,
 				1564F45DEFBC0D755FAB0218 /* GetSentTransactionsRPC.swift */,
@@ -1900,6 +1904,7 @@
 				6D91DBD85F5F525826CC55FE /* GetContractStorageRPC.swift in Sources */,
 				528E6A128E816E8527C341C8 /* GetCurrentPeriodKindRPC.swift in Sources */,
 				99BF2A59BBAE320C233218AE /* GetExpectedQuorumRPC.swift in Sources */,
+				933B932FCB6435B861C30DE7 /* GetOriginatedAccountsRPC.swift in Sources */,
 				05242C7AF25D0B6C351BC765 /* GetOriginatedContractsRPC.swift in Sources */,
 				4FCF97E349053D21AE8E506E /* GetProposalUnderEvaluationRPC.swift in Sources */,
 				1625E43AF077065705ADBFFD /* GetProposalsListRPC.swift in Sources */,
@@ -2122,6 +2127,7 @@
 				77A465AF8459D646E26EDDF4 /* GetContractStorageRPC.swift in Sources */,
 				730FC94BF17634F7B0A065C0 /* GetCurrentPeriodKindRPC.swift in Sources */,
 				8756D5F4B281D22404F1A645 /* GetExpectedQuorumRPC.swift in Sources */,
+				DBFC5E6F2589F05F86749E79 /* GetOriginatedAccountsRPC.swift in Sources */,
 				59F27929724F9EF92946A3FC /* GetOriginatedContractsRPC.swift in Sources */,
 				DB6EA6FF18BEC9B88F56F40D /* GetProposalUnderEvaluationRPC.swift in Sources */,
 				88940D2D624897654210349C /* GetProposalsListRPC.swift in Sources */,

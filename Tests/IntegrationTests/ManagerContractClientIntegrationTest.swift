@@ -24,13 +24,13 @@ extension Address {
 
 class ManagerContractClientIntegrationTests: XCTestCase {
   public var nodeClient: TezosNodeClient!
-  public var managerClient: ManagerContractClient!
+  public var managerClient: ManagerClient!
 
   public override func setUp() {
     super.setUp()
 
     let nodeClient = TezosNodeClient(remoteNodeURL: .nodeURL)
-    managerClient = ManagerContractClient(
+    managerClient = ManagerClient(
       contractAddress: .managerContractAddress,
       tezosNodeClient: nodeClient
     )

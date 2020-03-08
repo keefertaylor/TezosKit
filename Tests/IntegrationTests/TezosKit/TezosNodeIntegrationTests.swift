@@ -33,6 +33,9 @@ import XCTest
 /// https://gitlab.com/camlcase-dev/dexter/blob/master/docs/dexter-cli.md
 
 extension Wallet {
+  // An address which has originated contracts on it.
+  public static let contractOwningAddress = "tz1RYq8wjcCbRZykY7XH15WPkzK7TWwPvJJt"
+
   // An address of a Dexter Exchange Contract
   public static let dexterExchangeContract = "KT1HrxtrCQ9ShddfCwExumteSXwR5Vp98EcS"
 

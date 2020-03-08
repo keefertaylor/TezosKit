@@ -4,6 +4,20 @@ import PromiseKit
 
 /// Extension for ConseilClient which provides a Promise/PromiseKit based API.
 extension ConseilClient {
+  /// Retrieve originated accounts.
+  ///
+  /// - Parameters:
+  ///   - account: The account to query.
+  ///   - limit: The number of accounts to return, defaults to 100.
+  ///   - completion: A completion callback.
+  public func originatedAccounts(
+    from account: String,
+    limit: Int = 100
+  ) -> Promise<[[String: Any]]> {
+    let rpc = GetOriginatedAccountsRPC(account: account, limit: limit)
+    return networkClient.send(rpc)
+  }
+
   /// Retrieve originated contracts.
   ///
   /// - Parameters:
