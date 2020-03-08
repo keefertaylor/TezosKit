@@ -9,4 +9,5 @@ import Foundation
 public enum TezosProtocol {
   case athens // Protocol version 4
   case babylon // Protocol version 5
+  case carthage // Protocol version 6
 }

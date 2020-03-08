@@ -22,9 +22,11 @@ public class OperationFactory {
   /// Create a new operation factory.
   ///
   /// - Parameters:
-  ///   - tezosProtocol: The protocol that this factory will provide operations for. Default is babylon.
+  ///   - tezosProtocol: The protocol that this factory will provide operations for. Default is Carthage.
   ///   - feeEstimator: An object that can estimate fees for operations.
-  public init(tezosProtocol: TezosProtocol = .babylon, feeEstimator: FeeEstimator) {
+  public init(
+    tezosProtocol: TezosProtocol = .carthage,
+    feeEstimator: FeeEstimator) {
     defaultFeeProvider = DefaultFeeProvider.self
     self.tezosProtocol = tezosProtocol
     self.feeEstimator = feeEstimator
