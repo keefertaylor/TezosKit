@@ -45,7 +45,21 @@ public class SimulationService {
     from source: Address,
     signatureProvider: SignatureProvider
   ) -> Result<SimulationResult, TezosKitError> {
-    return self.simulateSync([operation], from: source, signatureProvider: signatureProvider)
+    let result = self.simulateSync([operation], from: source, signatureProvider: signatureProvider)
+    switch result {
+    case .success(let simulationResults):
+      guard let firstSimulationResult = simulationResults.first else {
+        return .failure(
+          TezosKitError(
+            kind: .unknown,
+            underlyingError: "No simulation results returned. This should never happen."
+          )
+        )
+      }
+      return .success(firstSimulationResult)
+    case .failure(let error):
+      return .failure(error)
+    }
   }
 
   /// Simulate the given operation in a synchronous manner.
@@ -61,11 +75,11 @@ public class SimulationService {
     _ operations: [Operation],
     from source: Address,
     signatureProvider: SignatureProvider
-  ) -> Result<SimulationResult, TezosKitError> {
+  ) -> Result<[SimulationResult], TezosKitError> {
     let simulationDispatchGroup = DispatchGroup()
 
     simulationDispatchGroup.enter()
-    var result: Result<SimulationResult, TezosKitError> = .failure(TezosKitError(kind: .unknown))
+    var result: Result<[SimulationResult], TezosKitError> = .failure(TezosKitError(kind: .unknown))
     simulationServiceQueue.async {
       self.simulate(operations, from: source, signatureProvider: signatureProvider) { simulationResult in
         result = simulationResult
@@ -90,7 +104,14 @@ public class SimulationService {
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
   ) {
-    self.simulate([operation], from: source, signatureProvider: signatureProvider, completion: completion)
+    self.simulate([operation], from: source, signatureProvider: signatureProvider) { simulationResults in
+      switch simulationResults {
+      case .success(let result):
+        completion(.success(result.first!))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
   }
 
   /// Simulate the given operation.
@@ -104,7 +125,7 @@ public class SimulationService {
     _ operations: [Operation],
     from source: Address,
     signatureProvider: SignatureProvider,
-    completion: @escaping (Result<SimulationResult, TezosKitError>) -> Void
+    completion: @escaping (Result<[SimulationResult], TezosKitError>) -> Void
   ) {
     operationMetadataProvider.metadata(for: source) { [weak self] result in
       guard let self = self else {
