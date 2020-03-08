@@ -89,6 +89,9 @@ public class NetworkClientImpl: NetworkClient {
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
+    print(">>>>")
+    print(remoteNodeEndpoint)
+
     if
       rpc.isPOSTRequest,
       let payload = rpc.payload,
@@ -97,6 +100,8 @@ public class NetworkClientImpl: NetworkClient {
       urlRequest.httpMethod = "POST"
       urlRequest.cachePolicy = .reloadIgnoringCacheData
       urlRequest.httpBody = payloadData
+
+      print(payload)
     }
 
     // Add headers from client.
@@ -113,6 +118,8 @@ public class NetworkClientImpl: NetworkClient {
       guard let self = self else {
         return
       }
+
+      print(String(data: data!, encoding: .utf8))
 
       let result = self.responseHandler.handleResponse(
         response: response,
