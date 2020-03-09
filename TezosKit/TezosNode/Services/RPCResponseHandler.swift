@@ -37,7 +37,7 @@ public class RPCResponseHandler {
 	  let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
 	  return .failure(tezosKitError)
 	}
-	
+
 	// Check for \"status\":\"backtracked\" in the response, indicating a failed transaction being rolledback
 	if stringData.contains("\"status\":\"backtracked\"") {
 	  let tezosKitError = TezosKitError(kind: .transactionFormationFailure, underlyingError: nil)
