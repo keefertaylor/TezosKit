@@ -1,6 +1,7 @@
 // Copyright Keefer Taylor, 2019
 
 import Foundation
+import os.log
 
 /// An opaque network client which implements requests.
 public protocol NetworkClient {
@@ -108,11 +109,21 @@ public class NetworkClientImpl: NetworkClient {
     for header in rpc.headers {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
-
+	
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
         return
       }
+	  
+	  if rpc is RunOperationRPC || rpc is PreapplyOperationRPC,
+		let data = data, let dataString = String(data: data, encoding: .utf8)
+	  {
+		  if #available(iOS 12.0, *) {
+			  os_log(.debug, log: OSLog(subsystem: Bundle.main.bundleIdentifier ?? "TezosKit", category: "TezosKit"), "RPC Response: %@", dataString)
+		  } else {
+			  print("[TezosKit] RPC Response: \(dataString)")
+		  }
+	  }
 
       let result = self.responseHandler.handleResponse(
         response: response,
