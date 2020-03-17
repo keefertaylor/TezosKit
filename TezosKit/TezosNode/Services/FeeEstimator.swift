@@ -82,7 +82,7 @@ public class FeeEstimator {
       )
       switch simulationResult {
       case .failure(let error):
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       case .success(let consumedResources):
         // Add safety margins for gas and storage limits.
         let gasLimit = consumedResources.consumedGas + SafetyMargin.gas
@@ -212,7 +212,7 @@ public class FeeEstimator {
     case .success(let simulationResult):
       return .success(simulationResult)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 

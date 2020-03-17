@@ -60,7 +60,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 
@@ -89,7 +89,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 
@@ -120,7 +120,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 
@@ -149,7 +149,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 
@@ -188,7 +188,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 
@@ -234,7 +234,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 
@@ -279,7 +279,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 

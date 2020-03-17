@@ -23,9 +23,13 @@ public struct TezosKitError: Error {
   /// The underlying error returned from a subsystem, if one exists.
   public let underlyingError: String?
 
-  public init(kind: ErrorKind, underlyingError: String? = nil) {
+  /// Errors returned from the Tezos network detailing errors with contracts, gas exhaustion etc.
+  public let networkErrors: [OperationResponseInternalResultError]?
+
+  public init(kind: ErrorKind, underlyingError: String? = nil, networkErrors: [OperationResponseInternalResultError]? = nil) {
     self.kind = kind
     self.underlyingError = underlyingError
+    self.networkErrors = networkErrors
   }
 }
 

@@ -33,22 +33,27 @@ public class RPCResponseHandler {
     }
 
     // Check for data
-	guard let data = data, let stringData = String(data: data, encoding: .utf8) else {
-	  let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
-	  return .failure(tezosKitError)
-	}
+    guard let data = data else {
+      let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+      return .failure(tezosKitError)
+    }
+    
+    // Check for a backtracked operation response
+    do {
+      let operationresult = try JSONDecoder().decode(OperationResponse.self, from: data)
+      
+      if operationresult.isBacktracked() {
+        return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: nil, networkErrors: operationresult.errors()))
+      }
+    } catch {
+      // Ignore parsing failures as it will only succedd when there is an error
+    }
 
-	// Check for \"status\":\"backtracked\" in the response, indicating a failed transaction being rolledback
-	if stringData.contains("\"status\":\"backtracked\"") {
-	  let tezosKitError = TezosKitError(kind: .transactionFormationFailure, underlyingError: nil)
-	  return .failure(tezosKitError)
-	}
-
-	// Ensure that valid data came back.
-	guard let parsedData = parse(data, with: responseAdapterClass) else {
-	  let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
-	  return .failure(tezosKitError)
-	}
+    // Ensure that valid data came back.
+    guard let parsedData = parse(data, with: responseAdapterClass) else {
+      let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+      return .failure(tezosKitError)
+    }
 
     return .success(parsedData)
   }

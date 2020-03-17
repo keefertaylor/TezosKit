@@ -100,8 +100,8 @@
 		369AFABBC4DC7B34F4122FE7 /* GetAddressCounterRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF147FA8F9FDDEBA70FA2759 /* GetAddressCounterRPC.swift */; };
 		381DBFEA8AB85D0A93AD40FE /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1F6B1DDF04EB174551D3 /* TestObjects.swift */; };
 		3837CAC485DCEEA626A0602E /* PreapplicationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC96BBBBF950226E07E85 /* PreapplicationService.swift */; };
-		3AD54821F71295B8173C3241 /* ManagerContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606292A7C4D50AD99EDC7208 /* ManagerContractClient.swift */; };
 		39956383AC208C08BA1F8D85 /* KeyChainWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2319DB8D9848B66780D89EBB /* KeyChainWallet.swift */; };
+		3AD54821F71295B8173C3241 /* ManagerContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606292A7C4D50AD99EDC7208 /* ManagerContractClient.swift */; };
 		3C99F5A58A32231BE0820A4A /* GetBallotsRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9ECBC79C00C0B082798EB /* GetBallotsRPCTest.swift */; };
 		3CC9387F30A2C0880378097A /* TezosKitErrorCodesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4254B915770CD924FBBE9D /* TezosKitErrorCodesTest.swift */; };
 		3D0DFC6B5FED520A51FFA5ED /* SigningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E035A6252AD79E6A4AAD1 /* SigningService.swift */; };
@@ -365,6 +365,8 @@
 		C0382A1E21312C3D3323732F /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7806BE5035AB3100BA7C791C /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C073032F240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */; };
 		C0730330240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */; };
+		C0E762F22420EAA500BA60EC /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E762F12420EAA500BA60EC /* OperationResponse.swift */; };
+		C0E762F32420EAA500BA60EC /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E762F12420EAA500BA60EC /* OperationResponse.swift */; };
 		C0F9AE5F24098AC5002479FF /* OriginationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F9AE5E24098AC4002479FF /* OriginationOperation.swift */; };
 		C0F9AE6024098AC5002479FF /* OriginationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F9AE5E24098AC4002479FF /* OriginationOperation.swift */; };
 		C0FE1015DACEF52DD7FE3A33 /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632B9078CDB2B8EC754A858F /* TezosKit.framework */; };
@@ -791,6 +793,7 @@
 		BFC366A9719F3F6D07093E37 /* GetBigMapValueByIDRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueByIDRPC.swift; sourceTree = "<group>"; };
 		C014CF988B5D6585A97BC0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawMichelineMichelsonParameter.swift; sourceTree = "<group>"; };
+		C0E762F12420EAA500BA60EC /* OperationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationResponse.swift; sourceTree = "<group>"; };
 		C0F9AE5E24098AC4002479FF /* OriginationOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginationOperation.swift; sourceTree = "<group>"; };
 		C1968AE0A3A2B4DAD756FD72 /* ConseilClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientIntegrationTests.swift; sourceTree = "<group>"; };
 		C1FCF6EFDB51394D49E1479C /* PreapplicationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreapplicationServiceTest.swift; sourceTree = "<group>"; };
@@ -937,6 +940,7 @@
 		1408D048311EA234A38711DC /* Operation */ = {
 			isa = PBXGroup;
 			children = (
+				C0E762F12420EAA500BA60EC /* OperationResponse.swift */,
 				81BC48461432501639D06FD6 /* AbstractOperation.swift */,
 				170AD904F169111FBCD93FCC /* DelegationOperation.swift */,
 				CE5EBE1E77B4458B18D149C1 /* Operation.swift */,
@@ -1650,14 +1654,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1020;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 719A796CF4303FCE1EA34089 /* Build configuration list for PBXProject "TezosKit" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				Base,
 			);
 			mainGroup = 40497E8417609B6A929D29D7;
@@ -1954,6 +1957,7 @@
 				58C7A5EADB3679DB8A4CB288 /* PackDataResponseAdapter.swift in Sources */,
 				CA01543E526BB78E930BE2BE /* PairMichelsonParameter.swift in Sources */,
 				767808D0C01FF2CB4F56C5CC /* PeriodKind.swift in Sources */,
+				C0E762F22420EAA500BA60EC /* OperationResponse.swift in Sources */,
 				27641CCD3D8C9AC9A6719869 /* PeriodKindResponseAdapter.swift in Sources */,
 				9E976F554FF98E5E0BB1B232 /* PreapplicationService.swift in Sources */,
 				D3E2F1400C41E92F55451367 /* PreapplyOperationRPC.swift in Sources */,
@@ -2179,6 +2183,7 @@
 				23845BE3533EAB49AF8FFB9C /* PackDataResponseAdapter.swift in Sources */,
 				84835281C8BB752513193EC6 /* PairMichelsonParameter.swift in Sources */,
 				C35BAE30B5D78DD325FFA296 /* PeriodKind.swift in Sources */,
+				C0E762F32420EAA500BA60EC /* OperationResponse.swift in Sources */,
 				619E6BD3481626F8DA9E6FA2 /* PeriodKindResponseAdapter.swift in Sources */,
 				3837CAC485DCEEA626A0602E /* PreapplicationService.swift in Sources */,
 				232A22C322ECB499CE1ABB97 /* PreapplyOperationRPC.swift in Sources */,
@@ -2437,7 +2442,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2688,7 +2698,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;

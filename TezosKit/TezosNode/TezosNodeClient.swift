@@ -390,7 +390,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
@@ -472,7 +472,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
@@ -539,7 +539,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
@@ -597,7 +597,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
       return
     }
@@ -659,7 +659,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
