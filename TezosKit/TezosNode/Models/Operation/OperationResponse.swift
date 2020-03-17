@@ -8,7 +8,7 @@
 import Foundation
 
 /// Codable version of the response object that is returned by the Tezos RPC
-struct OperationResponse: Codable {
+public struct OperationResponse: Codable {
   let contents: [OperationResponseContent]
 
   /// Check if the operation(s) has been backtracked or reversed due to a failure
@@ -38,13 +38,13 @@ struct OperationResponse: Codable {
   }
 }
 
-struct OperationResponseContent: Codable {
+public struct OperationResponseContent: Codable {
   let kind: String
   let source: String
   let metadata: OperationResponseMetadata
 }
 
-struct OperationResponseMetadata: Codable {
+public struct OperationResponseMetadata: Codable {
   let operationResult: OperationResponseResult
   let internalOperationResults: [OperationResponseInternalOperation]
 
@@ -54,7 +54,7 @@ struct OperationResponseMetadata: Codable {
   }
 }
 
-struct OperationResponseResult: Codable {
+public struct OperationResponseResult: Codable {
   let status: String
   let consumedGas: String
   let storageSize: String
@@ -66,13 +66,13 @@ struct OperationResponseResult: Codable {
   }
 }
 
-struct OperationResponseInternalOperation: Codable {
+public struct OperationResponseInternalOperation: Codable {
   let kind: String
   let source: String
   let result: OperationResponseInternalResult
 }
 
-struct OperationResponseInternalResult: Codable {
+public struct OperationResponseInternalResult: Codable {
   let status: String
   let errors: [OperationResponseInternalResultError]?
 
@@ -81,13 +81,13 @@ struct OperationResponseInternalResult: Codable {
   }
 }
 
-public struct OperationResponseInternalResultError: Codable, Equatable {
-  public let kind: String
-  public let id: String
-  public let location: Int?
-  public let with: OperationResponseInternalResultErrorWith?
+public struct OperationResponseInternalResultError: Codable {
+  let kind: String
+  let id: String
+  let location: Int?
+  let with: OperationResponseInternalResultErrorWith?
 }
 
-public struct OperationResponseInternalResultErrorWith: Codable, Equatable {
-  public let string: String
+public struct OperationResponseInternalResultErrorWith: Codable {
+  let string: String
 }

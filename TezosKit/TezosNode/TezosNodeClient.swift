@@ -153,8 +153,6 @@ public class TezosNodeClient {
 
     injectionService = InjectionService(networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
-
-    JailbreakUtils.crashIfJailbroken()
   }
 
   // MARK: - Queries
@@ -392,7 +390,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(.transactionFormationFailure(underlyingError: error)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
@@ -474,7 +472,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(.transactionFormationFailure(underlyingError: error)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
@@ -541,7 +539,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(.transactionFormationFailure(underlyingError: error)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
@@ -599,7 +597,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(.transactionFormationFailure(underlyingError: error)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
       return
     }
@@ -661,7 +659,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(.transactionFormationFailure(underlyingError: error)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       }
     }
   }
@@ -790,7 +788,8 @@ public class TezosNodeClient {
         signingCurve: signatureProvider.publicKey.signingCurve
       )
     else {
-      completion(.failure(.signingError))
+      let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
+      completion(.failure(error))
       return
     }
 

@@ -27,7 +27,6 @@ public class FeeEstimator {
   private enum SafetyMargin {
     public static let gas = 100
     public static let storage = 257
-
     public static let fee = Tez(0.000_100)
   }
 
@@ -83,7 +82,7 @@ public class FeeEstimator {
       )
       switch simulationResult {
       case .failure(let error):
-        completion(.failure(.transactionFormationFailure(underlyingError: error)))
+        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors)))
       case .success(let consumedResources):
         // Add safety margins for gas and storage limits.
         let gasLimit = consumedResources.consumedGas + SafetyMargin.gas
@@ -100,8 +99,9 @@ public class FeeEstimator {
           operation: mutableOperation,
           signatureProvider: signatureProvider
         ) else {
-          let error = TezosKitError.transactionFormationFailure(
-            underlyingError: .unknown(description: "Could not calculate a fee for the size of the operation")
+          let error = TezosKitError(
+            kind: .transactionFormationFailure,
+            underlyingError: "Could not calculate a fee for the size of the operation"
           )
           completion(.failure(error))
           return
@@ -132,8 +132,9 @@ public class FeeEstimator {
             operation: mutableOperation,
             signatureProvider: signatureProvider
           ) else {
-            let error = TezosKitError.transactionFormationFailure(
-              underlyingError: .unknown(description: "Could not calculate a fee for the size of the operation")
+            let error = TezosKitError(
+              kind: .transactionFormationFailure,
+              underlyingError: "Could not calculate a fee for the size of the operation"
             )
             completion(.failure(error))
             return
@@ -211,7 +212,7 @@ public class FeeEstimator {
     case .success(let simulationResult):
       return .success(simulationResult)
     case .failure(let error):
-      return .failure(.transactionFormationFailure(underlyingError: error))
+      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError, networkErrors: error.networkErrors))
     }
   }
 

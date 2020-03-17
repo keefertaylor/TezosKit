@@ -27,30 +27,32 @@ public class RPCResponseHandler {
 
     // Check for a generic error on the request. If so, propagate.
     if let error = error {
-      let description = error.localizedDescription
-      let rpcError = TezosKitError.rpcError(description: description)
+       let desc = error.localizedDescription
+       let rpcError = TezosKitError(kind: .rpcError, underlyingError: desc)
       return .failure(rpcError)
     }
 
-    // Ensure that data came back.
+    // Check for data
     guard let data = data else {
-      return .failure(.unexpectedResponse(description: "No data in response"))
+      let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+      return .failure(tezosKitError)
     }
-
+    
     // Check for a backtracked operation response
-    // TODO(keefertaylor): Add a test for this logic.
     do {
-      let operationResult = try JSONDecoder().decode(OperationResponse.self, from: data)
-      if operationResult.isBacktracked() {
-        return .failure(.operationError(operationResult.errors()))
+      let operationresult = try JSONDecoder().decode(OperationResponse.self, from: data)
+      
+      if operationresult.isBacktracked() {
+        return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: nil, networkErrors: operationresult.errors()))
       }
     } catch {
-      // Intentionally ignore parsing failures. Parsing only suceeds if there is an error.
+      // Ignore parsing failures as it will only succedd when there is an error
     }
 
     // Ensure that valid data came back.
     guard let parsedData = parse(data, with: responseAdapterClass) else {
-      return .failure(.unexpectedResponse(description: "Could not parse response"))
+      let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+      return .failure(tezosKitError)
     }
 
     return .success(parsedData)
@@ -77,7 +79,8 @@ public class RPCResponseHandler {
 
     // Drop data and send our error to let subsequent handlers know something went wrong and to
     // give up.
-    let error = parseError(from: httpResponse, with: errorMessage)
+    let errorKind = parseErrorKind(from: httpResponse)
+    let error = TezosKitError(kind: errorKind, underlyingError: errorMessage)
     return error
   }
 
@@ -85,22 +88,20 @@ public class RPCResponseHandler {
   ///
   /// - Note: This method assumes that the HTTPResponse contained an error.
   ///
-  /// - Parameters:
-  ///   - httpResponse: The HTTPURLResponse to parse.
-  ///   - errorMessage: An error message extracted from the response body.
+  /// - Parameter httpResponse: The HTTPURLResponse to parse.
   /// - Returns: An appropriate error kind based on the response.
-  private func parseError(from httpResponse: HTTPURLResponse, with errorMessage: String) -> TezosKitError {
+  private func parseErrorKind(from httpResponse: HTTPURLResponse) -> TezosKitError.ErrorKind {
     // Default to unknown error and try to give a more specific error code if it can be narrowed
     // down based on HTTP response code.
-    var error = TezosKitError.unknown(description: errorMessage)
+    var errorKind: TezosKitError.ErrorKind = .unknown
     // Status code 40X: Bad request was sent to server.
     if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
-      error = .unexpectedRequestFormat(description: errorMessage)
+      errorKind = .unexpectedRequestFormat
     // Status code 50X: Bad request was sent to server.
     } else if httpResponse.statusCode >= 500, httpResponse.statusCode < 600 {
-      error = .unexpectedResponse(description: errorMessage)
+      errorKind = .unexpectedResponse
     }
-    return error
+    return errorKind
   }
 
   ///  Parse the given data to an object with the given response adapter.
