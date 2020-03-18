@@ -8,7 +8,7 @@
 import Foundation
 
 /// Codable version of the response object that is returned by the Tezos RPC
-public struct OperationResponse: Codable {
+struct OperationResponse: Codable {
   let contents: [OperationResponseContent]
 
   /// Check if the operation(s) has been backtracked or reversed due to a failure
@@ -38,13 +38,13 @@ public struct OperationResponse: Codable {
   }
 }
 
-public struct OperationResponseContent: Codable {
+struct OperationResponseContent: Codable {
   let kind: String
   let source: String
   let metadata: OperationResponseMetadata
 }
 
-public struct OperationResponseMetadata: Codable {
+struct OperationResponseMetadata: Codable {
   let operationResult: OperationResponseResult
   let internalOperationResults: [OperationResponseInternalOperation]
 
@@ -54,7 +54,7 @@ public struct OperationResponseMetadata: Codable {
   }
 }
 
-public struct OperationResponseResult: Codable {
+struct OperationResponseResult: Codable {
   let status: String
   let consumedGas: String
   let storageSize: String
@@ -66,13 +66,13 @@ public struct OperationResponseResult: Codable {
   }
 }
 
-public struct OperationResponseInternalOperation: Codable {
+struct OperationResponseInternalOperation: Codable {
   let kind: String
   let source: String
   let result: OperationResponseInternalResult
 }
 
-public struct OperationResponseInternalResult: Codable {
+struct OperationResponseInternalResult: Codable {
   let status: String
   let errors: [OperationResponseInternalResultError]?
 
@@ -82,12 +82,12 @@ public struct OperationResponseInternalResult: Codable {
 }
 
 public struct OperationResponseInternalResultError: Codable {
-  let kind: String
-  let id: String
-  let location: Int?
-  let with: OperationResponseInternalResultErrorWith?
+  public let kind: String
+  public let id: String
+  public let location: Int?
+  public let with: OperationResponseInternalResultErrorWith?
 }
 
 public struct OperationResponseInternalResultErrorWith: Codable {
-  let string: String
+  public let string: String
 }
