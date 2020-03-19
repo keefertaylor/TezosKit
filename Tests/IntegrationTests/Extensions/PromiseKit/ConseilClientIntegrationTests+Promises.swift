@@ -50,27 +50,14 @@ extension ConseilClientIntegrationTests {
     wait(for: [expectation], timeout: .expectationTimeout)
   }
 
-  func testGetOriginatedAccounts_promises() {
-    let expectation = XCTestExpectation(description: "promise fulfilled")
-    conseilClient.originatedAccounts(from: Wallet.testWallet.address).done { result in
-      XCTAssertNotNil(result)
-      XCTAssert(result.count > 1)
-      expectation.fulfill()
-    } .catch { _ in
-        XCTFail()
-    }
-
-    wait(for: [expectation], timeout: .expectationTimeout)
-  }
-
   func testGetOriginatedContracts_promises() {
     let expectation = XCTestExpectation(description: "promise fulfilled")
-    conseilClient.originatedContracts(from: Wallet.contractOwningAddress).done { result in
+    conseilClient.originatedContracts(from: Wallet.testWallet.address).done { result in
       XCTAssertNotNil(result)
       XCTAssert(result.count > 1)
       expectation.fulfill()
-    } .catch { _ in
-        XCTFail()
+    } .catch { error in
+        XCTFail("\(error)")
     }
 
     wait(for: [expectation], timeout: .expectationTimeout)
