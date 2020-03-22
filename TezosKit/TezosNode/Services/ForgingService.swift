@@ -39,7 +39,7 @@ public class ForgingService {
   ) -> Result<String, TezosKitError> {
     let forgingGroup = DispatchGroup()
 
-    var result: Result<String, TezosKitError> = .failure(TezosKitError(kind: .unknown))
+    var result: Result<String, TezosKitError> = .failure(TezosKitError.unknown(description: nil))
     forgingGroup.enter()
     forgingServiceQueue.async {
       self.forge(operationPayload: operationPayload, operationMetadata: operationMetadata) { forgingResult in
@@ -90,7 +90,7 @@ public class ForgingService {
     operationMetadata: OperationMetadata
   ) -> Result<String, TezosKitError> {
     // Local forging is not currently supported.
-    let forgingUnsupportedError = TezosKitError(kind: .localForgingNotSupportedForOperation)
+    let forgingUnsupportedError = TezosKitError.localForgingNotSupportedForOperation
     return .failure(forgingUnsupportedError)
   }
 

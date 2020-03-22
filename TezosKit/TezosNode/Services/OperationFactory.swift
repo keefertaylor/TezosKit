@@ -58,7 +58,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError.transactionFormationFailure(description: error.underlyingError))
     }
   }
 
@@ -87,7 +87,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError.transactionFormationFailure(description: error.underlyingError))
     }
   }
 
@@ -118,7 +118,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError.transactionFormationFailure(description: error.underlyingError))
     }
   }
 
@@ -147,7 +147,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError.transactionFormationFailure(description: error.underlyingError))
     }
   }
 
@@ -186,7 +186,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError: .transactionFormationFailure(description: error.underlyingError))
     }
   }
 
@@ -232,7 +232,7 @@ public class OperationFactory {
       operation.operationFees = fees
       return .success(operation)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(TezosKitError.transactionFormationFailure(description: error.underlyingError))
     }
 
   }
@@ -254,7 +254,7 @@ public class OperationFactory {
     case .estimate:
       let estimationGroup = DispatchGroup()
 
-      var fees: Result<OperationFees, TezosKitError> = .failure(TezosKitError(kind: .unknown))
+      var fees: Result<OperationFees, TezosKitError> = .failure(TezosKitError(kind: .unknown(description: nil)))
 
       estimationGroup.enter()
 

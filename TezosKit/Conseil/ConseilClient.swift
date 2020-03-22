@@ -129,7 +129,7 @@ public class ConseilClient {
 
     guard let combinedResult = ConseilClient.combine(receivedResult, sentResult) else {
       self.callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .unknown)))
+        completion(.failure(TezosKitError.unknown(description: nil)))
       }
       return
     }

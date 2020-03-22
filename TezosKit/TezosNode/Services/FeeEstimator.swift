@@ -99,8 +99,7 @@ public class FeeEstimator {
           operation: mutableOperation,
           signatureProvider: signatureProvider
         ) else {
-          let error = TezosKitError(
-            kind: .transactionFormationFailure,
+          let error = TezosKitError(.transactionFormationFailure,
             underlyingError: "Could not calculate a fee for the size of the operation"
           )
           completion(.failure(error))
@@ -132,10 +131,7 @@ public class FeeEstimator {
             operation: mutableOperation,
             signatureProvider: signatureProvider
           ) else {
-            let error = TezosKitError(
-              kind: .transactionFormationFailure,
-              underlyingError: "Could not calculate a fee for the size of the operation"
-            )
+            let error = TezosKitError.transactionFormationFailure(description: "Could not calculate a fee for the size of the operation")
             completion(.failure(error))
             return
           }

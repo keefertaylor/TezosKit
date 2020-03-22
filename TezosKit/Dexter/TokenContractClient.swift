@@ -191,7 +191,7 @@ public class TokenContractClient {
     }
 
     // Should never reach here
-    return Result.failure(TezosKitError(kind: .unknown))
+    return Result.failure(TezosKitError.unknown(description: nil))
   }
 
   /// Retrieve the token balance for the given address.

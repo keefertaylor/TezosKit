@@ -27,15 +27,15 @@ public class RPCResponseHandler {
 
     // Check for a generic error on the request. If so, propagate.
     if let error = error {
-       let desc = error.localizedDescription
-       let rpcError = TezosKitError(kind: .rpcError, underlyingError: desc)
-      return .failure(rpcError)
+       let description = error.localizedDescription
+        let rpcError = TezosKitError.rpcError(description)
+        return .failure(rpcError)
     }
 
     // Ensure that data came back.
     guard let data = data,
           let parsedData = parse(data, with: responseAdapterClass) else {
-      let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+            let tezosKitError = TezosKitError.unexpectedResponse
       return .failure(tezosKitError)
     }
 
@@ -63,8 +63,8 @@ public class RPCResponseHandler {
 
     // Drop data and send our error to let subsequent handlers know something went wrong and to
     // give up.
-    let errorKind = parseErrorKind(from: httpResponse)
-    let error = TezosKitError(kind: errorKind, underlyingError: errorMessage)
+    // TODO(keefertaylor): Plumb through message here
+    let error = parseError(from: httpResponse)
     return error
   }
 
@@ -74,18 +74,18 @@ public class RPCResponseHandler {
   ///
   /// - Parameter httpResponse: The HTTPURLResponse to parse.
   /// - Returns: An appropriate error kind based on the response.
-  private func parseErrorKind(from httpResponse: HTTPURLResponse) -> TezosKitError.ErrorKind {
+  private func parseError(from httpResponse: HTTPURLResponse) -> TezosKitError {
     // Default to unknown error and try to give a more specific error code if it can be narrowed
     // down based on HTTP response code.
-    var errorKind: TezosKitError.ErrorKind = .unknown
+    var error: TezosKitError.unknown(description: nil)
     // Status code 40X: Bad request was sent to server.
     if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
-      errorKind = .unexpectedRequestFormat
+      error = .unexpectedRequestFormat
     // Status code 50X: Bad request was sent to server.
     } else if httpResponse.statusCode >= 500, httpResponse.statusCode < 600 {
-      errorKind = .unexpectedResponse
+      error = .unexpectedResponse
     }
-    return errorKind
+    return error
   }
 
   ///  Parse the given data to an object with the given response adapter.

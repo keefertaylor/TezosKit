@@ -597,7 +597,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(TezosKitError.transactionFormationFailure(description: error.underlyingError)))
       }
       return
     }
