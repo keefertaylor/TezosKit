@@ -30,9 +30,8 @@ public class Logger {
   ///   - logLevel: The logLevel of the message.
   public func log(_ message: String, level: LogLevel) {
     // Only log if the log level of the Logger is less than the log level of the mssage
-    if self.logLevel.rawValue <= logLevel.rawValue {
+    if self.logLevel.rawValue <= level.rawValue {
       print(message)
-      // TODO(keefertaylor): Log on MacOS
     }
   }
 }
