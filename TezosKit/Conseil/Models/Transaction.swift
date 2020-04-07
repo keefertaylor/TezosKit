@@ -15,6 +15,9 @@ public struct Transaction {
     public static let operationGroupHash = "operation_group_hash"
     public static let operationID = "operation_id"
     public static let parameters = "parameters"
+    public static let parametersMicheline = "parameters_micheline"
+    public static let parametersEntrypoints = "parameters_entrypoints"
+    public static let kind = "kind"
   }
 
   public let source: Address
@@ -27,6 +30,9 @@ public struct Transaction {
   public let operationGroupHash: String
   public let operationID: Int
   public let parameters: String?
+  public let parametersMicheline: String?
+  public let parametersEntrypoints: String?
+  public let kind: String // TODO: convert to enum
 
   public init?(_ json: [String: Any]) {
     guard let source = json[Transaction.JSONKeys.source] as? String,
@@ -39,7 +45,8 @@ public struct Transaction {
           let blockHash = json[Transaction.JSONKeys.blockHash] as? String,
           let operationGroupHash = json[Transaction.JSONKeys.operationGroupHash] as? String,
           let operationID = json[Transaction.JSONKeys.operationID] as? Int,
-          let blockLevel = json[Transaction.JSONKeys.blockLevel] as? Int else {
+          let blockLevel = json[Transaction.JSONKeys.blockLevel] as? Int,
+          let kind = json[Transaction.JSONKeys.kind] as? String else {
             return nil
     }
 
@@ -54,7 +61,10 @@ public struct Transaction {
       blockLevel: blockLevel,
       operationGroupHash: operationGroupHash,
       operationID: operationID,
-      parameters: json[Transaction.JSONKeys.parameters] as? String
+      parameters: json[Transaction.JSONKeys.parameters] as? String,
+      parametersMicheline: json[Transaction.JSONKeys.parametersMicheline] as? String,
+      parametersEntrypoints: json[Transaction.JSONKeys.parametersEntrypoints] as? String,
+      kind: kind
     )
   }
 
@@ -68,7 +78,10 @@ public struct Transaction {
     blockLevel: Int,
     operationGroupHash: String,
     operationID: Int,
-    parameters: String?
+    parameters: String?,
+    parametersMicheline: String?,
+    parametersEntrypoints: String?,
+    kind: String
   ) {
     self.source = source
     self.destination = destination
@@ -80,5 +93,8 @@ public struct Transaction {
     self.operationGroupHash = operationGroupHash
     self.operationID = operationID
     self.parameters = parameters
+    self.parametersMicheline = parametersMicheline
+    self.parametersEntrypoints = parametersEntrypoints
+    self.kind = kind
   }
 }
