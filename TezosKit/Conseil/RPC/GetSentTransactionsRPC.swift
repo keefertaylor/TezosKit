@@ -10,7 +10,7 @@ public class GetSentTransactionsRPC: ConseilQueryRPC<[Transaction]> {
       ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction", "delegation", "origination", "reveal", "activate_account"]),
       ConseilQuery.Predicates.predicateWith(field: "source", set: [account])
     ]
-    let orderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
+    let orderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp", direction: .ascending)
     let query = ConseilQuery.query(predicates: predicates, orderBy: orderBy, limit: limit)
 
     super.init(
