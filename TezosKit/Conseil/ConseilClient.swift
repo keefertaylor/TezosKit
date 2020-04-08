@@ -121,7 +121,7 @@ public class ConseilClient {
     switch combinedResult {
     case .success(let combined):
       // Sort the combined results and trim down to the limit.
-      let sorted = combined.sorted { $0.timestamp < $1.timestamp }
+      let sorted = combined.sorted { $0.timestamp > $1.timestamp }
       let trimmed = Array(sorted.prefix(limit))
       self.callbackQueue.async {
         completion(.success(trimmed))
