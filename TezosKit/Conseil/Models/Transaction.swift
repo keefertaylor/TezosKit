@@ -18,6 +18,7 @@ public struct Transaction {
     public static let parametersMicheline = "parameters_micheline"
     public static let parametersEntrypoints = "parameters_entrypoints"
     public static let kind = "kind"
+    public static let status = "status"
   }
 
   public let source: Address
@@ -33,6 +34,7 @@ public struct Transaction {
   public let parametersMicheline: String?
   public let parametersEntrypoints: String?
   public let kind: String // TODO: convert to enum
+  public let status: String // TODO: convert to enum
 
   public init?(_ json: [String: Any]) {
     guard let source = json[Transaction.JSONKeys.source] as? String,
@@ -46,7 +48,8 @@ public struct Transaction {
           let operationGroupHash = json[Transaction.JSONKeys.operationGroupHash] as? String,
           let operationID = json[Transaction.JSONKeys.operationID] as? Int,
           let blockLevel = json[Transaction.JSONKeys.blockLevel] as? Int,
-          let kind = json[Transaction.JSONKeys.kind] as? String else {
+          let kind = json[Transaction.JSONKeys.kind] as? String,
+          let status = json[Transaction.JSONKeys.status] as? String else {
             return nil
     }
 
@@ -64,7 +67,8 @@ public struct Transaction {
       parameters: json[Transaction.JSONKeys.parameters] as? String,
       parametersMicheline: json[Transaction.JSONKeys.parametersMicheline] as? String,
       parametersEntrypoints: json[Transaction.JSONKeys.parametersEntrypoints] as? String,
-      kind: kind
+      kind: kind,
+      status: status
     )
   }
 
@@ -81,7 +85,8 @@ public struct Transaction {
     parameters: String?,
     parametersMicheline: String?,
     parametersEntrypoints: String?,
-    kind: String
+    kind: String,
+    status: String
   ) {
     self.source = source
     self.destination = destination
@@ -96,5 +101,6 @@ public struct Transaction {
     self.parametersMicheline = parametersMicheline
     self.parametersEntrypoints = parametersEntrypoints
     self.kind = kind
+    self.status = status
   }
 }
