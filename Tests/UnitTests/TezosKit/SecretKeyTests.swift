@@ -78,30 +78,28 @@ final class SecretKeyTests: XCTestCase {
   // MARK: - secp256k1
 
   func testBase58CheckRepresentation_secp256k1() {
-    let secretKeyBase58 = "spsk1zkqrmst1yg2c4xi3crWcZPqgdc9KtPtb9SAZWYHAdiQzdHy7j"
-    guard
-      let secretKeyBytes = Base58.base58CheckDecodeWithPrefix(
-        string: secretKeyBase58,
-        prefix: Prefix.Keys.Secp256k1.secret
-      )
-    else {
-      XCTFail("Unable to decode secret key bytes")
+    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .secp256k1) else {
+      XCTFail()
       return
     }
 
-    let secretKey = SecretKey(secretKeyBytes, signingCurve: .secp256k1)
     XCTAssertEqual(
       secretKey.base58CheckRepresentation,
-      secretKeyBase58
+      "spsk2yoh33fRH4nt95Xf3BySX5pR5Zok2adQxsb9P9koj3A4xAsAfk"
     )
   }
 
   func testInitFromBase58CheckRepresntation_ValidString_secp256k1() {
-    let base58Representation = "spsk2rBDDeUqakQ42nBHDGQTtP3GErb6AahHPwF9bhca3Q5KA5HESE"
-    let secretKeyFromString =
-      SecretKey(base58Representation, signingCurve: .secp256k1)
-    XCTAssertNotNil(secretKeyFromString)
-    XCTAssertEqual(secretKeyFromString?.base58CheckRepresentation, base58Representation)
+    let base58Representation = "spsk1fYtbGsvDEeb4NGanSiYQYcLFNZYNZ9F7jSvmCbT55DHcbtWjL"
+    guard let secretKey = SecretKey(base58Representation, signingCurve: .secp256k1) else {
+      XCTFail("Could not derive a secret key")
+      return
+    }
+    XCTAssertNotNil(secretKey)
+    XCTAssertEqual(secretKey.base58CheckRepresentation, base58Representation)
+
+    let publicKey = PublicKey(secretKey: secretKey)
+    XCTAssertEqual(publicKey?.publicKeyHash, "tz2D3CdkJsR3X5zvvdvsbeGN2NMWoByLs1kM")
   }
 
   func testInitFromBase58CheckRepresentation_InvalidBase58_secp256k1() {
