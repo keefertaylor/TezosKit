@@ -7,6 +7,7 @@ public struct Transaction {
   public enum JSONKeys {
     public static let source = "source"
     public static let destination = "destination"
+	public static let delegate = "delegate"
     public static let amount = "amount"
     public static let fee = "fee"
     public static let timestamp = "timestamp"
@@ -23,6 +24,7 @@ public struct Transaction {
 
   public let source: Address
   public let destination: Address? // Destination is null in the case of transactions like delegation
+  public let delegate: Address?
   public let amount: Tez
   public let fee: Tez
   public let timestamp: TimeInterval
@@ -49,11 +51,15 @@ public struct Transaction {
           let status = json[Transaction.JSONKeys.status] as? String else {
             return nil
     }
-
+	
+    let rawAmount = json[Transaction.JSONKeys.amount] as? Int
+	let amount = Tez(String(describing: rawAmount ?? 0))
+	
     self.init(
       source: source,
       destination: json[Transaction.JSONKeys.destination] as? String,
-      amount: Tez(String(describing: json[Transaction.JSONKeys.amount] as? Int)) ?? Tez.zeroBalance,
+	  delegate: json[Transaction.JSONKeys.delegate] as? String,
+      amount: amount ?? Tez.zeroBalance,
       fee: fee,
       timestamp: timestamp,
       blockHash: blockHash,
@@ -71,6 +77,7 @@ public struct Transaction {
   public init(
     source: Address,
     destination: Address?,
+	delegate: Address?,
     amount: Tez,
     fee: Tez,
     timestamp: TimeInterval,
@@ -86,6 +93,7 @@ public struct Transaction {
   ) {
     self.source = source
     self.destination = destination
+	self.delegate = delegate
     self.amount = amount
     self.fee = fee
     self.timestamp = timestamp
