@@ -78,14 +78,21 @@ final class SecretKeyTests: XCTestCase {
   // MARK: - secp256k1
 
   func testBase58CheckRepresentation_secp256k1() {
-    guard let secretKey = SecretKey(mnemonic: .mnemonic, signingCurve: .secp256k1) else {
-      XCTFail()
+    let secretKeyBase58 = "spsk1zkqrmst1yg2c4xi3crWcZPqgdc9KtPtb9SAZWYHAdiQzdHy7j"
+    guard
+      let secretKeyBytes = Base58.base58CheckDecodeWithPrefix(
+        string: secretKeyBase58,
+        prefix: Prefix.Keys.Secp256k1.secret
+      )
+    else {
+      XCTFail("Unable to decode secret key bytes")
       return
     }
 
+    let secretKey = SecretKey(secretKeyBytes, signingCurve: .secp256k1)
     XCTAssertEqual(
       secretKey.base58CheckRepresentation,
-      "edskS4pbuA7rwMjsZGmHU18aMP96VmjegxBzwMZs3DrcXHcMV7VyfQLkD5pqEE84wAMHzi8oVZF6wbgxv3FKzg7cLqzURjaXUp"
+      secretKeyBase58
     )
   }
 
