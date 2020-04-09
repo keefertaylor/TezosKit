@@ -7,7 +7,7 @@ public class GetSentTransactionsRPC: ConseilQueryRPC<[Transaction]> {
   ///   - limit: The number of items to return.
   public init(account: String, limit: Int) {
     let predicates = [
-      ConseilQuery.Predicates.predicateWith(field: "kind", set: ["transaction", "delegation", "origination", "reveal", "activate_account"]),
+      ConseilQuery.Predicates.predicateWith(field: "kind", operation: .in, set: ["transaction", "delegation", "origination", "reveal", "activate_account"], inverse: false),
       ConseilQuery.Predicates.predicateWith(field: "source", set: [account])
     ]
     let orderBy = ConseilQuery.OrderBy.orderBy(field: "timestamp")
