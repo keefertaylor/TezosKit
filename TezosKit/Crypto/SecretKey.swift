@@ -57,7 +57,7 @@ public struct SecretKey {
       return nil
     }
 
-    self.init(keyPair.secretKey, signingCurve: .ed25519)
+    self.init(keyPair.secretKey, signingCurve: signingCurve)
   }
 
   /// Initialize a secret key with the given base58check encoded string.
