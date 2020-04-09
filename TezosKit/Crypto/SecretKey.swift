@@ -99,8 +99,6 @@ public struct SecretKey {
   ///    - bytes: Raw bytes of the private key.
   ///    - signingCurve: The elliptical curve to use for the key. Defaults to ed25519.
   public init(_ bytes: [UInt8], signingCurve: EllipticalCurve = .ed25519) {
-    print("byte size: \(bytes.count)")
-
     self.bytes = bytes
     self.signingCurve = signingCurve
   }
