@@ -57,7 +57,19 @@ public struct SecretKey {
       return nil
     }
 
-    self.init(keyPair.secretKey, signingCurve: .ed25519)
+    // Key is 64 bytes long. The first 32 bytes are the private key. Sodium, the ed25519 library expects extended
+    // private keys, so pass down the full 64 bytes.
+    let secretKeyBytes = keyPair.secretKey
+    switch signingCurve {
+    case .ed25519:
+      self.init(secretKeyBytes, signingCurve: signingCurve)
+    case .secp256k1:
+      let privateKeyBytes = Array(secretKeyBytes[..<32])
+      self.init(privateKeyBytes, signingCurve: signingCurve)
+    case .p256:
+      fatalError("unimplemented")
+    }
+
   }
 
   /// Initialize a secret key with the given base58check encoded string.
