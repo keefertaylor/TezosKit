@@ -22,7 +22,7 @@ public struct Transaction {
   }
 
   public let source: Address
-  public let destination: Address
+  public let destination: Address? // Destination is null in the case of transactions like delegation
   public let amount: Tez
   public let fee: Tez
   public let timestamp: TimeInterval
@@ -38,11 +38,8 @@ public struct Transaction {
 
   public init?(_ json: [String: Any]) {
     guard let source = json[Transaction.JSONKeys.source] as? String,
-          let destination = json[Transaction.JSONKeys.destination] as? String,
-          let rawAmount = json[Transaction.JSONKeys.amount] as? Int,
           let rawFee = json[Transaction.JSONKeys.fee] as? Int,
           let fee = Tez(String(describing: rawFee)),
-          let amount = Tez(String(describing: rawAmount)),
           let timestamp = json[Transaction.JSONKeys.timestamp] as? TimeInterval,
           let blockHash = json[Transaction.JSONKeys.blockHash] as? String,
           let operationGroupHash = json[Transaction.JSONKeys.operationGroupHash] as? String,
@@ -55,9 +52,8 @@ public struct Transaction {
 
     self.init(
       source: source,
-      destination:
-      destination,
-      amount: amount,
+      destination: json[Transaction.JSONKeys.destination] as? String,
+      amount: Tez(String(describing: json[Transaction.JSONKeys.amount] as? Int)) ?? Tez.zeroBalance,
       fee: fee,
       timestamp: timestamp,
       blockHash: blockHash,
@@ -74,7 +70,7 @@ public struct Transaction {
 
   public init(
     source: Address,
-    destination: Address,
+    destination: Address?,
     amount: Tez,
     fee: Tez,
     timestamp: TimeInterval,
