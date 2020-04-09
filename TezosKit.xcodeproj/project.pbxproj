@@ -365,6 +365,8 @@
 		C0382A1E21312C3D3323732F /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7806BE5035AB3100BA7C791C /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C073032F240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */; };
 		C0730330240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */; };
+		C0A63C33243F15000073838D /* GetRecievedSmartContractTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A63C30243F14D30073838D /* GetRecievedSmartContractTransactionsRPC.swift */; };
+		C0A63C34243F15010073838D /* GetRecievedSmartContractTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A63C30243F14D30073838D /* GetRecievedSmartContractTransactionsRPC.swift */; };
 		C0E762F22420EAA500BA60EC /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E762F12420EAA500BA60EC /* OperationResponse.swift */; };
 		C0E762F32420EAA500BA60EC /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E762F12420EAA500BA60EC /* OperationResponse.swift */; };
 		C0F9AE5F24098AC5002479FF /* OriginationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F9AE5E24098AC4002479FF /* OriginationOperation.swift */; };
@@ -793,6 +795,7 @@
 		BFC366A9719F3F6D07093E37 /* GetBigMapValueByIDRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueByIDRPC.swift; sourceTree = "<group>"; };
 		C014CF988B5D6585A97BC0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C073032E240FEEB8008A9B5B /* RawMichelineMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawMichelineMichelsonParameter.swift; sourceTree = "<group>"; };
+		C0A63C30243F14D30073838D /* GetRecievedSmartContractTransactionsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecievedSmartContractTransactionsRPC.swift; sourceTree = "<group>"; };
 		C0E762F12420EAA500BA60EC /* OperationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationResponse.swift; sourceTree = "<group>"; };
 		C0F9AE5E24098AC4002479FF /* OriginationOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginationOperation.swift; sourceTree = "<group>"; };
 		C1968AE0A3A2B4DAD756FD72 /* ConseilClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientIntegrationTests.swift; sourceTree = "<group>"; };
@@ -1387,6 +1390,7 @@
 				7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */,
 				0675B789B9F5EF98BC4E4568 /* GetReceivedTransactions.RPC.swift */,
 				1564F45DEFBC0D755FAB0218 /* GetSentTransactionsRPC.swift */,
+				C0A63C30243F14D30073838D /* GetRecievedSmartContractTransactionsRPC.swift */,
 				7B109A80330EB9E10F906C7E /* ResponseAdapters */,
 			);
 			path = RPC;
@@ -1934,6 +1938,7 @@
 				39956383AC208C08BA1F8D85 /* KeyChainWallet.swift in Sources */,
 				C15CDCE9A538AB91764BCE7E /* LeftMichelsonParameter.swift in Sources */,
 				A3C3011FB97A95E5AFB9C6D7 /* ListMichelsonParameter.swift in Sources */,
+				C0A63C33243F15000073838D /* GetRecievedSmartContractTransactionsRPC.swift in Sources */,
 				3AD54821F71295B8173C3241 /* ManagerContractClient.swift in Sources */,
 				92813B3FAE81849626114B08 /* MichelsonAnnotation.swift in Sources */,
 				609CBA9E58941C450A963639 /* MichelsonComparable.swift in Sources */,
@@ -2160,6 +2165,7 @@
 				362D974F94161678F1315F88 /* KeyChainWallet.swift in Sources */,
 				B1E5191F0BB57EF3A72555FC /* LeftMichelsonParameter.swift in Sources */,
 				8B41AC6DD12AF82644C3E88A /* ListMichelsonParameter.swift in Sources */,
+				C0A63C34243F15010073838D /* GetRecievedSmartContractTransactionsRPC.swift in Sources */,
 				2A24033CFD74683492554C5F /* ManagerContractClient.swift in Sources */,
 				5762636B9F6E606FCF4E6981 /* MichelsonAnnotation.swift in Sources */,
 				8DB6E3EE6F04C2FF16A37338 /* MichelsonComparable.swift in Sources */,
