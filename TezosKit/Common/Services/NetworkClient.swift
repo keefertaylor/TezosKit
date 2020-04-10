@@ -89,30 +89,50 @@ public class NetworkClientImpl: NetworkClient {
     let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
-    if
-      rpc.isPOSTRequest,
-      let payload = rpc.payload,
-      let payloadData = payload.data(using: .utf8)
-    {
-      urlRequest.httpMethod = "POST"
-      urlRequest.cachePolicy = .reloadIgnoringCacheData
-      urlRequest.httpBody = payloadData
-    }
+    Logger.shared.log(">>>>>> Request", level: .debug)
+    Logger.shared.log("Endpoint: \(remoteNodeEndpoint)", level: .debug)
 
+    Logger.shared.log("Headers: ", level: .debug)
     // Add headers from client.
     for header in headers {
+      Logger.shared.log("\(header.field): \(header.value)", level: .debug)
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
 
     // Add headers from RPC.
     for header in rpc.headers {
+      Logger.shared.log("\(header.field): \(header.value)", level: .debug)
       urlRequest.addValue(header.value, forHTTPHeaderField: header.field)
     }
+
+    if
+      rpc.isPOSTRequest,
+      let payload = rpc.payload,
+      let payloadData = payload.data(using: .utf8)
+    {
+      Logger.shared.log("Payload: ", level: .debug)
+      Logger.shared.log(payload, level: .debug)
+
+      urlRequest.httpMethod = "POST"
+      urlRequest.cachePolicy = .reloadIgnoringCacheData
+      urlRequest.httpBody = payloadData
+    }
+
+    Logger.shared.log(">>>>>> End Request", level: .debug)
 
     let request = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else {
         return
       }
+
+      Logger.shared.log("<<<<<< Response", level: .debug)
+      if
+        let data = data,
+        let stringifiedData = String(data: data, encoding: .utf8)
+      {
+        Logger.shared.log(stringifiedData, level: .debug)
+      }
+      Logger.shared.log("<<<<<< End Response", level: .debug)
 
       let result = self.responseHandler.handleResponse(
         response: response,
