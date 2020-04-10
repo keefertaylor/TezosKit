@@ -20,21 +20,21 @@ jobs:
 #        - travis_wait 500 pod lib lint
     - stage: Build - Carthage And Code Coverage
       install:
-        - brew install xcodegen
-        - gem install slather
-        
         # Install Carthage by building from source. This works around a bug with Carthage and PromiseKit which
         # is resolved in master, but not in a Carthage release yet.
         # TODO(keefertaylor): Remove this when the next version of Carthage is released.
         #
         # Issue: https://github.com/Carthage/Carthage/issues/2760
         # Fix: https://github.com/Carthage/Carthage/pull/2908
-        - mkdir carthage-build 
+        - mkdir -p carthage-build 
         - cd carthage-build 
         - git clone https://github.com/Carthage/Carthage
         - sudo make install
         - carthage version
         - cd ..
+        
+        - brew install xcodegen
+        - gem install slather      
       script:
         # Carthage requires that XCode project files are checked in. Project.yml is
         # the canonical definition for the .xcodeproj file. Remove the .xcodeproj file
