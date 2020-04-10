@@ -32,12 +32,23 @@ public class RPCResponseHandler {
       return .failure(rpcError)
     }
 
-    // Ensure that data came back.
-    guard let data = data,
-          let parsedData = parse(data, with: responseAdapterClass) else {
-      let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
-      return .failure(tezosKitError)
-    }
+    // Check for data
+	guard let data = data, let stringData = String(data: data, encoding: .utf8) else {
+	  let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+	  return .failure(tezosKitError)
+	}
+
+	// Check for \"status\":\"backtracked\" in the response, indicating a failed transaction being rolledback
+	if stringData.contains("\"status\":\"backtracked\"") {
+	  let tezosKitError = TezosKitError(kind: .transactionFormationFailure, underlyingError: nil)
+	  return .failure(tezosKitError)
+	}
+
+	// Ensure that valid data came back.
+	guard let parsedData = parse(data, with: responseAdapterClass) else {
+	  let tezosKitError = TezosKitError(kind: .unexpectedResponse, underlyingError: nil)
+	  return .failure(tezosKitError)
+	}
 
     return .success(parsedData)
   }

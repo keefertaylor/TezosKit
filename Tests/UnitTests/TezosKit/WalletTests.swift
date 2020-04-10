@@ -156,4 +156,35 @@ class WalletTests: XCTestCase {
       ]
     )
   }
+
+  func testWalletGenerationCurvesWithMnemonic() {
+    let passphrase = "tezoskit"
+    guard
+      let tz1Wallet = Wallet(passphrase: passphrase, signingCurve: .ed25519),
+      let tz2Wallet = Wallet(passphrase: passphrase, signingCurve: .secp256k1)
+    else {
+      XCTFail("Failed to generate wallets.")
+      return
+    }
+
+    XCTAssertEqual(tz1Wallet.publicKey.signingCurve, .ed25519)
+    XCTAssertEqual(tz2Wallet.publicKey.signingCurve, .secp256k1)
+  }
+
+  func testWalletGenerationCurvesWithSeed() {
+    let tz1SecretKey =
+      "edskRw8ZJM3P3f81VnfChULCLh7KwhZMvp6rniDHNeEcQiNBevrTkwtzYwtqmEvbf5HJTQeb1WvTL5UUcsMjVh5RZArcRdXbQC"
+    let tz2SecretKey =
+      "spsk1fYtbGsvDEeb4NGanSiYQYcLFNZYNZ9F7jSvmCbT55DHcbtWjL"
+    guard
+      let tz1Wallet = Wallet(secretKey: tz1SecretKey, signingCurve: .ed25519),
+      let tz2Wallet = Wallet(secretKey: tz2SecretKey, signingCurve: .secp256k1)
+    else {
+      XCTFail("Failed to generate wallets.")
+      return
+    }
+
+    XCTAssertEqual(tz1Wallet.publicKey.signingCurve, .ed25519)
+    XCTAssertEqual(tz2Wallet.publicKey.signingCurve, .secp256k1)
+  }
 }
