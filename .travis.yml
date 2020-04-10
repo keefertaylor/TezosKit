@@ -29,9 +29,10 @@ jobs:
         - mkdir -p carthage-build 
         - cd carthage-build 
         - git clone https://github.com/Carthage/Carthage
+        - cd Carthage
         - sudo make install
         - carthage version
-        - cd ..
+        - cd ../..
         
         - brew install xcodegen
         - gem install slather      
