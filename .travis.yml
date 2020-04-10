@@ -12,19 +12,21 @@ before_install:
 
 jobs:
   include:
-    - stage: Build - CocoaPods	
-      install:	
-        - brew outdated cocoapods || brew upgrade cocoapods	
-      script:	
-        - travis_wait 500 pod lib lint
     - stage: Build - Carthage And Code Coverage
       install:
-        - if carthage version | grep 0.34.0; then
-            brew uninstall carthage;
-            brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/d453dd956dbfc5b724b0fdaeb14f9480f461479d/Formula/carthage.rb;
-          fi
         - brew install xcodegen
         - gem install slather
+        
+        # Install Carthage by building from source. This works around a bug with Carthage and PromiseKit which
+        # is resolved in master, but not in a Carthage release yet.
+        # TODO(keefertaylor): Remove this when the next version of Carthage is released.
+        #
+        # Issue: https://github.com/Carthage/Carthage/issues/2760
+        # Fix: https://github.com/Carthage/Carthage/pull/2908
+        - git clone https://github.com/Carthage/Carthage
+        - cd carthage
+        - sudo make install
+        - carthage version
       script:
         # Carthage requires that XCode project files are checked in. Project.yml is
         # the canonical definition for the .xcodeproj file. Remove the .xcodeproj file
@@ -34,7 +36,7 @@ jobs:
         - xcodegen generate
 
         # Build with Carthage
-        - travis_wait 500 carthage bootstrap --use-sh --platform iOS,mac --no-use-binaries --verbose
+        - travis_wait 500 carthage bootstrap --use-sh --platform iOS,mac --no-use-binaries
         - set -o pipefail && xcodebuild test -scheme TezosKit_macOS -destination 'platform=macOS,arch=x86_64' ONLY_ACTIVE_ARCH=YES | xcpretty
         - set -o pipefail && xcodebuild test -scheme TezosKit_iOS -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
 
