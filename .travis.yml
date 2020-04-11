@@ -2,7 +2,6 @@ osx_image: xcode10.2
 language: swift
 cache:
   bundler: true
-  cocoapods: true
   directories:
   - Carthage
   # Cache Homebrew to try to speed up brew updates, see:
@@ -12,8 +11,6 @@ cache:
   - carthage-build
 env:
   secure: ink5jhbtR9aGbiVzcrPP+jBLtYKmZ61uxmXmqwqsyAZip2zbL/tktXdLaeNhUnlJHazZF156rOFe5DFSElFmNYvpSZrXJCVMxwWKB+MJWQ879LUk6W4W65jTvkXKZmMrrUqwkOTNNMq0ycfs5tx+eFJBzHd3Z93OX0oKwb44ZjC1NC05LGJfOlZQs+7IWYKXu0XKpZ/Zo+n4jGxMPEaQCMifz8ac8WVAgsgXs5R3ANrAd6AtBHZqNLu+NzGi5FQ2u7M1EERWo69qAmmHQYKB9aYyERi4cU6KD3XF8B89szR3pH41avfYFs+ZqenF7yAm0dN5UoLBqHA5s+yBQ1kzZbvcCunEU88XjgeRuzwTUfyTq8RIN+BNzaAwSCgu/fNMaFLOZjYAXK+gtVm2elx69maC6N+hKpZblmgUtmaOQyXzY3pVNXdqCqqqzIrqSyvqPuuNSzLxjVFJUW8ycYEfB4Iywcwl74IlxWJ58WpeCgMW3cVE4l4kxw+ZWoVniumpVlp69QtgwHloUosOzmzoIwLjgEm6uGZvr3DIKKXwLZACtq8Oj7uhm8iNV4sU5eS0w+b+VC6gYCxI4yOZHWhwtBG4QtrKlEvXC0Gjy4rIXN0JuKiAHLZKiCr0YuCmks2xXv2INNnJAIBVlJ7URVY4OSY+eqCiWUSobO8n48Zu7gk=
-before_install:
-- brew update
 before_cache:
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then brew cleanup; fi
 
@@ -21,7 +18,7 @@ jobs:
   include:
 #    - stage: Build - CocoaPods		
 #      install:		
-#        - brew outdated cocoapods || brew upgrade cocoapods		
+#        - gem install cocoapods		
 #      script:		
         # Optimize CI performance by only building for iOS and skipping testing. 
         # Sources are provided to compile for MacOS in the Carthage phase below. Tests are also
@@ -31,6 +28,7 @@ jobs:
       install:
         # Install Carthage by building from source. This works around a bug with Carthage and PromiseKit which
         # is resolved in master, but not in a Carthage release yet.
+        # Note: When re-enabling 'brew update' likely needs to be run.
         # TODO(keefertaylor): Remove this when the next version of Carthage is released.
         #
         # Issue: https://github.com/Carthage/Carthage/issues/2760
