@@ -33,6 +33,7 @@ jobs:
         - cd ../..
         
         # Install required tooling
+        - brew update
         - brew install xcodegen swiftlint
         - gem install slather      
       script:
