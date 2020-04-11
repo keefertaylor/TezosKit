@@ -34,7 +34,7 @@ jobs:
         - sudo make install
         - cd ../..
         
-        - brew install xcodegen
+        - brew install xcodegen swiftlint
         - gem install slather      
       script:
         # Carthage requires that XCode project files are checked in. Project.yml is
