@@ -35,6 +35,7 @@ jobs:
         - cd carthage-build 
         - git clone https://github.com/Carthage/Carthage && cd Carthage
         - sudo make install
+        - which carthage
         - carthage version
         - cd ../..
         
