@@ -38,6 +38,7 @@ jobs:
         - which carthage
         - carthage version
         - cd ../..
+        - rm -rf carthage-build
         
         - brew install xcodegen
         - gem install slather      
