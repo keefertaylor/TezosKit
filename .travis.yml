@@ -9,14 +9,14 @@ env:
 
 jobs:
   include:
-#    - stage: Build - CocoaPods		
-#      install:		
-#        - gem install cocoapods		
-#      script:		
+    - stage: Build - CocoaPods		
+      install:
+        - gem install cocoapods		
+      script:		
         # Optimize CI performance by only building for iOS and skipping testing. 
         # Sources are provided to compile for MacOS in the Carthage phase below. Tests are also
         # run in the Carthage phase below.
-#        - travis_wait 500 pod lib lint --platforms=ios --skip-tests
+        - travis_wait 500 pod lib lint --platforms=ios --skip-tests
     - stage: Build - Carthage And Code Coverage
       install:
         # Install Carthage by building from source. This works around a bug with Carthage and PromiseKit which
