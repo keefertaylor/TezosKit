@@ -33,7 +33,7 @@ jobs:
         # Fix: https://github.com/Carthage/Carthage/pull/2908
         - mkdir -p carthage-build 
         - cd carthage-build 
-        - git clone https://github.com/Carthage/Carthage && cd Carthage
+        - git clone https://github.com/Carthage/Carthage && cd Carthage && git checkout f132af8e85eb1da84f5d4378ca0e2cdb3b87f598
         - sudo make install
         - which carthage
         - carthage version
