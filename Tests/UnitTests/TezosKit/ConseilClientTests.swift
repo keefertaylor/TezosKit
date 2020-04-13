@@ -97,19 +97,19 @@ final class ConseilClientTests: XCTestCase {
 
   func testCombineResults_aNil() {
     let a: Result<[Transaction], TezosKitError>? = nil
-    let b: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
+    let b: Result<[Transaction], TezosKitError>? = .failure(.unknown(description: nil))
     XCTAssertNil(ConseilClient.combine(a, b))
   }
 
   func testCombineResults_bNil() {
-    let a: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
+    let a: Result<[Transaction], TezosKitError>? = .failure(.unknown(description: nil))
     let b: Result<[Transaction], TezosKitError>? = nil
     XCTAssertNil(ConseilClient.combine(a, b))
   }
 
   func testCombineResults_bothNoNil() {
-    let a: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
-    let b: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
+    let a: Result<[Transaction], TezosKitError>? = .failure(.unknown(description: nil))
+    let b: Result<[Transaction], TezosKitError>? = .failure(.unknown(description: nil))
     XCTAssertNotNil(ConseilClient.combine(a, b))
   }
 
