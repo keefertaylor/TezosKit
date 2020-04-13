@@ -14,16 +14,3 @@ public indirect enum TezosKitError: Error, Equatable {
   case unexpectedResponse
   case unknown(description: String?)
 }
-
-extension TezosKitError: LocalizedError {
-  public var errorDescription: String? {
-    return "TezosKitError "
-    // TODO(keefertaylor): Print error description
-    // TODO(keefertaylor): Switch and print any raw values here.
-//    if let underlyingError = self.underlyingError {
-//      return underlyingError + " (" + errorKindDesc + ")"
-//    } else {
-//      return errorKindDesc
-//    }
-  }
-}

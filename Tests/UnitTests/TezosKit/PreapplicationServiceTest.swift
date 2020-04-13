@@ -75,7 +75,7 @@ final class PreapplicationServiceTest: XCTestCase {
         XCTFail()
         return
       }
-      XCTAssertEqual(result, TezosKitError.unexpectedResponse)
+      XCTAssertEqual(result, .unexpectedResponse)
       preapplicationCompletionExpectation.fulfill()
     }
 

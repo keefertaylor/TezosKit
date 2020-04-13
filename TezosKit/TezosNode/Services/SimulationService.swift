@@ -48,7 +48,7 @@ public class SimulationService {
     let simulationDispatchGroup = DispatchGroup()
 
     simulationDispatchGroup.enter()
-    var result: Result<SimulationResult, TezosKitError> = .failure(TezosKitError.unknown(description: nil))
+    var result: Result<SimulationResult, TezosKitError> = .failure(.unknown(description: nil))
     simulationServiceQueue.async {
       self.simulate(operation, from: source, signatureProvider: signatureProvider) { simulationResult in
         result = simulationResult
@@ -94,8 +94,7 @@ public class SimulationService {
             signingCurve: signatureProvider.publicKey.signingCurve
           )
         else {
-          let error = TezosKitError.signingError
-          completion(.failure(error))
+          completion(.failure(.signingError))
           return
         }
 

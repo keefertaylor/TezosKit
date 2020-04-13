@@ -144,7 +144,7 @@ public class DexterExchangeClient {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
 	guard let mutezToWithdraw = Decimal(string: tezToWidthdraw.rpcRepresentation) else {
-      completion(.failure(TezosKitError.unknown(description: nil)))
+      completion(.failure(.unknown(description: nil)))
       return
     }
 

@@ -37,7 +37,7 @@ public class OperationMetadataProvider {
     ) -> Result<OperationMetadata, TezosKitError> {
     let metadataGroup = DispatchGroup()
 
-    var result: Result<OperationMetadata, TezosKitError> = .failure(TezosKitError.unknown(description: nil))
+    var result: Result<OperationMetadata, TezosKitError> = .failure(.unknown(description: nil))
     metadataGroup.enter()
     metadata(for: address) { metadatResult in
       result = metadatResult
@@ -109,7 +109,7 @@ public class OperationMetadataProvider {
       completion(.success(metadata))
       return
     }
-    completion(.failure(TezosKitError.unknown(description: "Couldn't fetch metadata")))
+    completion(.failure(.unknown(description: "Couldn't fetch metadata")))
   }
 
   /// Retrieve chain info counter for the given address.

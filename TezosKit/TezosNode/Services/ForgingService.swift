@@ -39,7 +39,7 @@ public class ForgingService {
   ) -> Result<String, TezosKitError> {
     let forgingGroup = DispatchGroup()
 
-    var result: Result<String, TezosKitError> = .failure(TezosKitError.unknown(description: nil))
+    var result: Result<String, TezosKitError> = .failure(.unknown(description: nil))
     forgingGroup.enter()
     forgingServiceQueue.async {
       self.forge(operationPayload: operationPayload, operationMetadata: operationMetadata) { forgingResult in

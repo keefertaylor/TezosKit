@@ -82,7 +82,7 @@ public class FeeEstimator {
       )
       switch simulationResult {
       case .failure(let error):
-        completion(.failure(error))
+        completion(.failure(.transactionFormationFailure(underlyingError: error)))
       case .success(let consumedResources):
         // Add safety margins for gas and storage limits.
         let gasLimit = consumedResources.consumedGas + SafetyMargin.gas
