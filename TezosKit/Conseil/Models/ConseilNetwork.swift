@@ -5,5 +5,6 @@ public enum ConseilNetwork: String, CaseIterable {
   case zeronet
   case alphanet
   case babylonnet
+  case carthagenet
   case mainnet
 }

@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum TezosKitError: Error {
+public indirect enum TezosKitError: Error {
   case internalError
   case invalidURL
   case localForgingNotSupportedForOperation
