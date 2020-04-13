@@ -114,7 +114,7 @@ final class ConseilClientTests: XCTestCase {
   }
 
   func testCombineResults_bothFailure() {
-    let errorA = TezosKitError.unexpectedResponse
+    let errorA = TezosKitError.unexpectedResponse(description: "unepected response")
     let a: Result<[Transaction], TezosKitError> = .failure(errorA)
 
     let errorB = TezosKitError.invalidURL
@@ -133,7 +133,7 @@ final class ConseilClientTests: XCTestCase {
   }
 
   func testCombineResults_aFailure() {
-    let errorA = TezosKitError.unexpectedResponse
+    let errorA = TezosKitError.unexpectedResponse(description: "unepected response")
     let a: Result<[Transaction], TezosKitError> = .failure(errorA)
 
     let b: Result<[Transaction], TezosKitError> = .success([.testTransaction])

@@ -66,10 +66,9 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: StringResponseAdapter.self
     )
 
-    // TODO(keefertaylor): Check for RPCResponseHandlerTest.testErrorString?
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError, .unexpectedResponse)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: RPCResponseHandlerTest.testErrorString))
     case .success:
       XCTFail()
     }
@@ -87,7 +86,7 @@ class RPCResponseHandlerTest: XCTestCase {
     // TODO(keefertaylor): Check for RPCResponseHandlerTest.testErrorString?
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError, .unknown(description: nil))
+      XCTAssertEqual(tezosKitError, .unknown(description: RPCResponseHandlerTest.testErrorString))
     case .success:
       XCTFail()
     }
@@ -144,7 +143,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError, .unexpectedResponse)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: "No data in response"))
     case .success:
       XCTFail()
     }
@@ -161,7 +160,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError, .unexpectedResponse)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: "No data in response"))
     case .success:
       XCTFail()
     }

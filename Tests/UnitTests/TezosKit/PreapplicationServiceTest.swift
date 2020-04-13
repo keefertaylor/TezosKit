@@ -75,7 +75,7 @@ final class PreapplicationServiceTest: XCTestCase {
         XCTFail()
         return
       }
-      XCTAssertEqual(result, .unexpectedResponse)
+      XCTAssertEqual(result, .unexpectedResponse(description: "No data in response"))
       preapplicationCompletionExpectation.fulfill()
     }
 

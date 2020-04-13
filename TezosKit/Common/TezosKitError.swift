@@ -10,7 +10,7 @@ public indirect enum TezosKitError: Error, Equatable {
   case rpcError(description: String)
   case signingError
   case transactionFormationFailure(underlyingError: TezosKitError)
-  case unexpectedRequestFormat
-  case unexpectedResponse
+  case unexpectedRequestFormat(description: String)
+  case unexpectedResponse(description: String)
   case unknown(description: String?)
 }

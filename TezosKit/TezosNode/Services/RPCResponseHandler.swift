@@ -37,8 +37,7 @@ public class RPCResponseHandler {
       let data = data,
       let parsedData = parse(data, with: responseAdapterClass)
     else {
-      let tezosKitError = TezosKitError.unexpectedResponse
-      return .failure(tezosKitError)
+      return .failure(.unexpectedResponse(description: "No data in response"))
     }
 
     return .success(parsedData)
@@ -65,8 +64,7 @@ public class RPCResponseHandler {
 
     // Drop data and send our error to let subsequent handlers know something went wrong and to
     // give up.
-    // TODO(keefertaylor): Plumb through message here
-    let error = parseError(from: httpResponse)
+    let error = parseError(from: httpResponse, with: errorMessage)
     return error
   }
 
@@ -74,18 +72,20 @@ public class RPCResponseHandler {
   ///
   /// - Note: This method assumes that the HTTPResponse contained an error.
   ///
-  /// - Parameter httpResponse: The HTTPURLResponse to parse.
+  /// - Parameters:
+  ///   - httpResponse: The HTTPURLResponse to parse.
+  ///   - errorMessage: An error message extracted from the response body.
   /// - Returns: An appropriate error kind based on the response.
-  private func parseError(from httpResponse: HTTPURLResponse) -> TezosKitError {
+  private func parseError(from httpResponse: HTTPURLResponse, with errorMessage: String) -> TezosKitError {
     // Default to unknown error and try to give a more specific error code if it can be narrowed
     // down based on HTTP response code.
-    var error = TezosKitError.unknown(description: nil)
+    var error = TezosKitError.unknown(description: errorMessage)
     // Status code 40X: Bad request was sent to server.
     if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
-      error = .unexpectedRequestFormat
+      error = .unexpectedRequestFormat(description: errorMessage)
     // Status code 50X: Bad request was sent to server.
     } else if httpResponse.statusCode >= 500, httpResponse.statusCode < 600 {
-      error = .unexpectedResponse
+      error = .unexpectedResponse(description: errorMessage)
     }
     return error
   }
