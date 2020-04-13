@@ -27,15 +27,17 @@ public class RPCResponseHandler {
 
     // Check for a generic error on the request. If so, propagate.
     if let error = error {
-       let description = error.localizedDescription
-        let rpcError = TezosKitError.rpcError(description)
-        return .failure(rpcError)
+      let description = error.localizedDescription
+      let rpcError = TezosKitError.rpcError(description: description)
+      return .failure(rpcError)
     }
 
     // Ensure that data came back.
-    guard let data = data,
-          let parsedData = parse(data, with: responseAdapterClass) else {
-            let tezosKitError = TezosKitError.unexpectedResponse
+    guard
+      let data = data,
+      let parsedData = parse(data, with: responseAdapterClass)
+    else {
+      let tezosKitError = TezosKitError.unexpectedResponse
       return .failure(tezosKitError)
     }
 
@@ -77,7 +79,7 @@ public class RPCResponseHandler {
   private func parseError(from httpResponse: HTTPURLResponse) -> TezosKitError {
     // Default to unknown error and try to give a more specific error code if it can be narrowed
     // down based on HTTP response code.
-    var error: TezosKitError.unknown(description: nil)
+    var error = TezosKitError.unknown(description: nil)
     // Status code 40X: Bad request was sent to server.
     if httpResponse.statusCode >= 400, httpResponse.statusCode < 500 {
       error = .unexpectedRequestFormat

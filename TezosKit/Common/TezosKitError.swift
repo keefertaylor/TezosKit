@@ -2,11 +2,11 @@
 
 import Foundation
 
-public indirect enum TezosKitError: Error {
+public indirect enum TezosKitError: Error, Equatable {
   case internalError
   case invalidURL
   case localForgingNotSupportedForOperation
-  case preapplicationError
+  case preapplicationError(description: String)
   case rpcError(description: String)
   case signingError
   case transactionFormationFailure(underlyingError: TezosKitError)
@@ -25,12 +25,5 @@ extension TezosKitError: LocalizedError {
 //    } else {
 //      return errorKindDesc
 //    }
-  }
-}
-
-extension TezosKitError: Equatable {
-  public static func == (lhs: TezosKitError, rhs: TezosKitError) -> Bool {
-    // TODO(keefertaylor): Does this check associated values as well?
-    return lhs == rhs
   }
 }

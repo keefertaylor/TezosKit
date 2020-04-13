@@ -43,10 +43,15 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: StringResponseAdapter.self
     )
 
+    // TODO(keefertaylor): Assert underlying error got set correctly.
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedRequestFormat)
-      XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
+      switch tezosKitError {
+      case .unexpectedRequestFormat:
+        break
+      default:
+        XCTFail("Wrong error type reported")
+      }
     case .success:
       XCTFail()
     }
@@ -61,10 +66,10 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: StringResponseAdapter.self
     )
 
+    // TODO(keefertaylor): Check for RPCResponseHandlerTest.testErrorString?
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
-      XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse)
     case .success:
       XCTFail()
     }
@@ -79,10 +84,10 @@ class RPCResponseHandlerTest: XCTestCase {
       responseAdapterClass: StringResponseAdapter.self
     )
 
+    // TODO(keefertaylor): Check for RPCResponseHandlerTest.testErrorString?
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unknown)
-      XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
+      XCTAssertEqual(tezosKitError, .unknown(description: nil))
     case .success:
       XCTFail()
     }
@@ -100,8 +105,12 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .rpcError)
-      XCTAssertEqual(tezosKitError.underlyingError, testError.localizedDescription)
+      switch tezosKitError {
+      case .rpcError(let description):
+        XCTAssertEqual(description, testError.localizedDescription)
+      default:
+        XCTFail("Wrong error type reported.")
+      }
     case .success:
       XCTFail()
     }
@@ -135,8 +144,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
-      XCTAssertEqual(tezosKitError.underlyingError, nil)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse)
     case .success:
       XCTFail()
     }
@@ -153,8 +161,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
-      XCTAssertEqual(tezosKitError.underlyingError, nil)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse)
     case .success:
       XCTFail()
     }

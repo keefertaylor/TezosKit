@@ -97,27 +97,27 @@ final class ConseilClientTests: XCTestCase {
 
   func testCombineResults_aNil() {
     let a: Result<[Transaction], TezosKitError>? = nil
-    let b: Result<[Transaction], TezosKitError>? = .failure(TezosKitError(kind: .unknown))
+    let b: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
     XCTAssertNil(ConseilClient.combine(a, b))
   }
 
   func testCombineResults_bNil() {
-    let a: Result<[Transaction], TezosKitError>? = .failure(TezosKitError(kind: .unknown))
+    let a: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
     let b: Result<[Transaction], TezosKitError>? = nil
     XCTAssertNil(ConseilClient.combine(a, b))
   }
 
   func testCombineResults_bothNoNil() {
-    let a: Result<[Transaction], TezosKitError>? = .failure(TezosKitError(kind: .unknown))
-    let b: Result<[Transaction], TezosKitError>? = .failure(TezosKitError(kind: .unknown))
+    let a: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
+    let b: Result<[Transaction], TezosKitError>? = .failure(TezosKitError.unknown(description: nil))
     XCTAssertNotNil(ConseilClient.combine(a, b))
   }
 
   func testCombineResults_bothFailure() {
-    let errorA = TezosKitError(kind: .unexpectedResponse)
+    let errorA = TezosKitError.unexpectedResponse
     let a: Result<[Transaction], TezosKitError> = .failure(errorA)
 
-    let errorB = TezosKitError(kind: .invalidURL)
+    let errorB = TezosKitError.invalidURL
     let b: Result<[Transaction], TezosKitError> = .failure(errorB)
 
     guard let result = ConseilClient.combine(a, b) else {
@@ -133,7 +133,7 @@ final class ConseilClientTests: XCTestCase {
   }
 
   func testCombineResults_aFailure() {
-    let errorA = TezosKitError(kind: .unexpectedResponse)
+    let errorA = TezosKitError.unexpectedResponse
     let a: Result<[Transaction], TezosKitError> = .failure(errorA)
 
     let b: Result<[Transaction], TezosKitError> = .success([.testTransaction])
@@ -153,7 +153,7 @@ final class ConseilClientTests: XCTestCase {
   func testCombineResults_bFailure() {
     let a: Result<[Transaction], TezosKitError> = .success([.testTransaction])
 
-    let errorB = TezosKitError(kind: .invalidURL)
+    let errorB = TezosKitError.invalidURL
     let b: Result<[Transaction], TezosKitError> = .failure(errorB)
 
     guard let result = ConseilClient.combine(a, b) else {

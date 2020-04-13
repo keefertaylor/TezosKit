@@ -79,7 +79,7 @@ public class SimulationService {
       }
       switch result {
       case .failure(let error):
-        completion(.failure(TezosKitError.transactionFormationFailure(description: error.underlyingError)))
+        completion(.failure(.transactionFormationFailure(underlyingError: error)))
       case .success(let operationMetadata):
         guard
           let operationPayload = OperationPayloadFactory.operationPayload(

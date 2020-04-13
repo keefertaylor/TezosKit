@@ -95,6 +95,6 @@ public class PreapplicationService {
       }
       return id
     }
-    return TezosKitError(kind: .preapplicationError, underlyingError: firstError)
+    return .preapplicationError(description: firstError)
   }
 }

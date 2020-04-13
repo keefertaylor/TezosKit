@@ -390,7 +390,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(.transactionFormationFailure(underlyingError: error)))
       }
     }
   }
@@ -597,7 +597,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError.transactionFormationFailure(description: error.underlyingError)))
+        completion(.failure(.transactionFormationFailure(underlyingError: error)))
       }
       return
     }
@@ -659,7 +659,7 @@ public class TezosNodeClient {
       )
     case .failure(let error):
       callbackQueue.async {
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(.transactionFormationFailure(underlyingError: error)))
       }
     }
   }
@@ -788,8 +788,7 @@ public class TezosNodeClient {
         signingCurve: signatureProvider.publicKey.signingCurve
       )
     else {
-      let error = TezosKitError(kind: .signingError, underlyingError: "Error signing operation.")
-      completion(.failure(error))
+      completion(.failure(.signingError))
       return
     }
 

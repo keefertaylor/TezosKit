@@ -79,7 +79,7 @@ extension NetworkClientTest {
       headerFields: nil
     )
     fakeURLSession.data = "Result".data(using: .utf8)
-    fakeURLSession.error = TezosKitError(kind: .unknown, underlyingError: nil)
+    fakeURLSession.error = TezosKitError.unknown(description: nil)
 
     let expectation = XCTestExpectation(description: "Promise is resolved")
     let rpc = RPC(endpoint: "/test", responseAdapterClass: StringResponseAdapter.self)

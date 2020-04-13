@@ -295,7 +295,7 @@ extension TezosNodeClient {
       )
     case .failure(let error):
       return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+        seal.reject(TezosKitError.transactionFormationFailure(underlyingError: error))
       }
     }
   }
@@ -339,7 +339,7 @@ extension TezosNodeClient {
       )
     case .failure(let error):
       return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+        seal.reject(TezosKitError.transactionFormationFailure(underlyingError: error))
       }
     }
   }
@@ -374,7 +374,7 @@ extension TezosNodeClient {
       )
     case .failure(let error):
       return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+        seal.reject(TezosKitError.transactionFormationFailure(underlyingError: error))
       }
     }
   }
@@ -405,7 +405,7 @@ extension TezosNodeClient {
       )
     case .failure(let error):
       return Promise { seal in
-        seal.reject(TezosKitError.transactionFormationFailure(description: error.underlyingError))
+        seal.reject(TezosKitError.transactionFormationFailure(underlyingError: error))
       }
     }
   }
@@ -437,7 +437,7 @@ extension TezosNodeClient {
       )
     case .failure(let error):
       return Promise { seal in
-        seal.reject(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+        seal.reject(TezosKitError.transactionFormationFailure(underlyingError: error))
       }
     }
   }

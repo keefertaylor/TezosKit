@@ -297,8 +297,8 @@ public class DexterExchangeClient {
     deadline: Date
   ) -> Result<TezosKit.Operation, TezosKitError> {
 	guard let minMutezToBuy = Decimal(string: minTezToBuy.rpcRepresentation) else {
-    return .failure(TezosKitError(kind: .unknown(description: nil)))
-    }
+    return .failure(.unknown(description: nil))
+  }
 
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(
