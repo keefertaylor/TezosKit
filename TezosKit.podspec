@@ -21,13 +21,13 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.osx.deployment_target = '10.14'
 
-  s.dependency "BigInt"
-  s.dependency "MnemonicKit"
-  s.dependency "PromiseKit"
-  s.dependency "Base58Swift", "~> 2.1.0"
-  s.dependency "CryptoSwift", "~> 0.14.0"
+  s.dependency "BigInt", "~> 5.0.0"
+  s.dependency "MnemonicKit", "~> 1.3.11"
+  s.dependency "PromiseKit", "~> 6.13.1"
+  s.dependency "Base58Swift", "~> 2.1.9"
+  s.dependency "CryptoSwift", "~> 1.3.0"
   s.dependency "Sodium", "~> 0.8.0"
-  s.dependency "secp256k1.swift"
+  s.dependency "secp256k1.swift", "~> 0.1.4"
 
   s.test_spec "Tests" do |test_spec|
     test_spec.source_files = ["Tests/Common/*.swift", "Tests/TezosKit/*.swift", "Tests/Extensions/PromiseKit/*.swift"]
