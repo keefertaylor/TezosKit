@@ -19,7 +19,6 @@ targets:
         name: SwiftLint
     dependencies:
       - carthage: BigInt
-      - carthage: SipHash
       - carthage: Sodium
       - carthage: CryptoSwift
       - carthage: PromiseKit
