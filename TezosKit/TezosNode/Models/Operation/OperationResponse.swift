@@ -91,4 +91,3 @@ public struct OperationResponseInternalResultError: Codable, Equatable {
 public struct OperationResponseInternalResultErrorWith: Codable, Equatable {
   public let string: String
 }
-

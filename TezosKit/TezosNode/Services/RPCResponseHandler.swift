@@ -38,6 +38,7 @@ public class RPCResponseHandler {
     }
 
     // Check for a backtracked operation response
+    // TODO(keefertaylor): Add a test for this logic.
     do {
       let operationResult = try JSONDecoder().decode(OperationResponse.self, from: data)
       if operationResult.isBacktracked() {

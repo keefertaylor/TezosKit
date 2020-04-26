@@ -153,7 +153,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: "No data in response"))
+      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: "Could not parse response"))
     case .success:
       XCTFail()
     }
