@@ -33,11 +33,23 @@ public class RPCResponseHandler {
     }
 
     // Ensure that data came back.
-    guard
-      let data = data,
-      let parsedData = parse(data, with: responseAdapterClass)
-    else {
+    guard let data = data else {
       return .failure(.unexpectedResponse(description: "No data in response"))
+    }
+
+    // Check for a backtracked operation response
+    do {
+      let operationResult = try JSONDecoder().decode(OperationResponse.self, from: data)
+      if operationResult.isBacktracked() {
+        return .failure(.operationError(operationResult.errors()))
+      }
+    } catch {
+      // Intentionally ignore parsing failures. Parsing only suceeds if there is an error.
+    }
+
+    // Ensure that valid data came back.
+    guard let parsedData = parse(data, with: responseAdapterClass) else {
+      return .failure(.unexpectedResponse(description: "Could not parse response"))
     }
 
     return .success(parsedData)

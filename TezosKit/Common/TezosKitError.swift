@@ -6,6 +6,7 @@ public indirect enum TezosKitError: Error, Equatable {
   case internalError
   case invalidURL
   case localForgingNotSupportedForOperation
+  case operationError([OperationResponseInternalResultError])
   case preapplicationError(description: String)
   case rpcError(description: String)
   case signingError

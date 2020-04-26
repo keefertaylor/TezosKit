@@ -15,6 +15,7 @@
 		03CEFD213AC691D632D90FAF /* GetChainHeadHashRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFED1AB3870A0537888D39E /* GetChainHeadHashRPCTest.swift */; };
 		05242C7AF25D0B6C351BC765 /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */; };
 		053802B930B6B511932F2912 /* SomeMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB80D50511873CF9783361B4 /* SomeMichelsonParameter.swift */; };
+		066EBDBDED05BEF21905F005 /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B809E830296682CE490A4C5 /* OperationResponse.swift */; };
 		078DB916D5C442FBEAF6C207 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC64BA50EF400CF4B90951AA /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		083E6F479F724D868A0513C0 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17556CA46001F8FB5DF8302 /* JSONUtils.swift */; };
 		09EDCDEF232C8F10CADD8ACD /* OperationFeePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207E6BD1F08A190CAD16F7AA /* OperationFeePolicy.swift */; };
@@ -406,6 +407,7 @@
 		D867A7026A6E246C8319C0E4 /* AbstractOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5FAF254AF66B1A805ABF27 /* AbstractOperationTest.swift */; };
 		D8D3825EEB92B28B774C544C /* PublicKeyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80BC8FA72641177E530F7E /* PublicKeyProtocol.swift */; };
 		D98B97305EDA7C6CDEEB8533 /* JSONArrayResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C325259AE4DD3416B4F30 /* JSONArrayResponseAdapter.swift */; };
+		D9B7A025A831DDD052838A2C /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B809E830296682CE490A4C5 /* OperationResponse.swift */; };
 		DA1F8FEB719BB06EB6E0B4CF /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD132F238141B3A1D24CC3 /* PublicKey.swift */; };
 		DAB2C96A2F10A124E40ABB1A /* MnemonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61EDBE7577517E6ACF2498A2 /* MnemonicKit.framework */; };
 		DAB469501CBBA2BC3259F563 /* TransactionOperationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8539A22E432B9FCA2191C6F3 /* TransactionOperationTest.swift */; };
@@ -633,6 +635,7 @@
 		170AD904F169111FBCD93FCC /* DelegationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationOperation.swift; sourceTree = "<group>"; };
 		18027B5B88EBBF5C5FD9B1F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		18257A644A0B08F1E48E8808 /* LeftMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMichelsonParameter.swift; sourceTree = "<group>"; };
+		1B809E830296682CE490A4C5 /* OperationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationResponse.swift; sourceTree = "<group>"; };
 		1BCD5416B3E149D9389F6961 /* ConseilClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientTests.swift; sourceTree = "<group>"; };
 		1DC8C35C8541E0CBE377968D /* IntMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntMichelsonParameter.swift; sourceTree = "<group>"; };
 		1DD4B1012288DD6F90E8C78A /* MnemonicKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MnemonicKit.framework; sourceTree = "<group>"; };
@@ -938,6 +941,7 @@
 				170AD904F169111FBCD93FCC /* DelegationOperation.swift */,
 				CE5EBE1E77B4458B18D149C1 /* Operation.swift */,
 				3D81337F4A5B2C502DB3D076 /* OperationKind.swift */,
+				1B809E830296682CE490A4C5 /* OperationResponse.swift */,
 				04781056C289A009489C072C /* OperationWithCounter.swift */,
 				60CCD5574FD830A21601E40E /* OriginationOperation.swift */,
 				9497DCBC4C3BE5334CF8BC59 /* RevealOperation.swift */,
@@ -1943,6 +1947,7 @@
 				CD91A216AE335648B059C1C8 /* OperationMetadataProvider.swift in Sources */,
 				963E92E6248582A1CD1D9468 /* OperationPayload.swift in Sources */,
 				85BC63DB233D9E4663D05D6B /* OperationPayloadFactory.swift in Sources */,
+				D9B7A025A831DDD052838A2C /* OperationResponse.swift in Sources */,
 				346B3C1348BED784D82EF921 /* OperationWithCounter.swift in Sources */,
 				991D2C7E2C85AF62C0FFF390 /* OriginationOperation.swift in Sources */,
 				F71BD51C6A8C3F5CB182AE41 /* PackDataPayload.swift in Sources */,
@@ -2167,6 +2172,7 @@
 				6ADF54D797E8287A5DD92EC5 /* OperationMetadataProvider.swift in Sources */,
 				B481FCFB6820FB7C37019455 /* OperationPayload.swift in Sources */,
 				F20D1C720BE42B84FF5C3F60 /* OperationPayloadFactory.swift in Sources */,
+				066EBDBDED05BEF21905F005 /* OperationResponse.swift in Sources */,
 				9C490216EE45DD3B2D5FA043 /* OperationWithCounter.swift in Sources */,
 				FC0DA3A41819419D14A44BC8 /* OriginationOperation.swift in Sources */,
 				32D4E01A8FC1F543D5488856 /* PackDataPayload.swift in Sources */,
