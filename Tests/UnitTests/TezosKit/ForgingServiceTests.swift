@@ -46,7 +46,7 @@ class ForgingServiceTests: XCTestCase {
       case .success:
         XCTFail()
       case .failure(let error):
-        XCTAssertEqual(error.kind, .localForgingNotSupportedForOperation)
+        XCTAssertEqual(error, .localForgingNotSupportedForOperation)
       }
       forgeCompletionExpectation.fulfill()
     }

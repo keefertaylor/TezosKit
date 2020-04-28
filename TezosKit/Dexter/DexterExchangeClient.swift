@@ -144,7 +144,7 @@ public class DexterExchangeClient {
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
 	guard let mutezToWithdraw = Decimal(string: tezToWidthdraw.rpcRepresentation) else {
-      completion(.failure(TezosKitError(kind: .unknown)))
+      completion(.failure(.unknown(description: nil)))
       return
     }
 
@@ -297,8 +297,8 @@ public class DexterExchangeClient {
     deadline: Date
   ) -> Result<TezosKit.Operation, TezosKitError> {
 	guard let minMutezToBuy = Decimal(string: minTezToBuy.rpcRepresentation) else {
-      return .failure(TezosKitError(kind: .unknown))
-    }
+    return .failure(.unknown(description: nil))
+  }
 
     let parameter = PairMichelsonParameter(
       left: PairMichelsonParameter(

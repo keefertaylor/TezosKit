@@ -7,8 +7,9 @@ final class PreapplicationServiceTest: XCTestCase {
   private static let preapplyEndpoint = "/chains/main/blocks/" + .testBranch + "/helpers/preapply/operations"
 
   // swiftlint:disable line_length
+  private static let invalidPreapplicationResponseErrorID = "proto.003-PsddFKi3.contract.balance_too_low"
   private static let invalidPreapplicationResponse =
-    "[{\"contents\":[{\"kind\":\"transaction\",\"source\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"fee\":\"1272\",\"counter\":\"30802\",\"gas_limit\":\"10100\",\"storage_limit\":\"257\",\"amount\":\"10000000000000\",\"destination\":\"tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5\",\"metadata\":{\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1272\"},{\"kind\":\"freezer\",\"category\":\"fees\",\"delegate\":\"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",\"level\":125,\"change\":\"1272\"}],\"operation_result\":{\"status\":\"failed\",\"errors\":[{\"kind\":\"temporary\",\"id\":\"proto.003-PsddFKi3.contract.balance_too_low\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"balance\":\"98751713\",\"amount\":\"10000000000000\"}]}}}],\"signature\":\"edsigu16pv1NUsXuJkwWDAqvFDbhcsRAHbdxbYJcN7AShN4yDspRmsP5kgbzs2osTHGGDkyED3vjQFcbskv3BVESJ7tpchmbbop\"}]"
+    "[{\"contents\":[{\"kind\":\"transaction\",\"source\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"fee\":\"1272\",\"counter\":\"30802\",\"gas_limit\":\"10100\",\"storage_limit\":\"257\",\"amount\":\"10000000000000\",\"destination\":\"tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5\",\"metadata\":{\"balance_updates\":[{\"kind\":\"contract\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"change\":\"-1272\"},{\"kind\":\"freezer\",\"category\":\"fees\",\"delegate\":\"tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU\",\"level\":125,\"change\":\"1272\"}],\"operation_result\":{\"status\":\"failed\",\"errors\":[{\"kind\":\"temporary\",\"id\":\"\(invalidPreapplicationResponseErrorID)\",\"contract\":\"tz1XVJ8bZUXs7r5NV8dHvuiBhzECvLRLR3jW\",\"balance\":\"98751713\",\"amount\":\"10000000000000\"}]}}}],\"signature\":\"edsigu16pv1NUsXuJkwWDAqvFDbhcsRAHbdxbYJcN7AShN4yDspRmsP5kgbzs2osTHGGDkyED3vjQFcbskv3BVESJ7tpchmbbop\"}]"
   // swiftlint:enable line_length
 
   func testPreapplicationValidOperation() {
@@ -49,7 +50,10 @@ final class PreapplicationServiceTest: XCTestCase {
         XCTFail()
         return
       }
-      XCTAssertEqual(result.kind, .preapplicationError)
+      XCTAssertEqual(
+        result,
+        .preapplicationError(description: PreapplicationServiceTest.invalidPreapplicationResponseErrorID)
+      )
       preapplicationCompletionExpectation.fulfill()
     }
 
@@ -71,7 +75,7 @@ final class PreapplicationServiceTest: XCTestCase {
         XCTFail()
         return
       }
-      XCTAssertEqual(result.kind, .unexpectedResponse)
+      XCTAssertEqual(result, .unexpectedResponse(description: "Could not parse response"))
       preapplicationCompletionExpectation.fulfill()
     }
 
@@ -92,7 +96,12 @@ final class PreapplicationServiceTest: XCTestCase {
       input: PreapplicationServiceTest.invalidPreapplicationResponse.data(using: .utf8)!
     )!
     let error = PreapplicationService.preapplicationError(from: json)!
-    XCTAssertEqual(error.kind, .preapplicationError)
-    XCTAssert(error.underlyingError!.contains("contract.balance_too_low"))
+
+    switch error {
+    case .preapplicationError(let errorText):
+      XCTAssert(errorText.contains("contract.balance_too_low"))
+    default:
+      XCTFail("Wrong error type reported")
+    }
   }
 }

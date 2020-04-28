@@ -82,7 +82,7 @@ public class FeeEstimator {
       )
       switch simulationResult {
       case .failure(let error):
-        completion(.failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError)))
+        completion(.failure(.transactionFormationFailure(underlyingError: error)))
       case .success(let consumedResources):
         // Add safety margins for gas and storage limits.
         let gasLimit = consumedResources.consumedGas + SafetyMargin.gas
@@ -99,9 +99,8 @@ public class FeeEstimator {
           operation: mutableOperation,
           signatureProvider: signatureProvider
         ) else {
-          let error = TezosKitError(
-            kind: .transactionFormationFailure,
-            underlyingError: "Could not calculate a fee for the size of the operation"
+          let error = TezosKitError.transactionFormationFailure(
+            underlyingError: .unknown(description: "Could not calculate a fee for the size of the operation")
           )
           completion(.failure(error))
           return
@@ -132,9 +131,8 @@ public class FeeEstimator {
             operation: mutableOperation,
             signatureProvider: signatureProvider
           ) else {
-            let error = TezosKitError(
-              kind: .transactionFormationFailure,
-              underlyingError: "Could not calculate a fee for the size of the operation"
+            let error = TezosKitError.transactionFormationFailure(
+              underlyingError: .unknown(description: "Could not calculate a fee for the size of the operation")
             )
             completion(.failure(error))
             return
@@ -212,7 +210,7 @@ public class FeeEstimator {
     case .success(let simulationResult):
       return .success(simulationResult)
     case .failure(let error):
-      return .failure(TezosKitError(kind: .transactionFormationFailure, underlyingError: error.underlyingError))
+      return .failure(.transactionFormationFailure(underlyingError: error))
     }
   }
 

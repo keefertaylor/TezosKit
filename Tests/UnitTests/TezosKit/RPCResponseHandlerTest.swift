@@ -45,8 +45,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedRequestFormat)
-      XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
+      XCTAssertEqual(tezosKitError, .unexpectedRequestFormat(description: RPCResponseHandlerTest.testErrorString))
     case .success:
       XCTFail()
     }
@@ -63,8 +62,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
-      XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: RPCResponseHandlerTest.testErrorString))
     case .success:
       XCTFail()
     }
@@ -81,8 +79,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unknown)
-      XCTAssertEqual(tezosKitError.underlyingError, RPCResponseHandlerTest.testErrorString)
+      XCTAssertEqual(tezosKitError, .unknown(description: RPCResponseHandlerTest.testErrorString))
     case .success:
       XCTFail()
     }
@@ -100,8 +97,12 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .rpcError)
-      XCTAssertEqual(tezosKitError.underlyingError, testError.localizedDescription)
+      switch tezosKitError {
+      case .rpcError(let description):
+        XCTAssertEqual(description, testError.localizedDescription)
+      default:
+        XCTFail("Wrong error type reported.")
+      }
     case .success:
       XCTFail()
     }
@@ -135,8 +136,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
-      XCTAssertEqual(tezosKitError.underlyingError, nil)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: "No data in response"))
     case .success:
       XCTFail()
     }
@@ -153,8 +153,7 @@ class RPCResponseHandlerTest: XCTestCase {
 
     switch result {
     case .failure(let tezosKitError):
-      XCTAssertEqual(tezosKitError.kind, .unexpectedResponse)
-      XCTAssertEqual(tezosKitError.underlyingError, nil)
+      XCTAssertEqual(tezosKitError, .unexpectedResponse(description: "Could not parse response"))
     case .success:
       XCTFail()
     }
