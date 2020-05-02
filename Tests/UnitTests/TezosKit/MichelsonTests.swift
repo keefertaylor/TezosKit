@@ -12,6 +12,12 @@ final class MichelsonTests: XCTestCase {
   static let michelsonString = StringMichelsonParameter(string: "tezoskit")
   static let expectedMichelsonStringEncoding = "{\"string\":\"tezoskit\"}"
 
+  static let michelsonAddress = AddressMichelsonParameter(address: "tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk")
+  static let expectedMichelsonAddressEncoding = "{\"string\":\"tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk\"}"
+
+  static let michelsonSignature = SignatureMichelsonParameter(signature: "spsig1DiJ56YwMVZGtwc7WSCXoyxdQJ9a4gcokkc3AHUeLMcTYYLRN7QaQs56ZMx6EX2oCtzNfJv7wj13UXYfNYir272qpbYDGG")
+  static let expectedMichelsonSignatureEncoding = "{\"string\":\"spsig1DiJ56YwMVZGtwc7WSCXoyxdQJ9a4gcokkc3AHUeLMcTYYLRN7QaQs56ZMx6EX2oCtzNfJv7wj13UXYfNYir272qpbYDGG\"}"
+
   static let michelsonInt = IntMichelsonParameter(int: 42)
   static let expectedMichelsonIntEncoding = "{\"int\":\"42\"}"
 
@@ -60,6 +66,18 @@ final class MichelsonTests: XCTestCase {
     let michelson = MichelsonTests.michelsonString
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonStringEncoding))
+  }
+
+  func testEncodeAddressToJSON() {
+    let michelson = MichelsonTests.michelsonAddress
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonAddressEncoding))
+  }
+
+  func testEncodeSignatureToJSON() {
+    let michelson = MichelsonTests.michelsonSignature
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonSignatureEncoding))
   }
 
   func testEncodeIntToJSON() {
