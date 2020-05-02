@@ -34,6 +34,12 @@ final class MichelsonTests: XCTestCase {
   static let michelsonBytes = BytesMichelsonParameter(hex: "deadbeef")
   static let expectedMichelsonBytesEncoding = "{\"bytes\":\"deadbeef\"}"
 
+  static let michelsonKeyHash = KeyHashMichelsonParameter(keyHashHex: "deadbeef")
+  static let expectedMichelsonKeyHashEncoding = "{\"bytes\":\"deadbeef\"}"
+
+  static let michelsonChainID = ChainIDMichelsonParameter(chainIDHex: "deadbeef")
+  static let expectedMichelsonChainIDEncoding = "{\"bytes\":\"deadbeef\"}"
+
   static let michelsonSome = SomeMichelsonParameter(some: michelsonInt)
   static let expectedMichelsonSomeEncoding = "{\"prim\":\"Some\",\"args\":[\(expectedMichelsonIntEncoding)]}"
 
@@ -99,6 +105,18 @@ final class MichelsonTests: XCTestCase {
     let michelson = MichelsonTests.michelsonBytes
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonBytesEncoding))
+  }
+
+  func testEncodeHexChainIDToJSON() {
+    let michelson = MichelsonTests.michelsonChainID
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonChainIDEncoding))
+  }
+
+  func testEncodeHexKeyHashToJSON() {
+    let michelson = MichelsonTests.michelsonKeyHash
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonKeyHashEncoding))
   }
 
   func testEncodeBinaryBytesToJSON() {
