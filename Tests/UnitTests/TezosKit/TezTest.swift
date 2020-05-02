@@ -5,8 +5,10 @@ import XCTest
 
 class TezTest: XCTestCase {
   public func testHumanReadableRepresentationWithDecimalNumber() {
-    guard let balanceFromStringNoLeadingZeros = Tez("3500000"),
-      let balanceFromStringLeadingZeros = Tez("3050000") else {
+    guard
+      let balanceFromStringNoLeadingZeros = Tez("3500000"),
+      let balanceFromStringLeadingZeros = Tez("3050000")
+    else {
       XCTFail()
       return
     }
@@ -21,8 +23,10 @@ class TezTest: XCTestCase {
   }
 
   public func testRPCRepresentationWithDecimalNumber() {
-    guard let balanceFromStringNoLeadingZeros = Tez("3500000"),
-      let balanceFromStringLeadingZeros = Tez("3050000") else {
+    guard
+      let balanceFromStringNoLeadingZeros = Tez("3500000"),
+      let balanceFromStringLeadingZeros = Tez("3050000")
+    else {
       XCTFail()
       return
     }
@@ -37,7 +41,9 @@ class TezTest: XCTestCase {
   }
 
   public func testHumanReadableRepresentationWithWholeNumber() {
-    guard let balanceFromString = Tez("3000000") else {
+    guard
+      let balanceFromString = Tez("3000000")
+    else {
       XCTFail()
       return
     }
@@ -48,7 +54,9 @@ class TezTest: XCTestCase {
   }
 
   public func testRPCRepresentationWithWholeNumber() {
-    guard let balanceFromString = Tez("3000000") else {
+    guard
+      let balanceFromString = Tez("3000000")
+    else {
       XCTFail()
       return
     }
@@ -59,7 +67,9 @@ class TezTest: XCTestCase {
   }
 
   public func testRPCRepresentationWithSmallNumber() {
-    guard let balanceFromString = Tez("10") else {
+    guard
+      let balanceFromString = Tez("10")
+    else {
       XCTFail()
       return
     }
@@ -70,7 +80,9 @@ class TezTest: XCTestCase {
   }
 
   public func testHumanReadableRepresentationWithSmallNumber() {
-    guard let balanceFromString = Tez("10") else {
+    guard
+      let balanceFromString = Tez("10")
+    else {
       XCTFail()
       return
     }
@@ -178,15 +190,12 @@ class TezTest: XCTestCase {
   }
 
   public func testSubtractTwoDecimalsWithCarry() {
-    var left = Tez(4.3)
+    let left = Tez(4.3)
     let right = Tez(1.6)
     let expected = Tez(2.7)
 
     let actual = left - right
     XCTAssertEqual(actual, expected)
-
-    left -= right
-    XCTAssertEqual(left, expected)
   }
 
   public func testGreaterThan() {

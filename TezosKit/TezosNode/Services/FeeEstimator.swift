@@ -27,6 +27,7 @@ public class FeeEstimator {
   private enum SafetyMargin {
     public static let gas = 100
     public static let storage = 257
+
     public static let fee = Tez(0.000_100)
   }
 
