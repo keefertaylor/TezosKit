@@ -245,6 +245,7 @@
 		84D5C538E429370571F6B022 /* RunOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227FD388A5B50891D5C7FE1 /* RunOperationRPCTest.swift */; };
 		85026F71DEB4414B03D92624 /* PreapplicationServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FCF6EFDB51394D49E1479C /* PreapplicationServiceTest.swift */; };
 		858F078119CB4C2CD735E34D /* TezosProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B059E31F2A63807B325D4115 /* TezosProtocol.swift */; };
+		85BC475054391419FAFDB45C /* NatMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4E74F690D954E7535B88EC /* NatMichelsonParameter.swift */; };
 		85BC63DB233D9E4663D05D6B /* OperationPayloadFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE0279DC6099EED8F2D4CF9 /* OperationPayloadFactory.swift */; };
 		8631A783EBB8BA07F24BD8D6 /* TestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1F6B1DDF04EB174551D3 /* TestObjects.swift */; };
 		86A23698EB0F1A7C654EA5FE /* TezosNodeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A82D9C70BEC192B4D73809 /* TezosNodeClient.swift */; };
@@ -362,6 +363,7 @@
 		BEFD63E317CD24603BFD7134 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3BE4BAECB893457A44FC1 /* TestHelpers.swift */; };
 		BF58AA3718890216B35F94D1 /* SigningServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DD030C2ACB7856608B34BA /* SigningServiceTests.swift */; };
 		BF8368AEC93713FD0257CB2A /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BC48461432501639D06FD6 /* AbstractOperation.swift */; };
+		BFA57870FD2388EB6150946E /* NatMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4E74F690D954E7535B88EC /* NatMichelsonParameter.swift */; };
 		C0382A1E21312C3D3323732F /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7806BE5035AB3100BA7C791C /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C0FE1015DACEF52DD7FE3A33 /* TezosKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632B9078CDB2B8EC754A858F /* TezosKit.framework */; };
 		C15CDCE9A538AB91764BCE7E /* LeftMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18257A644A0B08F1E48E8808 /* LeftMichelsonParameter.swift */; };
@@ -746,6 +748,7 @@
 		9A992D50CBFAFC7476FCD3D6 /* TezosKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TezosKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE79D36BAE8F2465D6231C8 /* SmartContractInvocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartContractInvocationOperation.swift; sourceTree = "<group>"; };
 		9C0C00172340567CB1919631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9C4E74F690D954E7535B88EC /* NatMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatMichelsonParameter.swift; sourceTree = "<group>"; };
 		9EA478BD897E8082B638E6E0 /* SecretKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretKey.swift; sourceTree = "<group>"; };
 		9F6AA3CAB521F463866CFB96 /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		A057E76CA636DDEE045ED59C /* OperationMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMetadataProvider.swift; sourceTree = "<group>"; };
@@ -1188,6 +1191,7 @@
 				D2F15CD865BE921BF9DF8CC0 /* MichelsonAnnotation.swift */,
 				525C931C7CD120487B51DA9A /* MichelsonComparable.swift */,
 				908CE3F01F463AD656302DFD /* MichelsonParameter.swift */,
+				9C4E74F690D954E7535B88EC /* NatMichelsonParameter.swift */,
 				588112F5BDBF5213EB952EF1 /* NoneMichelsonParameter.swift */,
 				F7B9AE14DF5799CA2EEFDCD9 /* PairMichelsonParameter.swift */,
 				A6243223DA0B294EC6B575DF /* RawMichelineMichelsonParameter.swift */,
@@ -1926,6 +1930,7 @@
 				609CBA9E58941C450A963639 /* MichelsonComparable.swift in Sources */,
 				7D7DE0D66FA04949CD3EBF56 /* MichelsonParameter.swift in Sources */,
 				A4F85C0954646854BED31139 /* MnemonicUtil.swift in Sources */,
+				BFA57870FD2388EB6150946E /* NatMichelsonParameter.swift in Sources */,
 				C454DDB3DECD20CCCCEE02AB /* NetworkClient+Promises.swift in Sources */,
 				17502DA144CE9470DAEB95AA /* NetworkClient.swift in Sources */,
 				262E887F091430DD45BB3D37 /* NoneMichelsonParameter.swift in Sources */,
@@ -2153,6 +2158,7 @@
 				8DB6E3EE6F04C2FF16A37338 /* MichelsonComparable.swift in Sources */,
 				7B0AFC2B03A527B407CD802C /* MichelsonParameter.swift in Sources */,
 				E05C6F3D3223E979E5DCA5C2 /* MnemonicUtil.swift in Sources */,
+				85BC475054391419FAFDB45C /* NatMichelsonParameter.swift in Sources */,
 				E022CE8D061446BAB1DEF80F /* NetworkClient+Promises.swift in Sources */,
 				76E015C816A9797BEA99C3D1 /* NetworkClient.swift in Sources */,
 				8B8CA3EF54C673DA42012EA7 /* NoneMichelsonParameter.swift in Sources */,
