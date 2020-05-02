@@ -106,7 +106,7 @@ public class DexterExchangeClient {
       ),
       right: PairMichelsonParameter(
         left: IntMichelsonParameter(decimal: maxTokensDeposited),
-        right: DateMichelsonParameter(date: deadline)
+        right: Timestamp(date: deadline)
       )
     )
 
@@ -161,7 +161,7 @@ public class DexterExchangeClient {
       ),
       right: PairMichelsonParameter(
         left: IntMichelsonParameter(decimal: minTokensToWithdraw),
-        right: DateMichelsonParameter(date: deadline)
+        right: Timestamp(date: deadline)
       )
     )
 
@@ -231,7 +231,7 @@ public class DexterExchangeClient {
         left: StringMichelsonParameter(string: destination),
         right: IntMichelsonParameter(decimal: minTokensToPurchase)
       ),
-      right: DateMichelsonParameter(date: deadline)
+      right: Timestamp(date: deadline)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
@@ -311,7 +311,7 @@ public class DexterExchangeClient {
           right: IntMichelsonParameter(decimal: minMutezToBuy)
         )
       ),
-      right: DateMichelsonParameter(date: deadline)
+      right: Timestamp(date: deadline)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(

@@ -3,7 +3,7 @@
 import Foundation
 
 /// A representation of a date parameter in Michelson.
-public class DateMichelsonParameter: AbstractMichelsonParameter {
+public class Timestamp: AbstractMichelsonParameter {
   public init(date: Date, annotations: [MichelsonAnnotation]? = nil) {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
