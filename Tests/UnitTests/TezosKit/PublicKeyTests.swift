@@ -1,6 +1,5 @@
 // Copyright Keefer Taylor, 2019
 
-import Base58Swift
 import Foundation
 import TezosKit
 import XCTest
@@ -8,15 +7,6 @@ import XCTest
 final class PublicKeyTests: XCTestCase {
 
   // MARK: ed25519
-
-  func testLeastAuthority() {
-    let sk = "46eeaf7445ac860666b252b7dedc37d225e09440"
-    let skBytes = CryptoUtils.hexToBin(sk)!
-    let secret = SecretKey(seedString: sk, signingCurve: .ed25519)!
-    let pk = PublicKey(secretKey: secret)!
-
-    XCTAssertEqual(pk.publicKeyHash, "tz1WEM2SnEUz14i45B1wkyWYMBjoPuQ1rnrY")
-  }
 
   func testBase58CheckRepresentation_ed25519() {
     guard
