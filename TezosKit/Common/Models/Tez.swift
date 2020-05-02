@@ -13,36 +13,29 @@ public struct Tez {
 
   /// A int representing the integer amount of the balance.
   /// For instance, a balance of 123.456 would be represented in this field as 123.
-  private let integerAmount: BigInt
-
-  /// A int representing the decimal amount of the balance.
-  /// For instance, a balance of 123.456 would be represented in this field as 4564.
-  private let decimalAmount: BigInt
+  private let normalizedAmount: BigUInt
 
   /// A human readable representation of the given balance.
   public var humanReadableRepresentation: String {
     // Decimal values need to be at least decimalDigitCount long. If the decimal value resolved to
     // be less than 6 then the number dropped leading zeros. E.G. '0' instead of '000000' or '400'
     // rather than 000400.
-    var paddedDecimalAmount = String(decimalAmount)
+    var paddedDecimalAmount = String(normalizedAmount)
     while paddedDecimalAmount.count < Tez.decimalDigitCount {
       paddedDecimalAmount = "0" + paddedDecimalAmount
     }
-    return String(integerAmount) + "." + String(paddedDecimalAmount)
+
+    let decimalAmount = paddedDecimalAmount.suffix(Tez.decimalDigitCount)
+
+    let integerAmountLength = paddedDecimalAmount.count - Tez.decimalDigitCount
+    let integerAmount = integerAmountLength != 0 ? paddedDecimalAmount.prefix(integerAmountLength) : "0"
+    return integerAmount + "." + decimalAmount
   }
 
   /// A representation of the given balance for use in RPC requests.
   public var rpcRepresentation: String {
-    // Decimal values need to be at least decimalDigitCount long. If the decimal value resolved to
-    // be less than 6 then the number dropped leading zeros. E.G. '0' instead of '000000' or '400'
-    // rather than 000400.
-    var paddedDecimalAmount = String(decimalAmount)
-    while paddedDecimalAmount.count < Tez.decimalDigitCount {
-      paddedDecimalAmount = "0" + paddedDecimalAmount
-    }
-
     // Trim any leading zeroes by converting to an Int.
-    let intermediateString = String(integerAmount) + String(paddedDecimalAmount)
+    let intermediateString = String(normalizedAmount)
     return intermediateString.replacingOccurrences(
       of: "^0+",
       with: "",
@@ -52,16 +45,19 @@ public struct Tez {
 
   /// Initialize a new balance from a given decimal number.
   ///
-  /// - Warning: Balances are accurate up to |decimalDigitCount| decimal places. Additional precision is dropped.
+  /// - Warning: Balances are accurate up to `decimalDigitCount` decimal places. Additional precision is dropped.
   public init(_ balance: Double) {
-    let integerValue = BigInt(balance)
+    guard balance >= 0 else {
+      fatalError("Cannot create a Tez amount with a negative balance.")
+    }
+    let integerValue = BigUInt(balance)
 
     // Convert decimalDigitCount significant digits of decimals into integers to avoid having to
     // deal with decimals.
     let multiplierDoubleValue = (pow(10, Tez.decimalDigitCount) as NSDecimalNumber).doubleValue
     let multiplierIntValue = (pow(10, Tez.decimalDigitCount) as NSDecimalNumber).intValue
-    let significantDecimalDigitsAsInteger = BigInt(balance * multiplierDoubleValue)
-    let significantIntegerDigitsAsInteger = BigInt(integerValue * BigInt(multiplierIntValue))
+    let significantDecimalDigitsAsInteger = BigUInt(balance * multiplierDoubleValue)
+    let significantIntegerDigitsAsInteger = BigUInt(integerValue * BigUInt(multiplierIntValue))
     let decimalValue = significantDecimalDigitsAsInteger - significantIntegerDigitsAsInteger
 
     self.init(integerAmount: integerValue, decimalAmount: decimalValue)
@@ -88,8 +84,8 @@ public struct Tez {
     let decimalString = paddedBalance[integerDigitEndIndex ..< paddedBalance.endIndex]
 
     guard
-      let integerAmount = BigInt(String(integerString)),
-      let decimalAmount = BigInt(String(decimalString))
+      let integerAmount = BigUInt(String(integerString)),
+      let decimalAmount = BigUInt(String(decimalString))
     else {
       return nil
     }
@@ -98,26 +94,18 @@ public struct Tez {
   }
 
   internal init(mutez: Int) {
-    self.init(String(mutez))!
-  }
+     self.init(String(mutez))!
+   }
 
-  private init(integerAmount: BigInt, decimalAmount: BigInt) {
-    self.integerAmount = integerAmount
-    self.decimalAmount = decimalAmount
+  private init(integerAmount: BigUInt, decimalAmount: BigUInt) {
+    self.normalizedAmount = (integerAmount * BigUInt(10).power(Tez.decimalDigitCount)) + decimalAmount
   }
 }
 
 extension Tez: AdditiveArithmetic {
-  public static func + (left: Tez, right: Tez) -> Tez {
-    var newIntegerAmount = left.integerAmount + right.integerAmount
-    var newDecimalAmount = left.decimalAmount + right.decimalAmount
-
-    if newDecimalAmount / BigInt((pow(10, Tez.decimalDigitCount) as NSDecimalNumber).intValue) >= 1 {
-      newIntegerAmount += 1
-      newDecimalAmount -= BigInt((pow(10, Tez.decimalDigitCount) as NSDecimalNumber).intValue)
-    }
-
-    return Tez(integerAmount: newIntegerAmount, decimalAmount: newDecimalAmount)
+  public static func + (lhs: Tez, rhs: Tez) -> Tez {
+    let value = lhs.normalizedAmount + rhs.normalizedAmount
+    return Tez(String(value))!
   }
 
   public static func -= (lhs: inout Tez, rhs: Tez) {
@@ -126,15 +114,8 @@ extension Tez: AdditiveArithmetic {
   }
 
   public static func - (lhs: Tez, rhs: Tez) -> Tez {
-    var newIntegerAmount = lhs.integerAmount - rhs.integerAmount
-    var newDecimalAmount = lhs.decimalAmount - rhs.decimalAmount
-
-    if newDecimalAmount < 0 {
-      newIntegerAmount -= 1
-      newDecimalAmount += BigInt((pow(10, Tez.decimalDigitCount) as NSDecimalNumber).intValue)
-    }
-
-    return Tez(integerAmount: newIntegerAmount, decimalAmount: newDecimalAmount)
+    let value = lhs.normalizedAmount - rhs.normalizedAmount
+    return Tez(String(value))!
   }
 
   public static func += (lhs: inout Tez, rhs: Tez) {
