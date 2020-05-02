@@ -21,6 +21,9 @@ final class MichelsonTests: XCTestCase {
   static let michelsonInt = IntMichelsonParameter(int: 42)
   static let expectedMichelsonIntEncoding = "{\"int\":\"42\"}"
 
+  static let michelsonNat = NatMichelsonParameter(int: 42)
+  static let expectedMichelsonNatEncoding = "{\"int\":\"42\"}"
+
   static let michelsonPair = PairMichelsonParameter(left: michelsonString, right: michelsonInt)
   static let expectedMichelsonPairEncoding =
     "{\"prim\":\"Pair\",\"args\":[\(expectedMichelsonStringEncoding),\(expectedMichelsonIntEncoding)]}"
@@ -81,6 +84,16 @@ final class MichelsonTests: XCTestCase {
     let michelson = MichelsonTests.michelsonInt
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonIntEncoding))
+  }
+
+  func testEncodeNatToJSON() {
+    let michelson = MichelsonTests.michelsonNat
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonNatEncoding))
+  }
+
+  func testNatInitializerFailsWithNegativeNumber() {
+    XCTAssertNil(NatMichelsonParameter(decimal: -1))
   }
 
   func testEncodePairToJSON() {
