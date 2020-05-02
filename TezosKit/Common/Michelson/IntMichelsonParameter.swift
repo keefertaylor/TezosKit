@@ -5,7 +5,7 @@ import Foundation
 
 /// A representation of an integer parameter in Michelson.
 public class IntMichelsonParameter: AbstractMichelsonParameter {
-  /// Initialize a represenation of an integer using an `Int`.
+  /// Initialize a representation of an integer using an `Int`.
   ///
   /// Note that the michelson int type is unbounded while `Int` values have bounded precision. Consider  using the `init(bigInt:annotations:)`
   /// to represent a full range of values.
@@ -13,7 +13,7 @@ public class IntMichelsonParameter: AbstractMichelsonParameter {
     self.init(string: String(int), annotations: annotations)
   }
 
-  /// Initialize a represenation of an integer using a `Decimal`.
+  /// Initialize a representation of an integer using a `Decimal`.
   ///
   /// Note that the michelson int type is unbounded while `Decimal` values have bounded precision. Consider  using the `init(bigInt:annotations:)`
   /// to represent a full range of values.
@@ -21,7 +21,7 @@ public class IntMichelsonParameter: AbstractMichelsonParameter {
     self.init(string: "\(decimal)", annotations: annotations)
   }
 
-  /// Initialize a represenation of an integer using an `BigInt`.
+  /// Initialize a representation of an integer using an `BigInt`.
   public convenience init(bigInt: BigInt, annotations: [MichelsonAnnotation]? = nil) {
     self.init(string: String(bigInt), annotations: annotations)
   }
