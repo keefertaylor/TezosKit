@@ -77,13 +77,13 @@ public class DefaultFeeProvider {
         gasLimit: 10_307,
         storageLimit: 257
       )
-	// TODO(keefertaylor): Something more sane here
-	case .origination:
-	  return OperationFees(
-		fee: Tez(0.001_284),
-		gasLimit: 10_200,
-		storageLimit: 257
-	  )
+    // TODO(keefertaylor): Something more sane here
+    case .origination:
+      return OperationFees(
+        fee: Tez(0.001_284),
+        gasLimit: 10_200,
+        storageLimit: 257
+      )
     }
   }
 
@@ -108,7 +108,7 @@ public class DefaultFeeProvider {
         gasLimit: 10_307,
         storageLimit: 257
       )
-	// TODO(keefertaylor): Something more sane here
+    // TODO(keefertaylor): Something more sane here
     case .origination:
       return OperationFees(
         fee: Tez(0.001_284),
