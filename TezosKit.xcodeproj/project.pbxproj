@@ -161,6 +161,7 @@
 		59F27929724F9EF92946A3FC /* GetOriginatedContractsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */; };
 		5AAA401A5BDA0FDE53C38EBC /* WalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1596A9E29DF24E63C454D2DD /* WalletTests.swift */; };
 		5B6FDDC02DC816C8A2910D3D /* DeviceWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2497E224817C5783D678009 /* DeviceWallet.swift */; };
+		5B7550BD3467502C7C1A2C45 /* SignatureMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE88D23BF6978E83A7EEDD23 /* SignatureMichelsonParameter.swift */; };
 		5B890ECF354B9F86749465BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F09693A9394BBB8038CDC63A /* Main.storyboard */; };
 		5B9C772D561E314CE6957CBD /* GetChainHeadRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4252DFDE63B35970A3B59A /* GetChainHeadRPCTest.swift */; };
 		5C243C48B85DBB99E58CE34C /* AbstractResponseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29024177105AD82662279805 /* AbstractResponseAdapter.swift */; };
@@ -261,6 +262,7 @@
 		8B41AC6DD12AF82644C3E88A /* ListMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CF04353F26D635E453CF11 /* ListMichelsonParameter.swift */; };
 		8B8CA3EF54C673DA42012EA7 /* NoneMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588112F5BDBF5213EB952EF1 /* NoneMichelsonParameter.swift */; };
 		8BE28CF8A5B3B2FD3C2D3781 /* SignedProtocolOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2FD2E17433D630AA933B5B /* SignedProtocolOperationPayload.swift */; };
+		8CC3D35DE5F0CE32C4D08674 /* AddressMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232745874D61049EC2FB541B /* AddressMichelsonParameter.swift */; };
 		8CF091BDFB42E3D5E901AFE7 /* PeriodKindResponseAdapterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33048AAA1D1966A1A89E409F /* PeriodKindResponseAdapterTest.swift */; };
 		8DB6E3EE6F04C2FF16A37338 /* MichelsonComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525C931C7CD120487B51DA9A /* MichelsonComparable.swift */; };
 		8DCB9187C5EBB48176D3220B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B3BE4BAECB893457A44FC1 /* TestHelpers.swift */; };
@@ -274,7 +276,9 @@
 		91A50FD1A526067E9A12F919 /* OperationMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE9708692F1E9BEFA4B1DA /* OperationMetadata.swift */; };
 		91F7DB335A6358E36BD62134 /* FakeObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4465D045474BB982821D86 /* FakeObjects.swift */; };
 		92813B3FAE81849626114B08 /* MichelsonAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F15CD865BE921BF9DF8CC0 /* MichelsonAnnotation.swift */; };
+		92A49FD37925F9532293BCB8 /* AddressMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232745874D61049EC2FB541B /* AddressMichelsonParameter.swift */; };
 		930578FE1ABD5693D559912F /* PublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4EFB572B203694CE5AD6B7 /* PublicKeyTests.swift */; };
+		930CFD8E2B497AE0DE8A6EFC /* SignatureMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE88D23BF6978E83A7EEDD23 /* SignatureMichelsonParameter.swift */; };
 		939548F15F97DC67E8274809 /* EllipticalCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB8C8A74A942774B715E706 /* EllipticalCurve.swift */; };
 		939A208F6EA5E1229B94B4F4 /* SecretKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E564AA5901EF3BB2FCF79397 /* SecretKeyTests.swift */; };
 		94C7392EDEF6750F9B766A89 /* PreapplyOperationRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC385B9CD31989369391F0B6 /* PreapplyOperationRPCTest.swift */; };
@@ -634,6 +638,7 @@
 		207E6BD1F08A190CAD16F7AA /* OperationFeePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFeePolicy.swift; sourceTree = "<group>"; };
 		21DD030C2ACB7856608B34BA /* SigningServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningServiceTests.swift; sourceTree = "<group>"; };
 		2319DB8D9848B66780D89EBB /* KeyChainWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainWallet.swift; sourceTree = "<group>"; };
+		232745874D61049EC2FB541B /* AddressMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressMichelsonParameter.swift; sourceTree = "<group>"; };
 		274BAF5E1A4B223F09042484 /* DexterExchangeClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexterExchangeClientTests.swift; sourceTree = "<group>"; };
 		274E2A45E6EB2DCA9A6D1E3F /* OperationWithCounterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationWithCounterTest.swift; sourceTree = "<group>"; };
 		29024177105AD82662279805 /* AbstractResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractResponseAdapter.swift; sourceTree = "<group>"; };
@@ -777,6 +782,7 @@
 		BC51B27A148DD74109FEB276 /* RunOperationRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPC.swift; sourceTree = "<group>"; };
 		BCD4318870B3E4FE3F27C60D /* Sodium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sodium.framework; sourceTree = "<group>"; };
 		BCF068374D26E5AD6CE93407 /* TezResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezResponseAdapter.swift; sourceTree = "<group>"; };
+		BE88D23BF6978E83A7EEDD23 /* SignatureMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureMichelsonParameter.swift; sourceTree = "<group>"; };
 		BF24BCDA4254C7A2D50F5728 /* ConseilQueryRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQueryRPC.swift; sourceTree = "<group>"; };
 		BFC366A9719F3F6D07093E37 /* GetBigMapValueByIDRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueByIDRPC.swift; sourceTree = "<group>"; };
 		C014CF988B5D6585A97BC0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -1173,6 +1179,7 @@
 			isa = PBXGroup;
 			children = (
 				6B8A19E59C8D7BEEA9368BE4 /* AbstractMichelsonParameter.swift */,
+				232745874D61049EC2FB541B /* AddressMichelsonParameter.swift */,
 				F04B3A5C6B64BB78285FD5F6 /* BoolMichelsonParameter.swift */,
 				AE3CEDF87CB74674EF5E2BB5 /* BytesMichelsonParameter.swift */,
 				1DC8C35C8541E0CBE377968D /* IntMichelsonParameter.swift */,
@@ -1185,6 +1192,7 @@
 				F7B9AE14DF5799CA2EEFDCD9 /* PairMichelsonParameter.swift */,
 				A6243223DA0B294EC6B575DF /* RawMichelineMichelsonParameter.swift */,
 				6400970C08C18B3CAD121530 /* RightMichelsonParameter.swift */,
+				BE88D23BF6978E83A7EEDD23 /* SignatureMichelsonParameter.swift */,
 				CB80D50511873CF9783361B4 /* SomeMichelsonParameter.swift */,
 				3CCF66588A24A65AA37CC90C /* StringMichelsonParameter.swift */,
 				D650111C52C89A65467CC889 /* UnitMichelsonParameter.swift */,
@@ -1858,6 +1866,7 @@
 				45FF7FCB7F2351BA549C6BDF /* AbstractOperation.swift in Sources */,
 				5C243C48B85DBB99E58CE34C /* AbstractResponseAdapter.swift in Sources */,
 				9DCFB0E5181C64B30B7C0260 /* Address.swift in Sources */,
+				92A49FD37925F9532293BCB8 /* AddressMichelsonParameter.swift in Sources */,
 				59A1BF03FDC7C2729B77469E /* Base58+TezosCrypto.swift in Sources */,
 				51019358C9044908CD8DAA42 /* BoolMichelsonParameter.swift in Sources */,
 				B975E1A393B383D03960996A /* BytesMichelsonParameter.swift in Sources */,
@@ -1954,6 +1963,7 @@
 				5DEEAC8A32D0CF8C7BB2D743 /* SHA256.swift in Sources */,
 				C3EDBCD5E67501AA5ED1EFFC /* SecretKey.swift in Sources */,
 				12A0424FB376EC5D310EAEDD /* SecureEnclaveWallet.swift in Sources */,
+				5B7550BD3467502C7C1A2C45 /* SignatureMichelsonParameter.swift in Sources */,
 				CD09D6ADC165E072F1941888 /* SignedOperationPayload.swift in Sources */,
 				8BE28CF8A5B3B2FD3C2D3781 /* SignedProtocolOperationPayload.swift in Sources */,
 				6A010379E6D6E1574A25E439 /* SigningService.swift in Sources */,
@@ -2083,6 +2093,7 @@
 				BF8368AEC93713FD0257CB2A /* AbstractOperation.swift in Sources */,
 				DE76843D18B4E20B091CFE2F /* AbstractResponseAdapter.swift in Sources */,
 				B03C7F8E33843942E97FCF88 /* Address.swift in Sources */,
+				8CC3D35DE5F0CE32C4D08674 /* AddressMichelsonParameter.swift in Sources */,
 				996D15B5EFC3C7EB7771BCC7 /* Base58+TezosCrypto.swift in Sources */,
 				E15E9B606007A7798D79926D /* BoolMichelsonParameter.swift in Sources */,
 				D7480678E5E575974B3692D7 /* BytesMichelsonParameter.swift in Sources */,
@@ -2179,6 +2190,7 @@
 				A8E2C59716E279D0984B5F75 /* SHA256.swift in Sources */,
 				FFECC5266FF384A624C13396 /* SecretKey.swift in Sources */,
 				50A376D5E41657DE31D49E4A /* SecureEnclaveWallet.swift in Sources */,
+				930CFD8E2B497AE0DE8A6EFC /* SignatureMichelsonParameter.swift in Sources */,
 				8F5F5CAA8F8726A3391FB576 /* SignedOperationPayload.swift in Sources */,
 				AE83DAF69E3ADD93C33F0B44 /* SignedProtocolOperationPayload.swift in Sources */,
 				3D0DFC6B5FED520A51FFA5ED /* SigningService.swift in Sources */,
