@@ -138,6 +138,7 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
 
     exchangeClient.tradeTezForToken(
       source: Wallet.testWallet.address,
+      destination: Wallet.testWallet.address,
       amount: Tez(5.0),
       operationFeePolicy: .estimate,
       signatureProvider: Wallet.testWallet,
@@ -164,6 +165,7 @@ class DexterExchangeClientIntegrationTests: XCTestCase {
 
     exchangeClient.tradeTokenForTez(
       source: Wallet.testWallet.address,
+      owner: Wallet.testWallet.address,
       destination: Wallet.testWallet.address,
       operationFeePolicy: .estimate,
       signatureProvider: Wallet.testWallet,

@@ -106,7 +106,7 @@ public class DexterExchangeClient {
       ),
       right: PairMichelsonParameter(
         left: IntMichelsonParameter(decimal: maxTokensDeposited),
-        right: StringMichelsonParameter(date: deadline)
+        right: DateMichelsonParameter(date: deadline)
       )
     )
 
@@ -161,7 +161,7 @@ public class DexterExchangeClient {
       ),
       right: PairMichelsonParameter(
         left: IntMichelsonParameter(decimal: minTokensToWithdraw),
-        right: StringMichelsonParameter(date: deadline)
+        right: DateMichelsonParameter(date: deadline)
       )
     )
 
@@ -190,7 +190,7 @@ public class DexterExchangeClient {
   ///   - completion: A completion block which will be called with the result hash, if successful.
   public func tradeTezForToken(
     source: Address,
-	destination: Address,
+	  destination: Address,
     amount: Tez,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
@@ -231,7 +231,7 @@ public class DexterExchangeClient {
         left: StringMichelsonParameter(string: destination),
         right: IntMichelsonParameter(decimal: minTokensToPurchase)
       ),
-      right: StringMichelsonParameter(date: deadline)
+      right: DateMichelsonParameter(date: deadline)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
@@ -257,7 +257,7 @@ public class DexterExchangeClient {
   ///   - completion: A completion block which will be called with the result hash, if successful.
   public func tradeTokenForTez(
     source: Address,
-	owner: Address,
+	  owner: Address,
     destination: Address,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
@@ -311,7 +311,7 @@ public class DexterExchangeClient {
           right: IntMichelsonParameter(decimal: minMutezToBuy)
         )
       ),
-      right: StringMichelsonParameter(date: deadline)
+      right: DateMichelsonParameter(date: deadline)
     )
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(

@@ -183,11 +183,13 @@ extension TezosNodeIntegrationTests {
     ).done { _ in
       XCTFail()
     } .catch { error in
-      guard let tezosKitError = error as? TezosKitError else {
+      guard
+        let tezosKitError = error as? TezosKitError,
+        case .transactionFormationFailure = tezosKitError
+      else {
         XCTFail()
         return
       }
-      XCTAssertEqual(tezosKitError.kind, .transactionFormationFailure)
       expectation.fulfill()
     }
 
