@@ -4,19 +4,47 @@ options:
 settings:
   LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS"
 targets:
-  TezosKit:
+  TezosKit_iOS:
     type: framework
-    platform: [iOS, macOS]
+    platform: iOS
     sources: [TezosKit, Extensions]
     deploymentTarget:
       iOS: 10.0
     scheme:
       testTargets:
-        - TezosKitTests_${platform}
+        - TezosKitTests_iOS
       gatherCoverageData: true
     postCompileScripts:
       - script: swiftlint autocorrect --config .swiftlint.yml
         name: SwiftLint
+    settings:
+      base:
+        PRODUCT_NAME: TezosKit        
+    dependencies:
+      - carthage: BigInt
+      - carthage: DTTJailbreakDetection
+      - carthage: Sodium
+      - carthage: CryptoSwift
+      - carthage: PromiseKit
+      - carthage: Base58Swift
+      - carthage: MnemonicKit
+      - carthage: secp256k1
+  TezosKit_macOS:
+    type: framework
+    platform: macOS
+    sources: [TezosKit, Extensions]
+    deploymentTarget:
+      iOS: 10.0
+    scheme:
+      testTargets:
+        - TezosKitTests_iOS
+      gatherCoverageData: true
+    postCompileScripts:
+      - script: swiftlint autocorrect --config .swiftlint.yml
+        name: SwiftLint
+    settings:
+      base:
+        PRODUCT_NAME: TezosKit
     dependencies:
       - carthage: BigInt
       - carthage: Sodium
@@ -44,4 +72,3 @@ targets:
     sources: [Examples/SecureEnclave]
     dependencies:
       - target: TezosKit_iOS
-
