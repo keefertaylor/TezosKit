@@ -1,6 +1,8 @@
 // Copyright Keefer Taylor, 2018
 
+import Base58Swift
 import Foundation
+import Sodium
 
 /// A model of a wallet in the Tezos ecosystem.
 ///
@@ -55,9 +57,9 @@ public struct Wallet {
   /// - Parameter
   ///   - secretKey: A base58check encoded secret key, prefixed with "edsk".
   ///   - signingCurve: The curve to use. Default is ed25519.
-  public init?(secretKey: String, signingCurve: EllipticalCurve = .ed25519) {
+  public init?(secretKey secretKeyBase58: String, signingCurve: EllipticalCurve = .ed25519) {
     guard
-      let secretKey = SecretKey(secretKey, signingCurve: signingCurve),
+      let secretKey = SecretKey(secretKeyBase58, signingCurve: signingCurve),
       let publicKey = PublicKey(secretKey: secretKey)
     else {
       return nil
@@ -65,6 +67,21 @@ public struct Wallet {
 
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey)
+  }
+
+  /// Create an ed25519 wallet from a  base58check encoded seed.
+  ///
+  /// - Parameter seedBase58: A base58check encoded secret key, prefixed with "edsk".
+  public init?(seedBase58: String) {
+    guard
+      let seedBytes = Base58.base58CheckDecodeWithPrefix(string: seed, prefix: Prefix.Keys.Ed25519.seed),
+      let keyPair = Sodium.shared.sign.keyPair(seed: seedBytes)
+    else {
+      return nil
+    }
+
+    let secretKeyBase58 = Base58.encode(message: keyPair.secretKey, prefix: Prefix.Keys.Ed25519.secret)
+    self.init(secretKey: secretKeyBase58, signingCurve: .ed25519)
   }
 
   /// Create a wallet with the given address and keys.

@@ -1,5 +1,6 @@
 // Copyright Keefer Taylor, 2018
 
+import Base58Swift
 @testable import TezosKit
 import XCTest
 
@@ -171,7 +172,7 @@ class WalletTests: XCTestCase {
     XCTAssertEqual(tz2Wallet.publicKey.signingCurve, .secp256k1)
   }
 
-  func testWalletGenerationCurvesWithSeed() {
+  func testWalletGenerationCurvesWithSecretKey() {
     let tz1SecretKey =
       "edskRw8ZJM3P3f81VnfChULCLh7KwhZMvp6rniDHNeEcQiNBevrTkwtzYwtqmEvbf5HJTQeb1WvTL5UUcsMjVh5RZArcRdXbQC"
     let tz2SecretKey =
@@ -186,5 +187,15 @@ class WalletTests: XCTestCase {
 
     XCTAssertEqual(tz1Wallet.publicKey.signingCurve, .ed25519)
     XCTAssertEqual(tz2Wallet.publicKey.signingCurve, .secp256k1)
+  }
+
+  func testWalletGenerationWithSeedBase58() {
+    let seedBase58 = "edsk3nMV659C4dfwF9e4ndh2jEpKDynrbMxXyxv57oMf4sRVfHcPZ2"
+    guard let wallet = Wallet(seedBase58: seedBase58) else {
+      XCTFail("Failed to generate wallet from seed")
+      return
+    }
+
+    XCTAssertEqual(wallet.address, "tz1fRQj5zC3h3sXWkjk2ko1N4Gdq8qV81jXV")
   }
 }
