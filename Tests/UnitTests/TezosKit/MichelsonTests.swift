@@ -91,7 +91,7 @@ final class MichelsonTests: XCTestCase {
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonSecretKeyEncoding))
   }
-  
+
   func testEncodeAddressToJSON() {
     let michelson = MichelsonTests.michelsonAddress
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
