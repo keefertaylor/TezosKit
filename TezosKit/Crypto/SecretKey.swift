@@ -119,7 +119,7 @@ public struct SecretKey {
   /// Sign the given hex encoded string with the given key.
   ///
   /// - Parameters:
-  ///   - hex: The hex string to sign.
+  ///   - bytes: The raw bytes to sign.
   ///   - secretKey: The secret key to sign with.
   /// - Returns: A signature from the input.
   public func sign(bytes: [UInt8]) -> [UInt8]? {

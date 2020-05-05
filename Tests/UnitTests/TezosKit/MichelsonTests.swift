@@ -12,8 +12,23 @@ final class MichelsonTests: XCTestCase {
   static let michelsonString = StringMichelsonParameter(string: "tezoskit")
   static let expectedMichelsonStringEncoding = "{\"string\":\"tezoskit\"}"
 
+  static let michelsonPublicKey = KeyMichelsonParameter(publicKey: FakePublicKey.testPublicKey)
+  static let expectedMichelsonPublicKeyEncoding = "{\"string\":\"\(FakePublicKey.testPublicKey.base58CheckRepresentation)\"}"
+
+  static let michelsonSecretKey = KeyMichelsonParameter(secretKey: .testSecretKey_ed25519)
+  static let expectedMichelsonSecretKeyEncoding = "{\"string\":\"\(SecretKey.testSecretKey_ed25519.base58CheckRepresentation)\"}"
+
+  static let michelsonAddress = AddressMichelsonParameter(address: "tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk")
+  static let expectedMichelsonAddressEncoding = "{\"string\":\"tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk\"}"
+
+  static let michelsonSignature = SignatureMichelsonParameter(signature: "spsig1DiJ56YwMVZGtwc7WSCXoyxdQJ9a4gcokkc3AHUeLMcTYYLRN7QaQs56ZMx6EX2oCtzNfJv7wj13UXYfNYir272qpbYDGG")
+  static let expectedMichelsonSignatureEncoding = "{\"string\":\"spsig1DiJ56YwMVZGtwc7WSCXoyxdQJ9a4gcokkc3AHUeLMcTYYLRN7QaQs56ZMx6EX2oCtzNfJv7wj13UXYfNYir272qpbYDGG\"}"
+
   static let michelsonInt = IntMichelsonParameter(int: 42)
   static let expectedMichelsonIntEncoding = "{\"int\":\"42\"}"
+
+  static let michelsonNat = NatMichelsonParameter(int: 42)
+  static let expectedMichelsonNatEncoding = "{\"int\":\"42\"}"
 
   static let michelsonPair = PairMichelsonParameter(left: michelsonString, right: michelsonInt)
   static let expectedMichelsonPairEncoding =
@@ -54,7 +69,7 @@ final class MichelsonTests: XCTestCase {
 
   func testEncodeDateToJSON() {
     let date = Date(timeIntervalSince1970: 1_593_453_621) // Monday, June 29, 2020 6:00:21 PM, GMT
-    let michelson = StringMichelsonParameter(date: date)
+    let michelson = Timestamp(date: date)
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString("{\"string\":\"2020-06-29T18:00:21Z\"}"))
   }
@@ -65,10 +80,44 @@ final class MichelsonTests: XCTestCase {
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonStringEncoding))
   }
 
+  func testEncodePublicKeyToJSON() {
+    let michelson = MichelsonTests.michelsonPublicKey
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonPublicKeyEncoding))
+  }
+
+  func testEncodeSecretKeyToJSON() {
+    let michelson = MichelsonTests.michelsonSecretKey
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonSecretKeyEncoding))
+  }
+  
+  func testEncodeAddressToJSON() {
+    let michelson = MichelsonTests.michelsonAddress
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonAddressEncoding))
+  }
+
+  func testEncodeSignatureToJSON() {
+    let michelson = MichelsonTests.michelsonSignature
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonSignatureEncoding))
+  }
+
   func testEncodeIntToJSON() {
     let michelson = MichelsonTests.michelsonInt
     let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
     XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonIntEncoding))
+  }
+
+  func testEncodeNatToJSON() {
+    let michelson = MichelsonTests.michelsonNat
+    let encoded = JSONUtils.jsonString(for: michelson.networkRepresentation)
+    XCTAssertEqual(encoded, Helpers.orderJSONString(MichelsonTests.expectedMichelsonNatEncoding))
+  }
+
+  func testNatInitializerFailsWithNegativeNumber() {
+    XCTAssertNil(NatMichelsonParameter(decimal: -1))
   }
 
   func testEncodePairToJSON() {

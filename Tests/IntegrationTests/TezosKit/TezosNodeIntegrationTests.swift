@@ -234,8 +234,11 @@ class TezosNodeIntegrationTests: XCTestCase {
     ) { result in
       switch result {
       case .failure(let error):
-        XCTAssertEqual(error.kind, .transactionFormationFailure)
-        expectation.fulfill()
+        guard case .transactionFormationFailure = error else {
+          XCTFail()
+          return
+        }
+       expectation.fulfill()
       case .success:
         XCTFail()
       }
