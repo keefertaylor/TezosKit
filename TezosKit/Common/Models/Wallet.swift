@@ -74,7 +74,7 @@ public struct Wallet {
   /// - Parameter seedBase58: A base58check encoded secret key, prefixed with "edsk".
   public init?(seedBase58: String) {
     guard
-      let seedBytes = Base58.base58CheckDecodeWithPrefix(string: seed, prefix: Prefix.Keys.Ed25519.seed),
+      let seedBytes = Base58.base58CheckDecodeWithPrefix(string: seedBase58, prefix: Prefix.Keys.Ed25519.seed),
       let keyPair = Sodium.shared.sign.keyPair(seed: seedBytes)
     else {
       return nil
