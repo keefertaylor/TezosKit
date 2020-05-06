@@ -34,9 +34,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7271E9FDF8CE0133691B2049"
+               BlueprintIdentifier = "52946DAA15AD57EF4099981F"
                BuildableName = "TezosKitTests.xctest"
-               BlueprintName = "TezosKitTests_iOS"
+               BlueprintName = "TezosKitTests_macOS"
                ReferencedContainer = "container:TezosKit.xcodeproj">
             </BuildableReference>
          </TestableReference>

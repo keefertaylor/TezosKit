@@ -19,7 +19,7 @@ targets:
         name: SwiftLint
     settings:
       base:
-        PRODUCT_NAME: TezosKit        
+        PRODUCT_NAME: TezosKit
     dependencies:
       - carthage: BigInt
       - carthage: DTTJailbreakDetection
@@ -33,11 +33,9 @@ targets:
     type: framework
     platform: macOS
     sources: [TezosKit, Extensions]
-    deploymentTarget:
-      iOS: 10.0
     scheme:
       testTargets:
-        - TezosKitTests_iOS
+        - TezosKitTests_macOS
       gatherCoverageData: true
     postCompileScripts:
       - script: swiftlint autocorrect --config .swiftlint.yml
