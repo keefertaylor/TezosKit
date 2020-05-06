@@ -8,6 +8,9 @@ import Sodium
 ///
 /// Clients can create a new wallet by calling the empty initializer. Clients can also restore an existing wallet by
 /// providing an mnemonic and optional passphrase.
+///
+/// - Note: This class *cannot* instantiate Tezos fundraiser style wallets (wallets which contain a mnemonic, email and a password). If you require
+///         this functionality please file an issue.
 public struct Wallet {
   /// Keys for the wallet.
   public let publicKey: PublicKeyProtocol
