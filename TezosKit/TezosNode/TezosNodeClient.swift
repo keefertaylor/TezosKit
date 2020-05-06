@@ -154,7 +154,7 @@ public class TezosNodeClient {
     injectionService = InjectionService(networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
 
-    self.dieOnJailbreak()
+    JailbreakUtils.crashIfJailbroken()
   }
 
   // MARK: - Queries
@@ -809,16 +809,6 @@ public class TezosNodeClient {
         return
       }
       self.injectionService.inject(payload: signedBytesForInjection, completion: completion)
-    }
-  }
-
-  /// Crash if the host device is jailbroken.
-  ///
-  /// Jailbroken device have no access control on root files, hence rendering the sandbox mode useless. This potentially exposes keys and can lead to loss
-  /// of funds.
-  private func dieOnJailbreak() {
-    if JailbreakUtils.isJailBroken() {
-      fatalError("Fatal error: Jailbreak detected on host device. Using TezosKit on a jailbroken device may expose your keys and lead to loss of funds.")
     }
   }
 }

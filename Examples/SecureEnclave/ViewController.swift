@@ -90,6 +90,10 @@ class ViewController: UIViewController {
     open.backgroundColor = .gray
     open.addTarget(self, action: #selector(openFn), for: .touchUpInside)
     self.view.addSubview(open)
+
+    let nodeURL = URL(string: "https://tezos-dev.cryptonomic-infra.tech")!
+    let nodeClient = TezosNodeClient(remoteNodeURL: nodeURL, callbackQueue: DispatchQueue(label: "tezosqueue"))
+    self.nodeClient = nodeClient
   }
 
   // MARK: - User Interaction
@@ -120,10 +124,7 @@ class ViewController: UIViewController {
       return
     }
 
-    let nodeURL = URL(string: "https://tezos-dev.cryptonomic-infra.tech")!
-    let nodeClient = TezosNodeClient(remoteNodeURL: nodeURL, callbackQueue: DispatchQueue(label: "tezosqueue"))
-    self.nodeClient = nodeClient
-    nodeClient.send(
+    nodeClient!.send(
       amount: Tez("1")!,
       to: "tz1NpWrAyDL9k2Lmnyxcgr9xuJakbBxdq7FB",
       from: self.address!,
