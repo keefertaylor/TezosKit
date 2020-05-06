@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "40B6FF29BF546CEDBE05C1E8"
-               BuildableName = "TezosKit_macOS.framework"
+               BuildableName = "TezosKit.framework"
                BlueprintName = "TezosKit_macOS"
                ReferencedContainer = "container:TezosKit.xcodeproj">
             </BuildableReference>
@@ -26,9 +26,17 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "NO"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "40B6FF29BF546CEDBE05C1E8"
+            BuildableName = "TezosKit.framework"
+            BlueprintName = "TezosKit_macOS"
+            ReferencedContainer = "container:TezosKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -41,17 +49,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "40B6FF29BF546CEDBE05C1E8"
-            BuildableName = "TezosKit_macOS.framework"
-            BlueprintName = "TezosKit_macOS"
-            ReferencedContainer = "container:TezosKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -67,13 +64,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40B6FF29BF546CEDBE05C1E8"
-            BuildableName = "TezosKit_macOS.framework"
+            BuildableName = "TezosKit.framework"
             BlueprintName = "TezosKit_macOS"
             ReferencedContainer = "container:TezosKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -86,13 +81,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40B6FF29BF546CEDBE05C1E8"
-            BuildableName = "TezosKit_macOS.framework"
+            BuildableName = "TezosKit.framework"
             BlueprintName = "TezosKit_macOS"
             ReferencedContainer = "container:TezosKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

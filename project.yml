@@ -8,8 +8,7 @@ targets:
     type: framework
     platform: iOS
     sources: [TezosKit, Extensions]
-    deploymentTarget:
-      iOS: 10.0
+    deploymentTarget: 10.0
     scheme:
       testTargets:
         - TezosKitTests_iOS
