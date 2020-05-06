@@ -64,14 +64,16 @@ public struct Tez {
   }
 
   /// Initialize a new balance from an RPC representation of a balance.
-  public init?(_ balance: String) {
+  ///
+  /// - Parameter mutez: A numeric string representing the amount of micro Tez.
+  public init?(_ mutez: String) {
     // Make sure the given string only contains digits.
-    guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: balance)) else {
+    guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: mutez)) else {
       return nil
     }
 
     // Pad small numbers with up to six zeros so that the below slicing works correctly
-    var paddedBalance = balance
+    var paddedBalance = mutez
     while paddedBalance.count < Tez.decimalDigitCount {
       paddedBalance = "0" + paddedBalance
     }

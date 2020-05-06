@@ -116,7 +116,7 @@ public struct SecretKey {
     return self.sign(bytes: bytes)
   }
 
-  /// Sign the given hex encoded string with the given key.
+  /// Sign the given bytes.
   ///
   /// - Parameters:
   ///   - bytes: The raw bytes to sign.
