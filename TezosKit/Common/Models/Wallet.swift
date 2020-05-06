@@ -9,6 +9,10 @@ import Sodium
 /// Clients can create a new wallet by calling the empty initializer. Clients can also restore an existing wallet by
 /// providing an mnemonic and optional passphrase.
 ///
+/// - Warning: This class stores a secret key in memory. It is possible that memory can be compromised and that the secret key can be read, even after this
+///            object is deallocated. For more information, see Apple's guidelines on password handling:
+///            https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/SecurityDevelopmentChecklists/SecurityDevelopmentChecklists.html#//apple_ref/doc/uid/TP40002415-CH1-SW6
+///
 /// - Note: This class *cannot* instantiate Tezos fundraiser style wallets (wallets which contain a mnemonic, email and a password). If you require
 ///         this functionality please file an issue.
 public struct Wallet {
