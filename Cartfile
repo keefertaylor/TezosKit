@@ -5,3 +5,4 @@ github "keefertaylor/MnemonicKit" ~> 1.3.11
 github "jedisct1/swift-sodium" ~> 0.8.0
 github "krzyzanowskim/CryptoSwift" ~> 1.3.0
 github "keefertaylor/secp256k1.swift" ~> 8.0.6
+github "thii/DTTJailbreakDetection" "master"

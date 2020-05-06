@@ -153,6 +153,8 @@ public class TezosNodeClient {
 
     injectionService = InjectionService(networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
+
+    JailbreakUtils.crashIfJailbroken()
   }
 
   // MARK: - Queries

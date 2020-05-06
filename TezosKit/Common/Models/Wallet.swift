@@ -1,11 +1,20 @@
 // Copyright Keefer Taylor, 2018
 
+import Base58Swift
 import Foundation
+import Sodium
 
 /// A model of a wallet in the Tezos ecosystem.
 ///
 /// Clients can create a new wallet by calling the empty initializer. Clients can also restore an existing wallet by
 /// providing an mnemonic and optional passphrase.
+///
+/// - Warning: This class stores a secret key in memory. It is possible that memory can be compromised and that the secret key can be read, even after this
+///            object is deallocated. For more information, see Apple's guidelines on password handling:
+///            https://developer.apple.com/library/archive/documentation/Security/Conceptual/SecureCodingGuide/SecurityDevelopmentChecklists/SecurityDevelopmentChecklists.html#//apple_ref/doc/uid/TP40002415-CH1-SW6
+///
+/// - Note: This class *cannot* instantiate Tezos fundraiser style wallets (wallets which contain a mnemonic, email and a password). If you require
+///         this functionality please file an issue.
 public struct Wallet {
   /// Keys for the wallet.
   public let publicKey: PublicKeyProtocol
@@ -55,9 +64,9 @@ public struct Wallet {
   /// - Parameter
   ///   - secretKey: A base58check encoded secret key, prefixed with "edsk".
   ///   - signingCurve: The curve to use. Default is ed25519.
-  public init?(secretKey: String, signingCurve: EllipticalCurve = .ed25519) {
+  public init?(secretKey secretKeyBase58: String, signingCurve: EllipticalCurve = .ed25519) {
     guard
-      let secretKey = SecretKey(secretKey, signingCurve: signingCurve),
+      let secretKey = SecretKey(secretKeyBase58, signingCurve: signingCurve),
       let publicKey = PublicKey(secretKey: secretKey)
     else {
       return nil
@@ -65,6 +74,21 @@ public struct Wallet {
 
     let address = publicKey.publicKeyHash
     self.init(address: address, publicKey: publicKey, secretKey: secretKey)
+  }
+
+  /// Create an ed25519 wallet from a  base58check encoded seed.
+  ///
+  /// - Parameter seedBase58: A base58check encoded secret key, prefixed with "edsk".
+  public init?(seedBase58: String) {
+    guard
+      let seedBytes = Base58.base58CheckDecodeWithPrefix(string: seedBase58, prefix: Prefix.Keys.Ed25519.seed),
+      let keyPair = Sodium.shared.sign.keyPair(seed: seedBytes)
+    else {
+      return nil
+    }
+
+    let secretKeyBase58 = Base58.encode(message: keyPair.secretKey, prefix: Prefix.Keys.Ed25519.secret)
+    self.init(secretKey: secretKeyBase58, signingCurve: .ed25519)
   }
 
   /// Create a wallet with the given address and keys.
@@ -77,6 +101,8 @@ public struct Wallet {
   ///   - secretKey: The secret key.
   ///   - mnemonic: An optional mnemonic used to generate the wallet.
   private init(address: Address, publicKey: PublicKey, secretKey: SecretKey, mnemonic: String? = nil) {
+    JailbreakUtils.crashIfJailbroken()
+
     self.secretKey = secretKey
     self.publicKey = publicKey
     self.address = address

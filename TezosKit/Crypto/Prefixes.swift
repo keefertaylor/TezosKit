@@ -12,6 +12,7 @@ public enum Prefix {
     public enum Ed25519 {
       public static let `public`: [UInt8] = [13, 15, 37, 217] // edpk
       public static let secret: [UInt8] = [43, 246, 78, 7]    // edsk
+      public static let seed: [UInt8] = [13, 15, 58, 7] // edsk
       public static let signature: [UInt8] = [9, 245, 205, 134, 18] // edsig
     }
 
