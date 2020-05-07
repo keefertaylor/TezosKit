@@ -95,7 +95,7 @@ public class ConseilClient {
     DispatchQueue.global(qos: .userInitiated).async {
     let transactionsDispatchGroup = DispatchGroup()
 
-    // Fetch sent transactions.
+    // Fetch received transactions.
     transactionsDispatchGroup.enter()
     var receivedResult: Result<[Transaction], TezosKitError>?
     self.transactionsReceived(from: account, limit: limit) { result in
@@ -103,16 +103,26 @@ public class ConseilClient {
       transactionsDispatchGroup.leave()
     }
 
-    // Fetch received transactions.
+    // Fetch sent transactions.
     transactionsDispatchGroup.enter()
     var sentResult: Result<[Transaction], TezosKitError>?
     self.transactionsSent(from: account, limit: limit) { result in
       sentResult = result
       transactionsDispatchGroup.leave()
     }
+
+    // Fetch received transactions from smart contracts.
+    transactionsDispatchGroup.enter()
+    var receivedFromSmartResult: Result<[Transaction], TezosKitError>?
+    self.transactionsReceivedFromSmartContracts(from: account, limit: limit) { result in
+      receivedFromSmartResult = result
+      transactionsDispatchGroup.leave()
+    }
+
     transactionsDispatchGroup.wait()
 
-    guard let combinedResult = ConseilClient.combine(receivedResult, sentResult) else {
+	guard let combinedResultTemp = ConseilClient.combine(receivedResult, sentResult),
+      let combinedResult = ConseilClient.combine(receivedFromSmartResult, combinedResultTemp) else {
       self.callbackQueue.async {
         completion(.failure(.unknown(description: nil)))
       }
@@ -121,7 +131,7 @@ public class ConseilClient {
     switch combinedResult {
     case .success(let combined):
       // Sort the combined results and trim down to the limit.
-      let sorted = combined.sorted { $0.timestamp < $1.timestamp }
+      let sorted = combined.sorted { $0.timestamp > $1.timestamp }
       let trimmed = Array(sorted.prefix(limit))
       self.callbackQueue.async {
         completion(.success(trimmed))
@@ -169,6 +179,24 @@ public class ConseilClient {
     )
     networkClient.send(rpc, completion: completion)
   }
+
+	/// An RPC which fetches received transactions for an account, that came from smart contracts. For example if an account reiceved some FA1.2 tokens
+	///
+	/// - Parameters:
+	///   - account: The account to query.
+	///   - limit: The number of transactions to return, defaults to 100.
+	///   - completion: A completion callback.
+	public func transactionsReceivedFromSmartContracts(
+		from account: String,
+		limit: Int = 100,
+		completion: @escaping (Result<[Transaction], TezosKitError>) -> Void
+	) {
+		let rpc = GetReceivedSmartContractTransactionsRPC(
+			account: account,
+			limit: limit
+		)
+		networkClient.send(rpc, completion: completion)
+	}
 
   // MARK: - Private Methods
 

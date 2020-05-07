@@ -375,6 +375,8 @@
 		BF58AA3718890216B35F94D1 /* SigningServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DD030C2ACB7856608B34BA /* SigningServiceTests.swift */; };
 		BF8368AEC93713FD0257CB2A /* AbstractOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BC48461432501639D06FD6 /* AbstractOperation.swift */; };
 		BFA57870FD2388EB6150946E /* NatMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4E74F690D954E7535B88EC /* NatMichelsonParameter.swift */; };
+		C00534C52464231A00D5E679 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00534C32464227500D5E679 /* GetRecievedSmartContractTransactionsRPC.swift */; };
+		C00534C62464231A00D5E679 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00534C32464227500D5E679 /* GetRecievedSmartContractTransactionsRPC.swift */; };
 		C0382A1E21312C3D3323732F /* BigInt.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7806BE5035AB3100BA7C791C /* BigInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C15CDCE9A538AB91764BCE7E /* LeftMichelsonParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18257A644A0B08F1E48E8808 /* LeftMichelsonParameter.swift */; };
 		C19A7D4FDB1130C27E6F64FB /* TezosKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09B07ABCB8334FE1706D29E /* TezosKit_macOS.framework */; };
@@ -625,7 +627,7 @@
 		009F72EE9B4FAB81EA63A88E /* OperationFees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFees.swift; sourceTree = "<group>"; };
 		01A461E89A11A327962A4232 /* SignedOperationPayloadTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOperationPayloadTest.swift; sourceTree = "<group>"; };
 		039C325259AE4DD3416B4F30 /* JSONArrayResponseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONArrayResponseAdapter.swift; sourceTree = "<group>"; };
-		03F182F3E55450A2C4C67477 /* TezosKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		03F182F3E55450A2C4C67477 /* TezosKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TezosKit_iOS.framework; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04781056C289A009489C072C /* OperationWithCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationWithCounter.swift; sourceTree = "<group>"; };
 		06027E9BA1340E098E769026 /* GetAddressDelegateRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressDelegateRPC.swift; sourceTree = "<group>"; };
 		0675B789B9F5EF98BC4E4568 /* GetReceivedTransactions.RPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReceivedTransactions.RPC.swift; sourceTree = "<group>"; };
@@ -771,7 +773,7 @@
 		9EA478BD897E8082B638E6E0 /* SecretKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretKey.swift; sourceTree = "<group>"; };
 		9F6AA3CAB521F463866CFB96 /* TezosNodeClient+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TezosNodeClient+Promises.swift"; sourceTree = "<group>"; };
 		A057E76CA636DDEE045ED59C /* OperationMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMetadataProvider.swift; sourceTree = "<group>"; };
-		A09B07ABCB8334FE1706D29E /* TezosKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TezosKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A09B07ABCB8334FE1706D29E /* TezosKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TezosKit_macOS.framework; path = TezosKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A82D9C70BEC192B4D73809 /* TezosNodeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TezosNodeClient.swift; sourceTree = "<group>"; };
 		A17556CA46001F8FB5DF8302 /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		A227FD388A5B50891D5C7FE1 /* RunOperationRPCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunOperationRPCTest.swift; sourceTree = "<group>"; };
@@ -808,6 +810,7 @@
 		BE88D23BF6978E83A7EEDD23 /* SignatureMichelsonParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureMichelsonParameter.swift; sourceTree = "<group>"; };
 		BF24BCDA4254C7A2D50F5728 /* ConseilQueryRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilQueryRPC.swift; sourceTree = "<group>"; };
 		BFC366A9719F3F6D07093E37 /* GetBigMapValueByIDRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBigMapValueByIDRPC.swift; sourceTree = "<group>"; };
+		C00534C32464227500D5E679 /* GetRecievedSmartContractTransactionsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecievedSmartContractTransactionsRPC.swift; sourceTree = "<group>"; };
 		C014CF988B5D6585A97BC0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C1968AE0A3A2B4DAD756FD72 /* ConseilClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConseilClientIntegrationTests.swift; sourceTree = "<group>"; };
 		C1FCF6EFDB51394D49E1479C /* PreapplicationServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreapplicationServiceTest.swift; sourceTree = "<group>"; };
@@ -1407,6 +1410,7 @@
 				7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */,
 				0675B789B9F5EF98BC4E4568 /* GetReceivedTransactions.RPC.swift */,
 				1564F45DEFBC0D755FAB0218 /* GetSentTransactionsRPC.swift */,
+				C00534C32464227500D5E679 /* GetRecievedSmartContractTransactionsRPC.swift */,
 				7B109A80330EB9E10F906C7E /* ResponseAdapters */,
 			);
 			path = RPC;
@@ -1674,14 +1678,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1020;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 719A796CF4303FCE1EA34089 /* Build configuration list for PBXProject "TezosKit" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				Base,
 			);
 			mainGroup = 40497E8417609B6A929D29D7;
@@ -1980,6 +1983,7 @@
 				D9B7A025A831DDD052838A2C /* OperationResponse.swift in Sources */,
 				346B3C1348BED784D82EF921 /* OperationWithCounter.swift in Sources */,
 				991D2C7E2C85AF62C0FFF390 /* OriginationOperation.swift in Sources */,
+				C00534C52464231A00D5E679 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */,
 				F71BD51C6A8C3F5CB182AE41 /* PackDataPayload.swift in Sources */,
 				FBC6C42F1CA1E2C3347610A9 /* PackDataRPC.swift in Sources */,
 				58C7A5EADB3679DB8A4CB288 /* PackDataResponseAdapter.swift in Sources */,
@@ -2213,6 +2217,7 @@
 				066EBDBDED05BEF21905F005 /* OperationResponse.swift in Sources */,
 				9C490216EE45DD3B2D5FA043 /* OperationWithCounter.swift in Sources */,
 				FC0DA3A41819419D14A44BC8 /* OriginationOperation.swift in Sources */,
+				C00534C62464231A00D5E679 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */,
 				32D4E01A8FC1F543D5488856 /* PackDataPayload.swift in Sources */,
 				874E720C50CA30079F31F127 /* PackDataRPC.swift in Sources */,
 				23845BE3533EAB49AF8FFB9C /* PackDataResponseAdapter.swift in Sources */,
@@ -2477,7 +2482,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2728,7 +2738,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
