@@ -7,7 +7,7 @@ public struct Transaction {
   public enum JSONKeys {
     public static let source = "source"
     public static let destination = "destination"
-	public static let delegate = "delegate"
+    public static let delegate = "delegate"
     public static let amount = "amount"
     public static let fee = "fee"
     public static let timestamp = "timestamp"
@@ -53,12 +53,12 @@ public struct Transaction {
     }
 
     let rawAmount = json[Transaction.JSONKeys.amount] as? Int
-	let amount = Tez(String(describing: rawAmount ?? 0))
+    let amount = Tez(String(describing: rawAmount ?? 0))
 
     self.init(
       source: source,
       destination: json[Transaction.JSONKeys.destination] as? String,
-	  delegate: json[Transaction.JSONKeys.delegate] as? String,
+      delegate: json[Transaction.JSONKeys.delegate] as? String,
       amount: amount ?? Tez.zeroBalance,
       fee: fee,
       timestamp: timestamp,
@@ -77,7 +77,7 @@ public struct Transaction {
   public init(
     source: Address,
     destination: Address?,
-	delegate: Address?,
+    delegate: Address?,
     amount: Tez,
     fee: Tez,
     timestamp: TimeInterval,
@@ -93,7 +93,7 @@ public struct Transaction {
   ) {
     self.source = source
     self.destination = destination
-	self.delegate = delegate
+    self.delegate = delegate
     self.amount = amount
     self.fee = fee
     self.timestamp = timestamp

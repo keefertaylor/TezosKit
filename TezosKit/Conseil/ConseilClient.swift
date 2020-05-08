@@ -180,7 +180,7 @@ public class ConseilClient {
     networkClient.send(rpc, completion: completion)
   }
 
-	/// An RPC which fetches received transactions for an account, that came from smart contracts. For example if an account reiceved some FA1.2 tokens
+	/// An RPC which fetches received transactions for an account, that came from smart contracts. For example if an account received some FA1.2 tokens
 	///
 	/// - Parameters:
 	///   - account: The account to query.
