@@ -24,6 +24,7 @@ public struct Transaction {
 
   public let source: Address
   public let destination: Address? // Destination is null in the case of transactions like delegation
+  // swiftlint:disable:next weak_delegate
   public let delegate: Address?
   public let amount: Tez
   public let fee: Tez
