@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TezosKit"
-  s.version      = "5.1.0"
+  s.version      = "5.2.0"
   s.summary      = "TezosKit provides a Swift based toolchain for interacting with the Tezos blockchain"
   s.description  = <<-DESC
   TezosKit provides utilities for interacting with the Tezos Blockchain over an RPC API.
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/keefertaylor/TezosKit"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Keefer Taylor" => "keefer@keefertaylor.com" }
-  s.source       = { :git => "https://github.com/keefertaylor/TezosKit.git", :tag => "5.1.0" }
+  s.source       = { :git => "https://github.com/keefertaylor/TezosKit.git", :tag => "5.2.0" }
   s.source_files  = "TezosKit/**/*.swift"
   s.swift_version = "5.1"
   s.ios.deployment_target = "10.0"
