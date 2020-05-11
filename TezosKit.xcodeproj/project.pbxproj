@@ -200,6 +200,7 @@
 		685B8D04ABE7F1B2CC0152B9 /* Sodium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F588414A4E9819AFC69197D /* Sodium.framework */; };
 		68EDC5143C1520CBEFB527EA /* SignedOperationPayloadTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A461E89A11A327962A4232 /* SignedOperationPayloadTest.swift */; };
 		68EE902B48CF6D7D19AC7E67 /* ForgingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2035C617A6D99FFB50ED1842 /* ForgingService.swift */; };
+		69970558B0F68B12891FB345 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60513482DBCB532BB4F993B3 /* GetRecievedSmartContractTransactionsRPC.swift */; };
 		69D1108BBFEF81261566FF65 /* GetBallotsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84952454AD66BD8E378047D /* GetBallotsRPC.swift */; };
 		6A010379E6D6E1574A25E439 /* SigningService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E035A6252AD79E6A4AAD1 /* SigningService.swift */; };
 		6AC4FC819BE657D545D58D65 /* TokenContractClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8CAB1EBF88156948D30F4 /* TokenContractClient.swift */; };
@@ -401,6 +402,7 @@
 		CB3AD1B74FA5EBE364B99D49 /* DexterExchangeClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F5DCCA68E890BE7185F769 /* DexterExchangeClientIntegrationTests.swift */; };
 		CBBFE369C8B642B4ED2FB7D0 /* GetAddressManagerKeyRPCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB03476DB47F37A923ABB15 /* GetAddressManagerKeyRPCTest.swift */; };
 		CD09D6ADC165E072F1941888 /* SignedOperationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A700A211C7AB1E92C5D7C3F4 /* SignedOperationPayload.swift */; };
+		CD76D62DAF7624F99DCB7BE9 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60513482DBCB532BB4F993B3 /* GetRecievedSmartContractTransactionsRPC.swift */; };
 		CD91A216AE335648B059C1C8 /* OperationMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057E76CA636DDEE045ED59C /* OperationMetadataProvider.swift */; };
 		CEBD84B8EFB1C8AC632BE650 /* TransactionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8230197EBFE429B4C99611 /* TransactionTest.swift */; };
 		D0504B3FFA0DF83B7DE3A235 /* RPCResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D884FB468334AB4A1BB1C6A /* RPCResponseHandler.swift */; };
@@ -704,6 +706,7 @@
 		5ADF6AC0E4147B4D778F38BB /* PackDataResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackDataResponseAdapterTest.swift; sourceTree = "<group>"; };
 		5BD174BFAC4ED4214E582E4D /* RPCResponseHandlerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCResponseHandlerTest.swift; sourceTree = "<group>"; };
 		5E2DD3668D2DD62AF8EDD738 /* TransactionsResponseAdapterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsResponseAdapterTest.swift; sourceTree = "<group>"; };
+		60513482DBCB532BB4F993B3 /* GetRecievedSmartContractTransactionsRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecievedSmartContractTransactionsRPC.swift; sourceTree = "<group>"; };
 		606292A7C4D50AD99EDC7208 /* ManagerContractClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerContractClient.swift; sourceTree = "<group>"; };
 		6067C4058BC42C52B64AF93A /* Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
 		60CCD5574FD830A21601E40E /* OriginationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginationOperation.swift; sourceTree = "<group>"; };
@@ -1406,6 +1409,7 @@
 				BF24BCDA4254C7A2D50F5728 /* ConseilQueryRPC.swift */,
 				7008A9105E3151B6B23496F1 /* GetOriginatedContractsRPC.swift */,
 				0675B789B9F5EF98BC4E4568 /* GetReceivedTransactions.RPC.swift */,
+				60513482DBCB532BB4F993B3 /* GetRecievedSmartContractTransactionsRPC.swift */,
 				1564F45DEFBC0D755FAB0218 /* GetSentTransactionsRPC.swift */,
 				7B109A80330EB9E10F906C7E /* ResponseAdapters */,
 			);
@@ -1941,6 +1945,7 @@
 				4FCF97E349053D21AE8E506E /* GetProposalUnderEvaluationRPC.swift in Sources */,
 				1625E43AF077065705ADBFFD /* GetProposalsListRPC.swift in Sources */,
 				ABAB89B9D4772B56744185DA /* GetReceivedTransactions.RPC.swift in Sources */,
+				69970558B0F68B12891FB345 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */,
 				40708A0C7052EF4251CD9BAC /* GetSentTransactionsRPC.swift in Sources */,
 				D2B18425D41696E86B26A322 /* GetVotingDelegateRightsRPC.swift in Sources */,
 				DC0009944D0F8DF693A323C0 /* Header.swift in Sources */,
@@ -2174,6 +2179,7 @@
 				DB6EA6FF18BEC9B88F56F40D /* GetProposalUnderEvaluationRPC.swift in Sources */,
 				88940D2D624897654210349C /* GetProposalsListRPC.swift in Sources */,
 				81E9D372DFF93EDC78B4A69A /* GetReceivedTransactions.RPC.swift in Sources */,
+				CD76D62DAF7624F99DCB7BE9 /* GetRecievedSmartContractTransactionsRPC.swift in Sources */,
 				77CF4AAA059852274EECC261 /* GetSentTransactionsRPC.swift in Sources */,
 				5784F09DB5EC30B20CA0F97C /* GetVotingDelegateRightsRPC.swift in Sources */,
 				182FFFF06C61C8B6624FFAF9 /* Header.swift in Sources */,

@@ -14,6 +14,8 @@ final class TransactionTest: XCTestCase {
     let blockLevel = 323_100
     let operationGroupHash = "opMiJzXJV8nKWy7VTLh2yxFL8yUGDpVkvnbA5hUwj9dSnpMEEMa"
     let operationID = 1_511_646
+    let kind = "transaction"
+    let status = "applied"
 
     let jsonDict: [String: Any] = [
       Transaction.JSONKeys.source: source,
@@ -24,7 +26,9 @@ final class TransactionTest: XCTestCase {
       Transaction.JSONKeys.blockHash: blockHash,
       Transaction.JSONKeys.blockLevel: blockLevel,
       Transaction.JSONKeys.operationGroupHash: operationGroupHash,
-      Transaction.JSONKeys.operationID: operationID
+      Transaction.JSONKeys.operationID: operationID,
+      Transaction.JSONKeys.kind: kind,
+      Transaction.JSONKeys.status: status
     ]
 
     guard let transaction = Transaction(jsonDict) else {

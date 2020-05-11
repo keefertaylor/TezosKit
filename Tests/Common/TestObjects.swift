@@ -104,6 +104,7 @@ extension Transaction {
   public static let testTransaction = Transaction(
     source: "tz1MXFrtZoaXckE41bjUCSjAjAap3AFDSr3N",
     destination: "tz1W1en9UpMCH4ZJL8wQCh8JDKCZARyVx2co",
+    delegate: nil,
     amount: Tez(1.0),
     fee: Tez(2.0),
     timestamp: 1_234_567,
@@ -111,7 +112,11 @@ extension Transaction {
     blockLevel: 323_100,
     operationGroupHash: "opMiJzXJV8nKWy7VTLh2yxFL8yUGDpVkvnbA5hUwj9dSnpMEEMa",
     operationID: 1_511_646,
-    parameters: nil
+    parameters: nil,
+    parametersMicheline: nil,
+    parametersEntrypoints: nil,
+    kind: "transaction",
+    status: "applied"
   )
 }
 
