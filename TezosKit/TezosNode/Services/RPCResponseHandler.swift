@@ -41,7 +41,7 @@ public class RPCResponseHandler {
     // TODO(keefertaylor): Add a test for this logic.
     do {
       let operationResult = try JSONDecoder().decode(OperationResponse.self, from: data)
-      if operationResult.isBacktracked() {
+      if operationResult.isFailed() {
         return .failure(.operationError(operationResult.errors()))
       }
     } catch {
