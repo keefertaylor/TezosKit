@@ -12,9 +12,9 @@ struct OperationResponse: Codable {
   let contents: [OperationResponseContent]
 
   /// Check if the operation(s) has been backtracked or reversed due to a failure
-  func isBacktracked() -> Bool {
+  func isFailed() -> Bool {
     for content in contents {
-      if content.metadata.operationResult.status == "backtracked" {
+      if content.metadata.operationResult.status == "backtracked" || content.metadata.operationResult.status == "failed" {
         return true
       }
     }
@@ -27,9 +27,15 @@ struct OperationResponse: Codable {
     var errors: [OperationResponseInternalResultError] = []
 
     for content in contents {
-      for internalResult in content.metadata.internalOperationResults {
-        if let error = internalResult.result.errors?.last {
-          errors.append(error)
+      if let operationError = content.metadata.operationResult.errors?.last {
+        errors.append(operationError)
+      }
+
+      if let internalOperationResults = content.metadata.internalOperationResults {
+        for internalResult in internalOperationResults {
+          if let error = internalResult.result.errors?.last {
+            errors.append(error)
+          }
         }
       }
     }
@@ -46,7 +52,7 @@ struct OperationResponseContent: Codable {
 
 struct OperationResponseMetadata: Codable {
   let operationResult: OperationResponseResult
-  let internalOperationResults: [OperationResponseInternalOperation]
+  let internalOperationResults: [OperationResponseInternalOperation]?
 
   private enum CodingKeys: String, CodingKey {
     case operationResult = "operation_result"
@@ -56,13 +62,15 @@ struct OperationResponseMetadata: Codable {
 
 struct OperationResponseResult: Codable {
   let status: String
-  let consumedGas: String
-  let storageSize: String
+  let consumedGas: String?
+  let storageSize: String?
+  let errors: [OperationResponseInternalResultError]?
 
   private enum CodingKeys: String, CodingKey {
     case status
     case consumedGas = "consumed_gas"
     case storageSize = "storage_size"
+    case errors
   }
 }
 
