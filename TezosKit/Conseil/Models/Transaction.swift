@@ -27,7 +27,7 @@ public struct Transaction {
   // swiftlint:disable:next weak_delegate
   public let delegate: Address?
   public let amount: Tez
-  public let fee: Tez
+  public let fee: Tez?
   public let timestamp: TimeInterval
   public let blockHash: String
   public let blockLevel: Int
@@ -41,8 +41,6 @@ public struct Transaction {
 
   public init?(_ json: [String: Any]) {
     guard let source = json[Transaction.JSONKeys.source] as? String,
-          let rawFee = json[Transaction.JSONKeys.fee] as? Int,
-          let fee = Tez(String(describing: rawFee)),
           let timestamp = json[Transaction.JSONKeys.timestamp] as? TimeInterval,
           let blockHash = json[Transaction.JSONKeys.blockHash] as? String,
           let operationGroupHash = json[Transaction.JSONKeys.operationGroupHash] as? String,
@@ -53,6 +51,8 @@ public struct Transaction {
             return nil
     }
 
+	let rawFee = json[Transaction.JSONKeys.fee] as? Int
+	let fee = Tez(String(describing: rawFee ?? 0))
     let rawAmount = json[Transaction.JSONKeys.amount] as? Int
     let amount = Tez(String(describing: rawAmount ?? 0))
 
@@ -80,7 +80,7 @@ public struct Transaction {
     destination: Address?,
     delegate: Address?,
     amount: Tez,
-    fee: Tez,
+    fee: Tez?,
     timestamp: TimeInterval,
     blockHash: String,
     blockLevel: Int,
