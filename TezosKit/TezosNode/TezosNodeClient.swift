@@ -153,7 +153,9 @@ public class TezosNodeClient {
 
     injectionService = InjectionService(networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
-
+  }
+  
+  public static func crashIfJailbroken() {
     JailbreakUtils.crashIfJailbroken()
   }
 

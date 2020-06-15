@@ -50,9 +50,9 @@ public struct Transaction {
           let status = json[Transaction.JSONKeys.status] as? String else {
             return nil
     }
-
-	let rawFee = json[Transaction.JSONKeys.fee] as? Int
-	let fee = Tez(String(describing: rawFee ?? 0))
+    
+    let rawFee = json[Transaction.JSONKeys.fee] as? Int
+    let fee = Tez(String(describing: rawFee ?? 0))
     let rawAmount = json[Transaction.JSONKeys.amount] as? Int
     let amount = Tez(String(describing: rawAmount ?? 0))
 

@@ -101,12 +101,14 @@ public struct Wallet {
   ///   - secretKey: The secret key.
   ///   - mnemonic: An optional mnemonic used to generate the wallet.
   private init(address: Address, publicKey: PublicKey, secretKey: SecretKey, mnemonic: String? = nil) {
-    JailbreakUtils.crashIfJailbroken()
-
     self.secretKey = secretKey
     self.publicKey = publicKey
     self.address = address
     self.mnemonic = mnemonic
+  }
+  
+  public static func crashIfJailbroken() {
+    JailbreakUtils.crashIfJailbroken()
   }
 }
 
