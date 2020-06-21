@@ -126,6 +126,7 @@ public class NetworkClientImpl: NetworkClient {
       }
 
       Logger.shared.log("<<<<<< Response", level: .debug)
+      Logger.shared.log("Endpoint: \(remoteNodeEndpoint)", level: .debug)
       if
         let data = data,
         let stringifiedData = String(data: data, encoding: .utf8)
