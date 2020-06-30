@@ -457,7 +457,7 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider
   ) -> Promise<String> {
     return Promise { seal in
-      forgeSignPreapplyAndInject([operation], source: source, signatureProvider: signatureProvider) { result in
+      forgeParseSignPreapplyAndInject([operation], source: source, signatureProvider: signatureProvider) { result in
         switch result {
         case .success(let data):
           seal.fulfill(data)
@@ -483,7 +483,7 @@ extension TezosNodeClient {
     signatureProvider: SignatureProvider
   ) -> Promise<String> {
     return Promise { seal in
-      forgeSignPreapplyAndInject(operations, source: source, signatureProvider: signatureProvider) { result in
+      forgeParseSignPreapplyAndInject(operations, source: source, signatureProvider: signatureProvider) { result in
         switch result {
         case .success(let data):
           seal.fulfill(data)

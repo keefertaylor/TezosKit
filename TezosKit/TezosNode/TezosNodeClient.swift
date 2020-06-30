@@ -77,6 +77,9 @@ public class TezosNodeClient {
   /// A service which forges operations.
   internal let forgingService: ForgingService
 
+  /// A service which parses operations.
+  internal let parsingService: ParsingService
+
   /// The network client.
   internal let networkClient: NetworkClient
 
@@ -99,12 +102,14 @@ public class TezosNodeClient {
   ///
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node, defaults to the default URL
+  ///   - remoteNodeParseURL: The path to the remote node used to parse the contents of forged operations.
   ///   - tezosProtocol: The protocol version to use, defaults to Carthage.
   ///   - forgingPolicy: The policy to apply when forging operations. Default is remote.
   ///   - urlSession: The URLSession that will manage network requests, defaults to the shared session.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on, defaults to the main queue.
   public convenience init(
     remoteNodeURL: URL = defaultNodeURL,
+    remoteNodeParseURL: URL? = nil,
     tezosProtocol: TezosProtocol = .carthage,
     forgingPolicy: ForgingPolicy = .remote,
     urlSession: URLSession = URLSession.shared,
@@ -112,6 +117,7 @@ public class TezosNodeClient {
   ) {
     let networkClient = NetworkClientImpl(
       remoteNodeURL: remoteNodeURL,
+      remoteNodeParseURL: remoteNodeParseURL ?? remoteNodeURL,
       urlSession: urlSession,
       callbackQueue: callbackQueue,
       responseHandler: RPCResponseHandler()
@@ -136,6 +142,7 @@ public class TezosNodeClient {
     self.callbackQueue = callbackQueue
 
     forgingService = ForgingService(forgingPolicy: forgingPolicy, networkClient: networkClient)
+    parsingService = ParsingService(networkClient: networkClient)
     operationMetadataProvider = OperationMetadataProvider(networkClient: networkClient)
 
     simulationService = SimulationService(
@@ -154,7 +161,7 @@ public class TezosNodeClient {
     injectionService = InjectionService(networkClient: networkClient)
     preapplicationService = PreapplicationService(networkClient: networkClient)
 
-    JailbreakUtils.crashIfJailbroken()
+    //JailbreakUtils.crashIfJailbroken()
   }
 
   // MARK: - Queries
@@ -384,7 +391,7 @@ public class TezosNodeClient {
 
     switch result {
     case .success(let transactionOperation):
-      forgeSignPreapplyAndInject(
+      forgeParseSignPreapplyAndInject(
         transactionOperation,
         source: source,
         signatureProvider: signatureProvider,
@@ -466,7 +473,7 @@ public class TezosNodeClient {
 
     switch result {
     case .success(let smartContractInvocationOperation):
-      forgeSignPreapplyAndInject(
+      forgeParseSignPreapplyAndInject(
         smartContractInvocationOperation,
         source: source,
         signatureProvider: signatureProvider,
@@ -533,7 +540,7 @@ public class TezosNodeClient {
 
     switch result {
     case .success(let delegationOperation):
-      forgeSignPreapplyAndInject(
+      forgeParseSignPreapplyAndInject(
         delegationOperation,
         source: source,
         signatureProvider: signatureProvider,
@@ -591,7 +598,7 @@ public class TezosNodeClient {
 
     switch result {
     case .success(let undelegateOperation):
-      forgeSignPreapplyAndInject(
+      forgeParseSignPreapplyAndInject(
         undelegateOperation,
         source: source,
         signatureProvider: signatureProvider,
@@ -653,7 +660,7 @@ public class TezosNodeClient {
 
     switch result {
     case .success(let registerDelegateOperation):
-      forgeSignPreapplyAndInject(
+      forgeParseSignPreapplyAndInject(
         registerDelegateOperation,
         source: delegate,
         signatureProvider: signatureProvider,
@@ -682,20 +689,20 @@ public class TezosNodeClient {
 
   // MARK: - Private Methods
 
-  /// Forge, sign, preapply and then inject a single operation.
+  /// Forge, parse, sign, preapply and then inject a single operation.
   ///
   /// - Parameters:
   ///   - operation: The operation which will be used to forge the operation.
   ///   - source: The address performing the operation.
   ///   - signatureProvider: The object which will sign the operation.
   ///   - completion: A completion block that will be called with the results of the operation.
-  public func forgeSignPreapplyAndInject(
+  public func forgeParseSignPreapplyAndInject(
     _ operation: Operation,
     source: Address,
     signatureProvider: SignatureProvider,
     completion: @escaping (Result<String, TezosKitError>) -> Void
   ) {
-    forgeSignPreapplyAndInject(
+    forgeParseSignPreapplyAndInject(
       [operation],
       source: source,
       signatureProvider: signatureProvider,
@@ -703,7 +710,7 @@ public class TezosNodeClient {
     )
   }
 
-  /// Forge, sign, preapply and then inject a set of operations.
+  /// Forge, parse, sign, preapply and then inject a set of operations.
   ///
   /// Operations are processed in the order they are placed in the operation array.
   ///
@@ -712,7 +719,7 @@ public class TezosNodeClient {
   ///   - source: The address performing the operation.
   ///   - signatureProvider: The object which will sign the operation.
   ///   - completion: A completion block that will be called with the results of the operation.
-  public func forgeSignPreapplyAndInject(
+  public func forgeParseSignPreapplyAndInject(
     _ operations: [Operation],
     source: Address,
     signatureProvider: SignatureProvider,
@@ -751,15 +758,45 @@ public class TezosNodeClient {
           )
           return
         }
-        self.signPreapplyAndInjectOperation(
-          operationPayload: operationPayload,
-          operationMetadata: operationMetadata,
-          forgeResult: forgedBytes,
-          source: source,
-          signatureProvider: signatureProvider,
-          completion: completion
-        )
+
+        self.parseAndCompare(hash: forgedBytes, operationMetadata: operationMetadata, operations: operations) { [weak self] (result) in
+          if case .failure(let error) = result {
+            completion(Result.failure(error))
+            return
+          }
+          
+          self?.signPreapplyAndInjectOperation(
+            operationPayload: operationPayload,
+            operationMetadata: operationMetadata,
+            forgeResult: forgedBytes,
+            source: source,
+            signatureProvider: signatureProvider,
+            completion: completion
+          )
+        }
       }
+    }
+  }
+
+  /// Ask the tezos node to parse the return block hash and compare with our local copy to ensure it has not been tampered with. This should be performed on a different server
+  ///
+  /// - Parameters:
+  ///   - hash: The returned hash from the forge operation.
+  ///   - operationMetadata: Metadata related to the operation.
+  ///   - operations: The array of operations to compare the parsed hash too.
+  ///   - completion: A completion block that will be called with the results of the comparision.
+  private func parseAndCompare(hash: String, operationMetadata: OperationMetadata, operations: [Operation], completion: @escaping ((Result<Bool, TezosKitError>) -> Void)) {
+    
+    // Remove first 32 bytes (64 characters), to remove branch and block hash
+    let stringIndex = hash.index(hash.startIndex, offsetBy: 64)
+    let stripped = hash[stringIndex..<hash.endIndex]
+
+    // Add 128 zeros (64 zero bytes) for empty signature (its not checked)
+    let padded = String(stripped).appending(String(repeating: "0", count: 128))
+    
+    // Use the Tezos node (ideally a different server) to confirm the returned forge hasn't bene tampered with
+    parsingService.parse(hashToParse: padded, operationsToMatch: operations, operationMetadata: operationMetadata) { (result) in
+      completion(result)
     }
   }
 

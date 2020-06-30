@@ -60,7 +60,7 @@ public class TokenContractClient {
 
     switch result {
       case .success(let op):
-        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+        tezosNodeClient.forgeParseSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
       case .failure(let error):
         completion(Result.failure(error))
     }
@@ -121,7 +121,7 @@ public class TokenContractClient {
 
     switch result {
       case .success(let op):
-        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+        tezosNodeClient.forgeParseSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
       case .failure(let error):
         completion(Result.failure(error))
     }
@@ -175,8 +175,9 @@ public class TokenContractClient {
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider
   ) -> Result<[TezosKit.Operation], TezosKitError> {
+    
     let approveOperation = approveAllowanceOperation(source: source, spender: spender, allowance: numTokens, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider)
-	let transferOperation = transferTokensOperation(from: source, to: destination, numTokens: numTokens, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider)
+    let transferOperation = transferTokensOperation(from: source, to: destination, numTokens: numTokens, operationFeePolicy: operationFeePolicy, signatureProvider: signatureProvider)
 
     if case .success(let approveOp) = approveOperation, case .success(let transferOp) = transferOperation {
       return Result.success([approveOp, transferOp])

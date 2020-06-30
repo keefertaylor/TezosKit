@@ -36,11 +36,15 @@ public struct Tez {
   public var rpcRepresentation: String {
     // Trim any leading zeroes by converting to an Int.
     let intermediateString = String(normalizedAmount)
-    return intermediateString.replacingOccurrences(
-      of: "^0+",
-      with: "",
-      options: .regularExpression
-    )
+    let santizedString = intermediateString.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+    
+    // When implementing the RPC parse function, returning an empty string causes mismatches.
+    // The Tezos node will replace empty strings with "0", as it always expects a value to be present
+    if santizedString == "" {
+      return "0"
+    }
+    
+    return santizedString
   }
 
   /// Initialize a new balance from a given decimal number.

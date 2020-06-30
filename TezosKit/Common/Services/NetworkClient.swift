@@ -40,6 +40,9 @@ public class NetworkClientImpl: NetworkClient {
   /// A URL pointing to a remote node that will handle requests made by this client.
   private let remoteNodeURL: URL
 
+  /// A URL pointing to a remote node that will be used to parse the output of remote forges to ensure the accuracy of the contents
+  private let remoteNodeParseURL: URL
+
   /// Headers which will be added to every request.
   private let headers: [Header]
 
@@ -52,18 +55,21 @@ public class NetworkClientImpl: NetworkClient {
   /// Initialize a new AbstractNetworkClient.
   /// - Parameters:
   ///   - remoteNodeURL: The path to the remote node.
+  ///   - remoteNodeParseURL: The path to the remote node used to parse the contents of forged operations.
   ///   - urlSession: The URLSession that will manage network requests.
   ///   - headers: Headers which will be added to every request.
   ///   - callbackQueue: A dispatch queue that callbacks will be made on.
   ///   - responseHandler: An object which will handle responses.
   public init(
     remoteNodeURL: URL,
+    remoteNodeParseURL: URL,
     urlSession: URLSession,
     headers: [Header] = [],
     callbackQueue: DispatchQueue,
     responseHandler: RPCResponseHandler
   ) {
     self.remoteNodeURL = remoteNodeURL
+    self.remoteNodeParseURL = remoteNodeParseURL
     self.urlSession = urlSession
     self.headers = headers
     self.callbackQueue = callbackQueue
@@ -86,7 +92,12 @@ public class NetworkClientImpl: NetworkClient {
     // provided.
     let completionQueue = callbackQueue ?? self.callbackQueue
 
-    let remoteNodeEndpoint = remoteNodeURL.appendingPathComponent(rpc.endpoint)
+    var remoteNodeEndpoint = remoteNodeURL
+    if rpc is ParseOperationRPC {
+      remoteNodeEndpoint = remoteNodeParseURL
+    }
+    
+    remoteNodeEndpoint = remoteNodeEndpoint.appendingPathComponent(rpc.endpoint)
     var urlRequest = URLRequest(url: remoteNodeEndpoint)
 
     Logger.shared.log(">>>>>> Request", level: .debug)

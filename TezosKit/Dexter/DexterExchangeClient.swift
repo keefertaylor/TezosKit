@@ -202,7 +202,7 @@ public class DexterExchangeClient {
 
     switch result {
       case .success(let op):
-        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+        tezosNodeClient.forgeParseSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
       case .failure(let error):
         completion(Result.failure(error))
     }
@@ -219,7 +219,7 @@ public class DexterExchangeClient {
   ///   - completion: A completion block which will be called with the result hash, if successful.
   public func tradeTezForTokenOperation(
     source: Address,
-	destination: Address,
+    destination: Address,
     amount: Tez,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
@@ -270,7 +270,7 @@ public class DexterExchangeClient {
 
     switch result {
       case .success(let op):
-        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+        tezosNodeClient.forgeParseSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
       case .failure(let error):
         completion(Result.failure(error))
     }
