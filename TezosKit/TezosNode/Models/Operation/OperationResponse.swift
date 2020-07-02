@@ -97,5 +97,6 @@ public struct OperationResponseInternalResultError: Codable, Equatable {
 }
 
 public struct OperationResponseInternalResultErrorWith: Codable, Equatable {
-  public let string: String
+  public let string: String?
+  public let args: [[String: String]]?
 }
