@@ -759,7 +759,7 @@ public class TezosNodeClient {
           return
         }
 
-        self.parseAndCompare(hash: forgedBytes, operationMetadata: operationMetadata, operations: operations) { [weak self] (result) in
+        self.parseAndCompare(hash: forgedBytes, operationMetadata: operationMetadata, operationPayload: operationPayload) { [weak self] (result) in
           if case .failure(let error) = result {
             completion(Result.failure(error))
             return
@@ -785,7 +785,7 @@ public class TezosNodeClient {
   ///   - operationMetadata: Metadata related to the operation.
   ///   - operations: The array of operations to compare the parsed hash too.
   ///   - completion: A completion block that will be called with the results of the comparision.
-  private func parseAndCompare(hash: String, operationMetadata: OperationMetadata, operations: [Operation], completion: @escaping ((Result<Bool, TezosKitError>) -> Void)) {
+  private func parseAndCompare(hash: String, operationMetadata: OperationMetadata, operationPayload: OperationPayload, completion: @escaping ((Result<Bool, TezosKitError>) -> Void)) {
     
     // Remove first 32 bytes (64 characters), to remove branch and block hash
     let stringIndex = hash.index(hash.startIndex, offsetBy: 64)
@@ -795,7 +795,7 @@ public class TezosNodeClient {
     let padded = String(stripped).appending(String(repeating: "0", count: 128))
     
     // Use the Tezos node (ideally a different server) to confirm the returned forge hasn't bene tampered with
-    parsingService.parse(hashToParse: padded, operationsToMatch: operations, operationMetadata: operationMetadata) { (result) in
+    parsingService.parse(hashToParse: padded, operationPayload: operationPayload, operationMetadata: operationMetadata) { (result) in
       completion(result)
     }
   }

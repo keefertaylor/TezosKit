@@ -27,14 +27,14 @@ public class ParsingService {
     parsingServiceQueue = DispatchQueue(label: ParsingService.queueIdentifier)
   }
 
-  public func parse(hashToParse: String, operationsToMatch: [Operation], operationMetadata: OperationMetadata, completion: @escaping ((Result<Bool, TezosKitError> ) -> Void)) {
+  public func parse(hashToParse: String, operationPayload: OperationPayload, operationMetadata: OperationMetadata, completion: @escaping ((Result<Bool, TezosKitError> ) -> Void)) {
 
     let rpc = ParseOperationRPC(hashToParse: hashToParse, operationMetadata: operationMetadata)
     networkClient.send(rpc) { [weak self] (result) in
-
+		
       switch result {
         case .success(let jsonArray):
-          if let comparisonResult = self?.compare(jsonArray: jsonArray, toOperations: operationsToMatch), comparisonResult {
+          if let comparisonResult = self?.compare(jsonArray: jsonArray, toOperationPayload: operationPayload), comparisonResult {
             completion(Result.success(true))
 
           } else {
@@ -47,32 +47,18 @@ public class ParsingService {
     }
   }
 
-  private func compare(jsonArray: [[String: Any]], toOperations operations: [Operation]) -> Bool {
-    guard let contents = jsonArray.first?["contents"] as? [[String: Any]] else {
+  private func compare(jsonArray: [[String: Any]], toOperationPayload operationPayload: OperationPayload) -> Bool {
+    guard let dict = jsonArray.first as? [String: Any] else {
       return false
     }
-
-    if contents.count != operations.count {
-      return false
-    }
-
-    var validMatches = 0
-
-    // cycle through each json object returned, and compare to the dictionary representation of the operations
-    outerloop: for dict in contents {
-      for op in operations {
-        
-        // Operation objects won't have a counter, so remove it from the network JSON before comparing
-        var sanitizedDict = dict
-        sanitizedDict.removeValue(forKey: "counter")
-        
-        if (sanitizedDict as NSDictionary).isEqual(op.dictionaryRepresentation) {
-          validMatches += 1
-          continue outerloop
-        }
-      }
-    }
-
-    return validMatches == operations.count
+	
+	var sanitizedDict = dict
+	sanitizedDict.removeValue(forKey: "signature")
+	
+	if (sanitizedDict as NSDictionary).isEqual(operationPayload.dictionaryRepresentation) {
+		return true
+	}
+	
+	return false
   }
 }
