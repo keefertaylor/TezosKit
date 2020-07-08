@@ -83,12 +83,12 @@ public class TokenContractClient {
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let amount = Tez.zeroBalance
     let parameter = PairMichelsonParameter(
-      left: PairMichelsonParameter(
-        left: StringMichelsonParameter(string: source),
-        right: StringMichelsonParameter(string: destination)
-      ),
-      right: IntMichelsonParameter(decimal: numTokens)
-    )
+		left: StringMichelsonParameter(string: source),
+		right: PairMichelsonParameter(
+			left: StringMichelsonParameter(string: destination),
+			right: IntMichelsonParameter(decimal: numTokens)
+		)
+	)
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
       amount: amount,
