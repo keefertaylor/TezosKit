@@ -227,12 +227,12 @@ public class DexterExchangeClient {
     deadline: Date
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let parameter = PairMichelsonParameter(
-      left: PairMichelsonParameter(
-        left: StringMichelsonParameter(string: destination),
-        right: IntMichelsonParameter(decimal: minTokensToPurchase)
-      ),
-      right: Timestamp(date: deadline)
-    )
+		left: StringMichelsonParameter(string: destination),
+		right: PairMichelsonParameter(
+			left: IntMichelsonParameter(decimal: minTokensToPurchase),
+			right: Timestamp(date: deadline)
+		)
+	)
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
       amount: amount,
@@ -300,19 +300,19 @@ public class DexterExchangeClient {
     return .failure(.unknown(description: nil))
   }
 
-    let parameter = PairMichelsonParameter(
-      left: PairMichelsonParameter(
-        left: PairMichelsonParameter(
-          left: StringMichelsonParameter(string: owner),
-          right: StringMichelsonParameter(string: destination)
-        ),
-        right: PairMichelsonParameter(
-          left: IntMichelsonParameter(decimal: tokensToSell),
-          right: IntMichelsonParameter(decimal: minMutezToBuy)
-        )
-      ),
-      right: Timestamp(date: deadline)
-    )
+    let addressPair = PairMichelsonParameter(
+		left: StringMichelsonParameter(string: owner),
+		right: StringMichelsonParameter(string: destination)
+	)
+	let amountPair = PairMichelsonParameter(
+		left: IntMichelsonParameter(decimal: tokensToSell),
+		right: PairMichelsonParameter(
+			left: IntMichelsonParameter(decimal: minMutezToBuy),
+			right: Timestamp(date: deadline)
+		)
+	)
+	
+	let parameter = PairMichelsonParameter(left: addressPair, right: amountPair)
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
       amount: Tez.zeroBalance,
