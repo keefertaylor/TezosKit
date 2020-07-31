@@ -13,6 +13,7 @@ private enum JSON {
     public static let result = "result"
     public static let status = "status"
     public static let storageSize = "storage_size"
+	public static let allocatedDestinationContract = "allocated_destination_contract"
   }
 
   public enum Values {
@@ -37,6 +38,8 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
 
     var consumedGas = 0
     var consumedStorage = 0
+	var burnFee = Tez.zeroBalance
+
     for content in contents {
       guard
         let metadata = content[JSON.Keys.metadata] as? [String: Any],
@@ -71,8 +74,14 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
           consumedStorage += internalConsumedStorage
         }
       }
+
+	  // Check for burn fee(s)
+	  let allocatedDestinationContract = operationResult[JSON.Keys.allocatedDestinationContract] as? Bool ?? false
+	  if allocatedDestinationContract {
+		burnFee += Tez(0.257) // TODO: temporary, needs to be calculated
+	  }
     }
 
-    return SimulationResult(consumedGas: consumedGas, consumedStorage: consumedStorage)
+	return SimulationResult(consumedGas: consumedGas, consumedStorage: consumedStorage, burnFee: burnFee)
   }
 }

@@ -144,6 +144,7 @@ public class FeeEstimator {
         let calculatedFee = mutableOperation.operationFees.fee + SafetyMargin.fee
         let calculatedOperationFees = OperationFees(
           fee: calculatedFee,
+		  burnFee: consumedResources.burnFee,
           gasLimit: mutableOperation.operationFees.gasLimit,
           storageLimit: mutableOperation.operationFees.storageLimit
         )
