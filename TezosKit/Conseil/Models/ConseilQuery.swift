@@ -3,7 +3,7 @@
 import Foundation
 
 public typealias ConseilPredicate = [String: Any]
-public typealias ConseilOrderBy = [String: Any]
+public typealias ConseilOrderBy = [[String: Any]]
 
 public enum ConseilQuery: String {
   case fields
@@ -45,7 +45,7 @@ public enum ConseilQuery: String {
 
   case aggregation
 
-  case orderBy = "orderby"
+  case orderBy = "orderBy"
   public enum OrderBy: String {
     case field
     case direction
@@ -58,10 +58,10 @@ public enum ConseilQuery: String {
       field: String,
       direction: ConseilQuery.OrderBy.Direction = .descending
     ) -> ConseilOrderBy {
-      return [
+      return [[
         ConseilQuery.OrderBy.field.rawValue: field,
         ConseilQuery.OrderBy.direction.rawValue: direction.rawValue
-      ]
+      ]]
     }
   }
 
