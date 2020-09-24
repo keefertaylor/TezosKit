@@ -202,7 +202,7 @@ public class TokenContractClient {
       guard
         case let .success(json) = result,
         let args = json[JSON.Keys.args] as? [ Any ],
-        let second = args[1] as? [String: Any],
+        let second = args[0] as? [String: Any],
         let balanceString = second[JSON.Keys.int] as? String,
         let balance = Decimal(string: balanceString)
       else {
