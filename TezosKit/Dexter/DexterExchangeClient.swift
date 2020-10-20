@@ -50,8 +50,26 @@ public class DexterExchangeClient {
     tokenContractAddress: Address,
     completion: @escaping(Result<Decimal, TezosKitError>) -> Void
   ) {
-    let tokenClient = TokenContractClient(tokenContractAddress: tokenContractAddress, tezosNodeClient: tezosNodeClient)
-    tokenClient.getTokenBalance(address: exchangeContractAddress, completion: completion)
+	tezosNodeClient.getContractStorage(address: exchangeContractAddress) { result in
+		guard
+			case let .success(json) = result,
+			let args0 = json[JSON.Keys.args] as? [Any],
+			let right0 = args0[1] as? [String: Any],
+			let args1 = right0[JSON.Keys.args] as? [Any],
+			let right1 = args1[1] as? [String: Any],
+			let args2 = right1[JSON.Keys.args] as? [Any],
+			let right2 = args2[1] as? [String: Any],
+			let args3 = right2[JSON.Keys.args] as? [Any],
+			let left0 = args3[0] as? [String: Any],
+			let balanceString = left0[JSON.Keys.int] as? String,
+			let balance = Decimal(string: balanceString)
+		else {
+			completion(result.map { _ in 0 })
+			return
+		}
+		
+		completion(.success(balance))
+	}
   }
 
   /// Get the total exchange liquidity.
