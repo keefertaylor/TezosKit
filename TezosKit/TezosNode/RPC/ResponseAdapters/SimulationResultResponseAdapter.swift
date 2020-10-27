@@ -14,6 +14,7 @@ private enum JSON {
     public static let status = "status"
     public static let storageSize = "storage_size"
 	public static let allocatedDestinationContract = "allocated_destination_contract"
+	public static let paidStorageSizeDiff = "paid_storage_size_diff"
   }
 
   public enum Values {
@@ -56,7 +57,7 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
       let rawConsumedGas = operationResult[JSON.Keys.consumedGas] as? String ?? "0"
       consumedGas += Int(rawConsumedGas) ?? 0
 
-      let rawConsumedStorage = operationResult[JSON.Keys.storageSize] as? String ?? "0"
+      let rawConsumedStorage = operationResult[JSON.Keys.paidStorageSizeDiff] as? String ?? "0"
       consumedStorage += Int(rawConsumedStorage) ?? 0
 
       if let internalOperationResults = metadata[JSON.Keys.internalOperationResult] as? [[String: Any]] {
@@ -69,7 +70,7 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
           let internalConsumedGas = Int(rawInternalConsumedGas) ?? 0
           consumedGas += internalConsumedGas
 
-          let rawInternalConsumedStorage = intenalOperationResult[JSON.Keys.storageSize] as? String ?? "0"
+          let rawInternalConsumedStorage = intenalOperationResult[JSON.Keys.paidStorageSizeDiff] as? String ?? "0"
           let internalConsumedStorage = Int(rawInternalConsumedStorage) ?? 0
           consumedStorage += internalConsumedStorage
         }
