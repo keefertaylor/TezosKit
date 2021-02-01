@@ -45,32 +45,52 @@ public class DexterExchangeClient {
     tezosNodeClient.getBalance(address: exchangeContractAddress, completion: completion)
   }
 
-  /// Get the total balance of the exchange in tokens.
-  public func getExchangeBalanceTokens(
-    tokenContractAddress: Address,
-    completion: @escaping(Result<Decimal, TezosKitError>) -> Void
-  ) {
-	tezosNodeClient.getContractStorage(address: exchangeContractAddress) { result in
-		guard
-			case let .success(json) = result,
-			let args0 = json[JSON.Keys.args] as? [Any],
-			let right0 = args0[1] as? [String: Any],
-			let args1 = right0[JSON.Keys.args] as? [Any],
-			let right1 = args1[1] as? [String: Any],
-			let args2 = right1[JSON.Keys.args] as? [Any],
-			let right2 = args2[1] as? [String: Any],
-			let args3 = right2[JSON.Keys.args] as? [Any],
-			let left0 = args3[0] as? [String: Any],
-			let balanceString = left0[JSON.Keys.int] as? String,
-			let balance = Decimal(string: balanceString)
-		else {
-			completion(result.map { _ in 0 })
-			return
+	/// Get the total balance of the exchange in tokens.
+	public func getExchangeBalanceTokens(
+		tokenContractAddress: Address,
+		completion: @escaping(Result<Decimal, TezosKitError>) -> Void
+	) {
+		tezosNodeClient.getContractStorage(address: exchangeContractAddress) { result in
+			guard case let .success(json) = result, let args = json[JSON.Keys.args] as? [Any] else {
+				completion(result.map { _ in 0 })
+				return
+			}
+			
+			
+			if args.count > 2 {
+				// Edo
+				if args.count > 4,
+				   let balanceObj = args[3] as? [String: Any],
+				   let balanceString = balanceObj[JSON.Keys.int] as? String,
+				   let balance = Decimal(string: balanceString) {
+					completion(.success(balance))
+					return
+					
+				} else {
+					completion(result.map { _ in 0 })
+					return
+				}
+				
+			} else {
+				// Delphi
+				guard let right0 = args[1] as? [String: Any],
+					  let args1 = right0[JSON.Keys.args] as? [Any],
+					  let right1 = args1[1] as? [String: Any],
+					  let args2 = right1[JSON.Keys.args] as? [Any],
+					  let right2 = args2[1] as? [String: Any],
+					  let args3 = right2[JSON.Keys.args] as? [Any],
+					  let left0 = args3[0] as? [String: Any],
+					  let balanceString = left0[JSON.Keys.int] as? String,
+					  let balance = Decimal(string: balanceString) else {
+					completion(result.map { _ in 0 })
+					return
+				}
+				
+				completion(.success(balance))
+				return
+			}
 		}
-		
-		completion(.success(balance))
 	}
-  }
 
   /// Get the total exchange liquidity.
   public func getExchangeLiquidity(completion: @escaping (Result<Decimal, TezosKitError>) -> Void) {
