@@ -40,10 +40,17 @@ public class RPCResponseHandler {
     // Check for a backtracked operation response
     // TODO(keefertaylor): Add a test for this logic.
     do {
-      let operationResult = try JSONDecoder().decode(OperationResponse.self, from: data)
-      if operationResult.isFailed() {
-        return .failure(.operationError(operationResult.errors()))
-      }
+		if "\(responseAdapterClass)" == "JSONArrayResponseAdapter" {
+			let operationResult = try JSONDecoder().decode([OperationResponse].self, from: data)
+			if let first = operationResult.first, first.isFailed() {
+				return .failure(.operationError(first.errors()))
+			}
+		} else {
+			let operationResult = try JSONDecoder().decode(OperationResponse.self, from: data)
+			if operationResult.isFailed() {
+				return .failure(.operationError(operationResult.errors()))
+			}
+		}
     } catch {
       // Intentionally ignore parsing failures. Parsing only suceeds if there is an error.
     }

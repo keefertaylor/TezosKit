@@ -6,4 +6,5 @@ import Foundation
 public struct SimulationResult {
   public let consumedGas: Int
   public let consumedStorage: Int
+  public let burnFee: Tez
 }

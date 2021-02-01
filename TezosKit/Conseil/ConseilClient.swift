@@ -39,6 +39,7 @@ public class ConseilClient {
 
     let networkClient = NetworkClientImpl(
       remoteNodeURL: nodeBaseURL,
+      remoteNodeParseURL: nodeBaseURL,
       urlSession: urlSession,
       headers: headers,
       callbackQueue: callbackQueue,

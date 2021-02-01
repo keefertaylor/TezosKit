@@ -45,14 +45,52 @@ public class DexterExchangeClient {
     tezosNodeClient.getBalance(address: exchangeContractAddress, completion: completion)
   }
 
-  /// Get the total balance of the exchange in tokens.
-  public func getExchangeBalanceTokens(
-    tokenContractAddress: Address,
-    completion: @escaping(Result<Decimal, TezosKitError>) -> Void
-  ) {
-    let tokenClient = TokenContractClient(tokenContractAddress: tokenContractAddress, tezosNodeClient: tezosNodeClient)
-    tokenClient.getTokenBalance(address: exchangeContractAddress, completion: completion)
-  }
+	/// Get the total balance of the exchange in tokens.
+	public func getExchangeBalanceTokens(
+		tokenContractAddress: Address,
+		completion: @escaping(Result<Decimal, TezosKitError>) -> Void
+	) {
+		tezosNodeClient.getContractStorage(address: exchangeContractAddress) { result in
+			guard case let .success(json) = result, let args = json[JSON.Keys.args] as? [Any] else {
+				completion(result.map { _ in 0 })
+				return
+			}
+			
+			
+			if args.count > 2 {
+				// Edo
+				if args.count > 4,
+				   let balanceObj = args[3] as? [String: Any],
+				   let balanceString = balanceObj[JSON.Keys.int] as? String,
+				   let balance = Decimal(string: balanceString) {
+					completion(.success(balance))
+					return
+					
+				} else {
+					completion(result.map { _ in 0 })
+					return
+				}
+				
+			} else {
+				// Delphi
+				guard let right0 = args[1] as? [String: Any],
+					  let args1 = right0[JSON.Keys.args] as? [Any],
+					  let right1 = args1[1] as? [String: Any],
+					  let args2 = right1[JSON.Keys.args] as? [Any],
+					  let right2 = args2[1] as? [String: Any],
+					  let args3 = right2[JSON.Keys.args] as? [Any],
+					  let left0 = args3[0] as? [String: Any],
+					  let balanceString = left0[JSON.Keys.int] as? String,
+					  let balance = Decimal(string: balanceString) else {
+					completion(result.map { _ in 0 })
+					return
+				}
+				
+				completion(.success(balance))
+				return
+			}
+		}
+	}
 
   /// Get the total exchange liquidity.
   public func getExchangeLiquidity(completion: @escaping (Result<Decimal, TezosKitError>) -> Void) {
@@ -202,7 +240,7 @@ public class DexterExchangeClient {
 
     switch result {
       case .success(let op):
-        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+        tezosNodeClient.forgeParseSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
       case .failure(let error):
         completion(Result.failure(error))
     }
@@ -219,7 +257,7 @@ public class DexterExchangeClient {
   ///   - completion: A completion block which will be called with the result hash, if successful.
   public func tradeTezForTokenOperation(
     source: Address,
-	destination: Address,
+    destination: Address,
     amount: Tez,
     operationFeePolicy: OperationFeePolicy,
     signatureProvider: SignatureProvider,
@@ -227,12 +265,12 @@ public class DexterExchangeClient {
     deadline: Date
   ) -> Result<TezosKit.Operation, TezosKitError> {
     let parameter = PairMichelsonParameter(
-      left: PairMichelsonParameter(
-        left: StringMichelsonParameter(string: destination),
-        right: IntMichelsonParameter(decimal: minTokensToPurchase)
-      ),
-      right: Timestamp(date: deadline)
-    )
+		left: StringMichelsonParameter(string: destination),
+		right: PairMichelsonParameter(
+			left: IntMichelsonParameter(decimal: minTokensToPurchase),
+			right: Timestamp(date: deadline)
+		)
+	)
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
       amount: amount,
@@ -270,7 +308,7 @@ public class DexterExchangeClient {
 
     switch result {
       case .success(let op):
-        tezosNodeClient.forgeSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
+        tezosNodeClient.forgeParseSignPreapplyAndInject(op, source: source, signatureProvider: signatureProvider, completion: completion)
       case .failure(let error):
         completion(Result.failure(error))
     }
@@ -300,19 +338,19 @@ public class DexterExchangeClient {
     return .failure(.unknown(description: nil))
   }
 
-    let parameter = PairMichelsonParameter(
-      left: PairMichelsonParameter(
-        left: PairMichelsonParameter(
-          left: StringMichelsonParameter(string: owner),
-          right: StringMichelsonParameter(string: destination)
-        ),
-        right: PairMichelsonParameter(
-          left: IntMichelsonParameter(decimal: tokensToSell),
-          right: IntMichelsonParameter(decimal: minMutezToBuy)
-        )
-      ),
-      right: Timestamp(date: deadline)
-    )
+    let addressPair = PairMichelsonParameter(
+		left: StringMichelsonParameter(string: owner),
+		right: StringMichelsonParameter(string: destination)
+	)
+	let amountPair = PairMichelsonParameter(
+		left: IntMichelsonParameter(decimal: tokensToSell),
+		right: PairMichelsonParameter(
+			left: IntMichelsonParameter(decimal: minMutezToBuy),
+			right: Timestamp(date: deadline)
+		)
+	)
+	
+	let parameter = PairMichelsonParameter(left: addressPair, right: amountPair)
 
     return tezosNodeClient.operationFactory.smartContractInvocationOperation(
       amount: Tez.zeroBalance,

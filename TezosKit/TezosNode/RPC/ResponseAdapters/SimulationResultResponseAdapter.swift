@@ -13,6 +13,8 @@ private enum JSON {
     public static let result = "result"
     public static let status = "status"
     public static let storageSize = "storage_size"
+	public static let allocatedDestinationContract = "allocated_destination_contract"
+	public static let paidStorageSizeDiff = "paid_storage_size_diff"
   }
 
   public enum Values {
@@ -37,6 +39,8 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
 
     var consumedGas = 0
     var consumedStorage = 0
+	var burnFee = Tez.zeroBalance
+
     for content in contents {
       guard
         let metadata = content[JSON.Keys.metadata] as? [String: Any],
@@ -53,7 +57,7 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
       let rawConsumedGas = operationResult[JSON.Keys.consumedGas] as? String ?? "0"
       consumedGas += Int(rawConsumedGas) ?? 0
 
-      let rawConsumedStorage = operationResult[JSON.Keys.storageSize] as? String ?? "0"
+      let rawConsumedStorage = operationResult[JSON.Keys.paidStorageSizeDiff] as? String ?? "0"
       consumedStorage += Int(rawConsumedStorage) ?? 0
 
       if let internalOperationResults = metadata[JSON.Keys.internalOperationResult] as? [[String: Any]] {
@@ -66,13 +70,19 @@ public class SimulationResultResponseAdapter: AbstractResponseAdapter<Simulation
           let internalConsumedGas = Int(rawInternalConsumedGas) ?? 0
           consumedGas += internalConsumedGas
 
-          let rawInternalConsumedStorage = intenalOperationResult[JSON.Keys.storageSize] as? String ?? "0"
+          let rawInternalConsumedStorage = intenalOperationResult[JSON.Keys.paidStorageSizeDiff] as? String ?? "0"
           let internalConsumedStorage = Int(rawInternalConsumedStorage) ?? 0
           consumedStorage += internalConsumedStorage
         }
       }
+
+	  // Check for burn fee(s)
+	  let allocatedDestinationContract = operationResult[JSON.Keys.allocatedDestinationContract] as? Bool ?? false
+	  if allocatedDestinationContract {
+		burnFee += Tez(0.257) // TODO: temporary, needs to be calculated
+	  }
     }
 
-    return SimulationResult(consumedGas: consumedGas, consumedStorage: consumedStorage)
+	return SimulationResult(consumedGas: consumedGas, consumedStorage: consumedStorage, burnFee: burnFee)
   }
 }
